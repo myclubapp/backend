@@ -1,9 +1,10 @@
-const { ApolloServer } = require('apollo-server-express');
-const express = require('express')
-//const cors = require('cors');
+import {ApolloServer} from "apollo-server-express";
+import * as express from "express";
 
-const typeDefs = require('./schema');
-const resolvers = require('./resolvers');
+// const cors = require('cors');
+
+import typeDefs = require("./schema");
+import resolvers = require("./resolvers");
 
 const app = express();
 
@@ -17,6 +18,6 @@ const server = new ApolloServer({
   playground: true,
 });
 
-server.applyMiddleware({app,path:'/',cors:true});
+server.applyMiddleware({app, path: "/", cors: true});
 
-module.exports = server;
+module.exports = app;
