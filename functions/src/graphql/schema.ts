@@ -1,6 +1,6 @@
-import {gql} from "apollo-server-express";
+import {buildSchema} from "graphql";
 
-const types = gql `
+export default buildSchema(`
 
 type Team {
     id: String,
@@ -28,6 +28,4 @@ type Query {
     seasons: [Season],
     news: [News]
 }
-`;
-
-module.exports = types;
+`);

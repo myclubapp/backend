@@ -1,8 +1,14 @@
 /* eslint-disable max-len */
 import * as functions from "firebase-functions";
+import * as admin from "firebase-admin";
+
+admin.initializeApp(functions.config().firebase);
 
 import {authUserCreate, authUserCreateSendWelcomeMail, authUserCreateSendVerifyMail} from "./auth/user.create";
-import graphql = require("./graphql/server");
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const graphql = require("./graphql/server");
+
 
 // Firebase AUTH
 export const userCreate = functions.region("europe-west6").auth.user().onCreate(authUserCreate);
@@ -10,9 +16,8 @@ export const sendWelcomeMail = functions.region("europe-west6").auth.user().onCr
 export const sendVerifyMail = functions.region("europe-west6").auth.user().onCreate(authUserCreateSendVerifyMail);
 
 
+// Swiss unihockey grapphQL API
 export const api = functions.region("europe-west6").https.onRequest(graphql);
-
-
 /*
 import {callbackError, callbackSuccess, callbackUpdate} from './request/skribble/skribble.callbacks';
 import {getOwlly} from './request/owlly/owlly.get';

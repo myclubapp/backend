@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import fetch from "node-fetch";
 
-const localResolvers = {
+export default {
   Query: {
     clubs: ()=>{
       fetch("https://api-v2.swissunihockey.ch/api/clubs")
@@ -31,4 +31,3 @@ const localResolvers = {
   },
 };
 
-module.exports = localResolvers;
