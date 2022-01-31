@@ -1,13 +1,19 @@
 import * as express from "express";
 import {graphqlHTTP} from "express-graphql";
+import {makeExecutableSchema} from "@graphql-tools/schema";
 
+import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
-import typeDefs from "./schema";
+
+
+const schema = makeExecutableSchema({
+  typeDefs: typeDefs,
+  resolvers: resolvers,
+});
 
 const app = express();
 app.use("/swissunihockey", graphqlHTTP({
-  schema: typeDefs,
-  rootValue: resolvers,
+  schema: schema,
   graphiql: true,
 }));
 
