@@ -2,7 +2,8 @@
 // import fetch from "node-fetch";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const fetch = require("node-fetch");
-
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const {convert} = require("html-to-text");
 export default {
   Query: {
     clubs: async ()=>{
@@ -18,20 +19,41 @@ export default {
       });
       return clubList;
     },
-    teams: (clubId: string, season: string)=>{
-      fetch("https://api-v2.swissunihockey.ch/api/teams?mode=by_club&club_id=" + clubId + "&season=" + season)
-          .then((response: any) => response.json())
-          .then((data: any) => console.log(data));
+    teams: async (clubId: string, season: string)=>{
+      const data = await fetch("https://api-v2.swissunihockey.ch/api/teams?mode=by_club&club_id=" + clubId + "&season=" + season);
+      const teamData = await data.json();
+      console.log(teamData.entries);
+      const teamList = <any>[];
+      teamData.entries.forEach((item:any)=>{
+        teamList.push({id: item.set_in_context.club_id,
+          name: item.text,
+        });
+      });
+      return teamList;
     },
-    seasons: ()=>{
-      fetch("https://api-v2.swissunihockey.ch/api/seasons")
-          .then((response: any) => response.json())
-          .then((data: any) => console.log(data));
+    seasons: async ()=>{
+      const data = await fetch("https://api-v2.swissunihockey.ch/api/seasons");
+      const seasonData = await data.json();
+      console.log(seasonData.entries);
+      const seasonList = <any>[];
+      seasonData.entries.forEach((item:any)=>{
+        seasonList.push({id: item.set_in_context.season,
+          name: item.text,
+        });
+      });
+      return seasonList;
     },
-    rankings: (season: string, teamId: string)=>{
-      fetch("https://api-v2.swissunihockey.ch/api/rankings?season=" + season + "&team_id=" + teamId)
-          .then((response: any) => response.json())
-          .then((data: any) => console.log(data));
+    rankings: async (season: string, teamId: string)=>{
+      const data = await fetch("https://api-v2.swissunihockey.ch/api/rankings?season=" + season + "&team_id=" + teamId);
+      const rankingData = await data.json();
+      console.log(rankingData.entries);
+      const rankingList = <any>[];
+      rankingData.entries.forEach((item:any)=>{
+        rankingList.push({id: item.set_in_context.club_id,
+          name: item.text,
+        });
+      });
+      return rankingList;
     },
     news: async ()=>{
       const data = await fetch("https://api.newsroom.co/walls?token=xgoo9jkoc2ee&count=30&channelId=663&tag=news");
@@ -45,7 +67,8 @@ export default {
           leadText: item.leadText,
           slug: item.slug,
           image: item.featureImage,
-          text: item.html,
+          text: convert(item.html),
+          htmlText: item.text,
         });
       });
       return newsList;

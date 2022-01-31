@@ -22,6 +22,7 @@ type News {
     image: String,
     leadText: String,
     text: String,
+    htmlText: String,
 }
 type Ranking {
     id: String, 
