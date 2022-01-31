@@ -38,6 +38,9 @@ https://europe-west6-myclubmanagement.cloudfunctions.net/api/xxx
 
 # Tutorials and help:
 
+helpful articles
+- https://www.graphql-tools.com/docs/generate-schema
+
 ## Firebase related tutorials
 https://medium.com/mehak-vohra/using-graphql-to-query-your-firebase-realtime-database-a6e6cbd6aa3a
 
