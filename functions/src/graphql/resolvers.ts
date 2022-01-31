@@ -8,9 +8,9 @@ export default {
     clubs: async ()=>{
       console.log("Sandro");
       const data = await fetch("https://api-v2.swissunihockey.ch/api/clubs");
-      const dataJson = await data.json().entries;
-      console.log(dataJson);
-      return dataJson;
+      const clubData = await data.json();
+      console.log(clubData.entries);
+      return clubData.entries;
     },
     teams: (clubId: string, season: string)=>{
       fetch("https://api-v2.swissunihockey.ch/api/teams?mode=by_club&club_id=" + clubId + "&season=" + season)
