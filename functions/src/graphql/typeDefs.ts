@@ -17,7 +17,11 @@ type Season {
 
 type News {
     id: String, 
-    title: String
+    title: String,
+    slug: String,
+    image: String,
+    leadText: String,
+    text: String,
 }
 type Ranking {
     id: String, 

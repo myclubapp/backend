@@ -33,11 +33,22 @@ export default {
           .then((response: any) => response.json())
           .then((data: any) => console.log(data));
     },
-    news: ()=>{
-      return [{
-        id: "123",
-        title: "titel",
-      }];
+    news: async ()=>{
+      const data = await fetch("https://api.newsroom.co/walls?token=xgoo9jkoc2ee&count=30&channelId=663&tag=news");
+      const newsData = await data.json();
+      const newsList = <any>[];
+      newsData._embedded.wallList.forEach((item:any)=>{
+        console.log(item);
+        newsList.push({
+          id: item.id,
+          title: item.title,
+          leadText: item.leadText,
+          slug: item.slug,
+          image: item.featureImage,
+          text: item.html,
+        });
+      });
+      return newsList;
     },
   },
 };
