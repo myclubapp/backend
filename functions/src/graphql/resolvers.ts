@@ -12,7 +12,7 @@ export default {
       console.log(dataJson);
       return dataJson;
     },
-    /* teams: (clubId: string, season: string)=>{
+    teams: (clubId: string, season: string)=>{
       fetch("https://api-v2.swissunihockey.ch/api/teams?mode=by_club&club_id=" + clubId + "&season=" + season)
           .then((response: any) => response.json())
           .then((data: any) => console.log(data));
@@ -32,6 +32,6 @@ export default {
         id: "123",
         title: "titel",
       }];
-    }, */
+    },
   },
 };

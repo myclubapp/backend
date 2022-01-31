@@ -1,7 +1,4 @@
-import {buildSchema} from "graphql";
-
-export default buildSchema(`
-
+const typeDefs = /* GraphQL */ `
 type Team {
     id: String,
     name: String,
@@ -28,4 +25,8 @@ type Query {
     seasons: [Season],
     news: [News]
 }
-`);
+schema {
+    query: Query
+  }
+`;
+export default typeDefs;
