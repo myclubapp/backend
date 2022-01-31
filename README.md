@@ -8,6 +8,15 @@ Available APIs are:
 ## Swiss unihockey API
 https://europe-west6-myclubmanagement.cloudfunctions.net/api/swissunihockey
 
+### List Clubs
+{
+  clubs {
+    id
+    name
+  }  
+}
+
+
 ## Swiss Volleyball API
 https://europe-west6-myclubmanagement.cloudfunctions.net/api/xxx
 

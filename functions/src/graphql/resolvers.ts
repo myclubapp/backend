@@ -10,7 +10,13 @@ export default {
       const data = await fetch("https://api-v2.swissunihockey.ch/api/clubs");
       const clubData = await data.json();
       console.log(clubData.entries);
-      return clubData.entries;
+      const clubList = <any>[];
+      clubData.entries.forEach((item:any)=>{
+        clubList.push({id: item.set_in_context.club_id,
+          name: item.text,
+        });
+      });
+      return clubList;
     },
     teams: (clubId: string, season: string)=>{
       fetch("https://api-v2.swissunihockey.ch/api/teams?mode=by_club&club_id=" + clubId + "&season=" + season)
