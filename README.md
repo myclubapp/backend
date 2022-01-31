@@ -1,35 +1,42 @@
-# backend
-Backend
+# Backend für myclub-app
 
+used for the following apps: 
+- volleyballclub.app
+- unihockeyclub.app  
+- handballclub.app  
+- basketballclub.app  
+- fussballclub.app  
 
-# GraphQL API for Sports Data
+## GraphQL API for Sports Data
 Available APIs are: 
 
-## Swiss unihockey API
+### Swiss unihockey API
+based on https://api-v2.swissunihockey.ch/api/doc/table/overview#return-types
+
+available under: 
 https://europe-west6-myclubmanagement.cloudfunctions.net/api/swissunihockey
 
-### List Clubs
-{
-  clubs {
-    id
-    name
-  }  
-}
-
-
-## Swiss Volleyball API
+### Swiss Volleyball API
+available under: 
 https://europe-west6-myclubmanagement.cloudfunctions.net/api/xxx
 
-## Swiss Handball
+### Swiss Handball
+available under: 
 https://europe-west6-myclubmanagement.cloudfunctions.net/api/xxx
 
-## Swiss Basketball
+### Swiss Basketball
+available under: 
 https://europe-west6-myclubmanagement.cloudfunctions.net/api/xxx
 
 # Installed packages
 - express
 - expres-graphql https://www.npmjs.com/package/express-graphql
 - graphql
+- graphql-tools
+- html-to-text (needed to convert neews feed)
+- node-fetch (needed to fetch data from apis)
+
+# Tutorials and help:
 
 ## Firebase related tutorials
 https://medium.com/mehak-vohra/using-graphql-to-query-your-firebase-realtime-database-a6e6cbd6aa3a
@@ -41,7 +48,6 @@ https://www.apollographql.com/docs/apollo-server/data/resolvers/
 https://medium.com/free-code-camp/build-an-apollo-graphql-server-with-typescript-and-webpack-hot-module-replacement-hmr-3c339d05184f
 
 # Open Issues
-
 Feel free to contribute by providing a PR. 
 
 ## Husky
