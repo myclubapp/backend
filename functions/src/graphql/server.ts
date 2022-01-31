@@ -5,7 +5,7 @@ import resolvers from "./resolvers";
 import typeDefs from "./schema";
 
 const app = express();
-app.use("/graphql", graphqlHTTP({
+app.use("/swissunihockey", graphqlHTTP({
   schema: typeDefs,
   rootValue: resolvers,
   graphiql: true,

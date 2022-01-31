@@ -1,12 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import fetch from "node-fetch";
+// import fetch from "node-fetch";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const fetch = require("node-fetch");
 
 export default {
   Query: {
-    clubs: ()=>{
-      fetch("https://api-v2.swissunihockey.ch/api/clubs")
-          .then((response: any) => response.json())
-          .then((data: any) => console.log(data));
+    clubs: async ()=>{
+      console.log("Sandro");
+      const data = await fetch("https://api-v2.swissunihockey.ch/api/clubs");
+      const dataJson = await data.json().entries;
+      console.log(dataJson);
+      return dataJson;
     },
     teams: (clubId: string, season: string)=>{
       fetch("https://api-v2.swissunihockey.ch/api/teams?mode=by_club&club_id=" + clubId + "&season=" + season)
@@ -24,10 +28,10 @@ export default {
           .then((data: any) => console.log(data));
     },
     news: ()=>{
-      fetch("https://api.newsroom.co/walls?token=xgoo9jkoc2ee&count=30&channelId=663&tag=news")
-          .then((response: any) => response.json())
-          .then((data: any) => console.log(data));
+      return [{
+        id: "123",
+        title: "titel",
+      }];
     },
   },
 };
-

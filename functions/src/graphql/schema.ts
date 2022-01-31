@@ -11,7 +11,6 @@ type Team {
 type Club {
     id: String,
     name: String
-
 }
 type Season {
     id: String, 
@@ -20,7 +19,8 @@ type Season {
 }
 
 type News {
-
+    id: String, 
+    title: String
 }
 type Query {
     teams(clubId: String, season: String): [Team],
