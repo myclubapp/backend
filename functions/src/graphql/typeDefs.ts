@@ -1,22 +1,37 @@
+/* eslint-disable max-len */
 const typeDefs = /* GraphQL */ `
 type Team {
-    id: String,
+    id: ID!, # the ! means that every object _must_ have an id
     name: String,
-    logo: String,
-    teamImage: String 
+    """
+    the list of Games by this team
+    """
+    games: [Game]
+    rankings: [Ranking]
+    # statistics
 }
 type Club {
-    id: String,
+    id: ID!, # the ! means that every object _must_ have an id
     name: String
+    """
+    the list of Teams by this club
+    """
+    teams: [Team]
+    clubGames: [Game]
+    # statistics
 }
 type Season {
-    id: String, 
+    id: ID!, # the ! means that every object _must_ have an id
     season: String,
     name: String
 }
 
+type Game {
+    id: ID!, # the ! means that every object _must_ have an id
+}
+
 type News {
-    id: String, 
+    id: ID!, # the ! means that every object _must_ have an id
     title: String,
     slug: String,
     image: String,
@@ -25,18 +40,19 @@ type News {
     htmlText: String,
 }
 type Ranking {
-    id: String, 
+    id: ID!, # the ! means that every object _must_ have an id
     name: String
 }
+
+# the schema allows the following query:
 type Query {
-    teams(clubId: String, season: String): [Team],
-    clubs: [Club],
-    seasons: [Season],
-    rankings: [Ranking]
-    news: [News]
+    news: [News] # General Swiss Unihockey Newsfeed
+    seasons: [Season], # Season Data
+    clubs: [Club], # List of clubs
+    teams(clubId: String, season: String): [Team], # List of Teams for a given Club
+    games: [Game], # List of Games for a given Team 
+    clubGames: [Game], # List of Games for a given Team 
+    rankings: [Ranking], # Ranking for a given Team
 }
-schema {
-    query: Query
-  }
 `;
 export default typeDefs;
