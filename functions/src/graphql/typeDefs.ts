@@ -19,10 +19,15 @@ type News {
     id: String, 
     title: String
 }
+type Ranking {
+    id: String, 
+    name: String
+}
 type Query {
     teams(clubId: String, season: String): [Team],
     clubs: [Club],
     seasons: [Season],
+    rankings: [Ranking]
     news: [News]
 }
 schema {
