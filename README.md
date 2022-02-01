@@ -11,14 +11,14 @@ used for the following apps:
 Available APIs are: 
 
 ### Swiss unihockey API
-based on https://api-v2.swissunihockey.ch/api/doc/table/overview#return-types
+based on  https://api-v2.swissunihockey.ch/api/doc/table/overview#return-types
 
 available under: 
 https://europe-west6-myclubmanagement.cloudfunctions.net/api/swissunihockey
 
 ### Swiss Volleyball API
 available under: 
-https://europe-west6-myclubmanagement.cloudfunctions.net/api/xxx
+https://europe-west6-myclubmanagement.cloudfunctions.net/api/swissvolley
 
 ### Swiss Handball
 available under: 
