@@ -41,7 +41,8 @@ type News {
 }
 type Ranking {
     id: ID!, # the ! means that every object _must_ have an id
-    name: String
+    name: String,
+    ranking: String
 }
 
 # the schema allows the following query:

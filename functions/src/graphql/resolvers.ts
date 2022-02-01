@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable require-jsdoc */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import fetch from "node-fetch";
@@ -12,37 +13,55 @@ export default {
       return getClubs();
     },
 
-    teams: (obj: any, args: any) => {
+    teams: (parent: any, args: { clubId: string; season: string; }, context: any, info: any) => {
       return getTeams(args.clubId, args.season);
     },
 
-    games: (obj: any, args: any, ) => {
+    games: (parent: any, args: { id: string; season: string; }, context: any, info: any) => {
       return getGames(args.id, args.season);
     },
-    clubGames: (obj: any, args: any, ) => {
+    clubGames: (parent: any, args: { id: string; season: string; }, context: any, info: any) => {
       return getClubGames(args.id, args.season);
     },
     seasons: () => {
       return getSeason();
     },
-    rankings: (season: string, teamId: string) => {
-      return getRankings(teamId, season);
+    rankings: (parent: any, args: { id: string; season: string; }, context: any, info: any) => {
+      return getRankings(args.id, args.season);
     },
     news: () => {
       return getNews();
     },
   },
   Club: {
-    teams(club: any) {
-      return getTeams(club.id, "2021");
+    teams(parent: any) {
+      return getTeams(parent.id, "2021");
     },
   },
   Team: {
-    games(team: any) {
-      return getGames(team.id, "2021");
+    games(parent: any, args: any, context: any, info: any) {
+      console.log(parent, args);
+      // console.log(info.fieldName);
+      // Get Year from prev. selection.
+
+      const data = info.operation.selectionSet.selections[0].arguments.find((element:any)=>{
+        return element.kind === "Argument" && element.name.kind === "Name" && element.name.value === "season";
+      });
+      // console.log(JSON.stringify(data.value.value));
+
+
+      // console.log(JSON.stringify(info.operation.selectionSet.selections[0].arguments[1].value.value));
+      // console.log(JSON.stringify(info.path));
+      // console.log(JSON.stringify(context));
+
+      return getGames(parent.id, data.value.value);
     },
-    rankings(team: any) {
-      return getRankings(team.id, "2021");
+    rankings(parent: any, args: any, context: any, info: any) {
+      const data = info.operation.selectionSet.selections[0].arguments.find((element:any)=>{
+        return element.kind === "Argument" && element.name.kind === "Name" && element.name.value === "season";
+      });
+      // console.log(JSON.stringify(data.value.value));
+      return getRankings(parent.id, data.value.value);
     },
   },
 };
@@ -51,7 +70,7 @@ async function getTeams(clubId: string, season: string) {
   const data = await fetch("https://api-v2.swissunihockey.ch/api/teams?mode=by_club&club_id=" + clubId + "&season=" + season);
   const teamData = await data.json();
   const teamList = < any > [];
-  console.log(teamData);
+  // console.log(teamData);
   teamData.entries.forEach((item: any) => {
     teamList.push({
       id: item.set_in_context.team_id,
@@ -119,10 +138,11 @@ async function getRankings(teamId: string, season: string) {
   const rankingData = await data.json();
   console.log(rankingData.entries);
   const rankingList = < any > [];
-  rankingData.entries.forEach((item: any) => {
+  rankingData.data.regions[0].rows.forEach((item: any) => {
     rankingList.push({
-      id: item.set_in_context.club_id,
-      name: item.text,
+      id: item.data.team.id,
+      name: item.data.team.name,
+      ranking: item.data.rank,
     });
   });
   return rankingList;
