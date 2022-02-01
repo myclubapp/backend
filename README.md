@@ -1,3 +1,5 @@
+[![Build + Deploy](https://github.com/myclubapp/backend/actions/workflows/main.yml/badge.svg)](https://github.com/myclubapp/backend/actions/workflows/main.yml)
+
 # Backend für myclub-app
 
 used for the following apps: 
