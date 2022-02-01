@@ -13,14 +13,13 @@ used for the following apps:
 Available APIs are: 
 
 ### Swiss unihockey API
-based on  https://api-v2.swissunihockey.ch/api/doc/table/overview#return-types
+based on this [documentation](https://api-v2.swissunihockey.ch/api/doc/table/overview#return-types)
 
-available under: 
-https://europe-west6-myclubmanagement.cloudfunctions.net/api/swissunihockey
+available [here](https://europe-west6-myclubmanagement.cloudfunctions.net/api/swissunihockey):
 
 ### Swiss Volleyball API
-available under: 
-https://europe-west6-myclubmanagement.cloudfunctions.net/api/swissvolley
+available [here](https://europe-west6-myclubmanagement.cloudfunctions.net/api/swissvolley): 
+
 
 Supported organizations:
 - National
@@ -33,21 +32,26 @@ Supported organizations:
 - SVRF
 - SVRBE
 
-### Swiss Handball
+### Swiss Handball (Not supported yet)
 available under: 
-https://europe-west6-myclubmanagement.cloudfunctions.net/api/xxx
+n/a
 
-### Swiss Basketball
+### Swiss Basketball (Not supported yet)
 available under: 
-https://europe-west6-myclubmanagement.cloudfunctions.net/api/xxx
+n/a
+
+### Swiss Football (Not supported yet)
+available under: 
+n/a
 
 # Installed packages
 - express
-- expres-graphql https://www.npmjs.com/package/express-graphql
+- [expres-graphql](https://www.npmjs.com/package/express-graphql)
 - graphql
 - graphql-tools
 - html-to-text (needed to convert neews feed)
 - node-fetch (needed to fetch data from apis)
+- soap (needed to fetch data from apis)
 
 # Tutorials and help:
 
