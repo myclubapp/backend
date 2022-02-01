@@ -38,33 +38,24 @@ export default {
     },
   },
   Club: {
-    teams(parent: any) {
+    teams(parent: any, args: any, context: any, info: any) {
       return getTeams(parent.id, "2021");
     },
   },
   Team: {
     games(parent: any, args: any, context: any, info: any) {
       console.log(parent, args);
-      // console.log(info.fieldName);
-      // Get Year from prev. selection.
 
-      const data = info.operation.selectionSet.selections[0].arguments.find((element:any)=>{
+      const seasonParam = info.operation.selectionSet.selections[0].arguments.find((element:any)=>{
         return element.kind === "Argument" && element.name.kind === "Name" && element.name.value === "season";
       });
-      // console.log(JSON.stringify(data.value.value));
 
-
-      // console.log(JSON.stringify(info.operation.selectionSet.selections[0].arguments[1].value.value));
-      // console.log(JSON.stringify(info.path));
-      // console.log(JSON.stringify(context));
-
-      return getGames(parent.id, data.value.value);
+      return getGames(parent.id, seasonParam.value.value);
     },
     rankings(parent: any, args: any, context: any, info: any) {
       const data = info.operation.selectionSet.selections[0].arguments.find((element:any)=>{
         return element.kind === "Argument" && element.name.kind === "Name" && element.name.value === "season";
       });
-      // console.log(JSON.stringify(data.value.value));
       return getRankings(parent.id, data.value.value);
     },
 
