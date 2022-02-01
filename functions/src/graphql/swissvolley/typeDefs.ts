@@ -3,6 +3,13 @@ const typeDefs = /* GraphQL */ `
 type Team {
     id: ID!, # the ! means that every object _must_ have an id
     name: String,
+    gender: String,
+    clubId: String,
+    clubCaption: String,
+    leagueCaption: String,
+    organisationCaption: String,
+
+
     """
     the list of Games by this team
     """

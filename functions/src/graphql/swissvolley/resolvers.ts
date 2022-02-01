@@ -7,21 +7,23 @@ const fetch = require("node-fetch");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const {convert} = require("html-to-text");
 
+import soap = require("soap");
+const soapUrl = "https://myvolley.volleyball.ch/SwissVolley.wsdl";
+
 export default {
   Query: {
     clubs: () => {
       return getClubs(); // 913245 "VBG Klettgau
     },
 
+    teams: (parent: any, args: { clubId: string}, context: any, info: any) => {
+      return getTeams(args.clubId);
+    },
     /*
-    team: (parent: any, args: { teamId: string}, context: any, info: any) => {
-      return getTeam(args.teamId);
-    },
 
-    teams: (parent: any, args: { clubId: string; season: string; }, context: any, info: any) => {
-      return getTeams(args.clubId, args.season);
-    },
-
+        team: (parent: any, args: { teamId: string}, context: any, info: any) => {
+          return getTeam(args.teamId);
+        },
     games: (parent: any, args: { id: string; season: string; }, context: any, info: any) => {
       return getGames(args.id, args.season);
     },
@@ -38,11 +40,12 @@ export default {
       return getNews();
     },
   },
-  /* Club: {
+  Club: {
     teams(parent: any) {
-      return getTeams(parent.id, "2021");
+      return getTeams(parent.id);
     },
   },
+  /*
   Team: {
     games(parent: any, args: any, context: any, info: any) {
       console.log(parent, args);
@@ -78,21 +81,32 @@ export default {
   },*/
 };
 
-/*
-async function getTeams(clubId: string, season: string) {
-  const data = await fetch("https://api-v2.swissunihockey.ch/api/teams?mode=by_club&club_id=" + clubId + "&season=" + season);
-  const teamData = await data.json();
+
+async function getTeams(clubId: string) {
+  const args = {
+    getTeamsByClubRequest: clubId,
+  };
   const teamList = < any > [];
-  // console.log(teamData);
-  teamData.entries.forEach((item: any) => {
+  const client = await soap.createClientAsync(soapUrl);
+  // Loop at list with Verband Ids.. #TODO
+  const result = await client.getTeamsByClubAsync(args);
+  result[0].getTeamsByClubResponse.item.forEach((item:any)=>{
+    console.log(item);
+
     teamList.push({
-      id: item.set_in_context.team_id,
-      name: item.text,
+      id: item.ID_team.$value,
+      name: item.Caption.$value,
+      gender: item.Gender.$value,
+      clubId: item.Club_ID.$value,
+      clubCaption: item.ClubCaption.$value,
+      leagueCaption: item.LeagueCaption.$value,
+      organisationCaption: item.OrganisationCaption.$value
+
     });
   });
   return teamList;
 }
-
+/*
 async function getTeam(teamId: string) {
   const data = await fetch("https://api-v2.swissunihockey.ch/api/teams/" + teamId );
   const teamData = await data.json();
@@ -105,7 +119,33 @@ async function getTeam(teamId: string) {
 }
 */
 async function getClubs() {
-  const data = await fetch("https://api.volleyball.ch/indoor/clubs");
+/*
+         value: "NATIONAL"
+          label: "RVNO"
+          label: "GSGL"
+          label: "RVI"
+          label: "RVZ"
+          label: "RVA"
+          label: "SVRW"
+          label: "SVRF"
+          value: "SVRBE"
+*/
+  const args = {
+    keyword: "RVNO",
+  };
+  const clubList = < any > [];
+  const client = await soap.createClientAsync(soapUrl);
+  // Loop at list with Verband Ids.. #TODO
+  const result = await client.getActiveClubsAsync(args);
+  result[0].getActiveClubsResponse.item.forEach((item:any)=>{
+    clubList.push({
+      id: item.ID_club.$value,
+      name: item.Caption.$value,
+    });
+  });
+  return clubList;
+
+  /* const data = await fetch("https://api.volleyball.ch/indoor/clubs");
   const clubData = await data.json();
   const clubList = < any > [];
   clubData.forEach((item: any) => {
@@ -114,7 +154,7 @@ async function getClubs() {
       name: item.caption,
     });
   });
-  return clubList;
+  return clubList; */
 }
 /*
 async function getClubGames(clubId: string, season: string) {
