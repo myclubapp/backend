@@ -17,7 +17,7 @@ export const sendVerifyMail = functions.region("europe-west6").auth.user().onCre
 */
 
 // Swiss unihockey grapphQL API
-export const api = functions.region("europe-west6").https.onRequest(graphql);
+export const api = functions.runWith({timeoutSeconds: 300}).region("europe-west6").https.onRequest(graphql);
 /*
 import {callbackError, callbackSuccess, callbackUpdate} from './request/skribble/skribble.callbacks';
 import {getOwlly} from './request/owlly/owlly.get';

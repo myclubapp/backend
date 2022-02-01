@@ -19,14 +19,15 @@ export default {
     teams: (parent: any, args: { clubId: string}, context: any, info: any) => {
       return getTeams(args.clubId);
     },
+    games: (parent: any, args: { id: string}, context: any, info: any) => {
+      return getGames(args.id);
+    },
     /*
 
         team: (parent: any, args: { teamId: string}, context: any, info: any) => {
           return getTeam(args.teamId);
         },
-    games: (parent: any, args: { id: string; season: string; }, context: any, info: any) => {
-      return getGames(args.id, args.season);
-    },
+
     clubGames: (parent: any, args: { id: string; season: string; }, context: any, info: any) => {
       return getClubGames(args.id, args.season);
     },
@@ -45,25 +46,11 @@ export default {
       return getTeams(parent.id);
     },
   },
-  /*
   Team: {
     games(parent: any, args: any, context: any, info: any) {
-      console.log(parent, args);
-      // console.log(info.fieldName);
-      // Get Year from prev. selection.
-
-      const data = info.operation.selectionSet.selections[0].arguments.find((element:any)=>{
-        return element.kind === "Argument" && element.name.kind === "Name" && element.name.value === "season";
-      });
-      // console.log(JSON.stringify(data.value.value));
-
-
-      // console.log(JSON.stringify(info.operation.selectionSet.selections[0].arguments[1].value.value));
-      // console.log(JSON.stringify(info.path));
-      // console.log(JSON.stringify(context));
-
-      return getGames(parent.id, data.value.value);
+      return getGames(parent.id);
     },
+    /*
     rankings(parent: any, args: any, context: any, info: any) {
       const data = info.operation.selectionSet.selections[0].arguments.find((element:any)=>{
         return element.kind === "Argument" && element.name.kind === "Name" && element.name.value === "season";
@@ -77,10 +64,9 @@ export default {
     },
     details(parent: any, args: any, context: any, info: any) {
       return getTeam(parent.id);
-    },
-  },*/
+    },*/
+  },
 };
-
 
 async function getTeams(clubId: string) {
   const args = {
@@ -172,22 +158,28 @@ async function getClubs() {
   });
   return clubList;
 }
-/*
-async function getClubGames(clubId: string, season: string) {
-  const data = await fetch("https://api-v2.swissunihockey.ch/api/games?mode=club&season=" + season + "&club_id=" + clubId);
-  const gameData = await data.json();
+
+async function getGames(teamId: string) {
+  const args = {
+    team_ID: teamId,
+  };
   const gameList = < any > [];
-  gameData.data.regions[0].rows.forEach((item: any) => {
-    gameList.push({
-      id: item.link.ids[0],
-    });
+  const client = await soap.createClientAsync(soapUrl);
+  // Loop at list with Verband Ids.. #TODO
+  const result = await client.getGamesTeamAsync(args);
+  result[0].getGamesTeamResponse.item.forEach((item:any)=>{
+    console.log(item);
+    /* gameList.push({
+      id: item.ID_club.$value,
+      name: item.Caption.$value,
+    }); */
   });
   return gameList;
 }
 
-
-async function getGames(teamId: string, season: string) {
-  const data = await fetch("https://api.volleyball.ch/indoor/games?region=SV&teamId=5365&includeCup=1");
+/*
+async function getClubGames(clubId: string, season: string) {
+  const data = await fetch("https://api-v2.swissunihockey.ch/api/games?mode=club&season=" + season + "&club_id=" + clubId);
   const gameData = await data.json();
   const gameList = < any > [];
   gameData.data.regions[0].rows.forEach((item: any) => {
