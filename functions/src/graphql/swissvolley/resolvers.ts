@@ -90,21 +90,36 @@ async function getTeams(clubId: string) {
   const client = await soap.createClientAsync(soapUrl);
   // Loop at list with Verband Ids.. #TODO
   const result = await client.getTeamsByClubAsync(args);
-  result[0].getTeamsByClubResponse.item.forEach((item:any)=>{
-    console.log(item);
-
-    teamList.push({
-      id: item.ID_team.$value,
-      name: item.Caption.$value,
-      gender: item.Gender.$value,
-      clubId: item.Club_ID.$value,
-      clubCaption: item.ClubCaption.$value,
-      leagueCaption: item.LeagueCaption.$value,
-      organisationCaption: item.OrganisationCaption.$value
-
-    });
-  });
-  return teamList;
+  // console.log(result);
+  if (result[0] && result[0].getTeamsByClubResponse && result[0].getTeamsByClubResponse.item) {
+    try {
+      result[0].getTeamsByClubResponse.item.forEach((item:any)=>{
+        // console.log(item);
+        teamList.push({
+          id: item.ID_team.$value,
+          name: item.Caption.$value,
+          gender: item.Gender.$value,
+          clubId: item.club_ID.$value,
+          clubCaption: item.ClubCaption.$value,
+          leagueCaption: item.LeagueCaption.$value,
+          organisationCaption: item.OrganisationCaption.$value,
+        });
+      });
+    } catch (e) {
+      const item = result[0].getTeamsByClubResponse.item;
+      // console.log(item);
+      teamList.push({
+        id: item.ID_team.$value,
+        name: item.Caption.$value,
+        gender: item.Gender.$value,
+        clubId: item.club_ID.$value,
+        clubCaption: item.ClubCaption.$value,
+        leagueCaption: item.LeagueCaption.$value,
+        organisationCaption: item.OrganisationCaption.$value,
+      });
+    }
+    return teamList;
+  }
 }
 /*
 async function getTeam(teamId: string) {
@@ -129,7 +144,7 @@ async function getClubs() {
           label: "SVRW"
           label: "SVRF"
           value: "SVRBE"
-*/
+
   const args = {
     keyword: "RVNO",
   };
@@ -144,8 +159,9 @@ async function getClubs() {
     });
   });
   return clubList;
+  */
 
-  /* const data = await fetch("https://api.volleyball.ch/indoor/clubs");
+  const data = await fetch("https://api.volleyball.ch/indoor/clubs");
   const clubData = await data.json();
   const clubList = < any > [];
   clubData.forEach((item: any) => {
@@ -154,7 +170,7 @@ async function getClubs() {
       name: item.caption,
     });
   });
-  return clubList; */
+  return clubList;
 }
 /*
 async function getClubGames(clubId: string, season: string) {

@@ -20,6 +20,17 @@ https://europe-west6-myclubmanagement.cloudfunctions.net/api/swissunihockey
 available under: 
 https://europe-west6-myclubmanagement.cloudfunctions.net/api/swissvolley
 
+Supported organizations:
+- National
+- RVNO
+- GSGL
+- RVI
+- RVZ
+- RVA
+- SVRW
+- SVRF
+- SVRBE
+
 ### Swiss Handball
 available under: 
 https://europe-west6-myclubmanagement.cloudfunctions.net/api/xxx
