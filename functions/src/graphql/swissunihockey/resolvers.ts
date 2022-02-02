@@ -21,11 +21,11 @@ export default {
       return getTeams(args.clubId, args.season);
     },
 
-    games: (parent: any, args: { id: string; season: string; }, context: any, info: any) => {
-      return getGames(args.id, args.season);
+    games: (parent: any, args: { teamId: string; season: string; }, context: any, info: any) => {
+      return getGames(args.teamId, args.season);
     },
-    clubGames: (parent: any, args: { id: string; season: string; }, context: any, info: any) => {
-      return getClubGames(args.id, args.season);
+    clubGames: (parent: any, args: { clubId: string; season: string; }, context: any, info: any) => {
+      return getClubGames(args.clubId, args.season);
     },
     seasons: () => {
       return getSeason();
@@ -44,19 +44,24 @@ export default {
   },
   Team: {
     games(parent: any, args: any, context: any, info: any) {
-      console.log(parent, args);
-
-      const seasonParam = info.operation.selectionSet.selections[0].arguments.find((element:any)=>{
-        return element.kind === "Argument" && element.name.kind === "Name" && element.name.value === "season";
-      });
-
-      return getGames(parent.id, seasonParam.value.value);
+      try {
+        const seasonParam = info.operation.selectionSet.selections[0].arguments.find((element:any)=>{
+          return element.kind === "Argument" && element.name.kind === "Name" && element.name.value === "season";
+        });
+        return getGames(parent.id, seasonParam.value.value);
+      } catch (e) {
+        return getGames(parent.id, "");
+      }
     },
     rankings(parent: any, args: any, context: any, info: any) {
-      const data = info.operation.selectionSet.selections[0].arguments.find((element:any)=>{
-        return element.kind === "Argument" && element.name.kind === "Name" && element.name.value === "season";
-      });
-      return getRankings(parent.id, data.value.value);
+      try {
+        const seasonParam = info.operation.selectionSet.selections[0].arguments.find((element:any)=>{
+          return element.kind === "Argument" && element.name.kind === "Name" && element.name.value === "season";
+        });
+        return getRankings(parent.id, seasonParam.value.value);
+      } catch (e) {
+        return getRankings(parent.id, "");
+      }
     },
 
     statistics(parent: any, args: any, context: any, info: any) {
@@ -85,55 +90,7 @@ async function getTeams(clubId: string, season: string) {
 async function getTeam(teamId: string) {
   const data = await fetch("https://api-v2.swissunihockey.ch/api/teams/" + teamId );
   const teamData = await data.json();
-  console.log(teamData);
-
-  /* "regions": [
-      {
-        "text": null,
-        "rows": [
-          {
-            "highlight": false,
-            "cells": [
-              {
-                "text": [
-                  "Kadetten UH Schaffhausen"
-                ]
-              },
-              {
-                "image": {
-                  "alt": "",
-                  "url": "https://res.cloudinary.com/swiss-unihockey/image/upload/t_club_logo/z5guuqzl1x2titb0ptus.png"
-                }
-              },
-              {
-                "url": {
-                  "href": null,
-                  "text": "Webseite"
-                }
-              },
-              {
-                "image": {
-                  "alt": "",
-                  "url": null
-                }
-              },
-              {
-                "text": [
-                  "3. Liga"
-                ]
-              },
-              {
-                "text": [
-                  "Kadetten Unihockey Schaffhausen",
-                  "Jonathan Kissling",
-                  "-, ",
-                  "8200 Schaffhausen"
-                ]
-              }
-            ]
-          }
-        ]
-        */
+  // console.log(teamData);
 
   return {
     id: teamId,
@@ -155,6 +112,11 @@ async function getClubs() {
 }
 
 async function getClubGames(clubId: string, season: string) {
+  if (!season) {
+    console.log("NO SEASON!!!");
+    const seasonList:any = getSeason();
+    console.log(JSON.stringify(seasonList));
+  }
   const data = await fetch("https://api-v2.swissunihockey.ch/api/games?mode=club&season=" + season + "&club_id=" + clubId);
   const gameData = await data.json();
   const gameList = < any > [];
@@ -167,6 +129,10 @@ async function getClubGames(clubId: string, season: string) {
 }
 
 async function getGames(teamId: string, season: string) {
+  if (!season) {
+    season = await getCurrentSeason() as unknown as string;
+    console.log("NO SEASON!!!", season);
+  }
   const data = await fetch("https://api-v2.swissunihockey.ch/api/games?mode=team&season=" + season + "&team_id=" + teamId);
   const gameData = await data.json();
   const gameList = < any > [];
@@ -176,6 +142,15 @@ async function getGames(teamId: string, season: string) {
     });
   });
   return gameList;
+}
+
+async function getCurrentSeason() {
+  const data = await fetch("https://api-v2.swissunihockey.ch/api/seasons");
+  const seasonData = await data.json();
+  const currentSeason = seasonData.entries.filter((element:any, index:any)=> {
+    return element.highlight === false && index === 1;
+  });
+  return currentSeason[0].set_in_context.season as string;
 }
 
 async function getSeason() {
@@ -188,15 +163,20 @@ async function getSeason() {
       id: item.set_in_context.season,
       name: item.text,
       season: item.set_in_context.season,
+      highlight: item.highlight,
     });
   });
   return seasonList;
 }
 
 async function getRankings(teamId: string, season: string) {
+  if (!season) {
+    season = await getCurrentSeason() as unknown as string;
+    console.log("NO SEASON!!!", season);
+  }
   const data = await fetch("https://api-v2.swissunihockey.ch/api/rankings?season=" + season + "&team_id=" + teamId);
   const rankingData = await data.json();
-  console.log(rankingData.entries);
+  console.log(JSON.stringify(rankingData));
   const rankingList = < any > [];
   rankingData.data.regions[0].rows.forEach((item: any) => {
     rankingList.push({
@@ -210,11 +190,13 @@ async function getRankings(teamId: string, season: string) {
 
 async function getStatistics(teamId: string) {
   const data = await fetch("https://api-v2.swissunihockey.ch/api/teams/" + teamId + "/statistics");
-  const rankingData = await data.json();
-  console.log(rankingData.entries);
-  const rankingList = < any > [];
+  const statisticsData = await data.json();
 
-  return rankingList;
+  const statisticsList = < any > [];
+  statisticsData.data.regions[0].rows.forEach((item:any)=> {
+    console.log(JSON.stringify(item.cells[1]), JSON.stringify(item.cells[3]));
+  });
+  return statisticsList;
 }
 
 

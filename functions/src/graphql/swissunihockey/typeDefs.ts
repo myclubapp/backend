@@ -9,7 +9,8 @@ type Team {
     games: [Game],
     rankings: [Ranking],
     statistics: [Statistics],
-    details: [TeamDetails],
+
+    details: [TeamDetail],
 
 }
 type Club {
@@ -53,22 +54,16 @@ type Statistics {
    
 }
 
-type TeamDetails {
-    id: ID!, # the ! means that every object _must_ have an id
-    name: String,
-}
-
-
 # the schema allows the following query:
 type Query {
     news: [News] # General Swiss Unihockey Newsfeed
     seasons: [Season], # Season Data
     clubs: [Club], # List of clubs
     teams(clubId: String, season: String): [Team], # List of Teams for a given Club
-    team(teamId: String): TeamDetails,
-    games: [Game], # List of Games for a given Team 
-    clubGames: [Game], # List of Games for a given Team 
-    rankings: [Ranking], # Ranking for a given Team
+    team(teamId: String): Team, #TODO Check Team Detail.. 
+    games(teamId: String, season: String): [Game], # List of Games for a given Team 
+    clubGames(clubId: String, season: String): [Game], # List of Games for a given Team 
+    rankings(teamId: String, season: String): [Ranking], # Ranking for a given Team
 }
 `;
 export default typeDefs;
