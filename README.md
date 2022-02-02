@@ -22,7 +22,6 @@ based on this [documentation](https://myvolley.volleyball.ch/SwissVolley.wsdl)
 
 available [here](https://europe-west6-myclubmanagement.cloudfunctions.net/api/swissvolley): 
 
-
 Supported organizations:
 - National
 - RVNO
@@ -35,8 +34,9 @@ Supported organizations:
 - SVRBE
 
 ### Swiss Handball (Not supported yet)
-available under: 
-n/a
+based on this [documentation](https://www.handball.ch/media/1845/vat-anleitung-dataservice_de.pdf)
+
+available [here](https://europe-west6-myclubmanagement.cloudfunctions.net/api/swisshandball): 
 
 ### Swiss Basketball (Not supported yet)
 available under: 

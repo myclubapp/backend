@@ -13,6 +13,14 @@ type Team {
     details: [TeamDetail],
 
 }
+
+type TeamDetail {
+    """
+    Team Detail documentation
+    """
+    id: ID!, # the ! means that every object _must_ have an id
+    name: String,
+}
 type Club {
     id: ID!, # the ! means that every object _must_ have an id
     name: String,

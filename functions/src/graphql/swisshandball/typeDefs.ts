@@ -15,7 +15,7 @@ type Team {
 
     games: [Game], # List of games for given team
     # statistics: [Statistics], # statistics for given team
-    details: [TeamDetail], # details for given team
+    details: [TeamDetails], # details for given team
 
 }
 type Club {
@@ -67,7 +67,7 @@ type Ranking {
     rank: String,
 }
 
-type TeamDetail {
+type TeamDetails {
     """
     Team Detail documentation
     """
@@ -124,7 +124,7 @@ type Query {
     club(clubId: String): Club, # List of clubs
 
     teams(clubId: String): [Team], # List of Teams for a given Club
-    team(teamId: String): Team, # TODO: Check if the same as Team
+    team(teamId: String): TeamDetails, # TODO: Check if the same as Team
 
     games: [Game], # List of Games for a given Team 
     game(gameId: String): Game, # List of Games for a given Team 

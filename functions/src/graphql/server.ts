@@ -8,6 +8,12 @@ import resolversSU from "./swissunihockey/resolvers";
 import typeDefsSV from "./swissvolley/typeDefs";
 import resolversSV from "./swissvolley/resolvers";
 
+import typeDefsSH from "./swisshandball/typeDefs";
+import resolversSH from "./swisshandball/resolvers";
+
+import typeDefsSB from "./swissbasketball/typeDefs";
+import resolversSB from "./swissbasketball/resolvers";
+
 const schemaSU = makeExecutableSchema({
   typeDefs: typeDefsSU,
   resolvers: resolversSU,
@@ -26,6 +32,28 @@ const schemaSV = makeExecutableSchema({
 
 app.use("/swissvolley", graphqlHTTP({
   schema: schemaSV,
+  graphiql: true,
+}));
+
+const schemaSH = makeExecutableSchema({
+  typeDefs: typeDefsSH,
+  resolvers: resolversSH,
+});
+
+
+app.use("/swisshandball", graphqlHTTP({
+  schema: schemaSH,
+  graphiql: true,
+}));
+
+const schemaSB = makeExecutableSchema({
+  typeDefs: typeDefsSB,
+  resolvers: resolversSB,
+});
+
+
+app.use("/swissbasketball", graphqlHTTP({
+  schema: schemaSB,
   graphiql: true,
 }));
 
