@@ -18,6 +18,7 @@ based on this [documentation](https://api-v2.swissunihockey.ch/api/doc/table/ove
 available [here](https://europe-west6-myclubmanagement.cloudfunctions.net/api/swissunihockey):
 
 ### Swiss Volleyball API
+based on this [documentation](https://myvolley.volleyball.ch/SwissVolley.wsdl)
 available [here](https://europe-west6-myclubmanagement.cloudfunctions.net/api/swissvolley): 
 
 
