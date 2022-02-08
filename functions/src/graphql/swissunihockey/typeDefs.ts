@@ -46,9 +46,13 @@ type News {
     title: String,
     slug: String,
     image: String,
+    date: String,
     leadText: String,
     text: String,
     htmlText: String,
+    tags: [String],
+    author: String,
+    authorImage: String,
 }
 type Ranking {
     id: ID!, # the ! means that every object _must_ have an id
