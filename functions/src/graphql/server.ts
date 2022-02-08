@@ -1,4 +1,5 @@
 import * as express from "express";
+import * as cors from "cors";
 import {graphqlHTTP} from "express-graphql";
 import {makeExecutableSchema} from "@graphql-tools/schema";
 
@@ -20,6 +21,8 @@ const schemaSU = makeExecutableSchema({
 });
 
 const app = express();
+app.use(cors());
+
 app.use("/swissunihockey", graphqlHTTP({
   schema: schemaSU,
   graphiql: true,
