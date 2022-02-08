@@ -201,7 +201,7 @@ async function getStatistics(teamId: string) {
 
 
 async function getNews() {
-  const data = await fetch("https://api.newsroom.co/walls?token=xgoo9jkoc2ee&count=30&channelId=663&tag=news");
+  const data = await fetch("https://api.newsroom.co/walls?token=xgoo9jkoc2ee&count=30&channelId=663&tag=top,pin,!top,!pin");
   const newsData = await data.json();
   const newsList = < any > [];
   newsData._embedded.wallList.forEach((item: any) => {
