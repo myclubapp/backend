@@ -446,12 +446,16 @@ async function getNews() {
       id: item.id,
       title: item.title,
       leadText: item.leadText,
+      date: item.date,
       slug: item.slug,
-      image: item.featureImage,
+      image: item.media[2].url || item.featuredImage,
       text: convert(item.html, {
         wordwrap: 130,
       }),
-      htmlText: item.html,
+      htmlText: item.text,
+      tags: item.tags,
+      author: item.author.realName,
+      authorImage: item.author.image,
     });
   });
   return newsList;

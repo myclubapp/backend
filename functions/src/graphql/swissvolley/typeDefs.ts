@@ -54,9 +54,13 @@ type News {
     title: String,
     slug: String,
     image: String,
+    date: String,
     leadText: String,
     text: String,
     htmlText: String,
+    tags: [String],
+    author: String,
+    authorImage: String,
 }
 type Ranking {
     """
