@@ -3,6 +3,9 @@ import * as cors from "cors";
 import {graphqlHTTP} from "express-graphql";
 import {makeExecutableSchema} from "@graphql-tools/schema";
 
+import typeDefs from "./typeDefs";
+import resolvers from "./resolvers";
+
 import typeDefsSU from "./swissunihockey/typeDefs";
 import resolversSU from "./swissunihockey/resolvers";
 
@@ -15,13 +18,23 @@ import resolversSH from "./swisshandball/resolvers";
 import typeDefsSB from "./swissbasketball/typeDefs";
 import resolversSB from "./swissbasketball/resolvers";
 
+const app = express();
+app.use(cors());
+
+const schema = makeExecutableSchema({
+  typeDefs: typeDefs,
+  resolvers: resolvers,
+});
+
+app.use("/", graphqlHTTP({
+  schema: schema,
+  graphiql: true,
+}));
+
 const schemaSU = makeExecutableSchema({
   typeDefs: typeDefsSU,
   resolvers: resolversSU,
 });
-
-const app = express();
-app.use(cors());
 
 app.use("/swissunihockey", graphqlHTTP({
   schema: schemaSU,
