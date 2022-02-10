@@ -220,6 +220,7 @@ async function getNews() {
       tags: item.tags,
       author: item.author.realName,
       authorImage: item.author.image,
+      url: item.url,
     });
   });
   return newsList;

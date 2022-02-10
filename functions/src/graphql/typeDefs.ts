@@ -53,6 +53,7 @@ type News {
     tags: [String],
     author: String,
     authorImage: String,
+    url: String,
 }
 type Ranking {
     id: ID!, # the ! means that every object _must_ have an id
