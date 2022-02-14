@@ -441,11 +441,13 @@ async function getNews() {
   const newsData = await data.json();
   const newsList = < any > [];
   newsData._embedded.wallList.forEach((item: any) => {
-    console.log(item);
+    // console.log(item);
 
     let imageUrl = item.featuredImage;
-    if (item.media) {
+    if (item.media && item.media.length >= 2) {
       imageUrl = item.media[2].url;
+    } else {
+      console.log(item.media);
     }
 
     newsList.push({
