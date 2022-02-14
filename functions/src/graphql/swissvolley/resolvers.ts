@@ -442,13 +442,19 @@ async function getNews() {
   const newsList = < any > [];
   newsData._embedded.wallList.forEach((item: any) => {
     console.log(item);
+
+    let imageUrl = item.featuredImage;
+    if (item.media) {
+      imageUrl = item.media[2].url;
+    }
+
     newsList.push({
       id: item.id,
       title: item.title,
       leadText: item.leadText,
       date: item.date,
       slug: item.slug,
-      image: item.media[2].url || item.featuredImage,
+      image: imageUrl,
       text: convert(item.html, {
         wordwrap: 130,
       }),
