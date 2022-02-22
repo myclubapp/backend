@@ -22,14 +22,14 @@ export function authUserCreate(user: admin.auth.UserRecord, context: functions.E
 }
 
 export async function authUserCreateSendWelcomeMail(user: admin.auth.UserRecord, context: functions.EventContext) {
-  const code = await admin.auth().generateEmailVerificationLink(user.email as string);
+  const link = await admin.auth().generateEmailVerificationLink(user.email as string);
   const userProfile: any = await db.collection("userProfile").doc(`${user.uid}`).get();
   return db.collection("mail").add({
     to: user.email,
     template: {
       name: "UserCreateWelcomeMail",
       data: {
-        code: code,
+        link: link,
         firstName: userProfile.data().firstName,
       },
     },
