@@ -27,7 +27,7 @@ export async function authUserCreateSendWelcomeMail(user: admin.auth.UserRecord,
   return db.collection("mail").add({
     to: user.email,
     template: {
-      name: "userCreateWelcome",
+      name: "UserCreateWelcomeMail",
       data: {
         code: code,
         firstName: userProfile.data().firstName,
