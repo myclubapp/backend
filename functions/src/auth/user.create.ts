@@ -4,28 +4,24 @@
 /* eslint-disable max-len */
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
+import firebaseDAO from "./../firebaseSingleton";
 
+const db = firebaseDAO.instance.db;
 
 export function authUserCreate(user: admin.auth.UserRecord, context: functions.EventContext) {
-  admin.initializeApp(functions.config().firebase);
-  const db = admin.firestore();
-
   db.collection("userProfile").doc(`${user.uid}`).set({
     "email": user.email,
     "id": user.uid,
   }, {
     merge: true,
-  }).then((ok) => {
+  }).then((ok: any) => {
     return "ok";
-  }).catch((e) => {
+  }).catch((e: any) => {
     return "error";
   });
 }
 
 export async function authUserCreateSendWelcomeMail(user: admin.auth.UserRecord, context: functions.EventContext) {
-  admin.initializeApp(functions.config().firebase);
-  const db = admin.firestore();
-
   const link = await admin.auth().generateEmailVerificationLink(user.email as string);
   const userProfile: any = await db.collection("userProfile").doc(`${user.uid}`).get();
   return db.collection("mail").add({
