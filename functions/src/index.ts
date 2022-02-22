@@ -1,14 +1,12 @@
 /* eslint-disable max-len */
 import * as functions from "firebase-functions";
 
-import * as admin from "firebase-admin";
-
 import {authUserCreate, authUserCreateSendWelcomeMail} from "./auth/user.create";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const graphql = require("./graphql/server");
 
-admin.initializeApp(functions.config().firebase);
+
 
 // Firebase AUTH
 export const userCreate = functions.region("europe-west6").auth.user().onCreate(authUserCreate);
