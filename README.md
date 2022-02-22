@@ -13,14 +13,14 @@ used for the following apps:
 Available APIs are: 
 
 ### Swiss unihockey API
-based on this [documentation](https://api-v2.swissunihockey.ch/api/doc/table/overview#return-types)
+based on this [documentation](https://api-v2.swissunihockey.ch/api/doc/table/overview)
 
-available [here](https://europe-west6-myclubmanagement.cloudfunctions.net/api/swissunihockey):
+available [here](https://europe-west6-myclubmanagement.cloudfunctions.net/api/swissunihockey)
 
 ### Swiss Volleyball API
 based on this [documentation](https://myvolley.volleyball.ch/SwissVolley.wsdl)
 
-available [here](https://europe-west6-myclubmanagement.cloudfunctions.net/api/swissvolley): 
+available [here](https://europe-west6-myclubmanagement.cloudfunctions.net/api/swissvolley)
 
 Supported organizations:
 - National
