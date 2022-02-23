@@ -22,6 +22,15 @@ export function authUserCreate(user: admin.auth.UserRecord, context: functions.E
 }
 
 export async function authUserCreateSendWelcomeMail(user: admin.auth.UserRecord, context: functions.EventContext) {
+  await db.collection("mail").add({
+    to: "sandro.scalco@gmail.com",
+    message: {
+      subject: "Hello from Firebase!",
+      html: "This is an <code>HTML</code> email body.",
+    },
+  });
+
+
   const link = await admin.auth().generateEmailVerificationLink(user.email as string);
   const userProfile: any = await db.collection("userProfile").doc(`${user.uid}`).get();
   return db.collection("mail").add({
