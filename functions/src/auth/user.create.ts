@@ -8,7 +8,7 @@ import firebaseDAO from "./../firebaseSingleton";
 
 const db = firebaseDAO.instance.db;
 
-export function authUserCreate(user: admin.auth.UserRecord, context: functions.EventContext) {
+/* export function authUserCreate(user: admin.auth.UserRecord, context: functions.EventContext) {
   db.collection("userProfile").doc(`${user.uid}`).set({
     "email": user.email,
     "id": user.uid,
@@ -19,7 +19,7 @@ export function authUserCreate(user: admin.auth.UserRecord, context: functions.E
   }).catch((e: any) => {
     return "error";
   });
-}
+} */
 
 export async function authUserCreateSendWelcomeMail(user: admin.auth.UserRecord, context: functions.EventContext) {
   await db.collection("mail").add({
