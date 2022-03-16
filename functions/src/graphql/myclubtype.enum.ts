@@ -1,6 +1,6 @@
 export enum MyClubType {
     SwissVolley,
-    swissUnihockey,
+    SwissUnihockey,
     SwissHandball,
     SwissBasketball
 }
