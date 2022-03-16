@@ -3,9 +3,6 @@ import * as cors from "cors";
 import {graphqlHTTP} from "express-graphql";
 import {makeExecutableSchema} from "@graphql-tools/schema";
 
-import typeDefs from "./typeDefs";
-import resolvers from "./resolvers";
-
 import typeDefsSU from "./swissunihockey/typeDefs";
 import resolversSU from "./swissunihockey/resolvers";
 
@@ -21,26 +18,27 @@ import resolversSB from "./swissbasketball/resolvers";
 const app = express();
 app.use(cors());
 
-const schema = makeExecutableSchema({
+/* const schema = makeExecutableSchema({
   typeDefs: typeDefs,
   resolvers: resolvers,
-});
-
-app.use("/", graphqlHTTP({
-  schema: schema,
-  graphiql: true,
-}));
+}); */
 
 const schemaSU = makeExecutableSchema({
   typeDefs: typeDefsSU,
   resolvers: resolversSU,
 });
 
+app.use("/", graphqlHTTP({
+  schema: schemaSU,
+  graphiql: true,
+}));
+
 app.use("/swissunihockey", graphqlHTTP({
   schema: schemaSU,
   graphiql: true,
 }));
 
+/* SWISS VOLLEY */
 const schemaSV = makeExecutableSchema({
   typeDefs: typeDefsSV,
   resolvers: resolversSV,
@@ -51,6 +49,7 @@ app.use("/swissvolley", graphqlHTTP({
   graphiql: true,
 }));
 
+/* SWISS HANDBALL */
 const schemaSH = makeExecutableSchema({
   typeDefs: typeDefsSH,
   resolvers: resolversSH,
@@ -62,6 +61,7 @@ app.use("/swisshandball", graphqlHTTP({
   graphiql: true,
 }));
 
+/* SWISS BASKETBALL */
 const schemaSB = makeExecutableSchema({
   typeDefs: typeDefsSB,
   resolvers: resolversSB,
