@@ -24,7 +24,8 @@ const schemaSU = makeExecutableSchema({
   resolvers: resolversSU,
 });
 
-app.use("/swissunihockey", graphqlHTTP({
+// app.use("/swissunihockey", graphqlHTTP({
+app.use("/", graphqlHTTP({
   schema: schemaSU,
   graphiql: true,
 }));

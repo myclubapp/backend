@@ -11,7 +11,7 @@ const fetch = require("node-fetch");
 const {convert} = require("html-to-text");
 
 export default {
-  Query: {
+  SwissUnihockey: {
     clubs: () => {
       return getClubs();
     },
@@ -39,39 +39,39 @@ export default {
     news: () => {
       return getNews();
     },
-  },
-  Club: {
-    teams(parent: any, args: any, context: any, info: any) {
-      return getTeams(parent.id, "2021");
+    Club: {
+      teams(parent: any, args: any, context: any, info: any) {
+        return getTeams(parent.id, "2021");
+      },
     },
-  },
-  Team: {
-    games(parent: any, args: any, context: any, info: any) {
-      try {
-        const seasonParam = info.operation.selectionSet.selections[0].arguments.find((element:any)=>{
-          return element.kind === "Argument" && element.name.kind === "Name" && element.name.value === "season";
-        });
-        return getGames(parent.id, seasonParam.value.value);
-      } catch (e) {
-        return getGames(parent.id, "");
-      }
-    },
-    rankings(parent: any, args: any, context: any, info: any) {
-      try {
-        const seasonParam = info.operation.selectionSet.selections[0].arguments.find((element:any)=>{
-          return element.kind === "Argument" && element.name.kind === "Name" && element.name.value === "season";
-        });
-        return getRankings(parent.id, seasonParam.value.value);
-      } catch (e) {
-        return getRankings(parent.id, "");
-      }
-    },
+    Team: {
+      games(parent: any, args: any, context: any, info: any) {
+        try {
+          const seasonParam = info.operation.selectionSet.selections[0].arguments.find((element:any)=>{
+            return element.kind === "Argument" && element.name.kind === "Name" && element.name.value === "season";
+          });
+          return getGames(parent.id, seasonParam.value.value);
+        } catch (e) {
+          return getGames(parent.id, "");
+        }
+      },
+      rankings(parent: any, args: any, context: any, info: any) {
+        try {
+          const seasonParam = info.operation.selectionSet.selections[0].arguments.find((element:any)=>{
+            return element.kind === "Argument" && element.name.kind === "Name" && element.name.value === "season";
+          });
+          return getRankings(parent.id, seasonParam.value.value);
+        } catch (e) {
+          return getRankings(parent.id, "");
+        }
+      },
 
-    statistics(parent: any, args: any, context: any, info: any) {
-      return getStatistics(parent.id);
-    },
-    details(parent: any, args: any, context: any, info: any) {
-      return getTeam(parent.id);
+      statistics(parent: any, args: any, context: any, info: any) {
+        return getStatistics(parent.id);
+      },
+      details(parent: any, args: any, context: any, info: any) {
+        return getTeam(parent.id);
+      },
     },
   },
 };
