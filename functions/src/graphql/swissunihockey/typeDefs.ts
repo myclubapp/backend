@@ -1,7 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-len */
+
+
 const typeDefs = /* GraphQL */ `
+
+
 type Team {
-    type: MyClubType,
+    
     id: ID!, # the ! means that every object _must_ have an id
     name: String,
     """
@@ -23,7 +28,7 @@ type TeamDetail {
     name: String,
 }
 type Club {
-    type: MyClubType,
+
     id: ID!, # the ! means that every object _must_ have an id
     name: String,
     """
@@ -44,7 +49,7 @@ type Game {
 }
 
 type News {
-    type: MyClubType,
+
     id: ID!, # the ! means that every object _must_ have an id
     title: String,
     slug: String,

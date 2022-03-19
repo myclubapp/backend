@@ -1,11 +1,16 @@
+
 /* eslint-disable max-len */
 const typeDefs = /* GraphQL */ `
-
+enum MyClubEnumType{
+    SwissVolley,
+    SwissUnihockey,
+    SwissHandball,
+    SwissBasketball
+}
 type Club {
     """
     Club documentation
     """
-    type: MyClubType,
     id: ID!, # the ! means that every object _must_ have an id
     name: String,
 }
@@ -15,7 +20,7 @@ type News {
     """
     News documentation
     """
-    type: MyClubType,
+
     id: ID!, # the ! means that every object _must_ have an id
     title: String,
     slug: String,

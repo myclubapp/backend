@@ -18,20 +18,11 @@ import resolversSB from "./swissbasketball/resolvers";
 const app = express();
 app.use(cors());
 
-/* const schema = makeExecutableSchema({
-  typeDefs: typeDefs,
-  resolvers: resolvers,
-}); */
-
+/* SWISS Unihockey */
 const schemaSU = makeExecutableSchema({
   typeDefs: typeDefsSU,
   resolvers: resolversSU,
 });
-
-app.use("/", graphqlHTTP({
-  schema: schemaSU,
-  graphiql: true,
-}));
 
 app.use("/swissunihockey", graphqlHTTP({
   schema: schemaSU,

@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-len */
 /* eslint-disable require-jsdoc */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import fetch from "node-fetch";
-import {MyClubType} from "../myclubtype.enum";
+
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const fetch = require("node-fetch");
@@ -43,7 +45,6 @@ async function getNews() {
   console.log(JSON.stringify(newsData));
   newsData.data.forEach((element:any)=> {
     newsList.push({
-      type: MyClubType.SwissBasketball,
       id: element.id,
       title: element.data.title,
     });

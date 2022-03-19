@@ -1,10 +1,12 @@
 /* eslint-disable max-len */
+
 const typeDefs = /* GraphQL */ `
+
 type Team {
     """
     Team Documentation
     """
-    type: MyClubType,
+
     id: ID!, # the ! means that every object _must_ have an id
     name: String,
     gender: String,
@@ -23,7 +25,6 @@ type Club {
     """
     Club documentation
     """
-    type: MyClubType,
     id: ID!, # the ! means that every object _must_ have an id
     name: String,
 
@@ -52,7 +53,6 @@ type News {
     """
     News documentation
     """
-    type: MyClubType,
     id: ID!, # the ! means that every object _must_ have an id
     title: String,
     slug: String,

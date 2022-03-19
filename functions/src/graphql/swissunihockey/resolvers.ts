@@ -5,8 +5,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import fetch from "node-fetch";
 
-import {MyClubType} from "../myclubtype.enum";
-
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const fetch = require("node-fetch");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -85,7 +83,6 @@ async function getTeams(clubId: string, season: string) {
   // console.log(teamData);
   teamData.entries.forEach((item: any) => {
     teamList.push({
-      type: MyClubType.SwissUnihockey,
       id: item.set_in_context.team_id,
       name: item.text,
     });
@@ -110,7 +107,6 @@ async function getClubs() {
   const clubList = < any > [];
   clubData.entries.forEach((item: any) => {
     clubList.push({
-      type: MyClubType.SwissUnihockey,
       id: item.set_in_context.club_id,
       name: item.text,
     });
@@ -145,7 +141,6 @@ async function getGames(teamId: string, season: string) {
   const gameList = < any > [];
   gameData.data.regions[0].rows.forEach((item: any) => {
     gameList.push({
-      type: MyClubType.SwissUnihockey,
       id: item.link.ids[0],
     });
   });
@@ -215,7 +210,6 @@ async function getNews() {
   newsData._embedded.wallList.forEach((item: any) => {
     console.log(item);
     newsList.push({
-      type: MyClubType.SwissUnihockey,
       id: item.id,
       title: item.title,
       leadText: item.leadText,

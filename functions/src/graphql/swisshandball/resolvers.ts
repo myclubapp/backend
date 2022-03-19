@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-len */
 /* eslint-disable require-jsdoc */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import fetch from "node-fetch";
-import {MyClubType} from "../myclubtype.enum";
+
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const fetch = require("node-fetch");
@@ -268,7 +270,7 @@ async function getClubs(associationId: string) {
   const result = await client.getActiveClubsAsync(args);
   result[0].getActiveClubsResponse.item.forEach((item: any) => {
     clubList.push({
-      type: MyClubType.SwissHandball,
+
       id: item.ID_club.$value,
       name: item.Caption.$value,
     });
@@ -300,7 +302,6 @@ async function getClub(clubId: string) {
   const item = result[0].getClubDetailsResponse;
   // console.log(JSON.stringify(item));
   return {
-    type: MyClubType.SwissHandball,
     id: item.ID_club.$value,
     name: item.Caption.$value,
   };
@@ -447,7 +448,6 @@ async function getNews() {
   newsData._embedded.wallList.forEach((item: any) => {
     console.log(item);
     newsList.push({
-      type: MyClubType.SwissHandball,
       id: item.id,
       title: item.title,
       leadText: item.leadText,
