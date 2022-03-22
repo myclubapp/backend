@@ -25,10 +25,11 @@ const schemaSU = makeExecutableSchema({
 });
 
 // app.use("/swissunihockey", graphqlHTTP({
-app.use("/", graphqlHTTP({
+app.use("/swissunihockey", graphqlHTTP({
   schema: schemaSU,
   graphiql: true,
 }));
+
 
 /* SWISS VOLLEY */
 const schemaSV = makeExecutableSchema({
@@ -47,7 +48,6 @@ const schemaSH = makeExecutableSchema({
   resolvers: resolversSH,
 });
 
-
 app.use("/swisshandball", graphqlHTTP({
   schema: schemaSH,
   graphiql: true,
@@ -58,7 +58,6 @@ const schemaSB = makeExecutableSchema({
   typeDefs: typeDefsSB,
   resolvers: resolversSB,
 });
-
 
 app.use("/swissbasketball", graphqlHTTP({
   schema: schemaSB,

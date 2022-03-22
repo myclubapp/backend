@@ -13,7 +13,7 @@ import soap = require("soap");
 const soapUrl = "https://myvolley.volleyball.ch/SwissVolley.wsdl";
 
 export default {
-  Query: {
+  SwissVolley: {
     club: (parent: any, args: { clubId: string }, context: any, info: any) => {
       return getClub(args.clubId); // 913245 "VBG Klettgau
     },
@@ -466,6 +466,7 @@ async function getNews() {
       tags: item.tags,
       author: item.author.realName,
       authorImage: item.author.image,
+      url: item.url,
     });
   });
   return newsList;

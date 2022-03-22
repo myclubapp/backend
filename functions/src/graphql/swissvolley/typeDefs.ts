@@ -13,7 +13,6 @@ type Team {
     clubId: String,
     clubCaption: String,
     leagueCaption: String,
-    organisationCaption: String,
 
 
     games: [Game], # List of games for given team
@@ -64,6 +63,7 @@ type News {
     tags: [String],
     author: String,
     authorImage: String,
+    url: String,
 }
 type Ranking {
     """
@@ -124,7 +124,7 @@ type Group {
 }
 
 # the schema allows the following query:
-type Query {
+type SwissVolley {
     news: [News] # General Swiss Unihockey Newsfeed
 
     clubs: [Club], # List of clubs
@@ -144,5 +144,12 @@ type Query {
     phases(leagueId: String): [Phase],
     groups(phaseId: String): [Group],
 }
+
+
+schema {
+    query: SwissVolley
+  }
+
+
 `;
 export default typeDefs;

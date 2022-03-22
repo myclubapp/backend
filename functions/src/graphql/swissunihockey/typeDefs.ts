@@ -4,7 +4,6 @@
 
 const typeDefs = /* GraphQL */ `
 
-
 type Team {
     
     id: ID!, # the ! means that every object _must_ have an id
@@ -61,6 +60,7 @@ type News {
     tags: [String],
     author: String,
     authorImage: String,
+    url: String,
 }
 type Ranking {
     id: ID!, # the ! means that every object _must_ have an id
@@ -74,8 +74,7 @@ type Statistics {
    
 }
 
-# the schema allows the following query:
-type Query {
+type SwissUnihockey {
     news: [News] # General Swiss Unihockey Newsfeed
     seasons: [Season], # Season Data
     clubs: [Club], # List of clubs
@@ -85,5 +84,11 @@ type Query {
     clubGames(clubId: String, season: String): [Game], # List of Games for a given Team 
     rankings(teamId: String, season: String): [Ranking], # Ranking for a given Team
 }
+
+
+schema {
+    query: SwissUnihockey
+}
+
 `;
 export default typeDefs;
