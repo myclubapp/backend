@@ -1,5 +1,6 @@
 /* eslint-disable require-jsdoc */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 
