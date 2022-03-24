@@ -1,144 +1,97 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-len */
+
 
 const typeDefs = /* GraphQL */ `
 
 type Team {
-    """
-    Team Documentation
-    """
-
+    
     id: ID!, # the ! means that every object _must_ have an id
     name: String,
-    gender: String,
-    clubId: String,
-    clubCaption: String,
-    leagueCaption: String,
-    organisationCaption: String,
+    """
+    the list of Games by this team
+    """
+    games: [Game],
+    rankings: [Ranking],
 
+    details: [TeamDetail],
 
-    games: [Game], # List of games for given team
-    # statistics: [Statistics], # statistics for given team
-    details: [TeamDetails], # details for given team
+}
 
+type TeamDetail {
+    """
+    Team Detail documentation
+    """
+    id: ID!, # the ! means that every object _must_ have an id
+    name: String,
 }
 type Club {
-    """
-    Club documentation
-    """
+
     id: ID!, # the ! means that every object _must_ have an id
     name: String,
 
-    teams: [Team], # List of Teams for given Club
-    games: [Game], # List of games for given team
-
+    address: ContactAddress,
+    """
+    the list of Teams by this club
+    """
+    teams: [Team],
+    games: [Game],
+    # statistics
 }
 
+type ContactAddress {
+    id: ID!,
+    firstName: String,
+    lastName: String,
+    street: String,
+    number: String,
+    postalcode: String,
+    city: String,
+    email: String,
+    phone: String,
+}
 
 type Game {
-    """
-    Game documentation
-    """
-    id: ID!, # the ! means that every object _must_ have an id
-    details: GameDetails,
-}
-
-type GameDetails {
-    """
-    Game Detail documentation
-    """
     id: ID!, # the ! means that every object _must_ have an id
 }
 
 type News {
-    """
-    News documentation
-    """
+
     id: ID!, # the ! means that every object _must_ have an id
     title: String,
     slug: String,
     image: String,
+    date: String,
     leadText: String,
     text: String,
     htmlText: String,
+    tags: [String],
+    author: String,
+    authorImage: String,
+    url: String,
 }
 type Ranking {
-    """
-    Ranking documentation
-    """
     id: ID!, # the ! means that every object _must_ have an id
     name: String,
-    rank: String,
+    ranking: String,
 }
 
-type TeamDetails {
-    """
-    Team Detail documentation
-    """
-    id: ID!, # the ! means that every object _must_ have an id
-    name: String,
-}
 
-type Association {
-    """
-    Association documentation
-    """  
-    id: ID!,
-    name: String,
-
-    clubs: [Club], # List of Clubs for given Association
-    leagues: [League] # List of League for given Association
-}
-
-type League {
-    """
-    Team Detail documentation
-    """    
-    id: ID!,
-    name: String,
-
-    phases: [Phase] # List of phases for given League
-}
-
-type Phase {
-    """
-    Phase Detail documentation
-    """    
-    id: ID!,
-    name: String,
-
-    groups: [Group] # List of groups for given Phase
-}
-
-type Group {
-    """
-    Group documentation
-    """    
-    id: ID!,
-    name: String,
-
-    rankings: [Ranking], # ranking for given team
-}
-
-# the schema allows the following query:
-type Query {
+type SwissHandball {
     news: [News] # General Swiss Unihockey Newsfeed
-
     clubs: [Club], # List of clubs
     club(clubId: String): Club, # List of clubs
-
     teams(clubId: String): [Team], # List of Teams for a given Club
-    team(teamId: String): TeamDetails, # TODO: Check if the same as Team
-
-    games: [Game], # List of Games for a given Team 
-    game(gameId: String): Game, # List of Games for a given Team 
-    clubGames: [Game], # List of Games for a given Team 
-
-    rankings(groupId: String): [Ranking], # Ranking for a given Team
-
-    associations: [Association],
-    leagues(associationId: String): [League],
-    phases(leagueId: String): [Phase],
-    groups(phaseId: String): [Group],
+    team(teamId: String): Team, #TODO Check Team Detail.. 
+    games(teamId: String): [Game], # List of Games for a given Team 
+    clubGames(clubId: String): [Game], # List of Games for a given Team 
+    rankings(teamId: String): [Ranking], # Ranking for a given Team
 }
+
+
+schema {
+    query: SwissHandball
+}
+
 `;
 export default typeDefs;

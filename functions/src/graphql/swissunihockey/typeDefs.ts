@@ -34,7 +34,7 @@ type Club {
     the list of Teams by this club
     """
     teams: [Team],
-    clubGames: [Game],
+    games: [Game],
     # statistics
 }
 type Season {

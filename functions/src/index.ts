@@ -11,5 +11,5 @@ const graphql = require("./graphql/server");
 export const sendWelcomeMail = functions.region("europe-west6").auth.user().onCreate(authUserCreateSendWelcomeMail);
 
 // GrapphQL API
-export const api = functions.runWith({timeoutSeconds: 300}).region("europe-west6").https.onRequest(graphql);
+export const api = functions.runWith({timeoutSeconds: 300, memory: "2GB"}).region("europe-west6").https.onRequest(graphql);
 

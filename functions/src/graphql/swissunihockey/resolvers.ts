@@ -16,6 +16,16 @@ export default {
     teams(parent: any, args: any, context: any, info: any) {
       return getTeams(parent.id, "2021");
     },
+    games(parent: any, args: any, context: any, info: any) {
+      try {
+        const seasonParam = info.operation.selectionSet.selections[0].arguments.find((element: any) => {
+          return element.kind === "Argument" && element.name.kind === "Name" && element.name.value === "season";
+        });
+        return getClubGames(parent.id, seasonParam.value.value);
+      } catch (e) {
+        return getClubGames(parent.id, "");
+      }
+    },
   },
   Team: {
     games(parent: any, args: any, context: any, info: any) {

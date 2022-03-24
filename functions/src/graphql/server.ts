@@ -15,6 +15,9 @@ import resolversSH from "./swisshandball/resolvers";
 import typeDefsSB from "./swissbasketball/typeDefs";
 import resolversSB from "./swissbasketball/resolvers";
 
+import typeDefsST from "./swissturnverband/typeDefs";
+import resolversST from "./swissturnverband/resolvers";
+
 const app = express();
 app.use(cors());
 
@@ -61,6 +64,17 @@ const schemaSB = makeExecutableSchema({
 
 app.use("/swissbasketball", graphqlHTTP({
   schema: schemaSB,
+  graphiql: true,
+}));
+
+/* SWISS TURNVERBAND */
+const schemaST = makeExecutableSchema({
+  typeDefs: typeDefsST,
+  resolvers: resolversST,
+});
+
+app.use("/swissturnverband", graphqlHTTP({
+  schema: schemaST,
   graphiql: true,
 }));
 

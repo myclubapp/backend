@@ -27,11 +27,24 @@ type Club {
     id: ID!, # the ! means that every object _must_ have an id
     name: String,
 
+    address: ContactAddress,   
+
     teams: [Team], # List of Teams for given Club
     games: [Game], # List of games for given team
 
 }
 
+type ContactAddress {
+    id: ID!,
+    firstName: String,
+    lastName: String,
+    street: String,
+    number: String,
+    postalcode: String,
+    city: String,
+    email: String,
+    phone: String,
+}
 
 type Game {
     """

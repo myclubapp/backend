@@ -9,6 +9,12 @@ const fetch = require("node-fetch");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const {convert} = require("html-to-text");
 
+
+/* DOKU */
+// https://www.volleyball.ch/fileadmin/_migrated/content_uploads/WSDL-Dokumentation.pdf
+// https://www.volleyball.ch/verband/services/indoorwebservice/
+// https://github.com/astriffe/gamecenter-clientpp/
+
 import soap = require("soap");
 const soapUrl = "https://myvolley.volleyball.ch/SwissVolley.wsdl";
 
@@ -246,19 +252,7 @@ async function getTeams(clubId: string) {
     return teamList;
   }
 }
-/*
-getTeamDetailed
-async function getTeam(teamId: string) {
-  const data = await fetch("https://api-v2.swissunihockey.ch/api/teams/" + teamId );
-  const teamData = await data.json();
-  console.log(teamData);
 
-  return {
-    id: teamId,
-    name: teamData.data.regions[0].rows[0].cells[0].text[0],
-  };
-}
-*/
 async function getClubs(associationId: string) {
   const args = {
     keyword: associationId,
@@ -266,6 +260,7 @@ async function getClubs(associationId: string) {
   const clubList = < any > [];
   const client = await soap.createClientAsync(soapUrl);
   const result = await client.getActiveClubsAsync(args);
+  console.log(result);
   result[0].getActiveClubsResponse.item.forEach((item: any) => {
     clubList.push({
       id: item.ID_club.$value,
@@ -292,19 +287,32 @@ async function getClub(clubId: string) {
   const args = {
     club_ID: clubId,
   };
-
   const client = await soap.createClientAsync(soapUrl);
-  // Loop at list with Verband Ids.. #TODO
   const result = await client.getClubDetailsAsync(args);
   const item = result[0].getClubDetailsResponse;
-  // console.log(JSON.stringify(item));
+
+  const resultAdress = await client.getAddressesByClubAsync(args);
+  const address = resultAdress[0].getAddressesByClubResponse.item;
+
   return {
     id: item.ID_club.$value,
     name: item.Caption.$value,
+    address: {
+      id: address.SVNumber.$value,
+      firstName: address.FirstName.$value,
+      lastName: address.LastName.$value,
+      street: address.Street.$value,
+      number: address.Number.$value,
+      postalcode: address.AreaCode.$value,
+      city: address.Place.$value,
+      email: address.Email.$value,
+      phone: "",
+    },
   };
 }
 
 async function getGames(teamId: string) {
+  // https://api.volleyball.ch/indoor/games?region=$1&dateStart=${START}&dateEnd=${END}"
   const args = {
     team_ID: teamId,
   };
