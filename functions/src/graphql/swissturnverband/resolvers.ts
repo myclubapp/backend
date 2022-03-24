@@ -82,53 +82,84 @@ export default {
 };
 
 async function getTeams(clubId: string) {
-  // 4614 Ergebnisse
   try {
-    // const response = fs.readFileSync(path.resolve("./graphql/swissturnverband/stv-vereine.finder.html"));
-
-    // const response = fs.readFileSync(`${__dirname}/stv-vereine.finder.html`);
-    /* const response = await fetch("https://www.stv-fsg.ch/de/mitglied-verein/turnverein-finder/stv-vereine.finder.html?tx_stvclubfinder_finder%5Baction%5D=ajax&tx_stvclubfinder_finder%5Bcontroller%5D=Finder&cHash=8c21097e68b8ad9c8ee6c091281eb785", {
-      "credentials": "include",
-      "headers": {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0",
-        "Accept": "* /*",
-        "Accept-Language": "de,en-US;q=0.7,en;q=0.3",
-        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-        "X-Requested-With": "XMLHttpRequest",
-        "Sec-Fetch-Dest": "empty",
-        "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Site": "same-origin",
-        "Sec-GPC": "1",
-        "Pragma": "no-cache",
-        "Cache-Control": "no-cache",
-      },
-      "referrer": "https://www.stv-fsg.ch/de/mitglied-verein/turnverein-finder/stv-vereine.html",
-      "body": "tx_stvclubfinder_finder%5B__referrer%5D%5B%40extension%5D=StvClubFinder&tx_stvclubfinder_finder%5B__referrer%5D%5B%40vendor%5D=Cabag&tx_stvclubfinder_finder%5B__referrer%5D%5B%40controller%5D=Finder&tx_stvclubfinder_finder%5B__referrer%5D%5B%40action%5D=show&tx_stvclubfinder_finder%5B__referrer%5D%5Barguments%5D=YToxOntzOjY6ImZpbHRlciI7YTozOntzOjQ6InR5cGUiO3M6MDoiIjtzOjM6InppcCI7czowOiIiO3M6NjoiZ2VuZGVyIjtzOjM6ImFsbCI7fX0%3Dc528405d17d84495de2a9a042a309dd82bc7ace1&tx_stvclubfinder_finder%5B__referrer%5D%5B%40request%5D=a%3A4%3A%7Bs%3A10%3A%22%40extension%22%3Bs%3A13%3A%22StvClubFinder%22%3Bs%3A11%3A%22%40controller%22%3Bs%3A6%3A%22Finder%22%3Bs%3A7%3A%22%40action%22%3Bs%3A4%3A%22show%22%3Bs%3A7%3A%22%40vendor%22%3Bs%3A5%3A%22Cabag%22%3B%7D367bc045fafa4f07d0f29256543374dd0805f487&tx_stvclubfinder_finder%5B__trustedProperties%5D=a%3A1%3A%7Bs%3A6%3A%22filter%22%3Ba%3A8%3A%7Bs%3A7%3A%22storage%22%3Bi%3A1%3Bs%3A10%3A%22contentUid%22%3Bi%3A1%3Bs%3A6%3A%22radius%22%3Bi%3A1%3Bs%3A4%3A%22type%22%3Bi%3A1%3Bs%3A3%3A%22zip%22%3Bi%3A1%3Bs%3A6%3A%22gender%22%3Bi%3A1%3Bs%3A3%3A%22age%22%3Bi%3A1%3Bs%3A7%3A%22weekday%22%3Bi%3A1%3B%7D%7D72a18e68f0be49cdf37dbbced0101b56a73e5532&tx_stvclubfinder_finder%5Bfilter%5D%5Bstorage%5D=310&tx_stvclubfinder_finder%5Bfilter%5D%5BcontentUid%5D=10086&tx_stvclubfinder_finder%5Bfilter%5D%5Bradius%5D=15&tx_stvclubfinder_finder%5Bfilter%5D%5Btype%5D=&tx_stvclubfinder_finder%5Bfilter%5D%5Bzip%5D=&tx_stvclubfinder_finder%5Bfilter%5D%5Bgender%5D=all&tx_stvclubfinder_finder%5Bfilter%5D%5Bage%5D=&tx_stvclubfinder_finder%5Bfilter%5D%5Bweekday%5D=all",
-      "method": "POST",
-      "mode": "cors",
-    }); */
-
-    // const dom = new jsdom.JSDOM(await response.text());
     const dom = new jsdom.JSDOM(html);
-
     const teamList = < any > [];
+    const domList: NodeList = dom.window.document.querySelectorAll(".tx-stv-clubfinder-result");
+    // console.log("NodeList Entries: " + domList.length);
+    let id = 0;
+    domList.forEach((clubListNode: Node, key:number, parent: NodeList) => { // here we have the clubs
+      // const clubData: NodeList = domList[0].childNodes;
+      const clubData: NodeList = clubListNode.childNodes;
+      clubData.forEach((clubNode, key:number, parent: NodeList) => { // just one entry..
+        // console.log(">> NEW CLUB");
+        if (clubNode.hasChildNodes()) {
+          const nodes = clubNode.childNodes;
+          if (nodes[0].hasChildNodes()) { // CLUB NAME INFO
+            // const contactNodeList = nodes[0].childNodes; // Index 0 -> Contact Eintrag
+            const contactNode = nodes[0].childNodes[0]; // hat hier nur 1 Eintrag
+            const angebotNode = nodes[1].childNodes[0]; // hat hier nur 1 Eintrag
+            if (contactNode.hasChildNodes()) {
+              const clubNameNode = contactNode.childNodes[0];
+              console.log("Verein: " + clubNameNode.childNodes[0].textContent);
 
-    const domList = dom.window.document.querySelectorAll(".tx-stv-clubfinder-result");
-    let internalClubId = 0;
-    for (const club of domList) {
-      // ANGEBOTE
-      let teamId = 0;
-      if (internalClubId.toString() == clubId) {
-        for (const team of club.children[0].children[1].children[0].children ) {
-          teamList.push({
-            id: clubId + teamId,
-            name: team.children[0].innerText,
-          });
-          teamId++;
+              for (let i = 0, l = angebotNode.childNodes.length; i < l; ++i) {
+                const angebot: Node = angebotNode.childNodes[i];
+
+                console.log("> " + angebot.childNodes[0].childNodes[0].textContent);
+
+                let trainingInfo = "";
+                try {
+                  trainingInfo = angebot.childNodes[1].childNodes[0].childNodes[0].childNodes[0].childNodes[0].textContent || "";
+                  console.log(">> Tag: " + trainingInfo);
+                } catch (e) {
+                  console.log(">> Tag: --- ");
+                }
+
+                let info = "";
+                try {
+                  info = angebot.childNodes[1].childNodes[0].childNodes[0].childNodes[0].childNodes[1].textContent || "";
+                  console.log(">>  JB: " + info);
+                } catch (e) {
+                  console.log(">>  JB: kein JB");
+                }
+
+                if (angebot.childNodes[1].childNodes[0].childNodes[0].childNodes[0].hasChildNodes() &&
+                angebot.childNodes[1].childNodes[0].childNodes[0].childNodes[0].childNodes.length > 1 ) {
+                  console.log(trainingInfo);
+                  console.log(info);
+                }
+                if (angebot.childNodes[1].childNodes[0].childNodes[0].childNodes[0].hasChildNodes() &&
+                angebot.childNodes[1].childNodes[0].childNodes[0].childNodes[0].childNodes.length == 1 ) {
+                  console.log(trainingInfo);
+                }
+                if (!angebot.childNodes[1].childNodes[0].childNodes[0].childNodes[0].hasChildNodes() ) {
+                  console.log("Keine Details");
+                }
+
+                if (trainingInfo.toString().startsWith("Jahresbeitrag")) {
+                  info = trainingInfo;
+                  trainingInfo = "";
+                }
+
+                try {
+                  teamList.push({
+                    id: id,
+                    name: angebot.childNodes[0].childNodes[0].textContent,
+                    trainingInfo: trainingInfo,
+                    info: info,
+                  });
+                } catch (e) {
+                  console.log("error with team: ");
+                }
+                id++;
+              }
+            }
+          }
         }
-      }
-      internalClubId++;
-    }
+      });
+    });
+
     return teamList;
   } catch (e) {
     console.log(e);

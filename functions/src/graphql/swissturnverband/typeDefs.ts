@@ -8,6 +8,10 @@ type Team {
     
     id: ID!, # the ! means that every object _must_ have an id
     name: String,
+
+    trainingInfo: String,
+    info: String,
+
     """
     the list of Games by this team
     """
