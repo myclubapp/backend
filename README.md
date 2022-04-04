@@ -6,8 +6,10 @@ used for the following apps:
 - volleyballclub.app
 - unihockeyclub.app  
 - handballclub.app  
+- turnverein.app
 - basketballclub.app  
 - fussballclub.app  
+
 
 ## GraphQL API for Sports Data
 Available APIs are: 
@@ -16,6 +18,13 @@ Available APIs are:
 based on this [documentation](https://api-v2.swissunihockey.ch/api/doc/table/overview)
 
 available [here](https://europe-west6-myclubmanagement.cloudfunctions.net/api/swissunihockey)
+
+Verfügbare Dienste: 
+- Clubs
+- Teams
+- Meisterschaft
+- Ranglisten
+- Statistiken
 
 ### Swiss Volleyball API
 based on this [documentation](https://myvolley.volleyball.ch/SwissVolley.wsdl)
@@ -33,11 +42,34 @@ Supported organizations:
 - SVRF
 - SVRBE
 
-### Swiss Handball (Not supported yet)
+Verfügbare Dienste: 
+- Clubs
+- Teams
+- Meisterschaft
+- Ranglisten
+
+
+### Swiss Handball
 based on this [documentation](https://www.handball.ch/media/1845/vat-anleitung-dataservice_de.pdf) & [VAT DataService](https://www.api.handballwelt.ch/dokumentation/VAT-Anleitung_DataService_de.pdf) 
-
-
 available [here](https://europe-west6-myclubmanagement.cloudfunctions.net/api/swisshandball): 
+
+Verfügbare Dienste: 
+- Vereine
+- Teams
+- Meisterschaft
+- Ranglisten
+
+### STV Schweizer Turnverband
+available [here](https://europe-west6-myclubmanagement.cloudfunctions.net/api/swissturnverband): 
+
+Verfügbare Dienste: 
+- Vereine
+- Angebote
+
+Nicht verfügbar: 
+- News
+- Ranglisten
+- Wettkämpfe
 
 ### Swiss Basketball (Not supported yet)
 available under: 
