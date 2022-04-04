@@ -260,13 +260,31 @@ async function getClubs(associationId: string) {
   const clubList = < any > [];
   const client = await soap.createClientAsync(soapUrl);
   const result = await client.getActiveClubsAsync(args);
-  console.log(result);
-  result[0].getActiveClubsResponse.item.forEach((item: any) => {
-    clubList.push({
-      id: item.ID_club.$value,
-      name: item.Caption.$value,
-    });
-  });
+  // console.log(result);
+  for (const item of result[0].getActiveClubsResponse.item) {
+  // result[0].getActiveClubsResponse.item.forEach(async (item: any) => {
+    // console.log("Club " + item.Caption.$value);
+    const argsClubId = {
+      club_ID: item.ID_club.$value,
+    };
+    try {
+      const resultAdress = await client.getAddressesByClubAsync(argsClubId);
+      const addressData = resultAdress[0].getAddressesByClubResponse.item;
+
+      clubList.push({
+        id: item.ID_club.$value,
+        name: item.Caption.$value,
+        address: getAddressArray(addressData),
+      });
+    } catch (e) {
+      console.log(`>>>> No Address for ClubId ${item.ID_club.$value} ${item.Caption.$value}`);
+      clubList.push({
+        id: item.ID_club.$value,
+        name: item.Caption.$value,
+      });
+    }
+  }
+  // });
   return clubList;
 }
 
@@ -287,27 +305,20 @@ async function getClub(clubId: string) {
   const args = {
     club_ID: clubId,
   };
+  // console.log(clubId);
   const client = await soap.createClientAsync(soapUrl);
   const result = await client.getClubDetailsAsync(args);
   const item = result[0].getClubDetailsResponse;
+  // console.log(JSON.stringify(item));
 
   const resultAdress = await client.getAddressesByClubAsync(args);
-  const address = resultAdress[0].getAddressesByClubResponse.item;
+  const addressData = resultAdress[0].getAddressesByClubResponse.item;
+  console.log(JSON.stringify(addressData));
 
   return {
     id: item.ID_club.$value,
     name: item.Caption.$value,
-    address: {
-      id: address.SVNumber.$value,
-      firstName: address.FirstName.$value,
-      lastName: address.LastName.$value,
-      street: address.Street.$value,
-      number: address.Number.$value,
-      postalcode: address.AreaCode.$value,
-      city: address.Place.$value,
-      email: address.Email.$value,
-      phone: "",
-    },
+    address: getAddressArray(addressData),
   };
 }
 
@@ -478,4 +489,69 @@ async function getNews() {
     });
   });
   return newsList;
+}
+
+
+function getAddressArray(addressData:any) {
+  let addressDataArray: any = [];
+  // eslint-disable-next-line prefer-const
+  let returnData: any = [];
+
+  if (addressData && addressData.length && addressData.length > 0) {
+    addressDataArray = addressData;
+  } else {
+    if (addressData) {
+      addressDataArray.push(addressData);
+    } else {
+      addressDataArray.push({});
+    }
+  }
+
+  for (const address of addressDataArray) {
+    console.log(`Address: ${JSON.stringify(address)}`);
+    let id = 0;
+    if (address.SVNumber && address.SVNumber.$value) {
+      id = address.SVNumber.$value;
+    }
+    let firstName = "";
+    if (address.FirstName && address.FirstName.$value) {
+      firstName = address.FirstName.$value;
+    }
+    let lastName = "";
+    if (address.LastName && address.LastName.$value) {
+      lastName = address.LastName.$value;
+    }
+    let street = "";
+    if (address.Street && address.Street.$value) {
+      street = address.Street.$value;
+    }
+    let number = "";
+    if (address.Number && address.Number.$value) {
+      number = address.Number.$value;
+    }
+    let postalcode = "";
+    if (address.AreaCode && address.AreaCode.$value) {
+      postalcode = address.AreaCode.$value;
+    }
+    let city = "";
+    if (address.Place && address.Place.$value) {
+      city = address.Place.$value;
+    }
+    let email = "";
+    if (address.Email && address.Email.$value) {
+      email = address.Email.$value;
+    }
+    returnData.push({
+      id: id,
+      firstName: firstName,
+      lastName: lastName,
+      street: street,
+      number: number,
+      postalcode: postalcode,
+      city: city,
+      email: email,
+      phone: "",
+    });
+  }
+  return returnData;
 }

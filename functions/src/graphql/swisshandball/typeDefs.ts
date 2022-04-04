@@ -8,6 +8,7 @@ type Team {
     
     id: ID!, # the ! means that every object _must_ have an id
     name: String,
+    logo: String,
     """
     the list of Games by this team
     """
@@ -29,8 +30,14 @@ type Club {
 
     id: ID!, # the ! means that every object _must_ have an id
     name: String,
+    logo: String,
+    website: String,
 
-    address: ContactAddress,
+    latitude: String,
+    longitude: String,
+    foundingYear: String,
+
+    address: [ContactAddress],
     """
     the list of Teams by this club
     """

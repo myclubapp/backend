@@ -254,13 +254,24 @@ async function getNews() {
   const newsList = < any > [];
   newsData._embedded.wallList.forEach((item: any) => {
     // console.log(item);
+    let imagePath = item.featuredImage;
+    try {
+      if (item.media && item.media.length == 1) {
+        imagePath = item.media[1].url;
+      } else if (item.media && item.media.length > 1) {
+        imagePath = item.media[2].url;
+      }
+    } catch (e) {
+      console.log(JSON.stringify(item.media));
+    }
+
     newsList.push({
       id: item.id,
       title: item.title,
       leadText: item.leadText,
       date: item.date,
       slug: item.slug,
-      image: item.media[2].url || item.featuredImage,
+      image: imagePath,
       text: convert(item.html, {
         wordwrap: 130,
       }),

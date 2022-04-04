@@ -26,8 +26,14 @@ type Club {
     """
     id: ID!, # the ! means that every object _must_ have an id
     name: String,
+    logo: String,
+    website: String,
 
-    address: ContactAddress,   
+    latitude: String,
+    longitude: String,
+    foundingYear: String,
+
+    address: [ContactAddress],   
 
     teams: [Team], # List of Teams for given Club
     games: [Game], # List of games for given team

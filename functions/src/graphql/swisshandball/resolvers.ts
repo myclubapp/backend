@@ -89,7 +89,8 @@ async function getTeams(clubId: string) {
   teamData.forEach((item: any) => {
     teamList.push({
       id: item.teamId,
-      name: item.teamName,
+      name: item.teamName + " (" + item.groupText + ")",
+      logo: `https://www.handball.ch/images/logo/${item.teamId}.png?fallbackType=club&fallbackId=${clubId}&height=25&width=25&scale=canvas`,
     });
   });
   return teamList;
@@ -115,12 +116,68 @@ async function getClubs() {
 
   // console.log(clubData);
   const clubList = < any > [];
-  clubData.forEach((item: any) => {
-    clubList.push({
-      id: item.clubId,
-      name: item.clubName,
+  for (const item of clubData) {
+    const contactDataRequest = await fetch("https://www.handball.ch/Umbraco/Api/MatchCenter/Query", {
+      "headers": {
+        "content-type": "application/json",
+        "__RequestVerificationToken": "Wtq36irQvaqcaf7CxprqiNm5KqIj1lV6FUmjv5oAVHr12jELhomIm-pah3Z-XEZAoUOxLmsI2c6vmZp_xUZr5arLqCY1",
+        "Cookie": "__RequestVerificationToken=QQ0HjCIIvHqUxo1Ur6KE8WkBbCet-QkH6YqDvmcMrKlsGBonyZM7Bq37_1uT2SoeDP7wZ8Oot7r6P-x6SE60X2nQ8IQ1; _dd_s=logs=1&id=0ccf55d7-fd2d-44f3-ac4c-b033b19d4da9&created=1649076359310&expire=1649077394496",
+      },
+      "body": `{"operationName":"getClubContactDetail","variables":{"clubId":"${item.clubId}"},"query":"query getClubContactDetail($clubId: Int) {\n  clubContactDetail(clubId: $clubId) {\n    name\n    zipCode\n    city\n    canton\n    email\n    phone\n    latitude\n    longitude\n    foundingYear\n    website\n    contactPerson {\n      firstName\n      lastName\n      phone\n      email\n      __typename\n    }\n    teams {\n      name\n      email\n      __typename\n    }\n    venues {\n      venueId\n      name\n      __typename\n    }\n    __typename\n  }\n}\n"}`,
+      "method": "POST",
+      "mode": "cors",
     });
-  });
+
+    const contactData = await contactDataRequest.json();
+    // console.log(">>>" + JSON.stringify(contactData));
+    const contact = contactData.data.clubContactDetail[0];
+    let addressArray: any = [];
+    if (contact && contact.website && contact.contactPerson) {
+      // console.log(">> " + JSON.stringify(contact));
+      addressArray = [{
+        id: item.clubId,
+        firstName: contact.contactPerson.firstName,
+        lastName: contact.contactPerson.lastName,
+        street: "",
+        number: "",
+        postalcode: contact.zipCode,
+        city: contact.city,
+        email: contact.contactPerson.email,
+        phone: contact.contactPerson.phone,
+      }, {
+        id: item.clubId + "-2",
+        firstName: contact.contactPerson.firstName,
+        lastName: contact.contactPerson.lastName,
+        street: "",
+        number: "",
+        postalcode: contact.zipCode,
+        city: contact.city,
+        email: contact.email,
+        phone: contact.phone,
+      }];
+      clubList.push({
+        id: item.clubId,
+        name: item.clubName,
+        logo: `https://www.handball.ch/images/club/${item.clubId}.png?height=140&language=de-CH`,
+        website: contact.website || "",
+        latitude: contact.latitude || "",
+        longitude: contact.longitude || "",
+        foundingYear: contact.foundingYear || "",
+        address: addressArray,
+      });
+    } else {
+      clubList.push({
+        id: item.clubId,
+        name: item.clubName,
+        logo: `https://www.handball.ch/images/club/${item.clubId}.png?height=140&language=de-CH`,
+        website: "",
+        latitude: "",
+        longitude: "",
+        foundingYear: "",
+        address: addressArray,
+      });
+    }
+  }
   return clubList;
 }
 
@@ -131,20 +188,53 @@ async function getClub(clubId: string) {
   const clubData = await data.json();
   console.log(clubData);
 
+  const contactDataRequest = await fetch("https://www.handball.ch/Umbraco/Api/MatchCenter/Query", {
+    "headers": {
+      "content-type": "application/json",
+      "__RequestVerificationToken": "Wtq36irQvaqcaf7CxprqiNm5KqIj1lV6FUmjv5oAVHr12jELhomIm-pah3Z-XEZAoUOxLmsI2c6vmZp_xUZr5arLqCY1",
+      "Cookie": "__RequestVerificationToken=QQ0HjCIIvHqUxo1Ur6KE8WkBbCet-QkH6YqDvmcMrKlsGBonyZM7Bq37_1uT2SoeDP7wZ8Oot7r6P-x6SE60X2nQ8IQ1; _dd_s=logs=1&id=0ccf55d7-fd2d-44f3-ac4c-b033b19d4da9&created=1649076359310&expire=1649077394496",
+    },
+    "body": `{"operationName":"getClubContactDetail","variables":{"clubId":"${clubId}"},"query":"query getClubContactDetail($clubId: Int) {\n  clubContactDetail(clubId: $clubId) {\n    name\n    zipCode\n    city\n    canton\n    email\n    phone\n    latitude\n    longitude\n    foundingYear\n    website\n    contactPerson {\n      firstName\n      lastName\n      phone\n      email\n      __typename\n    }\n    teams {\n      name\n      email\n      __typename\n    }\n    venues {\n      venueId\n      name\n      __typename\n    }\n    __typename\n  }\n}\n"}`,
+    "method": "POST",
+    "mode": "cors",
+  });
+
+  const contactData = await contactDataRequest.json();
+  // console.log(">>>" + JSON.stringify(contactData));
+  const contact = contactData.data.clubContactDetail[0];
+  // console.log(JSON.stringify(contact));
+
+  const addressArray = [{
+    id: clubId,
+    firstName: contact.contactPerson.firstName,
+    lastName: contact.contactPerson.lastName,
+    street: "",
+    number: "",
+    postalcode: contact.zipCode,
+    city: contact.city,
+    email: contact.contactPerson.email,
+    phone: contact.contactPerson.phone,
+  }, {
+    id: clubId + "-2",
+    firstName: contact.contactPerson.firstName,
+    lastName: contact.contactPerson.lastName,
+    street: "",
+    number: "",
+    postalcode: contact.zipCode,
+    city: contact.city,
+    email: contact.email,
+    phone: contact.phone,
+  }];
+
   return {
     id: clubId,
     name: clubData.clubName,
-    address: {
-      id: 1,
-      firstName: "address.FirstName.$value",
-      lastName: "address.LastName.$value",
-      street: "address.Street.$value",
-      number: "address.Number.$value",
-      postalcode: "address.AreaCode.$value",
-      city: "address.Place.$value",
-      email: "address.Email.$value",
-      phone: "",
-    },
+    logo: `https://www.handball.ch/images/club/${clubId}.png?height=140&language=de-CH`,
+    website: contact.website || "",
+    latitude: contact.latitude || "",
+    longitude: contact.longitude || "",
+    foundingYear: contact.foundingYear || "",
+    address: addressArray,
   };
 }
 

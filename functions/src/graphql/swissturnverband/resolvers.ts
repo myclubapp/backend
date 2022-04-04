@@ -81,19 +81,19 @@ export default {
   },
 };
 
-async function getTeams(clubId: string) {
+async function getTeams(clubIdParent: string) {
   try {
     const dom = new jsdom.JSDOM(html);
     const teamList = < any > [];
     const domList: NodeList = dom.window.document.querySelectorAll(".tx-stv-clubfinder-result");
     // console.log("NodeList Entries: " + domList.length);
-    let id = 0;
+    let clubId = 0;
     domList.forEach((clubListNode: Node, key:number, parent: NodeList) => { // here we have the clubs
       // const clubData: NodeList = domList[0].childNodes;
       const clubData: NodeList = clubListNode.childNodes;
       clubData.forEach((clubNode, key:number, parent: NodeList) => { // just one entry..
         // console.log(">> NEW CLUB");
-        if (clubNode.hasChildNodes()) {
+        if (clubNode.hasChildNodes() && clubIdParent == String(clubId)) {
           const nodes = clubNode.childNodes;
           if (nodes[0].hasChildNodes()) { // CLUB NAME INFO
             // const contactNodeList = nodes[0].childNodes; // Index 0 -> Contact Eintrag
@@ -102,7 +102,7 @@ async function getTeams(clubId: string) {
             if (contactNode.hasChildNodes()) {
               const clubNameNode = contactNode.childNodes[0];
               console.log("Verein: " + clubNameNode.childNodes[0].textContent);
-
+              let teamId = 0;
               for (let i = 0, l = angebotNode.childNodes.length; i < l; ++i) {
                 const angebot: Node = angebotNode.childNodes[i];
 
@@ -111,30 +111,30 @@ async function getTeams(clubId: string) {
                 let trainingInfo = "";
                 try {
                   trainingInfo = angebot.childNodes[1].childNodes[0].childNodes[0].childNodes[0].childNodes[0].textContent || "";
-                  console.log(">> Tag: " + trainingInfo);
+                  // console.log(">> Tag: " + trainingInfo);
                 } catch (e) {
-                  console.log(">> Tag: --- ");
+                  // console.log(">> Tag: --- ");
                 }
 
                 let info = "";
                 try {
                   info = angebot.childNodes[1].childNodes[0].childNodes[0].childNodes[0].childNodes[1].textContent || "";
-                  console.log(">>  JB: " + info);
+                  // console.log(">>  JB: " + info);
                 } catch (e) {
-                  console.log(">>  JB: kein JB");
+                  // console.log(">>  JB: kein JB");
                 }
 
                 if (angebot.childNodes[1].childNodes[0].childNodes[0].childNodes[0].hasChildNodes() &&
                 angebot.childNodes[1].childNodes[0].childNodes[0].childNodes[0].childNodes.length > 1 ) {
-                  console.log(trainingInfo);
-                  console.log(info);
+                  // console.log(trainingInfo);
+                  // console.log(info);
                 }
                 if (angebot.childNodes[1].childNodes[0].childNodes[0].childNodes[0].hasChildNodes() &&
                 angebot.childNodes[1].childNodes[0].childNodes[0].childNodes[0].childNodes.length == 1 ) {
-                  console.log(trainingInfo);
+                  // console.log(trainingInfo);
                 }
                 if (!angebot.childNodes[1].childNodes[0].childNodes[0].childNodes[0].hasChildNodes() ) {
-                  console.log("Keine Details");
+                  // console.log("Keine Details");
                 }
 
                 if (trainingInfo.toString().startsWith("Jahresbeitrag")) {
@@ -144,7 +144,7 @@ async function getTeams(clubId: string) {
 
                 try {
                   teamList.push({
-                    id: id,
+                    id: clubId + "-" + teamId,
                     name: angebot.childNodes[0].childNodes[0].textContent,
                     trainingInfo: trainingInfo,
                     info: info,
@@ -152,12 +152,13 @@ async function getTeams(clubId: string) {
                 } catch (e) {
                   console.log("error with team: ");
                 }
-                id++;
+                teamId++;
               }
             }
           }
         }
       });
+      clubId++;
     });
 
     return teamList;
@@ -258,7 +259,7 @@ async function getClubs() {
                 clubList.push({
                   id: id,
                   name: clubNameNode.childNodes[0].textContent,
-                  address: {
+                  address: [{
                     id: id,
                     firstName: clubAddressNode.childNodes[1].textContent,
                     lastName: clubAddressNode.childNodes[1].textContent,
@@ -269,7 +270,7 @@ async function getClubs() {
                     email: email,
                     phone: clubAddressNode.childNodes[2].textContent,
                     website: website,
-                  },
+                  }],
                 });
               } catch (e) {
                 console.log("error with club: " + clubNameNode.childNodes[0].textContent);
