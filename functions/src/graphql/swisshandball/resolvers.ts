@@ -10,9 +10,9 @@ const fetch = require("node-fetch");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const {convert} = require("html-to-text");
 
-import * as functions from "firebase-functions";
-const headers: any = {"Authorization": "Basic " + functions.config().swisshandball.token};
-
+// import * as functions from "firebase-functions";
+// const headers: any = {"Authorization": "Basic " + functions.config().swisshandball.token};
+const headers: any = {"Authorization": "Basic MTQwNTYxOk5uMFNRc3Fz"};
 
 export default {
 
@@ -89,6 +89,7 @@ async function getTeams(clubId: string) {
   teamData.forEach((item: any) => {
     teamList.push({
       id: item.teamId,
+      liga: item.groupText,
       name: item.teamName + " (" + item.groupText + ")",
       logo: `https://www.handball.ch/images/logo/${item.teamId}.png?fallbackType=club&fallbackId=${clubId}&height=25&width=25&scale=canvas`,
     });
@@ -134,27 +135,42 @@ async function getClubs() {
     let addressArray: any = [];
     if (contact && contact.website && contact.contactPerson) {
       // console.log(">> " + JSON.stringify(contact));
-      addressArray = [{
-        id: item.clubId,
-        firstName: contact.contactPerson.firstName,
-        lastName: contact.contactPerson.lastName,
-        street: "",
-        number: "",
-        postalcode: contact.zipCode,
-        city: contact.city,
-        email: contact.contactPerson.email,
-        phone: contact.contactPerson.phone,
-      }, {
-        id: item.clubId + "-2",
-        firstName: contact.contactPerson.firstName,
-        lastName: contact.contactPerson.lastName,
-        street: "",
-        number: "",
-        postalcode: contact.zipCode,
-        city: contact.city,
-        email: contact.email,
-        phone: contact.phone,
-      }];
+      if (contact.contactPerson.email !== contact.email ) {
+        addressArray = [{
+          id: item.clubId,
+          firstName: contact.contactPerson.firstName,
+          lastName: contact.contactPerson.lastName,
+          street: "",
+          number: "",
+          postalcode: contact.zipCode,
+          city: contact.city,
+          email: contact.contactPerson.email,
+          phone: contact.contactPerson.phone,
+        }, {
+          id: item.clubId + "-2",
+          firstName: contact.contactPerson.firstName,
+          lastName: contact.contactPerson.lastName,
+          street: "",
+          number: "",
+          postalcode: contact.zipCode,
+          city: contact.city,
+          email: contact.email,
+          phone: contact.phone,
+        }];
+      } else {
+        addressArray = [{
+          id: item.clubId + "-2",
+          firstName: contact.contactPerson.firstName,
+          lastName: contact.contactPerson.lastName,
+          street: "",
+          number: "",
+          postalcode: contact.zipCode,
+          city: contact.city,
+          email: contact.email,
+          phone: contact.phone,
+        }];
+      }
+
       clubList.push({
         id: item.clubId,
         name: item.clubName,

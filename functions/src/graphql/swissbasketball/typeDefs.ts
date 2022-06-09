@@ -1,12 +1,7 @@
 
 /* eslint-disable max-len */
 const typeDefs = /* GraphQL */ `
-enum MyClubEnumType{
-    SwissVolley,
-    SwissUnihockey,
-    SwissHandball,
-    SwissBasketball
-}
+
 type Club {
     """
     Club documentation

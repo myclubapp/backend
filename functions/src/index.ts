@@ -1,7 +1,10 @@
 /* eslint-disable max-len */
 import * as functions from "firebase-functions";
 
-import {authUserCreateSendWelcomeMail} from "./auth/user.create";
+import {authUserCreateSendWelcomeEmail} from "./auth/user.create";
+// eslint-disable-next-line import/namespace
+import {authUserDeleteUserSendByEmail, authUserDeleteUserAccount} from "./auth/user.delete";
+
 import {updatePersistenceJobClubs, updatePersistenceJobTeams} from "./scheduler/syncAssociation.scheduler";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -9,7 +12,9 @@ const graphql = require("./graphql/server");
 
 // Firebase AUTH Welcome User Stuff
 // export const userCreate = functions.region("europe-west6").auth.user().onCreate(authUserCreate);
-export const sendWelcomeMail = functions.region("europe-west6").auth.user().onCreate(authUserCreateSendWelcomeMail);
+export const sendWelcomeMail = functions.region("europe-west6").auth.user().onCreate(authUserCreateSendWelcomeEmail);
+export const sendByeEmail = functions.region("europe-west6").auth.user().onDelete(authUserDeleteUserSendByEmail);
+export const deleteUserAccount = functions.region("europe-west6").auth.user().onDelete(authUserDeleteUserAccount);
 
 // GrapphQL API
 export const api = functions.runWith({timeoutSeconds: 300, memory: "1GB"}).region("europe-west6").https.onRequest(graphql);

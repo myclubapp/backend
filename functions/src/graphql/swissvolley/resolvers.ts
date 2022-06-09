@@ -208,8 +208,8 @@ async function getTeam(teamId: string) {
     gender: item.Gender.$value,
     clubId: item.club_ID.$value,
     clubCaption: item.ClubCaption.$value,
-    leagueCaption: item.LeagueCaption.$value,
-    organisationCaption: item.OrganisationCaption.$value,
+    liga: item.LeagueCaption.$value,
+    info: item.OrganisationCaption.$value,
   };
 }
 
@@ -232,8 +232,8 @@ async function getTeams(clubId: string) {
           gender: item.Gender.$value,
           clubId: item.club_ID.$value,
           clubCaption: item.ClubCaption.$value,
-          leagueCaption: item.LeagueCaption.$value,
-          organisationCaption: item.OrganisationCaption.$value,
+          liga: item.LeagueCaption.$value,
+          info: item.OrganisationCaption.$value,
         });
       });
     } catch (e) {
@@ -245,8 +245,8 @@ async function getTeams(clubId: string) {
         gender: item.Gender.$value,
         clubId: item.club_ID.$value,
         clubCaption: item.ClubCaption.$value,
-        leagueCaption: item.LeagueCaption.$value,
-        organisationCaption: item.OrganisationCaption.$value,
+        liga: item.LeagueCaption.$value,
+        info: item.OrganisationCaption.$value,
       });
     }
     return teamList;

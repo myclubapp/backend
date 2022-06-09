@@ -22,6 +22,10 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
         await db.collection("teams").doc(`su-${team.id}`).set({
           externalId: `${team.id}`,
           name: team.name,
+          logo: team.logo,
+          website: team.website,
+          portrait: team.portrait,
+          liga: team.liga,
           type: "swissunihockey",
           updated: new Date(),
           clubRef: db.collection("club").doc(`su-${club.id}`),

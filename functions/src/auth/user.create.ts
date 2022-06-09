@@ -22,14 +22,14 @@ const db = firebaseDAO.instance.db;
   });
 } */
 
-export async function authUserCreateSendWelcomeMail(user: admin.auth.UserRecord, context: functions.EventContext) {
+export async function authUserCreateSendWelcomeEmail(user: admin.auth.UserRecord, context: functions.EventContext) {
   console.log(">>> NEW USER with ID: " + user.uid );
   const link = await admin.auth().generateEmailVerificationLink(user.email as string);
   const userProfile: any = await db.collection("userProfile").doc(`${user.uid}`).get();
   if (!userProfile.exists) {
     console.log("no user data found");
   }
-  console.log(userProfile.data());
+  // console.log(userProfile.data());
   return db.collection("mail").add({
     to: user.email,
     template: {

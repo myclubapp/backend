@@ -123,12 +123,28 @@ async function getTeams(clubId: string, season: string) {
   const teamData = await data.json();
   const teamList = < any > [];
   // console.log(teamData);
-  teamData.entries.forEach((item: any) => {
+  for (const team of teamData.entries) {
+    console.log(`team id: ${team.set_in_context.team_id} ${team.text}`);
+
+    const teamDetaoöRequestData = await fetch(`https://api-v2.swissunihockey.ch/api/teams/${team.set_in_context.team_id}`);
+    const teamDetailData = await teamDetaoöRequestData.json();
+
+    teamList.push({
+      id: team.set_in_context.team_id,
+      name: teamDetailData.data.regions[0].rows[0].cells[0].text[0],
+      logo: teamDetailData.data.regions[0].rows[0].cells[1].image.url || "",
+      website: teamDetailData.data.regions[0].rows[0].cells[2].url.href || "",
+      portrait: teamDetailData.data.regions[0].rows[0].cells[3].image.url || "",
+      liga: teamDetailData.data.regions[0].rows[0].cells[4].text[0] || "",
+    });
+  }
+  /* teamData.entries.forEach((item: any) => {
     teamList.push({
       id: item.set_in_context.team_id,
       name: item.text,
     });
-  });
+  }); */
+
   return teamList;
 }
 

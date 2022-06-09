@@ -23,6 +23,8 @@ export async function updateTeamsSwissvolleyball(): Promise<any> {
             externalId: `${team.id}`,
             name: team.name,
             type: "swissvolley",
+            liga: team.liga,
+            info: team.info,
             updated: new Date(),
             associationId: assocation.id,
             clubRef: db.collection("club").doc(`sv-${club.id}`),

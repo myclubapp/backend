@@ -21,6 +21,7 @@ export async function updateTeamsSwisshandball(): Promise<any> {
           name: team.name,
           type: "swisshandball",
           logo: team.logo,
+          liga: team.liga,
           updated: new Date(),
           clubRef: db.collection("club").doc(`sh-${club.id}`),
         }, {
