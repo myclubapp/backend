@@ -32,7 +32,7 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
   const teamList = await db.collection("userProfile").doc(user.uid).collection("teamList").get();
   if (!teamList.empty) {
     for (const team of teamList.docs) {
-      const teamRef = db.collection("team").doc(team.id).collection("memberList").doc(`${user.uid}`).delete();
+      await db.collection("team").doc(team.id).collection("memberList").doc(`${user.uid}`).delete();
     }
   }
 
@@ -40,7 +40,7 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
   const clubList = await db.collection("userProfile").doc(user.uid).collection("clubList").get();
   if (!clubList.empty) {
     for (const club of clubList.docs) {
-      const clubRef = db.collection("club").doc(club.id).collection("memberList").doc(`${user.uid}`).delete();
+      await db.collection("club").doc(club.id).collection("memberList").doc(`${user.uid}`).delete();
     }
   }
   // Events?
