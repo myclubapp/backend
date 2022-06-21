@@ -17,6 +17,29 @@ export async function updateGamesSwissunihockey(): Promise<any> {
   for (const club of clubData) {
     const fbClubData = await db.collection("club").doc(`su-${club.id}`).get();
     if (fbClubData.exists && fbClubData.data().active) {
+      // GET CLUB GAMES
+      const clubGamesData = await resolversSU.Club.games({id: `${club.id}`}, {}, {}, {});
+      for (const game of clubGamesData) {
+        console.log(JSON.stringify(game));
+        await db.collection("club").doc(`su-${club.id}`).collection("games").add({
+          externalId: `${game.id}`,
+          // liga: team.liga,
+          date: game.date,
+          time: game.time,
+          location: game.location,
+          city: game.city,
+          teamHome: game.teamHome,
+          teamAway: game.teamAway,
+          resut: game.result,
+          type: "swissunihockey",
+          updated: new Date(),
+          clubRef: db.collection("club").doc(`su-${club.id}`),
+        }, {
+          merge: true,
+        });
+      }
+
+      // TEAM GAMES
       const teamData = await resolversSU.Club.teams({id: `${club.id}`}, {}, {}, {});
       for (const team of teamData) {
         console.log(club.name + " / " + team.name);
@@ -25,7 +48,6 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           console.log(JSON.stringify(game));
           await db.collection("teams").doc(`su-${team.id}`).collection("games").add({
             externalId: `${game.id}`,
-            name: team.name,
             liga: team.liga,
             date: game.date,
             time: game.time,
