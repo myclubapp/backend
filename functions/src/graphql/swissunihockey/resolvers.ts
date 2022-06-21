@@ -204,7 +204,7 @@ async function getGames(teamId: string, season: string) {
     gameList.push({
       id: item.link.ids[0],
       date: item.cells[0].text[0],
-      time: item.cells[0].text[1],
+      time: item.cells[0].text[1] || "00:00",
       location: item.cells[1].text[0],
       city: item.cells[1].text[1],
       // longitude: item.cells[1].link.x,
