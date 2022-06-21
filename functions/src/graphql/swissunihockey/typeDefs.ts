@@ -58,6 +58,15 @@ type Season {
 
 type Game {
     id: ID!, # the ! means that every object _must_ have an id
+    date: String,
+    time: String,
+    location: String,
+    city: String,
+    longitude: String,
+    latitude: String,
+    teamHome: String,
+    teamAway: String,
+    result: String,
 }
 
 type News {
