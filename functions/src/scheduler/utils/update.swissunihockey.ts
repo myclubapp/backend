@@ -9,6 +9,38 @@ const db = firebaseDAO.instance.db;
 
 import resolversSU from "./../../graphql/swissunihockey/resolvers";
 
+
+export async function updateGamesSwissunihockey(): Promise<any> {
+  console.log("Update Games SwissUnihockey");
+
+  const clubData = await resolversSU.SwissUnihockey.clubs();
+  for (const club of clubData) {
+    const fbClubData = await db.collection("club").doc(`su-${club.id}`).get();
+    if (fbClubData.exists && fbClubData.data().active) {
+      const teamData = await resolversSU.Club.teams({id: `${club.id}`}, {}, {}, {});
+      for (const team of teamData) {
+        console.log(club.name + " / " + team.name);
+        const gamesData = await resolversSU.Team.games({id: `${team.id}`}, {}, {}, {});
+        for (const game of gamesData) {
+          await db.collection("teams").doc(`su-${team.id}`).collection("games").set({
+            externalId: `${game.id}`,
+            name: team.name,
+            liga: team.liga,
+            type: "swissunihockey",
+            updated: new Date(),
+            clubRef: db.collection("club").doc(`su-${club.id}`),
+            teamRef: db.collection("club").doc(`su-${team.id}`),
+          }, {
+            merge: true,
+          });
+        }
+      }
+    } else {
+      console.log(`${club.name} is not active`);
+    }
+  }
+}
+
 export async function updateTeamsSwissunihockey(): Promise<any> {
   console.log("Update Teams SwissUnihockey");
 
