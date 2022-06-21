@@ -22,6 +22,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         console.log(club.name + " / " + team.name);
         const gamesData = await resolversSU.Team.games({id: `${team.id}`}, {}, {}, {});
         for (const game of gamesData) {
+          console.log(JSON.stringify(game));
           await db.collection("teams").doc(`su-${team.id}`).collection("games").add({
             externalId: `${game.id}`,
             name: team.name,
