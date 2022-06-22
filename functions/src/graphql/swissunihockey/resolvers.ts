@@ -207,6 +207,8 @@ async function getClubGames(clubId: string, season: string) {
         result: item.cells[4].text[0],
       });
     });
+  } else {
+    console.log(`No Games found for Club ${clubId} and season ${season}`);
   }
   return gameList;
 }
@@ -242,6 +244,8 @@ async function getGames(teamId: string, season: string) {
         result: item.cells[4].text[0],
       });
     });
+  } else {
+    console.log(`No Games found for Club ${teamId} and season ${season}`);
   }
   return gameList;
 }
