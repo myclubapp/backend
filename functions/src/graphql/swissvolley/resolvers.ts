@@ -294,7 +294,7 @@ async function getClubs() {
     clubList.push({
       id: item.clubId,
       name: item.caption,
-      address: item.contact,
+      address: [item.contact],
       website: item.website,
     });
   });
@@ -324,6 +324,7 @@ async function getClub(clubId: string) {
 
 async function getGames(teamId: string) {
   // https://api.volleyball.ch/indoor/games?region=$1&dateStart=${START}&dateEnd=${END}"
+  // https://api.volleyball.ch/indoor/games?region=SV&gender=f&leagueId=1975&phaseId=3486&groupId=11786&
   const args = {
     team_ID: teamId,
   };
@@ -492,7 +493,7 @@ async function getNews() {
 }
 
 
-function getAddressArray(addressData:any) {
+/* function getAddressArraySOAP(addressData:any) {
   let addressDataArray: any = [];
   // eslint-disable-next-line prefer-const
   let returnData: any = [];
@@ -551,6 +552,52 @@ function getAddressArray(addressData:any) {
       city: city,
       email: email,
       phone: "",
+    });
+  }
+  return returnData;
+} */
+
+function getAddressArray(addressData:any) {
+  let addressDataArray: any = [];
+  // eslint-disable-next-line prefer-const
+  let returnData: any = [];
+
+  if (addressData && addressData.length && addressData.length > 0) {
+    addressDataArray = addressData;
+  } else {
+    if (addressData) {
+      addressDataArray.push(addressData);
+    } else {
+      addressDataArray.push({});
+    }
+  }
+
+  for (const address of addressDataArray) {
+    console.log(`Address: ${JSON.stringify(address)}`);
+    const id = 0;
+
+    let firstName = "";
+    firstName = address.firstName;
+
+    let lastName = "";
+    lastName = address.lastName;
+
+    let email = "";
+    email = address.email;
+
+    let phone = "";
+    phone = address.mobile;
+
+    returnData.push({
+      id: id,
+      firstName: firstName,
+      lastName: lastName,
+      street: "",
+      number: "",
+      postalcode: "",
+      city: "",
+      email: email,
+      phone: phone,
     });
   }
   return returnData;
