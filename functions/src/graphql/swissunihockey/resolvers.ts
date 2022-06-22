@@ -273,9 +273,9 @@ async function getGame(gameId: string) {
     teamAwayLogo: gameDetailData.cells[2].image.url,
     teamAwayLogoText: gameDetailData.cells[2].image.alt,
 
-    referee1: gameDetailData.cells[8].text,
-    referee2: gameDetailData.cells[9].text,
-    spectators: gameDetailData.cells[10].text,
+    referee1: gameDetailData.cells[8].text[0],
+    referee2: gameDetailData.cells[9].text[0],
+    spectators: gameDetailData.cells[10].text[0],
   };
 }
 
