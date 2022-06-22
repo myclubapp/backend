@@ -12,7 +12,7 @@ const {convert} = require("html-to-text");
 
 import * as functions from "firebase-functions";
 const headers: any = {"Authorization": "Basic " + functions.config().swisshandball.token};
-// const headers: any = {"Authorization": "Basic MTQwNTYxOk5uMFNRc3Fz"};
+
 export default {
 
   Club: {

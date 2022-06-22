@@ -20,6 +20,9 @@ export default {
     clubs: (parent: any, args: any, context: any, info: any) => {
       return getClubs();
     },
+    clubsSOAP: (parent: any, args: {associactionId: string}, context: any, info: any) => {
+      return getClubsSOAP(args.associactionId);
+    },
 
     team: (parent: any, args: { teamId: string }, context: any, info: any) => {
       return getTeam(args.teamId);
@@ -83,7 +86,7 @@ export default {
 
   Association: {
     clubs(parent: any, args: any, context: any, info: any) {
-      return getClubs();
+      return getClubsSOAP(parent.id);
     },
     leagues(parent: any, args: any, context: any, info: any) {
       return getLeagues(parent.id);
@@ -247,7 +250,7 @@ async function getTeams(clubId: string) {
   }
 }
 
-/* async function getClubsSOAP(associationId: string) {
+async function getClubsSOAP(associationId: string) {
   const args = {
     keyword: associationId,
   };
@@ -284,7 +287,7 @@ async function getTeams(clubId: string) {
   }
   // });
   return clubList;
-}*/
+}
 
 async function getClubs() {
   const data = await fetch("https://api.volleyball.ch/indoor/clubs");

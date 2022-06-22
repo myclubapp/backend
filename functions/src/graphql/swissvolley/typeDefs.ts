@@ -155,6 +155,7 @@ type SwissVolley {
     news: [News] # General Swiss Unihockey Newsfeed
 
     clubs: [Club], # List of clubs
+    clubsSOAP(assocationId: String): [Club], # List of clubs
     club(clubId: String): Club, # List of clubs
 
     teams(clubId: String): [Team], # List of Teams for a given Club
