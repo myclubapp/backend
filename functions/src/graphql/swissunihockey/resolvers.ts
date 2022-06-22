@@ -202,9 +202,10 @@ async function getClubGames(clubId: string, season: string) {
         city: item.cells[1].text[1] || "-",
         longitude: longitude,
         latitude: latitude,
-        teamHome: item.cells[2].text[0],
-        teamAway: item.cells[3].text[0],
-        result: item.cells[4].text[0],
+        league: item.cells[2].text[0],
+        teamHome: item.cells[3].text[0],
+        teamAway: item.cells[4].text[0],
+        result: item.cells[5].text[0],
       });
     });
   } else {
