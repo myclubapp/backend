@@ -14,6 +14,27 @@ used for the following apps:
 ## GraphQL API for Sports Data
 Available APIs are: 
 
+
+## JOBS
+
+# Update Club Data
+Runs every monday 08:00 for: 
+- SwissUnihockey
+- Swissvolley
+- Swisshandball
+- Swiss Turnverband
+
+# Update Team Data
+Runs every monday 08:10 for active clubs: 
+- SwissUnihockey
+- Swissvolley (not in use)
+- Swisshandball
+- Swiss Turnverband (not provided)
+
+# Update Game Data
+Runs every Morning at 06:00 am for active clubs:
+- Swissunihockey
+
 ### Swiss unihockey API
 based on this [documentation](https://api-v2.swissunihockey.ch/api/doc/table/overview)
 
