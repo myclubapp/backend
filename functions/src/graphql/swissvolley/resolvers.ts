@@ -9,12 +9,6 @@ const fetch = require("node-fetch");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const {convert} = require("html-to-text");
 
-
-/* DOKU */
-// https://www.volleyball.ch/fileadmin/_migrated/content_uploads/WSDL-Dokumentation.pdf
-// https://www.volleyball.ch/verband/services/indoorwebservice/
-// https://github.com/astriffe/gamecenter-clientpp/
-
 import soap = require("soap");
 const soapUrl = "https://myvolley.volleyball.ch/SwissVolley.wsdl";
 
@@ -23,8 +17,8 @@ export default {
     club: (parent: any, args: { clubId: string }, context: any, info: any) => {
       return getClub(args.clubId); // 913245 "VBG Klettgau
     },
-    clubs: (parent: any, args: { associationId: string }, context: any, info: any) => {
-      return getClubs(args.associationId);
+    clubs: (parent: any, args: any, context: any, info: any) => {
+      return getClubs();
     },
 
     team: (parent: any, args: { teamId: string }, context: any, info: any) => {
@@ -89,7 +83,7 @@ export default {
 
   Association: {
     clubs(parent: any, args: any, context: any, info: any) {
-      return getClubs(parent.id);
+      return getClubs();
     },
     leagues(parent: any, args: any, context: any, info: any) {
       return getLeagues(parent.id);
@@ -253,7 +247,7 @@ async function getTeams(clubId: string) {
   }
 }
 
-async function getClubs(associationId: string) {
+/* async function getClubsSOAP(associationId: string) {
   const args = {
     keyword: associationId,
   };
@@ -290,9 +284,9 @@ async function getClubs(associationId: string) {
   }
   // });
   return clubList;
-}
+}*/
 
-/* async function getClubsWebApi() {
+async function getClubs() {
   const data = await fetch("https://api.volleyball.ch/indoor/clubs");
   const clubData = await data.json();
   const clubList = < any > [];
@@ -300,10 +294,12 @@ async function getClubs(associationId: string) {
     clubList.push({
       id: item.clubId,
       name: item.caption,
+      address: item.contact,
+      website: item.website,
     });
   });
   return clubList;
-} */
+}
 
 async function getClub(clubId: string) {
   const args = {
