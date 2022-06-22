@@ -103,6 +103,7 @@ type SwissUnihockey {
     teams(clubId: String, season: String): [Team], # List of Teams for a given Club
     team(teamId: String): Team, #TODO Check Team Detail.. 
     games(teamId: String, season: String): [Game], # List of Games for a given Team 
+    game(gameId: String): Game, #Read single game
     clubGames(clubId: String, season: String): [Game], # List of Games for a given Team 
     rankings(teamId: String, season: String): [Ranking], # Ranking for a given Team
 }

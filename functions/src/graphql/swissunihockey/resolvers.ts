@@ -81,6 +81,9 @@ export default {
     }, context: any, info: any) => {
       return getClubGames(args.clubId, args.season);
     },
+    game: (parent: any, args: {gameId: string }, context: any, info: any) => {
+      return getGame(args.gameId);
+    },
     seasons: () => {
       return getSeason();
     },
@@ -249,6 +252,31 @@ async function getGames(teamId: string, season: string) {
     console.log(`>>> No Games found for Team ${teamId} and season ${season}`);
   }
   return gameList;
+}
+
+async function getGame(gameId: string) {
+  const data = await fetch("https://api-v2.swissunihockey.ch/api/games/" + gameId);
+  const gameData = await data.json();
+  const gameDetailData = gameData.data.regions[0].rows[0];
+  console.log(gameDetailData);
+  return {
+    name: gameData.data.title,
+    description: gameData.data.subtitle,
+
+    teamHomeId: gameDetailData.cells[0].link.ids[0],
+    teamHome: gameDetailData.cells[1].text[0],
+    teamHomeLogo: gameDetailData.cells[0].image.url,
+    teamHomeLogoText: gameDetailData.cells[0].image.alt,
+
+    teamAwayId: gameDetailData.cells[2].link.ids[0],
+    teamAway: gameDetailData.cells[3].text[0],
+    teamAwayLogo: gameDetailData.cells[2].image.url,
+    teamAwayLogoText: gameDetailData.cells[2].image.alt,
+
+    referee1: gameDetailData.cells[8].text,
+    referee2: gameDetailData.cells[9].text,
+    spectators: gameDetailData.cells[10].text,
+  };
 }
 
 async function getCurrentSeason() {

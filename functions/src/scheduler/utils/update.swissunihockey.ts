@@ -22,6 +22,9 @@ export async function updateGamesSwissunihockey(): Promise<any> {
       const clubGamesData = await resolversSU.Club.games({id: `${club.id}`}, {}, {}, {});
       for (const game of clubGamesData) {
         console.log(JSON.stringify(game));
+
+        const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
+
         await db.collection("club").doc(`su-${club.id}`).collection("games").add({
           externalId: `${game.id}`,
           date: game.date,
@@ -31,8 +34,25 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           longitude: game.longitude,
           latitude: game.latitude,
           liga: game.liga,
-          teamHome: game.teamHome,
-          teamAway: game.teamAway,
+
+          name: gameDetail.name,
+          description: gameDetail.description,
+
+          teamHomeId: gameDetail.teamHomeId,
+          teamHome: gameDetail.teamHomeId,
+          teamHomeLogo: gameDetail.teamHomeLogo,
+          teamHomeLogoText: gameDetail.teamHomeLogoText,
+
+          teamAwayId: gameDetail.teamAwayId,
+          teamAway: gameDetail.teamAway,
+          teamAwayLogo: gameDetail.teamAwayLogo,
+          teamAwayLogoText: gameDetail.teamAwayLogoText,
+
+          referee1: gameDetail.referee1,
+          referee2: gameDetail.referee2,
+          spectators: gameDetail.spectators,
+
+
           resut: game.result,
           type: "swissunihockey",
           updated: new Date(),
@@ -49,6 +69,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         const gamesData = await resolversSU.Team.games({id: `${team.id}`}, {}, {}, {});
         for (const game of gamesData) {
           console.log(JSON.stringify(game));
+          const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
           await db.collection("teams").doc(`su-${team.id}`).collection("games").add({
             externalId: `${game.id}`,
             date: game.date,
@@ -58,8 +79,24 @@ export async function updateGamesSwissunihockey(): Promise<any> {
             longitude: game.longitude,
             latitude: game.latitude,
             liga: team.liga,
-            teamHome: game.teamHome,
-            teamAway: game.teamAway,
+
+            name: gameDetail.name,
+            description: gameDetail.description,
+
+            teamHomeId: gameDetail.teamHomeId,
+            teamHome: gameDetail.teamHomeId,
+            teamHomeLogo: gameDetail.teamHomeLogo,
+            teamHomeLogoText: gameDetail.teamHomeLogoText,
+
+            teamAwayId: gameDetail.teamAwayId,
+            teamAway: gameDetail.teamAway,
+            teamAwayLogo: gameDetail.teamAwayLogo,
+            teamAwayLogoText: gameDetail.teamAwayLogoText,
+
+            referee1: gameDetail.referee1,
+            referee2: gameDetail.referee2,
+            spectators: gameDetail.spectators,
+
             resut: game.result,
             type: "swissunihockey",
             updated: new Date(),
