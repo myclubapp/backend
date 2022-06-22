@@ -84,7 +84,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
             description: gameDetail.description,
 
             teamHomeId: gameDetail.teamHomeId,
-            teamHome: gameDetail.teamHomeId,
+            teamHome: gameDetail.teamHome,
             teamHomeLogo: gameDetail.teamHomeLogo,
             teamHomeLogoText: gameDetail.teamHomeLogoText,
 
