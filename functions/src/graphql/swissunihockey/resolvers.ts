@@ -116,7 +116,7 @@ async function getTypes() {
 async function getTeams(clubId: string, season: string) {
   if (!season) {
     season = await getCurrentSeason() as unknown as string;
-    console.log("NO SEASON!!!", season);
+    console.log(`No Season parameter provided. Used internal logic and found: ${season}`);
   }
 
   const data = await fetch("https://api-v2.swissunihockey.ch/api/teams?mode=by_club&club_id=" + clubId + "&season=" + season);
@@ -179,7 +179,7 @@ async function getClubGames(clubId: string, season: string) {
     console.log(JSON.stringify(seasonList)); */
 
     season = await getCurrentSeason() as unknown as string;
-    console.log("NO SEASON!!!", season);
+    console.log(`No Season parameter provided. Used internal logic and found: ${season}`);
   }
   const data = await fetch("https://api-v2.swissunihockey.ch/api/games?mode=club&season=" + season + "&club_id=" + clubId);
   const gameData = await data.json();
@@ -208,7 +208,7 @@ async function getClubGames(clubId: string, season: string) {
       });
     });
   } else {
-    console.log(`No Games found for Club ${clubId} and season ${season}`);
+    console.log(`>>> No Games found for Club ${clubId} and season ${season}`);
   }
   return gameList;
 }
@@ -216,7 +216,7 @@ async function getClubGames(clubId: string, season: string) {
 async function getGames(teamId: string, season: string) {
   if (!season) {
     season = await getCurrentSeason() as unknown as string;
-    console.log("NO SEASON!!!", season);
+    console.log(`No Season parameter provided. Used internal logic and found: ${season}`);
   }
   const data = await fetch("https://api-v2.swissunihockey.ch/api/games?mode=team&season=" + season + "&team_id=" + teamId);
   const gameData = await data.json();
@@ -245,7 +245,7 @@ async function getGames(teamId: string, season: string) {
       });
     });
   } else {
-    console.log(`No Games found for Club ${teamId} and season ${season}`);
+    console.log(`>>> No Games found for Team ${teamId} and season ${season}`);
   }
   return gameList;
 }
@@ -278,7 +278,7 @@ async function getSeason() {
 async function getRankings(teamId: string, season: string) {
   if (!season) {
     season = await getCurrentSeason() as unknown as string;
-    console.log("NO SEASON!!!", season);
+    console.log(`No Season parameter provided. Used internal logic and found: ${season}`);
   }
   const data = await fetch("https://api-v2.swissunihockey.ch/api/rankings?season=" + season + "&team_id=" + teamId);
   const rankingData = await data.json();
