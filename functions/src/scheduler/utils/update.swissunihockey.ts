@@ -25,7 +25,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
 
         const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
 
-        await db.collection("club").doc(`su-${club.id}`).collection("games").add({
+        await db.collection("club").doc(`su-${club.id}`).collection("games").doc(`su-${game.id}`).set({
           externalId: `${game.id}`,
           date: game.date,
           time: game.time,
@@ -70,7 +70,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         for (const game of gamesData) {
           console.log(JSON.stringify(game));
           const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
-          await db.collection("teams").doc(`su-${team.id}`).collection("games").add({
+          await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).set({
             externalId: `${game.id}`,
             date: game.date,
             time: game.time,
