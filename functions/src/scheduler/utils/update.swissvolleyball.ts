@@ -68,5 +68,5 @@ export async function updateClubsSwissvolleyball(): Promise<any> {
       });
     }
   }
- // }
+// }
 }
