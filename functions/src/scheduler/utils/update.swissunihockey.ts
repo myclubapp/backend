@@ -18,6 +18,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
     const fbClubData = await db.collection("club").doc(`su-${club.id}`).get();
     if (fbClubData.exists && fbClubData.data().active) {
       // GET CLUB GAMES
+      console.log(`Club ${club.id} ${club.name}`);
       const clubGamesData = await resolversSU.Club.games({id: `${club.id}`}, {}, {}, {});
       for (const game of clubGamesData) {
         console.log(JSON.stringify(game));
