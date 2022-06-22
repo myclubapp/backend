@@ -45,27 +45,28 @@ export async function updateTeamsSwissvolleyball(): Promise<any> {
 export async function updateClubsSwissvolleyball(): Promise<any> {
   console.log("Update Clubs Swissvolley");
 
-  const associationsData = await resolversSV.SwissVolley.associations({}, {}, {}, {});
-  for (const assocation of associationsData) {
-    const clubData = await resolversSV.SwissVolley.clubs({}, {associationId: assocation.id}, {}, {});
-    for (const club of clubData) {
-      console.log(club.name);
-      await db.collection("club").doc(`sv-${club.id}`).set({
-        externalId: `${club.id}`,
-        name: club.name,
-        type: "swissvolley",
-        updated: new Date(),
-        associationId: assocation.id,
-        // address: club.address,
-      }, {
+  // const associationsData = await resolversSV.SwissVolley.associations({}, {}, {}, {});
+  // for (const assocation of associationsData) {
+  const clubData = await resolversSV.SwissVolley.clubs({}, {}, {}, {});
+  for (const club of clubData) {
+    console.log(club.name);
+    await db.collection("club").doc(`sv-${club.id}`).set({
+      externalId: `${club.id}`,
+      name: club.name,
+      website: club.website,
+      type: "swissvolley",
+      updated: new Date(),
+      // associationId: assocation.id,
+      // address: club.address,
+    }, {
+      merge: true,
+    });
+    // address: club.address,
+    for (const address of club.address) {
+      await db.collection("club").doc(`sv-${club.id}`).collection("contacts").doc(`sv-${address.id}`).set(address, {
         merge: true,
       });
-      // address: club.address,
-      for (const address of club.address) {
-        await db.collection("club").doc(`sv-${club.id}`).collection("contacts").doc(`sv-${address.id}`).set(address, {
-          merge: true,
-        });
-      }
     }
   }
+ // }
 }
