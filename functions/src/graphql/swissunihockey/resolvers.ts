@@ -217,28 +217,30 @@ async function getGames(teamId: string, season: string) {
   const data = await fetch("https://api-v2.swissunihockey.ch/api/games?mode=team&season=" + season + "&team_id=" + teamId);
   const gameData = await data.json();
   const gameList = < any > [];
-  gameData.data.regions[0].rows.forEach((item: any) => {
-    let latitude = "-";
-    let longitude = "-";
-    try {
-      latitude = item.cells[1].link.y || "-";
-      longitude = item.cells[1].link.x || "-";
-    } catch (e) {
-      console.log(e);
-    }
-    gameList.push({
-      id: item.link.ids[0],
-      date: item.cells[0].text[0],
-      time: item.cells[0].text[1] || "00:00",
-      location: item.cells[1].text[0],
-      city: item.cells[1].text[1] || "-",
-      longitude: longitude,
-      latitude: latitude,
-      teamHome: item.cells[2].text[0],
-      teamAway: item.cells[3].text[0],
-      result: item.cells[4].text[0],
+  if (gameData && gameData.data && gameData.data.regions && gameData.data.regions.length > 0) {
+    gameData.data.regions[0].rows.forEach((item: any) => {
+      let latitude = "-";
+      let longitude = "-";
+      try {
+        latitude = item.cells[1].link.y || "-";
+        longitude = item.cells[1].link.x || "-";
+      } catch (e) {
+        console.log(e);
+      }
+      gameList.push({
+        id: item.link.ids[0],
+        date: item.cells[0].text[0],
+        time: item.cells[0].text[1] || "00:00",
+        location: item.cells[1].text[0],
+        city: item.cells[1].text[1] || "-",
+        longitude: longitude,
+        latitude: latitude,
+        teamHome: item.cells[2].text[0],
+        teamAway: item.cells[3].text[0],
+        result: item.cells[4].text[0],
+      });
     });
-  });
+  }
   return gameList;
 }
 
