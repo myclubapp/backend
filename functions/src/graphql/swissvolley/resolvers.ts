@@ -260,29 +260,33 @@ async function getClubs(associationId: string) {
   const clubList = < any > [];
   const client = await soap.createClientAsync(soapUrl);
   const result = await client.getActiveClubsAsync(args);
-  // console.log(result);
-  for (const item of result[0].getActiveClubsResponse.item) {
-  // result[0].getActiveClubsResponse.item.forEach(async (item: any) => {
-    // console.log("Club " + item.Caption.$value);
-    const argsClubId = {
-      club_ID: item.ID_club.$value,
-    };
-    try {
-      const resultAdress = await client.getAddressesByClubAsync(argsClubId);
-      const addressData = resultAdress[0].getAddressesByClubResponse.item;
+  // console.log(result[0].getActiveClubsResponse.attributes);
+  if (result[0].getActiveClubsResponse && result[0].getActiveClubsResponse.item && result[0].getActiveClubsResponse.item.length > 0) {
+    for (const item of result[0].getActiveClubsResponse.item) {
+    // result[0].getActiveClubsResponse.item.forEach(async (item: any) => {
+      // console.log("Club " + item.Caption.$value);
+      const argsClubId = {
+        club_ID: item.ID_club.$value,
+      };
+      try {
+        const resultAdress = await client.getAddressesByClubAsync(argsClubId);
+        const addressData = resultAdress[0].getAddressesByClubResponse.item;
 
-      clubList.push({
-        id: item.ID_club.$value,
-        name: item.Caption.$value,
-        address: getAddressArray(addressData),
-      });
-    } catch (e) {
-      console.log(`>>>> No Address for ClubId ${item.ID_club.$value} ${item.Caption.$value}`);
-      clubList.push({
-        id: item.ID_club.$value,
-        name: item.Caption.$value,
-      });
+        clubList.push({
+          id: item.ID_club.$value,
+          name: item.Caption.$value,
+          address: getAddressArray(addressData),
+        });
+      } catch (e) {
+        console.log(`>>>> No Address for ClubId ${item.ID_club.$value} ${item.Caption.$value}`);
+        clubList.push({
+          id: item.ID_club.$value,
+          name: item.Caption.$value,
+        });
+      }
     }
+  } else {
+    console.log(">>> NO CLUBS FOR: " + associationId);
   }
   // });
   return clubList;

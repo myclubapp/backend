@@ -6,7 +6,7 @@
 import {EventContext} from "firebase-functions";
 
 import {updateTeamsSwissunihockey, updateClubsSwissunihockey, updateGamesSwissunihockey} from "./utils/update.swissunihockey";
-import {updateTeamsSwissvolleyball, updateClubsSwissvolleyball} from "./utils/update.swissvolleyball";
+// import {updateTeamsSwissvolleyball, updateClubsSwissvolleyball} from "./utils/update.swissvolleyball";
 import {updateTeamsSwisshandball, updateClubsSwisshandball} from "./utils/update.swisshandball";
 import {updateTeamsSwissturnverband, updateClubsSwissturnverband} from "./utils/update.swissturnverband";
 
@@ -14,7 +14,7 @@ import {updateTeamsSwissturnverband, updateClubsSwissturnverband} from "./utils/
 export async function updatePersistenceJobClubs(context: EventContext) {
   try {
     await updateClubsSwissunihockey();
-    await updateClubsSwissvolleyball();
+    // await updateClubsSwissvolleyball();
     await updateClubsSwisshandball();
     await updateClubsSwissturnverband();
   } catch (err) {
@@ -25,7 +25,7 @@ export async function updatePersistenceJobClubs(context: EventContext) {
 export async function updatePersistenceJobTeams(context: EventContext) {
   try {
     await updateTeamsSwissunihockey();
-    await updateTeamsSwissvolleyball();
+    // await updateTeamsSwissvolleyball();
     await updateTeamsSwisshandball();
     await updateTeamsSwissturnverband();
   } catch (err) {
