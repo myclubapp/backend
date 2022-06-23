@@ -4,7 +4,9 @@
 
 // import * as functions from "firebase-functions";
 // import * as admin from "firebase-admin";
+import * as firebase from "firebase-admin";
 import firebaseDAO from "./../../firebaseSingleton";
+
 const db = firebaseDAO.instance.db;
 
 import resolversSU from "./../../graphql/swissunihockey/resolvers";
@@ -23,14 +25,8 @@ export async function updateGamesSwissunihockey(): Promise<any> {
       for (const game of clubGamesData) {
         // console.log(JSON.stringify(game));
         const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
-        let gameDateTime: Date;
-        try {
-          gameDateTime = new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}:00`);
-        } catch (e) {
-          gameDateTime = new Date();
-          console.log(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}:00`);
-          console.log(JSON.stringify(e));
-        }
+
+        const gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}:00`));
 
         await db.collection("club").doc(`su-${club.id}`).collection("games").doc(`su-${game.id}`).set({
           externalId: `${game.id}`,
@@ -78,14 +74,9 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         for (const game of gamesData) {
           // console.log(JSON.stringify(game));
           const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
-          let gameDateTime: Date;
-          try {
-            gameDateTime = new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}:00`);
-          } catch (e) {
-            gameDateTime = new Date();
-            console.log(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}:00`);
-            console.log(JSON.stringify(e));
-          }
+
+          const gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}:00`));
+
           await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).set({
             externalId: `${game.id}`,
             date: game.date,
