@@ -209,8 +209,8 @@ export async function updateClubsSwissunihockey(): Promise<any> {
 }
 
 function getNextGame(index: number, gamesList: []): any {
-  const nextGame = gamesList[index];
-  if (!nextGame) {
+  const nextGame: any = gamesList[index];
+  if (!nextGame || nextGame.date.charAt(2) !== ".") {
     getNextGame(index++, gamesList);
   } else {
     return nextGame;
