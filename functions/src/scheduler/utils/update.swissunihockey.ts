@@ -206,6 +206,7 @@ function getNextGame(index: number, gamesList: []): any {
     console.log(`Get Next Game with id ${nextGame.id} and date: ${nextGame.date} ${nextGame.time}`);
   }
   if (nextGame && nextGame.date.charAt(2) === ".") {
+    console.log(`>>>Found GAME: ${JSON.stringify(nextGame)}`);
     return nextGame;
   } else {
     if (index === gamesList.length) {
@@ -213,7 +214,7 @@ function getNextGame(index: number, gamesList: []): any {
       console.log(JSON.stringify(gamesList));
       return {};
     } else {
-      getNextGame(index + 1, gamesList);
+      return getNextGame(index + 1, gamesList);
     }
   }
 }
