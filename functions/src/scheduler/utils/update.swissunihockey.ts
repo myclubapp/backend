@@ -25,11 +25,11 @@ export async function updateGamesSwissunihockey(): Promise<any> {
       const clubGamesData = await resolversSU.Club.games({id: `${club.id}`}, {}, {}, {});
       for (const i in clubGamesData) {
         const game = clubGamesData[i];
-        let previousGame = clubGamesData[Number(i)-1];
-        if (!previousGame) {
-          previousGame = clubGamesData[Number(i)+1];
-          if (!previousGame) {
-            previousGame = getNextGame(Number(i)+1, clubGamesData);
+        let dummyGame = clubGamesData[Number(i)-1];
+        if (!dummyGame) {
+          dummyGame = clubGamesData[Number(i)+1];
+          if (!dummyGame) {
+            dummyGame = getNextGame(Number(i)+1, clubGamesData);
           }
         }
         // console.log(JSON.stringify(game));
@@ -41,8 +41,9 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         }
         if (game.date.charAt(2) !== ".") {
           console.log(`No Date: ${game.date}`);
+          console.log(`Use other Game with ${dummyGame.date} and ${dummyGame.time}`);
           // gameDateTime = firebase.firestore.Timestamp.now();
-          gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${previousGame.date.substr(6, 4)}-${previousGame.date.substr(3, 2)}-${previousGame.date.substr(0, 2)}T${previousGame.time}`)); // --> Damit abgesagte nicht irgendwo angezeigt werden
+          gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${dummyGame.date.substr(6, 4)}-${dummyGame.date.substr(3, 2)}-${dummyGame.date.substr(0, 2)}T${dummyGame.time}`)); // --> Damit abgesagte nicht irgendwo angezeigt werden
         } else {
           gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
         }
@@ -93,9 +94,9 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         const gamesData = await resolversSU.Team.games({id: `${team.id}`}, {}, {}, {});
         for (const i in gamesData) {
           const game = gamesData[i];
-          let previousGame = gamesData[Number(i)-1];
-          if (!previousGame) {
-            previousGame = getNextGame(Number(i)+1, gamesData);
+          let dummyGame = gamesData[Number(i)-1]; // vorheriges?
+          if (!dummyGame) {
+            dummyGame = getNextGame(Number(i)+1, gamesData); // nächstes?
           }
           // console.log(JSON.stringify(game));
           const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
@@ -106,8 +107,9 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           }
           if (game.date.charAt(2) !== ".") {
             console.log(`No Date: ${game.date}`);
+            console.log(`Use other Game with ${dummyGame.date} and ${dummyGame.time}`);
             // gameDateTime = firebase.firestore.Timestamp.now();
-            gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${previousGame.date.substr(6, 4)}-${previousGame.date.substr(3, 2)}-${previousGame.date.substr(0, 2)}T${previousGame.time}`)); // --> Damit abgesagte nicht irgendwo angezeigt werden
+            gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${dummyGame.date.substr(6, 4)}-${dummyGame.date.substr(3, 2)}-${dummyGame.date.substr(0, 2)}T${dummyGame.time}`)); // --> Damit abgesagte nicht irgendwo angezeigt werden
           } else {
             gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
           }
