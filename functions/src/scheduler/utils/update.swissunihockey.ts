@@ -1,3 +1,4 @@
+/* eslint-disable guard-for-in */
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable require-jsdoc */
@@ -22,7 +23,9 @@ export async function updateGamesSwissunihockey(): Promise<any> {
       // GET CLUB GAMES
       console.log(`>> Club ${club.id} ${club.name}`);
       const clubGamesData = await resolversSU.Club.games({id: `${club.id}`}, {}, {}, {});
-      for (const game of clubGamesData) {
+      for (const i in clubGamesData) {
+        const game = clubGamesData[i];
+        const previousGame = clubGamesData[Number(i)-1];
         // console.log(JSON.stringify(game));
         const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
 
@@ -32,7 +35,8 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         }
         if (game.date.charAt(2) !== ".") {
           console.log(`No Date: ${game.date}`);
-          gameDateTime = firebase.firestore.Timestamp.now();
+          // gameDateTime = firebase.firestore.Timestamp.now();
+          gameDateTime = previousGame.dateTime; // --> Damit abgesagte nicht irgendwo angezeigt werden
         } else {
           gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
         }
@@ -81,7 +85,9 @@ export async function updateGamesSwissunihockey(): Promise<any> {
       for (const team of teamData) {
         console.log(`>> Team: ${team.id} ${team.name}`);
         const gamesData = await resolversSU.Team.games({id: `${team.id}`}, {}, {}, {});
-        for (const game of gamesData) {
+        for (const i in gamesData) {
+          const game = gamesData[i];
+          const previousGame = gamesData[Number(i)-1];
           // console.log(JSON.stringify(game));
           const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
 
@@ -91,7 +97,8 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           }
           if (game.date.charAt(2) !== ".") {
             console.log(`No Date: ${game.date}`);
-            gameDateTime = firebase.firestore.Timestamp.now();
+            // gameDateTime = firebase.firestore.Timestamp.now();
+            gameDateTime = previousGame.dateTime; // --> Damit abgesagte nicht irgendwo angezeigt werden
           } else {
             gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
           }
