@@ -28,6 +28,15 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         let previousGame = clubGamesData[Number(i)-1];
         if (!previousGame) {
           previousGame = clubGamesData[Number(i)+1];
+          if (!previousGame) {
+            previousGame = clubGamesData[Number(i)+1];
+            if (!previousGame) {
+              previousGame = clubGamesData[Number(i)+1];
+              if (!previousGame) {
+                previousGame = clubGamesData[Number(i)+1];
+              }
+            }
+          }
         }
         // console.log(JSON.stringify(game));
         const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
@@ -93,6 +102,15 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           let previousGame = gamesData[Number(i)-1];
           if (!previousGame) {
             previousGame = clubGamesData[Number(i)+1];
+            if (!previousGame) {
+              previousGame = clubGamesData[Number(i)+1];
+              if (!previousGame) {
+                previousGame = clubGamesData[Number(i)+1];
+                if (!previousGame) {
+                  previousGame = clubGamesData[Number(i)+1];
+                }
+              }
+            }
           }
           // console.log(JSON.stringify(game));
           const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
