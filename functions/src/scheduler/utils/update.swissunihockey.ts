@@ -201,8 +201,8 @@ export async function updateClubsSwissunihockey(): Promise<any> {
 
 function getNextGame(index: number, gamesList: []): any {
   const nextGame: any = gamesList[index];
-  console.log(index);
-  console.log(gamesList);
+  console.log(">>> " + index);
+  console.log(JSON.stringify(gamesList));
 
   if (nextGame) {
     console.log(`Get Next Game with id ${nextGame.id} and date: ${nextGame.date} ${nextGame.time}`);
