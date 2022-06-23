@@ -29,13 +29,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         if (!previousGame) {
           previousGame = clubGamesData[Number(i)+1];
           if (!previousGame) {
-            previousGame = clubGamesData[Number(i)+1];
-            if (!previousGame) {
-              previousGame = clubGamesData[Number(i)+1];
-              if (!previousGame) {
-                previousGame = clubGamesData[Number(i)+1];
-              }
-            }
+            previousGame = getNextGame(Number(i)+1, clubGamesData);
           }
         }
         // console.log(JSON.stringify(game));
@@ -48,7 +42,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         if (game.date.charAt(2) !== ".") {
           console.log(`No Date: ${game.date}`);
           // gameDateTime = firebase.firestore.Timestamp.now();
-          gameDateTime = previousGame.dateTime; // --> Damit abgesagte nicht irgendwo angezeigt werden
+          gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${previousGame.date.substr(6, 4)}-${previousGame.date.substr(3, 2)}-${previousGame.date.substr(0, 2)}T${previousGame.time}`)); // --> Damit abgesagte nicht irgendwo angezeigt werden
         } else {
           gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
         }
@@ -101,16 +95,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           const game = gamesData[i];
           let previousGame = gamesData[Number(i)-1];
           if (!previousGame) {
-            previousGame = clubGamesData[Number(i)+1];
-            if (!previousGame) {
-              previousGame = clubGamesData[Number(i)+1];
-              if (!previousGame) {
-                previousGame = clubGamesData[Number(i)+1];
-                if (!previousGame) {
-                  previousGame = clubGamesData[Number(i)+1];
-                }
-              }
-            }
+            previousGame = getNextGame(Number(i)+1, gamesData);
           }
           // console.log(JSON.stringify(game));
           const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
@@ -122,7 +107,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           if (game.date.charAt(2) !== ".") {
             console.log(`No Date: ${game.date}`);
             // gameDateTime = firebase.firestore.Timestamp.now();
-            gameDateTime = previousGame.dateTime; // --> Damit abgesagte nicht irgendwo angezeigt werden
+            gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${previousGame.date.substr(6, 4)}-${previousGame.date.substr(3, 2)}-${previousGame.date.substr(0, 2)}T${previousGame.time}`)); // --> Damit abgesagte nicht irgendwo angezeigt werden
           } else {
             gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
           }
@@ -218,5 +203,14 @@ export async function updateClubsSwissunihockey(): Promise<any> {
     }, {
       merge: true,
     });
+  }
+}
+
+function getNextGame(index: number, gamesList: []): any {
+  const nextGame = gamesList[index];
+  if (!nextGame) {
+    getNextGame(index++, gamesList);
+  } else {
+    return nextGame;
   }
 }
