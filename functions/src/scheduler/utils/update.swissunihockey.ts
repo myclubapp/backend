@@ -97,7 +97,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           }
           if (game.date.charAt(2) !== ".") {
             console.log(`No Date: ${game.date}`);
-            const dummyGame = getNextGame(Number(i)-1, clubGamesData);
+            const dummyGame = getNextGame(Number(i)-1, gamesData);
             console.log(`Use other Game with ${dummyGame.date} and ${dummyGame.time}`);
             // gameDateTime = firebase.firestore.Timestamp.now();
             gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${dummyGame.date.substr(6, 4)}-${dummyGame.date.substr(3, 2)}-${dummyGame.date.substr(0, 2)}T${dummyGame.time}`)); // --> Damit abgesagte nicht irgendwo angezeigt werden
