@@ -213,7 +213,7 @@ function getNextGame(index: number, gamesList: []): any {
       console.log(JSON.stringify(gamesList));
       return {};
     } else {
-      getNextGame(index++, gamesList);
+      getNextGame(index + 1, gamesList);
     }
   }
 }
