@@ -30,7 +30,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
 
         let gameDateTime: firebase.firestore.Timestamp;
         if (game.time.charAt(2) !== ":") {
-          game.time = "00:00";
+          game.time = "23:59";
         }
         if (game.date.charAt(2) !== ".") {
           console.log(`No Date: ${game.date}`);
@@ -93,7 +93,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
 
           let gameDateTime: firebase.firestore.Timestamp;
           if (game.time.charAt(2) !== ":") {
-            game.time = "00:00";
+            game.time = "23:59";
           }
           if (game.date.charAt(2) !== ".") {
             console.log(`No Date: ${game.date}`);
