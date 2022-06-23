@@ -18,10 +18,10 @@ export async function updateGamesSwissunihockey(): Promise<any> {
     const fbClubData = await db.collection("club").doc(`su-${club.id}`).get();
     if (fbClubData.exists && fbClubData.data().active) {
       // GET CLUB GAMES
-      console.log(`Club ${club.id} ${club.name}`);
+      console.log(`>> Club ${club.id} ${club.name}`);
       const clubGamesData = await resolversSU.Club.games({id: `${club.id}`}, {}, {}, {});
       for (const game of clubGamesData) {
-        console.log(JSON.stringify(game));
+        // console.log(JSON.stringify(game));
         const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
         let gameDateTime: Date;
         try {
@@ -73,10 +73,10 @@ export async function updateGamesSwissunihockey(): Promise<any> {
       // TEAM GAMES
       const teamData = await resolversSU.Club.teams({id: `${club.id}`}, {}, {}, {});
       for (const team of teamData) {
-        console.log(`Team: ${team.id} ${team.name}`);
+        console.log(`>> Team: ${team.id} ${team.name}`);
         const gamesData = await resolversSU.Team.games({id: `${team.id}`}, {}, {}, {});
         for (const game of gamesData) {
-          console.log(JSON.stringify(game));
+          // console.log(JSON.stringify(game));
           const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
           let gameDateTime: Date;
           try {
