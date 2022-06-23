@@ -26,7 +26,10 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         // console.log(JSON.stringify(game));
         const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
 
-        const gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}:00`));
+        if (game.time.charAt(2) !== ":") {
+          game.time = "00:00";
+        }
+        const gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
 
         await db.collection("club").doc(`su-${club.id}`).collection("games").doc(`su-${game.id}`).set({
           externalId: `${game.id}`,
@@ -75,7 +78,10 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           // console.log(JSON.stringify(game));
           const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
 
-          const gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}:00`));
+          if (game.time.charAt(2) !== ":") {
+            game.time = "00:00";
+          }
+          const gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
 
           await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).set({
             externalId: `${game.id}`,
