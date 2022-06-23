@@ -22,8 +22,15 @@ export async function updateGamesSwissunihockey(): Promise<any> {
       const clubGamesData = await resolversSU.Club.games({id: `${club.id}`}, {}, {}, {});
       for (const game of clubGamesData) {
         console.log(JSON.stringify(game));
-        const gameDateTime = new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`);
         const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
+        let gameDateTime: Date;
+        try {
+          gameDateTime = new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}:00`);
+        } catch (e) {
+          gameDateTime = new Date();
+          console.log(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}:00`);
+          console.log(JSON.stringify(e));
+        }
 
         await db.collection("club").doc(`su-${club.id}`).collection("games").doc(`su-${game.id}`).set({
           externalId: `${game.id}`,
@@ -71,7 +78,14 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         for (const game of gamesData) {
           console.log(JSON.stringify(game));
           const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
-          const gameDateTime = new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`);
+          let gameDateTime: Date;
+          try {
+            gameDateTime = new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}:00`);
+          } catch (e) {
+            gameDateTime = new Date();
+            console.log(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}:00`);
+            console.log(JSON.stringify(e));
+          }
           await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).set({
             externalId: `${game.id}`,
             date: game.date,
