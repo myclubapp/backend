@@ -202,7 +202,8 @@ async function getClubGames(clubId: string, season: string) {
         latitude = item.cells[1].link.y || "-";
         longitude = item.cells[1].link.x || "-";
       } catch (e) {
-        console.log(e);
+        console.log(">> Error: Longitude/Latitude missing");
+        // console.log(e);
       }
       gameList.push({
         id: item.link.ids[0],
@@ -238,7 +239,8 @@ async function getGames(teamId: string, season: string) {
         latitude = item.cells[1].link.y || "-";
         longitude = item.cells[1].link.x || "-";
       } catch (e) {
-        console.log(e);
+        console.log(">> Error: Longitude/Latitude missing");
+        // console.log(e);
       }
       gameList.push({
         id: item.link.ids[0],
