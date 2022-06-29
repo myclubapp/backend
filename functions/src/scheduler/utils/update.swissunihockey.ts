@@ -209,7 +209,7 @@ export async function updateNewsSwissunihockey(): Promise<any> {
       externalId: `${news.id}`,
       title: news.title,
       leadText: news.leadText,
-      date: news.date,
+      date: firebase.firestore.Timestamp.fromDate(news.date),
       slug: news.slug,
       image: news.image,
       text: news.text,
