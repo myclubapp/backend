@@ -5,7 +5,7 @@ import {authUserCreateSendWelcomeEmail} from "./auth/user.create";
 // eslint-disable-next-line import/namespace
 import {authUserDeleteUserSendByEmail, authUserDeleteUserAccount} from "./auth/user.delete";
 
-import {updatePersistenceJobClubs, updatePersistenceJobTeams, updatePersistenceJobGames} from "./scheduler/syncAssociation.scheduler";
+import {updatePersistenceJobClubs, updatePersistenceJobTeams, updatePersistenceJobGames, updatePersistenceJobNews} from "./scheduler/syncAssociation.scheduler";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const graphql = require("./graphql/server");
@@ -23,3 +23,4 @@ export const api = functions.runWith({timeoutSeconds: 300, memory: "1GB"}).regio
 export const jobUpdatePersistenceClubs = functions.runWith({timeoutSeconds: 360, memory: "1GB"}).region("europe-west6").pubsub.schedule("00 08 * * 1").timeZone("Europe/Zurich").onRun(updatePersistenceJobClubs); // monday 8:00
 export const jobUpdatePersistenceTeams = functions.runWith({timeoutSeconds: 540, memory: "1GB"}).region("europe-west6").pubsub.schedule("10 08 * * 1").timeZone("Europe/Zurich").onRun(updatePersistenceJobTeams); // monday 8:10
 export const jobUpdatePersistenceGames = functions.runWith({timeoutSeconds: 360, memory: "512MB"}).region("europe-west6").pubsub.schedule("00 06 * * *").timeZone("Europe/Zurich").onRun(updatePersistenceJobGames); // daily 06:00
+export const jobUpdatePersistenceNews = functions.runWith({timeoutSeconds: 360, memory: "512MB"}).region("europe-west6").pubsub.schedule("30 * * * *").timeZone("Europe/Zurich").onRun(updatePersistenceJobNews); // daily every 30 minutes
