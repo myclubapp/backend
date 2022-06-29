@@ -199,30 +199,32 @@ export async function updateClubsSwissunihockey(): Promise<any> {
   }
 }
 
-
 export async function updateNewsSwissunihockey(): Promise<any> {
   console.log("Update NEWS SwissUnihockey");
 
   const newsData = await resolversSU.SwissUnihockey.news();
   for (const news of newsData) {
-    await db.collection("news").doc(`su-${news.id}`).set({
-      externalId: `${news.id}`,
-      title: news.title,
-      leadText: news.leadText,
-      date: firebase.firestore.Timestamp.fromDate(news.date),
-      slug: news.slug,
-      image: news.image,
-      text: news.text,
-      htmlText: news.htmlText,
-      tags: news.tags,
-      author: news.author,
-      authorImage: news.authorImage,
-      url: news.url,
-      type: "swissunihockey",
-      updated: new Date(),
-    }, {
-      merge: true,
-    });
+    const newsDoc = await db.collection("news").doc(`su-${news.id}`).get();
+    if (!newsDoc.exists) {
+      await db.collection("news").doc(`su-${news.id}`).set({
+        externalId: `${news.id}`,
+        title: news.title,
+        leadText: news.leadText,
+        date: news.date,
+        slug: news.slug,
+        image: news.image,
+        text: news.text,
+        htmlText: news.htmlText,
+        tags: news.tags,
+        author: news.author,
+        authorImage: news.authorImage,
+        url: news.url,
+        type: "swissunihockey",
+        updated: new Date(),
+      }, {
+        merge: true,
+      });
+    }
   }
 }
 
