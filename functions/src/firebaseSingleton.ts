@@ -8,11 +8,13 @@ export default class firebaseDAO {
     private static _intance: firebaseDAO;
     db: any;
     storage: any;
+    auth: any;
     private constructor() {
       // admin.initializeApp();
       admin.initializeApp(functions.config().firebase);
       this.db = admin.firestore();
       this.storage = admin.storage();
+      this.auth = admin.auth();
     }
 
     public static get instance() {
