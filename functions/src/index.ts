@@ -4,10 +4,10 @@ import * as functions from "firebase-functions";
 import {authUserCreateSendWelcomeEmail} from "./auth/user.create";
 // eslint-disable-next-line import/namespace
 import {authUserDeleteUserSendByEmail, authUserDeleteUserAccount} from "./auth/user.delete";
-import { createClubAdmin, createTeamAdmin } from "./firestore/createAdmin";
-import { createClubMember, createTeamMember } from "./firestore/createMember";
-import { deleteClubAdmin, deleteTeamAdmin } from "./firestore/deleteAdmin";
-import { deleteClubMember, deleteTeamMember } from "./firestore/deleteMember";
+import {createClubAdmin, createTeamAdmin} from "./firestore/createAdmin";
+import {createClubMember, createTeamMember} from "./firestore/createMember";
+import {deleteClubAdmin, deleteTeamAdmin} from "./firestore/deleteAdmin";
+import {deleteClubMember, deleteTeamMember} from "./firestore/deleteMember";
 
 import {updatePersistenceJobClubs, updatePersistenceJobTeams, updatePersistenceJobGames, updatePersistenceJobNews} from "./scheduler/syncAssociation.scheduler";
 
