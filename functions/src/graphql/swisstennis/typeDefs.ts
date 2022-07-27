@@ -25,7 +25,7 @@ type News {
     htmlText: String,
 }
 # the schema allows the following query:
-type Query {
+type SwissTennis {
     news: [News] # General Swiss Unihockey Newsfeed
 
     clubs: [Club], # List of clubs
