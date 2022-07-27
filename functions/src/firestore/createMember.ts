@@ -15,14 +15,14 @@ export async function createTeamMember(snapshot: QueryDocumentSnapshot, context:
   const teamId = context.params.teamId;
 
   // check if user has admin claims..
-  const adminUserRef = snapshot.data().userRef || false;
+  const adminUserRef = snapshot.data().userProfileRef || false;
   if (adminUserRef) { // only provided in team Page call
     const adminUser = await adminUserRef.get();
     const user = await auth.getUser(adminUser.id);
     if (user && user.customClaims && user.customClaims[teamId]) {
       const userRef = await db.collection("userProfile").doc(userId).get();
-      const teamMembers = await db.collection("teams").doc(teamId).collection("members").doc(`${userId}`).set({
-        "userProfile": userRef,
+      await db.collection("teams").doc(teamId).collection("members").doc(`${userId}`).set({
+        "userProfileRef": userRef,
       });
     }
   }
@@ -34,14 +34,14 @@ export async function createClubMember(snapshot: QueryDocumentSnapshot, context:
   const clubId = context.params.clubId;
 
   // check if user has admin claims..
-  const adminUserRef = snapshot.data().userRef || false;
+  const adminUserRef = snapshot.data().userProfileRef || false;
   if (adminUserRef) { // only provided in club Page call
     const adminUser = await adminUserRef.get();
     const user = await auth.getUser(adminUser.id);
     if (user && user.customClaims && user.customClaims[clubId]) {
       const userRef = await db.collection("userProfile").doc(userId).get();
-      const clubMembers = await db.collection("club").doc(clubId).collection("members").doc(`${userId}`).set({
-        "userProfile": userRef,
+      await db.collection("club").doc(clubId).collection("members").doc(`${userId}`).set({
+        "userProfileRef": userRef,
       });
     }
   }

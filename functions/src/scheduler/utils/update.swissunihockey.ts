@@ -223,6 +223,7 @@ export async function updateNewsSwissunihockey(): Promise<any> {
         updated: new Date(),
       }, {
         merge: true,
+        ignoreUndefinedProperties: true,
       });
     }
   }

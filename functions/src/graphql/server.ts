@@ -18,6 +18,9 @@ import resolversSB from "./swissbasketball/resolvers";
 import typeDefsST from "./swissturnverband/typeDefs";
 import resolversST from "./swissturnverband/resolvers";
 
+import typeDefsSE from "./swisstennis/typeDefs";
+import resolversSE from "./swisstennis/resolvers";
+
 const app = express();
 app.use(cors());
 
@@ -77,5 +80,18 @@ app.use("/swissturnverband", graphqlHTTP({
   schema: schemaST,
   graphiql: true,
 }));
+
+
+/* SWISS TENNIS */
+const schemaSE = makeExecutableSchema({
+  typeDefs: typeDefsSE,
+  resolvers: resolversSE,
+});
+
+app.use("/swisstennis", graphqlHTTP({
+  schema: schemaSE,
+  graphiql: true,
+}));
+
 
 module.exports = app;

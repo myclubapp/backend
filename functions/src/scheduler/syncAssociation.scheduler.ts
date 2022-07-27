@@ -10,6 +10,7 @@ import {updateTeamsSwissunihockey, updateClubsSwissunihockey, updateGamesSwissun
 import {updateTeamsSwisshandball, updateClubsSwisshandball} from "./utils/update.swisshandball";
 import {updateTeamsSwissturnverband, updateClubsSwissturnverband} from "./utils/update.swissturnverband";
 import {updateClubsSwissvolleyball} from "./utils/update.swissvolleyball";
+import {updateClubsSwisstennis} from "./utils/update.swisstennis";
 
 
 export async function updatePersistenceJobClubs(context: EventContext) {
@@ -18,6 +19,7 @@ export async function updatePersistenceJobClubs(context: EventContext) {
     await updateClubsSwissvolleyball();
     await updateClubsSwisshandball();
     await updateClubsSwissturnverband();
+    await updateClubsSwisstennis();
   } catch (err) {
     console.error(err);
   }

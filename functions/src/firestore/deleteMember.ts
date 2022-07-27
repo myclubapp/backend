@@ -6,7 +6,7 @@ import * as functions from "firebase-functions";
 import firebaseDAO from "./../firebaseSingleton";
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 
-const db = firebaseDAO.instance.db;
+// const db = firebaseDAO.instance.db;
 const auth = firebaseDAO.instance.auth;
 
 export async function deleteTeamMember(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
@@ -15,13 +15,13 @@ export async function deleteTeamMember(snapshot: QueryDocumentSnapshot, context:
   const teamId = context.params.teamId;
 
   // delete team admin List from team and user
-  const userTeamMember = await db.collection("userProfile").doc(userId).collection("teams").doc(teamId).delete();
-  const teamMemberUser = await db.collection("teams").doc(teamId).collection("members").doc(`${userId}`).delete();
+  // const userTeamMember = await db.collection("userProfile").doc(userId).collection("teams").doc(teamId).delete();
+  // const teamMemberUser = await db.collection("teams").doc(teamId).collection("members").doc(`${userId}`).delete();
 
   // CODE FROM deleteAdmin.ts
   // delete team admin List from team and user
-  const userTeamAdmin = await db.collection("userProfile").doc(userId).collection("teamAdmin").doc(teamId).delete();
-  const teamAdminUser = await db.collection("teams").doc(teamId).collection("admin").doc(`${userId}`).delete();
+  // const userTeamAdmin = await db.collection("userProfile").doc(userId).collection("teamAdmin").doc(teamId).delete();
+  // const teamAdminUser = await db.collection("teams").doc(teamId).collection("admin").doc(`${userId}`).delete();
 
   console.log(`Admin with id ${userId} leaves TeamAdminList ${teamId}`);
   const user = await auth.getUser(userId);
@@ -40,13 +40,13 @@ export async function deleteClubMember(snapshot: QueryDocumentSnapshot, context:
   const clubId = context.params.clubId;
 
   // delete club admin List from club and user
-  const userClubMember = await db.collection("userProfile").doc(userId).collection("clubs").doc(clubId).delete();
-  const clubMemberUser = await db.collection("club").doc(clubId).collection("members").doc(`${userId}`).delete();
+  // const userClubMember = await db.collection("userProfile").doc(userId).collection("clubs").doc(clubId).delete();
+  // const clubMemberUser = await db.collection("club").doc(clubId).collection("members").doc(`${userId}`).delete();
 
   // CODE FROM deleteAdmin.ts
   // delete club admin List from club and user
-  const userClubAdmin = await db.collection("userProfile").doc(userId).collection("clubAdmin").doc(clubId).delete();
-  const clubAdminUser = await db.collection("club").doc(clubId).collection("admins").doc(`${userId}`).delete();
+  // const userClubAdmin = await db.collection("userProfile").doc(userId).collection("clubAdmin").doc(clubId).delete();
+  // const clubAdminUser = await db.collection("club").doc(clubId).collection("admins").doc(`${userId}`).delete();
 
   console.log(`Admin with id ${userId} leaves ClubAdminList ${clubId}`);
   const user = await auth.getUser(userId);

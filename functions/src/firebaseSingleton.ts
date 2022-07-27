@@ -13,6 +13,8 @@ export default class firebaseDAO {
       // admin.initializeApp();
       admin.initializeApp(functions.config().firebase);
       this.db = admin.firestore();
+      this.db.settings({ignoreUndefinedProperties: true});
+
       this.storage = admin.storage();
       this.auth = admin.auth();
     }
