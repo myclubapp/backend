@@ -17,7 +17,10 @@ export async function sendReportingJobMember(context: EventContext) {
     for (const user of userProfileRef) {
       const userProfileReporting = await db.collection("userProfile").doc(`${user.id}`).collection("reporting").get();
       for (const reporting of userProfileReporting) {
-        console.log(reporting);
+        console.log(reporting.data());
+        if (reporting.id === "email") {
+          
+        }
       }
     }
   } catch (err) {
