@@ -13,15 +13,19 @@ const db = firebaseDAO.instance.db;
 export async function sendReportingJobMember(context: EventContext) {
   try {
     console.log(">> START Reporting ");
-    const userProfileRef = await db.collection("userProfile").get();
-    if (!userProfileRef.empty) {
-      for (const userProfile of userProfileRef.docs) {
+    const userProfileList = await db.collection("userProfile").get();
+    if (!userProfileList.empty) {
+      // Loop über Profiles
+      for (const userProfile of userProfileList.docs) {
+        console.log(`>>> ${userProfile.data().firstName}`);
+
         const userProfileReporting = await db.collection("userProfile").doc(`${userProfile.id}`).collection("reporting").get();
         if (!userProfileReporting.empty) {
+          // Loop über Reporting
           for (const reporting of userProfileReporting.docs) {
-            console.log(reporting.data());
+            console.log(`${reporting.id}`);
             if (reporting.id === "email") {
-              console.log(reporting.data());
+              console.log(`Reporting: ${reporting.data()}`);
               await db.collection("mail").add({
                 to: userProfile.data().email,
                 template: {
@@ -30,6 +34,8 @@ export async function sendReportingJobMember(context: EventContext) {
                     firstName: userProfile.data().firstName,
                   },
                 }});
+            } else {
+              console.log(`Kein Reporting: ${reporting.data()}`);
             }
           }
         }
