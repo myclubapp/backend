@@ -12,7 +12,7 @@ const db = firebaseDAO.instance.db;
 
 export async function sendReportingJobMember(context: EventContext) {
   try {
-    console.log("theme");
+    console.log(">> START Reporting ");
     const userProfileRef = await db.collection("userProfile").get();
     for (const userProfile of userProfileRef) {
       const userProfileReporting = await db.collection("userProfile").doc(`${userProfile.id}`).collection("reporting").get();
