@@ -14,20 +14,24 @@ export async function sendReportingJobMember(context: EventContext) {
   try {
     console.log(">> START Reporting ");
     const userProfileRef = await db.collection("userProfile").get();
-    for (const userProfile of userProfileRef) {
-      const userProfileReporting = await db.collection("userProfile").doc(`${userProfile.id}`).collection("reporting").get();
-      for (const reporting of userProfileReporting) {
-        console.log(reporting.data());
-        if (reporting.id === "email") {
-          console.log(reporting.data());
-          await db.collection("mail").add({
-            to: userProfile.data().email,
-            template: {
-              name: "ReportingUser",
-              data: {
-                firstName: userProfile.data().firstName,
-              },
-            }});
+    if (!userProfileRef.empty) {
+      for (const userProfile of userProfileRef.docs) {
+        const userProfileReporting = await db.collection("userProfile").doc(`${userProfile.id}`).collection("reporting").get();
+        if (!userProfileReporting.empty) {
+          for (const reporting of userProfileReporting) {
+            console.log(reporting.data());
+            if (reporting.id === "email") {
+              console.log(reporting.data());
+              await db.collection("mail").add({
+                to: userProfile.data().email,
+                template: {
+                  name: "ReportingUser",
+                  data: {
+                    firstName: userProfile.data().firstName,
+                  },
+                }});
+            }
+          }
         }
       }
     }
