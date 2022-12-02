@@ -10,9 +10,9 @@ const fetch = require("node-fetch");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const {convert} = require("html-to-text");
 
-import * as functions from "firebase-functions";
-const headers: any = {"Authorization": "Basic " + functions.config().swisshandball.token};
-// const headers: any = {"Authorization": "Basic XXXX"};
+// import * as functions from "firebase-functions";
+// const headers: any = {"Authorization": "Basic " + functions.config().swisshandball.token};
+const headers: any = {"Authorization": "Basic MTQwNTYxOk5uMFNRc3Fz"};
 export default {
 
   Club: {
