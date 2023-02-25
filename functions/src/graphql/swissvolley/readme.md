@@ -23,7 +23,6 @@ header= {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWeb
 // https://github.com/70n10/timesaver/blob/master/VolleyV6.ipynb
 
 # SOAP API
-
 // https://github.com/splattner/myvbc
 /* DOKU SOAP*/
 // https://www.volleyball.ch/fileadmin/_migrated/content_uploads/WSDL-Dokumentation.pdf

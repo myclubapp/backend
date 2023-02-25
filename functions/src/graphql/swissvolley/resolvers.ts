@@ -290,7 +290,12 @@ async function getClubsSOAP(associationId: string) {
 }
 
 async function getClubs() {
-  const data = await fetch("https://api.volleyball.ch/indoor/clubs");
+  const data = await fetch("https://api.volleyball.ch/indoor/clubs", {
+    headers: {
+      "Accept": "application/json",
+      "authorization": "HYT_qY$m3-53nmA-",
+    },
+  });
   const clubData = await data.json();
   const clubList = < any > [];
   clubData.forEach((item: any) => {

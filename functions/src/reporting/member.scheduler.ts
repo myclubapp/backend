@@ -26,6 +26,12 @@ export async function sendReportingJobMember(context: EventContext) {
             console.log(`${reporting.id}`);
             if (reporting.id === "email") {
               console.log(`Reporting: ${reporting.data()}`);
+
+              // GET DATA
+              getNews();
+              getEvents();
+              getTrainings();
+
               await db.collection("mail").add({
                 to: userProfile.data().email,
                 template: {
@@ -44,4 +50,16 @@ export async function sendReportingJobMember(context: EventContext) {
   } catch (err) {
     console.error(err);
   }
+}
+
+function getNews() {
+  console.log("news");
+}
+
+function getTrainings() {
+  console.log("training");
+}
+
+function getEvents() {
+  console.log("events");
 }
