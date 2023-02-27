@@ -9,6 +9,7 @@
 const fetch = require("node-fetch");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const {convert} = require("html-to-text");
+const jsdom = require("jsdom");
 
 export default {
 
@@ -173,10 +174,59 @@ async function getClubs() {
   const data = await fetch("https://api-v2.swissunihockey.ch/api/clubs");
   const clubData = await data.json();
   const clubList = < any > [];
-  clubData.entries.forEach((item: any) => {
+  clubData.entries.forEach(async (item: any) => {
+    console.log(item.set_in_context.club_id);
+    const data = await fetch("https://portal.swissunihockey.ch/clubregister/?club_id=" + item.set_in_context.club_id +"&mode=details", {
+      headers: {
+        "cookie": "JSESSIONID=1aocqfonb7vprte7o2urrxbga",
+      },
+    });
+
+    let contactPerson = "";
+    let contactAddress = "";
+    let contactPhone = "";
+    let contactEmail = "";
+    let contactVereinsname = "";
+
+    const dom = new jsdom.JSDOM(data.data);
+    const domList: NodeList = dom.window.document.getElementsByClassName("portrait_title");
+    domList.forEach((attribute:Node, key:number, parent: NodeList) => {
+
+      console.log(attribute.childNodes[0].textContent );
+      console.log(parent.item(1)?.textContent as string);
+
+      if(attribute.childNodes[0].textContent === "Vereinsname") {
+        contactVereinsname = parent.item(1)?.textContent as string;
+      }
+      if(attribute.childNodes[0].textContent === "Kontaktperson") {
+        contactPerson = parent.item(1)?.textContent as string;
+      }
+      if(attribute.childNodes[0].textContent=== "Adresse") {
+        contactAddress = parent.item(1)?.textContent as string;
+      }
+      if(attribute.childNodes[0].textContent === "Telefonnr. Kontaktperson") {
+        contactPhone = parent.item(1)?.textContent as string;
+      }
+      if(attribute.childNodes[0].textContent === "e-Mail") {
+        contactEmail = parent.item(1)?.textContent as string;
+      }
+    });
+/*  let contactPerson = dom.window.document.getElementsByClassName("portrait_title").item(1).parentElement.children[1].innerText;
+    let contactAddress = dom.window.document.getElementsByClassName("portrait_title").item(2).parentElement.children[1].innerText;
+    let contactPhone = dom.window.document.getElementsByClassName("portrait_title").item(3).parentElement.children[1].innerText;
+    let contactEmail = dom.window.document.getElementsByClassName("portrait_title").item(4).parentElement.children[1].innerText; 
+*/
     clubList.push({
       id: item.set_in_context.club_id,
       name: item.text,
+      address: [{
+        id: item.set_in_context.club_id,
+        firstName: contactPerson,
+        lastName: contactPerson,
+        street: contactAddress,
+        email: contactEmail,
+        phone: contactPhone,
+      }],
     });
   });
   return clubList;
