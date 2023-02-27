@@ -33,6 +33,20 @@ type TeamDetail {
     id: ID!, # the ! means that every object _must_ have an id
     name: String,
 }
+
+type ContactAddress {
+    id: ID!,
+    firstName: String,
+    lastName: String,
+    street: String,
+    number: String,
+    postalcode: String,
+    city: String,
+    email: String,
+    phone: String,
+    website: String,
+}
+
 type Club {
 
     id: ID!, # the ! means that every object _must_ have an id
@@ -43,6 +57,8 @@ type Club {
     latitude: String,
     longitude: String,
     foundingYear: String,
+
+    address: [ContactAddress],
     """
     the list of Teams by this club
     """
