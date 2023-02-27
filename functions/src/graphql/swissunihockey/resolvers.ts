@@ -10,7 +10,8 @@
 const fetch = require("node-fetch");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const {convert} = require("html-to-text");
-import jsdom = require("jsdom");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const jsdom = require("jsdom");
 
 export default {
 
