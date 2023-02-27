@@ -191,7 +191,7 @@ async function getClubs() {
     const body = await response.text();
     const dom = new jsdom.JSDOM(body);
     const domList: NodeList = dom.window.document.getElementsByClassName("portrait_title");
-    if (domList.length > 0) {
+    if (domList && domList.length > 0) {
       domList.forEach((attribute:Node, key:number, parent: NodeList) => {
         console.log(attribute.childNodes[0].textContent );
         console.log(parent.item(1)?.textContent as string);
