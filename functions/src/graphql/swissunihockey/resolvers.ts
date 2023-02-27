@@ -188,7 +188,7 @@ async function getClubs() {
     let contactAddress = "";
     let contactPhone = "";
     let contactEmail = "";
-    let contactVereinsname = "";
+    // let contactVereinsname = "";
 
     const dom = new jsdom.JSDOM(data.data);
     const domList: NodeList = dom.window.document.getElementsByClassName("portrait_title");
@@ -196,9 +196,9 @@ async function getClubs() {
       console.log(attribute.childNodes[0].textContent );
       console.log(parent.item(1)?.textContent as string);
 
-      if (attribute.childNodes[0].textContent === "Vereinsname") {
+      /* if (attribute.childNodes[0].textContent === "Vereinsname") {
         contactVereinsname = parent.item(1)?.textContent as string;
-      }
+      } */
       if (attribute.childNodes[0].textContent === "Kontaktperson") {
         contactPerson = parent.item(1)?.textContent as string;
       }
