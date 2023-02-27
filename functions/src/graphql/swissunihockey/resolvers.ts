@@ -190,28 +190,29 @@ async function getClubs() {
     // let contactVereinsname = "";
     const body = await response.text();
     const dom = new jsdom.JSDOM(body);
-    console.log(data.body);
     const domList: NodeList = dom.window.document.getElementsByClassName("portrait_title");
-    domList.forEach((attribute:Node, key:number, parent: NodeList) => {
-      console.log(attribute.childNodes[0].textContent );
-      console.log(parent.item(1)?.textContent as string);
+    if (domList.length > 0) {
+      domList.forEach((attribute:Node, key:number, parent: NodeList) => {
+        console.log(attribute.childNodes[0].textContent );
+        console.log(parent.item(1)?.textContent as string);
 
-      /* if (attribute.childNodes[0].textContent === "Vereinsname") {
-        contactVereinsname = parent.item(1)?.textContent as string;
-      } */
-      if (attribute.childNodes[0].textContent === "Kontaktperson") {
-        contactPerson = parent.item(1)?.textContent as string;
-      }
-      if (attribute.childNodes[0].textContent=== "Adresse") {
-        contactAddress = parent.item(1)?.textContent as string;
-      }
-      if (attribute.childNodes[0].textContent === "Telefonnr. Kontaktperson") {
-        contactPhone = parent.item(1)?.textContent as string;
-      }
-      if (attribute.childNodes[0].textContent === "e-Mail") {
-        contactEmail = parent.item(1)?.textContent as string;
-      }
-    });
+        /* if (attribute.childNodes[0].textContent === "Vereinsname") {
+          contactVereinsname = parent.item(1)?.textContent as string;
+        } */
+        if (attribute.childNodes[0].textContent === "Kontaktperson") {
+          contactPerson = parent.item(1)?.textContent as string;
+        }
+        if (attribute.childNodes[0].textContent=== "Adresse") {
+          contactAddress = parent.item(1)?.textContent as string;
+        }
+        if (attribute.childNodes[0].textContent === "Telefonnr. Kontaktperson") {
+          contactPhone = parent.item(1)?.textContent as string;
+        }
+        if (attribute.childNodes[0].textContent === "e-Mail") {
+          contactEmail = parent.item(1)?.textContent as string;
+        }
+      });
+    }
     /*  let contactPerson = dom.window.document.getElementsByClassName("portrait_title").item(1).parentElement.children[1].innerText;
     let contactAddress = dom.window.document.getElementsByClassName("portrait_title").item(2).parentElement.children[1].innerText;
     let contactPhone = dom.window.document.getElementsByClassName("portrait_title").item(3).parentElement.children[1].innerText;
