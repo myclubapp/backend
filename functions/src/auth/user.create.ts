@@ -51,9 +51,9 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord, conte
     console.log("no user data found");
   }
 
-  const querySnapshot = await db.collectionGroup('contacts').where('email', '==', user.email).get();
+  const querySnapshot = await db.collectionGroup("contacts").where("email", "==", user.email).get();
   querySnapshot.forEach((doc:any) => {
-    console.log(doc.id, ' => ', doc.data());
+    console.log(doc.id, " => ", doc.data());
 
     // Send Mail -> Change to Create Admin for club
     return db.collection("mail").add({
@@ -67,7 +67,6 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord, conte
       },
     });
   });
-
 }
 /*
 export async function authUserCreateSendVerifyMail(user: admin.auth.UserRecord, context: functions.EventContext) {
