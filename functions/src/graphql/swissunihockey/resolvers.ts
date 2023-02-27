@@ -198,7 +198,12 @@ async function getClubs() {
 
         /* if (attribute.childNodes[0].textContent === "Vereinsname") {
           contactVereinsname = parent.item(1)?.textContent as string;
-        } */
+        }
+        let contactPerson = dom.window.document.getElementsByClassName("portrait_title").item(1).parentElement.children[1].innerText;
+        let contactAddress = dom.window.document.getElementsByClassName("portrait_title").item(2).parentElement.children[1].innerText;
+        let contactPhone = dom.window.document.getElementsByClassName("portrait_title").item(3).parentElement.children[1].innerText;
+        let contactEmail = dom.window.document.getElementsByClassName("portrait_title").item(4).parentElement.children[1].innerText;
+        */
         if (attribute.childNodes[0].textContent === "Kontaktperson") {
           contactPerson = parent.item(1)?.textContent as string;
         }
@@ -213,11 +218,7 @@ async function getClubs() {
         }
       });
     }
-    /*  let contactPerson = dom.window.document.getElementsByClassName("portrait_title").item(1).parentElement.children[1].innerText;
-    let contactAddress = dom.window.document.getElementsByClassName("portrait_title").item(2).parentElement.children[1].innerText;
-    let contactPhone = dom.window.document.getElementsByClassName("portrait_title").item(3).parentElement.children[1].innerText;
-    let contactEmail = dom.window.document.getElementsByClassName("portrait_title").item(4).parentElement.children[1].innerText;
-*/
+
     clubList.push({
       id: item.set_in_context.club_id,
       name: item.text,
