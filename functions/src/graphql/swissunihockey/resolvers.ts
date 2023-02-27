@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable max-len */
@@ -191,30 +192,29 @@ async function getClubs() {
     const dom = new jsdom.JSDOM(data.data);
     const domList: NodeList = dom.window.document.getElementsByClassName("portrait_title");
     domList.forEach((attribute:Node, key:number, parent: NodeList) => {
-
       console.log(attribute.childNodes[0].textContent );
       console.log(parent.item(1)?.textContent as string);
 
-      if(attribute.childNodes[0].textContent === "Vereinsname") {
+      if (attribute.childNodes[0].textContent === "Vereinsname") {
         contactVereinsname = parent.item(1)?.textContent as string;
       }
-      if(attribute.childNodes[0].textContent === "Kontaktperson") {
+      if (attribute.childNodes[0].textContent === "Kontaktperson") {
         contactPerson = parent.item(1)?.textContent as string;
       }
-      if(attribute.childNodes[0].textContent=== "Adresse") {
+      if (attribute.childNodes[0].textContent=== "Adresse") {
         contactAddress = parent.item(1)?.textContent as string;
       }
-      if(attribute.childNodes[0].textContent === "Telefonnr. Kontaktperson") {
+      if (attribute.childNodes[0].textContent === "Telefonnr. Kontaktperson") {
         contactPhone = parent.item(1)?.textContent as string;
       }
-      if(attribute.childNodes[0].textContent === "e-Mail") {
+      if (attribute.childNodes[0].textContent === "e-Mail") {
         contactEmail = parent.item(1)?.textContent as string;
       }
     });
-/*  let contactPerson = dom.window.document.getElementsByClassName("portrait_title").item(1).parentElement.children[1].innerText;
+    /*  let contactPerson = dom.window.document.getElementsByClassName("portrait_title").item(1).parentElement.children[1].innerText;
     let contactAddress = dom.window.document.getElementsByClassName("portrait_title").item(2).parentElement.children[1].innerText;
     let contactPhone = dom.window.document.getElementsByClassName("portrait_title").item(3).parentElement.children[1].innerText;
-    let contactEmail = dom.window.document.getElementsByClassName("portrait_title").item(4).parentElement.children[1].innerText; 
+    let contactEmail = dom.window.document.getElementsByClassName("portrait_title").item(4).parentElement.children[1].innerText;
 */
     clubList.push({
       id: item.set_in_context.club_id,
