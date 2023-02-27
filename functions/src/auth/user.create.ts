@@ -41,6 +41,33 @@ export async function authUserCreateSendWelcomeEmail(user: admin.auth.UserRecord
     },
   });
 }
+
+export async function authUserCreateAdminUser(user: admin.auth.UserRecord, context: functions.EventContext) {
+  console.log(">>> NEW USER with ID: " + user.uid );
+
+  const userProfile: any = await db.collection("userProfile").doc(`${user.uid}`).get();
+  if (!userProfile.exists) {
+    console.log("no user data found");
+  }
+
+  const querySnapshot = await db.collectionGroup('contacts').where('email', '==', user.email).get();
+  querySnapshot.forEach((doc:any) => {
+    console.log(doc.id, ' => ', doc.data());
+
+    // Send Mail -> Change to Create Admin for club
+    return db.collection("mail").add({
+      to: user.email,
+      template: {
+        name: "UserCreateWelcomeMail",
+        data: {
+          link: "LINK",
+          firstName: userProfile.data().firstName,
+        },
+      },
+    });
+  });
+
+}
 /*
 export async function authUserCreateSendVerifyMail(user: admin.auth.UserRecord, context: functions.EventContext) {
   // Send E-Mail that user has to verify his account first.
