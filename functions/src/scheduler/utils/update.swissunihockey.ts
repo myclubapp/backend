@@ -196,6 +196,15 @@ export async function updateClubsSwissunihockey(): Promise<any> {
     }, {
       merge: true,
     });
+    // address
+    for (const address of club.address) {
+      address.externalId = address.id;
+      address.type = "swissunihockey";
+      address.updated = new Date();
+      await db.collection("club").doc(`su-${club.id}`).collection("contacts").doc(`su-${address.id}`).set(address, {
+        merge: true,
+      });
+    }
   }
 }
 
