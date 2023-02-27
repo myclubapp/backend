@@ -178,19 +178,18 @@ async function getClubs() {
   const clubList = < any > [];
   clubData.entries.forEach(async (item: any) => {
     console.log(item.set_in_context.club_id);
-    const data:any = await fetch("https://portal.swissunihockey.ch/clubregister/?club_id=" + item.set_in_context.club_id +"&mode=details", {
+    const response = await fetch("https://portal.swissunihockey.ch/clubregister/?club_id=" + item.set_in_context.club_id +"&mode=details", {
       headers: {
         "cookie": "JSESSIONID=1aocqfonb7vprte7o2urrxbga",
       },
     });
-
     let contactPerson = "";
     let contactAddress = "";
     let contactPhone = "";
     let contactEmail = "";
     // let contactVereinsname = "";
-
-    const dom = new jsdom.JSDOM(data.body);
+    const body = await response.text();
+    const dom = new jsdom.JSDOM(body);
     console.log(data.body);
     const domList: NodeList = dom.window.document.getElementsByClassName("portrait_title");
     domList.forEach((attribute:Node, key:number, parent: NodeList) => {
