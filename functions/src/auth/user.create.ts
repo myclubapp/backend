@@ -57,10 +57,12 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord, conte
   querySnapshot.forEach(async (doc:QueryDocumentSnapshot ) => {
     const clubId = doc.ref.parent.parent?.id;
     const clubAdminRef = await db.collection("club").doc(clubId).collection("admins").doc(user.uid).set({
-      "userProfileRef": userProfileRef.ref,
+      "userProfileRef": userProfileRef,
     });
     const clubMembersRef = await db.collection("club").doc(clubId).collection("members").doc(user.uid).set({
-      "userProfileRef": userProfileRef.ref,
+      "userProfileRef": userProfileRef,
+    },
+    {
     });
 
     // Send Mail -> Change to Create Admin for club
