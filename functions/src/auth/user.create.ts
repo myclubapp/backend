@@ -56,7 +56,7 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord, conte
   querySnapshot.forEach((doc:QueryDocumentSnapshot ) => {
     console.log(doc.id, " => ", doc.data());
     console.log("doc ref path" + doc.ref.path);
-    console.log("Parent ID" + doc.ref.parent.id);
+    console.log("Parent > Parent ID " + doc.ref.parent.parent?.id);
 
     // Send Mail -> Change to Create Admin for club
     return db.collection("mail").add({
