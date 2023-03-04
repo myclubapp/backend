@@ -14,6 +14,24 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
   const userId = context.params.userId;
   const clubId = context.params.clubId;
 
+  const clubRef = await db.collection("club").doc(clubId).get();
+  const userProfileRef = await db.collection("userProfile").doc(userId).get();
+  await db.collection("club").doc(clubId).collection("requests").doc(userId).set({
+    "userProfileRef": userProfileRef.ref,
+  });
+
+  // SEND REQUEST E-MAIL TO USER
+  return db.collection("mail").add({
+    to: userProfileRef.data()?.email,
+    template: {
+      name: "ClubRequestEmail",
+      data: {
+        clubName: clubRef.data().name,
+        firstName: userProfileRef.data()?.firstName,
+      },
+    },
+  });
+
   // check if user has admin claims..
   /*
   const adminUserRef = snapshot.data().userProfileRef || false;
