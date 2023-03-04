@@ -7,7 +7,7 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import firebaseDAO from "./../firebaseSingleton";
-import {QueryDocumentSnapshot} from "@google-cloud/firestore";
+import {DocumentSnapshot, QueryDocumentSnapshot} from "@google-cloud/firestore";
 
 const db = firebaseDAO.instance.db;
 
@@ -47,16 +47,21 @@ export async function authUserCreateSendWelcomeEmail(user: admin.auth.UserRecord
 export async function authUserCreateAdminUser(user: admin.auth.UserRecord, context: functions.EventContext) {
   console.log(">>> NEW USER with ID: " + user.uid );
 
-  const userProfile: any = await db.collection("userProfile").doc(`${user.uid}`).get();
-  if (!userProfile.exists) {
+  const userProfileRef: DocumentSnapshot = await db.collection("userProfile").doc(`${user.uid}`).get();
+  if (!userProfileRef.exists) {
     console.log("no user data found");
   }
 
   const querySnapshot = await db.collectionGroup("contacts").where("email", "==", user.email).get();
-  querySnapshot.forEach((doc:QueryDocumentSnapshot ) => {
-    console.log(doc.id, " => ", doc.data());
-    console.log("doc ref path" + doc.ref.path);
-    console.log("Parent > Parent ID " + doc.ref.parent.parent?.id);
+
+  querySnapshot.forEach(async (doc:QueryDocumentSnapshot ) => {
+    const clubId = doc.ref.parent.parent?.id;
+    const clubAdminRef = await db.collection("club").doc(clubId).collection("admins").doc(user.uid).set({
+      "userProfileRef": userProfileRef.ref,
+    });
+    const clubMembersRef = await db.collection("club").doc(clubId).collection("members").doc(user.uid).set({
+      "userProfileRef": userProfileRef.ref,
+    });
 
     // Send Mail -> Change to Create Admin for club
     return db.collection("mail").add({
@@ -65,7 +70,7 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord, conte
         name: "UserCreateWelcomeMail",
         data: {
           link: "LINK",
-          firstName: userProfile.data().firstName,
+          firstName: userProfileRef.data()?.firstName,
         },
       },
     });
