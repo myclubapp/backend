@@ -61,8 +61,13 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord, conte
     });
     const clubMembersRef = await db.collection("club").doc(clubId).collection("members").doc(user.uid).set({
       "userProfileRef": userProfileRef,
+    });
+
+    const clubRef = await db.collection("club").doc(clubId).set({
+      "active": true,
     },
     {
+      mergeFields: true,
     });
 
     // Send Mail -> Change to Create Admin for club
