@@ -54,6 +54,7 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord, conte
   const querySnapshot = await db.collectionGroup("contacts").where("email", "==", user.email).get();
   querySnapshot.forEach((doc:any) => {
     console.log(doc.id, " => ", doc.data());
+    console.log(context);
 
     // Send Mail -> Change to Create Admin for club
     return db.collection("mail").add({
