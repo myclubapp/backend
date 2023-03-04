@@ -2,7 +2,7 @@
 import * as functions from "firebase-functions";
 import {authUserBlockBeforeCreate, authUserBlockBeforeSignIn} from "./auth/user.block";
 
-import {authUserCreateSendWelcomeEmail} from "./auth/user.create";
+import {authUserCreateSendWelcomeEmail, authUserCreateAdminUser} from "./auth/user.create";
 // eslint-disable-next-line import/namespace
 import {authUserDeleteUserSendByEmail, authUserDeleteUserAccount} from "./auth/user.delete";
 import {createClubAdmin, createTeamAdmin} from "./firestore/createAdmin";
@@ -20,6 +20,7 @@ const graphql = require("./graphql/server");
 // Firebase AUTH Welcome User Stuff
 // export const userCreate = functions.region("europe-west6").auth.user().onCreate(authUserCreate);
 export const sendWelcomeMail = functions.region("europe-west6").auth.user().onCreate(authUserCreateSendWelcomeEmail);
+export const onCreateUsercreateAdminUser = functions.region("europe-west6").auth.user().onCreate(authUserCreateAdminUser);
 export const sendByeEmail = functions.region("europe-west6").auth.user().onDelete(authUserDeleteUserSendByEmail);
 export const deleteUserAccount = functions.region("europe-west6").auth.user().onDelete(authUserDeleteUserAccount);
 
