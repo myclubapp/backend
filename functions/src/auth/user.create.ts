@@ -57,11 +57,24 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord, conte
 
   querySnapshot.forEach(async (doc:QueryDocumentSnapshot ) => {
     const clubId: string = doc.ref.parent.parent?.id || "";
+
+    // ADD User to Club as Admin
     await db.collection("club").doc(clubId).collection("admins").doc(user.uid).set({
       "userProfileRef": userProfileRef.ref,
     });
+    // ADD User to Club as Admin
     await db.collection("club").doc(clubId).collection("members").doc(user.uid).set({
       "userProfileRef": userProfileRef.ref,
+    });
+
+    // Add Club to User as Admin
+    const clubRef = await db.collection("club").doc(clubId).get();
+    await db.collection("userProfile").doc(user.uid).collection("clubAdmin").doc(clubId).set({
+      "clubRef": clubRef.ref,
+    });
+    // Add Club to User as Member
+    await db.collection("userProfile").doc(user.uid).collection("clubs").doc(clubId).set({
+      "clubRef": clubRef.ref,
     });
 
     console.log(`set user ${user.uid} custom claims for admin role: ${clubId}`);
