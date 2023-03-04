@@ -10,6 +10,7 @@ import {createClubAdmin, createTeamAdmin} from "./firestore/createAdmin";
 import {createClubMember, createTeamMember} from "./firestore/createMember";
 import {deleteClubAdmin, deleteTeamAdmin} from "./firestore/deleteAdmin";
 import {deleteClubMember, deleteTeamMember} from "./firestore/deleteMember";
+import {createClubRequest} from "./firestore/createClubRequest";
 
 import {updatePersistenceJobClubs, updatePersistenceJobTeams, updatePersistenceJobGames, updatePersistenceJobNews} from "./scheduler/syncAssociation.scheduler";
 
@@ -52,3 +53,6 @@ export const dbRemoveClubMember = functions.region("europe-west6").firestore.doc
 export const dbRemoveClubAdmin = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubAdmin/{clubId}").onDelete(deleteClubAdmin);
 export const dbAddClubMember = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubs/{clubId}").onCreate(createClubMember);
 export const dbAddClubAdmin = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubAdmin/{clubId}").onCreate(createClubAdmin);
+
+// DB Hooks CLUB REQUESTS
+export const dbAddClubRequest = functions.region("europe-west6").firestore.document("/userProfile/{userId}/requests/{clubId}").onCreate(createClubRequest);
