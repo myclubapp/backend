@@ -65,16 +65,18 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord, conte
     });
 
     // Club aktivieren
+    console.log(`Activate Club with ID: ${clubId}`);
     await db.collection("club").doc(clubId).set({
       "active": true,
     },
     {
-      mergeFields: true,
+      merge: true,
     });
 
-    updateClubsSwissunihockey();
-    updateTeamsSwissunihockey();
-    updateGamesSwissunihockey();
+    console.log("Update swissunihockey");
+    await updateClubsSwissunihockey();
+    await updateTeamsSwissunihockey();
+    await updateGamesSwissunihockey();
 
     // Send Mail -> Change to Create Admin for club
     return db.collection("mail").add({
