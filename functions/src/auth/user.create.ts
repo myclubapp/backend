@@ -58,10 +58,10 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord, conte
   querySnapshot.forEach(async (doc:QueryDocumentSnapshot ) => {
     const clubId = doc.ref.parent.parent?.id;
     await db.collection("club").doc(clubId).collection("admins").doc(user.uid).set({
-      "userProfileRef": userProfileRef,
+      "userProfileRef": userProfileRef.ref,
     });
     await db.collection("club").doc(clubId).collection("members").doc(user.uid).set({
-      "userProfileRef": userProfileRef,
+      "userProfileRef": userProfileRef.ref,
     });
 
     // Club aktivieren
