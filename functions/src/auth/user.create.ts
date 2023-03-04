@@ -9,6 +9,7 @@ import * as admin from "firebase-admin";
 import firebaseDAO from "./../firebaseSingleton";
 import {DocumentSnapshot, QueryDocumentSnapshot} from "@google-cloud/firestore";
 import {updateClubsSwissunihockey, updateGamesSwissunihockey, updateTeamsSwissunihockey} from "../scheduler/utils/update.swissunihockey";
+import { auth } from "firebase-admin";
 
 const db = firebaseDAO.instance.db;
 
@@ -56,13 +57,19 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord, conte
   const querySnapshot = await db.collectionGroup("contacts").where("email", "==", user.email).get();
 
   querySnapshot.forEach(async (doc:QueryDocumentSnapshot ) => {
-    const clubId = doc.ref.parent.parent?.id;
+    const clubId: string = doc.ref.parent.parent?.id || "";
     await db.collection("club").doc(clubId).collection("admins").doc(user.uid).set({
       "userProfileRef": userProfileRef.ref,
     });
     await db.collection("club").doc(clubId).collection("members").doc(user.uid).set({
       "userProfileRef": userProfileRef.ref,
     });
+
+    console.log(`set user ${user.uid} custom claims for admin role: ${clubId}`);
+    const userRef = await admin.auth().getUser(user.uid);
+    const _customClaims = userRef.customClaims || {};
+    _customClaims[clubId] = true;
+    admin.auth().setCustomUserClaims(user.uid, _customClaims);
 
     // Club aktivieren
     console.log(`Activate Club with ID: ${clubId}`);
