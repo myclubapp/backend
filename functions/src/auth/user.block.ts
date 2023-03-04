@@ -11,12 +11,12 @@ import {AuthUserRecord} from "firebase-functions/lib/common/providers/identity";
 // const db = firebaseDAO.instance.db;
 
 export async function authUserBlockBeforeCreate(user: AuthUserRecord, context: functions.EventContext) {
-  if (user.email && user.email.indexOf("@acme.com") === -1) {
+  /* if (user.email && user.email.indexOf("@acme.com") === -1) {
     throw new functions.auth.HttpsError(
         "invalid-argument",
         `Unauthorized email "${user.email}"`
     );
-  }
+  } */
 }
 
 export async function authUserBlockBeforeSignIn(user: AuthUserRecord, context: functions.EventContext) {
