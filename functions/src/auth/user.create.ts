@@ -7,6 +7,7 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import firebaseDAO from "./../firebaseSingleton";
+import {QueryDocumentSnapshot} from "@google-cloud/firestore";
 
 const db = firebaseDAO.instance.db;
 
@@ -52,10 +53,10 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord, conte
   }
 
   const querySnapshot = await db.collectionGroup("contacts").where("email", "==", user.email).get();
-  querySnapshot.forEach((doc:any) => {
+  querySnapshot.forEach((doc:QueryDocumentSnapshot ) => {
     console.log(doc.id, " => ", doc.data());
-    console.log(context);
-    console.log(doc);
+    console.log("doc ref path" + doc.ref.path);
+    console.log("Parent ID" + doc.ref.parent.id);
 
     // Send Mail -> Change to Create Admin for club
     return db.collection("mail").add({
