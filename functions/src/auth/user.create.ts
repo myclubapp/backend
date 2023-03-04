@@ -9,7 +9,6 @@ import * as admin from "firebase-admin";
 import firebaseDAO from "./../firebaseSingleton";
 import {DocumentSnapshot, QueryDocumentSnapshot} from "@google-cloud/firestore";
 import {updateClubsSwissunihockey, updateGamesSwissunihockey, updateTeamsSwissunihockey} from "../scheduler/utils/update.swissunihockey";
-import { auth } from "firebase-admin";
 
 const db = firebaseDAO.instance.db;
 
