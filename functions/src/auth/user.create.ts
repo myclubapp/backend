@@ -8,6 +8,7 @@ import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import firebaseDAO from "./../firebaseSingleton";
 import {DocumentSnapshot, QueryDocumentSnapshot} from "@google-cloud/firestore";
+import { updateClubsSwissunihockey, updateGamesSwissunihockey, updateTeamsSwissunihockey } from "../scheduler/utils/update.swissunihockey";
 
 const db = firebaseDAO.instance.db;
 
@@ -63,12 +64,17 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord, conte
       "userProfileRef": userProfileRef,
     });
 
+    // Club aktivieren
     const clubRef = await db.collection("club").doc(clubId).set({
       "active": true,
     },
     {
       mergeFields: true,
     });
+
+    updateClubsSwissunihockey();
+    updateTeamsSwissunihockey();
+    updateGamesSwissunihockey();
 
     // Send Mail -> Change to Create Admin for club
     return db.collection("mail").add({
