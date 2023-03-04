@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable max-len */
 import * as functions from "firebase-functions";
 import {authUserBlockBeforeCreate, authUserBlockBeforeSignIn} from "./auth/user.block";
