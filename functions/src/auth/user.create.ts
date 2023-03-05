@@ -83,6 +83,10 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord, conte
     _customClaims[clubId] = true;
     admin.auth().setCustomUserClaims(user.uid, _customClaims);
 
+    await admin.auth().updateUser(user.uid, {
+      displayName: userProfileRef.data()?.firstName + " " + userProfileRef.data()?.lastName,
+    });
+
     // Club aktivieren
     console.log(`Activate Club with ID: ${clubId}`);
     await db.collection("club").doc(clubId).set({
