@@ -11,11 +11,11 @@ import {createClubMember, createTeamMember} from "./firestore/createMember";
 import {deleteClubAdmin, deleteTeamAdmin} from "./firestore/deleteAdmin";
 import {deleteClubMember, deleteTeamMember} from "./firestore/deleteMember";
 import {createClubRequest} from "./firestore/createClubRequest";
+import {createTeamRequest} from "./firestore/createTeamRequest";
 
 import {updatePersistenceJobClubs, updatePersistenceJobTeams, updatePersistenceJobGames, updatePersistenceJobNews} from "./scheduler/syncAssociation.scheduler";
 
 import {sendReportingJobMember} from "./reporting/member.scheduler";
-import {createTeamRequest} from "./firestore/createTeamRequest";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const graphql = require("./graphql/server");
