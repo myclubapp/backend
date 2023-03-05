@@ -17,7 +17,7 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
   const clubRef = await db.collection("club").doc(clubId).get();
   const userProfileRef = await db.collection("userProfile").doc(userId).get();
 
-  await db.collection("club").doc(clubId).collection("requests").doc(userId).set({
+  await db.collection("club").doc(clubId).collection("clubRequests").doc(userId).set({
     "userProfileRef": userProfileRef.ref,
   });
 
