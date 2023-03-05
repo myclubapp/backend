@@ -9,15 +9,15 @@ import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore"
 const db = firebaseDAO.instance.db;
 // const auth = firebaseDAO.instance.auth;
 
-export async function createClubRequest(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
-  console.log("createTeamMember");
+export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
+  console.log("Create Team Request");
   const userId = context.params.userId;
-  const clubId = context.params.clubId;
+  const teamId = context.params.teamId;
 
-  const clubRef = await db.collection("club").doc(clubId).get();
+  const teamRef = await db.collection("teams").doc(teamId).get();
   const userProfileRef = await db.collection("userProfile").doc(userId).get();
 
-  await db.collection("club").doc(clubId).collection("requests").doc(userId).set({
+  await db.collection("teams").doc(teamId).collection("requests").doc(userId).set({
     "userProfileRef": userProfileRef.ref,
   });
 
@@ -25,9 +25,9 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
   return db.collection("mail").add({
     to: userProfileRef.data()?.email,
     template: {
-      name: "ClubRequestEmail",
+      name: "TeamRequestEmail",
       data: {
-        clubName: clubRef.data().name,
+        teamName: teamRef.data().name,
         firstName: userProfileRef.data()?.firstName,
       },
     },

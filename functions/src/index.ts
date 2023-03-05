@@ -15,6 +15,7 @@ import {createClubRequest} from "./firestore/createClubRequest";
 import {updatePersistenceJobClubs, updatePersistenceJobTeams, updatePersistenceJobGames, updatePersistenceJobNews} from "./scheduler/syncAssociation.scheduler";
 
 import {sendReportingJobMember} from "./reporting/member.scheduler";
+import {createTeamRequest} from "./firestore/createTeamRequest";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const graphql = require("./graphql/server");
@@ -54,5 +55,6 @@ export const dbRemoveClubAdmin = functions.region("europe-west6").firestore.docu
 export const dbAddClubMember = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubs/{clubId}").onCreate(createClubMember);
 export const dbAddClubAdmin = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubAdmin/{clubId}").onCreate(createClubAdmin);
 
-// DB Hooks CLUB REQUESTS
+// DB Hooks REQUESTS
 export const dbAddClubRequest = functions.region("europe-west6").firestore.document("/userProfile/{userId}/requests/{clubId}").onCreate(createClubRequest);
+export const dbAddTeamRequest = functions.region("europe-west6").firestore.document("/userProfile/{userId}/requests/{clubId}").onCreate(createTeamRequest);
