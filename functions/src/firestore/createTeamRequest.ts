@@ -27,7 +27,7 @@ export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context
     template: {
       name: "TeamRequestEmail",
       data: {
-        teamName: teamRef.data().name,
+        teamName: teamRef.data().liga + " " + teamRef.data().name,
         firstName: userProfileRef.data()?.firstName,
       },
     },
