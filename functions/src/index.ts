@@ -56,5 +56,5 @@ export const dbAddClubMember = functions.region("europe-west6").firestore.docume
 export const dbAddClubAdmin = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubAdmin/{clubId}").onCreate(createClubAdmin);
 
 // DB Hooks REQUESTS
-export const dbAddClubRequest = functions.region("europe-west6").firestore.document("/userProfile/{userId}/requests/{clubId}").onCreate(createClubRequest);
-export const dbAddTeamRequest = functions.region("europe-west6").firestore.document("/userProfile/{userId}/requests/{clubId}").onCreate(createTeamRequest);
+export const dbAddClubRequest = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubRequests/{clubId}").onCreate(createClubRequest);
+export const dbAddTeamRequest = functions.region("europe-west6").firestore.document("/userProfile/{userId}/teamRequests/{teamId}").onCreate(createTeamRequest);
