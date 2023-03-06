@@ -53,6 +53,8 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord, conte
     console.log("no user data found");
   }
 
+
+  // CREATE ADMIN USER, If CONTACT -> SPECIAL ONBOARDING
   const querySnapshot = await db.collectionGroup("contacts").where("email", "==", user.email).get();
 
   querySnapshot.forEach(async (doc:QueryDocumentSnapshot ) => {
@@ -62,17 +64,17 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord, conte
     await db.collection("club").doc(clubId).collection("admins").doc(user.uid).set({
       "userProfileRef": userProfileRef.ref,
     });
-    // ADD User to Club as Admin
+    // ADD User to Club as Member
     await db.collection("club").doc(clubId).collection("members").doc(user.uid).set({
       "userProfileRef": userProfileRef.ref,
     });
 
-    // Add Club to User as Admin
+    // Add ClubAdmin to User
     const clubRef = await db.collection("club").doc(clubId).get();
     await db.collection("userProfile").doc(user.uid).collection("clubAdmin").doc(clubId).set({
       "clubRef": clubRef.ref,
     });
-    // Add Club to User as Member
+    // Add Club to User
     await db.collection("userProfile").doc(user.uid).collection("clubs").doc(clubId).set({
       "clubRef": clubRef.ref,
     });
@@ -86,6 +88,29 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord, conte
     await admin.auth().updateUser(user.uid, {
       displayName: userProfileRef.data()?.firstName + " " + userProfileRef.data()?.lastName,
     });
+
+    // ADD TO ALL TEAMS
+    const teamListRef = await db.collection("club").doc(clubId).collection("teams");
+    for (const team of teamListRef.docs) {
+      // ADD User to Club as Admin
+      await db.collection("teams").doc(team.id).collection("admins").doc(user.uid).set({
+        "userProfileRef": userProfileRef.ref,
+      });
+      // ADD User to Club as Member
+      await db.collection("teams").doc(team.id).collection("members").doc(user.uid).set({
+        "userProfileRef": userProfileRef.ref,
+      });
+
+      // Add ClubAdmin to User
+      const teamRef = await db.collection("teams").doc(team.id).get();
+      await db.collection("userProfile").doc(user.uid).collection("teamAdmin").doc(clubId).set({
+        "teamRef": teamRef.ref,
+      });
+      // Add Club to User
+      await db.collection("userProfile").doc(user.uid).collection("teams").doc(team.id).set({
+        "teamRef": teamRef.ref,
+      });
+    }
 
     // Club aktivieren
     console.log(`Activate Club with ID: ${clubId}`);
