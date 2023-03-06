@@ -4,17 +4,17 @@
 /* eslint-disable require-jsdoc */
 /* eslint-disable max-len */
 import * as functions from "firebase-functions";
-import firebaseDAO from "../firebaseSingleton";
+import firebaseDAO from "../../firebaseSingleton";
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 
 const db = firebaseDAO.instance.db;
 // const auth = firebaseDAO.instance.auth;
 
-export async function createTeamEvent(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
+export async function createClubEvent(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
   const userId = context.params.userId;
   const userProfileRef = await db.collection("userProfile").doc(userId).get();
 
-  console.log("createTeamEvent" + userProfileRef.id);
+  console.log("createClubEvent" + userProfileRef.id);
 
   /*
   const trainingId = context.params.trainingId;

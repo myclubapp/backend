@@ -10,17 +10,17 @@ import {createClubAdmin, createTeamAdmin} from "./firestore/createAdmin";
 import {createClubMember, createTeamMember} from "./firestore/createMember";
 import {deleteClubAdmin, deleteTeamAdmin} from "./firestore/deleteAdmin";
 import {deleteClubMember, deleteTeamMember} from "./firestore/deleteMember";
-import {createClubRequest} from "./firestore/createClubRequest";
-import {createTeamRequest} from "./firestore/createTeamRequest";
-import {deleteClubRequest} from "./firestore/deleteClubRequest";
-import {deleteTeamRequest} from "./firestore/deleteTeamRequest";
-import {approveClubRequest} from "./firestore/approveClubRequest";
-import {approveTeamRequest} from "./firestore/approveTeamRequest";
+import {createClubRequest} from "./firestore/request/createClubRequest";
+import {createTeamRequest} from "./firestore/request/createTeamRequest";
+import {deleteClubRequest} from "./firestore/request/deleteClubRequest";
+import {deleteTeamRequest} from "./firestore/request/deleteTeamRequest";
+import {approveClubRequest} from "./firestore/request/approveClubRequest";
+import {approveTeamRequest} from "./firestore/request/approveTeamRequest";
 
-import {createTeamTraining} from "./firestore/createTeamTraining";
+import {createTeamTraining} from "./firestore/training/createTeamTraining";
 
-import {createTeamEvent} from "./firestore/createTeamEvent";
-import {createClubEvent} from "./firestore/createClubEvent";
+import {createTeamEvent} from "./firestore/event/createTeamEvent";
+import {createClubEvent} from "./firestore/event/createClubEvent";
 
 import {updatePersistenceJobClubs, updatePersistenceJobTeams, updatePersistenceJobGames, updatePersistenceJobNews} from "./scheduler/syncAssociation.scheduler";
 
@@ -76,5 +76,5 @@ export const dbApproveTeamRequest = functions.region("europe-west6").firestore.d
 export const dbAddTeamTraining = functions.region("europe-west6").firestore.document("/userProfile/{userId}/trainings/{trainingId}").onCreate(createTeamTraining);
 
 // DB Hooks EVENTS
-export const dbAddTeamEvent = functions.region("europe-west6").firestore.document("/userProfile/{userId}/teamEvent/{trainingId}").onCreate(createTeamEvent);
-export const dbAddClubEvent = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubEvent/{trainingId}").onCreate(createClubEvent);
+export const dbAddTeamEvent = functions.region("europe-west6").firestore.document("/userProfile/{userId}/teamEvent/{eventId}").onCreate(createTeamEvent);
+export const dbAddClubEvent = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubEvent/{eventId}").onCreate(createClubEvent);

@@ -4,28 +4,41 @@
 /* eslint-disable require-jsdoc */
 /* eslint-disable max-len */
 import * as functions from "firebase-functions";
-import firebaseDAO from "../firebaseSingleton";
+import firebaseDAO from "../../firebaseSingleton";
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
+import {Change} from "firebase-functions";
 
 const db = firebaseDAO.instance.db;
 // const auth = firebaseDAO.instance.auth;
 
-export async function createTeamTraining(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
-  const userId = context.params.userId;
-  const trainingId = context.params.trainingId;
-  // const userProfileRef = await db.collection("userProfile").doc(userId).get();
+export async function approveClubRequest(change: Change<QueryDocumentSnapshot>, context: functions.EventContext) {
+  console.log("approveClubRequest");
+  const requestId = context.params.requestId;
+  const clubId = context.params.clubId;
 
-  console.log("createTeamTraining" + trainingId);
-  return db.collection("userProfile").doc(userId).collection("trainings").doc(trainingId).delete();
+  const requestRef = await db.collection("club").doc(clubId).collection("requests").doc(requestId).get();
+  const userProfileRef = await db.collection("userProfile").doc(requestId).get();
+  const clubRef = await db.collection("club").doc(clubId).get();
 
+  if (change.after.data().approve) {
+    console.log(`approve request ${requestRef.id}`);
+
+    await db.collection("club").doc(clubId).collection("members").doc(userProfileRef.id).set({
+      "userProfileRef": userProfileRef.ref,
+    });
+    // Add Club to User as Member
+    await db.collection("userProfile").doc(userProfileRef.id).collection("clubs").doc(clubId).set({
+      "clubRef": clubRef.ref,
+    });
+    await db.collection("club").doc(clubId).collection("requests").doc(userProfileRef.id).delete();
+    await db.collection("userProfile").doc(userProfileRef.id).collection("clubRequests").doc(clubId).delete();
+  }
+
+  return true;
   /*
-  const trainingId = context.params.trainingId;
-
-
   await db.collection("club").doc(clubId).collection("requests").doc(userId).set({
     "userProfileRef": userProfileRef.ref,
   });
-
   // SEND REQUEST CONFIRMATION E-MAIL TO USER
   await db.collection("mail").add({
     to: userProfileRef.data()?.email,
@@ -60,18 +73,5 @@ export async function createTeamTraining(snapshot: QueryDocumentSnapshot, contex
       },
     },
   });
-
-  // check if user has admin claims..
-  /*
-  const adminUserRef = snapshot.data().userProfileRef || false;
-  if (adminUserRef) { // only provided in team Page call
-    const adminUser = await adminUserRef.get();
-    const user = await auth.getUser(adminUser.id);
-    if (user && user.customClaims && user.customClaims[teamId]) {
-      const userRef = await db.collection("userProfile").doc(userId).get();
-      await db.collection("teams").doc(teamId).collection("members").doc(`${userId}`).set({
-        "userProfileRef": userRef,
-      });
-    }
-  } */
+  */
 }

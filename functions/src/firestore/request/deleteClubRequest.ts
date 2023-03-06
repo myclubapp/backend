@@ -4,16 +4,16 @@
 /* eslint-disable require-jsdoc */
 /* eslint-disable max-len */
 import * as functions from "firebase-functions";
-import firebaseDAO from "../firebaseSingleton";
+import firebaseDAO from "../../firebaseSingleton";
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 
 const db = firebaseDAO.instance.db;
 // const auth = firebaseDAO.instance.auth;
 
-export async function deleteTeamRequest(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
-  console.log("deleteTeamRequest");
+export async function deleteClubRequest(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
+  console.log("deleteClubRequest");
   const userId = context.params.userId;
-  const teamId = context.params.teamId;
+  const clubId = context.params.clubId;
 
-  return db.collection("teams").doc(teamId).collection("requests").doc(userId).delete();
+  return db.collection("club").doc(clubId).collection("requests").doc(userId).delete();
 }
