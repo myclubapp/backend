@@ -15,5 +15,5 @@ export async function deleteClubRequest(snapshot: QueryDocumentSnapshot, context
   const userId = context.params.userId;
   const clubId = context.params.clubId;
 
-  await db.collection("club").doc(clubId).collection("requests").doc(userId).delete();
+  return db.collection("club").doc(clubId).collection("requests").doc(userId).delete();
 }
