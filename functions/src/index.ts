@@ -17,6 +17,11 @@ import {deleteTeamRequest} from "./firestore/deleteTeamRequest";
 import {approveClubRequest} from "./firestore/approveClubRequest";
 import {approveTeamRequest} from "./firestore/approveTeamRequest";
 
+import {createTeamTraining} from "./firestore/createTeamTraining";
+
+import {createTeamEvent} from "./firestore/createTeamEvent";
+import {createClubEvent} from "./firestore/createClubEvent";
+
 import {updatePersistenceJobClubs, updatePersistenceJobTeams, updatePersistenceJobGames, updatePersistenceJobNews} from "./scheduler/syncAssociation.scheduler";
 
 import {sendReportingJobMember} from "./reporting/member.scheduler";
@@ -66,3 +71,10 @@ export const dbRemoveClubRequest = functions.region("europe-west6").firestore.do
 export const dbRemoveTeamRequest = functions.region("europe-west6").firestore.document("/userProfile/{userId}/teamRequests/{teamId}").onDelete(deleteTeamRequest);
 export const dbApproveClubRequest = functions.region("europe-west6").firestore.document("/club/{clubId}/requests/{requestId}").onUpdate(approveClubRequest);
 export const dbApproveTeamRequest = functions.region("europe-west6").firestore.document("/teams/{teamId}/requests/{requestId}").onUpdate(approveTeamRequest);
+
+// DB Hooks TRAININGS
+export const dbAddTeamTraining = functions.region("europe-west6").firestore.document("/userProfile/{userId}/trainings/{trainingId}").onCreate(createTeamTraining);
+
+// DB Hooks EVENTS
+export const dbAddTeamEvent = functions.region("europe-west6").firestore.document("/userProfile/{userId}/teamEvent/{trainingId}").onCreate(createTeamEvent);
+export const dbAddClubEvent = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubEvent/{trainingId}").onCreate(createClubEvent);
