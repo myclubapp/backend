@@ -12,6 +12,8 @@ import {deleteClubAdmin, deleteTeamAdmin} from "./firestore/deleteAdmin";
 import {deleteClubMember, deleteTeamMember} from "./firestore/deleteMember";
 import {createClubRequest} from "./firestore/createClubRequest";
 import {createTeamRequest} from "./firestore/createTeamRequest";
+import {deleteClubRequest} from "./firestore/deleteClubRequest";
+import {deleteTeamRequest} from "./firestore/deleteTeamRequest";
 
 import {updatePersistenceJobClubs, updatePersistenceJobTeams, updatePersistenceJobGames, updatePersistenceJobNews} from "./scheduler/syncAssociation.scheduler";
 
@@ -58,5 +60,5 @@ export const dbAddClubAdmin = functions.region("europe-west6").firestore.documen
 // DB Hooks REQUESTS
 export const dbAddClubRequest = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubRequests/{clubId}").onCreate(createClubRequest);
 export const dbAddTeamRequest = functions.region("europe-west6").firestore.document("/userProfile/{userId}/teamRequests/{teamId}").onCreate(createTeamRequest);
-export const dbAddClubRequest = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubRequests/{clubId}").onDelete(deleteClubRequest);
-export const dbAddTeamRequest = functions.region("europe-west6").firestore.document("/userProfile/{userId}/teamRequests/{teamId}").onDelete(deleteTeamRequest);
+export const dbRemoveClubRequest = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubRequests/{clubId}").onDelete(deleteClubRequest);
+export const dbRemoveTeamRequest = functions.region("europe-west6").firestore.document("/userProfile/{userId}/teamRequests/{teamId}").onDelete(deleteTeamRequest);
