@@ -29,20 +29,33 @@ export async function authUserDeleteUserSendByEmail(user: admin.auth.UserRecord,
 export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, context: functions.EventContext) {
   console.log("delete user " + user.uid);
   // delete user from all teams
-  const teamList = await db.collection("userProfile").doc(user.uid).collection("teamList").get();
+  const teamList = await db.collection("userProfile").doc(user.uid).collection("teams").get();
   if (!teamList.empty) {
     for (const team of teamList.docs) {
-      await db.collection("team").doc(team.id).collection("memberList").doc(`${user.uid}`).delete();
+      await db.collection("team").doc(team.id).collection("members").doc(`${user.uid}`).delete();
+    }
+  }
+  const teamAdminList = await db.collection("userProfile").doc(user.uid).collection("teamAdmin").get();
+  if (!teamAdminList.empty) {
+    for (const team of teamAdminList.docs) {
+      await db.collection("team").doc(team.id).collection("admins").doc(`${user.uid}`).delete();
     }
   }
 
   // delete user from all clubs
-  const clubList = await db.collection("userProfile").doc(user.uid).collection("clubList").get();
+  const clubList = await db.collection("userProfile").doc(user.uid).collection("clubs").get();
   if (!clubList.empty) {
     for (const club of clubList.docs) {
-      await db.collection("club").doc(club.id).collection("memberList").doc(`${user.uid}`).delete();
+      await db.collection("club").doc(club.id).collection("members").doc(`${user.uid}`).delete();
     }
   }
+    // delete user from all club Admins
+    const clubAdminList = await db.collection("userProfile").doc(user.uid).collection("clubAdmin").get();
+    if (!clubAdminList.empty) {
+      for (const club of clubAdminList.docs) {
+        await db.collection("club").doc(club.id).collection("admins").doc(`${user.uid}`).delete();
+      }
+    }
   // Events?
 
   // Trainings?
