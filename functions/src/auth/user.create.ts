@@ -90,7 +90,7 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord, conte
     });
 
     // ADD TO ALL TEAMS
-    const teamListRef = await db.collection("club").doc(clubId).collection("teams");
+    const teamListRef = await db.collection("club").doc(clubId).collection("teams").get();
     for (const team of teamListRef.docs) {
       // ADD User to Club as Admin
       await db.collection("teams").doc(team.id).collection("admins").doc(user.uid).set({
