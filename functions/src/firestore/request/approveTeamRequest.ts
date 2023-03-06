@@ -4,7 +4,7 @@
 /* eslint-disable require-jsdoc */
 /* eslint-disable max-len */
 import * as functions from "firebase-functions";
-import firebaseDAO from "../firebaseSingleton";
+import firebaseDAO from "../../firebaseSingleton";
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 import {Change} from "firebase-functions";
 
@@ -13,6 +13,7 @@ const db = firebaseDAO.instance.db;
 
 export async function approveTeamRequest(change: Change<QueryDocumentSnapshot>, context: functions.EventContext) {
   console.log("approveTeamRequest");
+
   const requestId = context.params.requestId;
   const teamId = context.params.teamId;
   const requestRef = await db.collection("teamId").doc(teamId).collection("requests").doc(requestId).get();
