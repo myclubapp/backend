@@ -39,6 +39,7 @@ export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context
   console.log(`Get Admin from Club: ${teamRef.data().clubRef.id}`);
   const clubAdminRef = await db.collection("club").doc(teamRef.data().clubRef.id).collection("admins").get();
   for (const admin of clubAdminRef.docs) {
+    console.log(`Read Admin user for Club with id ${admin.id}`);
     const userProfileAdminRef = await db.collection("userProfile").doc(admin.id).get();
     receipient.push(userProfileAdminRef.data().email);
   }
@@ -46,6 +47,7 @@ export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context
   // SEND REQUEST E-MAIL TO TEAM ADMIN
   const teamAdminRef = await db.collection("teams").doc(teamId).collection("admins").get();
   for (const admin of teamAdminRef.docs) {
+    console.log(`Read Admin user for Team with id ${admin.id}`);
     const userProfileAdminRef = await db.collection("userProfile").doc(admin.id).get();
     receipient.push(userProfileAdminRef.data().email);
   }
