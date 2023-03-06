@@ -39,15 +39,15 @@ export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context
   console.log(`Get Admin from Club: ${teamRef.data().clubRef.id}`);
   const clubAdminRef = await db.collection("club").doc(teamRef.data().clubRef.id).collection("admins").get();
   for (const admin of clubAdminRef.docs) {
-    const userProfileRef = await db.collection("userProfile").doc(admin.id).get();
-    receipient.push(userProfileRef.data().email);
+    const userProfileAdminRef = await db.collection("userProfile").doc(admin.id).get();
+    receipient.push(userProfileAdminRef.data().email);
   }
 
   // SEND REQUEST E-MAIL TO TEAM ADMIN
   const teamAdminRef = await db.collection("teams").doc(teamId).collection("admins").get();
   for (const admin of teamAdminRef.docs) {
-    const userProfileRef = await db.collection("userProfile").doc(admin.id).get();
-    receipient.push(userProfileRef.data().email);
+    const userProfileAdminRef = await db.collection("userProfile").doc(admin.id).get();
+    receipient.push(userProfileAdminRef.data().email);
   }
 
   return db.collection("mail").add({
