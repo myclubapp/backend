@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable require-jsdoc */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
@@ -49,13 +50,13 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
       await db.collection("club").doc(club.id).collection("members").doc(`${user.uid}`).delete();
     }
   }
-    // delete user from all club Admins
-    const clubAdminList = await db.collection("userProfile").doc(user.uid).collection("clubAdmin").get();
-    if (!clubAdminList.empty) {
-      for (const club of clubAdminList.docs) {
-        await db.collection("club").doc(club.id).collection("admins").doc(`${user.uid}`).delete();
-      }
+  // delete user from all club Admins
+  const clubAdminList = await db.collection("userProfile").doc(user.uid).collection("clubAdmin").get();
+  if (!clubAdminList.empty) {
+    for (const club of clubAdminList.docs) {
+      await db.collection("club").doc(club.id).collection("admins").doc(`${user.uid}`).delete();
     }
+  }
   // Events?
 
   // Trainings?
