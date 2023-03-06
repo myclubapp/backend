@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable require-jsdoc */
@@ -33,33 +34,33 @@ export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context
     },
   });
 
-    // SEND REQUEST E-MAIL TO CLUB ADMIN
-    let receipient = [];
-    const clubAdminRef: QueryDocumentSnapshot = await db.collection("club").doc(teamRef.data().clubRef.id).collection("admins").get();
-    for (let admin of clubAdminRef.docs) {
-      const userProfileRef: QueryDocumentSnapshot = await db.collection("userProfile").doc(admin.id).get();
-      receipient.push(userProfileRef.data().email);
-    }
+  // SEND REQUEST E-MAIL TO CLUB ADMIN
+  const receipient = [];
+  const clubAdminRef = await db.collection("club").doc(teamRef.data().clubRef.id).collection("admins").get();
+  for (const admin of clubAdminRef.docs) {
+    const userProfileRef = await db.collection("userProfile").doc(admin.id).get();
+    receipient.push(userProfileRef.data().email);
+  }
 
-    // SEND REQUEST E-MAIL TO TEAM ADMIN
-    const teamAdminRef: QueryDocumentSnapshot = await db.collection("teams").doc(teamId).collection("admins").get();
-    for (let admin of teamAdminRef.docs) {
-      const userProfileRef: QueryDocumentSnapshot = await db.collection("userProfile").doc(admin.id).get();
-      receipient.push(userProfileRef.data().email);
-    }
+  // SEND REQUEST E-MAIL TO TEAM ADMIN
+  const teamAdminRef = await db.collection("teams").doc(teamId).collection("admins").get();
+  for (const admin of teamAdminRef.docs) {
+    const userProfileRef = await db.collection("userProfile").doc(admin.id).get();
+    receipient.push(userProfileRef.data().email);
+  }
 
-    return db.collection("mail").add({
-      to: receipient,
-      template: {
-        name: "TeamRequestAdminEmail",
-        data: {
-          teamName: teamRef.data().liga + " " + teamRef.data().name,
-          firstName: userProfileRef.data()?.firstName,
-          lastName: userProfileRef.data()?.lastName,
-          email: userProfileRef.data()?.email,
-        },
+  return db.collection("mail").add({
+    to: receipient,
+    template: {
+      name: "TeamRequestAdminEmail",
+      data: {
+        teamName: teamRef.data().liga + " " + teamRef.data().name,
+        firstName: userProfileRef.data()?.firstName,
+        lastName: userProfileRef.data()?.lastName,
+        email: userProfileRef.data()?.email,
       },
-    });
+    },
+  });
 
   // check if user has admin claims..
   /*
