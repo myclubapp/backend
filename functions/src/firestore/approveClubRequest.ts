@@ -22,6 +22,7 @@ export async function approveClubRequest(change: Change<QueryDocumentSnapshot>, 
 
   if (change.after.data().approve) {
     console.log(`approve request ${requestRef.id}`);
+
     await db.collection("club").doc(clubId).collection("members").doc(userProfileRef.id).set({
       "userProfileRef": userProfileRef.ref,
     });

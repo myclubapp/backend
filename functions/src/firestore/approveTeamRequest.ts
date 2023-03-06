@@ -22,11 +22,11 @@ export async function approveTeamRequest(change: Change<QueryDocumentSnapshot>, 
 
   if (change.after.data().approve) {
     console.log(`approve request ${requestRef.id}`);
+
     await db.collection("teams").doc(teamId).collection("members").doc(userProfileRef.id).set({
       "userProfileRef": userProfileRef.ref,
     });
-    // Add Club to User as Member
-    await db.collection("userProfile").doc(userProfileRef.id).collection("clubs").doc(teamId).set({
+    await db.collection("userProfile").doc(userProfileRef.id).collection("teams").doc(teamId).set({
       "teamRef": teamRef.ref,
     });
 
