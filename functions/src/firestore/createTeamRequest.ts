@@ -36,6 +36,7 @@ export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context
 
   // SEND REQUEST E-MAIL TO CLUB ADMIN
   const receipient = [];
+  console.log(`Get Admin from Club: ${teamRef.data().clubRef.id}`);
   const clubAdminRef = await db.collection("club").doc(teamRef.data().clubRef.id).collection("admins").get();
   for (const admin of clubAdminRef.docs) {
     const userProfileRef = await db.collection("userProfile").doc(admin.id).get();
