@@ -41,7 +41,9 @@ export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context
   for (const admin of clubAdminRef.docs) {
     console.log(`Read Admin user for Club with id ${admin.id}`);
     const userProfileAdminRef = await db.collection("userProfile").doc(admin.id).get();
-    receipient.push(userProfileAdminRef.data().email);
+    if (userProfileAdminRef.exists) {
+      receipient.push(userProfileAdminRef.data().email);
+    }
   }
 
   // SEND REQUEST E-MAIL TO TEAM ADMIN
@@ -49,7 +51,9 @@ export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context
   for (const admin of teamAdminRef.docs) {
     console.log(`Read Admin user for Team with id ${admin.id}`);
     const userProfileAdminRef = await db.collection("userProfile").doc(admin.id).get();
-    receipient.push(userProfileAdminRef.data().email);
+    if (userProfileAdminRef.exists) {
+      receipient.push(userProfileAdminRef.data().email);
+    }
   }
 
   return db.collection("mail").add({

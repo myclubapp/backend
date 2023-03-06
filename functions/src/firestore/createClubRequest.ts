@@ -39,7 +39,9 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
   const clubAdminRef = await db.collection("club").doc(clubId).collection("admins").get();
   for (const admin of clubAdminRef.docs) {
     const userProfileAdminRef = await db.collection("userProfile").doc(admin.id).get();
-    receipient.push(userProfileAdminRef.data().email);
+    if (userProfileAdminRef.exists) {
+      receipient.push(userProfileAdminRef.data().email);
+    }
   }
 
   return db.collection("mail").add({
