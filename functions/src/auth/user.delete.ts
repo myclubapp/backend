@@ -78,10 +78,11 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
   console.log("delete attendee data");
   const querySnapshot = await db.collectionGroup("attendees").where("id", "==", user.uid).get();
   for (const doc of querySnapshot.docs) {
-    console.log(`Document Ref: ${doc.ref}`);
+    console.log(`Document Ref: ${doc.ref.parent}`);
 
-    const gameId: string = doc.ref.parent?.id || "";
-    const teamId: string = doc.ref.parent.parent?.id || "";
+    const gameId: string = doc.ref.parent.parent?.id || "";
+    const teamId: string = doc.ref.parent.parent?.parent?.parent?.id || "";
+
     console.log(`GameId: ${gameId}`);
     console.log(`Team Id: ${teamId}`);
     await db.collection("teams").doc(teamId).collection("games").doc(gameId).collection("attendees").delete();
