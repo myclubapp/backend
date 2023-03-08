@@ -61,7 +61,7 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
   // Events?
 
   // Trainings?
-/*  const querySnapshotTrainings = await db.collectionGroup("attendees", user.uid).get();
+  /*  const querySnapshotTrainings = await db.collectionGroup("attendees", user.uid).get();
   querySnapshotTrainings.forEach(async (doc:QueryDocumentSnapshot ) => {
    const gameId: string = doc.ref.parent.parent?.id || "";
    const teamId: string = doc.ref.parent.parent?.parent?.id || "";
@@ -70,12 +70,12 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
   */
 
   // GAMES / Trainings / Events
-   const querySnapshot = await db.collectionGroup("attendees", user.uid).get();
-   querySnapshot.forEach(async (doc:QueryDocumentSnapshot ) => {
+  const querySnapshot = await db.collectionGroup("attendees", user.uid).get();
+  querySnapshot.forEach(async (doc:QueryDocumentSnapshot ) => {
     const gameId: string = doc.ref.parent.parent?.id || "";
     const teamId: string = doc.ref.parent.parent?.parent?.id || "";
     await db.collection("teams").doc(teamId).collection("games").doc(gameId).collection("attendees").delete();
-   });
+  });
 
   // offene Requests?
 
