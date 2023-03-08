@@ -109,5 +109,7 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
   // wird via eigene Function gemacht..
 
   // Delete account in firebase
-  return admin.auth().deleteUser(user.uid);
+  return admin.auth().deleteUser(user.uid).catch((error)=> {
+    console.log(`error deleting user, ${error}`);
+  });
 }
