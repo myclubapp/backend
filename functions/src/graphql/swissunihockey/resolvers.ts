@@ -176,7 +176,8 @@ async function getClubs() {
   const data = await fetch("https://api-v2.swissunihockey.ch/api/clubs");
   const clubData = await data.json();
   const clubList = < any > [];
-  clubData.entries.forEach(async (item: any) => {
+  // clubData.entries.forEach(async (item: any) => {
+  for (const item of clubData.entries) {
     console.log(`Read Club: ${item.set_in_context.club_id} ${item.text}`);
 
     const contactPerson = "";
@@ -199,7 +200,7 @@ async function getClubs() {
           console.log(parent.item(1)?.textContent as string);
 
           // if (attribute.childNodes[0].textContent === "Vereinsname") {
-          //   contactVereinsname = parent.item(1)?.textContent as string;
+            //   contactVereinsname = parent.item(1)?.textContent as string;
           // }
           // let contactPerson = dom.window.document.getElementsByClassName("portrait_title").item(1).parentElement.children[1].innerText;
           // let contactAddress = dom.window.document.getElementsByClassName("portrait_title").item(2).parentElement.children[1].innerText;
@@ -235,7 +236,8 @@ async function getClubs() {
         phone: contactPhone,
       }],
     });
-  });
+  }
+  // });
   return clubList;
 }
 
@@ -252,7 +254,7 @@ async function getClubGames(clubId: string, season: string) {
   const gameData = await data.json();
   const gameList = < any > [];
   if (gameData && gameData.data && gameData.data.regions && gameData.data.regions.length > 0) {
-    gameData.data.regions[0].rows.forEach((item: any) => {
+    for (const item of gameData.data.regions[0].rows ) {
       let latitude = "-";
       let longitude = "-";
       try {
@@ -273,7 +275,9 @@ async function getClubGames(clubId: string, season: string) {
         liga: item.cells[2].text[0],
         result: item.cells[5].text[0],
       });
-    });
+    }
+    // gameData.data.regions[0].rows.forEach((item: any) => {
+    // });
   } else {
     console.log(`>>> No Games found for Club ${clubId} and season ${season}`);
   }
@@ -289,7 +293,8 @@ async function getGames(teamId: string, season: string) {
   const gameData = await data.json();
   const gameList = < any > [];
   if (gameData && gameData.data && gameData.data.regions && gameData.data.regions.length > 0) {
-    gameData.data.regions[0].rows.forEach((item: any) => {
+    // gameData.data.regions[0].rows.forEach((item: any) => {
+    for (const item of gameData.data.regions[0].rows ) {
       let latitude = "-";
       let longitude = "-";
       try {
@@ -309,7 +314,8 @@ async function getGames(teamId: string, season: string) {
         latitude: latitude,
         result: item.cells[4].text[0],
       });
-    });
+    }
+    // });
   } else {
     console.log(`>>> No Games found for Team ${teamId} and season ${season}`);
   }
@@ -356,14 +362,16 @@ async function getSeason() {
   const seasonData = await data.json();
   // console.log(seasonData.entries);
   const seasonList = < any > [];
-  seasonData.entries.forEach((item: any) => {
+  // seasonData.entries.forEach((item: any) => {
+  for (const item of seasonData.entries) {
     seasonList.push({
       id: item.set_in_context.season,
       name: item.text,
       season: item.set_in_context.season,
       highlight: item.highlight,
     });
-  });
+  }
+  // });
   return seasonList;
 }
 
@@ -376,13 +384,15 @@ async function getRankings(teamId: string, season: string) {
   const rankingData = await data.json();
   console.log(JSON.stringify(rankingData));
   const rankingList = < any > [];
-  rankingData.data.regions[0].rows.forEach((item: any) => {
+  // rankingData.data.regions[0].rows.forEach((item: any) => {
+  for (const item of rankingData.data.regions[0].rows) {
     rankingList.push({
       id: item.data.team.id,
       name: item.data.team.name,
       ranking: item.data.rank,
     });
-  });
+  }
+  // });
   return rankingList;
 }
 
@@ -391,9 +401,11 @@ async function getStatistics(teamId: string) {
   const statisticsData = await data.json();
 
   const statisticsList = < any > [];
-  statisticsData.data.regions[0].rows.forEach((item: any) => {
+  // statisticsData.data.regions[0].rows.forEach((item: any) => {
+  for (const item of statisticsData.data.regions[0].rows) {
     console.log(JSON.stringify(item.cells[1]), JSON.stringify(item.cells[3]));
-  });
+  }
+  // });
   return statisticsList;
 }
 
@@ -402,7 +414,8 @@ async function getNews() {
   const data = await fetch("https://api.newsroom.co/walls?token=xgoo9jkoc2ee&count=30&channelId=663&tag=top,pin,!top,!pin");
   const newsData = await data.json();
   const newsList = < any > [];
-  newsData._embedded.wallList.forEach((item: any) => {
+  // newsData._embedded.wallList.forEach((item: any) => {
+  for (const item of newsData._embedded.wallList) {
     // console.log(item);
     let imagePath = item.featuredImage;
     try {
@@ -431,6 +444,7 @@ async function getNews() {
       authorImage: item.author.image,
       url: item.url,
     });
-  });
+  }
+  // });
   return newsList;
 }
