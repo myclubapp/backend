@@ -326,7 +326,7 @@ async function getGame(gameId: string) {
   const data = await fetch("https://api-v2.swissunihockey.ch/api/games/" + gameId);
   const gameData = await data.json();
   const gameDetailData = gameData.data.regions[0].rows[0];
-  console.log(gameDetailData);
+  // console.log(gameDetailData);
   return {
     name: gameData.data.title,
     description: gameData.data.subtitle,
