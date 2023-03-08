@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable require-jsdoc */
@@ -16,7 +17,7 @@ export async function deleteMemberFromTeam(snapshot: QueryDocumentSnapshot, cont
   // TODO -> Remove from Team /teams/XX/members
   // TODO -> Remove from Team Admin /teams/XXX/admins
 
-  // TODO -> remove from userProfile of user as well... 
+  // TODO -> remove from userProfile of user as well...
 }
 
 export async function deleteTeamMember(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
@@ -53,7 +54,7 @@ export async function deleteMemberFromClub(snapshot: QueryDocumentSnapshot, cont
   // TODO -> Remove from all Clubs -> already done
   // TODO -> Remove from all Clubs Admin /club/clubid/admins
 
-  // TODO -> remove from userProfile of user as well... 
+  // TODO -> remove from userProfile of user as well...
 }
 
 export async function deleteClubMember(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
