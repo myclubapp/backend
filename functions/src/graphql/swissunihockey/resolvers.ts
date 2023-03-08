@@ -351,8 +351,8 @@ async function getCurrentSeason() {
   const data = await fetch("https://api-v2.swissunihockey.ch/api/seasons");
   const seasonData = await data.json();
   const currentSeason = seasonData.entries.filter((element: any, index: any) => {
-    return element.highlight === true && index === 0; // 2022
-    // return element.highlight === false && index === 1; // 2021
+    // return element.highlight === true && index === 0; // 2023
+    return element.highlight === false && index === 1; // 2022
   });
   return currentSeason[0].set_in_context.season as string;
 }
