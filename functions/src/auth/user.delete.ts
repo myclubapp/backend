@@ -16,6 +16,8 @@ export async function authUserDeleteUserSendByEmail(user: admin.auth.UserRecord,
   if (!userProfile.exists) {
     console.log("no user data found");
   }
+  await admin.auth().revokeRefreshTokens(user.uid);
+
   return admin.firestore().collection("mail").add({
     to: user.email,
     template: {
