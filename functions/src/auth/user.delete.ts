@@ -87,7 +87,7 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
 
       console.log(`GameId: ${gameId}`);
       console.log(`Team Id: ${teamId}`);
-      await db.collection("teams").doc(teamId).collection("games").doc(gameId).collection("attendees").delete();
+      await db.collection("teams").doc(teamId).collection("games").doc(gameId).collection("attendees").doc(user.uid).delete();
     }
   }
 
