@@ -7,7 +7,7 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import firebaseDAO from "../firebaseSingleton";
-import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
+// import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 
 const db = firebaseDAO.instance.db;
 const storage = firebaseDAO.instance.storage;
