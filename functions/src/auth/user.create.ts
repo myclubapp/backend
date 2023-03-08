@@ -56,8 +56,8 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord, conte
 
   // CREATE ADMIN USER, If CONTACT -> SPECIAL ONBOARDING
   const querySnapshot = await db.collectionGroup("contacts").where("email", "==", user.email).get();
-
-  querySnapshot.forEach(async (doc:QueryDocumentSnapshot ) => {
+  for (const doc of querySnapshot.docs) {
+  // querySnapshot.forEach(async (doc:QueryDocumentSnapshot ) => {
     const clubId: string = doc.ref.parent.parent?.id || "";
 
     // ADD User to Club as Admin
@@ -137,7 +137,8 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord, conte
         },
       },
     });
-  });
+  }
+  // });
 }
 /*
 export async function authUserCreateSendVerifyMail(user: admin.auth.UserRecord, context: functions.EventContext) {
