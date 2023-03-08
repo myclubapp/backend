@@ -178,47 +178,51 @@ async function getClubs() {
   const clubList = < any > [];
   clubData.entries.forEach(async (item: any) => {
     console.log(item.set_in_context.club_id);
-    const response = await fetch("https://portal.swissunihockey.ch/clubregister/?club_id=" + item.set_in_context.club_id +"&mode=details", {
-      headers: {
-        "cookie": "JSESSIONID=1aocqfonb7vprte7o2urrxbga",
-      },
-    });
+
     let contactPerson = "";
     let contactAddress = "";
     let contactPhone = "";
     let contactEmail = "";
-    // let contactVereinsname = "";
-    const body = await response.text();
-    const dom = new jsdom.JSDOM(body);
-    const domList: NodeList = dom.window.document.getElementsByClassName("portrait_title");
-    if (domList && domList.length > 0) {
-      domList.forEach((attribute:Node, key:number, parent: NodeList) => {
-        console.log(attribute.childNodes[0].textContent );
-        console.log(parent.item(1)?.textContent as string);
-
-        /* if (attribute.childNodes[0].textContent === "Vereinsname") {
-          contactVereinsname = parent.item(1)?.textContent as string;
-        }
-        let contactPerson = dom.window.document.getElementsByClassName("portrait_title").item(1).parentElement.children[1].innerText;
-        let contactAddress = dom.window.document.getElementsByClassName("portrait_title").item(2).parentElement.children[1].innerText;
-        let contactPhone = dom.window.document.getElementsByClassName("portrait_title").item(3).parentElement.children[1].innerText;
-        let contactEmail = dom.window.document.getElementsByClassName("portrait_title").item(4).parentElement.children[1].innerText;
-        */
-        if (attribute.childNodes[0].textContent === "Kontaktperson") {
-          contactPerson = parent.item(1)?.textContent as string;
-        }
-        if (attribute.childNodes[0].textContent=== "Adresse") {
-          contactAddress = parent.item(1)?.textContent as string;
-        }
-        if (attribute.childNodes[0].textContent === "Telefonnr. Kontaktperson") {
-          contactPhone = parent.item(1)?.textContent as string;
-        }
-        if (attribute.childNodes[0].textContent === "e-Mail") {
-          contactEmail = parent.item(1)?.textContent as string;
-        }
+    try {
+      const response = await fetch("https://portal.swissunihockey.ch/clubregister/?club_id=" + item.set_in_context.club_id +"&mode=details", {
+        headers: {
+          "cookie": "JSESSIONID=1aocqfonb7vprte7o2urrxbga",
+        },
       });
-    }
+      // let contactVereinsname = "";
+      const body = await response.text();
+      const dom = new jsdom.JSDOM(body);
+      const domList: NodeList = dom.window.document.getElementsByClassName("portrait_title");
+      if (domList && domList.length > 0) {
+        domList.forEach((attribute:Node, key:number, parent: NodeList) => {
+          console.log(attribute.childNodes[0].textContent );
+          console.log(parent.item(1)?.textContent as string);
 
+          /* if (attribute.childNodes[0].textContent === "Vereinsname") {
+            contactVereinsname = parent.item(1)?.textContent as string;
+          }
+          let contactPerson = dom.window.document.getElementsByClassName("portrait_title").item(1).parentElement.children[1].innerText;
+          let contactAddress = dom.window.document.getElementsByClassName("portrait_title").item(2).parentElement.children[1].innerText;
+          let contactPhone = dom.window.document.getElementsByClassName("portrait_title").item(3).parentElement.children[1].innerText;
+          let contactEmail = dom.window.document.getElementsByClassName("portrait_title").item(4).parentElement.children[1].innerText;
+          */
+          if (attribute.childNodes[0].textContent === "Kontaktperson") {
+            contactPerson = parent.item(1)?.textContent as string;
+          }
+          if (attribute.childNodes[0].textContent=== "Adresse") {
+            contactAddress = parent.item(1)?.textContent as string;
+          }
+          if (attribute.childNodes[0].textContent === "Telefonnr. Kontaktperson") {
+            contactPhone = parent.item(1)?.textContent as string;
+          }
+          if (attribute.childNodes[0].textContent === "e-Mail") {
+            contactEmail = parent.item(1)?.textContent as string;
+          }
+        });
+      }
+    } catch (e) {
+      console.log("error address swissunihockey");
+    }
     clubList.push({
       id: item.set_in_context.club_id,
       name: item.text,
