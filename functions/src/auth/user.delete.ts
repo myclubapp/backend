@@ -15,8 +15,10 @@ export async function authUserDeleteUserSendByEmail(user: admin.auth.UserRecord,
   const userProfile: any = await db.collection("userProfile").doc(`${user.uid}`).get();
   if (!userProfile.exists) {
     console.log("no user data found");
+  } else {
+    // Token refresh for logout
+    await admin.auth().revokeRefreshTokens(user.uid); // force logout in app
   }
-  await admin.auth().revokeRefreshTokens(user.uid); // force logout in app
 
   return admin.firestore().collection("mail").add({
     to: user.email,
