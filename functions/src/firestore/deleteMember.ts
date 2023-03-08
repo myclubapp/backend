@@ -11,8 +11,8 @@ const auth = firebaseDAO.instance.auth;
 
 export async function deleteMemberFromTeam(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
   console.log("Delete Member From Club");
-  const userId = context.params.userId;
-  const teamId = context.params.teamId;
+  // const userId = context.params.userId;
+  // const teamId = context.params.teamId;
   // TODO -> Remove from Team /teams/XX/members
   // TODO -> Remove from Team Admin /teams/XXX/admins
 
@@ -46,8 +46,8 @@ export async function deleteTeamMember(snapshot: QueryDocumentSnapshot, context:
 
 export async function deleteMemberFromClub(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
   console.log("Delete Member From Club");
-  const userId = context.params.userId;
-  const clubId = context.params.clubId;
+  // const userId = context.params.userId;
+  // const clubId = context.params.clubId;
   // TODO -> Remove from all Teams /teams/XX/members
   // TODO -> Remove from all Teams Admin /teams/XXX/admins
   // TODO -> Remove from all Clubs -> already done
