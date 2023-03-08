@@ -177,7 +177,7 @@ async function getClubs() {
   const clubData = await data.json();
   const clubList = < any > [];
   clubData.entries.forEach(async (item: any) => {
-    console.log(item.set_in_context.club_id);
+    console.log(`Read Club: ${item.set_in_context.club_id} ${item.text}`);
 
     let contactPerson = "";
     let contactAddress = "";
@@ -221,7 +221,7 @@ async function getClubs() {
         });
       }
     } catch (e) {
-      console.log("error address swissunihockey");
+      console.log(">>> error read & update address swissunihockey");
     }
     clubList.push({
       id: item.set_in_context.club_id,
