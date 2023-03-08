@@ -7,7 +7,6 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import firebaseDAO from "../firebaseSingleton";
-// import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 
 const db = firebaseDAO.instance.db;
 const storage = firebaseDAO.instance.storage;
@@ -78,14 +77,16 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
   console.log("delete attendee data");
   const querySnapshot = await db.collectionGroup("attendees").where("id", "==", user.uid).get();
   for (const doc of querySnapshot.docs) {
-    console.log(`Document Ref: ${doc.ref.parent}`);
+    console.log(`Document Ref: ${doc.ref.path}`);
 
-    const gameId: string = doc.ref.parent.parent?.id || "";
-    const teamId: string = doc.ref.parent.parent?.parent?.parent?.id || "";
+    if (doc.ref.parent.parent?.parent?.id === "games") {
+      const gameId: string = doc.ref.parent.parent?.id || "";
+      const teamId: string = doc.ref.parent.parent?.parent?.parent?.id || "";
 
-    console.log(`GameId: ${gameId}`);
-    console.log(`Team Id: ${teamId}`);
-    await db.collection("teams").doc(teamId).collection("games").doc(gameId).collection("attendees").delete();
+      console.log(`GameId: ${gameId}`);
+      console.log(`Team Id: ${teamId}`);
+      await db.collection("teams").doc(teamId).collection("games").doc(gameId).collection("attendees").delete();
+    }
   }
 
   // offene Requests?
