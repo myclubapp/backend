@@ -7,6 +7,7 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import firebaseDAO from "../firebaseSingleton";
+import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 
 const db = firebaseDAO.instance.db;
 const storage = firebaseDAO.instance.storage;
@@ -60,6 +61,21 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
   // Events?
 
   // Trainings?
+/*  const querySnapshotTrainings = await db.collectionGroup("attendees", user.uid).get();
+  querySnapshotTrainings.forEach(async (doc:QueryDocumentSnapshot ) => {
+   const gameId: string = doc.ref.parent.parent?.id || "";
+   const teamId: string = doc.ref.parent.parent?.parent?.id || "";
+   await db.collection("teams").doc(teamId).collection("games").doc(gameId).collection("attendees").delete();
+  });
+  */
+
+  // GAMES / Trainings / Events
+   const querySnapshot = await db.collectionGroup("attendees", user.uid).get();
+   querySnapshot.forEach(async (doc:QueryDocumentSnapshot ) => {
+    const gameId: string = doc.ref.parent.parent?.id || "";
+    const teamId: string = doc.ref.parent.parent?.parent?.id || "";
+    await db.collection("teams").doc(teamId).collection("games").doc(gameId).collection("attendees").delete();
+   });
 
   // offene Requests?
 
