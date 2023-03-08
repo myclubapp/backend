@@ -302,6 +302,16 @@ async function getGames(teamId: string, season: string) {
         longitude = item.cells[1].link.x || "-";
       } catch (e) {
         console.log(">> Error: Longitude/Latitude missing");
+        console.log({
+          id: item.link.ids[0],
+          date: item.cells[0].text[0],
+          time: item.cells[0].text[1] || "00:00",
+          location: item.cells[1].text[0],
+          city: item.cells[1].text[1] || "-",
+          longitude: longitude,
+          latitude: latitude,
+          result: item.cells[4].text[0],
+        });
         // console.log(e);
       }
       gameList.push({
