@@ -76,7 +76,7 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
 
   // GAMES / Trainings / Events
   const querySnapshot = await db.collectionGroup("attendees").where("id", "==", user.uid).get();
-  for (const doc of querySnapshot) {
+  for (const doc of querySnapshot.docs) {
     const gameId: string = doc.ref.parent.parent?.id || "";
     const teamId: string = doc.ref.parent.parent?.parent?.id || "";
     await db.collection("teams").doc(teamId).collection("games").doc(gameId).collection("attendees").delete();
