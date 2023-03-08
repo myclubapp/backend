@@ -85,7 +85,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
       // TEAM GAMES
       const teamData = await resolversSU.Club.teams({id: `${club.id}`}, {}, {}, {});
       for (const team of teamData) {
-        console.log(`>> Team: ${team.id} ${team.name}`);
+        console.log(`>> Team: ${team.id} ${team.name} ${team.liga} `);
         const gamesData = await resolversSU.Team.games({id: `${team.id}`}, {}, {}, {});
         for (const i in gamesData) {
           const game = gamesData[i];
