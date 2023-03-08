@@ -30,7 +30,7 @@ export async function authUserDeleteUserSendByEmail(user: admin.auth.UserRecord,
 
 export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, context: functions.EventContext) {
   console.log("delete user " + user.uid);
-  // delete user from all teams
+  // delete user from all TEAMS
   const teamList = await db.collection("userProfile").doc(user.uid).collection("teams").get();
   if (!teamList.empty) {
     console.log("Delete Member in Teams ");
@@ -38,6 +38,7 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
       await db.collection("team").doc(team.id).collection("members").doc(`${user.uid}`).delete();
     }
   }
+  // delete admin from all TEAMS
   const teamAdminList = await db.collection("userProfile").doc(user.uid).collection("teamAdmin").get();
   if (!teamAdminList.empty) {
     console.log("Delete Admin in Teams ");
@@ -46,7 +47,7 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
     }
   }
 
-  // delete user from all clubs
+  // delete user from all CLUBS
   const clubList = await db.collection("userProfile").doc(user.uid).collection("clubs").get();
   if (!clubList.empty) {
     console.log("Delete Member in Clubs ");
@@ -54,7 +55,7 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
       await db.collection("club").doc(club.id).collection("members").doc(`${user.uid}`).delete();
     }
   }
-  // delete user from all club Admins
+  // delete admin from all club Admins
   const clubAdminList = await db.collection("userProfile").doc(user.uid).collection("clubAdmin").get();
   if (!clubAdminList.empty) {
     console.log("Delete Admin in Clubs ");
@@ -75,11 +76,11 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
 
   // GAMES / Trainings / Events
   const querySnapshot = await db.collectionGroup("attendees", user.uid).get();
-  querySnapshot.forEach(async (doc:QueryDocumentSnapshot ) => {
+  for (const doc of querySnapshot) {
     const gameId: string = doc.ref.parent.parent?.id || "";
     const teamId: string = doc.ref.parent.parent?.parent?.id || "";
     await db.collection("teams").doc(teamId).collection("games").doc(gameId).collection("attendees").delete();
-  });
+  }
 
   // offene Requests?
 
