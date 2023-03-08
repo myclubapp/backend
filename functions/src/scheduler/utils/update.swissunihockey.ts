@@ -21,10 +21,11 @@ export async function updateGamesSwissunihockey(): Promise<any> {
     const fbClubData = await db.collection("club").doc(`su-${club.id}`).get();
     if (fbClubData.exists && fbClubData.data().active) {
       // GET CLUB GAMES
-      console.log(`>> Club ${club.id} ${club.name}`);
+      console.log(`>> Club is active:  ${club.id} ${club.name}`);
       const clubGamesData = await resolversSU.Club.games({id: `${club.id}`}, {}, {}, {});
       for (const i in clubGamesData) {
         const game = clubGamesData[i];
+        console.log(`>> Read Club Game:  ${game.id}`);
         // console.log(JSON.stringify(game));
         const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
 
@@ -88,6 +89,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         const gamesData = await resolversSU.Team.games({id: `${team.id}`}, {}, {}, {});
         for (const i in gamesData) {
           const game = gamesData[i];
+          console.log(`>>> Read Team Game:  ${game.id}`);
           // console.log(JSON.stringify(game));
           const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
 
