@@ -76,7 +76,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           resut: game.result,
           type: "swissunihockey",
           updated: new Date(),
-          clubRef: db.collection("club").doc(`su-${club.id}`),
+          clubRef: await db.collection("club").doc(`su-${club.id}`).get().ref,
         }, {
           merge: true,
         });
@@ -138,8 +138,8 @@ export async function updateGamesSwissunihockey(): Promise<any> {
             resut: game.result,
             type: "swissunihockey",
             updated: new Date(),
-            clubRef: db.collection("club").doc(`su-${club.id}`),
-            teamRef: db.collection("club").doc(`su-${team.id}`),
+            clubRef: await db.collection("club").doc(`su-${club.id}`).get().ref,
+            teamRef: await db.collection("club").doc(`su-${team.id}`).get().ref,
           }, {
             merge: true,
           });
@@ -170,12 +170,12 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
           liga: team.liga,
           type: "swissunihockey",
           updated: new Date(),
-          clubRef: db.collection("club").doc(`su-${club.id}`),
+          clubRef: await db.collection("club").doc(`su-${club.id}`).get().ref,
         }, {
           merge: true,
         });
         await db.collection("club").doc(`su-${club.id}`).collection("teams").doc(`su-${team.id}`).set({
-          teamRef: db.collection("teams").doc(`su-${team.id}`),
+          teamRef: await db.collection("teams").doc(`su-${team.id}`).get().ref,
         });
       }
     } else {
