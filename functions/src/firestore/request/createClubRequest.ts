@@ -26,7 +26,7 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
   await db.collection("mail").add({
     to: userProfileRef.data()?.email,
     template: {
-      name: "ClubRequestAdminEmail",
+      name: "ClubRequestEmail",
       data: {
         clubName: clubRef.data().name,
         firstName: userProfileRef.data()?.firstName,
