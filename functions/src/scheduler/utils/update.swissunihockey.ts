@@ -43,6 +43,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
         }
 
+        const clubRef = await db.collection("club").doc(`su-${club.id}`).get();
 
         await db.collection("club").doc(`su-${club.id}`).collection("games").doc(`su-${game.id}`).set({
           externalId: `${game.id}`,
@@ -76,7 +77,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           resut: game.result,
           type: "swissunihockey",
           updated: new Date(),
-          clubRef: db.collection("club").doc(`su-${club.id}`),
+          clubRef: clubRef.ref,
         }, {
           merge: true,
         });
@@ -106,6 +107,9 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           } else {
             gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
           }
+
+          const clubRef = await db.collection("club").doc(`su-${club.id}`).get();
+          const teamRef = await db.collection("team").doc(`su-${team.id}`).get();
 
           await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).set({
             externalId: `${game.id}`,
@@ -138,8 +142,8 @@ export async function updateGamesSwissunihockey(): Promise<any> {
             resut: game.result,
             type: "swissunihockey",
             updated: new Date(),
-            clubRef: db.collection("club").doc(`su-${club.id}`),
-            teamRef: db.collection("club").doc(`su-${team.id}`),
+            clubRef: clubRef.ref,
+            teamRef: teamRef.ref,
           }, {
             merge: true,
           });
@@ -161,6 +165,9 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
       const teamData = await resolversSU.Club.teams({id: `${club.id}`}, {}, {}, {});
       for (const team of teamData) {
         console.log(club.name + " / " + team.name);
+        const clubRef = await db.collection("club").doc(`su-${club.id}`).get();
+        const teamRef = await db.collection("team").doc(`su-${team.id}`).get();
+      
         await db.collection("teams").doc(`su-${team.id}`).set({
           externalId: `${team.id}`,
           name: team.name,
@@ -170,12 +177,12 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
           liga: team.liga,
           type: "swissunihockey",
           updated: new Date(),
-          clubRef: db.collection("club").doc(`su-${club.id}`),
+          clubRef: clubRef.ref,
         }, {
           merge: true,
         });
         await db.collection("club").doc(`su-${club.id}`).collection("teams").doc(`su-${team.id}`).set({
-          teamRef: db.collection("teams").doc(`su-${team.id}`),
+          teamRef: teamRef.ref,
         });
       }
     } else {
