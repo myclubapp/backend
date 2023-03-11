@@ -30,9 +30,9 @@ import {sendReportingJobMember} from "./reporting/member.scheduler";
 const graphql = require("./graphql/server");
 
 // Firebase AUTH Welcome User Stuff
-// export const userCreate = functions.region("europe-west6").auth.user().onCreate(authUserCreate);
+
 export const sendWelcomeMail = functions.region("europe-west6").auth.user().onCreate(authUserCreateSendWelcomeEmail);
-export const onCreateUsercreateAdminUser = functions.region("europe-west6").auth.user().onCreate(authUserCreateAdminUser);
+export const onCreateUserCreateAdminUser = functions.region("europe-west6").auth.user().onCreate(authUserCreateAdminUser);
 export const sendByeEmail = functions.region("europe-west6").auth.user().onDelete(authUserDeleteUserSendByEmail);
 export const deleteUserAccount = functions.region("europe-west6").auth.user().onDelete(authUserDeleteUserAccount);
 

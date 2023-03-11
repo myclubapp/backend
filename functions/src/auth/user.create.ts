@@ -28,11 +28,17 @@ const db = firebaseDAO.instance.db;
 export async function authUserCreateSendWelcomeEmail(user: admin.auth.UserRecord, context: functions.EventContext) {
   console.log(">>> NEW USER with ID: " + user.uid );
   const link = await admin.auth().generateEmailVerificationLink(user.email as string);
+
   const userProfile: any = await db.collection("userProfile").doc(`${user.uid}`).get();
   if (!userProfile.exists) {
-    console.log("no user data found");
+    console.error("no user data found");
   }
-  // console.log(userProfile.data());
+
+  await admin.auth().updateUser(user.uid, {
+    displayName: userProfile.data()?.firstName + " " + userProfile.data()?.lastName,
+  });
+
+  console.log(">>> SEND WELCOME MAIL TO USER " + user.email );
   return db.collection("mail").add({
     to: user.email,
     template: {
@@ -48,25 +54,33 @@ export async function authUserCreateSendWelcomeEmail(user: admin.auth.UserRecord
 export async function authUserCreateAdminUser(user: admin.auth.UserRecord, context: functions.EventContext) {
   console.log(">>> NEW USER with ID: " + user.uid );
 
-  const userProfileRef: DocumentSnapshot = await db.collection("userProfile").doc(`${user.uid}`).get();
-  if (!userProfileRef.exists) {
-    console.log("no user data found");
+  const userProfile: any = await db.collection("userProfile").doc(`${user.uid}`).get();
+  if (!userProfile.exists) {
+    console.error("no user data found");
   }
 
-
-  // CREATE ADMIN USER, If CONTACT -> SPECIAL ONBOARDING
+  // CREATE ADMIN USER, IF CONTACT -> SPECIAL ONBOARDING
   const querySnapshot = await db.collectionGroup("contacts").where("email", "==", user.email).get();
   for (const doc of querySnapshot.docs) {
   // querySnapshot.forEach(async (doc:QueryDocumentSnapshot ) => {
     const clubId: string = doc.ref.parent.parent?.id || "";
 
+    // Club aktivieren
+    console.log(`Activate Club with ID: ${clubId}`);
+    await db.collection("club").doc(clubId).set({
+      "active": true,
+    },
+    {
+      merge: true,
+    });
+
     // ADD User to Club as Admin
     await db.collection("club").doc(clubId).collection("admins").doc(user.uid).set({
-      "userProfileRef": userProfileRef.ref,
+      "userProfileRef": userProfile.ref,
     });
     // ADD User to Club as Member
     await db.collection("club").doc(clubId).collection("members").doc(user.uid).set({
-      "userProfileRef": userProfileRef.ref,
+      "userProfileRef": userProfile.ref,
     });
 
     // Add ClubAdmin to User
@@ -85,20 +99,16 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord, conte
     _customClaims[clubId] = true;
     admin.auth().setCustomUserClaims(user.uid, _customClaims);
 
-    await admin.auth().updateUser(user.uid, {
-      displayName: userProfileRef.data()?.firstName + " " + userProfileRef.data()?.lastName,
-    });
-
     // ADD TO ALL TEAMS
     const teamListRef = await db.collection("club").doc(clubId).collection("teams").get();
     for (const team of teamListRef.docs) {
       // ADD User to Club as Admin
       await db.collection("teams").doc(team.id).collection("admins").doc(user.uid).set({
-        "userProfileRef": userProfileRef.ref,
+        "userProfileRef": userProfile.ref,
       });
       // ADD User to Club as Member
       await db.collection("teams").doc(team.id).collection("members").doc(user.uid).set({
-        "userProfileRef": userProfileRef.ref,
+        "userProfileRef": userProfile.ref,
       });
 
       // Add ClubAdmin to User
@@ -112,34 +122,20 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord, conte
       });
     }
 
-    // Club aktivieren
-    console.log(`Activate Club with ID: ${clubId}`);
-    await db.collection("club").doc(clubId).set({
-      "active": true,
-    },
-    {
-      merge: true,
-    });
-
-    console.log("Update swissunihockey");
-    await updateClubsSwissunihockey();
-    await updateTeamsSwissunihockey();
-    await updateGamesSwissunihockey();
-
-    // Send Mail -> Change to Create Admin for club
-    return db.collection("mail").add({
-      to: user.email,
-      template: {
-        name: "UserCreateWelcomeMail",
-        data: {
-          link: "LINK",
-          firstName: userProfileRef.data()?.firstName,
-        },
-      },
-    });
+    // TODO
+    // SEND MAIL TO CLUB ADMIN AND INFORM, THAT A NEW CLUB IS ACTIVE.
   }
-  // });
 }
+
+
+// TODO-> IF CLUB ACTIVE
+/* console.log("Update swissunihockey");
+await updateClubsSwissunihockey();
+await updateTeamsSwissunihockey();
+await updateGamesSwissunihockey();
+*/
+
+
 /*
 export async function authUserCreateSendVerifyMail(user: admin.auth.UserRecord, context: functions.EventContext) {
   // Send E-Mail that user has to verify his account first.
