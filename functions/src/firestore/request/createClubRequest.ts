@@ -31,7 +31,6 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
         clubName: clubRef.data().name,
         firstName: userProfileRef.data()?.firstName,
         lastName: userProfileRef.data()?.lastName,
-        email: userProfileRef.data()?.email,
       },
     },
   });
