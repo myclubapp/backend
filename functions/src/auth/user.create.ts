@@ -7,8 +7,6 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import firebaseDAO from "./../firebaseSingleton";
-import {DocumentSnapshot} from "@google-cloud/firestore";
-import {updateClubsSwissunihockey, updateGamesSwissunihockey, updateTeamsSwissunihockey} from "../scheduler/utils/update.swissunihockey";
 
 const db = firebaseDAO.instance.db;
 
