@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable guard-for-in */
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -167,7 +168,7 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
         console.log(club.name + " / " + team.name);
         const clubRef = await db.collection("club").doc(`su-${club.id}`).get();
         const teamRef = await db.collection("team").doc(`su-${team.id}`).get();
-      
+
         await db.collection("teams").doc(`su-${team.id}`).set({
           externalId: `${team.id}`,
           name: team.name,
