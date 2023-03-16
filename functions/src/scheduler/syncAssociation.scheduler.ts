@@ -60,13 +60,13 @@ export async function updatePersistenceJobNews(context: EventContext) {
 async function updateClubNewsFromWordpress(): Promise<any> {
   console.log("updateClubNewsFromWordpress");
 
-  const clubListRef = await db.collection("club").get();
-  for (const club of clubListRef.docs.filter((el:any)=>el.active)) {
+  const clubListRef = await db.collection("club").where("active", "==", true).where.get();
+  for (const club of clubListRef.docs) {
     console.log(club.id);
 
-    if (club.active && club.wordpress) {
-      const url = club.wordpressurl + "/wp-json/wp/v2/posts/";
-
+    if (club.data().wordpress) {
+      console.log(club.data().wordpress);
+      const url = club.data().wordpress + "/wp-json/wp/v2/posts/";
       const wpData = await fetch(url);
       const wpNews = await wpData.json();
 
