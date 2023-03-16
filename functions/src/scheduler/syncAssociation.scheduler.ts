@@ -57,7 +57,7 @@ export async function updatePersistenceJobNews(context: EventContext) {
   }
 }
 
-export async function updateClubNewsFromWordpress(): Promise<any> {
+async function updateClubNewsFromWordpress(): Promise<any> {
   console.log("updateClubNewsFromWordpress");
 
   const clubListRef = await db.collection("club").get();
@@ -73,20 +73,7 @@ export async function updateClubNewsFromWordpress(): Promise<any> {
       const wpNews = await wpData.json();
 
       for (let news of wpNews) {
-
-        that.clubNewsList.push({
-          id: wpElement["id"],
-          titel: wpElement["title"].rendered,
-          date: wpElement["date"],
-          text: sanitized.slice(0, 100),//wpElement.content.rendered,
-          firstName: 'Website',
-          lastName: '',
-          clubId: clubId,
-          teamId: "",
-          url: wordpress.val(),
-          receiver: "wp"
-        });
-
+        console.log(news);
 
         await db.collection("news").doc(`su-${news.id}`).set({
           externalId: `${news["id"]}`,
