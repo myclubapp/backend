@@ -61,10 +61,10 @@ async function updateClubNewsFromWordpress(): Promise<any> {
   console.log("updateClubNewsFromWordpress");
 
   const clubListRef = await db.collection("club").get();
-  for (const club of clubListRef.docs) {
+  for (const club of clubListRef.docs.filter((el:any)=>el.active)) {
     console.log(club.id);
 
-    if (club.active && club.wordpressurl) {
+    if (club.active && club.wordpress) {
       const url = club.wordpressurl + "/wp-json/wp/v2/posts/";
 
       const wpData = await fetch(url);
