@@ -75,15 +75,22 @@ async function updateClubNewsFromWordpress(): Promise<any> {
         console.log(news);
 
         const dom = new jsdom.JSDOM(news["content"].rendered);
+        const element = dom.window.document.createElement("div");
+        element.innerHTML = news["content"].rendered;
+        const newsText = element.innerText;
+
+        element.innerHTML = news["excerpt"].rendered;
+        const leadText = element.innerText;
+
 
         await db.collection("club").doc(`${club.id}`).collection("news").doc(`su-${news.id}`).set({
           externalId: `${news["id"]}`,
           title: news["title"].rendered,
-          leadText: news["excerpt"].rendered,
+          leadText: leadText,
           date: news["date"],
           slug: news["slug"],
           image: " ",
-          text: dom.innerHtml || " ",
+          text: newsText || " ",
           htmlText: news["content"].rendered || " ",
           tags: "Webseite",
           author: "Webseite",
