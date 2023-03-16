@@ -73,7 +73,7 @@ async function updateClubNewsFromWordpress(): Promise<any> {
       for (const news of wpNews) {
         console.log(news);
 
-        await db.collection("news").doc(`su-${news.id}`).set({
+        await db.collection("club").doc(`${club.id}`).collection("news").doc(`su-${news.id}`).set({
           externalId: `${news["id"]}`,
           title: news["title"].rendered,
           leadText: news["content"].rendered,
