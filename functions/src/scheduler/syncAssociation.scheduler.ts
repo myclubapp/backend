@@ -60,7 +60,7 @@ export async function updatePersistenceJobNews(context: EventContext) {
 async function updateClubNewsFromWordpress(): Promise<any> {
   console.log("updateClubNewsFromWordpress");
 
-  const clubListRef = await db.collection("club").where("active", "==", true).where.get();
+  const clubListRef = await db.collection("club").where("active", "==", true).get();
   for (const club of clubListRef.docs) {
     console.log(club.id);
 
