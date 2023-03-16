@@ -145,7 +145,7 @@ async function getTeams(clubId: string, season: string) {
     teamList.push({
       id: team.set_in_context.team_id,
       name: team.text,
-      // name: teamDetailData.data.regions[0].rows[0].cells[0].text[0],
+      info: teamDetailData.data.regions[0].rows[0].cells[0].text[0],
       logo: teamDetailData.data.regions[0].rows[0].cells[1].image.url || "",
       website: teamDetailData.data.regions[0].rows[0].cells[2].url.href || "",
       portrait: teamDetailData.data.regions[0].rows[0].cells[3].image.url || "",
