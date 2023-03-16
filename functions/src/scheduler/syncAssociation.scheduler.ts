@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable require-jsdoc */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
@@ -61,27 +62,25 @@ async function updateClubNewsFromWordpress(): Promise<any> {
 
   const clubListRef = await db.collection("club").get();
   for (const club of clubListRef.docs) {
-  
     console.log(club.id);
 
     if (club.active && club.wordpressurl) {
-
       const url = club.wordpressurl + "/wp-json/wp/v2/posts/";
-  
+
       const wpData = await fetch(url);
       const wpNews = await wpData.json();
 
-      for (let news of wpNews) {
+      for (const news of wpNews) {
         console.log(news);
 
         await db.collection("news").doc(`su-${news.id}`).set({
           externalId: `${news["id"]}`,
           title: news["title"].rendered,
           leadText: news["content"].rendered,
-          date:  news["date"],
+          date: news["date"],
           slug: " ",
           image: " ",
-          text: news["content"].rendered  || " ",
+          text: news["content"].rendered || " ",
           htmlText: news["content"].rendered || " ",
           tags: "Webseite",
           author: " ",
@@ -93,14 +92,13 @@ async function updateClubNewsFromWordpress(): Promise<any> {
           merge: true,
           ignoreUndefinedProperties: true,
         });
-      } 
+      }
     }
   }
 }
 
 
-
-    /*const newsDoc = await db.collection("news").doc(`su-${news.id}`).get();
+/* const newsDoc = await db.collection("news").doc(`su-${news.id}`).get();
     if (!newsDoc.exists) {
       await db.collection("news").doc(`su-${news.id}`).set({
         externalId: `${news.id}`,
