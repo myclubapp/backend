@@ -13,7 +13,6 @@ import {updateTeamsSwissturnverband, updateClubsSwissturnverband} from "./utils/
 import {updateClubsSwisstennis} from "./utils/update.swisstennis";
 
 import firebaseDAO from "./../firebaseSingleton";
-
 const db = firebaseDAO.instance.db;
 
 
@@ -97,6 +96,8 @@ async function updateClubNewsFromWordpress(): Promise<any> {
       } 
     }
   }
+}
+
 
 
     /*const newsDoc = await db.collection("news").doc(`su-${news.id}`).get();
@@ -121,8 +122,6 @@ async function updateClubNewsFromWordpress(): Promise<any> {
         ignoreUndefinedProperties: true,
       });
     }*/
-  }
-}
 
 
 /*
