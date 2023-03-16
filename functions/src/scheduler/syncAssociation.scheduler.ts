@@ -12,7 +12,10 @@ import {updateTeamsSwissturnverband, updateClubsSwissturnverband} from "./utils/
 // import {updateClubsSwissvolleyball} from "./utils/update.swissvolleyball";
 import {updateClubsSwisstennis} from "./utils/update.swisstennis";
 
-import resolversSU from "./../graphql/swissunihockey/resolvers";
+import firebaseDAO from "./../firebaseSingleton";
+
+const db = firebaseDAO.instance.db;
+
 
 export async function updatePersistenceJobClubs(context: EventContext) {
   try {
@@ -57,9 +60,58 @@ export async function updatePersistenceJobNews(context: EventContext) {
 export async function updateClubNewsFromWordpress(): Promise<any> {
   console.log("updateClubNewsFromWordpress");
 
-  const clubData = await resolversSU.SwissUnihockey.clubs();
-  for (const club of clubData) {
+  const clubListRef = await db.collection("club").get();
+  for (const club of clubListRef.docs) {
+  
     console.log(club.id);
+
+    if (club.active && club.wordpressurl) {
+
+      const url = club.wordpressurl + "/wp-json/wp/v2/posts/";
+  
+      const wpData = await fetch(url);
+      const wpNews = await wpData.json();
+
+      for (let news of wpNews) {
+
+        that.clubNewsList.push({
+          id: wpElement["id"],
+          titel: wpElement["title"].rendered,
+          date: wpElement["date"],
+          text: sanitized.slice(0, 100),//wpElement.content.rendered,
+          firstName: 'Website',
+          lastName: '',
+          clubId: clubId,
+          teamId: "",
+          url: wordpress.val(),
+          receiver: "wp"
+        });
+
+
+        await db.collection("news").doc(`su-${news.id}`).set({
+          externalId: `${news["id"]}`,
+          title: news["title"].rendered,
+          leadText: news["content"].rendered,
+          date:  news["date"],
+          slug: " ",
+          image: " ",
+          text: news["content"].rendered  || " ",
+          htmlText: news["content"].rendered || " ",
+          tags: "Webseite",
+          author: " ",
+          authorImage: news.authorImage || " ",
+          url: " ",
+          type: "swissunihockey",
+          updated: new Date(),
+        }, {
+          merge: true,
+          ignoreUndefinedProperties: true,
+        });
+      } 
+    }
+  }
+
+
     /*const newsDoc = await db.collection("news").doc(`su-${news.id}`).get();
     if (!newsDoc.exists) {
       await db.collection("news").doc(`su-${news.id}`).set({
