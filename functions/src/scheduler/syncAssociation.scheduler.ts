@@ -82,6 +82,8 @@ async function updateClubNewsFromWordpress(): Promise<any> {
         element.innerHTML = news["excerpt"].rendered;
         const leadText = element.innerText;
 
+        const wpUserData = await fetch(news["_links"].author[0].href);
+        const wpUser = await wpUserData.json();
 
         await db.collection("club").doc(`${club.id}`).collection("news").doc(`su-${news.id}`).set({
           externalId: `${news["id"]}`,
@@ -93,7 +95,7 @@ async function updateClubNewsFromWordpress(): Promise<any> {
           text: newsText || " ",
           htmlText: news["content"].rendered || " ",
           tags: "Webseite",
-          author: "Webseite",
+          author: wpUser.name,
           authorImage: news.authorImage || " ",
           url: news["link"],
           type: club.type,
