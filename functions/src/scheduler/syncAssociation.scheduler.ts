@@ -16,6 +16,7 @@ import {updateClubsSwisstennis} from "./utils/update.swisstennis";
 import firebaseDAO from "./../firebaseSingleton";
 const db = firebaseDAO.instance.db;
 const fetch = require("node-fetch");
+const jsdom = require("jsdom");
 
 export async function updatePersistenceJobClubs(context: EventContext) {
   try {
@@ -73,6 +74,8 @@ async function updateClubNewsFromWordpress(): Promise<any> {
       for (const news of wpNews) {
         console.log(news);
 
+        const dom = new jsdom.JSDOM(news["content"].rendered);
+
         await db.collection("club").doc(`${club.id}`).collection("news").doc(`su-${news.id}`).set({
           externalId: `${news["id"]}`,
           title: news["title"].rendered,
@@ -80,13 +83,13 @@ async function updateClubNewsFromWordpress(): Promise<any> {
           date: news["date"],
           slug: news["slug"],
           image: " ",
-          text: news["content"].rendered || " ",
+          text: dom.innerHtml || " ",
           htmlText: news["content"].rendered || " ",
           tags: "Webseite",
-          author: " ",
+          author: "Webseite",
           authorImage: news.authorImage || " ",
           url: news["link"],
-          type: "swissunihockey",
+          type: club.type,
           updated: new Date(),
         }, {
           merge: true,
