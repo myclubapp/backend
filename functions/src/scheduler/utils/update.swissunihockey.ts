@@ -112,6 +112,8 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           const clubRef = await db.collection("club").doc(`su-${club.id}`).get();
           const teamRef = await db.collection("team").doc(`su-${team.id}`).get();
 
+          const matchReport = await generateMatchReport(game.id);
+
           await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).set({
             externalId: `${game.id}`,
             date: game.date,
@@ -145,6 +147,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
             updated: new Date(),
             clubRef: clubRef.ref,
             teamRef: teamRef.ref,
+            matchReport: matchReport,
           }, {
             merge: true,
           });
@@ -249,6 +252,34 @@ export async function updateNewsSwissunihockey(): Promise<any> {
 }
 
 // Internal Methods
+
+async function generateMatchReport(gameId: string): Promise<string> {
+  const data = await fetch("https://api-v2.swissunihockey.ch/api/games/" + gameId + "/summary");
+  const gameSummary = await data.json();
+
+  if (gameSummary && gameSummary.data && gameSummary.data.regions && gameSummary.data.regions[0].rows && gameSummary.data.regions[0].rows[0].cells && gameSummary.data.regions[0].rows[0].cells[2]) {
+    const prompt = gameSummary.data.regions[0].rows[0].cells[0].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[1].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[2].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[2].text[1];
+    const length = 100;
+
+    const matchReportData = await fetch("https://api.openai.com/v1/engines/davinci-codex/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer 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",
+      },
+      body: JSON.stringify({
+        prompt: prompt,
+        max_tokens: length,
+      }),
+    });
+    const chatGPT:any = matchReportData.json();
+    return chatGPT.choices[0].text;
+  }
+  else {
+    return "";
+  }
+}
+
 
 function getNextGame(index: number, gamesList: []): any {
   const nextGame: any = gamesList[index];
