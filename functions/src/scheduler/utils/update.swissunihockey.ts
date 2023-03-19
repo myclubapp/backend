@@ -276,8 +276,7 @@ async function generateMatchReport(gameId: string): Promise<string> {
     });
     const chatGPT:any = matchReportData.json();
     return chatGPT.choices[0].text;
-  }
-  else {
+  } else {
     return "";
   }
 }
