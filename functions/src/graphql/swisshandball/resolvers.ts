@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable max-len */
@@ -10,9 +11,9 @@ const fetch = require("node-fetch");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const {convert} = require("html-to-text");
 
-// import * as functions from "firebase-functions";
-// const headers: any = {"Authorization": "Basic " + functions.config().swisshandball.token};
-const headers: any = {"Authorization": "Basic MTQwNTYxOk5uMFNRc3Fz"};
+import * as functions from "firebase-functions";
+const headers: any = {"Authorization": "Basic " + functions.config().swisshandball.token};
+
 export default {
 
   Club: {

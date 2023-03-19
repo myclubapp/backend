@@ -8,11 +8,11 @@
 // import * as admin from "firebase-admin";
 import * as firebase from "firebase-admin";
 import firebaseDAO from "./../../firebaseSingleton";
+import * as functions from "firebase-functions";
 
 const db = firebaseDAO.instance.db;
 
 import resolversSU from "./../../graphql/swissunihockey/resolvers";
-
 
 export async function updateGamesSwissunihockey(): Promise<any> {
   console.log("Update Games SwissUnihockey");
@@ -265,7 +265,7 @@ async function generateMatchReport(gameId: string): Promise<string> {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer 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",
+        "Authorization": "Bearer " + functions.config().api.chatgpt,
       },
       body: JSON.stringify({
         prompt: prompt,
