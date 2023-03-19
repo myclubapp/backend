@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable require-jsdoc */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
@@ -12,6 +13,10 @@ import {updateTeamsSwissturnverband, updateClubsSwissturnverband} from "./utils/
 // import {updateClubsSwissvolleyball} from "./utils/update.swissvolleyball";
 import {updateClubsSwisstennis} from "./utils/update.swisstennis";
 
+import firebaseDAO from "./../firebaseSingleton";
+const db = firebaseDAO.instance.db;
+const fetch = require("node-fetch");
+const jsdom = require("jsdom");
 
 export async function updatePersistenceJobClubs(context: EventContext) {
   try {
@@ -47,10 +52,87 @@ export async function updatePersistenceJobGames(context: EventContext) {
 export async function updatePersistenceJobNews(context: EventContext) {
   try {
     await updateNewsSwissunihockey();
+    await updateClubNewsFromWordpress();
   } catch (err) {
     console.error(err);
   }
 }
+
+async function updateClubNewsFromWordpress(): Promise<any> {
+  console.log("updateClubNewsFromWordpress");
+
+  const clubListRef = await db.collection("club").where("active", "==", true).get();
+  for (const club of clubListRef.docs) {
+    console.log(club.id);
+
+    if (club.data().wordpress) {
+      console.log(club.data().wordpress);
+      const url = club.data().wordpress + "/wp-json/wp/v2/posts/";
+      const wpData = await fetch(url);
+      const wpNews = await wpData.json();
+
+      for (const news of wpNews) {
+        console.log(news);
+
+        const dom = new jsdom.JSDOM(news["content"].rendered);
+        const element = dom.window.document.createElement("div");
+        element.innerHTML = news["content"].rendered;
+        const newsText = element.innerText;
+
+        element.innerHTML = news["excerpt"].rendered;
+        const leadText = element.innerText;
+
+        const wpUserData = await fetch(news["_links"].author[0].href);
+        const wpUser = await wpUserData.json();
+
+        await db.collection("club").doc(`${club.id}`).collection("news").doc(`su-${news.id}`).set({
+          externalId: `${news["id"]}`,
+          title: news["title"].rendered,
+          leadText: leadText,
+          date: news["date"],
+          slug: news["slug"],
+          image: " ",
+          text: newsText || " ",
+          htmlText: news["content"].rendered || " ",
+          tags: "Webseite",
+          author: wpUser.name,
+          authorImage: news.authorImage || " ",
+          url: news["link"],
+          type: club.type,
+          updated: new Date(),
+        }, {
+          merge: true,
+          ignoreUndefinedProperties: true,
+        });
+      }
+    }
+  }
+}
+
+
+/* const newsDoc = await db.collection("news").doc(`su-${news.id}`).get();
+    if (!newsDoc.exists) {
+      await db.collection("news").doc(`su-${news.id}`).set({
+        externalId: `${news.id}`,
+        title: news.title,
+        leadText: news.leadText || " ",
+        date: news.date,
+        slug: news.slug || " ",
+        image: news.image || " ",
+        text: news.text || " ",
+        htmlText: news.htmlText || " ",
+        tags: news.tags || " ",
+        author: news.author || " ",
+        authorImage: news.authorImage || " ",
+        url: news.url || " ",
+        type: "swissunihockey",
+        updated: new Date(),
+      }, {
+        merge: true,
+        ignoreUndefinedProperties: true,
+      });
+    }*/
+
 
 /*
 async function updateSwissunihockey() {

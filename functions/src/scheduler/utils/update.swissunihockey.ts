@@ -221,6 +221,7 @@ export async function updateClubsSwissunihockey(): Promise<any> {
   }
 }
 
+
 export async function updateNewsSwissunihockey(): Promise<any> {
   console.log("Update NEWS SwissUnihockey");
 
@@ -250,6 +251,7 @@ export async function updateNewsSwissunihockey(): Promise<any> {
     }
   }
 }
+
 
 // Internal Methods
 
