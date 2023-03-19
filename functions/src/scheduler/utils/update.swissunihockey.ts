@@ -263,6 +263,7 @@ async function generateMatchReport(gameId: string): Promise<string> {
     const prompt = gameSummary.data.regions[0].rows[0].cells[0].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[1].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[2].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[2].text[1];
     const length = 100;
 
+    console.log(">>> MAGIC");
     const matchReportData = await fetch("https://api.openai.com/v1/engines/davinci-codex/completions", {
       method: "POST",
       headers: {
