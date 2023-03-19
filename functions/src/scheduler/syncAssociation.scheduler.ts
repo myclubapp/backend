@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable require-jsdoc */
