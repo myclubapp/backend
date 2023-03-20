@@ -146,7 +146,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
               text: matchReport,
               title: `Matchbericht ${gameRef.data().name}`,
               leadText: `${gameRef.data().result} - ${gameRef.data().teamHome} vs. ${gameRef.data().teamAway} vom ${gameRef.data().date} ${gameRef.data().time}`,
-              date: gameRef.data().dateISO,
+              date: game.dateISO,
               time: gameRef.data().time,
               clubRef: clubRef.ref,
               tags: "ChatGPT",
