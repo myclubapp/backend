@@ -75,7 +75,6 @@ type Season {
 type Game {
     id: ID!, # the ! means that every object _must_ have an id
     date: String,
-    dateISO: String,
     time: String,
     location: String,
     city: String,

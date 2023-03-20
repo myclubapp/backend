@@ -120,7 +120,6 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           } else if (game.date === "Abgesagt") {
             new Date();
           }
-          game.dateISO = game.date.toISOString();
           game.date = `${game.dateISO.substring(8, 10)}.${game.dateISO.substring(5, 7)}.${game.dateISO.substring(0, 4)}`;
           // const dummyGame = getNextGame(Number(i)-1, gamesData);
           //  console.log(`Use other Game with ${dummyGame.date} and ${dummyGame.time}`);
@@ -138,7 +137,6 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         const gameRef = await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).get();
         await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).set({
           externalId: `${game.id}`,
-          dateISO: game.dateISO,
           date: game.date,
           time: game.time,
           dateTime: gameDateTime,
@@ -190,7 +188,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
               text: matchReport,
               title: `Matchbericht ${gameRef.data().name}`,
               leadText: `${game.result} - ${gameRef.data().teamHome} vs. ${gameRef.data().teamAway} vom ${gameRef.data().date} ${gameRef.data().time}`,
-              date: game.dateISO,
+              date: gameRef.data().date,
               time: gameRef.data().time,
               clubRef: clubRef.ref,
               tags: "ChatGPT",
