@@ -136,9 +136,11 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           const teamRef = await db.collection("team").doc(`su-${team.id}`).get();
           console.log("read match report for game: " + game.id);
 
+          // await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).set({
+          // check if game already exists? && has match report?
+
           const matchReport = await generateMatchReport(game.id);
           let hasMatchReport = false;
-
           if (matchReport) {
             await db.collection("teams").doc(`su-${team.id}`).collection("reports").doc(`su-${game.id}`).set({
               externalId: `${game.id}`,
@@ -152,17 +154,6 @@ export async function updateGamesSwissunihockey(): Promise<any> {
             });
             hasMatchReport = true;
           }
-
-          await db.collection("teams").doc(`su-${team.id}`).collection("reports").doc(`su-${game.id}`).set({
-            externalId: `${game.id}`,
-            matchReport: matchReport,
-            type: "swissunihockey",
-            updated: new Date(),
-            clubRef: clubRef.ref,
-            teamRef: teamRef.ref,
-          }, {
-            merge: true,
-          });
 
           await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).set({
             externalId: `${game.id}`,
@@ -319,7 +310,7 @@ async function generateMatchReport(gameId: string): Promise<string> {
     const prompt = gameSummary.data.regions[0].rows[0].cells[0].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[1].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[2].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[2].text[1];
     const length = 100;
 
-    // console.log(">>> MAGIC");
+    console.log(">>> MAGIC " + prompt);
     const matchReportData = await fetch("https://api.openai.com/v1/engines/davinci-codex/completions", {
       method: "POST",
       headers: {
@@ -332,7 +323,7 @@ async function generateMatchReport(gameId: string): Promise<string> {
       }),
     });
     const chatGPT:any = await matchReportData.json();
-    // console.log(chatGPT);
+    console.log("RESPONSE " + chatGPT);
     return chatGPT.choices[0].text;
   } else {
     return "";
