@@ -23,7 +23,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
   // for (const club of clubData) {
   const clubListRef = await db.collection("club").where("active", "==", true).where("type", "==", "swissunihockey").get();
   for (const clubData of clubListRef.docs) {
-    const club = {...{id: clubData.externalId}, ...clubData.data()};
+    const club = {...{id: clubData.data().externalId}, ...clubData.data()};
     // const fbClubData = await db.collection("club").doc(`su-${club.id}`).get();
     // if (fbClubData.exists && fbClubData.data().active) {
     // GET CLUB GAMES
@@ -215,7 +215,7 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
   // Teams von Swiss Unihockey aktualisieren, welche einen aktiven Club haben.
   const clubListRef = await db.collection("club").where("active", "==", true).where("type", "==", "swissunihockey").get();
   for (const clubData of clubListRef.docs) {
-    const club = {...{id: clubData.externalId}, ...clubData.data()};
+    const club = {...{id: clubData.data().externalId}, ...clubData.data()};
     // const clubData = await resolversSU.SwissUnihockey.clubs();
     // for (const club of clubData) {
     // const fbClubData = await db.collection("club").doc(`su-${club.id}`).get();
