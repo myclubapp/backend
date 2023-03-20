@@ -121,7 +121,6 @@ export async function updateGamesSwissunihockey(): Promise<any> {
             new Date();
           }
           game.date = game.date.toISOString();
-          game.dateISO = game.date.toISOString();
           game.date = `${game.date.substring(8, 10)}.${game.date.substring(5, 7)}.${game.date.substring(0, 4)}`;
           // const dummyGame = getNextGame(Number(i)-1, gamesData);
           //  console.log(`Use other Game with ${dummyGame.date} and ${dummyGame.time}`);
@@ -183,7 +182,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
               text: matchReport,
               title: `Matchbericht ${gameRef.data().name}`,
               leadText: `${game.result} - ${gameRef.data().teamHome} vs. ${gameRef.data().teamAway} vom ${gameRef.data().date} ${gameRef.data().time}`,
-              date: game.dateISO,
+              date: game.date.toISOString(),
               time: gameRef.data().time,
               clubRef: clubRef.ref,
               tags: "ChatGPT",
