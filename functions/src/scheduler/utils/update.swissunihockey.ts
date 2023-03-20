@@ -136,29 +136,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         const teamRef = await db.collection("team").doc(`su-${team.id}`).get();
         console.log("read match report for game: " + game.id);
 
-        const matchReportRef = await db.collection("teams").doc(`su-${team.id}`).collection("reports").doc(`su-${game.id}`).get();
         const gameRef = await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).get();
-        if (!matchReportRef.exists) {
-          const matchReport = await generateMatchReport(game.id);
-          if (matchReport) {
-            await db.collection("teams").doc(`su-${team.id}`).collection("reports").doc(`su-${game.id}`).set({
-              externalId: `${game.id}`,
-              text: matchReport,
-              title: `Matchbericht ${gameRef.data().name}`,
-              leadText: `${gameRef.data().result} - ${gameRef.data().teamHome} vs. ${gameRef.data().teamAway} vom ${gameRef.data().date} ${gameRef.data().time}`,
-              date: game.dateISO,
-              time: gameRef.data().time,
-              clubRef: clubRef.ref,
-              tags: "ChatGPT",
-              gameRef: gameRef.ref,
-              teamRef: teamRef.ref,
-              type: "swissunihockey",
-              updated: new Date(),
-            }, {
-              merge: true,
-            });
-          }
-        }
         await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).set({
           externalId: `${game.id}`,
           date: game.date,
@@ -195,6 +173,29 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         }, {
           merge: true,
         });
+
+        const matchReportRef = await db.collection("teams").doc(`su-${team.id}`).collection("reports").doc(`su-${game.id}`).get();
+        if (!matchReportRef.exists) {
+          const matchReport = await generateMatchReport(game.id);
+          if (matchReport) {
+            await db.collection("teams").doc(`su-${team.id}`).collection("reports").doc(`su-${game.id}`).set({
+              externalId: `${game.id}`,
+              text: matchReport,
+              title: `Matchbericht ${gameRef.data().name}`,
+              leadText: `${gameRef.data().result} - ${gameRef.data().teamHome} vs. ${gameRef.data().teamAway} vom ${gameRef.data().date} ${gameRef.data().time}`,
+              date: game.dateISO,
+              time: gameRef.data().time,
+              clubRef: clubRef.ref,
+              tags: "ChatGPT",
+              gameRef: gameRef.ref,
+              teamRef: teamRef.ref,
+              type: "swissunihockey",
+              updated: new Date(),
+            }, {
+              merge: true,
+            });
+          }
+        }
       }
     }
   }
