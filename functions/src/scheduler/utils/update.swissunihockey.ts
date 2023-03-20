@@ -307,7 +307,7 @@ async function generateMatchReport(gameId: string): Promise<string> {
     gameSummary.data.regions.length > 0 &&
     gameSummary.data.regions[0].rows.length > 0 &&
     gameSummary.data.regions[0].rows[0].cells.length > 0) {
-    const prompt = gameSummary.data.regions[0].rows[0].cells[0].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[1].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[2].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[2].text[1];
+    const prompt = "Schreibe einen Matchbericht für folgendes Unihockey Spiel: " + gameSummary.data.regions[0].rows[0].cells[0].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[1].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[2].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[2].text[1];
     const length = 250;
 
     console.log(">>> MAGIC " + prompt);
