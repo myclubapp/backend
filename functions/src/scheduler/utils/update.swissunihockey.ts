@@ -311,7 +311,10 @@ async function generateMatchReport(gameId: string): Promise<string> {
   const gameSummary = await data.json();
   console.log(`https://api-v2.swissunihockey.ch/api/games/${gameId}/summary`);
   console.log(gameSummary);
-  if (gameSummary && gameSummary.data && gameSummary.data.regions && gameSummary.data.regions[0].rows && gameSummary.data.regions[0].rows[0].cells && gameSummary.data.regions[0].rows[0].cells[2]) {
+  if (gameSummary && gameSummary.data &&
+    gameSummary.data.regions.length > 0 &&
+    gameSummary.data.regions[0].rows.length > 0 &&
+    gameSummary.data.regions[0].rows[0].cells.length > 0) {
     const prompt = gameSummary.data.regions[0].rows[0].cells[0].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[1].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[2].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[2].text[1];
     const length = 100;
 
