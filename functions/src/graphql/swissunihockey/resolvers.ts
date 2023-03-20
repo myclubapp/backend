@@ -132,6 +132,7 @@ async function getTeams(clubId: string, season: string) {
     console.log(`No Season parameter provided. Used internal logic and found: ${season}`);
   }
 
+  console.log(`get team by club: https://api-v2.swissunihockey.ch/api/teams?mode=by_club&club_id= + ${clubId} + &season= + ${season}`);
   const data = await fetch("https://api-v2.swissunihockey.ch/api/teams?mode=by_club&club_id=" + clubId + "&season=" + season);
   const teamData = await data.json();
   const teamList = < any > [];
