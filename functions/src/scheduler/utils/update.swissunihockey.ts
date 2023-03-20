@@ -19,20 +19,17 @@ import resolversSU from "./../../graphql/swissunihockey/resolvers";
 export async function updateGamesSwissunihockey(): Promise<any> {
   console.log("Update Games SwissUnihockey");
 
-  // const clubData = await resolversSU.SwissUnihockey.clubs();
-  // for (const club of clubData) {
   const clubListRef = await db.collection("club").where("active", "==", true).where("type", "==", "swissunihockey").get();
   for (const clubData of clubListRef.docs) {
     const club = {...{id: clubData.data().externalId}, ...clubData.data()};
-    // const fbClubData = await db.collection("club").doc(`su-${club.id}`).get();
-    // if (fbClubData.exists && fbClubData.data().active) {
+
     // GET CLUB GAMES
     console.log(`>> Club is active:  ${club.id} ${club.name}`);
     const clubGamesData = await resolversSU.Club.games({id: `${club.id}`}, {}, {}, {});
     for (const i in clubGamesData) {
       const game = clubGamesData[i];
       console.log(`>> Read Club Game:  ${game.id}`);
-      // console.log(JSON.stringify(game));
+
       const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
 
       if (game.date.charAt(2) !== ".") {
@@ -60,8 +57,6 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         // game.date = "11.03.2023"
       }
       const gameDateTime: firebase.firestore.Timestamp = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
-
-      // const clubRef = await db.collection("club").doc(`su-${club.id}`).get();
 
       await db.collection("club").doc(`su-${club.id}`).collection("games").doc(`su-${game.id}`).set({
         externalId: `${game.id}`,
@@ -110,7 +105,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
       for (const i in gamesData) {
         const game = gamesData[i];
         console.log(`>>> Read Team Game:  ${game.id}`);
-        // console.log(JSON.stringify(game));
+
         const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
 
         if (game.date.charAt(2) !== ".") {
@@ -126,6 +121,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
             new Date();
           }
           game.date = game.date.toISOString();
+          game.dateISO = game.date.toISOString();
           game.date = `${game.date.substring(8, 10)}.${game.date.substring(5, 7)}.${game.date.substring(0, 4)}`;
           // const dummyGame = getNextGame(Number(i)-1, gamesData);
           //  console.log(`Use other Game with ${dummyGame.date} and ${dummyGame.time}`);
@@ -140,9 +136,6 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         const teamRef = await db.collection("team").doc(`su-${team.id}`).get();
         console.log("read match report for game: " + game.id);
 
-        // await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).set({
-        // check if game already exists? && has match report?
-
         let hasMatchReport = false;
         const matchReportRef = await db.collection("teams").doc(`su-${team.id}`).collection("reports").doc(`su-${game.id}`).get();
         const gameRef = await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).get();
@@ -154,7 +147,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
               matchReport: matchReport,
               type: "swissunihockey",
               updated: new Date(),
-              date: game.date,
+              date: game.dateISO,
               time: game.time,
               clubRef: clubRef.ref,
               teamRef: teamRef.ref,
@@ -204,9 +197,6 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         });
       }
     }
-    /* } else {
-      console.log(`${club.name} is not active`);
-    }*/
   }
 }
 
@@ -216,10 +206,7 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
   const clubListRef = await db.collection("club").where("active", "==", true).where("type", "==", "swissunihockey").get();
   for (const clubData of clubListRef.docs) {
     const club = {...{id: clubData.data().externalId}, ...clubData.data()};
-    // const clubData = await resolversSU.SwissUnihockey.clubs();
-    // for (const club of clubData) {
-    // const fbClubData = await db.collection("club").doc(`su-${club.id}`).get();
-    // if (fbClubData.exists && fbClubData.data().active) {
+
     const teamData = await resolversSU.Club.teams({id: `${club.id}`}, {}, {}, {});
     for (const team of teamData) {
       console.log(club.name + " / " + team.name);
@@ -244,9 +231,6 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
         teamRef: teamRef.ref,
       });
     }
-    /* } else {
-      console.log(`${club.name} is not active`);
-    }*/
   }
 }
 
@@ -313,8 +297,7 @@ export async function updateNewsSwissunihockey(): Promise<any> {
 async function generateMatchReport(gameId: string): Promise<string> {
   const data = await fetch("https://api-v2.swissunihockey.ch/api/games/" + gameId + "/summary");
   const gameSummary = await data.json();
-  // console.log(`https://api-v2.swissunihockey.ch/api/games/${gameId}/summary`);
-  // console.log(gameSummary);
+
   if (gameSummary && gameSummary.data &&
     gameSummary.data.regions.length > 0 &&
     gameSummary.data.regions[0].rows.length > 0 &&
