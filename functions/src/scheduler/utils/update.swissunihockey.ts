@@ -40,14 +40,19 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           } else if (game.date === "morgen") {
             game.date = new Date(Date.now() + 24*60*60*1000);
           } else if (game.date === "Abgesagt") {
-            new Date();
+            game.date = new Date();
           }
+
+          game.date = game.date.toISOString();
+          game.date = `${game.date.substring(8, 10)}.${game.date.substring(5, 7)}.${game.date.substring(0, 4)}`;
+
           // const dummyGame = getNextGame(Number(i)-1, gamesData);
           //  console.log(`Use other Game with ${dummyGame.date} and ${dummyGame.time}`);
           // gameDateTime = firebase.firestore.Timestamp.now();
           // gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${dummyGame.date.substr(6, 4)}-${dummyGame.date.substr(3, 2)}-${dummyGame.date.substr(0, 2)}T${dummyGame.time}`)); // --> Damit abgesagte nicht irgendwo angezeigt werden
         } else {
           // Alles normal
+          // game.date = "11.03.2023"
         }
         const gameDateTime: firebase.firestore.Timestamp = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
 
@@ -114,6 +119,8 @@ export async function updateGamesSwissunihockey(): Promise<any> {
             } else if (game.date === "Abgesagt") {
               new Date();
             }
+            game.date = game.date.toISOString();
+            game.date = `${game.date.substring(8, 10)}.${game.date.substring(5, 7)}.${game.date.substring(0, 4)}`;
             // const dummyGame = getNextGame(Number(i)-1, gamesData);
             //  console.log(`Use other Game with ${dummyGame.date} and ${dummyGame.time}`);
             // gameDateTime = firebase.firestore.Timestamp.now();
