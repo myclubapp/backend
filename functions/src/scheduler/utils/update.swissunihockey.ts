@@ -327,7 +327,7 @@ async function generateMatchReport(gameId: string): Promise<string> {
         max_tokens: length,
       }),
     });
-    const chatGPT:any = matchReportData.json();
+    const chatGPT:any = await matchReportData.json();
     return chatGPT.choices[0].text;
   } else {
     return "";
