@@ -332,6 +332,7 @@ async function generateMatchReport(gameId: string): Promise<string> {
       }),
     });
     const chatGPT:any = await matchReportData.json();
+    console.log(chatGPT);
     return chatGPT.choices[0].text;
   } else {
     return "";
