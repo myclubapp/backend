@@ -87,7 +87,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         spectators: gameDetail.spectators,
 
 
-        resut: game.result,
+        result: game.result,
         type: "swissunihockey",
         updated: new Date(),
         clubRef: clubData.ref,
@@ -145,7 +145,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
               externalId: `${game.id}`,
               text: matchReport,
               title: `Matchbericht ${gameRef.data().name}`,
-              leadText: `${gameRef.data().result} - ${gameRef.data().teamHomeCaption} vs. ${gameRef.data().teamAwayCaption} vom ${gameRef.data().date} ${gameRef.data().time}`,
+              leadText: `${gameRef.data().result} - ${gameRef.data().teamHome} vs. ${gameRef.data().teamAway} vom ${gameRef.data().date} ${gameRef.data().time}`,
               date: gameRef.data().dateISO,
               time: gameRef.data().time,
               clubRef: clubRef.ref,
@@ -187,7 +187,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           referee2: gameDetail.referee2,
           spectators: gameDetail.spectators,
 
-          resut: game.result,
+          result: game.result,
           type: "swissunihockey",
           updated: new Date(),
           clubRef: clubRef.ref,
