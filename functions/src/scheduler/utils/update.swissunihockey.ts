@@ -177,6 +177,12 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         if (!matchReportRef.exists) {
           const matchReport = await generateMatchReport(game.id);
           if (matchReport) {
+            console.log("> game");
+            console.log(game);
+
+            console.log("> gameRef");
+            console.log(gameRef.data());
+
             await db.collection("teams").doc(`su-${team.id}`).collection("reports").doc(`su-${game.id}`).set({
               externalId: `${game.id}`,
               text: matchReport,
