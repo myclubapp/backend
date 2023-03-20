@@ -327,7 +327,7 @@ async function generateMatchReport(gameId: string): Promise<string> {
     const chatGPT:any = await matchReportData.json();
     console.log("RESPONSE length " + chatGPT.choices.length);
     console.log("RESPONSE " + chatGPT.choices[0].text);
-    return chatGPT.choices[0].text;
+    return chatGPT.choices[0].text.replaceAll("\n", "");
   } else {
     return "";
   }
