@@ -121,6 +121,17 @@ export async function updateGamesSwissunihockey(): Promise<any> {
 
           const matchReport = await generateMatchReport(game.id);
 
+          await db.collection("teams").doc(`su-${team.id}`).collection("reports").doc(`su-${game.id}`).set({
+            externalId: `${game.id}`,
+            matchReport: matchReport,
+            type: "swissunihockey",
+            updated: new Date(),
+            clubRef: clubRef.ref,
+            teamRef: teamRef.ref,
+          }, {
+            merge: true,
+          });
+
           await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).set({
             externalId: `${game.id}`,
             date: game.date,
@@ -154,7 +165,6 @@ export async function updateGamesSwissunihockey(): Promise<any> {
             updated: new Date(),
             clubRef: clubRef.ref,
             teamRef: teamRef.ref,
-            matchReport: matchReport,
           }, {
             merge: true,
           });
