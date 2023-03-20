@@ -182,7 +182,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
               externalId: `${game.id}`,
               text: matchReport,
               title: `Matchbericht ${gameRef.data().name}`,
-              leadText: `${gameRef.data().result} - ${gameRef.data().teamHome} vs. ${gameRef.data().teamAway} vom ${gameRef.data().date} ${gameRef.data().time}`,
+              leadText: `${game.result} - ${gameRef.data().teamHome} vs. ${gameRef.data().teamAway} vom ${gameRef.data().date} ${gameRef.data().time}`,
               date: game.dateISO,
               time: gameRef.data().time,
               clubRef: clubRef.ref,
