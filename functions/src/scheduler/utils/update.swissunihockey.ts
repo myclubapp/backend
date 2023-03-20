@@ -309,7 +309,8 @@ export async function updateNewsSwissunihockey(): Promise<any> {
 async function generateMatchReport(gameId: string): Promise<string> {
   const data = await fetch("https://api-v2.swissunihockey.ch/api/games/" + gameId + "/summary");
   const gameSummary = await data.json();
-
+  console.log(`https://api-v2.swissunihockey.ch/api/games/${gameId}/summary`);
+  console.log(gameSummary);
   if (gameSummary && gameSummary.data && gameSummary.data.regions && gameSummary.data.regions[0].rows && gameSummary.data.regions[0].rows[0].cells && gameSummary.data.regions[0].rows[0].cells[2]) {
     const prompt = gameSummary.data.regions[0].rows[0].cells[0].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[1].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[2].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[2].text[1];
     const length = 100;
