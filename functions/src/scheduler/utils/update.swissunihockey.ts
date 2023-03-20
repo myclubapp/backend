@@ -324,7 +324,7 @@ async function generateMatchReport(gameId: string): Promise<string> {
   }
 }
 
-
+/*
 function getNextGame(index: number, gamesList: []): any {
   const nextGame: any = gamesList[index];
   console.log(">>> " + index);
@@ -343,4 +343,4 @@ function getNextGame(index: number, gamesList: []): any {
       return getNextGame(index + 1, gamesList);
     }
   }
-}
+}*/
