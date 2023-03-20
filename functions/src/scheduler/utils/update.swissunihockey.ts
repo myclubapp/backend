@@ -144,7 +144,9 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           if (matchReport) {
             await db.collection("teams").doc(`su-${team.id}`).collection("reports").doc(`su-${game.id}`).set({
               externalId: `${game.id}`,
-              matchReport: matchReport,
+              text: matchReport,
+              title: `Matchbericht ${game.name}`,
+              leadText: `${game.result} ${game.TeamHomeCaption} - ${game.TeamAwayCaption} ${game.date} ${game.time}`,
               type: "swissunihockey",
               updated: new Date(),
               date: game.dateISO,
