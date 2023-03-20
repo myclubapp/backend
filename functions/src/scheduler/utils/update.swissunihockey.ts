@@ -307,19 +307,21 @@ async function generateMatchReport(gameId: string): Promise<string> {
     gameSummary.data.regions.length > 0 &&
     gameSummary.data.regions[0].rows.length > 0 &&
     gameSummary.data.regions[0].rows[0].cells.length > 0) {
-    const prompt = "Schreibe einen Matchbericht für folgendes Unihockey Spiel: " + gameSummary.data.regions[0].rows[0].cells[0].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[1].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[2].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[2].text[1];
+    const prompt = gameSummary.data.regions[0].rows[0].cells[0].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[1].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[2].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[2].text[1];
     const length = 250;
 
     console.log(">>> MAGIC " + prompt);
-    const matchReportData = await fetch("https://api.openai.com/v1/engines/davinci-codex/completions", {
+    const matchReportData = await fetch("https://api.openai.com/v1/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer " + functions.config().api.chatgpt,
       },
       body: JSON.stringify({
-        prompt: prompt,
-        max_tokens: length,
+        model: "text-davinci-003",
+        max_tokens: 400,
+        n: 1,
+        prompt: "Schreibe einen Matchbericht für folgendes Unihockey Spiel: " + prompt,
       }),
     });
     const chatGPT:any = await matchReportData.json();
