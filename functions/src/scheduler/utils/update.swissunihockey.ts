@@ -308,7 +308,7 @@ async function generateMatchReport(gameId: string): Promise<string> {
     gameSummary.data.regions[0].rows.length > 0 &&
     gameSummary.data.regions[0].rows[0].cells.length > 0) {
     const prompt = gameSummary.data.regions[0].rows[0].cells[0].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[1].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[2].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[2].text[1];
-    const length = 100;
+    const length = 250;
 
     console.log(">>> MAGIC " + prompt);
     const matchReportData = await fetch("https://api.openai.com/v1/engines/davinci-codex/completions", {
@@ -323,7 +323,8 @@ async function generateMatchReport(gameId: string): Promise<string> {
       }),
     });
     const chatGPT:any = await matchReportData.json();
-    console.log("RESPONSE " + chatGPT);
+    console.log("RESPONSE length " + chatGPT.choices.length);
+    console.log("RESPONSE " + chatGPT.choices[0].text);
     return chatGPT.choices[0].text;
   } else {
     return "";
