@@ -68,7 +68,7 @@ async function updateClubNewsFromWordpress(): Promise<any> {
 
     if (club.data().wordpress) {
       console.log(club.data().wordpress);
-      const url = club.data().wordpress + "/wp-json/wp/v2/posts/";
+      const url = club.data().wordpress + "/wp-json/wp/v2/posts?per_page=20";
       const wpData = await fetch(url);
       const wpNews = await wpData.json();
 
