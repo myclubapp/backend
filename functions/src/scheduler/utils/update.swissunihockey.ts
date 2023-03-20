@@ -9,6 +9,8 @@
 import * as firebase from "firebase-admin";
 import firebaseDAO from "./../../firebaseSingleton";
 import * as functions from "firebase-functions";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const fetch = require("node-fetch");
 
 const db = firebaseDAO.instance.db;
 
