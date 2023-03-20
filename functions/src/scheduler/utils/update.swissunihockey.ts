@@ -147,12 +147,13 @@ export async function updateGamesSwissunihockey(): Promise<any> {
               text: matchReport,
               title: `Matchbericht ${game.name}`,
               leadText: `${game.result} ${game.TeamHomeCaption} - ${game.TeamAwayCaption} ${game.date} ${game.time}`,
-              type: "swissunihockey",
-              updated: new Date(),
               date: game.dateISO,
               time: game.time,
               clubRef: clubRef.ref,
+              tags: "ChatGPT",
               teamRef: teamRef.ref,
+              type: "swissunihockey",
+              updated: new Date(),
             }, {
               merge: true,
             });
