@@ -30,19 +30,26 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         // console.log(JSON.stringify(game));
         const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
 
-        let gameDateTime: firebase.firestore.Timestamp;
-        if (game.time.charAt(2) !== ":") {
-          game.time = "23:59";
-        }
         if (game.date.charAt(2) !== ".") {
+          game.time = "23:59";
           console.log(`No Date: ${game.date}`);
-          const dummyGame = getNextGame(Number(i)-1, clubGamesData);
-          console.log(`Use other Game with ${dummyGame.date} and ${dummyGame.time}`);
+          if (game.date === "heute") {
+            game.date = new Date().toISOString();
+          } else if (game.date === "gestern") {
+            game.date = new Date(Date.now() - 24*60*60*1000);
+          } else if (game.date === "morgen") {
+            game.date = new Date(Date.now() + 24*60*60*1000);
+          } else if (game.date === "Abgesagt") {
+            new Date();
+          }
+          // const dummyGame = getNextGame(Number(i)-1, gamesData);
+          //  console.log(`Use other Game with ${dummyGame.date} and ${dummyGame.time}`);
           // gameDateTime = firebase.firestore.Timestamp.now();
-          gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${dummyGame.date.substr(6, 4)}-${dummyGame.date.substr(3, 2)}-${dummyGame.date.substr(0, 2)}T${dummyGame.time}`)); // --> Damit abgesagte nicht irgendwo angezeigt werden
+          // gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${dummyGame.date.substr(6, 4)}-${dummyGame.date.substr(3, 2)}-${dummyGame.date.substr(0, 2)}T${dummyGame.time}`)); // --> Damit abgesagte nicht irgendwo angezeigt werden
         } else {
-          gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
+          // Alles normal
         }
+        const gameDateTime: firebase.firestore.Timestamp = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
 
         const clubRef = await db.collection("club").doc(`su-${club.id}`).get();
 
