@@ -120,8 +120,8 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           } else if (game.date === "Abgesagt") {
             new Date();
           }
-          game.date = game.date.toISOString();
-          game.date = `${game.date.substring(8, 10)}.${game.date.substring(5, 7)}.${game.date.substring(0, 4)}`;
+          game.dateISO = game.date.toISOString();
+          game.date = `${game.dateISO.substring(8, 10)}.${game.dateISO.substring(5, 7)}.${game.dateISO.substring(0, 4)}`;
           // const dummyGame = getNextGame(Number(i)-1, gamesData);
           //  console.log(`Use other Game with ${dummyGame.date} and ${dummyGame.time}`);
           // gameDateTime = firebase.firestore.Timestamp.now();
@@ -138,6 +138,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         const gameRef = await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).get();
         await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).set({
           externalId: `${game.id}`,
+          dateISO: game.dateISO,
           date: game.date,
           time: game.time,
           dateTime: gameDateTime,
@@ -177,18 +178,19 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         if (!matchReportRef.exists) {
           const matchReport = await generateMatchReport(game.id);
           if (matchReport) {
-            console.log("> game");
+            /* console.log("> game");
             console.log(game);
 
             console.log("> gameRef");
-            console.log(gameRef.data());
+            console.log(gameRef.data()); */
+            // date: '11.09.2022',
 
             await db.collection("teams").doc(`su-${team.id}`).collection("reports").doc(`su-${game.id}`).set({
               externalId: `${game.id}`,
               text: matchReport,
               title: `Matchbericht ${gameRef.data().name}`,
               leadText: `${game.result} - ${gameRef.data().teamHome} vs. ${gameRef.data().teamAway} vom ${gameRef.data().date} ${gameRef.data().time}`,
-              date: game.date.toISOString(),
+              date: game.dateISO,
               time: gameRef.data().time,
               clubRef: clubRef.ref,
               tags: "ChatGPT",
