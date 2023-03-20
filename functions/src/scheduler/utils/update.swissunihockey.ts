@@ -139,7 +139,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         let hasMatchReport = false;
         const matchReportRef = await db.collection("teams").doc(`su-${team.id}`).collection("reports").doc(`su-${game.id}`).get();
         const gameRef = await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).get();
-        if (!matchReportRef.exists && !gameRef.data().hasMatchReport) {
+        if (!matchReportRef.exists && gameRef.data().hasMatchReport && !gameRef.data().hasMatchReport) {
           const matchReport = await generateMatchReport(game.id);
           if (matchReport) {
             await db.collection("teams").doc(`su-${team.id}`).collection("reports").doc(`su-${game.id}`).set({
