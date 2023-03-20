@@ -21,7 +21,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
 
   // const clubData = await resolversSU.SwissUnihockey.clubs();
   // for (const club of clubData) {
-  const clubListRef = await db.collection("club").where("active", "==", true).get();
+  const clubListRef = await db.collection("club").where("active", "==", true).where("type", "==", "swissunihockey").get();
   for (const clubData of clubListRef.docs) {
     const club = {...{id: clubData.id}, ...clubData.data()};
     // const fbClubData = await db.collection("club").doc(`su-${club.id}`).get();
