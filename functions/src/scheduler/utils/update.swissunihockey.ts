@@ -19,16 +19,96 @@ import resolversSU from "./../../graphql/swissunihockey/resolvers";
 export async function updateGamesSwissunihockey(): Promise<any> {
   console.log("Update Games SwissUnihockey");
 
-  const clubData = await resolversSU.SwissUnihockey.clubs();
-  for (const club of clubData) {
-    const fbClubData = await db.collection("club").doc(`su-${club.id}`).get();
-    if (fbClubData.exists && fbClubData.data().active) {
-      // GET CLUB GAMES
-      console.log(`>> Club is active:  ${club.id} ${club.name}`);
-      const clubGamesData = await resolversSU.Club.games({id: `${club.id}`}, {}, {}, {});
-      for (const i in clubGamesData) {
-        const game = clubGamesData[i];
-        console.log(`>> Read Club Game:  ${game.id}`);
+  // const clubData = await resolversSU.SwissUnihockey.clubs();
+  // for (const club of clubData) {
+  const clubListRef = await db.collection("club").where("active", "==", true).get();
+  for (const club of clubListRef.docs) {
+    // const fbClubData = await db.collection("club").doc(`su-${club.id}`).get();
+    // if (fbClubData.exists && fbClubData.data().active) {
+    // GET CLUB GAMES
+    console.log(`>> Club is active:  ${club.id} ${club.name}`);
+    const clubGamesData = await resolversSU.Club.games({id: `${club.id}`}, {}, {}, {});
+    for (const i in clubGamesData) {
+      const game = clubGamesData[i];
+      console.log(`>> Read Club Game:  ${game.id}`);
+      // console.log(JSON.stringify(game));
+      const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
+
+      if (game.date.charAt(2) !== ".") {
+        game.time = "23:59";
+        console.log(`No Date: ${game.date}`);
+        if (game.date === "heute") {
+          game.date = new Date().toISOString();
+        } else if (game.date === "gestern") {
+          game.date = new Date(Date.now() - 24*60*60*1000);
+        } else if (game.date === "morgen") {
+          game.date = new Date(Date.now() + 24*60*60*1000);
+        } else if (game.date === "Abgesagt") {
+          game.date = new Date();
+        }
+
+        game.date = game.date.toISOString();
+        game.date = `${game.date.substring(8, 10)}.${game.date.substring(5, 7)}.${game.date.substring(0, 4)}`;
+
+        // const dummyGame = getNextGame(Number(i)-1, gamesData);
+        //  console.log(`Use other Game with ${dummyGame.date} and ${dummyGame.time}`);
+        // gameDateTime = firebase.firestore.Timestamp.now();
+        // gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${dummyGame.date.substr(6, 4)}-${dummyGame.date.substr(3, 2)}-${dummyGame.date.substr(0, 2)}T${dummyGame.time}`)); // --> Damit abgesagte nicht irgendwo angezeigt werden
+      } else {
+        // Alles normal
+        // game.date = "11.03.2023"
+      }
+      const gameDateTime: firebase.firestore.Timestamp = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
+
+      const clubRef = await db.collection("club").doc(`su-${club.id}`).get();
+
+      await db.collection("club").doc(`su-${club.id}`).collection("games").doc(`su-${game.id}`).set({
+        externalId: `${game.id}`,
+        date: game.date,
+        time: game.time,
+        dateTime: gameDateTime,
+        location: game.location,
+        city: game.city,
+        longitude: game.longitude,
+        latitude: game.latitude,
+        liga: game.liga,
+
+        name: gameDetail.name,
+        description: gameDetail.description,
+
+        teamHomeId: gameDetail.teamHomeId,
+        teamHome: gameDetail.teamHome,
+        teamHomeLogo: gameDetail.teamHomeLogo,
+        teamHomeLogoText: gameDetail.teamHomeLogoText,
+
+        teamAwayId: gameDetail.teamAwayId,
+        teamAway: gameDetail.teamAway,
+        teamAwayLogo: gameDetail.teamAwayLogo,
+        teamAwayLogoText: gameDetail.teamAwayLogoText,
+
+        referee1: gameDetail.referee1,
+        referee2: gameDetail.referee2,
+        spectators: gameDetail.spectators,
+
+
+        resut: game.result,
+        type: "swissunihockey",
+        updated: new Date(),
+        clubRef: clubRef.ref,
+      }, {
+        merge: true,
+      });
+    }
+
+    // TEAM GAMES
+    // TODO -> GET FROM DB instead of API
+    const teamData = await resolversSU.Club.teams({id: `${club.id}`}, {}, {}, {});
+    for (const team of teamData) {
+      console.log(`>> Team: ${team.id} ${team.name} ${team.liga} `);
+      const gamesData = await resolversSU.Team.games({id: `${team.id}`}, {}, {}, {});
+      for (const i in gamesData) {
+        const game = gamesData[i];
+        console.log(`>>> Read Team Game:  ${game.id}`);
         // console.log(JSON.stringify(game));
         const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
 
@@ -42,25 +122,43 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           } else if (game.date === "morgen") {
             game.date = new Date(Date.now() + 24*60*60*1000);
           } else if (game.date === "Abgesagt") {
-            game.date = new Date();
+            new Date();
           }
-
           game.date = game.date.toISOString();
           game.date = `${game.date.substring(8, 10)}.${game.date.substring(5, 7)}.${game.date.substring(0, 4)}`;
-
           // const dummyGame = getNextGame(Number(i)-1, gamesData);
           //  console.log(`Use other Game with ${dummyGame.date} and ${dummyGame.time}`);
           // gameDateTime = firebase.firestore.Timestamp.now();
           // gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${dummyGame.date.substr(6, 4)}-${dummyGame.date.substr(3, 2)}-${dummyGame.date.substr(0, 2)}T${dummyGame.time}`)); // --> Damit abgesagte nicht irgendwo angezeigt werden
         } else {
           // Alles normal
-          // game.date = "11.03.2023"
         }
         const gameDateTime: firebase.firestore.Timestamp = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
 
         const clubRef = await db.collection("club").doc(`su-${club.id}`).get();
+        const teamRef = await db.collection("team").doc(`su-${team.id}`).get();
+        console.log("read match report for game: " + game.id);
 
-        await db.collection("club").doc(`su-${club.id}`).collection("games").doc(`su-${game.id}`).set({
+        // await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).set({
+        // check if game already exists? && has match report?
+
+        const matchReport = await generateMatchReport(game.id);
+        let hasMatchReport = false;
+        if (matchReport) {
+          await db.collection("teams").doc(`su-${team.id}`).collection("reports").doc(`su-${game.id}`).set({
+            externalId: `${game.id}`,
+            matchReport: matchReport,
+            type: "swissunihockey",
+            updated: new Date(),
+            clubRef: clubRef.ref,
+            teamRef: teamRef.ref,
+          }, {
+            merge: true,
+          });
+          hasMatchReport = true;
+        }
+
+        await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).set({
           externalId: `${game.id}`,
           date: game.date,
           time: game.time,
@@ -69,7 +167,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           city: game.city,
           longitude: game.longitude,
           latitude: game.latitude,
-          liga: game.liga,
+          liga: team.liga,
 
           name: gameDetail.name,
           description: gameDetail.description,
@@ -88,116 +186,21 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           referee2: gameDetail.referee2,
           spectators: gameDetail.spectators,
 
-
           resut: game.result,
           type: "swissunihockey",
           updated: new Date(),
           clubRef: clubRef.ref,
+          teamRef: teamRef.ref,
+
+          matchReport: hasMatchReport,
         }, {
           merge: true,
         });
       }
-
-      // TEAM GAMES
-      const teamData = await resolversSU.Club.teams({id: `${club.id}`}, {}, {}, {});
-      for (const team of teamData) {
-        console.log(`>> Team: ${team.id} ${team.name} ${team.liga} `);
-        const gamesData = await resolversSU.Team.games({id: `${team.id}`}, {}, {}, {});
-        for (const i in gamesData) {
-          const game = gamesData[i];
-          console.log(`>>> Read Team Game:  ${game.id}`);
-          // console.log(JSON.stringify(game));
-          const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
-
-          if (game.date.charAt(2) !== ".") {
-            game.time = "23:59";
-            console.log(`No Date: ${game.date}`);
-            if (game.date === "heute") {
-              game.date = new Date().toISOString();
-            } else if (game.date === "gestern") {
-              game.date = new Date(Date.now() - 24*60*60*1000);
-            } else if (game.date === "morgen") {
-              game.date = new Date(Date.now() + 24*60*60*1000);
-            } else if (game.date === "Abgesagt") {
-              new Date();
-            }
-            game.date = game.date.toISOString();
-            game.date = `${game.date.substring(8, 10)}.${game.date.substring(5, 7)}.${game.date.substring(0, 4)}`;
-            // const dummyGame = getNextGame(Number(i)-1, gamesData);
-            //  console.log(`Use other Game with ${dummyGame.date} and ${dummyGame.time}`);
-            // gameDateTime = firebase.firestore.Timestamp.now();
-            // gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${dummyGame.date.substr(6, 4)}-${dummyGame.date.substr(3, 2)}-${dummyGame.date.substr(0, 2)}T${dummyGame.time}`)); // --> Damit abgesagte nicht irgendwo angezeigt werden
-          } else {
-            // Alles normal
-          }
-          const gameDateTime: firebase.firestore.Timestamp = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
-
-          const clubRef = await db.collection("club").doc(`su-${club.id}`).get();
-          const teamRef = await db.collection("team").doc(`su-${team.id}`).get();
-          console.log("read match report for game: " + game.id);
-
-          // await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).set({
-          // check if game already exists? && has match report?
-
-          const matchReport = await generateMatchReport(game.id);
-          let hasMatchReport = false;
-          if (matchReport) {
-            await db.collection("teams").doc(`su-${team.id}`).collection("reports").doc(`su-${game.id}`).set({
-              externalId: `${game.id}`,
-              matchReport: matchReport,
-              type: "swissunihockey",
-              updated: new Date(),
-              clubRef: clubRef.ref,
-              teamRef: teamRef.ref,
-            }, {
-              merge: true,
-            });
-            hasMatchReport = true;
-          }
-
-          await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).set({
-            externalId: `${game.id}`,
-            date: game.date,
-            time: game.time,
-            dateTime: gameDateTime,
-            location: game.location,
-            city: game.city,
-            longitude: game.longitude,
-            latitude: game.latitude,
-            liga: team.liga,
-
-            name: gameDetail.name,
-            description: gameDetail.description,
-
-            teamHomeId: gameDetail.teamHomeId,
-            teamHome: gameDetail.teamHome,
-            teamHomeLogo: gameDetail.teamHomeLogo,
-            teamHomeLogoText: gameDetail.teamHomeLogoText,
-
-            teamAwayId: gameDetail.teamAwayId,
-            teamAway: gameDetail.teamAway,
-            teamAwayLogo: gameDetail.teamAwayLogo,
-            teamAwayLogoText: gameDetail.teamAwayLogoText,
-
-            referee1: gameDetail.referee1,
-            referee2: gameDetail.referee2,
-            spectators: gameDetail.spectators,
-
-            resut: game.result,
-            type: "swissunihockey",
-            updated: new Date(),
-            clubRef: clubRef.ref,
-            teamRef: teamRef.ref,
-
-            matchReport: hasMatchReport,
-          }, {
-            merge: true,
-          });
-        }
-      }
-    } else {
-      console.log(`${club.name} is not active`);
     }
+    /* } else {
+      console.log(`${club.name} is not active`);
+    }*/
   }
 }
 
