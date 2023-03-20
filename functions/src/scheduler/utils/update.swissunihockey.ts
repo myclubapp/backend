@@ -142,22 +142,26 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         // await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).set({
         // check if game already exists? && has match report?
 
-        const matchReport = await generateMatchReport(game.id);
         let hasMatchReport = false;
-        if (matchReport) {
-          await db.collection("teams").doc(`su-${team.id}`).collection("reports").doc(`su-${game.id}`).set({
-            externalId: `${game.id}`,
-            matchReport: matchReport,
-            type: "swissunihockey",
-            updated: new Date(),
-            clubRef: clubRef.ref,
-            teamRef: teamRef.ref,
-          }, {
-            merge: true,
-          });
-          hasMatchReport = true;
+        const matchReportRef = await db.collection("teams").doc(`su-${team.id}`).collection("reports").doc(`su-${game.id}`).get();
+        if (!matchReportRef.exists) {
+          const matchReport = await generateMatchReport(game.id);
+          if (matchReport) {
+            await db.collection("teams").doc(`su-${team.id}`).collection("reports").doc(`su-${game.id}`).set({
+              externalId: `${game.id}`,
+              matchReport: matchReport,
+              type: "swissunihockey",
+              updated: new Date(),
+              date: game.date,
+              time: game.time,
+              clubRef: clubRef.ref,
+              teamRef: teamRef.ref,
+            }, {
+              merge: true,
+            });
+            hasMatchReport = true;
+          }
         }
-
         await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).set({
           externalId: `${game.id}`,
           date: game.date,
