@@ -61,7 +61,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
       }
       const gameDateTime: firebase.firestore.Timestamp = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
 
-      const clubRef = await db.collection("club").doc(`su-${club.id}`).get();
+      // const clubRef = await db.collection("club").doc(`su-${club.id}`).get();
 
       await db.collection("club").doc(`su-${club.id}`).collection("games").doc(`su-${game.id}`).set({
         externalId: `${game.id}`,
@@ -95,7 +95,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         resut: game.result,
         type: "swissunihockey",
         updated: new Date(),
-        clubRef: clubRef.ref,
+        clubRef: clubData.ref,
       }, {
         merge: true,
       });
@@ -212,38 +212,41 @@ export async function updateGamesSwissunihockey(): Promise<any> {
 
 export async function updateTeamsSwissunihockey(): Promise<any> {
   console.log("Update Teams SwissUnihockey");
+  // Teams von Swiss Unihockey aktualisieren, welche einen aktiven Club haben.
+  const clubListRef = await db.collection("club").where("active", "==", true).where("type", "==", "swissunihockey").get();
+  for (const clubData of clubListRef.docs) {
+    const club = {...{id: clubData.id}, ...clubData.data()};
+    // const clubData = await resolversSU.SwissUnihockey.clubs();
+    // for (const club of clubData) {
+    // const fbClubData = await db.collection("club").doc(`su-${club.id}`).get();
+    // if (fbClubData.exists && fbClubData.data().active) {
+    const teamData = await resolversSU.Club.teams({id: `${club.id}`}, {}, {}, {});
+    for (const team of teamData) {
+      console.log(club.name + " / " + team.name);
+      const clubRef = await db.collection("club").doc(`su-${club.id}`).get();
+      const teamRef = await db.collection("team").doc(`su-${team.id}`).get();
 
-  const clubData = await resolversSU.SwissUnihockey.clubs();
-  for (const club of clubData) {
-    const fbClubData = await db.collection("club").doc(`su-${club.id}`).get();
-    if (fbClubData.exists && fbClubData.data().active) {
-      const teamData = await resolversSU.Club.teams({id: `${club.id}`}, {}, {}, {});
-      for (const team of teamData) {
-        console.log(club.name + " / " + team.name);
-        const clubRef = await db.collection("club").doc(`su-${club.id}`).get();
-        const teamRef = await db.collection("team").doc(`su-${team.id}`).get();
-
-        await db.collection("teams").doc(`su-${team.id}`).set({
-          externalId: `${team.id}`,
-          name: team.name,
-          info: team.info,
-          logo: team.logo,
-          website: team.website,
-          portrait: team.portrait,
-          liga: team.liga,
-          type: "swissunihockey",
-          updated: new Date(),
-          clubRef: clubRef.ref,
-        }, {
-          merge: true,
-        });
-        await db.collection("club").doc(`su-${club.id}`).collection("teams").doc(`su-${team.id}`).set({
-          teamRef: teamRef.ref,
-        });
-      }
-    } else {
-      console.log(`${club.name} is not active`);
+      await db.collection("teams").doc(`su-${team.id}`).set({
+        externalId: `${team.id}`,
+        name: team.name,
+        info: team.info,
+        logo: team.logo,
+        website: team.website,
+        portrait: team.portrait,
+        liga: team.liga,
+        type: "swissunihockey",
+        updated: new Date(),
+        clubRef: clubRef.ref,
+      }, {
+        merge: true,
+      });
+      await db.collection("club").doc(`su-${club.id}`).collection("teams").doc(`su-${team.id}`).set({
+        teamRef: teamRef.ref,
+      });
     }
+    /* } else {
+      console.log(`${club.name} is not active`);
+    }*/
   }
 }
 
