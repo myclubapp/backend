@@ -19,17 +19,23 @@ import resolversSU from "./../../graphql/swissunihockey/resolvers";
 export async function updateGamesSwissunihockey(): Promise<any> {
   console.log("Update Games SwissUnihockey");
 
+  // Get Clubs from DB where Type = SWISS UNIHOCKEY && STATUS is active
   const clubListRef = await db.collection("club").where("active", "==", true).where("type", "==", "swissunihockey").get();
   for (const clubData of clubListRef.docs) {
+    // create Club Object from DB.
     const club = {...{id: clubData.data().externalId}, ...clubData.data()};
 
     // GET CLUB GAMES
-    console.log(`>> Club is active:  ${club.id} ${club.name}`);
+    console.log(`>:  ${club.id} ${club.name}`);
+
+    // Get ALL CLUB GAMES from club based on API from SWISS UNIHOCKEY
     const clubGamesData = await resolversSU.Club.games({id: `${club.id}`}, {}, {}, {});
     for (const i in clubGamesData) {
+      // Create Game Object
       const game = clubGamesData[i];
       console.log(`>> Read Club Game:  ${game.id}`);
 
+      // Get Game Detail
       const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
 
       if (game.date.charAt(2) !== ".") {

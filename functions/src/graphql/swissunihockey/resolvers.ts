@@ -243,7 +243,7 @@ async function getClubs() {
   return clubList;
 }
 
-async function getClubGames(clubId: string, season: string) {
+async function getClubGames(clubId: string, season: string): Club[] {
   if (!season) {
     /* console.log("NO SEASON!!!");
     const seasonList: any = getSeason();
@@ -254,7 +254,7 @@ async function getClubGames(clubId: string, season: string) {
   }
   const data = await fetch("https://api-v2.swissunihockey.ch/api/games?mode=club&season=" + season + "&club_id=" + clubId + "&games_per_page=100");
   const gameData = await data.json();
-  const gameList = < any > [];
+  const gameList = <Game>[];
   if (gameData && gameData.data && gameData.data.regions && gameData.data.regions.length > 0) {
     for (const item of gameData.data.regions[0].rows ) {
       let latitude = "-";
