@@ -23,6 +23,7 @@ import {createTeamEvent} from "./firestore/event/createTeamEvent";
 import {createClubEvent} from "./firestore/event/createClubEvent";
 
 import {updatePersistenceJobClubs, updatePersistenceJobTeams, updatePersistenceJobGames, updatePersistenceJobNews} from "./scheduler/syncAssociation.scheduler";
+import {syncUnihockeyApp} from "./scheduler/syncUnihockeyApp";
 
 import {sendReportingJobMember} from "./reporting/member.scheduler";
 
@@ -48,6 +49,7 @@ export const jobUpdatePersistenceClubs = functions.runWith({timeoutSeconds: 360,
 export const jobUpdatePersistenceTeams = functions.runWith({timeoutSeconds: 540, memory: "1GB"}).region("europe-west6").pubsub.schedule("10 08 * * 1").timeZone("Europe/Zurich").onRun(updatePersistenceJobTeams); // monday 8:10
 export const jobUpdatePersistenceGames = functions.runWith({timeoutSeconds: 540, memory: "512MB"}).region("europe-west6").pubsub.schedule("00 06 * * *").timeZone("Europe/Zurich").onRun(updatePersistenceJobGames); // daily 06:00
 export const jobUpdatePersistenceNews = functions.runWith({timeoutSeconds: 360, memory: "512MB"}).region("europe-west6").pubsub.schedule("30 * * * *").timeZone("Europe/Zurich").onRun(updatePersistenceJobNews); // daily every 30 minutes
+export const jobSyncUnihockeyApp = functions.runWith({timeoutSeconds: 360, memory: "512MB"}).region("europe-west6").pubsub.schedule("30 * * * *").timeZone("Europe/Zurich").onRun(syncUnihockeyApp); // daily every 30 minutes
 
 // Reporting
 export const jobReportingMember = functions.runWith({timeoutSeconds: 360, memory: "256MB"}).region("europe-west6").pubsub.schedule("00 20 * * 0").timeZone("Europe/Zurich").onRun(sendReportingJobMember); // sunday 20:00
