@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable require-jsdoc */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
@@ -7,12 +8,17 @@ import * as admin from "firebase-admin";
 export default class firebaseDAO {
     private static _intance: firebaseDAO;
     db: any;
+    dbUA: any;
     storage: any;
     auth: any;
     private constructor() {
       // admin.initializeApp();
-      admin.initializeApp(functions.config().firebase);
+      admin.initializeApp(functions.config().firebase); // Default
+      const unihockeyApp = admin.initializeApp(functions.config().firebase, "UnihockeyApp");
+
       this.db = admin.firestore();
+      this.dbUA = unihockeyApp.database();
+
       this.db.settings({ignoreUndefinedProperties: true});
 
       this.storage = admin.storage();
