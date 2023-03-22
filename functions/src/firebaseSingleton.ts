@@ -4,6 +4,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const serviceAccount = require("path/to/serviceAccountKey.json");
+
 
 export default class firebaseDAO {
     private static _intance: firebaseDAO;
@@ -14,15 +17,17 @@ export default class firebaseDAO {
     private constructor() {
       // admin.initializeApp();
       admin.initializeApp(functions.config().firebase); // Default
-      const unihockeyApp = admin.initializeApp(functions.config().firebase, "UnihockeyApp");
 
       this.db = admin.firestore();
-      this.dbUA = unihockeyApp.database();
-
       this.db.settings({ignoreUndefinedProperties: true});
-
       this.storage = admin.storage();
       this.auth = admin.auth();
+
+      const unihockeyApp = admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount),
+        databaseURL: "https://unihockeyclub.firebaseio.com",
+      }, "UnihockeyApp");
+      this.dbUA = unihockeyApp.database();
     }
 
     public static get instance() {
