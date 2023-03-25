@@ -45,6 +45,10 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           game.date = new Date().toISOString();
           game.date = game.date.substr(8, 2) + "." + game.date.substr(5, 2) + "." + game.date.substr(0, 4);
           // get creative :)
+        } else if (game.date === "???") { 
+          game.date = new Date().toISOString();
+          game.date = game.date.substr(8, 2) + "." + game.date.substr(5, 2) + "." + game.date.substr(0, 4);
+          game.time = "00:00";
         } else {
           // Date & TIme can be fetched from previous import
           const previousImported = await db.collection("club").doc(`su-${club.id}`).collection("games").doc(`su-${game.id}`).get();
