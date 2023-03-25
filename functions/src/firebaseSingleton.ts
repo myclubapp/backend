@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable max-len */
 /* eslint-disable require-jsdoc */
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -5,8 +6,7 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const serviceAccount = require("path/to/serviceAccountKey.json");
-
+// const serviceAccount = require("path/to/serviceAccountKey.json");
 
 export default class firebaseDAO {
     private static _intance: firebaseDAO;
@@ -23,11 +23,11 @@ export default class firebaseDAO {
       this.storage = admin.storage();
       this.auth = admin.auth();
 
-      const unihockeyApp = admin.initializeApp({
+      /* const unihockeyApp = admin.initializeApp({
         credential: admin.credential.cert(serviceAccount),
         databaseURL: "https://unihockeyclub.firebaseio.com",
       }, "UnihockeyApp");
-      this.dbUA = unihockeyApp.database();
+      this.dbUA = unihockeyApp.database(); */
     }
 
     public static get instance() {
