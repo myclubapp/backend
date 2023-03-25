@@ -126,7 +126,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
             game.date = new Date().toISOString();
             game.date = game.date.substr(8, 2) + "." + game.date.substr(5, 2) + "." + game.date.substr(0, 4);
           // get creative :)
-          } else if (game.date === "???") {
+          } else if (game.date === "???" || game.time === "???") {
             game.date = new Date().toISOString();
             game.date = game.date.substr(8, 2) + "." + game.date.substr(5, 2) + "." + game.date.substr(0, 4);
             game.time = "00:00";
