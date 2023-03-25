@@ -186,15 +186,8 @@ export async function updateGamesSwissunihockey(): Promise<any> {
 
         const matchReportRef = await db.collection("teams").doc(`su-${team.id}`).collection("reports").doc(`su-${game.id}`).get();
         if (!matchReportRef.exists) {
-          const matchReport = await generateMatchReport(game.id);
+          /* const matchReport = await generateMatchReport(game.id);
           if (matchReport) {
-            /* console.log("> game");
-            console.log(game);
-
-            console.log("> gameRef");
-            console.log(gameRef.data()); */
-            // date: '11.09.2022',
-
             await db.collection("teams").doc(`su-${team.id}`).collection("reports").doc(`su-${game.id}`).set({
               externalId: `${game.id}`,
               text: matchReport,
@@ -211,7 +204,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
             }, {
               merge: true,
             });
-          }
+          } */
         }
       }
     }
@@ -312,6 +305,7 @@ export async function updateNewsSwissunihockey(): Promise<any> {
 
 // Internal Methods
 
+/*
 async function generateMatchReport(gameId: string): Promise<string> {
   const data = await fetch("https://api-v2.swissunihockey.ch/api/games/" + gameId + "/summary");
   const gameSummary = await data.json();
@@ -343,7 +337,7 @@ async function generateMatchReport(gameId: string): Promise<string> {
   } else {
     return "";
   }
-}
+}*/
 
 /*
 function getNextGame(index: number, gamesList: []): any {
