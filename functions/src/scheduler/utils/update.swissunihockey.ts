@@ -42,7 +42,8 @@ export async function updateGamesSwissunihockey(): Promise<any> {
       if (game.date.charAt(2) !== ".") {
         if (game.date === "Abgesagt") {
           console.log("abgesagt -> new Date()");
-          game.date = new Date();
+          game.date = new Date().toISOString();
+          game.date = game.date.substr(8, 2) + "." + game.date.substr(5, 2) + "." + game.date.substr(0, 4);
           // get creative :)
         } else {
           // Date & TIme can be fetched from previous import
