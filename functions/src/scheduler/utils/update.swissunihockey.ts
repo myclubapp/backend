@@ -63,8 +63,6 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         // Alles normal
         // game.date = "11.03.2023"
       }
-      console.log("Game ID: " + game.id);
-      console.log("Game Date: " + game.date);
       const gameDateTime: firebase.firestore.Timestamp = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
 
       await db.collection("club").doc(`su-${club.id}`).collection("games").doc(`su-${game.id}`).set({
@@ -120,7 +118,9 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         // If datefield is properly set with swiss unihockey date value in the format 31.12.2022
         if (game.date.charAt(2) !== ".") {
           if (game.date === "Abgesagt") {
-            game.date = new Date();
+            console.log("abgesagt -> new Date()");
+            game.date = new Date().toISOString();
+            game.date = game.date.substr(8, 2) + "." + game.date.substr(5, 2) + "." + game.date.substr(0, 4);
           // get creative :)
           } else {
           // Date & TIme can be fetched from previous import
