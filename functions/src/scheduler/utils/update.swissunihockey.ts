@@ -41,6 +41,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
       // If datefield is properly set with swiss unihockey date value in the format 31.12.2022
       if (game.date.charAt(2) !== ".") {
         if (game.date === "Abgesagt") {
+          console.log("abgesagt -> new Date()");
           game.date = new Date();
           // get creative :)
         } else {
