@@ -146,7 +146,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         const teamRef = await db.collection("team").doc(`su-${team.id}`).get();
         console.log("read match report for game: " + game.id);
 
-        const gameRef = await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).get();
+        await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).get();
         await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).set({
           externalId: `${game.id}`,
           date: game.date,
