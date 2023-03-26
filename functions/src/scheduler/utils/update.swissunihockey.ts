@@ -153,6 +153,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         // Alles normal
         // game.date = "11.03.2023"
         }
+        console.log(`Game Time: ${game.time} / Game Date: ${game.date}`);
         const gameDateTime: firebase.firestore.Timestamp = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
 
         const clubRef = await db.collection("club").doc(`su-${club.id}`).get();
