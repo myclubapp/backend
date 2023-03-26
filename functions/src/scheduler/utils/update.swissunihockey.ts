@@ -44,30 +44,22 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           console.log("abgesagt -> new Date()");
           game.date = new Date().toISOString();
           game.date = game.date.substr(8, 2) + "." + game.date.substr(5, 2) + "." + game.date.substr(0, 4);
-          // get creative :)
-        } else if (game.date === "???" || game.time === "???") {
-          if (game.date === "???") {
-            game.date = new Date().toISOString();
-            game.date = game.date.substr(8, 2) + "." + game.date.substr(5, 2) + "." + game.date.substr(0, 4);
-          }
-          game.time = "00:00";
+        // get creative :)
         } else {
           // Date & TIme can be fetched from previous import
           const previousImported = await db.collection("club").doc(`su-${club.id}`).collection("games").doc(`su-${game.id}`).get();
           game.time = previousImported.data().time;
           game.date = previousImported.data().date;
         }
-
-        // game.date = game.date.toISOString();
-        // game.date = `${game.date.substring(8, 10)}.${game.date.substring(5, 7)}.${game.date.substring(0, 4)}`;
-
-        // const dummyGame = getNextGame(Number(i)-1, gamesData);
-        //  console.log(`Use other Game with ${dummyGame.date} and ${dummyGame.time}`);
-        // gameDateTime = firebase.firestore.Timestamp.now();
-        // gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${dummyGame.date.substr(6, 4)}-${dummyGame.date.substr(3, 2)}-${dummyGame.date.substr(0, 2)}T${dummyGame.time}`)); // --> Damit abgesagte nicht irgendwo angezeigt werden
+      } else if (game.date === "???" || game.time === "???") {
+        if (game.date === "???") {
+          game.date = new Date().toISOString();
+          game.date = game.date.substr(8, 2) + "." + game.date.substr(5, 2) + "." + game.date.substr(0, 4);
+        }
+        game.time = "00:00";
       } else {
-        // Alles normal
-        // game.date = "11.03.2023"
+      // Alles normal
+      // game.date = "11.03.2023"
       }
       console.log(`Game Time: ${game.time} / Game Date: ${game.date}`);
       const gameDateTime: firebase.firestore.Timestamp = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
@@ -129,26 +121,18 @@ export async function updateGamesSwissunihockey(): Promise<any> {
             game.date = new Date().toISOString();
             game.date = game.date.substr(8, 2) + "." + game.date.substr(5, 2) + "." + game.date.substr(0, 4);
           // get creative :)
-          } else if (game.date === "???" || game.time === "???") {
-            if (game.date === "???") {
-              game.date = new Date().toISOString();
-              game.date = game.date.substr(8, 2) + "." + game.date.substr(5, 2) + "." + game.date.substr(0, 4);
-            }
-            game.time = "00:00";
           } else {
             // Date & TIme can be fetched from previous import
             const previousImported = await db.collection("club").doc(`su-${club.id}`).collection("games").doc(`su-${game.id}`).get();
             game.time = previousImported.data().time;
             game.date = previousImported.data().date;
           }
-
-          // game.date = game.date.toISOString();
-          // game.date = `${game.date.substring(8, 10)}.${game.date.substring(5, 7)}.${game.date.substring(0, 4)}`;
-
-        // const dummyGame = getNextGame(Number(i)-1, gamesData);
-        //  console.log(`Use other Game with ${dummyGame.date} and ${dummyGame.time}`);
-        // gameDateTime = firebase.firestore.Timestamp.now();
-        // gameDateTime = firebase.firestore.Timestamp.fromDate(new Date(`${dummyGame.date.substr(6, 4)}-${dummyGame.date.substr(3, 2)}-${dummyGame.date.substr(0, 2)}T${dummyGame.time}`)); // --> Damit abgesagte nicht irgendwo angezeigt werden
+        } else if (game.date === "???" || game.time === "???") {
+          if (game.date === "???") {
+            game.date = new Date().toISOString();
+            game.date = game.date.substr(8, 2) + "." + game.date.substr(5, 2) + "." + game.date.substr(0, 4);
+          }
+          game.time = "00:00";
         } else {
         // Alles normal
         // game.date = "11.03.2023"
