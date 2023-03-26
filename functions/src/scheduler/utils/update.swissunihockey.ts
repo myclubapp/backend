@@ -61,7 +61,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
       // Alles normal
       // game.date = "11.03.2023"
       }
-      console.log(`Game Time: ${game.time} / Game Date: ${game.date}`);
+      // console.log(`Game Time: ${game.time} / Game Date: ${game.date}`);
       const gameDateTime: firebase.firestore.Timestamp = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
 
       await db.collection("club").doc(`su-${club.id}`).collection("games").doc(`su-${game.id}`).set({
@@ -137,14 +137,14 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         // Alles normal
         // game.date = "11.03.2023"
         }
-        console.log(`Game Time: ${game.time} / Game Date: ${game.date}`);
+        // console.log(`Game Time: ${game.time} / Game Date: ${game.date}`);
         const gameDateTime: firebase.firestore.Timestamp = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
 
         const clubRef = await db.collection("club").doc(`su-${club.id}`).get();
         const teamRef = await db.collection("team").doc(`su-${team.id}`).get();
         console.log("read match report for game: " + game.id);
 
-        await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).get();
+        // await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).get();
         await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).set({
           externalId: `${game.id}`,
           date: game.date,
