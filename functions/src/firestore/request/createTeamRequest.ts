@@ -8,6 +8,8 @@ import firebaseDAO from "../../firebaseSingleton";
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 
 const db = firebaseDAO.instance.db;
+const fetch = require("node-fetch");
+const messaging= firebaseDAO.instance.messaging;
 // const auth = firebaseDAO.instance.auth;
 
 export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
@@ -43,6 +45,31 @@ export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context
     const userProfileAdminRef = await db.collection("userProfile").doc(admin.id).get();
     if (userProfileAdminRef.exists) {
       receipient.push(userProfileAdminRef.data().email);
+    }
+
+    if (userProfileAdminRef.pushSub) {
+      fetch("https://fcm.googleapis.com//v1/projects/631527568360/messages:send", {
+        method: "POST",
+        header: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer ",
+        },
+        body: JSON.stringify(
+            {
+              "message": {
+                "token": "eEz-Q2sG8nQ:APA91bHJQRT0JJ...",
+                "notification": {
+                  "title": "Background Message Title",
+                  "body": "Background message body",
+                },
+                "webpush": {
+                  "fcm_options": {
+                    "link": "https://dummypage.com",
+                  },
+                },
+              },
+            }),
+      });
     }
   }
 
@@ -83,3 +110,4 @@ export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context
     }
   } */
 }
+

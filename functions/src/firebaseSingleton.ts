@@ -14,6 +14,7 @@ export default class firebaseDAO {
     dbUA: any;
     storage: any;
     auth: any;
+    messaging: any;
     private constructor() {
       // admin.initializeApp();
       admin.initializeApp(functions.config().firebase); // Default
@@ -22,6 +23,7 @@ export default class firebaseDAO {
       this.db.settings({ignoreUndefinedProperties: true});
       this.storage = admin.storage();
       this.auth = admin.auth();
+      this.messaging = admin.messaging();
 
       /* const unihockeyApp = admin.initializeApp({
         credential: admin.credential.cert(serviceAccount),
