@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable linebreak-style */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
@@ -9,6 +10,17 @@ import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore"
 
 const db = firebaseDAO.instance.db;
 // const auth = firebaseDAO.instance.auth;
+const gcmAPIKey = functions.config().webpush.gcmapikey;
+const publicKey = functions.config().webpush.publickey;
+const privateKey = functions.config().webpush.privatekey;
+
+const webpush = require("web-push");
+webpush.setGCMAPIKey(gcmAPIKey);
+webpush.setVapidDetails(
+    "mailto:example@yourdomain.org",
+    publicKey,
+    privateKey
+);
 
 export async function createClubRequest(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
   console.log("createClubRequest");
@@ -21,6 +33,12 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
   await db.collection("club").doc(clubId).collection("requests").doc(userId).set({
     "userProfileRef": userProfileRef.ref,
   });
+
+  if (userProfileRef.data().settingsPush) {
+    const pushObject = JSON.parse(userProfileRef.data().pushObject);
+    const {statusCode, headers, body} = await webpush.sendNotification(pushObject, "Club Admin");
+    console.log(statusCode, headers, body);
+  }
 
   // SEND REQUEST CONFIRMATION E-MAIL TO USER
   await db.collection("mail").add({

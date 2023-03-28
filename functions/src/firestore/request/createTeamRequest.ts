@@ -8,12 +8,12 @@ import * as functions from "firebase-functions";
 import firebaseDAO from "../../firebaseSingleton";
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 
-const gcmAPIKey = functions.config().webpush.gcmapikey;
-const publicKey = functions.config().webpush.publickey;
-const privateKey = functions.config().webpush.privatekey;
 
 const db = firebaseDAO.instance.db;
 // const fetch = require("node-fetch");
+const gcmAPIKey = functions.config().webpush.gcmapikey;
+const publicKey = functions.config().webpush.publickey;
+const privateKey = functions.config().webpush.privatekey;
 
 const webpush = require("web-push");
 webpush.setGCMAPIKey(gcmAPIKey);
@@ -55,12 +55,14 @@ export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context
     console.log(`Read Admin user for Club with id ${admin.id}`);
     const userProfileAdminRef = await db.collection("userProfile").doc(admin.id).get();
     if (userProfileAdminRef.exists) {
-      receipient.push(userProfileAdminRef.data().email);
-    }
-    if (userProfileAdminRef.settingsPush) {
-      const pushObject = JSON.parse(userProfileAdminRef.pushObject);
-      const {statusCode, headers, body} = await webpush.sendNotification(pushObject, "Club Admin");
-      console.log(statusCode, headers, body);
+      if (userProfileAdminRef.data().settingsEmail) {
+        receipient.push(userProfileAdminRef.data().email);
+      }
+      if (userProfileAdminRef.data().settingsPush) {
+        const pushObject = JSON.parse(userProfileAdminRef.data().pushObject);
+        const {statusCode, headers, body} = await webpush.sendNotification(pushObject, "Club Admin");
+        console.log(statusCode, headers, body);
+      }
     }
   }
 
@@ -70,12 +72,14 @@ export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context
     console.log(`Read Admin user for Team with id ${admin.id}`);
     const userProfileAdminRef = await db.collection("userProfile").doc(admin.id).get();
     if (userProfileAdminRef.exists) {
-      receipient.push(userProfileAdminRef.data().email);
-    }
-    if (userProfileAdminRef.settingsPush) {
-      const pushObject = JSON.parse(userProfileAdminRef.pushObject);
-      const {statusCode, headers, body} = await webpush.sendNotification(pushObject, "Club Admin");
-      console.log(statusCode, headers, body);
+      if (userProfileAdminRef.data().settingsEmail) {
+        receipient.push(userProfileAdminRef.data().email);
+      }
+      if (userProfileAdminRef.data().settingsPush) {
+        const pushObject = JSON.parse(userProfileAdminRef.data().pushObject);
+        const {statusCode, headers, body} = await webpush.sendNotification(pushObject, "Club Admin");
+        console.log(statusCode, headers, body);
+      }
     }
   }
 
