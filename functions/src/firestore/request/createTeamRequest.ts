@@ -74,7 +74,8 @@ export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context
     }
     if (userProfileAdminRef.settingsPush) {
       const pushObject = JSON.parse(userProfileAdminRef.pushObject);
-      webpush.sendNotification(pushObject, "Team Admin");
+      const {statusCode, headers, body} = await webpush.sendNotification(pushObject, "Club Admin");
+      console.log(statusCode, headers, body);
     }
   }
 
