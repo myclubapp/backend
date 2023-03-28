@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable linebreak-style */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
@@ -7,10 +8,20 @@ import * as functions from "firebase-functions";
 import firebaseDAO from "../../firebaseSingleton";
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 
+const gcmAPIKey = functions.config().webpush.gcmapikey;
+const publicKey = functions.config().webpush.publickey;
+const privateKey = functions.config().webpush.privatekey;
+
 const db = firebaseDAO.instance.db;
-const fetch = require("node-fetch");
-const messaging= firebaseDAO.instance.messaging;
-// const auth = firebaseDAO.instance.auth;
+// const fetch = require("node-fetch");
+
+const webpush = require("web-push");
+webpush.setGCMAPIKey(gcmAPIKey);
+webpush.setVapidDetails(
+    "mailto:example@yourdomain.org",
+    publicKey,
+    privateKey
+);
 
 export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
   console.log("Create Team Request");
@@ -46,30 +57,9 @@ export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context
     if (userProfileAdminRef.exists) {
       receipient.push(userProfileAdminRef.data().email);
     }
-
-    if (userProfileAdminRef.pushSub) {
-      fetch("https://fcm.googleapis.com//v1/projects/631527568360/messages:send", {
-        method: "POST",
-        header: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer ",
-        },
-        body: JSON.stringify(
-            {
-              "message": {
-                "token": "eEz-Q2sG8nQ:APA91bHJQRT0JJ...",
-                "notification": {
-                  "title": "Background Message Title",
-                  "body": "Background message body",
-                },
-                "webpush": {
-                  "fcm_options": {
-                    "link": "https://dummypage.com",
-                  },
-                },
-              },
-            }),
-      });
+    if (userProfileAdminRef.settingsPush) {
+      const pushObject = JSON.parse(userProfileAdminRef.pushObject);
+      webpush.sendNotification(pushObject, "Club Admin");
     }
   }
 
@@ -80,6 +70,10 @@ export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context
     const userProfileAdminRef = await db.collection("userProfile").doc(admin.id).get();
     if (userProfileAdminRef.exists) {
       receipient.push(userProfileAdminRef.data().email);
+    }
+    if (userProfileAdminRef.settingsPush) {
+      const pushObject = JSON.parse(userProfileAdminRef.pushObject);
+      webpush.sendNotification(pushObject, "Team Admin");
     }
   }
 
