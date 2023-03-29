@@ -32,10 +32,11 @@ export async function createNotificationClubNews(snapshot: QueryDocumentSnapshot
     const userProfileRef = await db.collection("userProfile").doc(clubMember.id).get();
     if (userProfileRef.data().settingsPush) {
       const pushObject = JSON.parse(userProfileRef.data().pushObject);
-      const {statusCode, headers, body} = await webpush.sendNotification(pushObject, {
-        title: clubNewsRef.data().title,
-        message: clubNewsRef.data().text,
-      });
+      const {statusCode, headers, body} = await webpush.sendNotification(pushObject,
+          JSON.stringify( {
+            title: clubNewsRef.data().title,
+            message: clubNewsRef.data().text,
+          }));
       console.log(">> SEND PUSH: ", statusCode, headers, body);
     }
   }
