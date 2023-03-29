@@ -37,7 +37,7 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
   if (userProfileRef.data().settingsPush) {
     const pushObject = JSON.parse(userProfileRef.data().pushObject);
     const {statusCode, headers, body} = await webpush.sendNotification(pushObject, "Club Admin");
-    console.log(statusCode, headers, body);
+    console.log(">> SEND PUSH: ", statusCode, headers, body);
   }
 
   // SEND REQUEST CONFIRMATION E-MAIL TO USER

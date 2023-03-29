@@ -61,7 +61,7 @@ export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context
       if (userProfileAdminRef.data().settingsPush) {
         const pushObject = JSON.parse(userProfileAdminRef.data().pushObject);
         const {statusCode, headers, body} = await webpush.sendNotification(pushObject, "Club Admin");
-        console.log(statusCode, headers, body);
+        console.log(">> SEND PUSH: ", statusCode, headers, body);
       }
     }
   }
@@ -78,7 +78,7 @@ export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context
       if (userProfileAdminRef.data().settingsPush) {
         const pushObject = JSON.parse(userProfileAdminRef.data().pushObject);
         const {statusCode, headers, body} = await webpush.sendNotification(pushObject, "Club Admin");
-        console.log(statusCode, headers, body);
+        console.log(">> SEND PUSH: ", statusCode, headers, body);
       }
     }
   }
