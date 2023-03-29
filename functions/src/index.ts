@@ -19,13 +19,16 @@ import {approveTeamRequest} from "./firestore/request/approveTeamRequest";
 
 import {createTeamTraining} from "./firestore/training/createTeamTraining";
 
-import {createTeamEvent} from "./firestore/event/createTeamEvent";
-import {createClubEvent} from "./firestore/event/createClubEvent";
+import {createNotificationTeamEvent, createTeamEvent} from "./firestore/event/createTeamEvent";
+import {createClubEvent, createNotificationClubEvent} from "./firestore/event/createClubEvent";
 
 import {updatePersistenceJobClubs, updatePersistenceJobTeams, updatePersistenceJobGames, updatePersistenceJobNews} from "./scheduler/syncAssociation.scheduler";
 import {syncUnihockeyApp} from "./scheduler/syncUnihockeyApp";
 
 import {sendReportingJobMember} from "./reporting/member.scheduler";
+
+import {createNotificationClubNews} from "./firestore/news/createClubNews";
+import {createNotificationTeamNews} from "./firestore/news/createTeamNews";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const graphql = require("./graphql/server");
@@ -87,10 +90,10 @@ export const dbAddClubEvent = functions.region("europe-west6").firestore.documen
 // NOTIFICATION DB HOOKS
 
 // DB Hooks for News Push
-export const dbAddClubNewsNotification = functions.region("europe-west6").firestore.document("/club/{clubId}/news/{newsId}").onCreate(createClubEvent);
-export const dbAddTeamNewsNotification = functions.region("europe-west6").firestore.document("/teams/{teamId}/news/{newsId}").onCreate(createClubEvent);
+export const dbAddClubNewsNotification = functions.region("europe-west6").firestore.document("/club/{clubId}/news/{newsId}").onCreate(createNotificationClubNews);
+export const dbAddTeamNewsNotification = functions.region("europe-west6").firestore.document("/teams/{teamId}/news/{newsId}").onCreate(createNotificationTeamNews);
 
 // DB Hooks for New Events
-export const dbAddClubEventNotification = functions.region("europe-west6").firestore.document("/club/{clubId}/event/{eventId}").onCreate(createClubEvent);
-export const dbAddTeamEventNotification = functions.region("europe-west6").firestore.document("/teams/{teamId}/event/{eventId}").onCreate(createClubEvent);
+export const dbAddClubEventNotification = functions.region("europe-west6").firestore.document("/club/{clubId}/event/{eventId}").onCreate(createNotificationClubEvent);
+export const dbAddTeamEventNotification = functions.region("europe-west6").firestore.document("/teams/{teamId}/event/{eventId}").onCreate(createNotificationTeamEvent);
 
