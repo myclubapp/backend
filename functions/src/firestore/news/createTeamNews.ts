@@ -27,8 +27,8 @@ export async function createNotificationTeamNews(snapshot: QueryDocumentSnapshot
   const newsId = context.params.newsId;
   console.log(teamId, newsId);
 
-  const teamNewsRef = db.collection("teams").doc(teamId).collection("news").doc(newsId).get();
-  const teamMembersRef = db.collection("teams").doc(teamId).collection("members").get();
+  const teamNewsRef = await db.collection("teams").doc(teamId).collection("news").doc(newsId).get();
+  const teamMembersRef = await db.collection("teams").doc(teamId).collection("members").get();
   for (const teamMember of teamMembersRef.docs) {
     const userProfileRef = await db.collection("userProfile").doc(teamMember.id).get();
     if (userProfileRef.data().settingsPush) {
