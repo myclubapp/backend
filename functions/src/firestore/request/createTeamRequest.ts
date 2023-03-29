@@ -18,7 +18,7 @@ const privateKey = functions.config().webpush.privatekey;
 const webpush = require("web-push");
 webpush.setGCMAPIKey(gcmAPIKey);
 webpush.setVapidDetails(
-    "mailto:example@yourdomain.org",
+    "mailto:info@my-club.app",
     publicKey,
     privateKey
 );
@@ -60,7 +60,10 @@ export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context
       }
       if (userProfileAdminRef.data().settingsPush) {
         const pushObject = JSON.parse(userProfileAdminRef.data().pushObject);
-        const {statusCode, headers, body} = await webpush.sendNotification(pushObject, "Club Admin");
+        const {statusCode, headers, body} = await webpush.sendNotification(pushObject, {
+          title: "Team Request",
+          message: "Neuer Team Request verfügbar",
+        });
         console.log(">> SEND PUSH: ", statusCode, headers, body);
       }
     }
@@ -77,7 +80,10 @@ export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context
       }
       if (userProfileAdminRef.data().settingsPush) {
         const pushObject = JSON.parse(userProfileAdminRef.data().pushObject);
-        const {statusCode, headers, body} = await webpush.sendNotification(pushObject, "Club Admin");
+        const {statusCode, headers, body} = await webpush.sendNotification(pushObject, {
+          title: "Team Request",
+          message: "Neuer Team Request verfügbar",
+        });
         console.log(">> SEND PUSH: ", statusCode, headers, body);
       }
     }

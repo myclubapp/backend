@@ -17,7 +17,7 @@ const privateKey = functions.config().webpush.privatekey;
 const webpush = require("web-push");
 webpush.setGCMAPIKey(gcmAPIKey);
 webpush.setVapidDetails(
-    "mailto:example@yourdomain.org",
+    "mailto:info@my-club.app",
     publicKey,
     privateKey
 );
