@@ -83,3 +83,14 @@ export const dbAddTeamTraining = functions.region("europe-west6").firestore.docu
 // DB Hooks EVENTS
 export const dbAddTeamEvent = functions.region("europe-west6").firestore.document("/userProfile/{userId}/teamEvent/{eventId}").onCreate(createTeamEvent);
 export const dbAddClubEvent = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubEvent/{eventId}").onCreate(createClubEvent);
+
+// NOTIFICATION DB HOOKS
+
+// DB Hooks for News Push
+export const dbAddClubNewsNotification = functions.region("europe-west6").firestore.document("/club/{clubId}/news/{newsId}").onCreate(createClubEvent);
+export const dbAddTeamNewsNotification = functions.region("europe-west6").firestore.document("/teams/{teamId}/news/{newsId}").onCreate(createClubEvent);
+
+// DB Hooks for New Events
+export const dbAddClubEventNotification = functions.region("europe-west6").firestore.document("/club/{clubId}/event/{eventId}").onCreate(createClubEvent);
+export const dbAddTeamEventNotification = functions.region("europe-west6").firestore.document("/teams/{teamId}/event/{eventId}").onCreate(createClubEvent);
+
