@@ -20,31 +20,22 @@ export async function sendReportingJobMember(context: EventContext) {
       for (const userProfile of userProfileList.docs) {
         console.log(`>>> ${userProfile.data().firstName}`);
 
-        const userProfileReporting = await db.collection("userProfile").doc(`${userProfile.id}`).collection("reporting").get();
-        if (!userProfileReporting.empty) {
-          // Loop über Reporting
-          for (const reporting of userProfileReporting.docs) {
-            console.log(`${reporting.id}`);
-            if (reporting.id === "email") {
-              console.log(`Reporting: ${reporting.data()}`);
+        if (userProfile.data().settingsEmailReporting) {
+          // GET DATA
+          getNews();
+          getEvents();
+          getTrainings();
 
-              // GET DATA
-              getNews();
-              getEvents();
-              getTrainings();
-
-              await db.collection("mail").add({
-                to: userProfile.data().email,
-                template: {
-                  name: "ReportingUser",
-                  data: {
-                    firstName: userProfile.data().firstName,
-                  },
-                }});
-            } else {
-              console.log(`Kein Reporting: ${reporting.data()}`);
-            }
-          }
+          await db.collection("mail").add({
+            to: userProfile.data().email,
+            template: {
+              name: "ReportingUser",
+              data: {
+                firstName: userProfile.data().firstName,
+              },
+            }});
+        } else {
+          console.log(`Kein Reporting: ${userProfile.data().firstName}`);
         }
       }
     }
