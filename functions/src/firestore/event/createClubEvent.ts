@@ -8,7 +8,12 @@ import firebaseDAO from "../../firebaseSingleton";
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 
 const db = firebaseDAO.instance.db;
-// const auth = firebaseDAO.instance.auth;
+
+export async function createNotificationClubEvent(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
+  const clubId = context.params.clubId;
+  const eventId = context.params.eventId;
+  console.log(clubId, eventId);
+}
 
 export async function createClubEvent(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
   const userId = context.params.userId;

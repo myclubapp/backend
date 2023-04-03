@@ -16,6 +16,12 @@ const db = firebaseDAO.instance.db;
 
 import resolversSU from "./../../graphql/swissunihockey/resolvers";
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const fs = require("fs");
+
+// Read the contents of the file
+const myJson = fs.readFileSync("club.json");
+
 export async function updateGamesSwissunihockey(): Promise<any> {
   console.log("Update Games SwissUnihockey");
 
@@ -266,6 +272,25 @@ export async function updateClubsSwissunihockey(): Promise<any> {
         merge: true,
       });
     }
+  }
+
+  // JSON Upload
+  const keys = Object.keys(myJson);
+  for (const clubId of keys) {
+    const clubData = myJson[clubId];
+
+    const address = {
+      externalId: clubData.admin,
+      type: "swissunihockey",
+      updated: new Date(),
+      lastName: clubData.lastName,
+      firstName: clubData.firstName,
+      email: clubData.email,
+    };
+
+    await db.collection("club").doc(`su-${clubData.suhvClubId}`).collection("contacts").doc(`su-${clubData.admin}`).set(address, {
+      merge: true,
+    });
   }
 }
 

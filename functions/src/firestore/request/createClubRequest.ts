@@ -18,7 +18,7 @@ const privateKey = functions.config().webpush.privatekey;
 const webpush = require("web-push");
 webpush.setGCMAPIKey(gcmAPIKey);
 webpush.setVapidDetails(
-    "mailto:example@yourdomain.org",
+    "mailto:info@my-club.app",
     publicKey,
     privateKey
 );
@@ -38,7 +38,7 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
   if (userProfileRef.data().settingsPush) {
     const pushObject = JSON.parse(userProfileRef.data().pushObject);
     const {statusCode, headers, body} = await webpush.sendNotification(pushObject, "Club Admin");
-    console.log(statusCode, headers, body);
+    console.log(">> SEND PUSH: ", statusCode, headers, body);
   }
 
   // SEND REQUEST CONFIRMATION E-MAIL TO USER
