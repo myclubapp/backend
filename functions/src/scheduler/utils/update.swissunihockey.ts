@@ -254,7 +254,7 @@ export async function updateClubsSwissunihockey(): Promise<any> {
 
   const clubData = await resolversSU.SwissUnihockey.clubs();
   for (const club of clubData) {
-    console.log(club.name);
+    console.log(club.name + " " + club.id);
     await db.collection("club").doc(`su-${club.id}`).set({
       externalId: `${club.id}`,
       name: club.name,
@@ -276,8 +276,14 @@ export async function updateClubsSwissunihockey(): Promise<any> {
 
   // JSON Upload
   const keys = Object.keys(myJson);
+  console.log("Entries " + keys.length);
   for (const clubId of keys) {
-    const clubData = myJson[clubId];
+    console.log("clubId " + clubId);
+    const clubIdIndex = clubId as unknown as number;
+    const objectKey = keys[clubIdIndex];
+    console.log("objectKey " + objectKey);
+    const clubData = myJson[objectKey];
+    console.log("migrate old SU Accoutns: " + clubData);
 
     const address = {
       externalId: clubData.admin,
@@ -292,6 +298,7 @@ export async function updateClubsSwissunihockey(): Promise<any> {
       merge: true,
     });
   }
+  return true;
 }
 
 
