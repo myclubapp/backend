@@ -180,7 +180,7 @@ async function getClubs() {
   const clubList = < any > [];
   // clubData.entries.forEach(async (item: any) => {
   for (const item of clubData.entries) {
-    console.log(`Read Club: ${item.set_in_context.club_id} ${item.text}`);
+    // console.log(`Read Club: ${item.set_in_context.club_id} ${item.text}`);
 
     const contactPerson = "";
     const contactAddress = "";
