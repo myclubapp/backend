@@ -20,7 +20,7 @@ import resolversSU from "./../../graphql/swissunihockey/resolvers";
 const fs = require("fs");
 
 // Read the contents of the file
-const myJson = fs.readFileSync("club.json");
+const myJson = fs.readFileSync("./src/scheduler/utils/club.json");
 
 export async function updateGamesSwissunihockey(): Promise<any> {
   console.log("Update Games SwissUnihockey");
@@ -254,7 +254,7 @@ export async function updateClubsSwissunihockey(): Promise<any> {
 
   const clubData = await resolversSU.SwissUnihockey.clubs();
   for (const club of clubData) {
-    console.log(club.name);
+    console.log(club.name + " " + club.id);
     await db.collection("club").doc(`su-${club.id}`).set({
       externalId: `${club.id}`,
       name: club.name,
@@ -275,7 +275,20 @@ export async function updateClubsSwissunihockey(): Promise<any> {
   }
 
   // JSON Upload
+<<<<<<< HEAD
   for (const clubData of myJson) {
+=======
+  const keys = Object.keys(myJson);
+  console.log("Entries " + keys.length);
+  for (const clubId of keys) {
+    console.log("clubId " + clubId);
+    const clubIdIndex = clubId as unknown as number;
+    const objectKey = keys[clubIdIndex];
+    console.log("objectKey " + objectKey);
+    const clubData = myJson[objectKey];
+    console.log("migrate old SU Accoutns: " + clubData);
+
+>>>>>>> 9ad5fc656957f5b42fef4d7b53ec08df7f11f2df
     const address = {
       externalId: clubData.admin,
       type: "swissunihockey",
@@ -289,6 +302,7 @@ export async function updateClubsSwissunihockey(): Promise<any> {
       merge: true,
     });
   }
+  return true;
 }
 
 
