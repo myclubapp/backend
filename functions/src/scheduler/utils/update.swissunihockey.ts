@@ -277,7 +277,7 @@ export async function updateClubsSwissunihockey(): Promise<any> {
   // JSON Upload
   console.log(myJson);
   console.log(myJson[0]);
-  for (const id of myJson) {
+  /* for (const id of myJson) {
     const clubData = myJson[id];
     console.log(clubData);
     const address = {
@@ -292,7 +292,7 @@ export async function updateClubsSwissunihockey(): Promise<any> {
     await db.collection("club").doc(`su-${clubData.suhvClubId}`).collection("contacts").doc(`su-${clubData.admin}`).set(address, {
       merge: true,
     });
-  }
+  }*/
   return true;
 }
 
