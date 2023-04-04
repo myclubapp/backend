@@ -275,20 +275,7 @@ export async function updateClubsSwissunihockey(): Promise<any> {
   }
 
   // JSON Upload
-<<<<<<< HEAD
   for (const clubData of myJson) {
-=======
-  const keys = Object.keys(myJson);
-  console.log("Entries " + keys.length);
-  for (const clubId of keys) {
-    console.log("clubId " + clubId);
-    const clubIdIndex = clubId as unknown as number;
-    const objectKey = keys[clubIdIndex];
-    console.log("objectKey " + objectKey);
-    const clubData = myJson[objectKey];
-    console.log("migrate old SU Accoutns: " + clubData);
-
->>>>>>> 9ad5fc656957f5b42fef4d7b53ec08df7f11f2df
     const address = {
       externalId: clubData.admin,
       type: "swissunihockey",
