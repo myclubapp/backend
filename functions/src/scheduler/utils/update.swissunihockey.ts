@@ -20,7 +20,7 @@ import resolversSU from "./../../graphql/swissunihockey/resolvers";
 const fs = require("fs");
 
 // Read the contents of the file
-const myJson = fs.readFileSync("./src/scheduler/utils/clubArray.json");
+const myJson = JSON.parse(fs.readFileSync("./src/scheduler/utils/clubArray.json", "utf8"));
 
 export async function updateGamesSwissunihockey(): Promise<any> {
   console.log("Update Games SwissUnihockey");
@@ -275,10 +275,11 @@ export async function updateClubsSwissunihockey(): Promise<any> {
   }
 
   // JSON Upload
-  console.log(myJson);
-  console.log(myJson[0]);
-  /* for (const id of myJson) {
-    const clubData = myJson[id];
+  Buffer.from(myJson);
+  console.log(Buffer.from(myJson));
+
+  for (const id of Buffer.from(myJson)) {
+    const clubData = Buffer.from(myJson)[id];
     console.log(clubData);
     const address = {
       externalId: clubData.admin,
@@ -292,7 +293,7 @@ export async function updateClubsSwissunihockey(): Promise<any> {
     await db.collection("club").doc(`su-${clubData.suhvClubId}`).collection("contacts").doc(`su-${clubData.admin}`).set(address, {
       merge: true,
     });
-  }*/
+  }
   return true;
 }
 
