@@ -275,7 +275,8 @@ export async function updateClubsSwissunihockey(): Promise<any> {
   }
 
   // JSON Upload
-  for (const clubData of myJson) {
+  for (const id of myJson) {
+    const clubData = myJson[id];
     console.log(clubData);
     const address = {
       externalId: clubData.admin,
