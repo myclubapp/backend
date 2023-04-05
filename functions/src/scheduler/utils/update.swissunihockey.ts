@@ -20,7 +20,7 @@ import resolversSU from "./../../graphql/swissunihockey/resolvers";
 const fs = require("fs");
 
 // Read the contents of the file
-const myJson = JSON.parse(fs.readFileSync("./src/scheduler/utils/clubArray.json", "utf8"));
+const myJson = fs.readFileSync("./src/scheduler/utils/clubArray.json", "utf8");
 
 export async function updateGamesSwissunihockey(): Promise<any> {
   console.log("Update Games SwissUnihockey");
@@ -275,7 +275,10 @@ export async function updateClubsSwissunihockey(): Promise<any> {
   }
 
   // JSON Upload
-  const jsonData:any = Buffer.from(myJson);
+  // const jsonData = Buffer.from(myJson);
+
+  const jsonData = JSON.parse(myJson);
+
   console.log(jsonData);
 
   for (const id of jsonData) {
