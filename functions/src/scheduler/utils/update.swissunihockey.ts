@@ -278,7 +278,6 @@ export async function updateClubsSwissunihockey(): Promise<any> {
   // const jsonData = Buffer.from(myJson);
 
   const jsonData = JSON.parse(myJson);
-
   console.log(jsonData);
 
   for (const id of jsonData) {
