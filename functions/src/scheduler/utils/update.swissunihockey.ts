@@ -276,7 +276,7 @@ export async function updateClubsSwissunihockey(): Promise<any> {
 
   // JSON Upload
   const jsonData:any = Buffer.from(myJson).toJSON();
-  console.log(Buffer.from(myJson));
+  console.log(jsonData);
 
   for (const id of jsonData) {
     const clubData = jsonData[id];
