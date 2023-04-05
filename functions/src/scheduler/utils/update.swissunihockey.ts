@@ -279,7 +279,7 @@ export async function updateClubsSwissunihockey(): Promise<any> {
   const jsonData = JSON.parse(myJson);
   console.log(jsonData);
 
-  for (const id of jsonData) {
+  for (const id of myJson) {
     const clubData = jsonData[id];
     console.log(clubData);
     const address = {
