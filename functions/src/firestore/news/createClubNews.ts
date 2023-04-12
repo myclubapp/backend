@@ -32,13 +32,15 @@ export async function createNotificationClubNews(snapshot: QueryDocumentSnapshot
   for (const clubMember of clubMembersRef.docs) {
     const userProfileRef = await db.collection("userProfile").doc(clubMember.id).get();
     if (userProfileRef.data().settingsPush) {
-      const pushObject = JSON.parse(userProfileRef.data().pushObject);
-      const {statusCode, headers, body} = await webpush.sendNotification(pushObject,
-          JSON.stringify( {
-            title: clubNewsRef.data().title,
-            message: clubNewsRef.data().text,
-          }));
-      console.log(">> SEND PUSH: ", statusCode, headers, body);
+      const userProfilePushRef = await db.collection("userProfile").doc(clubMember.id).collection("push").get();
+      for (const push of userProfilePushRef.docs) {
+        const {statusCode, headers, body} = await webpush.sendNotification(push.data().pushObject,
+            JSON.stringify( {
+              title: clubNewsRef.data().title,
+              message: clubNewsRef.data().text,
+            }));
+        console.log(">> SEND PUSH: ", statusCode, headers, body);
+      }
     }
   }
 }

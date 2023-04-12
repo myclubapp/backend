@@ -33,13 +33,16 @@ export async function createNotificationTeamNews(snapshot: QueryDocumentSnapshot
   for (const teamMember of teamMembersRef.docs) {
     const userProfileRef = await db.collection("userProfile").doc(teamMember.id).get();
     if (userProfileRef.data().settingsPush) {
-      const pushObject = JSON.parse(userProfileRef.data().pushObject);
-      const {statusCode, headers, body} = await webpush.sendNotification(pushObject,
-          JSON.stringify( {
-            title: teamNewsRef.data().title,
-            message: teamNewsRef.data().text,
-          }));
-      console.log(">> SEND PUSH: ", statusCode, headers, body);
+      // const pushObject = JSON.parse(userProfileRef.data().pushObject);
+      const userProfilePushRef = await db.collection("userProfile").doc(teamMember.id).collection("push").get();
+      for (const push of userProfilePushRef.docs) {
+        const {statusCode, headers, body} = await webpush.sendNotification(push.data().pushObject,
+            JSON.stringify( {
+              title: teamNewsRef.data().title,
+              message: teamNewsRef.data().text,
+            }));
+        console.log(">> SEND PUSH: ", statusCode, headers, body);
+      }
     }
   }
 }
