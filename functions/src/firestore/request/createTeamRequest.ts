@@ -95,7 +95,7 @@ export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context
     template: {
       name: "TeamRequestAdminEmail",
       data: {
-        teamName: teamRef.data().liga + " " + teamRef.data().name,
+        teamName: `${teamRef.data().name}`,
         firstName: userProfileRef.data()?.firstName,
         lastName: userProfileRef.data()?.lastName,
         email: userProfileRef.data()?.email,
