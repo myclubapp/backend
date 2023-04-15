@@ -34,12 +34,7 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
   await db.collection("club").doc(clubId).collection("requests").doc(userId).set({
     "userProfileRef": userProfileRef.ref,
   });
-
-  if (userProfileRef.data().settingsPush) {
-    const pushObject = JSON.parse(userProfileRef.data().pushObject);
-    const {statusCode, headers, body} = await webpush.sendNotification(pushObject, "Club Admin");
-    console.log(">> SEND PUSH: ", statusCode, headers, body);
-  }
+  // DO NOT SEND PUSH - USER HAS NO PUSH ACTIVATED AT THIS POINT -> MAY CHANGE LATER
 
   // SEND REQUEST CONFIRMATION E-MAIL TO USER
   await db.collection("mail").add({
@@ -60,7 +55,20 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
   for (const admin of clubAdminRef.docs) {
     const userProfileAdminRef = await db.collection("userProfile").doc(admin.id).get();
     if (userProfileAdminRef.exists) {
-      receipient.push(userProfileAdminRef.data().email);
+      if (userProfileAdminRef.data().settingsEmail) {
+        receipient.push(userProfileAdminRef.data().email);
+      }
+      if (userProfileAdminRef.data().settingsPush) {
+        const userProfilePushRef = await db.collection("userProfile").doc(admin.id).collection("push").get();
+        for (const push of userProfilePushRef.docs) {
+          const {statusCode, headers, body} = await webpush.sendNotification(push.data().pushObject,
+              JSON.stringify( {
+                title: "Neue Beitrittsanfrage für deinen Verein " + clubRef.data().name,
+                message: `${userProfileRef.data()?.firstName} ${userProfileRef.data()?.lastName} (${userProfileRef.data()?.email}) möchte deinem Verein beitreten.`,
+              }));
+          console.log(">> SEND PUSH: ", statusCode, headers, body);
+        }
+      }
     }
   }
 
