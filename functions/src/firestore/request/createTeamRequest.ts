@@ -1,5 +1,4 @@
 /* eslint-disable linebreak-style */
-/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable linebreak-style */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
@@ -7,8 +6,8 @@
 /* eslint-disable max-len */
 import * as functions from "firebase-functions";
 import firebaseDAO from "../../firebaseSingleton";
+import webpush = require("web-push");
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
-
 
 const db = firebaseDAO.instance.db;
 // const fetch = require("node-fetch");
@@ -16,7 +15,6 @@ const gcmAPIKey = functions.config().webpush.gcmapikey;
 const publicKey = functions.config().webpush.publickey;
 const privateKey = functions.config().webpush.privatekey;
 
-const webpush = require("web-push");
 webpush.setGCMAPIKey(gcmAPIKey);
 webpush.setVapidDetails(
     "mailto:info@my-club.app",
@@ -61,10 +59,10 @@ export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context
       }
       if (userProfileAdminRef.data().settingsPush) {
         const pushObject = JSON.parse(userProfileAdminRef.data().pushObject);
-        const {statusCode, headers, body} = await webpush.sendNotification(pushObject, {
+        const {statusCode, headers, body} = await webpush.sendNotification(pushObject, JSON.stringify({
           title: "Team Request",
           message: "Neuer Team Request verfügbar",
-        });
+        }));
         console.log(">> SEND PUSH: ", statusCode, headers, body);
       }
     }
@@ -81,10 +79,10 @@ export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context
       }
       if (userProfileAdminRef.data().settingsPush) {
         const pushObject = JSON.parse(userProfileAdminRef.data().pushObject);
-        const {statusCode, headers, body} = await webpush.sendNotification(pushObject, {
+        const {statusCode, headers, body} = await webpush.sendNotification(pushObject, JSON.stringify({
           title: "Team Request",
           message: "Neuer Team Request verfügbar",
-        });
+        }));
         console.log(">> SEND PUSH: ", statusCode, headers, body);
       }
     }
