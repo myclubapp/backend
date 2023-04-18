@@ -95,7 +95,7 @@ export default {
       return getGame(args.gameId);
     },
     seasons: () => {
-      return getSeason();
+      return getSeasons();
     },
     rankings: (parent: any, args: {
       id: string;season: string;
@@ -128,7 +128,7 @@ async function getTypes() {
 
 async function getTeams(clubId: string, season: string) {
   if (!season) {
-    season = await getCurrentSeason() as unknown as string;
+    season = await getSeason() as unknown as string;
     console.log(`No Season parameter provided. Used internal logic and found: ${season}`);
   }
 
@@ -249,7 +249,7 @@ async function getClubGames(clubId: string, season: string) {
     const seasonList: any = getSeason();
     console.log(JSON.stringify(seasonList)); */
 
-    season = await getCurrentSeason() as unknown as string;
+    season = await getSeason() as unknown as string;
     console.log(`No Season parameter provided. Used internal logic and found: ${season}`);
   }
   const data = await fetch("https://api-v2.swissunihockey.ch/api/games?mode=club&season=" + season + "&club_id=" + clubId + "&games_per_page=100");
@@ -288,7 +288,7 @@ async function getClubGames(clubId: string, season: string) {
 
 async function getGames(teamId: string, season: string) {
   if (!season) {
-    season = await getCurrentSeason() as unknown as string;
+    season = await getSeason() as unknown as string;
     console.log(`No Season parameter provided. Used internal logic and found: ${season}`);
   }
   const data = await fetch("https://api-v2.swissunihockey.ch/api/games?mode=team&season=" + season + "&team_id=" + teamId + "&games_per_page=100");
@@ -359,17 +359,27 @@ async function getGame(gameId: string) {
   };
 }
 
-async function getCurrentSeason() {
+async function getSeason() {
   const data = await fetch("https://api-v2.swissunihockey.ch/api/seasons");
   const seasonData = await data.json();
   const currentSeason = seasonData.entries.filter((element: any, index: any) => {
-    return element.highlight === true && index === 0; // 2023
-    // return element.highlight === false && index === 1; // 2022
+    // return element.highlight === true && index === 0; // 2023
+    return element.highlight === false && index === 1; // 2022
   });
   return currentSeason[0].set_in_context.season as string;
 }
 
-async function getSeason() {
+/* async function getPastSeason() {
+  const data = await fetch("https://api-v2.swissunihockey.ch/api/seasons");
+  const seasonData = await data.json();
+  const currentSeason = seasonData.entries.filter((element: any, index: any) => {
+    // return element.highlight === true && index === 0; // 2023
+    return element.highlight === false && index === 1; // 2022
+  });
+  return currentSeason[0].set_in_context.season as string;
+} */
+
+async function getSeasons() {
   const data = await fetch("https://api-v2.swissunihockey.ch/api/seasons");
   const seasonData = await data.json();
   // console.log(seasonData.entries);
@@ -389,7 +399,7 @@ async function getSeason() {
 
 async function getRankings(teamId: string, season: string) {
   if (!season) {
-    season = await getCurrentSeason() as unknown as string;
+    season = await getSeason() as unknown as string;
     console.log(`No Season parameter provided. Used internal logic and found: ${season}`);
   }
   const data = await fetch("https://api-v2.swissunihockey.ch/api/rankings?season=" + season + "&team_id=" + teamId);
