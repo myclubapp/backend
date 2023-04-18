@@ -4,20 +4,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable require-jsdoc */
 
-// import * as functions from "firebase-functions";
-// import * as admin from "firebase-admin";
 import * as firebase from "firebase-admin";
 import firebaseDAO from "./../../firebaseSingleton";
-// import * as functions from "firebase-functions";
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-// const fetch = require("node-fetch");
+import resolversSU from "./../../graphql/swissunihockey/resolvers";
+import fs = require("fs");
 
 const db = firebaseDAO.instance.db;
-
-import resolversSU from "./../../graphql/swissunihockey/resolvers";
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const fs = require("fs");
 
 // Read the contents of the file
 const myJson = fs.readFileSync("./src/scheduler/utils/clubArray.json", "utf8");
@@ -109,7 +101,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
     }
 
     // TEAM GAMES
-    // TODO -> GET FROM DB instead of API
+    // TODO -> GET FROM DB instead of API -> Teams should be updated with another JOB
     const teamData = await resolversSU.Club.teams({id: `${club.id}`}, {}, {}, {});
     for (const team of teamData) {
       console.log(`>> Team: ${team.id} ${team.name} ${team.liga} `);
@@ -147,7 +139,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         const gameDateTime: firebase.firestore.Timestamp = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
 
         const clubRef = await db.collection("club").doc(`su-${club.id}`).get();
-        const teamRef = await db.collection("team").doc(`su-${team.id}`).get();
+        const teamRef = await db.collection("teams").doc(`su-${team.id}`).get();
         console.log("read match report for game: " + game.id);
 
         // await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).get();
@@ -217,7 +209,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
 
 export async function updateTeamsSwissunihockey(): Promise<any> {
   console.log("Update Teams SwissUnihockey");
-  // Teams von Swiss Unihockey aktualisieren, welche einen aktiven Club haben.
+  // Teams von Swiss Unihockey aktualisieren, welche einen aktiven Club haben. Clubs werden via andere Funktion aktualisiert.
   const clubListRef = await db.collection("club").where("active", "==", true).where("type", "==", "swissunihockey").get();
   for (const clubData of clubListRef.docs) {
     const club = {...{id: clubData.data().externalId}, ...clubData.data()};
@@ -226,7 +218,7 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
     for (const team of teamData) {
       console.log(club.name + " / " + team.name);
       const clubRef = await db.collection("club").doc(`su-${club.id}`).get();
-      const teamRef = await db.collection("team").doc(`su-${team.id}`).get();
+      const teamRef = await db.collection("teams").doc(`su-${team.id}`).get();
 
       await db.collection("teams").doc(`su-${team.id}`).set({
         externalId: `${team.id}`,
