@@ -38,7 +38,7 @@ export async function updateTeamsSwisshandball(): Promise<any> {
 }
 
 export async function updateClubsSwisshandball(): Promise<any> {
-  console.log("Update Clubs SwissUnihockey");
+  console.log("Update Clubs swisshandball");
 
   const clubData = await resolversSH.SwissHandball.clubs();
   for (const club of clubData) {

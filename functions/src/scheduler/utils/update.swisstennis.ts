@@ -7,7 +7,7 @@ const db = firebaseDAO.instance.db;
 import resolversSE from "../../graphql/swisstennis/resolvers";
 
 export async function updateClubsSwisstennis(): Promise<any> {
-  console.log("Update Clubs SwissUnihockey");
+  console.log("Update Clubs Swiss Tennis");
 
   const clubData = await resolversSE.SwissTennis.clubs();
   for (const club of clubData) {
