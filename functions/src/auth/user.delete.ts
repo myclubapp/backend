@@ -11,15 +11,8 @@ import firebaseDAO from "../firebaseSingleton";
 const db = firebaseDAO.instance.db;
 const storage = firebaseDAO.instance.storage;
 
+// SEND BYE EMAIL
 export async function authUserDeleteUserSendByEmail(user: admin.auth.UserRecord, context: functions.EventContext) {
-  const userProfile: any = await db.collection("userProfile").doc(`${user.uid}`).get();
-  if (!userProfile.exists) {
-    console.log("no user data found");
-  } else {
-    // Token refresh for logout
-    await admin.auth().revokeRefreshTokens(user.uid); // force logout in app
-  }
-
   return admin.firestore().collection("mail").add({
     to: user.email,
     template: {
@@ -33,7 +26,9 @@ export async function authUserDeleteUserSendByEmail(user: admin.auth.UserRecord,
 
 export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, context: functions.EventContext) {
   console.log("delete user " + user.uid);
-  // delete user from all TEAMS
+
+  await admin.auth().revokeRefreshTokens(user.uid); // force logout in app
+
   const teamList = await db.collection("userProfile").doc(user.uid).collection("teams").get();
   if (!teamList.empty) {
     console.log("Delete Member in Teams ");
@@ -95,18 +90,12 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
 
   // offene Requests?
 
-  // Delete account in database
-  db.collection("userProfile").doc(user.uid).set({
-    "firstName": "deleted account",
-    "lastName": "deleted account",
-  });
-
   // MEDIA
   // -> Profile picture
   storage.bucket("myclubmanagement").file("userProfile/" + user.uid + "/profilePicture").delete();
 
   // Send E-Mail that Account is deleted
-  // wird via eigene Function gemacht..
+  // wird via eigener Function gemacht..
 
   // Delete account in firebase
   return admin.auth().deleteUser(user.uid).catch((error)=> {
