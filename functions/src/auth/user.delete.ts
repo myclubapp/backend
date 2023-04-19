@@ -100,7 +100,9 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
   console.log("delete user cleanup functions to delete user media, revoke refresh token for: " + user.uid);
 
   // force logout in app
-  await admin.auth().revokeRefreshTokens(user.uid);
+  await admin.auth().revokeRefreshTokens(user.uid).catch((error)=>{
+    console.log(`error revokeRefreshTokens -> most likely already done by deleting user, ${error}`);
+  });
 
   // MEDIA
   // -> Profile picture
