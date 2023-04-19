@@ -27,8 +27,8 @@ export async function authUserDeleteUserSendByEmail(user: admin.auth.UserRecord,
 
 
 export async function dbDeleteUserAccountFromDatabase(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
-  console.log("delete user from DB (teams, clubs, teamAdmin, clubAdmin" + context.params.userId);
   const userId = context.params.userId;
+  console.log("delete user from DB (teams, clubs, teamAdmin, clubAdmin" + userId);
 
   const teamList = await snapshot.ref.collection("teams").get();
   if (!teamList.empty) {
