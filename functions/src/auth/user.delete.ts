@@ -50,6 +50,7 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
     console.log("Delete Member in Teams ");
     for (const team of teamList.docs) {
       await db.collection("team").doc(team.id).collection("members").doc(`${userId}`).delete();
+      await db.collection("userProfile").doc(userId).collection("team").doc(`${team.id}`).delete();
     }
   }
   // delete admin from all TEAMS
@@ -58,6 +59,7 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
     console.log("Delete Admin in Teams ");
     for (const team of teamAdminList.docs) {
       await db.collection("team").doc(team.id).collection("admins").doc(`${userId}`).delete();
+      await db.collection("userProfile").doc(userId).collection("teamAdmin").doc(`${team.id}`).delete();
     }
   }
 
@@ -67,6 +69,7 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
     console.log("Delete Member in Clubs ");
     for (const club of clubList.docs) {
       await db.collection("club").doc(club.id).collection("members").doc(`${userId}`).delete();
+      await db.collection("userProfile").doc(userId).collection("clubs").doc(`${club.id}`).delete();
     }
   }
   // delete admin from all club Admins
@@ -75,6 +78,7 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
     console.log("Delete Admin in Clubs ");
     for (const club of clubAdminList.docs) {
       await db.collection("club").doc(club.id).collection("admins").doc(`${userId}`).delete();
+      await db.collection("userProfile").doc(userId).collection("clubAdmin").doc(`${club.id}`).delete();
     }
   }
   // Events?
