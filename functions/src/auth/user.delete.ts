@@ -106,7 +106,9 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
 
   // MEDIA
   // -> Profile picture
-  storage.bucket("myclubmanagement").file("userProfile/" + user.uid + "/profilePicture").delete();
+  await storage.bucket("myclubmanagement").file("userProfile/" + user.uid + "/profilePicture").delete().catch((error:any)=>{
+    console.log(`error deleting bucket for user -> most likely no user data stored, ${error}`);
+  });
 
   // Send E-Mail that Account is deleted
   // wird via eigener Function gemacht..
