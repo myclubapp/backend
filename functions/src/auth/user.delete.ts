@@ -41,7 +41,7 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
   // Send E-Mail that Account is deleted
   // wird via eigener Function gemacht..
 
-// DELETE USER DATA
+  // DELETE USER DATA
   const userId = context.params.userId;
   console.log("delete user from DB (teams, clubs, teamAdmin, clubAdmin" + userId);
 
