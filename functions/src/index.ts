@@ -5,7 +5,7 @@ import {authUserBlockBeforeCreate, authUserBlockBeforeSignIn} from "./auth/user.
 
 import {authUserCreateSendWelcomeEmail, authUserCreateAdminUser} from "./auth/user.create";
 // eslint-disable-next-line import/namespace
-import {authUserDeleteUserSendByEmail, authUserDeleteUserAccount, dbDeleteUserAccountFromDatabase} from "./auth/user.delete";
+import {authUserDeleteUserSendByEmail, authUserDeleteUserAccount} from "./auth/user.delete";
 import {createClubAdmin, createTeamAdmin} from "./firestore/createAdmin";
 import {createClubMember, createTeamMember} from "./firestore/createMember";
 import {deleteClubAdmin, deleteTeamAdmin} from "./firestore/deleteAdmin";
@@ -39,7 +39,6 @@ export const sendWelcomeMail = functions.region("europe-west6").auth.user().onCr
 export const onCreateUserCreateAdminUser = functions.region("europe-west6").auth.user().onCreate(authUserCreateAdminUser);
 export const sendByeEmail = functions.region("europe-west6").auth.user().onDelete(authUserDeleteUserSendByEmail);
 export const deleteUserAccount = functions.region("europe-west6").auth.user().onDelete(authUserDeleteUserAccount);
-export const dbDeleteUserAccount = functions.region("europe-west6").firestore.document("/userProfile/{userId}").onDelete(dbDeleteUserAccountFromDatabase);
 
 // NEW AUTH BLOCK FUNCTIONS
 export const beforeCreate = functions.region("europe-west6").auth.user().beforeCreate(authUserBlockBeforeCreate);

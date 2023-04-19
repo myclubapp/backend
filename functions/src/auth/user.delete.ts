@@ -7,7 +7,6 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import firebaseDAO from "../firebaseSingleton";
-import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 
 const db = firebaseDAO.instance.db;
 const storage = firebaseDAO.instance.storage;
@@ -25,12 +24,28 @@ export async function authUserDeleteUserSendByEmail(user: admin.auth.UserRecord,
   });
 }
 
+export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, context: functions.EventContext) {
+  console.log("delete user cleanup functions to delete user media, revoke refresh token for: " + user.uid);
 
-export async function dbDeleteUserAccountFromDatabase(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
+  // force logout in app
+  await admin.auth().revokeRefreshTokens(user.uid).catch((error)=>{
+    console.log(`error revokeRefreshTokens -> most likely already done by deleting user, ${error}`);
+  });
+
+  // MEDIA
+  // -> Profile picture
+  await storage.bucket("myclubmanagement").file("userProfile/" + user.uid + "/profilePicture").delete().catch((error:any)=>{
+    console.log(`error deleting bucket for user -> most likely no user data stored, ${error}`);
+  });
+
+  // Send E-Mail that Account is deleted
+  // wird via eigener Function gemacht..
+
+// DELETE USER DATA
   const userId = context.params.userId;
   console.log("delete user from DB (teams, clubs, teamAdmin, clubAdmin" + userId);
 
-  const teamList = await snapshot.ref.collection("teams").get();
+  const teamList = await db.collection("userProfile").doc(user.uid).collection("teams").get();
   if (!teamList.empty) {
     console.log("Delete Member in Teams ");
     for (const team of teamList.docs) {
@@ -38,7 +53,7 @@ export async function dbDeleteUserAccountFromDatabase(snapshot: QueryDocumentSna
     }
   }
   // delete admin from all TEAMS
-  const teamAdminList = await snapshot.ref.collection("teamAdmin").get();
+  const teamAdminList = await db.collection("userProfile").doc(user.uid).collection("teamAdmin").get();
   if (!teamAdminList.empty) {
     console.log("Delete Admin in Teams ");
     for (const team of teamAdminList.docs) {
@@ -47,7 +62,7 @@ export async function dbDeleteUserAccountFromDatabase(snapshot: QueryDocumentSna
   }
 
   // delete user from all CLUBS
-  const clubList = await snapshot.ref.collection("clubs").get();
+  const clubList = await db.collection("userProfile").doc(user.uid).collection("clubs").get();
   if (!clubList.empty) {
     console.log("Delete Member in Clubs ");
     for (const club of clubList.docs) {
@@ -55,7 +70,7 @@ export async function dbDeleteUserAccountFromDatabase(snapshot: QueryDocumentSna
     }
   }
   // delete admin from all club Admins
-  const clubAdminList = await snapshot.ref.collection("clubAdmin").get();
+  const clubAdminList = await db.collection("userProfile").doc(user.uid).collection("clubAdmin").get();
   if (!clubAdminList.empty) {
     console.log("Delete Admin in Clubs ");
     for (const club of clubAdminList.docs) {
@@ -63,7 +78,7 @@ export async function dbDeleteUserAccountFromDatabase(snapshot: QueryDocumentSna
     }
   }
   // Events?
-/*
+  /*
   // Trainings?
   const querySnapshotTrainings = await db.collectionGroup("attendees", userId).get();
   querySnapshotTrainings.forEach(async (doc:QueryDocumentSnapshot ) => {
@@ -91,27 +106,10 @@ export async function dbDeleteUserAccountFromDatabase(snapshot: QueryDocumentSna
   // offene Requests?
   --> clubRequests
   --> teamRequests
-
 */
-}
 
-
-export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, context: functions.EventContext) {
-  console.log("delete user cleanup functions to delete user media, revoke refresh token for: " + user.uid);
-
-  // force logout in app
-  await admin.auth().revokeRefreshTokens(user.uid).catch((error)=>{
-    console.log(`error revokeRefreshTokens -> most likely already done by deleting user, ${error}`);
-  });
-
-  // MEDIA
-  // -> Profile picture
-  await storage.bucket("myclubmanagement").file("userProfile/" + user.uid + "/profilePicture").delete().catch((error:any)=>{
-    console.log(`error deleting bucket for user -> most likely no user data stored, ${error}`);
-  });
-
-  // Send E-Mail that Account is deleted
-  // wird via eigener Function gemacht..
+  // Delete User Data
+  await db.collection("userProfile").doc(user.uid).delete();
 
   // Delete account in firebase --> Should be done already
   return admin.auth().deleteUser(user.uid).catch((error)=> {
