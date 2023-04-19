@@ -27,7 +27,7 @@ export async function authUserDeleteUserSendByEmail(user: admin.auth.UserRecord,
 
 
 export async function dbDeleteUserAccountFromDatabase(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
-  console.log("delete user from DB " + context.params.userId);
+  console.log("delete user from DB (teams, clubs, teamAdmin, clubAdmin" + context.params.userId);
   const userId = context.params.userId;
 
   const teamList = await snapshot.ref.collection("teams").get();
@@ -89,12 +89,15 @@ export async function dbDeleteUserAccountFromDatabase(snapshot: QueryDocumentSna
   }
 
   // offene Requests?
+  --> clubRequests
+  --> teamRequests
+
 */
 }
 
 
 export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, context: functions.EventContext) {
-  console.log("delete user " + user.uid);
+  console.log("delete user cleanup functions to delete user media, revoke refresh token for: " + user.uid);
 
   // force logout in app
   await admin.auth().revokeRefreshTokens(user.uid);
