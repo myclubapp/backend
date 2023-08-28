@@ -5,11 +5,17 @@
 /* eslint-disable require-jsdoc */
 
 import * as firebase from "firebase-admin";
+import * as functions from "firebase-functions";
 import firebaseDAO from "./../../firebaseSingleton";
 import resolversSU from "./../../graphql/swissunihockey/resolvers";
+import OpenAI from "openai";
 import fs = require("fs");
 
 const db = firebaseDAO.instance.db;
+
+const openai = new OpenAI({
+  apiKey: functions.config().api.chatgpt, // defaults to process.env["OPENAI_API_KEY"]
+});
 
 // Read the contents of the file
 const myJson = fs.readFileSync("./src/scheduler/utils/clubArray.json", "utf8");
@@ -334,6 +340,15 @@ async function generateMatchReport(gameId: string): Promise<string> {
     const prompt = gameSummary.data.regions[0].rows[0].cells[0].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[1].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[2].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[2].text[1];
 
     console.log(">>> MAGIC " + prompt);
+
+    const completion = await openai.chat.completions.create({
+      messages: [{ role: 'user', content: prompt }],
+      model: 'gpt-3.5-turbo',
+    });
+
+    console.log(completion.choices);
+
+
     const matchReportData = await fetch("https://api.openai.com/v1/completions", {
       method: "POST",
       headers: {
