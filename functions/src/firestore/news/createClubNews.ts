@@ -33,7 +33,7 @@ export async function createNotificationClubNews(snapshot: QueryDocumentSnapshot
     if (userProfileRef.exists && userProfileRef.data().settingsPush) {
       const userProfilePushRef = await db.collection("userProfile").doc(clubMember.id).collection("push").get();
       for (const push of userProfilePushRef.docs) {
-        const {statusCode, headers, body} = await webpush.sendNotification(push.data().pushObject,
+        const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
             JSON.stringify( {
               title: clubNewsRef.data().title,
               message: clubNewsRef.data().text,
