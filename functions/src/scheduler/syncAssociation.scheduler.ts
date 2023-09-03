@@ -78,10 +78,10 @@ async function updateClubNewsFromWordpress(): Promise<any> {
         const dom = new jsdom.JSDOM(news["content"].rendered);
         const element = dom.window.document.createElement("div");
         element.innerHTML = news["content"].rendered;
-        const newsText = element.innerText;
+        // const newsText = element.innerText;
 
-        element.innerHTML = news["excerpt"].rendered;
-        const leadText = element.innerText;
+        // element.innerHTML = news["excerpt"].rendered;
+        // const leadText = element.innerText;
 
         const wpUserData = await fetch(news["_links"].author[0].href);
         const wpUser = await wpUserData.json();
@@ -89,11 +89,11 @@ async function updateClubNewsFromWordpress(): Promise<any> {
         await db.collection("club").doc(`${club.id}`).collection("news").doc(`su-${news.id}`).set({
           externalId: `${news["id"]}`,
           title: news["title"].rendered,
-          leadText: leadText,
+          leadText: " ",
           date: news["date"],
           slug: news["slug"],
           image: " ",
-          text: newsText || " ",
+          text: news["content"].rendered || " ",
           htmlText: news["content"].rendered || " ",
           tags: "Webseite",
           author: wpUser.name,
