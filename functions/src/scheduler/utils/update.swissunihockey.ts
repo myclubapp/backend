@@ -5,17 +5,17 @@
 /* eslint-disable require-jsdoc */
 
 import * as firebase from "firebase-admin";
-import * as functions from "firebase-functions";
+// import * as functions from "firebase-functions";
 import firebaseDAO from "./../../firebaseSingleton";
 import resolversSU from "./../../graphql/swissunihockey/resolvers";
-import OpenAI from "openai";
+// import OpenAI from "openai";
 import fs = require("fs");
 
 const db = firebaseDAO.instance.db;
 
-const openai = new OpenAI({
+/* const openai = new OpenAI({
   apiKey: functions.config().api.chatgpt, // defaults to process.env["OPENAI_API_KEY"]
-});
+}); */
 
 // Read the contents of the file
 const myJson = fs.readFileSync("./src/scheduler/utils/clubArray.json", "utf8");
