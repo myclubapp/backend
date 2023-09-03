@@ -344,7 +344,7 @@ async function generateMatchReport(gameId: string): Promise<string> {
         model: "text-davinci-003",
         max_tokens: 400,
         n: 1,
-        prompt: "Schreibe einen Matchbericht für folgendes Unihockey Spiel: " + prompt,
+        prompt: "Schreibe einen Spielbericht für folgendes Unihockey Spiel: " + prompt,
       }),
     });
     const chatGPT:any = await matchReportData.json();
