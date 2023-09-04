@@ -305,7 +305,7 @@ export async function updateNewsSwissunihockey(): Promise<any> {
       await db.collection("news").doc(`su-${news.id}`).set({
         externalId: `${news.id}`,
         title: news.title,
-        leadText: news.leadText + "&hellip;" || " ",
+        leadText: news.leadText + " ..." || " ",
         date: news.date,
         slug: news.slug || " ",
         image: news.image || " ",
