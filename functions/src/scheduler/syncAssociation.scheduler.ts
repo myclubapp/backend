@@ -75,9 +75,9 @@ async function updateClubNewsFromWordpress(): Promise<any> {
       for (const news of wpNews) {
         console.log(news);
 
-        let text = String(news["content"].rendered).replace("<p>", "");
-        text = String(text).replace("</p><p>", "/n");
-        text = String(text).replace("</p>", "");
+        let text = String(news["content"].rendered).replaceAll("<p>", "");
+        text = String(text).replaceAll("</p><p>", "/n");
+        text = String(text).replaceAll("</p>", "");
         /* const dom = new jsdom.JSDOM(news["content"].rendered);
         const element = dom.window.document.createElement("div");
         element.innerHTML = news["content"].rendered;
