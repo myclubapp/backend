@@ -17,7 +17,7 @@ import {updateClubsSwisstennis} from "./utils/update.swisstennis";
 import firebaseDAO from "./../firebaseSingleton";
 const db = firebaseDAO.instance.db;
 const fetch = require("node-fetch");
-const jsdom = require("jsdom");
+// const jsdom = require("jsdom");
 
 export async function updatePersistenceJobClubs(context: EventContext) {
   try {
