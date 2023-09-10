@@ -49,8 +49,8 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
   if (!teamList.empty) {
     console.log("Delete Member in Teams ");
     for (const team of teamList.docs) {
-      await db.collection("team").doc(team.id).collection("members").doc(`${user.uid}`).delete();
-      await db.collection("userProfile").doc(user.uid).collection("team").doc(`${team.id}`).delete(); // needed to avoid emtpy collections
+      await db.collection("teams").doc(team.id).collection("members").doc(`${user.uid}`).delete();
+      await db.collection("userProfile").doc(user.uid).collection("teams").doc(`${team.id}`).delete(); // needed to avoid emtpy collections
     }
   }
   // delete admin from all TEAMS
@@ -58,7 +58,7 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
   if (!teamAdminList.empty) {
     console.log("Delete Admin in Teams ");
     for (const team of teamAdminList.docs) {
-      await db.collection("team").doc(team.id).collection("admins").doc(`${user.uid}`).delete();
+      await db.collection("teams").doc(team.id).collection("admins").doc(`${user.uid}`).delete();
       await db.collection("userProfile").doc(user.uid).collection("teamAdmin").doc(`${team.id}`).delete(); // needed to avoid emtpy collections
     }
   }
