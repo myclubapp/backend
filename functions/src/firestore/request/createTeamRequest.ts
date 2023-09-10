@@ -58,12 +58,15 @@ export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context
         receipient.push(userProfileAdminRef.data().email);
       }
       if (userProfileAdminRef.data().settingsPush) {
-        const pushObject = JSON.parse(userProfileAdminRef.data().pushObject);
-        const {statusCode, headers, body} = await webpush.sendNotification(pushObject, JSON.stringify({
-          title: "Team Request",
-          message: "Neuer Team Request verfügbar",
-        }));
-        console.log(">> SEND PUSH: ", statusCode, headers, body);
+        const userProfilePushRef = await db.collection("userProfile").doc(admin.id).collection("push").get();
+        for (const push of userProfilePushRef.docs) {
+          const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
+              JSON.stringify( {
+                title: "Neue Beitrittsanfrage für dein Team " + teamRef.data().name,
+                message: `${userProfileRef.data()?.firstName} ${userProfileRef.data()?.lastName} (${userProfileRef.data()?.email}) möchte deinem Team beitreten.`,
+              }));
+          console.log(">> SEND PUSH: ", statusCode, headers, body);
+        }
       }
     }
   }

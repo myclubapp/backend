@@ -35,7 +35,7 @@ export async function createNotificationTeamNews(snapshot: QueryDocumentSnapshot
       // const pushObject = JSON.parse(userProfileRef.data().pushObject);
       const userProfilePushRef = await db.collection("userProfile").doc(teamMember.id).collection("push").get();
       for (const push of userProfilePushRef.docs) {
-        const {statusCode, headers, body} = await webpush.sendNotification(push.data().pushObject,
+        const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
             JSON.stringify( {
               title: teamNewsRef.data().title,
               message: teamNewsRef.data().text,

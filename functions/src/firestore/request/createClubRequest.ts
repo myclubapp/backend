@@ -54,13 +54,13 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
   for (const admin of clubAdminRef.docs) {
     const userProfileAdminRef = await db.collection("userProfile").doc(admin.id).get();
     if (userProfileAdminRef.exists) {
-      if (userProfileAdminRef.data().settingsEmail) {
+      if (userProfileAdminRef.data().settingsEmail === true) {
         receipient.push(userProfileAdminRef.data().email);
       }
       if (userProfileAdminRef.data().settingsPush) {
         const userProfilePushRef = await db.collection("userProfile").doc(admin.id).collection("push").get();
         for (const push of userProfilePushRef.docs) {
-          const {statusCode, headers, body} = await webpush.sendNotification(push.data().pushObject,
+          const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
               JSON.stringify( {
                 title: "Neue Beitrittsanfrage für deinen Verein " + clubRef.data().name,
                 message: `${userProfileRef.data()?.firstName} ${userProfileRef.data()?.lastName} (${userProfileRef.data()?.email}) möchte deinem Verein beitreten.`,
