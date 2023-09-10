@@ -9,7 +9,6 @@ import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore"
 import {Change} from "firebase-functions";
 
 const db = firebaseDAO.instance.db;
-// const auth = firebaseDAO.instance.auth;
 
 export async function approveTeamRequest(change: Change<QueryDocumentSnapshot>, context: functions.EventContext) {
   console.log("approveTeamRequest");

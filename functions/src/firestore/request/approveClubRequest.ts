@@ -32,14 +32,35 @@ export async function approveClubRequest(change: Change<QueryDocumentSnapshot>, 
     });
     await db.collection("club").doc(clubId).collection("requests").doc(userProfileRef.id).delete();
     await db.collection("userProfile").doc(userProfileRef.id).collection("clubRequests").doc(clubId).delete();
+
+    return db.collection("mail").add({
+      to: userProfileRef.data().email,
+      template: {
+        name: "ClubRequestApproved",
+        data: {
+          clubName: clubRef.data().name,
+          firstName: userProfileRef.data()?.firstName,
+          lastName: userProfileRef.data()?.lastName,
+        },
+      },
+    });
   } else if (change.after.data().approve === false) {
     console.log(`CLUB request NOT APPROVED ${requestRef.id}`);
 
     await db.collection("club").doc(clubId).collection("requests").doc(userProfileRef.id).delete();
     await db.collection("userProfile").doc(userProfileRef.id).collection("clubRequests").doc(clubId).delete();
+
+    return db.collection("mail").add({
+      to: userProfileRef.data().email,
+      template: {
+        name: "ClubRequestRejected",
+        data: {
+          clubName: clubRef.data().name,
+          firstName: userProfileRef.data()?.firstName,
+          lastName: userProfileRef.data()?.lastName,
+        },
+      },
+    });
   }
-
-  // SEND EMAIL
-
   return true;
 }
