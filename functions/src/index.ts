@@ -74,13 +74,17 @@ export const dbRemoveMemberFromClub = functions.region("europe-west6").firestore
 export const dbRemoveMemberFromTeam = functions.region("europe-west6").firestore.document("/teams/{teamId}/members/{userId}").onDelete(deleteMemberFromTeam);
 
 // DB Hooks REQUESTS
+// user perspective create Request in onboarding
 export const dbAddClubRequest = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubRequests/{clubId}").onCreate(createClubRequest);
 export const dbAddTeamRequest = functions.region("europe-west6").firestore.document("/userProfile/{userId}/teamRequests/{teamId}").onCreate(createTeamRequest);
+// user perspective delete Request in profile
 export const dbRemoveClubRequest = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubRequests/{clubId}").onDelete(deleteClubRequest);
 export const dbRemoveTeamRequest = functions.region("europe-west6").firestore.document("/userProfile/{userId}/teamRequests/{teamId}").onDelete(deleteTeamRequest);
 
+// approve or delete request in team / club management page from admin perspective
 export const dbApproveClubRequest = functions.region("europe-west6").firestore.document("/club/{clubId}/requests/{requestId}").onUpdate(approveClubRequest);
 export const dbApproveTeamRequest = functions.region("europe-west6").firestore.document("/teams/{teamId}/requests/{requestId}").onUpdate(approveTeamRequest);
+
 
 // DB Hooks TRAININGS
 export const dbAddTeamTraining = functions.region("europe-west6").firestore.document("/userProfile/{userId}/trainings/{trainingId}").onCreate(createTeamTraining);

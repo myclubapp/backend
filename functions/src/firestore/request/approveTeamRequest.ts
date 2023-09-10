@@ -21,7 +21,7 @@ export async function approveTeamRequest(change: Change<QueryDocumentSnapshot>, 
   const userProfileRef = await db.collection("userProfile").doc(requestId).get();
   const teamRef = await db.collection("teams").doc(teamId).get();
 
-  if (change.after.data().approve) {
+  if (change.after.data().approve === true) {
     console.log(`approve request ${requestRef.id}`);
 
     await db.collection("teams").doc(teamId).collection("members").doc(userProfileRef.id).set({
@@ -33,51 +33,13 @@ export async function approveTeamRequest(change: Change<QueryDocumentSnapshot>, 
 
     await db.collection("teams").doc(teamId).collection("requests").doc(userProfileRef.id).delete();
     await db.collection("userProfile").doc(userProfileRef.id).collection("teamRequests").doc(teamId).delete();
+  } else if (change.after.data().approve === false) {
+    console.log(`TEAM request NOT APPROVED ${requestRef.id}`);
+    await db.collection("teams").doc(teamId).collection("requests").doc(userProfileRef.id).delete();
+    await db.collection("userProfile").doc(userProfileRef.id).collection("teamRequests").doc(teamId).delete();
   }
+
+  // SEND EMAIL
 
   return true;
-  // TODO Send Email to User added.
-
-  /*
-  // const clubRef = await db.collection("club").doc(clubId).get();
-  const userProfileRef = await db.collection("userProfile").doc(userId).get();
-
-  await db.collection("club").doc(clubId).collection("requests").doc(userId).set({
-    "userProfileRef": userProfileRef.ref,
-  });
-  // SEND REQUEST CONFIRMATION E-MAIL TO USER
-  await db.collection("mail").add({
-    to: userProfileRef.data()?.email,
-    template: {
-      name: "ClubRequestAdminEmail",
-      data: {
-        clubName: clubRef.data().name,
-        firstName: userProfileRef.data()?.firstName,
-      },
-    },
-  });
-
-  // SEND REQUEST E-MAIL TO CLUB ADMIN
-  const receipient = [];
-  const clubAdminRef = await db.collection("club").doc(clubId).collection("admins").get();
-  for (const admin of clubAdminRef.docs) {
-    const userProfileAdminRef = await db.collection("userProfile").doc(admin.id).get();
-    if (userProfileAdminRef.exists) {
-      receipient.push(userProfileAdminRef.data().email);
-    }
-  }
-
-  return db.collection("mail").add({
-    to: receipient,
-    template: {
-      name: "ClubRequestAdminEmail",
-      data: {
-        clubName: clubRef.data().name,
-        firstName: userProfileRef.data()?.firstName,
-        lastName: userProfileRef.data()?.lastName,
-        email: userProfileRef.data()?.email,
-      },
-    },
-  });
-  */
 }
