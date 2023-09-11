@@ -95,7 +95,7 @@ async function updateClubNewsFromWordpress(): Promise<any> {
           leadText: String(text).substring(0, 200) + " ...",
           date: news["date"],
           slug: news["slug"],
-          image: " ",
+          image: news.featured_media || "https://placehold.co/600x400",
           text: text,
           htmlText: news["content"].rendered || " ",
           tags: "Webseite",
