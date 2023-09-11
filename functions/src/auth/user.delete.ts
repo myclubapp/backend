@@ -43,7 +43,7 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
 
   // DELETE USER DATA
   // const userId = context.params.userId;
-  console.log(`DELETE User ${user.uid} from DB (all Teams, Clubs, TeamAdmins, ClubAdmin`);
+  console.log(`DELETE User ${user.uid} from DB (all Teams, Clubs, TeamAdmins, ClubAdmin)`);
 
   const teamList = await db.collection("userProfile").doc(user.uid).collection("teams").get();
   if (!teamList.empty) {
@@ -99,7 +99,6 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
       await db.collection("userProfile").doc(user.uid).collection(collection.id).doc(document.id).delete();
     }
   }
-
 
   // Events?
   /*
