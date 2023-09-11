@@ -81,6 +81,11 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
       await db.collection("userProfile").doc(user.uid).collection("clubAdmin").doc(`${club.id}`).delete(); // needed to avoid emtpy collections
     }
   }
+
+  await db.collection("userProfile").doc(user.uid).collection("push").delete();
+  await db.collection("userProfile").doc(user.uid).collection("teams").delete();
+  await db.collection("userProfile").doc(user.uid).collection("clubs").delete();
+
   // Events?
   /*
   // Trainings?
