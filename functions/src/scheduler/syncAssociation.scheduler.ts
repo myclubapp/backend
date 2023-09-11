@@ -100,7 +100,7 @@ async function updateClubNewsFromWordpress(): Promise<any> {
           htmlText: news["content"].rendered || " ",
           tags: "Webseite",
           author: wpUser.name,
-          authorImage: wpUser.avatar_urls[96] || wpUser.avatar_urls[48] || wpUser.avatar_urls[24],
+          authorImage: wpUser.avatar_urls[96] || wpUser.avatar_urls[48] || wpUser.avatar_urls[24] || "",
           url: news["link"],
           type: club.type,
           updated: new Date(),
