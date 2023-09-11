@@ -85,7 +85,10 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
   const userCollectionsList = await db.collection("userProfile").doc(user.uid).listCollections();
   for (const collection of userCollectionsList) {
     console.log("Auto delete collection with id: " + collection.id);
-    await db.collection("userProfile").doc(user.uid).collection(collection.id).delete();
+    const collectionData = await db.collection("userProfile").doc(user.uid).collection(collection.id).get();
+    for (const document of collectionData.docs) {
+      await document.delete();
+    }
   }
 
 
