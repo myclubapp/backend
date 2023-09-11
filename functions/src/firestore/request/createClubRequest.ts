@@ -33,8 +33,8 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
   await db.collection("club").doc(clubId).collection("requests").doc(userId).set({
     "userProfileRef": userProfileRef.ref,
   });
-  // DO NOT SEND PUSH - USER HAS NO PUSH ACTIVATED AT THIS POINT -> MAY CHANGE LATER
 
+  // DO NOT SEND PUSH - USER HAS NO PUSH ACTIVATED AT THIS POINT -> MAY CHANGE LATER
   // SEND REQUEST CONFIRMATION E-MAIL TO USER
   await db.collection("mail").add({
     to: userProfileRef.data()?.email,
@@ -48,7 +48,7 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
     },
   });
 
-  // SEND REQUEST E-MAIL TO CLUB ADMIN
+  // SEND REQUEST E-MAIL TO CLUB ADMINs
   const receipient = [];
   const clubAdminRef = await db.collection("club").doc(clubId).collection("admins").get();
   for (const admin of clubAdminRef.docs) {
@@ -57,7 +57,7 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
       if (userProfileAdminRef.data().settingsEmail === true) {
         receipient.push(userProfileAdminRef.data().email);
       }
-      if (userProfileAdminRef.data().settingsPush) {
+      if (userProfileAdminRef.data().settingsPush === true) {
         const userProfilePushRef = await db.collection("userProfile").doc(admin.id).collection("push").get();
         for (const push of userProfilePushRef.docs) {
           const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),

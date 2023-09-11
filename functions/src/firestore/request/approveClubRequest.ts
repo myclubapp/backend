@@ -9,7 +9,6 @@ import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore"
 import {Change} from "firebase-functions";
 
 const db = firebaseDAO.instance.db;
-// const auth = firebaseDAO.instance.auth;
 
 export async function approveClubRequest(change: Change<QueryDocumentSnapshot>, context: functions.EventContext) {
   console.log("approveClubRequest");
@@ -26,13 +25,24 @@ export async function approveClubRequest(change: Change<QueryDocumentSnapshot>, 
     await db.collection("club").doc(clubId).collection("members").doc(userProfileRef.id).set({
       "userProfileRef": userProfileRef.ref,
     });
+
     // Add Club to User as Member
     await db.collection("userProfile").doc(userProfileRef.id).collection("clubs").doc(clubId).set({
       "clubRef": clubRef.ref,
     });
+
+    // Add user to teams
+    if (change.after.data().teams) {
+      for (const team of change.after.data().teams) {
+        console.log("add user to team: " + team.id);
+      }
+    }
+
+    // clean up requests
     await db.collection("club").doc(clubId).collection("requests").doc(userProfileRef.id).delete();
     await db.collection("userProfile").doc(userProfileRef.id).collection("clubRequests").doc(clubId).delete();
 
+    // send out mail to user
     return db.collection("mail").add({
       to: userProfileRef.data().email,
       template: {
@@ -46,10 +56,11 @@ export async function approveClubRequest(change: Change<QueryDocumentSnapshot>, 
     });
   } else if (change.after.data().approve === false) {
     console.log(`CLUB request NOT APPROVED ${requestRef.id}`);
-
+    // clean up requests
     await db.collection("club").doc(clubId).collection("requests").doc(userProfileRef.id).delete();
     await db.collection("userProfile").doc(userProfileRef.id).collection("clubRequests").doc(clubId).delete();
 
+    // send out mail to user
     return db.collection("mail").add({
       to: userProfileRef.data().email,
       template: {

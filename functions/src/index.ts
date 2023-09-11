@@ -74,10 +74,11 @@ export const dbRemoveMemberFromClub = functions.region("europe-west6").firestore
 export const dbRemoveMemberFromTeam = functions.region("europe-west6").firestore.document("/teams/{teamId}/members/{userId}").onDelete(deleteMemberFromTeam);
 
 // DB Hooks REQUESTS
-// user perspective create Request in onboarding
+// user perspective: create Request in onboarding
 export const dbAddClubRequest = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubRequests/{clubId}").onCreate(createClubRequest);
 export const dbAddTeamRequest = functions.region("europe-west6").firestore.document("/userProfile/{userId}/teamRequests/{teamId}").onCreate(createTeamRequest);
-// user perspective delete Request in profile
+
+// user perspective: delete Request in profile
 export const dbRemoveClubRequest = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubRequests/{clubId}").onDelete(deleteClubRequest);
 export const dbRemoveTeamRequest = functions.region("europe-west6").firestore.document("/userProfile/{userId}/teamRequests/{teamId}").onDelete(deleteTeamRequest);
 
