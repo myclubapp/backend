@@ -43,7 +43,7 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
 
   // DELETE USER DATA
   // const userId = context.params.userId;
-  console.log("delete user from DB (teams, clubs, teamAdmin, clubAdmin" + user.uid);
+  console.log(`DELETE User ${user.uid} from DB (all Teams, Clubs, TeamAdmins, ClubAdmin`);
 
   const teamList = await db.collection("userProfile").doc(user.uid).collection("teams").get();
   if (!teamList.empty) {
@@ -52,7 +52,10 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
       await db.collection("teams").doc(team.id).collection("members").doc(`${user.uid}`).delete();
       await db.collection("userProfile").doc(user.uid).collection("teams").doc(`${team.id}`).delete(); // needed to avoid emtpy collections
     }
+  } else {
+    console.log("Noting to delete for Member in Teams ");
   }
+
   // delete admin from all TEAMS
   const teamAdminList = await db.collection("userProfile").doc(user.uid).collection("teamAdmin").get();
   if (!teamAdminList.empty) {
@@ -61,6 +64,8 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
       await db.collection("teams").doc(team.id).collection("admins").doc(`${user.uid}`).delete();
       await db.collection("userProfile").doc(user.uid).collection("teamAdmin").doc(`${team.id}`).delete(); // needed to avoid emtpy collections
     }
+  } else {
+    console.log("Noting to delete for Admin in Teams ");
   }
 
   // delete user from all CLUBS
@@ -71,6 +76,8 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
       await db.collection("club").doc(club.id).collection("members").doc(`${user.uid}`).delete();
       await db.collection("userProfile").doc(user.uid).collection("clubs").doc(`${club.id}`).delete(); // needed to avoid emtpy collections
     }
+  } else {
+    console.log("Noting to delete for Member in Clubs ");
   }
   // delete admin from all club Admins
   const clubAdminList = await db.collection("userProfile").doc(user.uid).collection("clubAdmin").get();
@@ -80,6 +87,8 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
       await db.collection("club").doc(club.id).collection("admins").doc(`${user.uid}`).delete();
       await db.collection("userProfile").doc(user.uid).collection("clubAdmin").doc(`${club.id}`).delete(); // needed to avoid emtpy collections
     }
+  } else {
+    console.log("Noting to delete for Admin in Clubs ");
   }
 
   const userCollectionsList = await db.collection("userProfile").doc(user.uid).listCollections();
@@ -87,7 +96,7 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
     console.log("Auto delete collection with id: " + collection.id);
     const collectionData = await db.collection("userProfile").doc(user.uid).collection(collection.id).get();
     for (const document of collectionData.docs) {
-      await document.delete();
+      await db.collection("userProfile").doc(user.uid).collection(collection.id).doc(document.id).delete();
     }
   }
 
