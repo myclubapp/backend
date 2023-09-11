@@ -82,9 +82,12 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
     }
   }
 
-  await db.collection("userProfile").doc(user.uid).collection("push").delete();
-  await db.collection("userProfile").doc(user.uid).collection("teams").delete();
-  await db.collection("userProfile").doc(user.uid).collection("clubs").delete();
+  const userCollectionsList = await db.collection("userProfile").doc(user.uid).listCollections();
+  for (const collection of userCollectionsList) {
+    console.log("Auto delete collection with id: " + collection.id);
+    await db.collection("userProfile").doc(user.uid).collection(collection.id).delete();
+  }
+
 
   // Events?
   /*
