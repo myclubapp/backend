@@ -12,11 +12,10 @@ const db = firebaseDAO.instance.db;
 
 export async function approveTeamRequest(change: Change<QueryDocumentSnapshot>, context: functions.EventContext) {
   console.log("approveTeamRequest");
-
   const requestId = context.params.requestId;
   const teamId = context.params.teamId;
-  const requestRef = await db.collection("teamId").doc(teamId).collection("requests").doc(requestId).get();
 
+  const requestRef = await db.collection("teamId").doc(teamId).collection("requests").doc(requestId).get();
   const userProfileRef = await db.collection("userProfile").doc(requestId).get();
   const teamRef = await db.collection("teams").doc(teamId).get();
 
@@ -30,12 +29,39 @@ export async function approveTeamRequest(change: Change<QueryDocumentSnapshot>, 
       "teamRef": teamRef.ref,
     });
 
+    // clean up requests
     await db.collection("teams").doc(teamId).collection("requests").doc(userProfileRef.id).delete();
     await db.collection("userProfile").doc(userProfileRef.id).collection("teamRequests").doc(teamId).delete();
+
+    // send out mail to user
+    return db.collection("mail").add({
+      to: userProfileRef.data().email,
+      template: {
+        name: "TeamRequestApproved",
+        data: {
+          teamName: teamRef.data().name,
+          firstName: userProfileRef.data()?.firstName,
+          lastName: userProfileRef.data()?.lastName,
+        },
+      },
+    });
   } else if (change.after.data().approve === false) {
     console.log(`TEAM request NOT APPROVED ${requestRef.id}`);
+    // clean up requests
     await db.collection("teams").doc(teamId).collection("requests").doc(userProfileRef.id).delete();
     await db.collection("userProfile").doc(userProfileRef.id).collection("teamRequests").doc(teamId).delete();
+    // send out mail to user
+    return db.collection("mail").add({
+      to: userProfileRef.data().email,
+      template: {
+        name: "TeamRequestRejected",
+        data: {
+          teamName: teamRef.data().name,
+          firstName: userProfileRef.data()?.firstName,
+          lastName: userProfileRef.data()?.lastName,
+        },
+      },
+    });
   }
 
   // SEND EMAIL

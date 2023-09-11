@@ -10,7 +10,7 @@ import webpush = require("web-push");
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 
 const db = firebaseDAO.instance.db;
-// const auth = firebaseDAO.instance.auth;
+
 const gcmAPIKey = functions.config().webpush.gcmapikey;
 const publicKey = functions.config().webpush.publickey;
 const privateKey = functions.config().webpush.privatekey;
@@ -34,7 +34,6 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
     "userProfileRef": userProfileRef.ref,
   });
 
-  // DO NOT SEND PUSH - USER HAS NO PUSH ACTIVATED AT THIS POINT -> MAY CHANGE LATER
   // SEND REQUEST CONFIRMATION E-MAIL TO USER
   await db.collection("mail").add({
     to: userProfileRef.data()?.email,
@@ -48,10 +47,12 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
     },
   });
 
-  // SEND REQUEST E-MAIL TO CLUB ADMINs
+  // SEND REQUEST E-MAIL TO CLUB ADMIN
   const receipient = [];
+  console.log(`Get Admin from Club: ${clubId}`);
   const clubAdminRef = await db.collection("club").doc(clubId).collection("admins").get();
   for (const admin of clubAdminRef.docs) {
+    console.log(`Read Admin user for Club with id ${admin.id}`);
     const userProfileAdminRef = await db.collection("userProfile").doc(admin.id).get();
     if (userProfileAdminRef.exists) {
       if (userProfileAdminRef.data().settingsEmail === true) {
@@ -62,7 +63,7 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
         for (const push of userProfilePushRef.docs) {
           const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
               JSON.stringify( {
-                title: "Neue Beitrittsanfrage für deinen Verein " + clubRef.data().name,
+                title: "Neue Beitrittsanfrage für deinen Verein: " + clubRef.data().name,
                 message: `${userProfileRef.data()?.firstName} ${userProfileRef.data()?.lastName} (${userProfileRef.data()?.email}) möchte deinem Verein beitreten.`,
               }));
           console.log(">> SEND PUSH: ", statusCode, headers, body);

@@ -20,7 +20,7 @@ export async function approveClubRequest(change: Change<QueryDocumentSnapshot>, 
   const clubRef = await db.collection("club").doc(clubId).get();
 
   if (change.after.data().approve === true) {
-    console.log(`approve request ${requestRef.id}`);
+    console.log(`approve club request ${requestRef.id}`);
 
     await db.collection("club").doc(clubId).collection("members").doc(userProfileRef.id).set({
       "userProfileRef": userProfileRef.ref,
@@ -30,13 +30,6 @@ export async function approveClubRequest(change: Change<QueryDocumentSnapshot>, 
     await db.collection("userProfile").doc(userProfileRef.id).collection("clubs").doc(clubId).set({
       "clubRef": clubRef.ref,
     });
-
-    // Add user to teams
-    if (change.after.data().teams) {
-      for (const team of change.after.data().teams) {
-        console.log("add user to team: " + team.id);
-      }
-    }
 
     // clean up requests
     await db.collection("club").doc(clubId).collection("requests").doc(userProfileRef.id).delete();
