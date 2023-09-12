@@ -13,63 +13,34 @@ export async function createTeamTraining(snapshot: QueryDocumentSnapshot, contex
   const userId = context.params.userId;
   const trainingId = context.params.trainingId;
 
-  console.log("createTeamTraining" + trainingId);
-  return db.collection("userProfile").doc(userId).collection("trainings").doc(trainingId).delete();
+  const trainingData = snapshot.data();
 
-  /*
-  const trainingId = context.params.trainingId;
-
-
-  await db.collection("club").doc(clubId).collection("requests").doc(userId).set({
-    "userProfileRef": userProfileRef.ref,
-  });
-
-  // SEND REQUEST CONFIRMATION E-MAIL TO USER
-  await db.collection("mail").add({
-    to: userProfileRef.data()?.email,
-    template: {
-      name: "ClubRequestAdminEmail",
-      data: {
-        clubName: clubRef.data().name,
-        firstName: userProfileRef.data()?.firstName,
-      },
-    },
-  });
-
-  // SEND REQUEST E-MAIL TO CLUB ADMIN
-  const receipient = [];
-  const clubAdminRef = await db.collection("club").doc(clubId).collection("admins").get();
-  for (const admin of clubAdminRef.docs) {
-    const userProfileAdminRef = await db.collection("userProfile").doc(admin.id).get();
-    if (userProfileAdminRef.exists) {
-      receipient.push(userProfileAdminRef.data().email);
-    }
+  // let calculatedDate: Date = new Date();
+  let offSet = 0;
+  switch (trainingData.repeatFrequency) {
+    case "D":
+      offSet = 1000 * 60 * 60 * 24 * trainingData.repeatAmount;
+      break;
+    case "W":
+      offSet = 1000 * 60 * 60 * 24 * 7 * trainingData.repeatAmount;
+      break;
+    /* case "M":
+      offSet = 1000 * 60 * 60 * 24 * trainingData.repeatAmount;
+      break;
+    case "Y":
+      offSet = 1000 * 60 * 60 * 24 * trainingData.repeatAmount;
+      break;*/
+    default:
+      console.log("calculated other date.. ");
   }
 
-  return db.collection("mail").add({
-    to: receipient,
-    template: {
-      name: "ClubRequestAdminEmail",
-      data: {
-        clubName: clubRef.data().name,
-        firstName: userProfileRef.data()?.firstName,
-        lastName: userProfileRef.data()?.lastName,
-        email: userProfileRef.data()?.email,
-      },
-    },
-  });
-
-  // check if user has admin claims..
   /*
-  const adminUserRef = snapshot.data().userProfileRef || false;
-  if (adminUserRef) { // only provided in team Page call
-    const adminUser = await adminUserRef.get();
-    const user = await auth.getUser(adminUser.id);
-    if (user && user.customClaims && user.customClaims[teamId]) {
-      const userRef = await db.collection("userProfile").doc(userId).get();
-      await db.collection("teams").doc(teamId).collection("members").doc(`${userId}`).set({
-        "userProfileRef": userRef,
-      });
-    }
-  } */
+  do {
+    calculatedDate
+    result = result + i;
+  } while (i < 5);
+  */
+
+  console.log("createTeamTraining" + trainingId);
+  return db.collection("userProfile").doc(userId).collection("trainings").doc(trainingId).delete();
 }
