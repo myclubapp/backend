@@ -8,12 +8,10 @@ import firebaseDAO from "../../firebaseSingleton";
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 
 const db = firebaseDAO.instance.db;
-// const auth = firebaseDAO.instance.auth;
 
 export async function createTeamTraining(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
   const userId = context.params.userId;
   const trainingId = context.params.trainingId;
-  // const userProfileRef = await db.collection("userProfile").doc(userId).get();
 
   console.log("createTeamTraining" + trainingId);
   return db.collection("userProfile").doc(userId).collection("trainings").doc(trainingId).delete();
