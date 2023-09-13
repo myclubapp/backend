@@ -35,6 +35,8 @@ export async function createTeamTraining(snapshot: QueryDocumentSnapshot, contex
       console.log("calculated other date.. ");
   }
 
+  console.log(`Start Date used: ${trainingData.startDate}`);
+  console.log(`End Date used: ${trainingData.endDate}`);
 
   // Set Date based on first Training and Start Hours/minutes
   calculatedDate.setTime(new Date(trainingData.startDate).getTime());
@@ -51,6 +53,7 @@ export async function createTeamTraining(snapshot: QueryDocumentSnapshot, contex
   calculatedEndDate.setSeconds(0);
   calculatedEndDate.setMilliseconds(0);
 
+ 
   // Add Training Entry
   const newTrainingRef = await db.collection("teams").doc(trainingData.teamId).collection("trainings").add({
     ...trainingData,
@@ -61,6 +64,8 @@ export async function createTeamTraining(snapshot: QueryDocumentSnapshot, contex
     liga: teamRef.data().liga,
   });
   console.log("New Training: " + newTrainingRef.id + " " + calculatedDate.toISOString());
+  console.log(`Calculated Start Date used: ${calculatedDate}`);
+  console.log(`Calculated End Date used: ${calculatedEndDate}`);
 
   do {
     calculatedDate.setTime(calculatedDate.getTime() + offSet);
@@ -72,6 +77,7 @@ export async function createTeamTraining(snapshot: QueryDocumentSnapshot, contex
     calculatedEndDate.setSeconds(0);
     calculatedEndDate.setMilliseconds(0);
 
+
     // Add Training Entry
     const newTrainingRef = await db.collection("teams").doc(trainingData.teamId).collection("trainings").add({
       ...trainingData,
@@ -82,6 +88,8 @@ export async function createTeamTraining(snapshot: QueryDocumentSnapshot, contex
       liga: teamRef.data().liga,
     });
     console.log("New Training: " + newTrainingRef.id + " " + calculatedDate.toISOString());
+    console.log(`Calculated Start Date used: ${calculatedDate}`);
+    console.log(`Calculated End Date used: ${calculatedEndDate}`);
   } while (calculatedDate.getTime() <= new Date(trainingData.endDate).getTime());
 
 
