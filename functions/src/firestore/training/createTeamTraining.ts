@@ -14,8 +14,9 @@ export async function createTeamTraining(snapshot: QueryDocumentSnapshot, contex
   const trainingId = context.params.trainingId;
 
   const trainingData = snapshot.data();
+  const teamRef = await db.collection("teams").doc(trainingData.teamId).get();
 
-  // let calculatedDate: Date = new Date();
+  const calculatedDate: Date = new Date();
   let offSet = 0;
   switch (trainingData.repeatFrequency) {
     case "D":
@@ -34,12 +35,18 @@ export async function createTeamTraining(snapshot: QueryDocumentSnapshot, contex
       console.log("calculated other date.. ");
   }
 
-  /*
+  calculatedDate.setTime(trainingData.startDate.getTime());
   do {
-    calculatedDate
-    result = result + i;
-  } while (i < 5);
-  */
+    calculatedDate.setTime(calculatedDate.getTime() + offSet);
+
+    // Add Training Entry
+    db.collection("teams").doc(trainingData.teamId).collection("trainings").add({
+      ...trainingData,
+      date: calculatedDate,
+      teamName: teamRef.data().teamName,
+      liga: teamRef.data().liga,
+    });
+  } while (calculatedDate.getTime() < trainingData.endDate.getTime());
 
   console.log("createTeamTraining" + trainingId);
   return db.collection("userProfile").doc(userId).collection("trainings").doc(trainingId).delete();
