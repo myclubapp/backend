@@ -60,7 +60,7 @@ export async function createTeamTraining(snapshot: QueryDocumentSnapshot, contex
     teamName: teamRef.data().teamName,
     liga: teamRef.data().liga,
   });
-  console.log("New Training" + newTrainingRef.id);
+  console.log("New Training: " + newTrainingRef.id + " " + calculatedDate.toISOString());
 
   do {
     calculatedDate.setTime(calculatedDate.getTime() + offSet);
@@ -81,7 +81,7 @@ export async function createTeamTraining(snapshot: QueryDocumentSnapshot, contex
       teamName: teamRef.data().teamName,
       liga: teamRef.data().liga,
     });
-    console.log("New Training" + newTrainingRef.id);
+    console.log("New Training: " + newTrainingRef.id + " " + calculatedDate.toISOString());
   } while (calculatedDate.getTime() <= new Date(trainingData.endDate).getTime());
 
 
