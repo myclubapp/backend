@@ -35,6 +35,8 @@ export async function createTeamTraining(snapshot: QueryDocumentSnapshot, contex
       console.log("calculated other date.. ");
   }
 
+  console.log("Create Trainings for TeamId: " + teamRef.id);
+
   console.log(`Start Date used: ${trainingData.startDate}`);
   console.log(`End Date used: ${trainingData.endDate}`);
 
