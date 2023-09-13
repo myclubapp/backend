@@ -55,7 +55,7 @@ export async function createTeamTraining(snapshot: QueryDocumentSnapshot, contex
   calculatedEndDate.setSeconds(0);
   calculatedEndDate.setMilliseconds(0);
 
- 
+
   // Add Training Entry
   const newTrainingRef = await db.collection("teams").doc(trainingData.teamId).collection("trainings").add({
     ...trainingData,
