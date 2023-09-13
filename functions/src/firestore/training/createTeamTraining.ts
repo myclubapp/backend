@@ -44,7 +44,27 @@ export async function createTeamTraining(snapshot: QueryDocumentSnapshot, contex
   calculatedDate.setSeconds(0);
   calculatedDate.setMilliseconds(0);
 
+  // Set EndDate
+  const calculatedEndDate = calculatedDate;
+  calculatedEndDate.setHours(new Date(trainingData.timeTo).getHours());
+  calculatedEndDate.setMinutes(new Date(trainingData.timeTo).getMinutes());
+  calculatedEndDate.setSeconds(0);
+  calculatedEndDate.setMilliseconds(0);
+
+  // Add Training Entry
+  db.collection("teams").doc(trainingData.teamId).collection("trainings").add({
+    ...trainingData,
+    date: calculatedDate,
+    startDate: calculatedDate,
+    endDate: calculatedEndDate,
+    teamName: teamRef.data().teamName,
+    liga: teamRef.data().liga,
+  });
+
   do {
+    calculatedDate.setTime(calculatedDate.getTime() + offSet);
+
+
     // Set EndDate
     const calculatedEndDate = calculatedDate;
     calculatedEndDate.setHours(new Date(trainingData.timeTo).getHours());
@@ -61,8 +81,6 @@ export async function createTeamTraining(snapshot: QueryDocumentSnapshot, contex
       teamName: teamRef.data().teamName,
       liga: teamRef.data().liga,
     });
-    // Add Offset
-    calculatedDate.setTime(calculatedDate.getTime() + offSet);
   } while (calculatedDate.getTime() <= new Date(trainingData.endDate).getTime());
 
   console.log("createTeamTraining" + trainingId);
