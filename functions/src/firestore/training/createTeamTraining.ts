@@ -35,7 +35,7 @@ export async function createTeamTraining(snapshot: QueryDocumentSnapshot, contex
       console.log("calculated other date.. ");
   }
 
-  calculatedDate.setTime(trainingData.startDate.getTime());
+  calculatedDate.setTime(new Date(trainingData.startDate).getTime());
   do {
     calculatedDate.setTime(calculatedDate.getTime() + offSet);
 
@@ -46,7 +46,7 @@ export async function createTeamTraining(snapshot: QueryDocumentSnapshot, contex
       teamName: teamRef.data().teamName,
       liga: teamRef.data().liga,
     });
-  } while (calculatedDate.getTime() < trainingData.endDate.getTime());
+  } while (calculatedDate.getTime() < new Date(trainingData.endDate).getTime());
 
   console.log("createTeamTraining" + trainingId);
   return db.collection("userProfile").doc(userId).collection("trainings").doc(trainingId).delete();
