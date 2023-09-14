@@ -16,6 +16,17 @@ export async function createTeamTraining(snapshot: QueryDocumentSnapshot, contex
   const trainingData = snapshot.data();
   const teamRef = await db.collection("teams").doc(trainingData.teamId).get();
 
+  const teamAdminTeam = await db.collection("teams").doc(trainingData.teamId).collection("admins").doc(userId);
+  const teamAdminProfile = await db.collection("userProfile").doc(userId).collection("teamAdmin").doc(trainingData.teamId);
+
+  const user = await firebaseDAO.instance.auth.getUser(context.auth?.uid);
+  console.log("Custom Claim for User: " + user.customClaims[trainingData.teamId]);
+  if (!teamAdminTeam.exists || !teamAdminProfile.exists || userId ==! context.auth?.uid) {
+    console.error("NO PERMISSION");
+
+    return;
+  }
+
   const calculatedDate: Date = new Date();
   let offSet = 0; // in milliseconds
   switch (trainingData.repeatFrequency) {
@@ -36,7 +47,6 @@ export async function createTeamTraining(snapshot: QueryDocumentSnapshot, contex
   }
 
   console.log("Create Trainings for TeamId: " + teamRef.id);
-
   console.log(`Start Date used: ${trainingData.startDate}`);
   console.log(`End Date used: ${trainingData.endDate}`);
 
