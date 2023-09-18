@@ -96,7 +96,7 @@ export async function createTeamTraining(snapshot: QueryDocumentSnapshot, contex
       date: calculatedDate,
       startDate: calculatedDate,
       endDate: calculatedEndDate,
-      teamName: teamRef.data().teamName,
+      teamName: teamRef.data().name,
       liga: teamRef.data().liga,
     });
     console.log("New Training: " + newTrainingRef.id + " " + calculatedDate.toISOString());
