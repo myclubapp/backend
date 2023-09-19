@@ -404,7 +404,7 @@ async function getRankings(teamId: string, season: string) {
   }
   const data = await fetch("https://api-v2.swissunihockey.ch/api/rankings?season=" + season + "&team_id=" + teamId);
   const rankingData = await data.json();
-  console.log(JSON.stringify(rankingData));
+  // console.log(JSON.stringify(rankingData));
   const rankingList = < any > [];
   // rankingData.data.regions[0].rows.forEach((item: any) => {
   if (rankingData && rankingData.data && rankingData.data.regions && rankingData.data.regions.length > 0 && rankingData.data.regions[0].rows) {
