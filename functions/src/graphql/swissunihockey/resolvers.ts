@@ -411,7 +411,7 @@ async function getRankings(teamId: string, season: string) {
     rankingList.push({
       id: item.data.team.id,
       name: item.data.team.name, // 2 teamname
-      image: item.cells[1].iamge.url,
+      image: item.cells[1].image.url,
       games: item.cells[3].text[0], // Sp Spiele 3
       gamesSoW: item.cells[4].text[0], // SoW Spiele ohne Wertung 4
       wins: item.cells[5].text[0], // S Siege 5
