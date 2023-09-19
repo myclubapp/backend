@@ -212,8 +212,8 @@ export async function updateGamesSwissunihockey(): Promise<any> {
       // Get rankings
       const teamRankings = await resolversSU.Team.rankings({id: `${team.id}`}, {}, {}, {});
       for (const item of teamRankings) {
-        console.log(item);
-        // await db.collection("teams").doc(`su-${team.id}`).collection("ranking").doc(`su-${game.id}`).set({});
+        console.log(JSON.stringify(item));
+        // const ranking = await db.collection("teams").doc(`su-${team.id}`).collection("ranking").doc(`su-${game.id}`).set({});
       }
     }
   }
