@@ -410,9 +410,20 @@ async function getRankings(teamId: string, season: string) {
   for (const item of rankingData.data.regions[0].rows) {
     rankingList.push({
       id: item.data.team.id,
-      name: item.data.team.name,
-      ranking: item.data.rank,
+      name: item.data.team.name, // 2 teamname
+      image: item.cells[1].iamge.url,
+      games: item.cells[3].text[0], // Sp Spiele 3
+      gamesSoW: item.cells[4].text[0], // SoW Spiele ohne Wertung 4
+      wins: item.cells[5].text[0], // S Siege 5
+      loss: item.cells[7].text[0], // N Niederlage 7
+      draw: item.cells[6].text[0], // U Unentschieden 6
+      goals: item.cells[8].text[0], // T Tore 8
+      goalDifference: item.cells[9].text[0], // TD Tordifferenz 9
+      pointQuotient: item.cells[10].text[0], // PQ 10
+      points: item.cells[11].text[0], // P 11
+      ranking: item.data.rank, // 0
       season: season,
+      title: rankingData.data.title,
     });
   }
   // });
