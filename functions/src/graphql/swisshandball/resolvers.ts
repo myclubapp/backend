@@ -261,34 +261,35 @@ async function getClubGames(clubId: string) {
   const gameData = await data.json();
   const gameList = < any > [];
   gameData.forEach((item: any) => {
+    console.log(item);
     gameList.push({
       id: item.gameId,
-      name: item.data.title,
-      description: item.data.subtitle,
+      name: item.title,
+      description: item.subtitle,
 
       teamHomeId: "sh-",
-      teamHome: item.data.teamAName,
+      teamHome: item.teamAName,
       teamHomeLogo: "",
-      teamHomeLogoText: "Logo " + item.data.teamAName,
+      teamHomeLogoText: "Logo " + item.teamAName,
 
       teamAwayId: "sh-",
-      teamAway: item.data.teamBName,
+      teamAway: item.teamBName,
       teamAwayLogo: "",
-      teamAwayLogoText: "Logo " + item.data.teamBName,
+      teamAwayLogoText: "Logo " + item.teamBName,
 
-      liga: item.data.leagueShort,
-      ligaText: item.data.leagueLong,
+      liga: item.leagueShort,
+      ligaText: item.leagueLong,
 
-      venue: item.data.venue,
-      venueAddress: item.data.venueAddress,
-      venueZip: item.data.venueZip,
-      venueCity: item.data.venueCity,
+      venue: item.venue,
+      venueAddress: item.venueAddress,
+      venueZip: item.venueZip,
+      venueCity: item.venueCity,
 
       referee1: "",
       referee2: "",
 
-      spectators: item.data.spectators,
-      result: item.data.teamAScoreFT + ":" + item.data.teamBScoreFT + "(" + item.data.teamAScoreHT + ":" + item.data.teamBScoreHT + ")",
+      spectators: item.spectators,
+      result: item.teamAScoreFT + ":" + item.teamBScoreFT + "(" + item.teamAScoreHT + ":" + item.teamBScoreHT + ")",
     });
   });
   return gameList;
