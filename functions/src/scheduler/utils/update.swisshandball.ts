@@ -130,7 +130,7 @@ export async function updateClubsSwisshandball(): Promise<any> {
 
 export async function updateNewsSwisshandball(): Promise<any> {
   console.log("Update NEWS swisshandball");
-  const newsData = await resolversSH.SwissHandball.news();
+  // const newsData = await resolversSH.SwissHandball.news();
 
   return new Promise(() => {
     return true;

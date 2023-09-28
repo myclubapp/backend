@@ -357,9 +357,9 @@ async function getGames(teamId: string) {
   return gameList;
 }
 
-async function getGame(gameId: string) {
-  // DOES NOT EXIST
-  /* const data = await fetch("https://api.handball.ch/rest/v1/games/" + gameId, {
+// async function getGame(gameId: string) {
+// DOES NOT EXIST
+/* const data = await fetch("https://api.handball.ch/rest/v1/games/" + gameId, {
     headers: headers,
   });
   const gameData = await data.json();
@@ -417,7 +417,7 @@ async function getGame(gameId: string) {
       "spectators": 45,
       "roundNr": 5
   }, */
-}
+// }
 
 
 async function getRankings(teamId: string) {
