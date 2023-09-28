@@ -65,9 +65,6 @@ export default {
     }, context: any, info: any) => {
       return getClubGames(args.clubId);
     },
-    game: (parent: any, args: {gameId: string }, context: any, info: any) => {
-      return getGame(args.gameId);
-    },
     rankings: (parent: any, args: {
       id: string;season: string;
     }, context: any, info: any) => {
@@ -361,7 +358,8 @@ async function getGames(teamId: string) {
 }
 
 async function getGame(gameId: string) {
-  const data = await fetch("https://api.handball.ch/rest/v1/games/" + gameId, {
+  // DOES NOT EXIST
+  /* const data = await fetch("https://api.handball.ch/rest/v1/games/" + gameId, {
     headers: headers,
   });
   const gameData = await data.json();

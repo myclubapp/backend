@@ -26,8 +26,8 @@ export async function updateGamesSwisshandball(): Promise<any> {
       const game = clubGamesData[i];
       console.log(`>> Read Club Game:  ${game.id}`);
 
-      // Get Game Detail
-      const gameDetail = await resolversSH.SwissHandball.game({}, {gameId: game.id}, {}, {});
+      // Get Game Detail --> Does not edxist for handball
+      // const gameDetail = await resolversSH.SwissHandball.game({}, {gameId: game.id}, {}, {});
 
       await db.collection("club").doc(`sh-${club.id}`).collection("games").doc(`sh-${game.id}`).set({
         externalId: `${game.id}`,
@@ -44,22 +44,22 @@ export async function updateGamesSwisshandball(): Promise<any> {
         liga: game.liga,
         ligaText: game.ligaText,
 
-        name: gameDetail.name,
-        description: gameDetail.description,
+        name: game.name,
+        description: game.description,
 
-        teamHomeId: gameDetail.teamHomeId,
-        teamHome: gameDetail.teamHome,
-        teamHomeLogo: gameDetail.teamHomeLogo,
-        teamHomeLogoText: gameDetail.teamHomeLogoText,
+        teamHomeId: game.teamHomeId,
+        teamHome: game.teamHome,
+        teamHomeLogo: game.teamHomeLogo,
+        teamHomeLogoText: game.teamHomeLogoText,
 
-        teamAwayId: gameDetail.teamAwayId,
-        teamAway: gameDetail.teamAway,
-        teamAwayLogo: gameDetail.teamAwayLogo,
-        teamAwayLogoText: gameDetail.teamAwayLogoText,
+        teamAwayId: game.teamAwayId,
+        teamAway: game.teamAway,
+        teamAwayLogo: game.teamAwayLogo,
+        teamAwayLogoText: game.teamAwayLogoText,
 
-        referee1: gameDetail.referee1,
-        referee2: gameDetail.referee2,
-        spectators: gameDetail.spectators,
+        referee1: game.referee1,
+        referee2: game.referee2,
+        spectators: game.spectators,
 
         result: game.result,
 
@@ -130,4 +130,13 @@ export async function updateClubsSwisshandball(): Promise<any> {
       });
     }
   }
+}
+
+export async function updateNewsSwisshandball(): Promise<any> {
+  console.log("Update NEWS swisshandball");
+  const newsData = await resolversSH.SwissHandball.news();
+
+  return new Promise(()=>{
+    return true;
+  });
 }
