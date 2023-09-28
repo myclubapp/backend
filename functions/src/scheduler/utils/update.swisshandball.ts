@@ -30,39 +30,8 @@ export async function updateGamesSwisshandball(): Promise<any> {
       // const gameDetail = await resolversSH.SwissHandball.game({}, {gameId: game.id}, {}, {});
 
       await db.collection("club").doc(`sh-${club.id}`).collection("games").doc(`sh-${game.id}`).set({
+        ...game,
         externalId: `${game.id}`,
-        date: game.date,
-        time: game.time,
-        dateTime: game.date,
-
-        venue: game.venue,
-        venueCity: game.venueCity,
-
-        longitude: game.longitude,
-        latitude: game.latitude,
-
-        liga: game.liga,
-        ligaText: game.ligaText,
-
-        name: game.name,
-        description: game.description,
-
-        teamHomeId: game.teamHomeId,
-        teamHome: game.teamHome,
-        teamHomeLogo: game.teamHomeLogo,
-        teamHomeLogoText: game.teamHomeLogoText,
-
-        teamAwayId: game.teamAwayId,
-        teamAway: game.teamAway,
-        teamAwayLogo: game.teamAwayLogo,
-        teamAwayLogoText: game.teamAwayLogoText,
-
-        referee1: game.referee1,
-        referee2: game.referee2,
-        spectators: game.spectators,
-
-        result: game.result,
-
         type: "swisshandball",
         updated: new Date(),
         clubRef: clubData.ref,
@@ -70,9 +39,36 @@ export async function updateGamesSwisshandball(): Promise<any> {
         merge: true,
       });
     }
+    // TEAM GAMES
+    // TODO -> GET FROM DB instead of API -> Teams should be updated with another JOB
+    const teamData = await resolversSH.Club.teams({id: `${club.id}`}, {}, {}, {});
+    for (const team of teamData) {
+      console.log(`>> Team: ${team.id} ${team.name} ${team.liga} `);
+      const gamesData = await resolversSH.Team.games({id: `${team.id}`}, {}, {}, {});
+      for (const i in gamesData) {
+        const game = gamesData[i];
+        console.log(`>>> Read Team Game:  ${game.id}`);
+
+        const clubRef = await db.collection("club").doc(`su-${club.id}`).get();
+        const teamRef = await db.collection("teams").doc(`su-${team.id}`).get();
+        console.log("read match report for game: " + game.id);
+
+        // await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).get();
+        await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).set({
+          ...game,
+          externalId: `${game.id}`,
+
+          type: "swisshandball",
+          updated: new Date(),
+          clubRef: clubRef.ref,
+          teamRef: teamRef.ref,
+        }, {
+          merge: true,
+        });
+      }
+    }
   }
 }
-
 export async function updateTeamsSwisshandball(): Promise<any> {
   console.log("Update Teams SwissHandball");
   const clubData = await resolversSH.SwissHandball.clubs();
@@ -136,7 +132,7 @@ export async function updateNewsSwisshandball(): Promise<any> {
   console.log("Update NEWS swisshandball");
   const newsData = await resolversSH.SwissHandball.news();
 
-  return new Promise(()=>{
+  return new Promise(() => {
     return true;
   });
 }
