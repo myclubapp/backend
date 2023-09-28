@@ -120,11 +120,11 @@ export async function updateClubsSwisshandball(): Promise<any> {
       merge: true,
     });
 
-    for (const address of club.address) {
+    /* for (const address of club.address) {
       await db.collection("club").doc(`sh-${club.id}`).collection("contacts").doc(`sh-${address.id}`).set(address, {
         merge: true,
       });
-    }
+    } */
   }
 }
 
