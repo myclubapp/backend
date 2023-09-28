@@ -117,7 +117,7 @@ async function getClubs() {
   // console.log(clubData);
   const clubList = < any > [];
   for (const item of clubData) {
-    const contactDataRequest = await fetch("https://www.handball.ch/Umbraco/Api/MatchCenter/Query", {
+    /* const contactDataRequest = await fetch("https://www.handball.ch/Umbraco/Api/MatchCenter/Query", {
       "headers": {
         "content-type": "application/json",
         "__RequestVerificationToken": "Wtq36irQvaqcaf7CxprqiNm5KqIj1lV6FUmjv5oAVHr12jELhomIm-pah3Z-XEZAoUOxLmsI2c6vmZp_xUZr5arLqCY1",
@@ -180,18 +180,18 @@ async function getClubs() {
         foundingYear: contact.foundingYear || "",
         address: addressArray,
       });
-    } else {
-      clubList.push({
-        id: item.clubId,
-        name: item.clubName,
-        logo: `https://www.handball.ch/images/club/${item.clubId}.png?height=140&language=de-CH`,
-        website: "",
-        latitude: "",
-        longitude: "",
-        foundingYear: "",
-        address: addressArray,
-      });
-    }
+    } else { */
+    clubList.push({
+      id: item.clubId,
+      name: item.clubName,
+      logo: `https://www.handball.ch/images/club/${item.clubId}.png?height=140&language=de-CH`,
+      website: "",
+      latitude: "",
+      longitude: "",
+      foundingYear: "",
+      // address: addressArray,
+    });
+  //  }
   }
   return clubList;
 }
@@ -203,7 +203,7 @@ async function getClub(clubId: string) {
   const clubData = await data.json();
   console.log(clubData);
 
-  const contactDataRequest = await fetch("https://www.handball.ch/Umbraco/Api/MatchCenter/Query", {
+  /* const contactDataRequest = await fetch("https://www.handball.ch/Umbraco/Api/MatchCenter/Query", {
     "headers": {
       "content-type": "application/json",
       "__RequestVerificationToken": "Wtq36irQvaqcaf7CxprqiNm5KqIj1lV6FUmjv5oAVHr12jELhomIm-pah3Z-XEZAoUOxLmsI2c6vmZp_xUZr5arLqCY1",
@@ -240,16 +240,16 @@ async function getClub(clubId: string) {
     email: contact.email,
     phone: contact.phone,
   }];
-
+  */
   return {
     id: clubId,
     name: clubData.clubName,
     logo: `https://www.handball.ch/images/club/${clubId}.png?height=140&language=de-CH`,
-    website: contact.website || "",
+  /* website: contact.website || "",
     latitude: contact.latitude || "",
     longitude: contact.longitude || "",
     foundingYear: contact.foundingYear || "",
-    address: addressArray,
+    address: addressArray, */
   };
 }
 
