@@ -65,7 +65,6 @@ export default {
     }, context: any, info: any) => {
       return getClubGames(args.clubId);
     },
-
     rankings: (parent: any, args: {
       id: string;season: string;
     }, context: any, info: any) => {
@@ -264,6 +263,32 @@ async function getClubGames(clubId: string) {
   gameData.forEach((item: any) => {
     gameList.push({
       id: item.gameId,
+      name: item.data.title,
+      description: item.data.subtitle,
+
+      teamHomeId: "sh-",
+      teamHome: item.data.teamAName,
+      teamHomeLogo: "",
+      teamHomeLogoText: "Logo " + item.data.teamAName,
+
+      teamAwayId: "sh-",
+      teamAway: item.data.teamBName,
+      teamAwayLogo: "",
+      teamAwayLogoText: "Logo " + item.data.teamBName,
+
+      liga: item.data.leagueShort,
+      ligaText: item.data.leagueLong,
+
+      venue: item.data.venue,
+      venueAddress: item.data.venueAddress,
+      venueZip: item.data.venueZip,
+      venueCity: item.data.venueCity,
+
+      referee1: "",
+      referee2: "",
+
+      spectators: item.data.spectators,
+      result: item.data.teamAScoreFT + ":" + item.data.teamBScoreFT + "(" + item.data.teamAScoreHT + ":" + item.data.teamBScoreHT + ")",
     });
   });
   return gameList;
@@ -278,6 +303,32 @@ async function getGames(teamId: string) {
   gameData.forEach((item: any) => {
     gameList.push({
       id: item.gameId,
+      name: gameData.data.title,
+      description: gameData.data.subtitle,
+
+      teamHomeId: "sh-",
+      teamHome: gameData.data.teamAName,
+      teamHomeLogo: "",
+      teamHomeLogoText: "Logo " + gameData.data.teamAName,
+
+      teamAwayId: "sh-",
+      teamAway: gameData.data.teamBName,
+      teamAwayLogo: "",
+      teamAwayLogoText: "Logo " + gameData.data.teamBName,
+
+      liga: gameData.data.leagueShort,
+      ligaText: gameData.data.leagueLong,
+
+      venue: gameData.data.venue,
+      venueAddress: gameData.data.venueAddress,
+      venueZip: gameData.data.venueZip,
+      venueCity: gameData.data.venueCity,
+
+      referee1: "",
+      referee2: "",
+
+      spectators: gameData.data.spectators,
+      result: gameData.data.teamAScoreFT + ":" + gameData.data.teamBScoreFT + "(" + gameData.data.teamAScoreHT + ":" + gameData.data.teamBScoreHT + ")",
     });
     /*     {
         "gameId": 423129,
@@ -304,6 +355,68 @@ async function getGames(teamId: string) {
     }, */
   });
   return gameList;
+}
+
+async function getGame(gameId: string) {
+  // DOES NOT EXIST
+  /* const data = await fetch("https://api.handball.ch/rest/v1/games/" + gameId, {
+    headers: headers,
+  });
+  const gameData = await data.json();
+
+  return {
+    id: gameData.gameId,
+    name: gameData.data.title,
+    description: gameData.data.subtitle,
+
+    teamHomeId: "sh-",
+    teamHome: gameData.data.teamAName,
+    teamHomeLogo: "",
+    teamHomeLogoText: "Logo " + gameData.data.teamAName,
+
+    teamAwayId: "sh-",
+    teamAway: gameData.data.teamBName,
+    teamAwayLogo: "",
+    teamAwayLogoText: "Logo " + gameData.data.teamBName,
+
+    liga: gameData.data.leagueShort,
+    ligaText: gameData.data.leagueLong,
+
+    venue: gameData.data.venue,
+    venueAddress: gameData.data.venueAddress,
+    venueZip: gameData.data.venueZip,
+    venueCity: gameData.data.venueCity,
+
+    referee1: "",
+    referee2: "",
+
+    spectators: gameData.data.spectators,
+    result: gameData.data.teamAScoreFT + ":" + gameData.data.teamBScoreFT + "(" + gameData.data.teamAScoreHT + ":" + gameData.data.teamBScoreHT + ")",
+  };
+
+  /*     {
+      "gameId": 423129,
+      "gameNr": 1795,
+      "gameDateTime": "2021-09-04T15:00:00",
+      "gameTypeLong": "Hallenmeisterschaft",
+      "gameTypeShort": "MS",
+      "teamAName": "Kadetten Schaffhausen",
+      "teamBName": "SG Arbon Lakers",
+      "leagueLong": "Junioren U13 Inter",
+      "leagueShort": "MU13I",
+      "round": null,
+      "gameStatus": "Gespielt",
+      "teamAScoreHT": 21,
+      "teamBScoreHT": 3,
+      "teamAScoreFT": 47,
+      "teamBScoreFT": 7,
+      "venue": "Schaffhausen BBC Arena B",
+      "venueAddress": "Schweizersbildstrasse 10",
+      "venueZip": 8207,
+      "venueCity": "Schaffhausen",
+      "spectators": 45,
+      "roundNr": 5
+  }, */
 }
 
 
