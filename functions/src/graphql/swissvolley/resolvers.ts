@@ -38,8 +38,8 @@ export default {
     game: (parent: any, args: {gameId: string }, context: any, info: any) => {
       return getGame(args.gameId);
     },
-    clubGames: (parent: any, args: {id: string;season: string; }, context: any, info: any) => {
-      return getClubGames(args.id);
+    clubGames: (parent: any, args: {clubId: string;season: string; }, context: any, info: any) => {
+      return getClubGames(args.clubId);
     },
 
     associations: (parent: any, args: any, context: any, info: any) => {

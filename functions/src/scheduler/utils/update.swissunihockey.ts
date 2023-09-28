@@ -5,7 +5,7 @@
 /* eslint-disable require-jsdoc */
 
 import * as firebase from "firebase-admin";
-// import * as functions from "firebase-functions";
+
 import firebaseDAO from "./../../firebaseSingleton";
 import resolversSU from "./../../graphql/swissunihockey/resolvers";
 // import OpenAI from "openai";
@@ -48,7 +48,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           console.log("abgesagt -> new Date()");
           game.date = new Date().toISOString();
           game.date = game.date.substr(8, 2) + "." + game.date.substr(5, 2) + "." + game.date.substr(0, 4);
-        // get creative :)
+          // get creative :)
         } else {
           // Date & TIme can be fetched from previous import
           const previousImported = await db.collection("club").doc(`su-${club.id}`).collection("games").doc(`su-${game.id}`).get();
@@ -62,8 +62,8 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         }
         game.time = "00:00";
       } else {
-      // Alles normal
-      // game.date = "11.03.2023"
+        // Alles normal
+        // game.date = "11.03.2023"
       }
       // console.log(`Game Time: ${game.time} / Game Date: ${game.date}`);
       const gameDateTime: firebase.firestore.Timestamp = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
@@ -73,11 +73,13 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         date: game.date,
         time: game.time,
         dateTime: gameDateTime,
-        location: game.location,
-        city: game.city,
+        venue: game.venue,
+        venueCity: game.venueCity,
+
         longitude: game.longitude,
         latitude: game.latitude,
         liga: game.liga,
+        ligaText: game.ligaText,
 
         name: gameDetail.name,
         description: gameDetail.description,
@@ -124,7 +126,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
             console.log("abgesagt -> new D4ate()");
             game.date = new Date().toISOString();
             game.date = game.date.substr(8, 2) + "." + game.date.substr(5, 2) + "." + game.date.substr(0, 4);
-          // get creative :)
+            // get creative :)
           } else {
             // Date & TIme can be fetched from previous import
             const previousImported = await db.collection("club").doc(`su-${club.id}`).collection("games").doc(`su-${game.id}`).get();
@@ -138,8 +140,8 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           }
           game.time = "00:00";
         } else {
-        // Alles normal
-        // game.date = "11.03.2023"
+          // Alles normal
+          // game.date = "11.03.2023"
         }
         // console.log(`Game Time: ${game.time} / Game Date: ${game.date}`);
         const gameDateTime: firebase.firestore.Timestamp = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));

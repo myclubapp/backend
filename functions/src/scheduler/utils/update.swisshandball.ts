@@ -1,11 +1,77 @@
+/* eslint-disable guard-for-in */
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable require-jsdoc */
 import firebaseDAO from "./../../firebaseSingleton";
-const db = firebaseDAO.instance.db;
-
 import resolversSH from "./../../graphql/swisshandball/resolvers";
 
+const db = firebaseDAO.instance.db;
+
+export async function updateGamesSwisshandball(): Promise<any> {
+  console.log("Update Games swisshandball");
+
+  // Get Clubs from DB where Type = SWISS HANDBALL && STATUS is active
+  const clubListRef = await db.collection("club").where("active", "==", true).where("type", "==", "swisshandball").get();
+  for (const clubData of clubListRef.docs) {
+    // create Club Object from DB.
+    const club = {...{id: clubData.data().externalId}, ...clubData.data()};
+
+    // GET CLUB GAMES
+    console.log(`>:  ${club.id} ${club.name}`);
+
+    // Get ALL CLUB GAMES from club based on API from SWISS HANDBALL
+    const clubGamesData = await resolversSH.Club.games({id: `${club.id}`}, {}, {}, {});
+    for (const i in clubGamesData) {
+      // Create Game Object
+      const game = clubGamesData[i];
+      console.log(`>> Read Club Game:  ${game.id}`);
+
+      // Get Game Detail
+      const gameDetail = await resolversSH.SwissHandball.game({}, {gameId: game.id}, {}, {});
+
+      await db.collection("club").doc(`sh-${club.id}`).collection("games").doc(`sh-${game.id}`).set({
+        externalId: `${game.id}`,
+        date: game.date,
+        time: game.time,
+        dateTime: game.date,
+
+        venue: game.venue,
+        venueCity: game.venueCity,
+
+        longitude: game.longitude,
+        latitude: game.latitude,
+
+        liga: game.liga,
+        ligaText: game.ligaText,
+
+        name: gameDetail.name,
+        description: gameDetail.description,
+
+        teamHomeId: gameDetail.teamHomeId,
+        teamHome: gameDetail.teamHome,
+        teamHomeLogo: gameDetail.teamHomeLogo,
+        teamHomeLogoText: gameDetail.teamHomeLogoText,
+
+        teamAwayId: gameDetail.teamAwayId,
+        teamAway: gameDetail.teamAway,
+        teamAwayLogo: gameDetail.teamAwayLogo,
+        teamAwayLogoText: gameDetail.teamAwayLogoText,
+
+        referee1: gameDetail.referee1,
+        referee2: gameDetail.referee2,
+        spectators: gameDetail.spectators,
+
+        result: game.result,
+
+        type: "swisshandball",
+        updated: new Date(),
+        clubRef: clubData.ref,
+      }, {
+        merge: true,
+      });
+    }
+  }
+}
 
 export async function updateTeamsSwisshandball(): Promise<any> {
   console.log("Update Teams SwissHandball");
