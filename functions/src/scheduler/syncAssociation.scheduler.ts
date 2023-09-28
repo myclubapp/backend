@@ -22,8 +22,8 @@ const fetch = require("node-fetch");
 export async function updatePersistenceJobClubs(context: EventContext) {
   try {
     await updateClubsSwissunihockey();
-    await updateClubsSwissvolleyball();
     await updateClubsSwisshandball();
+    await updateClubsSwissvolleyball();
     await updateClubsSwissturnverband();
     await updateClubsSwisstennis();
   } catch (err) {
@@ -34,8 +34,8 @@ export async function updatePersistenceJobClubs(context: EventContext) {
 export async function updatePersistenceJobTeams(context: EventContext) {
   try {
     await updateTeamsSwissunihockey();
-    await updateTeamsSwissvolleyball();
     await updateTeamsSwisshandball();
+    await updateTeamsSwissvolleyball();
     await updateTeamsSwissturnverband();
   } catch (err) {
     console.error(err);
