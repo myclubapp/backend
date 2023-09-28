@@ -304,32 +304,32 @@ async function getGames(teamId: string) {
   gameData.forEach((item: any) => {
     gameList.push({
       id: item.gameId,
-      name: gameData.data.title,
-      description: gameData.data.subtitle,
+      name: item.title,
+      description: item.subtitle,
 
       teamHomeId: "sh-",
-      teamHome: gameData.data.teamAName,
+      teamHome: item.teamAName,
       teamHomeLogo: "",
-      teamHomeLogoText: "Logo " + gameData.data.teamAName,
+      teamHomeLogoText: "Logo " + item.teamAName,
 
       teamAwayId: "sh-",
-      teamAway: gameData.data.teamBName,
+      teamAway: item.teamBName,
       teamAwayLogo: "",
-      teamAwayLogoText: "Logo " + gameData.data.teamBName,
+      teamAwayLogoText: "Logo " + item.teamBName,
 
-      liga: gameData.data.leagueShort,
-      ligaText: gameData.data.leagueLong,
+      liga: item.leagueShort,
+      ligaText: item.leagueLong,
 
-      venue: gameData.data.venue,
-      venueAddress: gameData.data.venueAddress,
-      venueZip: gameData.data.venueZip,
-      venueCity: gameData.data.venueCity,
+      venue: item.venue,
+      venueAddress: item.venueAddress,
+      venueZip: item.venueZip,
+      venueCity: item.venueCity,
 
       referee1: "",
       referee2: "",
 
-      spectators: gameData.data.spectators,
-      result: gameData.data.teamAScoreFT + ":" + gameData.data.teamBScoreFT + "(" + gameData.data.teamAScoreHT + ":" + gameData.data.teamBScoreHT + ")",
+      spectators: item.spectators,
+      result: item.teamAScoreFT + ":" + item.teamBScoreFT + "(" + item.teamAScoreHT + ":" + item.teamBScoreHT + ")",
     });
     /*     {
         "gameId": 423129,
