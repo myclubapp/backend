@@ -21,6 +21,31 @@ export async function sendReportingJobMember(context: EventContext) {
         console.log(`>>> ${userProfile.data().firstName}`);
 
         if (userProfile.data().settingsEmailReporting) {
+          // GET ALL TEAMS & CLUBS for Member
+          const teamList = await db.collection("userProfile").doc(userProfile.id).collection("teams").get();
+          if (!teamList.empty) {
+            // Loop über Teams
+            for (const team of teamList.docs) {
+              console.log(`> ${team.data().name}`);
+              /*
+              const teamTrainingList = await db.collection("teams").doc(team.id).collection("training").where().get();
+              const teamNewsList = await db.collection("teams").doc(team.id).collection("news").where().get();
+              */
+            }
+          }
+
+          const clubList = await db.collection("userProfile").doc(userProfile.id).collection("clubs").get();
+          if (!clubList.empty) {
+            // Loop über Clubs
+            for (const club of clubList.docs) {
+              console.log(`> ${club.data().name}`);
+              /* const clubNewsList = await db.collection("club").doc(club.id).collection("news").where().get();
+              const clubEventsList = await db.collection("club").doc(club.id).collection("events").where().get();
+              const clubHelferEventsList = await db.collection("club").doc(club.id).collection("helfer").where().get();
+              */
+            }
+          }
+
           // GET DATA
           getNews();
           getEvents();
@@ -45,7 +70,7 @@ export async function sendReportingJobMember(context: EventContext) {
 }
 
 function getNews() {
-  console.log("news");
+  console.log("Get Past News from Member");
 }
 
 function getTrainings() {
