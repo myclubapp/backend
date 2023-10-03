@@ -19,7 +19,7 @@ export async function approveTeamRequest(change: Change<QueryDocumentSnapshot>, 
   const userProfileRef = await db.collection("userProfile").doc(requestId).get();
   const teamRef = await db.collection("teams").doc(teamId).get();
 
-  if (change.after.data().approve === true) {
+  if ("approve" in change.after.data() && change.after.data().approve === true) {
     console.log(`approve request ${requestRef.id}`);
 
     await db.collection("teams").doc(teamId).collection("members").doc(userProfileRef.id).set({
@@ -45,7 +45,7 @@ export async function approveTeamRequest(change: Change<QueryDocumentSnapshot>, 
         },
       },
     });
-  } else if (change.after.data().approve === false) {
+  } else if ("approve" in change.after.data() && change.after.data().approve === false) {
     console.log(`TEAM request NOT APPROVED ${requestRef.id}`);
     // clean up requests
     await db.collection("teams").doc(teamId).collection("requests").doc(userProfileRef.id).delete();
