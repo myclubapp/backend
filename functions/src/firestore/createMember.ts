@@ -14,17 +14,17 @@ export async function createTeamMember(snapshot: QueryDocumentSnapshot, context:
   const userId = context.params.userId;
   const teamId = context.params.teamId;
 
-  // check if user has admin claims..
-  const adminUserRef = snapshot.data().userProfileRef || false;
-  if (adminUserRef) { // only provided in team Page call
-    const adminUser = await adminUserRef.get();
-    const user = await auth.getUser(adminUser.id);
-    if (user && user.customClaims && user.customClaims[teamId]) {
-      const userRef = await db.collection("userProfile").doc(userId).get();
-      await db.collection("teams").doc(teamId).collection("members").doc(`${userId}`).set({
-        "userProfileRef": userRef,
-      });
-    }
+  const adminUser = await auth.getUser(context.auth?.uid);
+  if (adminUser && adminUser.customClaims && adminUser.customClaims[teamId]) {
+    const userRef = await db.collection("userProfile").doc(userId).get();
+    await db.collection("teams").doc(teamId).collection("members").doc(`${userId}`).set({
+      "userProfileRef": userRef,
+    });
+    /*
+    Not needed!
+    await db.collection("userProfile").doc(userId).collection("team").doc(`${teamId}`).set({
+      "teamRef": teamRef,
+    }); */
   }
 }
 
@@ -33,16 +33,16 @@ export async function createClubMember(snapshot: QueryDocumentSnapshot, context:
   const userId = context.params.userId;
   const clubId = context.params.clubId;
 
-  // check if user has admin claims..
-  const adminUserRef = snapshot.data().userProfileRef || false;
-  if (adminUserRef) { // only provided in club Page call
-    const adminUser = await adminUserRef.get();
-    const user = await auth.getUser(adminUser.id);
-    if (user && user.customClaims && user.customClaims[clubId]) {
-      const userRef = await db.collection("userProfile").doc(userId).get();
-      await db.collection("club").doc(clubId).collection("members").doc(`${userId}`).set({
-        "userProfileRef": userRef,
-      });
-    }
+  const adminUser = await auth.getUser(context.auth?.uid);
+  if (adminUser && adminUser.customClaims && adminUser.customClaims[clubId]) {
+    const userRef = await db.collection("userProfile").doc(userId).get();
+    await db.collection("club").doc(clubId).collection("members").doc(`${userId}`).set({
+      "userProfileRef": userRef,
+    });
+    /*
+    Not needed!
+    await db.collection("userProfile").doc(userId).collection("team").doc(`${teamId}`).set({
+      "teamRef": teamRef,
+    }); */
   }
 }
