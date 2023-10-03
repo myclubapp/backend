@@ -9,7 +9,7 @@ import {authUserDeleteUserSendByEmail, authUserDeleteUserAccount} from "./auth/u
 import {createClubAdmin, createTeamAdmin} from "./firestore/createAdmin";
 import {createClubMember, createTeamMember} from "./firestore/createMember";
 import {deleteClubAdmin, deleteTeamAdmin} from "./firestore/deleteAdmin";
-import {deleteClubMember, deleteTeamMember, deleteMemberFromClub, deleteMemberFromTeam} from "./firestore/deleteMember";
+import {deleteClubMember, deleteTeamMember} from "./firestore/deleteMember";
 import {createClubRequest} from "./firestore/request/createClubRequest";
 import {createTeamRequest} from "./firestore/request/createTeamRequest";
 import {deleteClubRequest} from "./firestore/request/deleteClubRequest";
@@ -66,12 +66,11 @@ export const dbAddTeamAdmin = functions.region("europe-west6").firestore.documen
 // DB Hooks CLUB
 export const dbRemoveClubMember = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubs/{clubId}").onDelete(deleteClubMember);
 export const dbRemoveClubAdmin = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubAdmin/{clubId}").onDelete(deleteClubAdmin);
-
 export const dbAddClubMember = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubs/{clubId}").onCreate(createClubMember);
 export const dbAddClubAdmin = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubAdmin/{clubId}").onCreate(createClubAdmin);
 
-export const dbRemoveMemberFromClub = functions.region("europe-west6").firestore.document("/club/{clubId}/members/{userId}").onDelete(deleteMemberFromClub);
-export const dbRemoveMemberFromTeam = functions.region("europe-west6").firestore.document("/teams/{teamId}/members/{userId}").onDelete(deleteMemberFromTeam);
+// export const dbRemoveMemberFromClub = functions.region("europe-west6").firestore.document("/club/{clubId}/members/{userId}").onDelete(deleteMemberFromClub);
+// export const dbRemoveMemberFromTeam = functions.region("europe-west6").firestore.document("/teams/{teamId}/members/{userId}").onDelete(deleteMemberFromTeam);
 
 // DB Hooks REQUESTS
 // user perspective: create Request in onboarding

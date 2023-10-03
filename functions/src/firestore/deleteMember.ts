@@ -10,7 +10,7 @@ import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore"
 // const db = firebaseDAO.instance.db;
 const auth = firebaseDAO.instance.auth;
 
-export async function deleteMemberFromTeam(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
+/* export async function deleteMemberFromTeam(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
   console.log("Delete Member From Club");
   // const userId = context.params.userId;
   // const teamId = context.params.teamId;
@@ -18,7 +18,7 @@ export async function deleteMemberFromTeam(snapshot: QueryDocumentSnapshot, cont
   // TODO -> Remove from Team Admin /teams/XXX/admins
 
   // TODO -> remove from userProfile of user as well...
-}
+} */
 
 export async function deleteTeamMember(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
   console.log("Self remove via User Profile");
@@ -45,7 +45,7 @@ export async function deleteTeamMember(snapshot: QueryDocumentSnapshot, context:
   return true;
 }
 
-export async function deleteMemberFromClub(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
+/* export async function deleteMemberFromClub(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
   console.log("Delete Member From Club");
   // const userId = context.params.userId;
   // const clubId = context.params.clubId;
@@ -55,7 +55,7 @@ export async function deleteMemberFromClub(snapshot: QueryDocumentSnapshot, cont
   // TODO -> Remove from all Clubs Admin /club/clubid/admins
 
   // TODO -> remove from userProfile of user as well...
-}
+} */
 
 export async function deleteClubMember(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
   console.log("Self remove from Club via Profile");
