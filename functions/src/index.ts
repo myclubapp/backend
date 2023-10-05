@@ -57,16 +57,16 @@ export const jobSyncUnihockeyApp = functions.runWith({timeoutSeconds: 360, memor
 // Reporting
 export const jobReportingMember = functions.runWith({timeoutSeconds: 360, memory: "256MB"}).region("europe-west6").pubsub.schedule("00 20 * * 0").timeZone("Europe/Zurich").onRun(sendReportingJobMember); // sunday 20:00
 
-// DB Hooks TEAM
-export const dbRemoveTeamMember = functions.region("europe-west6").firestore.document("/userProfile/{userId}/teams/{teamId}").onDelete(deleteTeamMember);
-export const dbRemoveTeamAdmin = functions.region("europe-west6").firestore.document("/userProfile/{userId}/teamAdmin/{teamId}").onDelete(deleteTeamAdmin);
-export const dbAddTeamMember = functions.region("europe-west6").firestore.document("/userProfile/{userId}/teams/{teamId}").onCreate(createTeamMember);
-export const dbAddTeamAdmin = functions.region("europe-west6").firestore.document("/userProfile/{userId}/teamAdmin/{teamId}").onCreate(createTeamAdmin);
+// DB Hooks TEAM > Manage teams currently only available for ADMIN
+export const dbRemoveTeamMember = functions.region("europe-west6").firestore.document("/teams/{teamId}/members/{userId}").onDelete(deleteTeamMember);
+export const dbRemoveTeamAdmin = functions.region("europe-west6").firestore.document("/teams/{teamId}/admins/{userId}").onDelete(deleteTeamAdmin);
+export const dbAddTeamMember = functions.region("europe-west6").firestore.document("/teams/{teamId}/members/{userId}").onCreate(createTeamMember);
+export const dbAddTeamAdmin = functions.region("europe-west6").firestore.document("/teams/{teamId}/admins/{userId}").onCreate(createTeamAdmin);
 
 // DB Hooks CLUB
 export const dbRemoveClubMember = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubs/{clubId}").onDelete(deleteClubMember);
 export const dbRemoveClubAdmin = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubAdmin/{clubId}").onDelete(deleteClubAdmin);
-export const dbAddClubMember = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubs/{clubId}").onCreate(createClubMember);
+export const dbAddClubMember = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubs/{clubId}").onCreate(createClubMember); // Not needed?
 export const dbAddClubAdmin = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubAdmin/{clubId}").onCreate(createClubAdmin);
 
 // export const dbRemoveMemberFromClub = functions.region("europe-west6").firestore.document("/club/{clubId}/members/{userId}").onDelete(deleteMemberFromClub);
