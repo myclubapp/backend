@@ -22,11 +22,11 @@ export async function deleteTeamMember(snapshot: QueryDocumentSnapshot, context:
     // SEND EMAIL? --> Your are still part of the organization and need to cancel subscription
 
     // FINALLY REMOVE FROM CLUB
-    return db.collection("userProfile").doc(userId).collection("teams").doc(teamId).delete();
+    return db.collection("userProfile").doc().collection("teams").doc(teamId).delete();
   } else {
     // RESTORE DATA!
     console.log("Restore DATA");
-    return await db.collection("userProfile").doc(userId).collection("teams").doc(teamId).set(
+    return await db.collection("teams").doc(teamId).collection("members").doc(userId).set(
         snapshot.data()
     );
   }
@@ -35,6 +35,7 @@ export async function deleteClubMember(snapshot: QueryDocumentSnapshot, context:
   console.log("deleteClubMember > Club Page via Administrator");
   const userId = context.params.userId;
   const clubId = context.params.clubId;
+  console.log("Auth User > " + context.auth);
 
   const adminUser = await auth.getUser(context.auth?.uid);
   if (adminUser && adminUser.customClaims && adminUser.customClaims[clubId]) {
@@ -52,7 +53,7 @@ export async function deleteClubMember(snapshot: QueryDocumentSnapshot, context:
   } else {
     // RESTORE DATA!
     console.log("Restore DATA");
-    return await db.collection("userProfile").doc(userId).collection("clubs").doc(clubId).set(
+    return await db.collection("club").doc(clubId).collection("members").doc(userId).set(
         snapshot.data()
     );
   }
