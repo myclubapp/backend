@@ -35,6 +35,7 @@ export async function deleteClubMember(snapshot: QueryDocumentSnapshot, context:
   console.log("deleteClubMember > Club Page via Administrator");
   const userId = context.params.userId;
   const clubId = context.params.clubId;
+  console.log("Auth User > " + context.auth?.uid);
 
   const adminUser = await auth.getUser(context.auth?.uid);
   if (adminUser && adminUser.customClaims && adminUser.customClaims[clubId]) {
