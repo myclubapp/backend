@@ -29,6 +29,7 @@ import {sendReportingJobMember} from "./reporting/member.scheduler";
 
 import {createNotificationClubNews} from "./firestore/news/createClubNews";
 import {createNotificationTeamNews} from "./firestore/news/createTeamNews";
+import {createNotificationNews} from "./firestore/news/createNews";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const graphql = require("./graphql/server");
@@ -98,6 +99,7 @@ export const dbAddClubEvent = functions.region("europe-west6").firestore.documen
 // DB Hooks for News Push
 export const dbAddClubNewsNotification = functions.region("europe-west6").firestore.document("/club/{clubId}/news/{newsId}").onCreate(createNotificationClubNews);
 export const dbAddTeamNewsNotification = functions.region("europe-west6").firestore.document("/teams/{teamId}/news/{newsId}").onCreate(createNotificationTeamNews);
+export const dbAddNewsNotification = functions.region("europe-west6").firestore.document("/news/{newsId}").onCreate(createNotificationNews);
 
 // DB Hooks for New Events
 export const dbAddClubEventNotification = functions.region("europe-west6").firestore.document("/club/{clubId}/event/{eventId}").onCreate(createNotificationClubEvent);
