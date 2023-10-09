@@ -14,6 +14,7 @@ export async function deleteTeamMember(snapshot: QueryDocumentSnapshot, context:
   console.log("deleteTeamMember > Team Page via Administrator");
   const userId = context.params.userId;
   const teamId = context.params.teamId;
+  console.log("Auth User > " + context.auth);
 
   const adminUser = await auth.getUser(context.auth?.uid);
   if (adminUser && adminUser.customClaims && adminUser.customClaims[teamId]) {
