@@ -53,9 +53,9 @@ export async function updatePersistenceJobGames(context: EventContext) {
 
 export async function updatePersistenceJobNews(context: EventContext) {
   try {
+    await updateClubNewsFromWordpress();
     await updateNewsSwissunihockey();
     await updateNewsSwisshandball();
-    await updateClubNewsFromWordpress();
   } catch (err) {
     console.error(err);
   }
