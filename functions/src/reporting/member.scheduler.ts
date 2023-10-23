@@ -31,7 +31,7 @@ export async function sendReportingJobMember(context: EventContext) {
           if (!teamList.empty) {
             // Loop über Teams
             for (const team of teamList.docs) {
-              console.log(`> ${team.data().name}`);
+              console.log(`> ${team.name}`);
               /*
               const teamTrainingList = await db.collection("teams").doc(team.id).collection("training").where().get();
               const teamNewsList = await db.collection("teams").doc(team.id).collection("news").where().get();
