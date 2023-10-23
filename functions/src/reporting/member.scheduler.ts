@@ -23,7 +23,7 @@ export async function sendReportingJobMember(context: EventContext) {
         if (userProfile.data().settingsEmailReporting) {
           // Prepare data
           const nlClubNews = [];
-          const calculatedDate = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+          const calculatedDate = new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString();
 
 
           // GET ALL TEAMS & CLUBS for Member
