@@ -21,6 +21,11 @@ export async function sendReportingJobMember(context: EventContext) {
         console.log(`>>> ${userProfile.data().firstName}`);
 
         if (userProfile.data().settingsEmailReporting) {
+          // Prepare data
+          const nlClubNews = [];
+          const calculatedDate = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+
+
           // GET ALL TEAMS & CLUBS for Member
           const teamList = await db.collection("userProfile").doc(userProfile.id).collection("teams").get();
           if (!teamList.empty) {
@@ -39,6 +44,14 @@ export async function sendReportingJobMember(context: EventContext) {
             // Loop über Clubs
             for (const club of clubList.docs) {
               console.log(`> ${club.data().name}`);
+
+              const clubNewsList = await db.collection("clib").doc(club.data().id).collection("news").where("date", ">=", calculatedDate).get();
+              if (!clubNewsList.empty) {
+                for (const clubNews of clubNewsList.docs) {
+                  nlClubNews.push(clubNews.data());
+                }
+              }
+
               /* const clubNewsList = await db.collection("club").doc(club.id).collection("news").where().get();
               const clubEventsList = await db.collection("club").doc(club.id).collection("events").where().get();
               const clubHelferEventsList = await db.collection("club").doc(club.id).collection("helfer").where().get();
@@ -57,6 +70,7 @@ export async function sendReportingJobMember(context: EventContext) {
               name: "ReportingUser",
               data: {
                 firstName: userProfile.data().firstName,
+                clubNews: nlClubNews,
               },
             }});
         } else {
