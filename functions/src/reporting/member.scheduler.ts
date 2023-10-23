@@ -23,7 +23,7 @@ export async function sendReportingJobMember(context: EventContext) {
         if (userProfile.data().settingsEmailReporting) {
           // Prepare data
           const nlClubNews = [];
-          const calculatedDate = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString();
+          const calculatedDate = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
 
 
           // GET ALL TEAMS & CLUBS for Member
@@ -49,8 +49,8 @@ export async function sendReportingJobMember(context: EventContext) {
               const clubNewsList = await db.collection("club").doc(club.id).collection("news").where("date", ">=", calculatedDate).get();
               if (!clubNewsList.empty) {
                 for (const clubNews of clubNewsList.docs) {
-                  console.log(">> News: " + clubNews.title);
-                  nlClubNews.push(clubNews);
+                  console.log(">> News: " + clubNews.data().title);
+                  nlClubNews.push(clubNews.data());
                 }
               }
 
