@@ -31,7 +31,7 @@ export async function sendReportingJobMember(context: EventContext) {
           if (!teamList.empty) {
             // Loop über Teams
             for (const team of teamList.docs) {
-              console.log(`> ${team.name}`);
+              console.log(`> Team ${team.id}`);
               /*
               const teamTrainingList = await db.collection("teams").doc(team.id).collection("training").where().get();
               const teamNewsList = await db.collection("teams").doc(team.id).collection("news").where().get();
@@ -43,7 +43,7 @@ export async function sendReportingJobMember(context: EventContext) {
           if (!clubList.empty) {
             // Loop über Clubs
             for (const club of clubList.docs) {
-              console.log(`> ${club.data().name}`);
+              console.log(`> Club ${club.id}`);
 
               const clubNewsList = await db.collection("clib").doc(club.data().id).collection("news").where("date", ">=", calculatedDate).get();
               if (!clubNewsList.empty) {
