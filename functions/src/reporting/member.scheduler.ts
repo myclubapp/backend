@@ -48,6 +48,7 @@ export async function sendReportingJobMember(context: EventContext) {
               const clubNewsList = await db.collection("clib").doc(club.id).collection("news").where("date", ">=", calculatedDate).get();
               if (!clubNewsList.empty) {
                 for (const clubNews of clubNewsList.docs) {
+                  console.log(">> News: " + clubNews.title);
                   nlClubNews.push(clubNews);
                 }
               }
