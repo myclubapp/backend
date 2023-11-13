@@ -410,10 +410,15 @@ async function getRankings(teamId: string, season: string) {
   // rankingData.data.regions[0].rows.forEach((item: any) => {
   if (rankingData && rankingData.data && rankingData.data.regions && rankingData.data.regions.length > 0 && rankingData.data.regions[0].rows) {
     for (const item of rankingData.data.regions[0].rows) {
+      let url = "";
+      if (item.cells[1] && item.cells[1].image && item.cells[1].image.url) {
+        url = item.cells[1].image.url;
+      }
+
       rankingList.push({
         id: item.data.team.id,
         name: item.data.team.name, // 2 teamname
-        image: item.cells[1].image.url,
+        image: url, // item.cells[1].image.url,
         games: item.cells[3].text[0], // Sp Spiele 3
         gamesSoW: item.cells[4].text[0], // SoW Spiele ohne Wertung 4
         wins: item.cells[5].text[0], // S Siege 5
