@@ -10,11 +10,17 @@ import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore"
 const db = firebaseDAO.instance.db;
 
 export async function createTeamTraining(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
+  console.log("CREATE Training");
+
   const userId = context.params.userId;
   const trainingId = context.params.trainingId;
 
+  console.log("userId: " + userId);
+  console.log("trainingId: " + trainingId);
+
   const trainingData = snapshot.data();
   const teamRef = await db.collection("teams").doc(trainingData.teamId).get();
+  console.log("teamId" + trainingData.teamId);
 
   const teamAdminTeam = await db.collection("teams").doc(trainingData.teamId).collection("admins").doc(userId);
   const teamAdminProfile = await db.collection("userProfile").doc(userId).collection("teamAdmin").doc(trainingData.teamId);
