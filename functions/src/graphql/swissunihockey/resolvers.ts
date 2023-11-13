@@ -411,7 +411,7 @@ async function getRankings(teamId: string, season: string) {
   if (rankingData && rankingData.data && rankingData.data.regions && rankingData.data.regions.length > 0 && rankingData.data.regions[0].rows) {
     for (const item of rankingData.data.regions[0].rows) {
       let url = "";
-      if (item.cells[1] && item.cells[1].image && item.cells[1].image.url) {
+      if (item.cells[1] && item.cells[1].image && item.cells[1].image.url) {
         url = item.cells[1].image.url;
       }
 
