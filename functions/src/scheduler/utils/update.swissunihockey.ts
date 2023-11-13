@@ -123,7 +123,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         // If datefield is properly set with swiss unihockey date value in the format 31.12.2022
         if (game.date.charAt(2) !== ".") {
           if (game.date === "Abgesagt") {
-            console.log("abgesagt -> new D4ate()");
+            console.log("abgesagt -> new Date()");
             game.date = new Date().toISOString();
             game.date = game.date.substr(8, 2) + "." + game.date.substr(5, 2) + "." + game.date.substr(0, 4);
             // get creative :)
@@ -212,7 +212,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         }
       }
       // Get rankings
-      /* const teamRankings = await resolversSU.Team.rankings({id: `${team.id}`}, {}, {}, {});
+      const teamRankings = await resolversSU.Team.rankings({id: `${team.id}`}, {}, {}, {});
       for (const item of teamRankings) {
         console.log(JSON.stringify(item));
         await db.collection("teams").doc(`su-${team.id}`).collection("ranking").doc(`${item.season}`).set({
@@ -222,7 +222,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           type: "swissunihockey",
         });
         await db.collection("teams").doc(`su-${team.id}`).collection("ranking").doc(`${item.season}`).collection("table").doc(`${item.ranking}`).set(item);
-      } */
+      }
     }
   }
 }
