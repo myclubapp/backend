@@ -220,6 +220,8 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           season: item.season,
           updated: new Date(),
           type: "swissunihockey",
+        }, {
+          merge: true,
         });
         await db.collection("teams").doc(`su-${team.id}`).collection("ranking").doc(`${item.season}`).collection("table").doc(`${item.ranking}`).set(item);
       }
