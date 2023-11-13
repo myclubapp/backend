@@ -25,12 +25,12 @@ export async function createTeamTraining(snapshot: QueryDocumentSnapshot, contex
   const teamAdminTeam = await db.collection("teams").doc(trainingData.teamId).collection("admins").doc(userId);
   const teamAdminProfile = await db.collection("userProfile").doc(userId).collection("teamAdmin").doc(trainingData.teamId);
 
-  console.log("teamAdmin " + teamAdminTeam.exists);
-  console.log("userTeamAdmin " + teamAdminProfile.exists);
+  console.log("teamAdmin " + teamAdminTeam);
+  console.log("userTeamAdmin " + teamAdminProfile);
 
   // const user = await firebaseDAO.instance.auth.getUser(context.auth?.uid);
   // console.log("Custom Claim for User: " + user.customClaims[trainingData.teamId]);
-  if (!teamAdminTeam.exists || !teamAdminProfile.exists) { // || userId ==! context.auth?.uid) {
+  if (!teamAdminTeam || !teamAdminProfile) { // || userId ==! context.auth?.uid) {
     console.error("NO PERMISSION");
 
     return;
