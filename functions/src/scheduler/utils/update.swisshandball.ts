@@ -49,12 +49,12 @@ export async function updateGamesSwisshandball(): Promise<any> {
         const game = gamesData[i];
         console.log(`>>> Read Team Game:  ${game.id}`);
 
-        const clubRef = await db.collection("club").doc(`su-${club.id}`).get();
-        const teamRef = await db.collection("teams").doc(`su-${team.id}`).get();
+        const clubRef = await db.collection("club").doc(`sh-${club.id}`).get();
+        const teamRef = await db.collection("teams").doc(`sh-${team.id}`).get();
         console.log("read match report for game: " + game.id);
 
         // await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).get();
-        await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).set({
+        await db.collection("teams").doc(`sh-${team.id}`).collection("games").doc(`sh-${game.id}`).set({
           ...game,
           externalId: `${game.id}`,
 
