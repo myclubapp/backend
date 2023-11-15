@@ -19,7 +19,8 @@ import {approveTeamRequest} from "./firestore/request/approveTeamRequest";
 
 import {createTeamTraining} from "./firestore/training/createTeamTraining";
 
-import {createNotificationTeamEvent, createTeamEvent} from "./firestore/event/createTeamEvent";
+import {createNotificationTeamEvent} from "./firestore/event/createTeamEvent";
+import {createHelferEvent, createNotificationHelferEvent} from "./firestore/event/createHelferEvent";
 import {createClubEvent, createNotificationClubEvent} from "./firestore/event/createClubEvent";
 
 import {updatePersistenceJobClubs, updatePersistenceJobTeams, updatePersistenceJobGames, updatePersistenceJobNews} from "./scheduler/syncAssociation.scheduler";
@@ -30,6 +31,7 @@ import {sendReportingJobMember} from "./reporting/member.scheduler";
 import {createNotificationClubNews} from "./firestore/news/createClubNews";
 import {createNotificationTeamNews} from "./firestore/news/createTeamNews";
 import {createNotificationNews} from "./firestore/news/createNews";
+
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const graphql = require("./graphql/server");
@@ -91,8 +93,9 @@ export const dbApproveTeamRequest = functions.region("europe-west6").firestore.d
 export const dbAddTeamTraining = functions.region("europe-west6").firestore.document("/userProfile/{userId}/trainings/{trainingId}").onCreate(createTeamTraining);
 
 // DB Hooks EVENTS
-export const dbAddTeamEvent = functions.region("europe-west6").firestore.document("/userProfile/{userId}/teamEvent/{eventId}").onCreate(createTeamEvent);
-export const dbAddClubEvent = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubEvent/{eventId}").onCreate(createClubEvent);
+// export const dbAddTeamEvent = functions.region("europe-west6").firestore.document("/userProfile/{userId}/teamEvent/{eventId}").onCreate(createTeamEvent);
+export const dbAddClubEvent = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubEvents/{eventId}").onCreate(createClubEvent);
+export const dbAddHelferEvent = functions.region("europe-west6").firestore.document("/userProfile/{userId}/helferEvents/{eventId}").onCreate(createHelferEvent);
 
 // NOTIFICATION DB HOOKS
 
@@ -103,5 +106,6 @@ export const dbAddNewsNotification = functions.region("europe-west6").firestore.
 
 // DB Hooks for New Events
 export const dbAddClubEventNotification = functions.region("europe-west6").firestore.document("/club/{clubId}/event/{eventId}").onCreate(createNotificationClubEvent);
-export const dbAddTeamEventNotification = functions.region("europe-west6").firestore.document("/teams/{teamId}/event/{eventId}").onCreate(createNotificationTeamEvent);
+export const dbAddHelferEventNotification = functions.region("europe-west6").firestore.document("/club/{clubId}/helferEvents/{eventId}").onCreate(createNotificationHelferEvent);
+// export const dbAddTeamEventNotification = functions.region("europe-west6").firestore.document("/teams/{teamId}/event/{eventId}").onCreate(createNotificationTeamEvent);
 
