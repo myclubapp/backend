@@ -19,7 +19,7 @@ import {approveTeamRequest} from "./firestore/request/approveTeamRequest";
 
 import {createTeamTraining} from "./firestore/training/createTeamTraining";
 
-import {createNotificationTeamEvent} from "./firestore/event/createTeamEvent";
+// import {createNotificationTeamEvent} from "./firestore/event/createTeamEvent";
 import {createHelferEvent, createNotificationHelferEvent} from "./firestore/event/createHelferEvent";
 import {createClubEvent, createNotificationClubEvent} from "./firestore/event/createClubEvent";
 
