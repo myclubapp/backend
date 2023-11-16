@@ -7,7 +7,6 @@ import * as functions from "firebase-functions";
 import firebaseDAO from "../../firebaseSingleton";
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 
-
 const db = firebaseDAO.instance.db;
 
 export async function createHelferEvent(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
