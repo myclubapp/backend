@@ -6,8 +6,19 @@
 import * as functions from "firebase-functions";
 import firebaseDAO from "../../firebaseSingleton";
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
+import webpush = require("web-push");
 
 const db = firebaseDAO.instance.db;
+const gcmAPIKey = functions.config().webpush.gcmapikey;
+const publicKey = functions.config().webpush.publickey;
+const privateKey = functions.config().webpush.privatekey;
+
+webpush.setGCMAPIKey(gcmAPIKey);
+webpush.setVapidDetails(
+    "mailto:info@my-club.app",
+    publicKey,
+    privateKey
+);
 
 export async function createHelferEvent(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
   console.log("CREATE Helferevent");
@@ -42,60 +53,21 @@ export async function createNotificationHelferEvent(snapshot: QueryDocumentSnaps
   const clubId = context.params.clubId;
   const eventId = context.params.eventId;
   console.log(clubId, eventId);
-  /*
-  const trainingId = context.params.trainingId;
 
-
-  await db.collection("club").doc(clubId).collection("requests").doc(userId).set({
-    "userProfileRef": userProfileRef.ref,
-  });
-
-  // SEND REQUEST CONFIRMATION E-MAIL TO USER
-  await db.collection("mail").add({
-    to: userProfileRef.data()?.email,
-    template: {
-      name: "ClubRequestAdminEmail",
-      data: {
-        clubName: clubRef.data().name,
-        firstName: userProfileRef.data()?.firstName,
-      },
-    },
-  });
-
-  // SEND REQUEST E-MAIL TO CLUB ADMIN
-  const receipient = [];
-  const clubAdminRef = await db.collection("club").doc(clubId).collection("admins").get();
-  for (const admin of clubAdminRef.docs) {
-    const userProfileAdminRef = await db.collection("userProfile").doc(admin.id).get();
-    if (userProfileAdminRef.exists) {
-      receipient.push(userProfileAdminRef.data().email);
+  const clubEventRef = await db.collection("club").doc(clubId).collection("helferEvents").doc(eventId).get();
+  const clubMembersRef = await db.collection("club").doc(clubId).collection("members").get();
+  for (const clubMember of clubMembersRef.docs) {
+    const userProfileRef = await db.collection("userProfile").doc(clubMember.id).get();
+    if (userProfileRef.exists && userProfileRef.data().settingsPush) {
+      const userProfilePushRef = await db.collection("userProfile").doc(clubMember.id).collection("push").get();
+      for (const push of userProfilePushRef.docs) {
+        const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
+            JSON.stringify( {
+              title: clubEventRef.data().name,
+              message: clubEventRef.data().description,
+            }));
+        console.log(">> SEND PUSH: ", statusCode, headers, body);
+      }
     }
   }
-
-  return db.collection("mail").add({
-    to: receipient,
-    template: {
-      name: "ClubRequestAdminEmail",
-      data: {
-        clubName: clubRef.data().name,
-        firstName: userProfileRef.data()?.firstName,
-        lastName: userProfileRef.data()?.lastName,
-        email: userProfileRef.data()?.email,
-      },
-    },
-  });
-
-  // check if user has admin claims..
-  /*
-  const adminUserRef = snapshot.data().userProfileRef || false;
-  if (adminUserRef) { // only provided in team Page call
-    const adminUser = await adminUserRef.get();
-    const user = await auth.getUser(adminUser.id);
-    if (user && user.customClaims && user.customClaims[teamId]) {
-      const userRef = await db.collection("userProfile").doc(userId).get();
-      await db.collection("teams").doc(teamId).collection("members").doc(`${userId}`).set({
-        "userProfileRef": userRef,
-      });
-    }
-  } */
 }
