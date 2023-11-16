@@ -7,20 +7,42 @@ import * as functions from "firebase-functions";
 import firebaseDAO from "../../firebaseSingleton";
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 
+
 const db = firebaseDAO.instance.db;
+
+export async function createHelferEvent(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
+  console.log("CREATE Helferevent");
+
+  const userId = context.params.userId;
+  const eventId = context.params.eventId;
+
+  console.log("userId: " + userId);
+  console.log("HelfereventId: " + eventId);
+
+  const eventData = snapshot.data();
+  const clubRef = await db.collection("club").doc(eventData.clubId).get();
+  console.log(clubRef.id);
+
+  const isClubAdminRef = await db.collection("club").doc(clubRef.id).collection("admins").doc(userId).get();
+  const hasClubAdminRef = await db.collection("userProfile").doc(userId).collection("clubAdmin").doc(clubRef.id).get();
+  if (!isClubAdminRef.data() || !hasClubAdminRef.data()) {
+    console.error("NO PERMISSION");
+
+    return;
+  }
+
+  const newHelferEventRef = await db.collection("club").doc(clubRef.id).collection("helferEvents").add({
+    ...eventData,
+  });
+
+  console.log("New Helferevent created: " + newHelferEventRef.id);
+  return db.collection("userProfile").doc(userId).collection("helferEvents").doc(eventId).delete();
+}
 
 export async function createNotificationHelferEvent(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
   const clubId = context.params.clubId;
   const eventId = context.params.eventId;
   console.log(clubId, eventId);
-}
-
-export async function createHelferEvent(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
-  const userId = context.params.userId;
-  const userProfileRef = await db.collection("userProfile").doc(userId).get();
-
-  console.log("createClubEvent" + userProfileRef.id);
-
   /*
   const trainingId = context.params.trainingId;
 
