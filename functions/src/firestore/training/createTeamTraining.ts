@@ -22,8 +22,8 @@ export async function createTeamTraining(snapshot: QueryDocumentSnapshot, contex
   const teamRef = await db.collection("teams").doc(trainingData.teamId).get();
   console.log("teamId" + trainingData.teamId);
 
-  const teamAdminTeam = await db.collection("teams").doc(trainingData.teamId).collection("admins").doc(userId);
-  const teamAdminProfile = await db.collection("userProfile").doc(userId).collection("teamAdmin").doc(trainingData.teamId);
+  const teamAdminTeam = await db.collection("teams").doc(trainingData.teamId).collection("admins").doc(userId).get();
+  const teamAdminProfile = await db.collection("userProfile").doc(userId).collection("teamAdmin").doc(trainingData.teamId).get();
 
   console.log("teamAdmin " + teamAdminTeam.data());
   console.log("userTeamAdmin " + teamAdminProfile.data());
