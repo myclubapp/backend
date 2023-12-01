@@ -67,7 +67,7 @@ export async function createNotificationClubEvent(snapshot: QueryDocumentSnapsho
               title: clubEventRef.data().name,
               message: clubEventRef.data().description,
             }));
-        console.log(">> SEND PUSH: ", statusCode, headers, body);
+        console.log(">> SEND PUSH EVENT: ", statusCode, headers, body);
       }
     }
   }

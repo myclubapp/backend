@@ -9,6 +9,7 @@ import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore"
 import webpush = require("web-push");
 
 const db = firebaseDAO.instance.db;
+
 const gcmAPIKey = functions.config().webpush.gcmapikey;
 const publicKey = functions.config().webpush.publickey;
 const privateKey = functions.config().webpush.privatekey;
