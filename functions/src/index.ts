@@ -105,7 +105,7 @@ export const dbAddTeamNewsNotification = functions.region("europe-west6").firest
 export const dbAddNewsNotification = functions.region("europe-west6").firestore.document("/news/{newsId}").onCreate(createNotificationNews);
 
 // DB Hooks for New Events
-export const dbAddClubEventNotification = functions.region("europe-west6").firestore.document("/club/{clubId}/event/{eventId}").onCreate(createNotificationClubEvent);
+export const dbAddClubEventNotification = functions.region("europe-west6").firestore.document("/club/{clubId}/events/{eventId}").onCreate(createNotificationClubEvent);
 export const dbAddHelferEventNotification = functions.region("europe-west6").firestore.document("/club/{clubId}/helferEvents/{eventId}").onCreate(createNotificationHelferEvent);
 // export const dbAddTeamEventNotification = functions.region("europe-west6").firestore.document("/teams/{teamId}/event/{eventId}").onCreate(createNotificationTeamEvent);
 
