@@ -6,8 +6,8 @@
 /* eslint-disable max-len */
 import * as functions from "firebase-functions";
 import firebaseDAO from "../../firebaseSingleton";
-import webpush = require("web-push");
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
+import webpush = require("web-push");
 
 const db = firebaseDAO.instance.db;
 
