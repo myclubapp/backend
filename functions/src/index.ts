@@ -17,7 +17,7 @@ import {deleteTeamRequest} from "./firestore/request/deleteTeamRequest";
 import {approveClubRequest} from "./firestore/request/approveClubRequest";
 import {approveTeamRequest} from "./firestore/request/approveTeamRequest";
 
-import {createTeamTraining} from "./firestore/training/createTeamTraining";
+import {createNotificationTeamTraining, createTeamTraining} from "./firestore/training/createTeamTraining";
 
 // import {createNotificationTeamEvent} from "./firestore/event/createTeamEvent";
 import {createHelferEvent, createNotificationHelferEvent} from "./firestore/event/createHelferEvent";
@@ -89,10 +89,10 @@ export const dbApproveClubRequest = functions.region("europe-west6").firestore.d
 export const dbApproveTeamRequest = functions.region("europe-west6").firestore.document("/teams/{teamId}/requests/{requestId}").onUpdate(approveTeamRequest);
 
 
-// DB Hooks TRAININGS
+// DB Hooks TRAININGS from USER Profile
 export const dbAddTeamTraining = functions.region("europe-west6").firestore.document("/userProfile/{userId}/trainings/{trainingId}").onCreate(createTeamTraining);
 
-// DB Hooks EVENTS
+// DB Hooks EVENTS from USER Profile
 // export const dbAddTeamEvent = functions.region("europe-west6").firestore.document("/userProfile/{userId}/teamEvent/{eventId}").onCreate(createTeamEvent);
 export const dbAddClubEvent = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubEvents/{eventId}").onCreate(createClubEvent);
 export const dbAddHelferEvent = functions.region("europe-west6").firestore.document("/userProfile/{userId}/helferEvents/{eventId}").onCreate(createHelferEvent);
@@ -109,3 +109,5 @@ export const dbAddClubEventNotification = functions.region("europe-west6").fires
 export const dbAddHelferEventNotification = functions.region("europe-west6").firestore.document("/club/{clubId}/helferEvents/{eventId}").onCreate(createNotificationHelferEvent);
 // export const dbAddTeamEventNotification = functions.region("europe-west6").firestore.document("/teams/{teamId}/event/{eventId}").onCreate(createNotificationTeamEvent);
 
+// DB Hooks for Training Push
+export const dbAddTeamTrainingNotification = functions.region("europe-west6").firestore.document("/teams/{teamId}/trainings/{trainingId}").onCreate(createNotificationTeamTraining);

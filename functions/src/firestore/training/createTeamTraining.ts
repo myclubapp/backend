@@ -6,8 +6,20 @@
 import * as functions from "firebase-functions";
 import firebaseDAO from "../../firebaseSingleton";
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
+import webpush = require("web-push");
 
 const db = firebaseDAO.instance.db;
+
+const gcmAPIKey = functions.config().webpush.gcmapikey;
+const publicKey = functions.config().webpush.publickey;
+const privateKey = functions.config().webpush.privatekey;
+
+webpush.setGCMAPIKey(gcmAPIKey);
+webpush.setVapidDetails(
+    "mailto:info@my-club.app",
+    publicKey,
+    privateKey
+);
 
 export async function createTeamTraining(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
   console.log("CREATE Training");
@@ -116,3 +128,28 @@ export async function createTeamTraining(snapshot: QueryDocumentSnapshot, contex
 
   return db.collection("userProfile").doc(userId).collection("trainings").doc(trainingId).delete();
 }
+
+export async function createNotificationTeamTraining(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
+  const teamId = context.params.teamId;
+  const trainingId = context.params.trainingId;
+  console.log(teamId, trainingId);
+
+  const teamTrainingRef = await db.collection("teams").doc(teamId).collection("trainings").doc(trainingId).get();
+  const teamMembersRef = await db.collection("teams").doc(teamId).collection("members").get();
+  for (const teamMember of teamMembersRef.docs) {
+    const userProfileRef = await db.collection("userProfile").doc(teamMember.id).get();
+    if (userProfileRef.data().settingsPush) {
+      // const pushObject = JSON.parse(userProfileRef.data().pushObject);
+      const userProfilePushRef = await db.collection("userProfile").doc(teamMember.id).collection("push").get();
+      for (const push of userProfilePushRef.docs) {
+        const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
+            JSON.stringify( {
+              title: teamTrainingRef.data().name,
+              message: teamTrainingRef.data().description,
+            }));
+        console.log(">> SEND PUSH Training: ", statusCode, headers, body);
+      }
+    }
+  }
+}
+
