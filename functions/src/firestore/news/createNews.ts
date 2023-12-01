@@ -21,6 +21,7 @@ webpush.setVapidDetails(
     publicKey,
     privateKey
 );
+
 export async function createNotificationNews(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
   const newsId = context.params.newsId;
   const newsRef = await db.collection("news").doc(newsId).get();

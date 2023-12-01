@@ -67,7 +67,7 @@ export async function createNotificationHelferEvent(snapshot: QueryDocumentSnaps
               title: clubEventRef.data().name,
               message: clubEventRef.data().description,
             }));
-        console.log(">> SEND PUSH: ", statusCode, headers, body);
+        console.log(">> SEND PUSH HELFER: ", statusCode, headers, body);
       }
     }
   }
