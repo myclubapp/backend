@@ -23,11 +23,8 @@ webpush.setVapidDetails(
 );
 export async function createNotificationNews(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
   const newsId = context.params.newsId;
-
   const newsRef = await db.collection("news").doc(newsId).get();
-  // Get type
 
-  // Get
   const associationClubs = await db.collection("club").where("type", "==", newsRef.data().type).where("active", "==", true).get();
   for (const club of associationClubs.docs) {
     const clubMembersRef = await db.collection("club").doc(club.id).collection("members").get();
@@ -37,13 +34,14 @@ export async function createNotificationNews(snapshot: QueryDocumentSnapshot, co
         const userProfilePushRef = await db.collection("userProfile").doc(clubMember.id).collection("push").get();
         for (const push of userProfilePushRef.docs) {
           const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
-              JSON.stringify({
+              JSON.stringify( {
                 title: newsRef.data().title,
                 message: newsRef.data().text,
               }));
-          console.log(">> SEND PUSH: ", statusCode, headers, body);
+          console.log(">> SEND PUSH HELFER: ", statusCode, headers, body);
         }
       }
     }
   }
 }
+
