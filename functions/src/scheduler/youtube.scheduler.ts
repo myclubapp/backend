@@ -7,7 +7,6 @@
 /* eslint-disable max-len */
 import {EventContext} from "firebase-functions";
 import firebaseDAO from "../firebaseSingleton";
-const dbUA = firebaseDAO.instance.dbUA;
 const db = firebaseDAO.instance.db;
 const {google} = require("googleapis");
 
@@ -31,6 +30,11 @@ export async function youtubeScheduler(context: EventContext) {
 
     for (const item of playlist) {
       console.log(item);
+      db.collection("verband").doc("su").set({
+        "test": "true",
+      }, {
+        merge: true,
+      });
     }
     return true;
 
