@@ -32,6 +32,13 @@ export async function youtubeScheduler(context: EventContext) {
     }
 
     for (const item of playlist) {
+      let imageURL = "";
+      try {
+        imageURL = item.snippet.thumbnails.standard.url;
+      } catch (e) {
+        console.log(item.snippet.thumbnails);
+      }
+
       console.log(item);
       console.log("channelId: " + item.snippet.channelId);
       console.log("title: " + item.snippet.title);
@@ -39,7 +46,7 @@ export async function youtubeScheduler(context: EventContext) {
         "title": item.snippet.title,
         "description": item.snippet.description,
         "type": "swissunihockey",
-        "image": item.snippet.thumbnails.standard.url,
+        "image": imageURL,
         "date": item.contentDetails.videoPublishedAt,
         "video": "https://www.youtube.com/watch?v=" + item.contentDetails.videoId,
       }, {
