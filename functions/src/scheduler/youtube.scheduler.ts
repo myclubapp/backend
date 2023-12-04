@@ -32,10 +32,15 @@ export async function youtubeScheduler(context: EventContext) {
     }
 
     for (const item of playlist) {
+      console.log(item);
       console.log("channelId: " + item.snippet.channelId);
       console.log("title: " + item.snippet.title);
-      db.collection("verband").doc("su").set({
-        "test": "true",
+      db.collection("exercises").doc("su-" + item.id).set({
+        "title": item.snippet.title,
+        "description": item.snippet.description,
+        "type": "swissunihockey",
+        "date": item.contentDetails.videoPublishedAt,
+        "video": "https://www.youtube.com/watch?v=" + item.snippet.videoId,
       }, {
         merge: true,
       });
