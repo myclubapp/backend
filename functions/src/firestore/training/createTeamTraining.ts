@@ -7,8 +7,10 @@ import * as functions from "firebase-functions";
 import firebaseDAO from "../../firebaseSingleton";
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 import webpush = require("web-push");
+import {Messaging} from "firebase-admin/lib/messaging/messaging";
 
 const db = firebaseDAO.instance.db;
+const messaging: Messaging = firebaseDAO.instance.messaging;
 
 const gcmAPIKey = functions.config().webpush.gcmapikey;
 const publicKey = functions.config().webpush.publickey;
@@ -142,14 +144,26 @@ export async function createNotificationTeamTraining(snapshot: QueryDocumentSnap
       // const pushObject = JSON.parse(userProfileRef.data().pushObject);
       const userProfilePushRef = await db.collection("userProfile").doc(teamMember.id).collection("push").get();
       for (const push of userProfilePushRef.docs) {
-        const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
-            JSON.stringify( {
+        if (JSON.parse(push.data().pushObject).platform === "web") {
+          // Send WebPush
+          const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
+              JSON.stringify( {
+                title: teamTrainingRef.data().name,
+                message: teamTrainingRef.data().description,
+              }));
+          console.log(">> SEND PUSH EVENT: ", statusCode, headers, body);
+        } else {
+          // Send native Push
+          const nativePush = await messaging.send({
+            token: push.data().pushObject.token,
+            data: {
               title: teamTrainingRef.data().name,
               message: teamTrainingRef.data().description,
-            }));
-        console.log(">> SEND PUSH Training: ", statusCode, headers, body);
+            },
+          });
+          console.log(">> SEND Native PUSH EVENT: ", nativePush);
+        }
       }
     }
   }
 }
-
