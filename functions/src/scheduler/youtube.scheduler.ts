@@ -39,8 +39,9 @@ export async function youtubeScheduler(context: EventContext) {
         "title": item.snippet.title,
         "description": item.snippet.description,
         "type": "swissunihockey",
+        "image": item.snippet.thumbnails.standard.url,
         "date": item.contentDetails.videoPublishedAt,
-        "video": "https://www.youtube.com/watch?v=" + item.snippet.videoId,
+        "video": "https://www.youtube.com/watch?v=" + item.contentDetails.videoId,
       }, {
         merge: true,
       });
