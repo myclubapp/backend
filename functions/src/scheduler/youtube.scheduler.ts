@@ -20,9 +20,10 @@ const youtube = google.youtube({
 export async function youtubeScheduler(context: EventContext) {
   try {
     console.log("Youtube Scheduler");
-    const response = await youtube.playlists.list({
-      part: "snippet",
-      id: "PL4GcRGPV7hzzrTUCK_ua0A4rvMc7WmhH9",
+    const response = await youtube.playlistItems.list({
+      part: "snippet,contentDetails",
+      maxResults: 100, // Adjust if needed
+      playlistId: "PL4GcRGPV7hzzrTUCK_ua0A4rvMc7WmhH9",
     });
 
     const playlist = response.data.items;
