@@ -9,11 +9,12 @@ import {EventContext} from "firebase-functions";
 import firebaseDAO from "../firebaseSingleton";
 const db = firebaseDAO.instance.db;
 const {google} = require("googleapis");
+import * as functions from "firebase-functions";
 
 // Initialize the YouTube API client
 const youtube = google.youtube({
   version: "v3",
-  auth: "YOUR_API_KEY", // Replace with your API key
+  auth: functions.config().api.youtube, // Replace with your API key
 });
 
 export async function youtubeScheduler(context: EventContext) {
