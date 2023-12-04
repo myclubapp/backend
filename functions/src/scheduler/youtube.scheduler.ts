@@ -36,7 +36,6 @@ export async function youtubeScheduler(context: EventContext) {
         merge: true,
       });
     }
-    return true;
 
     // return playlist[0].snippet.channelId;
     /* console.log("test");
@@ -52,4 +51,5 @@ export async function youtubeScheduler(context: EventContext) {
   } catch (err) {
     console.error(err);
   }
+  return true;
 }
