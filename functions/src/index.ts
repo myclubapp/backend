@@ -31,7 +31,7 @@ import {sendReportingJobMember} from "./reporting/member.scheduler";
 import {createNotificationClubNews} from "./firestore/news/createClubNews";
 import {createNotificationTeamNews} from "./firestore/news/createTeamNews";
 import {createNotificationNews} from "./firestore/news/createNews";
-import { youtubeScheduler } from "./scheduler/youtube.scheduler";
+import {youtubeScheduler} from "./scheduler/youtube.scheduler";
 
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
