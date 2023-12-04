@@ -19,6 +19,7 @@ const youtube = google.youtube({
 
 export async function youtubeScheduler(context: EventContext) {
   try {
+    console.log("Youtube Scheduler");
     const response = await youtube.playlists.list({
       part: "snippet",
       id: "PL4GcRGPV7hzzrTUCK_ua0A4rvMc7WmhH9",
@@ -30,7 +31,8 @@ export async function youtubeScheduler(context: EventContext) {
     }
 
     for (const item of playlist) {
-      console.log(item);
+      console.log("channelId: " + item.snippet.channelId);
+      console.log("title: " + item.snippet.title);
       db.collection("verband").doc("su").set({
         "test": "true",
       }, {
