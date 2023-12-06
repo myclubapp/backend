@@ -144,7 +144,7 @@ export async function createNotificationTeamTraining(snapshot: QueryDocumentSnap
       // const pushObject = JSON.parse(userProfileRef.data().pushObject);
       const userProfilePushRef = await db.collection("userProfile").doc(teamMember.id).collection("push").get();
       for (const push of userProfilePushRef.docs) {
-        if (JSON.parse(push.data().pushObject).platform === "web") {
+        if (push.data().platform === "web") {
           // Send WebPush
           const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
               JSON.stringify( {
@@ -155,7 +155,7 @@ export async function createNotificationTeamTraining(snapshot: QueryDocumentSnap
         } else {
           // Send native Push
           const nativePush = await messaging.send({
-            token: push.data().pushObject.token,
+            token: push.data().token,
             data: {
               title: teamTrainingRef.data().name,
               message: teamTrainingRef.data().description,

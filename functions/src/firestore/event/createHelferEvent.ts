@@ -64,7 +64,7 @@ export async function createNotificationHelferEvent(snapshot: QueryDocumentSnaps
     if (userProfileRef.exists && userProfileRef.data().settingsPush) {
       const userProfilePushRef = await db.collection("userProfile").doc(clubMember.id).collection("push").get();
       for (const push of userProfilePushRef.docs) {
-        if (JSON.parse(push.data().pushObject).platform === "web") {
+        if (push.data().platform === "web") {
           // Send WebPush
           const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
               JSON.stringify( {
@@ -75,7 +75,7 @@ export async function createNotificationHelferEvent(snapshot: QueryDocumentSnaps
         } else {
           // Send native Push
           const nativePush = await messaging.send({
-            token: push.data().pushObject.token,
+            token: push.data().token,
             data: {
               title: helferEvent.data().name,
               message: helferEvent.data().description,
