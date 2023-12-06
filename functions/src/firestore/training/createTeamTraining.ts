@@ -162,6 +162,13 @@ export async function createNotificationTeamTraining(snapshot: QueryDocumentSnap
             },
           });
           console.log(">> SEND Native PUSH EVENT: ", nativePush);
+          console.log(">> Message used ", {
+            token: push.data().token,
+            data: {
+              title: teamTrainingRef.data().name,
+              message: teamTrainingRef.data().description,
+            },
+          });
         }
       }
     }

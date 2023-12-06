@@ -82,6 +82,13 @@ export async function createNotificationHelferEvent(snapshot: QueryDocumentSnaps
             },
           });
           console.log(">> SEND Native PUSH EVENT: ", nativePush);
+          console.log(">> Message used ", {
+            token: push.data().token,
+            data: {
+              title: helferEvent.data().name,
+              message: helferEvent.data().description,
+            },
+          });
         }
       }
     }

@@ -82,6 +82,13 @@ export async function createNotificationClubEvent(snapshot: QueryDocumentSnapsho
             },
           });
           console.log(">> SEND Native PUSH EVENT: ", nativePush);
+          console.log(">> Message used ", {
+            token: push.data().token,
+            data: {
+              title: clubEventRef.data().name,
+              message: clubEventRef.data().description,
+            },
+          });
         }
       }
     }
