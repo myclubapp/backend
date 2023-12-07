@@ -82,13 +82,16 @@ export async function createNotificationClubEvent(snapshot: QueryDocumentSnapsho
               message: clubEventRef.data().description,
             },
           });
-          const nativePush = await messaging.send({
-            token: push.data().token,
-            data: {
-              title: clubEventRef.data().name,
-              message: clubEventRef.data().description,
-            },
-          });
+          const nativePush = await messaging.sendToDevice(push.data().token,
+              {
+                notification: {
+                  title: clubEventRef.data().name,
+                  message: clubEventRef.data().description,
+                  sound: "default",
+                  badge: "0",
+                },
+              },
+          );
           console.log(">> SEND Native PUSH EVENT: ", nativePush);
         }
       }

@@ -162,13 +162,16 @@ export async function createNotificationTeamTraining(snapshot: QueryDocumentSnap
               message: teamTrainingRef.data().description,
             },
           });
-          const nativePush = await messaging.send({
-            token: push.data().token,
-            data: {
-              title: teamTrainingRef.data().name,
-              message: teamTrainingRef.data().description,
-            },
-          });
+          const nativePush = await messaging.sendToDevice(push.data().token,
+              {
+                notification: {
+                  title: teamTrainingRef.data().name,
+                  message: teamTrainingRef.data().description,
+                  sound: "default",
+                  badge: "0",
+                },
+              },
+          );
           console.log(">> SEND Native PUSH EVENT: ", nativePush);
         }
       }

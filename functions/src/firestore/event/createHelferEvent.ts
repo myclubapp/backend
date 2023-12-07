@@ -96,7 +96,7 @@ export async function createNotificationHelferEvent(snapshot: QueryDocumentSnaps
                   title: helferEvent.data().name,
                   body: helferEvent.data().description,
                   sound: "default",
-                  badge: "1",
+                  badge: "0",
                 },
               },
           );
