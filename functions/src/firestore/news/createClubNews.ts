@@ -32,7 +32,7 @@ export async function createNotificationClubNews(snapshot: QueryDocumentSnapshot
   const clubMembersRef = await db.collection("club").doc(clubId).collection("members").get();
   for (const clubMember of clubMembersRef.docs) {
     const userProfileRef = await db.collection("userProfile").doc(clubMember.id).get();
-    if (userProfileRef.exists && userProfileRef.data().settingsPush) {
+    if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushNews) {
       const userProfilePushRef = await db.collection("userProfile").doc(clubMember.id).collection("push").get();
       for (const push of userProfilePushRef.docs) {
         if (push.data().platform === "web") {

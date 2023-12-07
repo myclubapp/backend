@@ -140,7 +140,7 @@ export async function createNotificationTeamTraining(snapshot: QueryDocumentSnap
   const teamMembersRef = await db.collection("teams").doc(teamId).collection("members").get();
   for (const teamMember of teamMembersRef.docs) {
     const userProfileRef = await db.collection("userProfile").doc(teamMember.id).get();
-    if (userProfileRef.exists && userProfileRef.data().settingsPush) {
+    if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushTraining) {
       // const pushObject = JSON.parse(userProfileRef.data().pushObject);
       const userProfilePushRef = await db.collection("userProfile").doc(teamMember.id).collection("push").get();
       for (const push of userProfilePushRef.docs) {
