@@ -82,13 +82,24 @@ export async function createNotificationHelferEvent(snapshot: QueryDocumentSnaps
               message: helferEvent.data().description,
             },
           });
-          const nativePush = await messaging.send({
+          /* const nativePush = await messaging.send({
             token: push.data().token,
             data: {
               title: helferEvent.data().name,
               message: helferEvent.data().description,
             },
-          });
+          });*/
+
+          const nativePush = await messaging.sendToDevice(push.data().token,
+              {
+                notification: {
+                  title: helferEvent.data().name,
+                  body: helferEvent.data().description,
+                  sound: "default",
+                  badge: "1",
+                },
+              },
+          );
           console.log(">> SEND Native PUSH EVENT: ", nativePush);
         }
       }
