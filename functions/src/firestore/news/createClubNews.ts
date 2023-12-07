@@ -8,8 +8,10 @@ import * as functions from "firebase-functions";
 import firebaseDAO from "../../firebaseSingleton";
 import webpush = require("web-push");
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
+import {Messaging} from "firebase-admin/lib/messaging/messaging";
 
 const db = firebaseDAO.instance.db;
+const messaging: Messaging = firebaseDAO.instance.messaging;
 
 const gcmAPIKey = functions.config().webpush.gcmapikey;
 const publicKey = functions.config().webpush.publickey;
@@ -33,12 +35,35 @@ export async function createNotificationClubNews(snapshot: QueryDocumentSnapshot
     if (userProfileRef.exists && userProfileRef.data().settingsPush) {
       const userProfilePushRef = await db.collection("userProfile").doc(clubMember.id).collection("push").get();
       for (const push of userProfilePushRef.docs) {
-        const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
-            JSON.stringify( {
+        if (push.data().platform === "web") {
+          // Send WebPush
+          const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
+              JSON.stringify( {
+                title: clubNewsRef.data().title,
+                message: clubNewsRef.data().text,
+              }));
+          console.log(">> SEND PUSH NEWS: ", statusCode, headers, body);
+        } else {
+          // Send native Push
+          console.log(">> Message used ", {
+            token: push.data().token,
+            data: {
               title: clubNewsRef.data().title,
               message: clubNewsRef.data().text,
-            }));
-        console.log(">> SEND PUSH: ", statusCode, headers, body);
+            },
+          });
+          const nativePush = await messaging.sendToDevice(push.data().token,
+              {
+                notification: {
+                  title: clubNewsRef.data().title,
+                  message: clubNewsRef.data().text,
+                  sound: "default",
+                  badge: "0",
+                },
+              },
+          );
+          console.log(">> SEND Native PUSH EVENT: ", nativePush);
+        }
       }
     }
   }
