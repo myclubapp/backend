@@ -155,6 +155,13 @@ export async function createNotificationTeamTraining(snapshot: QueryDocumentSnap
           console.log(">> SEND PUSH EVENT: ", statusCode, headers, body);
         } else {
           // Send native Push
+          console.log(">> Message used ", {
+            token: push.data().token,
+            data: {
+              title: teamTrainingRef.data().name,
+              message: teamTrainingRef.data().description,
+            },
+          });
           const nativePush = await messaging.send({
             token: push.data().token,
             data: {
@@ -163,13 +170,6 @@ export async function createNotificationTeamTraining(snapshot: QueryDocumentSnap
             },
           });
           console.log(">> SEND Native PUSH EVENT: ", nativePush);
-          console.log(">> Message used ", {
-            token: push.data().token,
-            data: {
-              title: teamTrainingRef.data().name,
-              message: teamTrainingRef.data().description,
-            },
-          });
         }
       }
     }
