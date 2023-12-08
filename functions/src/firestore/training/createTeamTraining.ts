@@ -7,8 +7,10 @@ import * as functions from "firebase-functions";
 import firebaseDAO from "../../firebaseSingleton";
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 import webpush = require("web-push");
+import {Messaging} from "firebase-admin/lib/messaging/messaging";
 
 const db = firebaseDAO.instance.db;
+const messaging: Messaging = firebaseDAO.instance.messaging;
 
 const gcmAPIKey = functions.config().webpush.gcmapikey;
 const publicKey = functions.config().webpush.publickey;
@@ -138,18 +140,41 @@ export async function createNotificationTeamTraining(snapshot: QueryDocumentSnap
   const teamMembersRef = await db.collection("teams").doc(teamId).collection("members").get();
   for (const teamMember of teamMembersRef.docs) {
     const userProfileRef = await db.collection("userProfile").doc(teamMember.id).get();
-    if (userProfileRef.data().settingsPush) {
+    if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushTraining) {
       // const pushObject = JSON.parse(userProfileRef.data().pushObject);
       const userProfilePushRef = await db.collection("userProfile").doc(teamMember.id).collection("push").get();
       for (const push of userProfilePushRef.docs) {
-        const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
-            JSON.stringify( {
+        console.log(">> PUSH DEVICE: ", push.data());
+        if (push.data().platform === "web") {
+          // Send WebPush
+          const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
+              JSON.stringify( {
+                title: teamTrainingRef.data().name,
+                message: teamTrainingRef.data().description,
+              }));
+          console.log(">> SEND PUSH EVENT: ", statusCode, headers, body);
+        } else {
+          // Send native Push
+          console.log(">> Message used ", {
+            token: push.data().token,
+            data: {
               title: teamTrainingRef.data().name,
               message: teamTrainingRef.data().description,
-            }));
-        console.log(">> SEND PUSH Training: ", statusCode, headers, body);
+            },
+          });
+          const nativePush = await messaging.sendToDevice(push.data().token,
+              {
+                notification: {
+                  title: teamTrainingRef.data().name,
+                  message: teamTrainingRef.data().description,
+                  sound: "default",
+                  badge: "0",
+                },
+              },
+          );
+          console.log(">> SEND Native PUSH EVENT: ", nativePush);
+        }
       }
     }
   }
 }
-

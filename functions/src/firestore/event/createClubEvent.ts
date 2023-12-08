@@ -7,8 +7,10 @@ import * as functions from "firebase-functions";
 import firebaseDAO from "../../firebaseSingleton";
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 import webpush = require("web-push");
+import {Messaging} from "firebase-admin/lib/messaging/messaging";
 
 const db = firebaseDAO.instance.db;
+const messaging: Messaging = firebaseDAO.instance.messaging;
 
 const gcmAPIKey = functions.config().webpush.gcmapikey;
 const publicKey = functions.config().webpush.publickey;
@@ -59,15 +61,39 @@ export async function createNotificationClubEvent(snapshot: QueryDocumentSnapsho
   const clubMembersRef = await db.collection("club").doc(clubId).collection("members").get();
   for (const clubMember of clubMembersRef.docs) {
     const userProfileRef = await db.collection("userProfile").doc(clubMember.id).get();
-    if (userProfileRef.exists && userProfileRef.data().settingsPush) {
+    if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushEvent) {
       const userProfilePushRef = await db.collection("userProfile").doc(clubMember.id).collection("push").get();
       for (const push of userProfilePushRef.docs) {
-        const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
-            JSON.stringify( {
+        console.log(">> PUSH DEVICE: ", push.data());
+        if (push.data().platform === "web") {
+        // Send WebPush
+          const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
+              JSON.stringify( {
+                title: clubEventRef.data().name,
+                message: clubEventRef.data().description,
+              }));
+          console.log(">> SEND PUSH EVENT: ", statusCode, headers, body);
+        } else {
+          // Send native Push
+          console.log(">> Message used ", {
+            token: push.data().token,
+            data: {
               title: clubEventRef.data().name,
               message: clubEventRef.data().description,
-            }));
-        console.log(">> SEND PUSH EVENT: ", statusCode, headers, body);
+            },
+          });
+          const nativePush = await messaging.sendToDevice(push.data().token,
+              {
+                notification: {
+                  title: clubEventRef.data().name,
+                  message: clubEventRef.data().description,
+                  sound: "default",
+                  badge: "0",
+                },
+              },
+          );
+          console.log(">> SEND Native PUSH EVENT: ", nativePush);
+        }
       }
     }
   }
