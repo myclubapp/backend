@@ -40,13 +40,24 @@ export async function createHelferEvent(snapshot: QueryDocumentSnapshot, context
   const hasClubAdminRef = await db.collection("userProfile").doc(userId).collection("clubAdmin").doc(clubRef.id).get();
   if (!isClubAdminRef.data() || !hasClubAdminRef.data()) {
     console.error("NO PERMISSION");
-
     return;
   }
 
+  const schichten = eventData.schichten;
+  delete eventData.schichten;
+
+  // create helferevent
   const newHelferEventRef = await db.collection("club").doc(clubRef.id).collection("helferEvents").add({
     ...eventData,
   });
+
+  // if schichten, create them as well
+  for (const schicht of schichten) {
+    const newHelferSchicht = await db.collection("club").doc(clubRef.id).collection("helferEvents").doc(newHelferEventRef.id).collection("schichten").add({
+      ...schicht,
+    });
+    console.log("new schicht added: " + newHelferSchicht.id);
+  }
 
   console.log("New Helferevent created: " + newHelferEventRef.id);
   return db.collection("userProfile").doc(userId).collection("helferEvents").doc(eventId).delete();
