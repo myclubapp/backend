@@ -90,6 +90,7 @@ async function updateClubNewsFromWordpress(): Promise<any> {
         */
         const wpUserData = await fetch(news["_links"].author[0].href);
         const wpUser = await wpUserData.json();
+        const authorImage = wpUser.avatar_urls[96] || wpUser.avatar_urls[48] || wpUser.avatar_urls[24] || "";
 
         await db.collection("club").doc(`${club.id}`).collection("news").doc(`su-${news.id}`).set({
           externalId: `${news["id"]}`,
@@ -97,12 +98,12 @@ async function updateClubNewsFromWordpress(): Promise<any> {
           leadText: String(text).substring(0, 200) + " ...",
           date: news["date"],
           slug: news["slug"],
-          image: news.featured_media || "https://placehold.co/600x400",
+          image: news.featured_media || authorImage || "https://placehold.co/600x400",
           text: text,
           htmlText: news["content"].rendered || " ",
           tags: "Webseite",
           author: wpUser.name,
-          authorImage: wpUser.avatar_urls[96] || wpUser.avatar_urls[48] || wpUser.avatar_urls[24] || "",
+          authorImage: authorImage,
           url: news["link"],
           type: club.type,
           updated: new Date(),
