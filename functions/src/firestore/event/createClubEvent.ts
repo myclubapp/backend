@@ -69,24 +69,17 @@ export async function createNotificationClubEvent(snapshot: QueryDocumentSnapsho
         // Send WebPush
           const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
               JSON.stringify( {
-                title: clubEventRef.data().name,
-                message: clubEventRef.data().description,
+                title: "Neue Veranstaltung verfügbar: " + clubEventRef.data().name,
+                message: "Details: " + clubEventRef.data().description,
               }));
           console.log(">> SEND PUSH EVENT: ", statusCode, headers, body);
         } else {
           // Send native Push
-          console.log(">> Message used ", {
-            token: push.data().token,
-            data: {
-              title: clubEventRef.data().name,
-              message: clubEventRef.data().description,
-            },
-          });
           const nativePush = await messaging.sendToDevice(push.data().token,
               {
                 notification: {
-                  title: clubEventRef.data().name,
-                  message: clubEventRef.data().description,
+                  title: "Neue Veranstaltung verfügbar: " + clubEventRef.data().name,
+                  message: "Details: " + clubEventRef.data().description,
                   sound: "default",
                   badge: "0",
                 },

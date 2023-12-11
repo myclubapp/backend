@@ -69,32 +69,17 @@ export async function createNotificationHelferEvent(snapshot: QueryDocumentSnaps
           // Send WebPush
           const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
               JSON.stringify( {
-                title: helferEvent.data().name,
-                message: helferEvent.data().description,
+                title: "Neuer Helferevent verfügbar: " + helferEvent.data().name,
+                message: "Details: " + helferEvent.data().description,
               }));
           console.log(">> SEND PUSH EVENT: ", statusCode, headers, body);
         } else {
           // Send native Push
-          console.log(">> Message used ", {
-            token: push.data().token,
-            data: {
-              title: helferEvent.data().name,
-              message: helferEvent.data().description,
-            },
-          });
-          /* const nativePush = await messaging.send({
-            token: push.data().token,
-            data: {
-              title: helferEvent.data().name,
-              message: helferEvent.data().description,
-            },
-          });*/
-
           const nativePush = await messaging.sendToDevice(push.data().token,
               {
                 notification: {
-                  title: helferEvent.data().name,
-                  body: helferEvent.data().description,
+                  title: "Neuer Helferevent verfügbar: " + helferEvent.data().name,
+                  message: "Details: " + helferEvent.data().description,
                   sound: "default",
                   badge: "0",
                 },

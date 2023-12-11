@@ -149,24 +149,17 @@ export async function createNotificationTeamTraining(snapshot: QueryDocumentSnap
           // Send WebPush
           const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
               JSON.stringify( {
-                title: teamTrainingRef.data().name,
-                message: teamTrainingRef.data().description,
+                title: "Neues Training verfügbar: " + teamTrainingRef.data().name,
+                message: "Details: " + teamTrainingRef.data().description,
               }));
           console.log(">> SEND PUSH EVENT: ", statusCode, headers, body);
         } else {
           // Send native Push
-          console.log(">> Message used ", {
-            token: push.data().token,
-            data: {
-              title: teamTrainingRef.data().name,
-              message: teamTrainingRef.data().description,
-            },
-          });
           const nativePush = await messaging.sendToDevice(push.data().token,
               {
                 notification: {
-                  title: teamTrainingRef.data().name,
-                  message: teamTrainingRef.data().description,
+                  title: "Neues Training verfügbar: " + teamTrainingRef.data().name,
+                  message: "Details: " + teamTrainingRef.data().description,
                   sound: "default",
                   badge: "0",
                 },
