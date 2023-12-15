@@ -32,6 +32,7 @@ import {createNotificationClubNews} from "./firestore/news/createClubNews";
 import {createNotificationTeamNews} from "./firestore/news/createTeamNews";
 import {createNotificationNews} from "./firestore/news/createNews";
 import {youtubeScheduler} from "./scheduler/youtube.scheduler";
+import {confirmHelferEvent} from "./firestore/event/confirmHelferEvent";
 
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -98,6 +99,10 @@ export const dbAddTeamTraining = functions.region("europe-west6").firestore.docu
 // export const dbAddTeamEvent = functions.region("europe-west6").firestore.document("/userProfile/{userId}/teamEvent/{eventId}").onCreate(createTeamEvent);
 export const dbAddClubEvent = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubEvents/{eventId}").onCreate(createClubEvent);
 export const dbAddHelferEvent = functions.region("europe-west6").firestore.document("/userProfile/{userId}/helferEvents/{eventId}").onCreate(createHelferEvent);
+
+// HELFER EVENTS DB HOOKS
+// `club/${clubId}/helferEvents/${eventId}/schichten/${schichtId}/attendees/${userId
+export const dbConfirmHelferEvent = functions.region("europe-west6").firestore.document("/club/{clubId}/helferEvents/{eventId}/schichten/{schichtId}/attendees/{userId}").onUpdate(confirmHelferEvent);
 
 // NOTIFICATION DB HOOKS
 
