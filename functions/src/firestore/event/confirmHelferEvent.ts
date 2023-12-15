@@ -22,7 +22,7 @@ export async function confirmHelferEvent(change: Change<QueryDocumentSnapshot>, 
 
     const clubRef = await db.collection("club").doc(clubId).get();
     const helferEventRef = await db.collection("club").doc(clubId).collection("helferEvents").doc(eventId).get();
-    const schichtRef = await db.collection("club").doc(clubId).collection("helferEvents").doc(eventId).collection(schichtId).get();
+    const schichtRef = await db.collection("club").doc(clubId).collection("helferEvents").doc(eventId).collection("schichten").doc(schichtId).get();
 
     await db.collection("userProfile").doc(userId).collection("helferPunkte").add({
       clubRef: clubRef.ref,
