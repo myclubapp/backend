@@ -14,20 +14,21 @@ export async function createTeamMember(snapshot: QueryDocumentSnapshot, context:
   const userId = context.params.userId;
   const teamId = context.params.teamId;
 
+  const teamRef = await db.collection("teams").doc(teamId).get();
+  return db.collection("userProfile").doc(userId).collection("team").doc(`${teamId}`).set({
+    "teamRef": teamRef,
+  });
+
+  /* Security is covered by the DB rules. Only auth and admins can create team members and then triggers this method to add it to the userprofile as well.
   const adminUser = await auth.getUser(context.auth?.uid);
   if (adminUser && adminUser.customClaims && adminUser.customClaims[teamId]) {
-  // IS USER ALREAD PART OF ANY OTHER TEAM WITHIN THE CLUB OR CURRENT CLUB? MAYBE ONLY CLUB IS RELEVANT
-
-    const teamRef = await db.collection("teams").doc(teamId).get();
-    await db.collection("userProfile").doc(userId).collection("team").doc(`${teamId}`).set({
-      "teamRef": teamRef,
-    });
+  // IS USER ALREADY PART OF ANY OTHER TEAM WITHIN THE CLUB OR CURRENT CLUB? MAYBE ONLY CLUB IS RELEVANT
   } else {
     // RESTORE DATA!
     await db.collection("userProfile").doc(userId).collection("teams").doc(teamId).set(
         snapshot.data()
     );
-  }
+  }*/
 }
 
 // I GUESS WE DONT NEED THIS?
