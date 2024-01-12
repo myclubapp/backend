@@ -108,11 +108,16 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
           // Send native Push
           const nativePush = await messaging.sendToDevice(push.data().token,
               {
-                notification: {
+                notification: <NotificationMessagePayload> {
                   title: "Neue Beitrittsanfrage für deinen Verein: " + clubRef.data().name,
-                  message: `${userProfileRef.data()?.firstName} ${userProfileRef.data()?.lastName} (${userProfileRef.data()?.email}) möchte deinem Verein beitreten.`,
+                  body: `${userProfileRef.data()?.firstName} ${userProfileRef.data()?.lastName} (${userProfileRef.data()?.email}) möchte deinem Verein beitreten.`,
                   sound: "default",
                   badge: "0",
+                },
+                data: <DataMessagePayload> {
+                  "type": "clubRequest",
+                  "clubId": clubId,
+                  "id": clubId,
                 },
               },
           );
