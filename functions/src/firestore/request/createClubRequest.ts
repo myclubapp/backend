@@ -115,7 +115,7 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
                   badge: "0",
                 },
                 data: <DataMessagePayload> {
-                  "type": "clubRequest",
+                  "type": "clubRequestAdmin",
                   "clubId": clubId,
                   "id": clubId,
                 },

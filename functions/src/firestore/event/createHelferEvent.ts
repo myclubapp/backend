@@ -96,7 +96,7 @@ export async function createNotificationHelferEvent(snapshot: QueryDocumentSnaps
                   badge: "0",
                 },
                 data: <DataMessagePayload> {
-                  "type": "helferevent",
+                  "type": "helferEvent",
                   "clubId": clubId,
                   "id": helferEvent.data().id,
                 },
