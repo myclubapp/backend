@@ -64,7 +64,7 @@ export async function createNotificationClubNews(snapshot: QueryDocumentSnapshot
                 data: <DataMessagePayload> {
                   "type": "clubNews",
                   "clubId": clubId,
-                  "id": clubNewsRef.data().id,
+                  ...clubNewsRef.data(),
                 },
               },
           );
