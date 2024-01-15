@@ -8,6 +8,7 @@ import firebaseDAO from "../../firebaseSingleton";
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 import webpush = require("web-push");
 import {Messaging} from "firebase-admin/lib/messaging/messaging";
+import {DataMessagePayload, NotificationMessagePayload} from "firebase-admin/lib/messaging/messaging-api";
 
 const db = firebaseDAO.instance.db;
 const messaging: Messaging = firebaseDAO.instance.messaging;
@@ -157,11 +158,16 @@ export async function createNotificationTeamTraining(snapshot: QueryDocumentSnap
           // Send native Push
           const nativePush = await messaging.sendToDevice(push.data().token,
               {
-                notification: {
+                notification: <NotificationMessagePayload> {
                   title: "Neues Training verfügbar: " + teamTrainingRef.data().name,
-                  message: "Details: " + teamTrainingRef.data().description,
+                  body: "Details: " + teamTrainingRef.data().description,
                   sound: "default",
                   badge: "0",
+                },
+                data: <DataMessagePayload> {
+                  "type": "trainings",
+                  "teamId": teamId,
+                  "id": teamTrainingRef.id,
                 },
               },
           );

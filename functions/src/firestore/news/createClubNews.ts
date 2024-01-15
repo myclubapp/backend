@@ -9,6 +9,7 @@ import firebaseDAO from "../../firebaseSingleton";
 import webpush = require("web-push");
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 import {Messaging} from "firebase-admin/lib/messaging/messaging";
+import {DataMessagePayload, NotificationMessagePayload} from "firebase-admin/lib/messaging/messaging-api";
 
 const db = firebaseDAO.instance.db;
 const messaging: Messaging = firebaseDAO.instance.messaging;
@@ -54,11 +55,16 @@ export async function createNotificationClubNews(snapshot: QueryDocumentSnapshot
           });
           const nativePush = await messaging.sendToDevice(push.data().token,
               {
-                notification: {
+                notification: <NotificationMessagePayload> {
                   title: clubNewsRef.data().title,
-                  message: clubNewsRef.data().text,
+                  body: clubNewsRef.data().text,
                   sound: "default",
                   badge: "0",
+                },
+                data: <DataMessagePayload> {
+                  "type": "clubNews",
+                  "clubId": clubId,
+                  ...clubNewsRef.data(),
                 },
               },
           );

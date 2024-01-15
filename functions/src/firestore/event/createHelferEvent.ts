@@ -8,6 +8,7 @@ import firebaseDAO from "../../firebaseSingleton";
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 import webpush = require("web-push");
 import {Messaging} from "firebase-admin/lib/messaging/messaging";
+import {DataMessagePayload, NotificationMessagePayload} from "firebase-admin/lib/messaging/messaging-api";
 
 const db = firebaseDAO.instance.db;
 const messaging: Messaging = firebaseDAO.instance.messaging;
@@ -88,11 +89,16 @@ export async function createNotificationHelferEvent(snapshot: QueryDocumentSnaps
           // Send native Push
           const nativePush = await messaging.sendToDevice(push.data().token,
               {
-                notification: {
+                notification: <NotificationMessagePayload> {
                   title: "Neuer Helferevent verfügbar: " + helferEvent.data().name,
-                  message: "Details: " + helferEvent.data().description,
+                  body: "Details: " + helferEvent.data().description,
                   sound: "default",
                   badge: "0",
+                },
+                data: <DataMessagePayload> {
+                  "type": "helferEvent",
+                  "clubId": clubId,
+                  "id": helferEvent.data().id,
                 },
               },
           );

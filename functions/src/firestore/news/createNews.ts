@@ -9,6 +9,7 @@ import firebaseDAO from "../../firebaseSingleton";
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 import webpush = require("web-push");
 import {Messaging} from "firebase-admin/lib/messaging/messaging";
+import {DataMessagePayload, NotificationMessagePayload} from "firebase-admin/lib/messaging/messaging-api";
 
 const db = firebaseDAO.instance.db;
 const messaging: Messaging = firebaseDAO.instance.messaging;
@@ -56,11 +57,15 @@ export async function createNotificationNews(snapshot: QueryDocumentSnapshot, co
             });
             const nativePush = await messaging.sendToDevice(push.data().token,
                 {
-                  notification: {
+                  notification: <NotificationMessagePayload> {
                     title: newsRef.data().title,
-                    message: newsRef.data().text,
+                    body: newsRef.data().text,
                     sound: "default",
                     badge: "0",
+                  },
+                  data: <DataMessagePayload> {
+                    "type": "news",
+                    ...newsRef.data(),
                   },
                 },
             );
