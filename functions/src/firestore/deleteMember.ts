@@ -15,7 +15,10 @@ export async function deleteTeamMember(snapshot: QueryDocumentSnapshot, context:
   const userId = context.params.userId;
   const teamId = context.params.teamId;
   console.log("Auth User > " + context.auth);
+  console.log("Delete user from team " + userId, teamId);
 
+  return db.collection("userProfile").doc().collection("teams").doc(teamId).delete();
+  /*
   const adminUser = await auth.getUser(context.auth?.uid);
   if (adminUser && adminUser.customClaims && adminUser.customClaims[teamId]) {
     // REMOVE from Team Admin? (incl. claims)
@@ -30,14 +33,17 @@ export async function deleteTeamMember(snapshot: QueryDocumentSnapshot, context:
     return await db.collection("teams").doc(teamId).collection("members").doc(userId).set(
         snapshot.data()
     );
-  }
+  }*/
 }
 export async function deleteClubMember(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
   console.log("deleteClubMember > Club Page via Administrator");
   const userId = context.params.userId;
   const clubId = context.params.clubId;
   console.log("Auth User > " + context.auth);
+  console.log("Delete user from club " + userId, clubId);
 
+  return db.collection("userProfile").doc(userId).collection("club").doc(clubId).delete();
+  /*
   const adminUser = await auth.getUser(context.auth?.uid);
   if (adminUser && adminUser.customClaims && adminUser.customClaims[clubId]) {
     // Remove from all Teams
@@ -57,7 +63,7 @@ export async function deleteClubMember(snapshot: QueryDocumentSnapshot, context:
     return await db.collection("club").doc(clubId).collection("members").doc(userId).set(
         snapshot.data()
     );
-  }
+  }*/
 }
 /* export async function deleteMemberFromClub(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
   console.log("Delete Member From Club");
