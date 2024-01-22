@@ -53,6 +53,9 @@ export async function createNotificationClubNews(snapshot: QueryDocumentSnapshot
               message: clubNewsRef.data().text,
             },
           });
+
+
+          delete clubNewsRef.data().updated;
           const nativePush = await messaging.sendToDevice(push.data().token,
               {
                 notification: <NotificationMessagePayload> {

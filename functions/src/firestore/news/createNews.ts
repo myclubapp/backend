@@ -55,6 +55,8 @@ export async function createNotificationNews(snapshot: QueryDocumentSnapshot, co
                 message: newsRef.data().text,
               },
             });
+
+            delete newsRef.data().updated;
             const nativePush = await messaging.sendToDevice(push.data().token,
                 {
                   notification: <NotificationMessagePayload> {
