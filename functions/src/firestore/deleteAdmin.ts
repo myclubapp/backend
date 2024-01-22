@@ -6,18 +6,21 @@ import * as functions from "firebase-functions";
 import firebaseDAO from "./../firebaseSingleton";
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 
-// const db = firebaseDAO.instance.db;
-const auth = firebaseDAO.instance.auth;
+const db = firebaseDAO.instance.db;
+// const auth = firebaseDAO.instance.auth;
 
 export async function deleteTeamAdmin(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
   console.log("deleteTeamAdmin");
   const userId = context.params.userId;
   const teamId = context.params.teamId;
 
+  console.log(`Admin with id ${userId} leaves TeamAdminList ${teamId}`);
+  return db.collection("userProfile").doc(userId).collection("teamAdmin").doc(teamId).delete();
+
   // delete team admin List from team and user
   // const userTeamAdmin = await db.collection("userProfile").doc(userId).collection("teamAdmin").doc(teamId).delete();
   // const teamAdminUser = await db.collection("teams").doc(teamId).collection("admin").doc(`${userId}`).delete();
-
+  /*
   console.log(`Admin with id ${userId} leaves TeamAdminList ${teamId}`);
   const user = await auth.getUser(userId);
   if (user && user.customClaims && user.customClaims[teamId]) {
@@ -26,7 +29,7 @@ export async function deleteTeamAdmin(snapshot: QueryDocumentSnapshot, context: 
     delete customClaims[teamId];
     await auth.setCustomUserClaims(userId, customClaims);
   }
-  return true;
+  return true;*/
 }
 
 export async function deleteClubAdmin(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
@@ -39,12 +42,13 @@ export async function deleteClubAdmin(snapshot: QueryDocumentSnapshot, context: 
   // const clubAdminUser = await db.collection("club").doc(clubId).collection("admins").doc(`${userId}`).delete();
 
   console.log(`Admin with id ${userId} leaves ClubAdminList ${clubId}`);
-  const user = await auth.getUser(userId);
+  return db.collection("userProfile").doc(userId).collection("clubAdmin").doc(clubId).delete();
+  /* const user = await auth.getUser(userId);
   if (user && user.customClaims && user.customClaims[clubId]) {
     console.log("remove admin for Club");
     const customClaims = user.customClaims;
     delete customClaims[clubId];
     await auth.setCustomUserClaims(userId, customClaims);
   }
-  return true;
+  return true; */
 }
