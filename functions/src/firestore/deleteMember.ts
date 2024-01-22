@@ -8,7 +8,7 @@ import firebaseDAO from "./../firebaseSingleton";
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 
 const db = firebaseDAO.instance.db;
-const auth = firebaseDAO.instance.auth;
+// const auth = firebaseDAO.instance.auth;
 
 export async function deleteTeamMember(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
   console.log("deleteTeamMember > Team Page via Administrator");
