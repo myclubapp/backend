@@ -43,6 +43,15 @@ export async function deleteClubMember(snapshot: QueryDocumentSnapshot, context:
   console.log("Delete user from club " + userId, clubId);
 
   // TODO: DELETE FROM ALL TEAMS AS WELL!
+  const teamList = await db.collection("club").doc(clubId).collection("teams").get();
+  // Delete from all Teams
+  for (const team of teamList) {
+    await db.collection("teams").doc(team.id).collection("members").doc(userId).delete();
+    await db.collection("userProfile").doc().collection("teams").doc(team.id).delete();
+
+    await db.collection("teams").doc(team.id).collection("admins").doc(userId).delete();
+    await db.collection("userProfile").doc().collection("teamAdmins").doc(team.id).delete();
+  }
 
   return db.collection("userProfile").doc(userId).collection("club").doc(clubId).delete();
   /*
