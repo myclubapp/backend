@@ -42,6 +42,8 @@ export async function deleteClubMember(snapshot: QueryDocumentSnapshot, context:
   console.log("Auth User > " + context.auth);
   console.log("Delete user from club " + userId, clubId);
 
+  // TODO: DELETE FROM ALL TEAMS AS WELL!
+
   return db.collection("userProfile").doc(userId).collection("club").doc(clubId).delete();
   /*
   const adminUser = await auth.getUser(context.auth?.uid);
