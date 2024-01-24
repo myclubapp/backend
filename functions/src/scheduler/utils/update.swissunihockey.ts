@@ -253,6 +253,7 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
         type: "swissunihockey",
         updated: new Date(),
         clubRef: clubRef.ref,
+        clubId: clubRef.id,
       }, {
         merge: true,
       });

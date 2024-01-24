@@ -35,6 +35,7 @@ export async function updateGamesSwisshandball(): Promise<any> {
         type: "swisshandball",
         updated: new Date(),
         clubRef: clubData.ref,
+        clubId: clubData.id,
       }, {
         merge: true,
       });

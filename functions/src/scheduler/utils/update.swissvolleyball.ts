@@ -27,7 +27,8 @@ export async function updateTeamsSwissvolleyball(): Promise<any> {
             info: team.info,
             updated: new Date(),
             associationId: assocation.id,
-            clubRef: db.collection("club").doc(`sv-${club.id}`),
+            clubRef: fbClubData.ref,
+            clubId: fbClubData.id,
           }, {
             merge: true,
           });
