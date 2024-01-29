@@ -27,11 +27,14 @@ export async function confirmHelferEvent(change: Change<QueryDocumentSnapshot>, 
     await db.collection("userProfile").doc(userId).collection("helferPunkte").add({
       clubRef: clubRef.ref,
       eventRef: helferEventRef.ref,
-      schichtRef: schichtRef.ref,
       eventName: helferEventRef.data().name,
-      schichtName: schichtRef.data().name,
       eventDate: helferEventRef.data().date,
       punkte: change.after.data().points || 1,
+
+      schichtRef: schichtRef.ref,
+      schichtName: schichtRef.data().name,
+      schichtTimeFrom: schichtRef.data().timeFrom,
+      schichtTimeTo: schichtRef.data().timeTo,
     });
   }
 }
