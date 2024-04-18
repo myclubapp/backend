@@ -14,8 +14,8 @@ export function getGamePreview(request: functions.Request, response: functions.R
     origin: true,
   });
 
-  const gameId = request.params["gameId"];
-  const clubId = request.params["clubId"];
+  const gameId = request.param("gameId");
+  const clubId = request.param("clubId");
   console.log("Game ID: " + gameId);
   console.log("Club ID: " + clubId);
 
