@@ -33,7 +33,7 @@ import {createNotificationTeamNews} from "./firestore/news/createTeamNews";
 import {createNotificationNews} from "./firestore/news/createNews";
 import {youtubeScheduler} from "./scheduler/youtube.scheduler";
 import {confirmHelferEvent} from "./firestore/event/confirmHelferEvent";
-import { getGamePreview } from "./requests/gamePreview/gamePreview.get";
+import {getGamePreview} from "./requests/gamePreview/gamePreview.get";
 
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
