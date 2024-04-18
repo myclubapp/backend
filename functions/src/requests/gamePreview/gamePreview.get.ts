@@ -23,6 +23,7 @@ export function getGamePreview(request: functions.Request, response: functions.R
         console.log(doc.id, " => ", doc.data());
       });
     } catch (err) {
+      console.error(err);
       response.status(500).json({
         error: err,
       });
