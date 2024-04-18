@@ -23,6 +23,7 @@ export function getGamePreview(request: functions.Request, response: functions.R
     try {
       const documentRef = await db.collection("club").doc(`${clubId}`).collection("games").doc(`${gameId}`).get();
       console.log(documentRef.data());
+      response.json(documentRef.data());
     } catch (err) {
       console.error(err);
       response.status(500).json({
