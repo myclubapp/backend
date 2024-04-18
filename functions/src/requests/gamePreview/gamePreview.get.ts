@@ -20,7 +20,7 @@ export function getGamePreview(request: functions.Request, response: functions.R
 
   corsHandler(request, response, async () => {
     try {
-      const querySnapshot = await db.collection("club").doc(clubId).collection("games").doc().get(gameId);
+      const querySnapshot = await db.collection("club").doc(`${clubId}`).collection("games").doc(`${gameId}`).get();
       querySnapshot.forEach((doc:any) => {
         console.log(doc.id, " => ", doc.data());
       });
