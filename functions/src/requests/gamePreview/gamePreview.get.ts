@@ -17,6 +17,7 @@ export function getGamePreview(request: functions.Request, response: functions.R
   const gameId = request.params["gameId"];
   const clubId = request.params["clubId"];
   console.log("Game ID: " + gameId);
+  console.log("Club ID: " + clubId);
 
   corsHandler(request, response, async () => {
     try {
