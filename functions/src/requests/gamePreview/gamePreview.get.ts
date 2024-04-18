@@ -15,11 +15,12 @@ export function getGamePreview(request: functions.Request, response: functions.R
   });
 
   const gameId = request.params["gameId"];
+  const clubId = request.params["clubId"];
   console.log("Game ID: " + gameId);
 
   corsHandler(request, response, async () => {
     try {
-      const querySnapshot = await db.collectionGroup("games").where("externalId", "==", gameId).get();
+      const querySnapshot = await db.collection("club").doc(clubId).collection("games").doc().get(gameId);
       querySnapshot.forEach((doc:any) => {
         console.log(doc.id, " => ", doc.data());
       });
