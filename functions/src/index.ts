@@ -33,6 +33,7 @@ import {createNotificationTeamNews} from "./firestore/news/createTeamNews";
 import {createNotificationNews} from "./firestore/news/createNews";
 import {youtubeScheduler} from "./scheduler/youtube.scheduler";
 import {confirmHelferEvent} from "./firestore/event/confirmHelferEvent";
+import { getGamePreview } from "./requests/gamePreview/gamePreview.get";
 
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -118,3 +119,9 @@ export const dbAddHelferEventNotification = functions.region("europe-west6").fir
 
 // DB Hooks for Training Push
 export const dbAddTeamTrainingNotification = functions.region("europe-west6").firestore.document("/teams/{teamId}/trainings/{trainingId}").onCreate(createNotificationTeamTraining);
+
+// TOTOMAT
+// export const totomat = functions.region("europe-west6").https.onRequest(graphql);
+
+// Game Preview
+export const gamePreview = functions.region("europe-west6").https.onRequest(getGamePreview);
