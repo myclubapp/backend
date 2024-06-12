@@ -1,0 +1,6445 @@
+[
+    {
+        "id": "2775",
+        "lat": "47.387958",
+        "lng": "8.044136",
+        "name": "BTV Aarau Athletics",
+        "address": "5000 Aarau, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2776",
+        "lat": "47.368047",
+        "lng": "8.363065",
+        "name": "LA Mutschellen",
+        "address": "8967 Widen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2777",
+        "lat": "47.344661",
+        "lng": "8.236875",
+        "name": "LA Villmergen",
+        "address": "5612 Villmergen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2778",
+        "lat": "47.355941",
+        "lng": "8.044091",
+        "name": "LAR Satus Oberentfelden",
+        "address": "5036 Oberentfelden, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2779",
+        "lat": "47.476722",
+        "lng": "8.217699",
+        "name": "LAR TV Windisch",
+        "address": "5210 Windisch, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2780",
+        "lat": "47.482413",
+        "lng": "8.207221",
+        "name": "Laufsportgruppe Brugg",
+        "address": "5200 Brugg, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2781",
+        "lat": "47.350882",
+        "lng": "8.287051",
+        "name": "LR Wohlen",
+        "address": "5610 Wohlen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2782",
+        "lat": "47.500182",
+        "lng": "7.991391",
+        "name": "LV Fricktal",
+        "address": "5073 Gipf-Oberfrick, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2783",
+        "lat": "47.468505",
+        "lng": "8.297217",
+        "name": "LV Wettingen-Baden",
+        "address": "5400 Baden, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2784",
+        "lat": "47.348724",
+        "lng": "8.111316",
+        "name": "SATUS Gr\u00e4nichen",
+        "address": "5722 Gr\u00e4nichen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2785",
+        "lat": "47.300432",
+        "lng": "7.887347",
+        "name": "SATUS Rothrist LA",
+        "address": "4852 Rothrist, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2787",
+        "lat": "47.217014",
+        "lng": "8.368567",
+        "name": "STV Auw",
+        "address": "5644 Auw, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2788",
+        "lat": "47.230092",
+        "lng": "8.342998",
+        "name": "STV Beinwil\/Freiamt",
+        "address": "5637 Beinwil (Freiamt), Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2789",
+        "lat": "47.348724",
+        "lng": "8.111316",
+        "name": "STV Gr\u00e4nichen LA",
+        "address": "5722 Gr\u00e4nichen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2790",
+        "lat": "47.229940",
+        "lng": "8.388647",
+        "name": "STV M\u00fchlau",
+        "address": "5642 M\u00fchlau, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2791",
+        "lat": "47.392492",
+        "lng": "8.084618",
+        "name": "TV Buchs AG",
+        "address": "5033 Buchs, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2793",
+        "lat": "47.544877",
+        "lng": "7.952595",
+        "name": "TV Stein (AG)",
+        "address": "4332 Stein, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2794",
+        "lat": "47.350882",
+        "lng": "8.287051",
+        "name": "TV Wohlen AG",
+        "address": "5610 Wohlen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2795",
+        "lat": "47.285889",
+        "lng": "7.955229",
+        "name": "TV Zofingen LA",
+        "address": "4800 Zofingen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2796",
+        "lat": "47.468505",
+        "lng": "8.297217",
+        "name": "Vom Stein Baden",
+        "address": "5400 Baden, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2797",
+        "lat": "47.334932",
+        "lng": "9.406594",
+        "name": "LR TV Appenzell",
+        "address": "9050 Appenzell, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2798",
+        "lat": "47.408970",
+        "lng": "9.444043",
+        "name": "LA Speicher",
+        "address": "9042 Speicher, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2799",
+        "lat": "47.382376",
+        "lng": "9.286793",
+        "name": "TV Herisau",
+        "address": "9100 Herisau, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2800",
+        "lat": "47.319723",
+        "lng": "9.177020",
+        "name": "TV St. Peterzell",
+        "address": "9127 St. Peterzell, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2828",
+        "lat": "47.148764",
+        "lng": "7.249868",
+        "name": "SATUS Biel-Stadt",
+        "address": "2502 Biel, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2829",
+        "lat": "46.934932",
+        "lng": "7.786458",
+        "name": "SK Langnau",
+        "address": "3550 Langnau im Emmental, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2830",
+        "lat": "46.963986",
+        "lng": "7.461007",
+        "name": "STB Leichtathletik",
+        "address": "3014 Bern, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2832",
+        "lat": "46.955964",
+        "lng": "7.320915",
+        "name": "TSV Frauenkappelen",
+        "address": "3202 Frauenkappelen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2833",
+        "lat": "46.951277",
+        "lng": "7.542989",
+        "name": "TSV Vechigen",
+        "address": "3067 Vechigen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2834",
+        "lat": "47.234599",
+        "lng": "7.663239",
+        "name": "Turn- und Sportverein Wangen an der Aare",
+        "address": "3380 Wangen an der Aare, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2835",
+        "lat": "46.910400",
+        "lng": "7.471150",
+        "name": "Turnverein Kehrsatz",
+        "address": "3122 Kehrsatz, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2836",
+        "lat": "47.046170",
+        "lng": "7.285397",
+        "name": "TV Aarberg Leichtathletik",
+        "address": "3270 Aarberg, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2837",
+        "lat": "47.247143",
+        "lng": "7.613163",
+        "name": "TV Attiswil",
+        "address": "4536 Attiswil, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2838",
+        "lat": "46.983127",
+        "lng": "7.504305",
+        "name": "TV Bolligen",
+        "address": "3065 Bolligen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2839",
+        "lat": "47.088869",
+        "lng": "7.532287",
+        "name": "TV Fraubrunnen",
+        "address": "3312 Fraubrunnen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2840",
+        "lat": "46.905990",
+        "lng": "7.636921",
+        "name": "TV Grossh\u00f6chstetten",
+        "address": "3506 Grossh\u00f6chstetten, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2841",
+        "lat": "47.194312",
+        "lng": "7.714839",
+        "name": "TV Herzogenbuchsee",
+        "address": "3360 Herzogenbuchsee, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2842",
+        "lat": "46.868437",
+        "lng": "7.615069",
+        "name": "TV Konolfingen Athletics",
+        "address": "3510 Konolfingen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2843",
+        "lat": "47.005554",
+        "lng": "7.681473",
+        "name": "TV L\u00fctzelfl\u00fch Athletics",
+        "address": "3432 L\u00fctzelfl\u00fch, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2844",
+        "lat": "47.074650",
+        "lng": "7.307702",
+        "name": "TV Lyss",
+        "address": "3250 Lyss, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2845",
+        "lat": "46.707728",
+        "lng": "8.178271",
+        "name": "TV Meiringen",
+        "address": "3860 Meiringen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2846",
+        "lat": "46.837395",
+        "lng": "7.642025",
+        "name": "TV Oberdiessbach",
+        "address": "3672 Oberdiessbach, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2847",
+        "lat": "46.925556",
+        "lng": "7.373889",
+        "name": "TV Oberwangen",
+        "address": "3172 Niederwangen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2848",
+        "lat": "46.954325",
+        "lng": "7.496703",
+        "name": "TV Ostermundigen",
+        "address": "3072 Ostermundigen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2849",
+        "lat": "46.471759",
+        "lng": "7.286573",
+        "name": "TV Saanen-Gstaad",
+        "address": "3780 Gstaad, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2850",
+        "lat": "46.816667",
+        "lng": "7.333333",
+        "name": "TV Schwarzenburg",
+        "address": "3150 Schwarzenburg, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2851",
+        "lat": "46.690173",
+        "lng": "7.661078",
+        "name": "TV Spiez",
+        "address": "3700 Spiez, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2852",
+        "lat": "47.028436",
+        "lng": "7.744630",
+        "name": "TV Sumiswald",
+        "address": "3454 Sumiswald, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2853",
+        "lat": "46.686348",
+        "lng": "7.863205",
+        "name": "TV Unterseen",
+        "address": "3800 Interlaken, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2854",
+        "lat": "47.021767",
+        "lng": "7.450329",
+        "name": "TVM Buchsi-Athletics",
+        "address": "3053 M\u00fcnchenbuchsee, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2855",
+        "lat": "47.500021",
+        "lng": "7.558246",
+        "name": "LC Therwil",
+        "address": "4106 Therwil, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2856",
+        "lat": "47.459968",
+        "lng": "7.859562",
+        "name": "LG Oberbaselbiet \/ BTV Sissach",
+        "address": "4460 Gelterkinden, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2857",
+        "lat": "47.391606",
+        "lng": "7.741684",
+        "name": "LV FrenkeFortuna",
+        "address": "4436 Oberdorf, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2858",
+        "lat": "47.333346",
+        "lng": "7.839841",
+        "name": "STV H\u00e4gendorf",
+        "address": "4614 H\u00e4gendorf, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708521500,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2859",
+        "lat": "47.488996",
+        "lng": "7.723232",
+        "name": "SC Liestal",
+        "address": "4410 Liestal, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2860",
+        "lat": "47.509818",
+        "lng": "7.521925",
+        "name": "Sportclub Biel-Benken",
+        "address": "4105 Biel-Benken, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2862",
+        "lat": "47.495329",
+        "lng": "7.628911",
+        "name": "TV Arlesheim",
+        "address": "4144 Arlesheim, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2864",
+        "lat": "47.523635",
+        "lng": "7.648535",
+        "name": "TV Muttenz athletics",
+        "address": "4132 Muttenz, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2865",
+        "lat": "47.548419",
+        "lng": "7.610165",
+        "name": "Basel Running Club Athletics",
+        "address": "4052 Basel, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2866",
+        "lat": "47.520200",
+        "lng": "7.551637",
+        "name": "LAR Binningen",
+        "address": "4104 Oberwil, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2867",
+        "lat": "47.551158",
+        "lng": "7.568881",
+        "name": "LAS Old Boys Basel",
+        "address": "4054 Basel, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2868",
+        "lat": "47.518131",
+        "lng": "7.620042",
+        "name": "LC Basel",
+        "address": "4142 M\u00fcnchenstein, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2869",
+        "lat": "47.582659",
+        "lng": "7.652434",
+        "name": "TV Riehen",
+        "address": "4125 Riehen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2870",
+        "lat": "47.166732",
+        "lng": "9.511200",
+        "name": "LC Schaan",
+        "address": "9494 Schaan, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2871",
+        "lat": "47.166732",
+        "lng": "9.511200",
+        "name": "LC Vaduz",
+        "address": "9494 Schaan, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2872",
+        "lat": "47.084230",
+        "lng": "9.557284",
+        "name": "Turnverein Triesen",
+        "address": "9495 Triesen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2873",
+        "lat": "47.205022",
+        "lng": "9.524077",
+        "name": "TV Eschen-Mauren",
+        "address": "9492 Eschen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2874",
+        "lat": "46.767832",
+        "lng": "7.240663",
+        "name": "Athletic Team Rechthalten",
+        "address": "1718 Rechthalten, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2875",
+        "lat": "46.529859",
+        "lng": "6.906901",
+        "name": "Athletica Veveyse",
+        "address": "1618 Ch\u00e2tel-St-Denis, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2876",
+        "lat": "46.822152",
+        "lng": "7.104353",
+        "name": "CA Belfaux",
+        "address": "1782 Belfaux, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2877",
+        "lat": "46.809782",
+        "lng": "7.166843",
+        "name": "CA Fribourg",
+        "address": "1700 Fribourg, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2878",
+        "lat": "46.809246",
+        "lng": "7.168837",
+        "name": "CA Gibloux Farvagny",
+        "address": "1700 Fribourg, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708524186,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2879",
+        "lat": "46.778222",
+        "lng": "7.156761",
+        "name": "CA Marly",
+        "address": "1723 Marly, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2880",
+        "lat": "46.788205",
+        "lng": "7.070297",
+        "name": "CA Ros\u00e9",
+        "address": "1754 Avry-sur-Matran, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1664360321,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2881",
+        "lat": "46.691887",
+        "lng": "6.911809",
+        "name": "CARC Romont",
+        "address": "1680 Romont, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695201603,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2882",
+        "lat": "46.753157",
+        "lng": "7.032901",
+        "name": "Cottens Athl\u00e8tes",
+        "address": "1741 Cottens, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695201651,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2883",
+        "lat": "46.747585",
+        "lng": "7.177786",
+        "name": "CS Le Mouret",
+        "address": "1724 Le Mouret, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695201686,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2884",
+        "lat": "46.615451",
+        "lng": "7.057727",
+        "name": "CS Marsens",
+        "address": "1630 Bulle, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695201726,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2885",
+        "lat": "46.533336",
+        "lng": "7.066663",
+        "name": "CS Neirivue",
+        "address": "1669 Neirivue, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695201785,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2886",
+        "lat": "46.849640",
+        "lng": "6.845061",
+        "name": "FSG Estavayer",
+        "address": "1470 Estavayer-le-Lac, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695201815,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2887",
+        "lat": "46.615451",
+        "lng": "7.057727",
+        "name": "SA Bulle",
+        "address": "1635 Bulle, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695201751,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2888",
+        "lat": "46.846420",
+        "lng": "7.191018",
+        "name": "TSV D\u00fcdingen",
+        "address": "1700 D\u00fcdingen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695201841,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2889",
+        "lat": "46.892565",
+        "lng": "7.171201",
+        "name": "TSV Gurmels",
+        "address": "1792 Gurmels, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695201873,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2890",
+        "lat": "46.826285",
+        "lng": "7.300612",
+        "name": "TSV Heitenried",
+        "address": "1714 Heitenried, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695201907,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2891",
+        "lat": "46.822078",
+        "lng": "7.261208",
+        "name": "TSV St. Antoni",
+        "address": "1713 St. Antoni, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695202147,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2892",
+        "lat": "46.794860",
+        "lng": "7.260381",
+        "name": "Sportverein Alterswil",
+        "address": "1715 Alterswil, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695202237,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2893",
+        "lat": "46.892979",
+        "lng": "7.228339",
+        "name": "TV B\u00f6singen",
+        "address": "3178 B\u00f6singen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695202267,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2894",
+        "lat": "46.736510",
+        "lng": "7.292329",
+        "name": "TV Plaffeien",
+        "address": "1719 Plaffeien, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695202296,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2895",
+        "lat": "46.874692",
+        "lng": "7.275715",
+        "name": "TV W\u00fcnnewil",
+        "address": "3184 W\u00fcnnewil-Flamatt, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695202343,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2896",
+        "lat": "46.204149",
+        "lng": "6.143310",
+        "name": "Athl\u00e9tisme Viseu-Gen\u00e8ve",
+        "address": "1201 Gen\u00e8ve, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708524105,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2897",
+        "lat": "46.212264",
+        "lng": "6.105269",
+        "name": "C.H. Ch\u00e2telaine",
+        "address": "1209 Vernier, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695202400,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2898",
+        "lat": "46.204610",
+        "lng": "6.144522",
+        "name": "CA Gen\u00e8ve",
+        "address": "1202 Gen\u00e8ve, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708524075,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2899",
+        "lat": "46.206847",
+        "lng": "6.138268",
+        "name": "CHP Gen\u00e8ve",
+        "address": "1203 Gen\u00e8ve, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708524055,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2901",
+        "lat": "46.174031",
+        "lng": "6.083559",
+        "name": "FSG Bernex-Confignon",
+        "address": "1232 Confignon, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695202531,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2902",
+        "lat": "46.228320",
+        "lng": "6.070988",
+        "name": "FSG Meyrin",
+        "address": "1214 Meyrin, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695202560,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2903",
+        "lat": "46.287694",
+        "lng": "6.165781",
+        "name": "FSG Versoix",
+        "address": "1290 Versoix, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695202586,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2904",
+        "lat": "46.204085",
+        "lng": "6.143991",
+        "name": "Perform-CBS",
+        "address": "1204 Gen\u00e8ve, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708523736,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2905",
+        "lat": "46.175004",
+        "lng": "6.085020",
+        "name": "SATUS Athl. Gen\u00e8ve",
+        "address": "1232 Confignon, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708523712,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2906",
+        "lat": "46.205922",
+        "lng": "6.143156",
+        "name": "Stade Gen\u00e8ve",
+        "address": "1207 Gen\u00e8ve, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708523672,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2907",
+        "lat": "46.287694",
+        "lng": "6.165781",
+        "name": "Versoix Athl\u00e9tisme",
+        "address": "1290 Versoix, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695208217,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2908",
+        "lat": "46.962932",
+        "lng": "9.558947",
+        "name": "AJ TV Landquart",
+        "address": "7206 Landquart, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695208239,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2909",
+        "lat": "46.850784",
+        "lng": "9.531986",
+        "name": "BTV Chur Leichtathletik",
+        "address": "7000 Chur, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695208257,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2910",
+        "lat": "46.828093",
+        "lng": "9.406315",
+        "name": "TV Tamins",
+        "address": "7015 Tamins, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695208277,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2911",
+        "lat": "46.696014",
+        "lng": "9.439494",
+        "name": "TV Thusis",
+        "address": "7430 Thusis, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695208299,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2912",
+        "lat": "47.256177",
+        "lng": "6.996402",
+        "name": "CA des Franches-Montagnes",
+        "address": "2350 Saignel\u00e9gier, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695208318,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2913",
+        "lat": "47.402201",
+        "lng": "7.080309",
+        "name": "CA Fontenais",
+        "address": "2902 Fontenais, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695208340,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2914",
+        "lat": "47.365837",
+        "lng": "7.345156",
+        "name": "Del\u00e9mont Athl\u00e9tisme",
+        "address": "2800 Del\u00e9mont, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695208357,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2915",
+        "lat": "47.426058",
+        "lng": "7.127841",
+        "name": "FSG Alle",
+        "address": "2942 Alle, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695208387,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2916",
+        "lat": "47.338907",
+        "lng": "7.242701",
+        "name": "FSG Bassecourt",
+        "address": "2854 Bassecourt, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695208404,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2917",
+        "lat": "47.403179",
+        "lng": "7.126816",
+        "name": "FSG Courgenay",
+        "address": "2950 Courgenay, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695208426,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2918",
+        "lat": "47.225622",
+        "lng": "6.957212",
+        "name": "GS Franches-Montagnes",
+        "address": "2340 Le Noirmont, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695208450,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2919",
+        "lat": "47.166581",
+        "lng": "8.292067",
+        "name": "AUDACIA Leichtathletik",
+        "address": "6274 Hochdorf, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695208469,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2920",
+        "lat": "47.240609",
+        "lng": "8.922081",
+        "name": "ESV Eschenbach",
+        "address": "3636 Eschenbach, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695208493,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2921",
+        "lat": "47.224954",
+        "lng": "8.263290",
+        "name": "LAR STV Hitzkirch",
+        "address": "6289 Hitzkirch, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695208546,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2922",
+        "lat": "47.077234",
+        "lng": "8.275637",
+        "name": "LC Emmenstrand",
+        "address": "6020 Emmen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695208563,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2923",
+        "lat": "47.050168",
+        "lng": "8.309307",
+        "name": "LC Luzern",
+        "address": "6003 Luzern, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695208585,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2924",
+        "lat": "47.018446",
+        "lng": "8.307940",
+        "name": "Leichtathletik-Vereinigung Horw",
+        "address": "6047 Horw, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695208771,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2925",
+        "lat": "47.081318",
+        "lng": "8.340740",
+        "name": "LR Ebikon",
+        "address": "6030 Ebikon, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695208791,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2926",
+        "lat": "47.121147",
+        "lng": "7.992589",
+        "name": "LR Gettnau",
+        "address": "6122 Willisau, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695208827,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2927",
+        "lat": "47.135812",
+        "lng": "8.135915",
+        "name": "LR Nottwil",
+        "address": "6207 Nottwil, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695208873,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2928",
+        "lat": "47.182317",
+        "lng": "7.881157",
+        "name": "STV Altb\u00fcron",
+        "address": "6147 Altb\u00fcron, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695208897,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2929",
+        "lat": "47.152823",
+        "lng": "8.317232",
+        "name": "STV Ballwil",
+        "address": "6034 Ballwil, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695208919,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2930",
+        "lat": "47.206446",
+        "lng": "8.191645",
+        "name": "STV Berom\u00fcnster",
+        "address": "6222 Berom\u00fcnster, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695208941,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2931",
+        "lat": "47.036970",
+        "lng": "8.183899",
+        "name": "STV Malters",
+        "address": "6014 Malters, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695208968,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2932",
+        "lat": "47.211820",
+        "lng": "7.886204",
+        "name": "STV Roggliswil",
+        "address": "6265 Roggliswil, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695208991,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2934",
+        "lat": "47.134148",
+        "lng": "8.193363",
+        "name": "STV Sempach",
+        "address": "6024 Sempach, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695209042,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2935",
+        "lat": "47.121147",
+        "lng": "7.992589",
+        "name": "STV Willisau",
+        "address": "6125 Willisau, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695208850,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2936",
+        "lat": "47.159924",
+        "lng": "8.115635",
+        "name": "TSV Oberkirch",
+        "address": "6216 Oberkirch, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695209066,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2937",
+        "lat": "47.093616",
+        "lng": "8.271687",
+        "name": "TSV Rothenburg athletics",
+        "address": "6026 Rothenburg, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695209433,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2938",
+        "lat": "47.133876",
+        "lng": "8.047772",
+        "name": "TV Grosswangen",
+        "address": "6022 Grosswangen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695209451,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2939",
+        "lat": "47.122306",
+        "lng": "8.350679",
+        "name": "TV Inwil",
+        "address": "6034 Inwil, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695209474,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2940",
+        "lat": "47.049864",
+        "lng": "8.310494",
+        "name": "TV Reussb\u00fchl LA",
+        "address": "6004 Luzern, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708524214,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2941",
+        "lat": "47.171482",
+        "lng": "8.111131",
+        "name": "TV Sursee",
+        "address": "6210 Sursee, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695209495,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2942",
+        "lat": "47.058636",
+        "lng": "8.073163",
+        "name": "TV Wolhusen",
+        "address": "6110 Wolhusen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695209513,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2943",
+        "lat": "46.967379",
+        "lng": "6.854696",
+        "name": "CEP Cortaillod",
+        "address": "2012 Milvignes, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695287899,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2944",
+        "lat": "46.967379",
+        "lng": "6.854696",
+        "name": "FSG Bevaix",
+        "address": "2014 Milvignes, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695287912,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2945",
+        "lat": "47.058949",
+        "lng": "6.900677",
+        "name": "FSG Cernier",
+        "address": "2052 Cernier, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695209551,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2946",
+        "lat": "46.967379",
+        "lng": "6.854696",
+        "name": "FSG Corcelles-Cormondr\u00e8che",
+        "address": "2013 Colombier NE, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695287829,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2947",
+        "lat": "46.926293",
+        "lng": "6.632494",
+        "name": "FSG Couvet",
+        "address": "2108 Couvet, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695209568,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2948",
+        "lat": "47.013821",
+        "lng": "6.855812",
+        "name": "FSG Geneveys et Coffrane",
+        "address": "2206 Les Geneveys-sur-Coffrane, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708524035,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2949",
+        "lat": "47.057720",
+        "lng": "6.748735",
+        "name": "FSG Le Locle",
+        "address": "2400 Le Locle, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695209637,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2950",
+        "lat": "47.103489",
+        "lng": "6.832784",
+        "name": "SEP Olympic La Chaux-de-Fonds",
+        "address": "2300 La Chaux-de-Fonds, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695209617,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2951",
+        "lat": "46.957193",
+        "lng": "8.365967",
+        "name": "LA Nidwalden",
+        "address": "6370 Stans, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695209668,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2952",
+        "lat": "46.957193",
+        "lng": "8.365967",
+        "name": "Athletikzentrum Sarnen-Unterwalden",
+        "address": "6370 Stans, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695209693,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2953",
+        "lat": "46.938041",
+        "lng": "8.270175",
+        "name": "Leichtathletik Alpnach",
+        "address": "6653 Alpnach, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695209717,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2954",
+        "lat": "46.902261",
+        "lng": "8.276359",
+        "name": "Leichtathletik Kerns",
+        "address": "6068 Kerns, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695209740,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2955",
+        "lat": "46.902261",
+        "lng": "8.276359",
+        "name": "Team FitSport.ch",
+        "address": "6066 Kerns, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695209771,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2956",
+        "lat": "46.895931",
+        "lng": "8.245676",
+        "name": "TV Sarnen LA",
+        "address": "6063 Sarnen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695209795,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2957",
+        "lat": "47.377463",
+        "lng": "9.546913",
+        "name": "Athleticteam KTV Altst\u00e4tten",
+        "address": "8048 Altst\u00e4tten, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695209838,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2958",
+        "lat": "47.362520",
+        "lng": "9.073529",
+        "name": "KTV B\u00fctschwil",
+        "address": "9601 B\u00fctschwil, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695209863,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2960",
+        "lat": "47.319908",
+        "lng": "9.564427",
+        "name": "KTV Oberriet",
+        "address": "6841 Oberriet, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695209916,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2961",
+        "lat": "47.463562",
+        "lng": "9.047910",
+        "name": "KTV Wil LA",
+        "address": "9500 Wil, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695209983,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2962",
+        "lat": "47.261232",
+        "lng": "9.504244",
+        "name": "LA Sennwald",
+        "address": "9465 Sennwald, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210005,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2963",
+        "lat": "47.415561",
+        "lng": "9.248852",
+        "name": "LAG Gossau",
+        "address": "9015 Gossau, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210024,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2964",
+        "lat": "47.424482",
+        "lng": "9.376717",
+        "name": "LC Br\u00fchl Leichtathletik",
+        "address": "9000 St. Gallen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210071,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2965",
+        "lat": "47.222308",
+        "lng": "8.832712",
+        "name": "LC Rapperswil-Jona",
+        "address": "8645 Jona SG, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210121,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2966",
+        "lat": "47.198426",
+        "lng": "9.005117",
+        "name": "LGB Benken",
+        "address": "8717 Benken, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210149,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2967",
+        "lat": "47.486719",
+        "lng": "9.452287",
+        "name": "LGB Bodensee",
+        "address": "9327 T\u00fcbach, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210169,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2968",
+        "lat": "47.570768",
+        "lng": "8.258820",
+        "name": "STV Au SG",
+        "address": "5312 D\u00f6ttingen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210192,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2969",
+        "lat": "47.406777",
+        "lng": "9.605962",
+        "name": "STV Balgach",
+        "address": "9435 Balgach, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210224,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2970",
+        "lat": "47.240609",
+        "lng": "8.922081",
+        "name": "STV Eschenbach SG",
+        "address": "8637 Eschenbach, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695208526,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2971",
+        "lat": "47.413371",
+        "lng": "9.187030",
+        "name": "STV Flawil",
+        "address": "9230 Flawil, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210269,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2972",
+        "lat": "47.203913",
+        "lng": "9.441322",
+        "name": "STV Gams",
+        "address": "9473 Gams, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210290,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2973",
+        "lat": "47.381089",
+        "lng": "9.089585",
+        "name": "STV Ganterschwil",
+        "address": "9608 Ganterschwil, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210327,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2974",
+        "lat": "47.182566",
+        "lng": "9.444043",
+        "name": "STV Grabs",
+        "address": "9469 Grabs, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210349,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2975",
+        "lat": "47.319908",
+        "lng": "9.564427",
+        "name": "STV Kriessern",
+        "address": "6842 Oberriet, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695209937,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2976",
+        "lat": "47.392076",
+        "lng": "9.568968",
+        "name": "STV Marbach SG",
+        "address": "3555 Marbach, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210377,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2977",
+        "lat": "47.319908",
+        "lng": "9.564427",
+        "name": "STV Oberriet-Eichenwies",
+        "address": "9451 Oberriet, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695209957,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2978",
+        "lat": "47.449609",
+        "lng": "9.637609",
+        "name": "STV St. Margrethen",
+        "address": "9424 St. Margrethen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210396,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2979",
+        "lat": "47.385988",
+        "lng": "9.654780",
+        "name": "SVD athletics",
+        "address": "9444 Diepoldsau, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210416,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2980",
+        "lat": "46.820027",
+        "lng": "8.406992",
+        "name": "TSV Engelburg",
+        "address": "9032 Engelburg, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210436,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2981",
+        "lat": "47.415561",
+        "lng": "9.248852",
+        "name": "TSV Fortitudo Gossau",
+        "address": "9100 Gossau, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210045,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2982",
+        "lat": "47.358520",
+        "lng": "9.531900",
+        "name": "TSV Hinterforst",
+        "address": "9452 Hinterforst, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210460,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2984",
+        "lat": "47.074428",
+        "lng": "9.478701",
+        "name": "TV Azmoos",
+        "address": "9477 Tr\u00fcbbach, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210498,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2985",
+        "lat": "47.394966",
+        "lng": "9.081397",
+        "name": "TV L\u00fctisburg",
+        "address": "9123 L\u00fctisburg, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210519,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2986",
+        "lat": "47.047838",
+        "lng": "9.422402",
+        "name": "TV Mels",
+        "address": "8888 Mels, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210534,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2987",
+        "lat": "46.818188",
+        "lng": "8.227512",
+        "name": "TV Schaan \/ Leichtathletik",
+        "address": "9494 Schaan, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210560,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2988",
+        "lat": "47.160412",
+        "lng": "9.045971",
+        "name": "TV Sch\u00e4nis",
+        "address": "8718 Sch\u00e4nis, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210589,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2989",
+        "lat": "47.424913",
+        "lng": "9.376016",
+        "name": "TV St. Gallen-Ost",
+        "address": "9001 St. Gallen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708524359,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2990",
+        "lat": "47.406777",
+        "lng": "9.605962",
+        "name": "TV Widnau",
+        "address": "9436 Balgach, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210245,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2991",
+        "lat": "47.695890",
+        "lng": "8.638049",
+        "name": "LC Schaffhausen",
+        "address": "8200 Schaffhausen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210625,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2992",
+        "lat": "47.181834",
+        "lng": "7.557780",
+        "name": "Biberist aktiv! Leichtathletik",
+        "address": "4500 Biberist, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210643,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2993",
+        "lat": "47.269402",
+        "lng": "7.795551",
+        "name": "LA TV Wolfwil",
+        "address": "4628 Wolfwil, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210667,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2994",
+        "lat": "47.364534",
+        "lng": "7.951256",
+        "name": "LZ Lostorf",
+        "address": "4653 Oberg\u00f6sgen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210698,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2995",
+        "lat": "47.202684",
+        "lng": "7.424107",
+        "name": "STV Bettlach",
+        "address": "8180 Bettlach, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210714,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2996",
+        "lat": "47.313476",
+        "lng": "7.843831",
+        "name": "STV Gunzgen",
+        "address": "4616 Gunzgen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210735,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2997",
+        "lat": "47.290279",
+        "lng": "7.715874",
+        "name": "STV Oensingen",
+        "address": "4702 Oensingen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210754,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2998",
+        "lat": "47.204827",
+        "lng": "7.454295",
+        "name": "TV Selzach",
+        "address": "4512 Selzach, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210794,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "2999",
+        "lat": "47.280780",
+        "lng": "7.527830",
+        "name": "STV Welschenrohr",
+        "address": "4716 Welschenrohr, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210813,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3000",
+        "lat": "47.282280",
+        "lng": "7.752568",
+        "name": "TSV Kestenholz",
+        "address": "4703 Kestenholz, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210831,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3001",
+        "lat": "47.340462",
+        "lng": "7.704439",
+        "name": "TSV M\u00fcmliswil-Ramiswil",
+        "address": "4229 M\u00fcmliswil, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210849,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3003",
+        "lat": "47.113849",
+        "lng": "7.417211",
+        "name": "TV Biezwil",
+        "address": "4585 Biezwil, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210868,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3004",
+        "lat": "47.192288",
+        "lng": "7.395891",
+        "name": "TV Grenchen",
+        "address": "2540 Grenchen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210886,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3005",
+        "lat": "47.360302",
+        "lng": "7.995102",
+        "name": "TV Gretzenbach",
+        "address": "5014 Gretzenbach, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210912,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3006",
+        "lat": "47.349962",
+        "lng": "7.903703",
+        "name": "TV Olten",
+        "address": "4600 Olten, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695223377,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3007",
+        "lat": "47.174808",
+        "lng": "8.712789",
+        "name": "ETV Schindellegi",
+        "address": "8834 Schindellegi, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695277112,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3008",
+        "lat": "47.191482",
+        "lng": "8.829904",
+        "name": "KTV Altendorf",
+        "address": "8852 Altendorf, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695277143,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3010",
+        "lat": "47.206411",
+        "lng": "8.756593",
+        "name": "KTV Freienbach",
+        "address": "8640 Freienbach, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695277225,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3011",
+        "lat": "47.062440",
+        "lng": "8.522731",
+        "name": "Leichtathletik Arth",
+        "address": "6356 Arth, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695277268,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3012",
+        "lat": "47.127353",
+        "lng": "8.745154",
+        "name": "STV Einsiedeln",
+        "address": "8841 Einsiedeln, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695277203,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3013",
+        "lat": "46.991851",
+        "lng": "8.525355",
+        "name": "STV Gersau",
+        "address": "6442 Gersau, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695277295,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3014",
+        "lat": "47.083793",
+        "lng": "8.438796",
+        "name": "STV K\u00fcssnacht",
+        "address": "4542 Luterbach, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695277323,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3015",
+        "lat": "47.193465",
+        "lng": "8.853208",
+        "name": "STV Lachen",
+        "address": "8853 Lachen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695277347,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3016",
+        "lat": "47.206411",
+        "lng": "8.756593",
+        "name": "STV Pf\u00e4ffikon-Freienbach",
+        "address": "8806 Freienbach, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695277242,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3017",
+        "lat": "47.202644",
+        "lng": "8.942367",
+        "name": "STV Tuggen",
+        "address": "8855 Tuggen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695277371,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3018",
+        "lat": "47.120747",
+        "lng": "8.900957",
+        "name": "STV W\u00e4gital",
+        "address": "8857 Vorderthal, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695277398,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3019",
+        "lat": "47.186357",
+        "lng": "8.897531",
+        "name": "STV Wangen SZ",
+        "address": "8854 Wangen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695277435,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3020",
+        "lat": "47.197170",
+        "lng": "8.713380",
+        "name": "STV Wollerau-B\u00e4ch",
+        "address": "8806 Wollerau, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695277462,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3021",
+        "lat": "47.180683",
+        "lng": "8.875679",
+        "name": "TSV Galgenen",
+        "address": "8853 Galgenen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695277493,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3022",
+        "lat": "47.049593",
+        "lng": "8.613134",
+        "name": "TSV Steinen",
+        "address": "6422 Steinen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695277516,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3023",
+        "lat": "47.173891",
+        "lng": "8.928287",
+        "name": "Turnverein Siebnen",
+        "address": "8862 Sch\u00fcbelbach, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695277549,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3024",
+        "lat": "47.000393",
+        "lng": "8.613796",
+        "name": "TV Brunnen",
+        "address": "6438 Ibach, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695277577,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3025",
+        "lat": "47.011067",
+        "lng": "8.644372",
+        "name": "TV Ibach",
+        "address": "6438 Ibach, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695277594,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3026",
+        "lat": "47.462365",
+        "lng": "8.390122",
+        "name": "TV Otelfingen",
+        "address": "8107 Otelfingen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695277642,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3027",
+        "lat": "47.544972",
+        "lng": "9.300241",
+        "name": "Amriswil-Athletics",
+        "address": "8580 Amriswil, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695277673,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3028",
+        "lat": "47.553600",
+        "lng": "8.898754",
+        "name": "KTV Frauenfeld",
+        "address": "8500 Frauenfeld, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695277724,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3030",
+        "lat": "47.493719",
+        "lng": "9.241047",
+        "name": "LAR Bischofszell",
+        "address": "9220 Bischofszell, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1711369947,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3031",
+        "lat": "47.644740",
+        "lng": "9.170786",
+        "name": "LAR T\u00e4gerwilen-Kreuzlingen",
+        "address": "2080 Kreuzlingen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695277876,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3032",
+        "lat": "47.553600",
+        "lng": "8.898754",
+        "name": "LC Frauenfeld",
+        "address": "9548 Frauenfeld, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695277746,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3033",
+        "lat": "47.579681",
+        "lng": "9.167128",
+        "name": "STV Berg",
+        "address": "8570 Berg, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695277909,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3034",
+        "lat": "47.603560",
+        "lng": "9.287589",
+        "name": "STV G\u00fcttingen",
+        "address": "8594 G\u00fcttingen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695277937,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3035",
+        "lat": "47.544485",
+        "lng": "9.380589",
+        "name": "STV Neukirch-Egnach",
+        "address": "9314 Egnach, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695277969,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3036",
+        "lat": "47.475628",
+        "lng": "8.915606",
+        "name": "TSV Guntershausen",
+        "address": "8357 Guntershausen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695278001,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3037",
+        "lat": "47.463985",
+        "lng": "8.966738",
+        "name": "TV Eschlikon",
+        "address": "8360 Eschlikon, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695278042,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3038",
+        "lat": "46.126650",
+        "lng": "8.923294",
+        "name": "AS Monteceneri",
+        "address": "6802 Rivera, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695278091,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3039",
+        "lat": "45.900801",
+        "lng": "8.970807",
+        "name": "ASSPO Riva San Vitale",
+        "address": "6826 Riva San Vitale, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695278168,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3040",
+        "lat": "45.871334",
+        "lng": "8.984133",
+        "name": "Atletica Mendrisiotto",
+        "address": "6825 Mendrisio, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695278193,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3041",
+        "lat": "46.180906",
+        "lng": "8.860809",
+        "name": "Atletica Tenero 90",
+        "address": "6596 Gordola, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695278238,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3042",
+        "lat": "46.048662",
+        "lng": "8.899682",
+        "name": "FG Malcantone",
+        "address": "6937 Alto Malcantone, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695278441,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3043",
+        "lat": "46.198067",
+        "lng": "9.022041",
+        "name": "GAB Bellinzona",
+        "address": "6500 Bellinzona, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708524276,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3044",
+        "lat": "46.433333",
+        "lng": "8.950000",
+        "name": "GAD Dongio",
+        "address": "6722 Dongio, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695278558,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3045",
+        "lat": "46.197784",
+        "lng": "9.022425",
+        "name": "Runner's Club Bellinzona",
+        "address": "6503 Bellinzona, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708524293,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3046",
+        "lat": "46.197884",
+        "lng": "9.022973",
+        "name": "SA Bellinzona",
+        "address": "6512 Bellinzona, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708524314,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3047",
+        "lat": "46.180906",
+        "lng": "8.860809",
+        "name": "SAG Gordola",
+        "address": "6596 Gordola, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695278256,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3048",
+        "lat": "46.003678",
+        "lng": "8.951052",
+        "name": "SAL Lugano",
+        "address": "6900 Lugano, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695278586,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3049",
+        "lat": "46.019127",
+        "lng": "8.942412",
+        "name": "SAM Massagno",
+        "address": "6942 Savosa, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695278635,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3050",
+        "lat": "45.845183",
+        "lng": "9.031735",
+        "name": "SAV Vacallo",
+        "address": "22026 Vacallo, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695278667,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3051",
+        "lat": "46.528607",
+        "lng": "8.612375",
+        "name": "SFG Airolo",
+        "address": "6780 Airolo, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695278689,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3052",
+        "lat": "46.358001",
+        "lng": "8.970465",
+        "name": "SFG Biasca",
+        "address": "6710 Biasca, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695278725,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3053",
+        "lat": "45.836700",
+        "lng": "9.024611",
+        "name": "SFG Chiasso",
+        "address": "6832 Chiasso, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695278753,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3054",
+        "lat": "45.871334",
+        "lng": "8.984133",
+        "name": "SFG Mendrisio",
+        "address": "6850 Mendrisio, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695278212,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3055",
+        "lat": "46.033327",
+        "lng": "8.870163",
+        "name": "Unitas Malcantone",
+        "address": "6937 Breno, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695278780,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3056",
+        "lat": "46.161579",
+        "lng": "8.775013",
+        "name": "US Ascona atletica",
+        "address": "6612 Ascona, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695278811,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3057",
+        "lat": "46.066667",
+        "lng": "8.966667",
+        "name": "USC Capriaschese-Atletica",
+        "address": "6823 Tesserete-Lugano, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695278604,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3058",
+        "lat": "45.862799",
+        "lng": "8.951637",
+        "name": "VIGOR Ligornetto",
+        "address": "6853 Ligornetto, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695278860,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3059",
+        "lat": "46.166999",
+        "lng": "8.794264",
+        "name": "VIRTUS Locarno",
+        "address": "6516 Locarno, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695278884,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3060",
+        "lat": "46.166999",
+        "lng": "8.794264",
+        "name": "Vis Nova Agarone",
+        "address": "6572 Locarno, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695278906,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3062",
+        "lat": "46.882127",
+        "lng": "8.642844",
+        "name": "LC Altdorf",
+        "address": "6460 Altdorf, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695278959,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3063",
+        "lat": "46.876152",
+        "lng": "8.664463",
+        "name": "TV B\u00fcrglen",
+        "address": "8575 B\u00fcrglen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695278990,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3065",
+        "lat": "46.822027",
+        "lng": "6.940566",
+        "name": "CA Broyard",
+        "address": "1530 Payerne, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279048,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3066",
+        "lat": "46.431221",
+        "lng": "6.910680",
+        "name": "CA Riviera",
+        "address": "1815 Montreux, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279076,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3067",
+        "lat": "46.519672",
+        "lng": "6.632405",
+        "name": "CM Cour Lausanne",
+        "address": "1000 Lausanne, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708523417,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3068",
+        "lat": "46.383268",
+        "lng": "6.234785",
+        "name": "COVA Nyon",
+        "address": "1260 Nyon, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279235,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3069",
+        "lat": "46.343563",
+        "lng": "7.012033",
+        "name": "Croc-Kil...Leysin",
+        "address": "1854 Leysin, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279257,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3070",
+        "lat": "46.880601",
+        "lng": "7.042708",
+        "name": "FSG Avenches",
+        "address": "1580 Avenches, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279284,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3071",
+        "lat": "46.481692",
+        "lng": "6.778808",
+        "name": "FSG Chexbres",
+        "address": "1071 Chexbres, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279314,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3072",
+        "lat": "46.548857",
+        "lng": "6.674199",
+        "name": "FSG Epalinges",
+        "address": "1066 Epalinges, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279345,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3073",
+        "lat": "46.658234",
+        "lng": "6.512684",
+        "name": "FSG La Sarraz",
+        "address": "1315 La Sarraz, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279374,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3074",
+        "lat": "46.508813",
+        "lng": "6.496130",
+        "name": "FSG Morges",
+        "address": "1110 Morges, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279398,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3075",
+        "lat": "46.609799",
+        "lng": "6.525440",
+        "name": "FSG Penthalaz",
+        "address": "1305 Penthalaz, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279438,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3076",
+        "lat": "46.689893",
+        "lng": "6.734896",
+        "name": "FSG Saint-Cierges",
+        "address": "1410 Saint-Cierges, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279476,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3077",
+        "lat": "46.461297",
+        "lng": "6.339755",
+        "name": "Gym Rolle",
+        "address": "1180 Rolle, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279499,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3078",
+        "lat": "46.519648",
+        "lng": "6.632121",
+        "name": "Lausanne-Sports Athl\u00e9tisme",
+        "address": "1001 Lausanne, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708523506,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3079",
+        "lat": "46.534645",
+        "lng": "6.605240",
+        "name": "Running Team Prilly",
+        "address": "1008 Prilly, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279527,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3080",
+        "lat": "46.669889",
+        "lng": "6.797522",
+        "name": "Soci\u00e9t\u00e9 de gymnastique de Moudon",
+        "address": "1510 Moudon, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279547,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3081",
+        "lat": "46.482911",
+        "lng": "6.458344",
+        "name": "Soci\u00e9t\u00e9 de Gymnastique de Saint-Prex",
+        "address": "1162 Saint-Prex, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279578,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3082",
+        "lat": "46.519173",
+        "lng": "6.631950",
+        "name": "Stade Lausanne Athl\u00e9tisme",
+        "address": "1002 Lausanne, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708523526,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3083",
+        "lat": "46.778474",
+        "lng": "6.641183",
+        "name": "US Yverdon",
+        "address": "1400 Yverdon-les-Bains, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279604,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3084",
+        "lat": "46.170709",
+        "lng": "7.185842",
+        "name": "Acad\u00e9mie Trail Running Valais",
+        "address": "1911 Saillon, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279627,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3085",
+        "lat": "46.231300",
+        "lng": "6.919442",
+        "name": "CA Dents-du-Midi",
+        "address": "1871 Troistorrents, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279659,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3086",
+        "lat": "46.294131",
+        "lng": "7.533536",
+        "name": "CA Sierre DSG",
+        "address": "3960 Sierre, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279684,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3087",
+        "lat": "46.233122",
+        "lng": "7.360626",
+        "name": "CA Sion",
+        "address": "1950 Sion, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279708,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3088",
+        "lat": "46.225754",
+        "lng": "7.281971",
+        "name": "CA V\u00e9troz",
+        "address": "1963 V\u00e9troz, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279733,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3089",
+        "lat": "47.506372",
+        "lng": "7.522977",
+        "name": "Verein Kinder-Camps",
+        "address": "4105 Biel-Benken, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708521687,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3090",
+        "lat": "46.104980",
+        "lng": "7.075533",
+        "name": "CABV Martigny",
+        "address": "1904 Martigny, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279783,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3091",
+        "lat": "46.319025",
+        "lng": "6.970566",
+        "name": "Club de Marche de Monthey",
+        "address": "1860 Aigle, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279806,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3092",
+        "lat": "46.251175",
+        "lng": "7.349158",
+        "name": "CS 13 Etoiles",
+        "address": "1950 Savi\u00e8se, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279833,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3093",
+        "lat": "46.276571",
+        "lng": "7.405815",
+        "name": "ES Ayent Anz\u00e8re",
+        "address": "1966 Ayent, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279855,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3094",
+        "lat": "46.315899",
+        "lng": "7.987821",
+        "name": "LLT Oberwallis",
+        "address": "3900 Brig, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279876,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3095",
+        "lat": "46.294728",
+        "lng": "7.882120",
+        "name": "LV Visp",
+        "address": "3930 Visp, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279913,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3096",
+        "lat": "46.252187",
+        "lng": "6.946960",
+        "name": "SFG Collombey-Muraz",
+        "address": "1870 Monthey, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279941,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3097",
+        "lat": "46.224478",
+        "lng": "7.303512",
+        "name": "SFG Conthey",
+        "address": "1975 Conthey, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279985,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3098",
+        "lat": "46.214941",
+        "lng": "7.004795",
+        "name": "SG St-Maurice",
+        "address": "1890 Saint-Maurice, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695280033,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3099",
+        "lat": "46.315775",
+        "lng": "7.741944",
+        "name": "STV Gampel",
+        "address": "3917 Gampel, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695280055,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3100",
+        "lat": "46.252187",
+        "lng": "6.946960",
+        "name": "T-R-T Athl\u00e9tisme Monthey",
+        "address": "1871 Monthey, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695279955,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3101",
+        "lat": "46.323928",
+        "lng": "7.991657",
+        "name": "TV Naters",
+        "address": "3939 Naters, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695280076,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3102",
+        "lat": "47.166167",
+        "lng": "8.515495",
+        "name": "Hochwacht Zug",
+        "address": "6300 Zug, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695280095,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3103",
+        "lat": "47.181225",
+        "lng": "8.459209",
+        "name": "Laufgruppe Cham Track",
+        "address": "6330 Cham, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695280153,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3104",
+        "lat": "47.166392",
+        "lng": "8.516010",
+        "name": "LK Zug",
+        "address": "6314 Zug, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708524390,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3105",
+        "lat": "47.135117",
+        "lng": "8.613195",
+        "name": "STV Ober\u00e4geri",
+        "address": "6418 Ober\u00e4geri, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695280197,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3106",
+        "lat": "47.136809",
+        "lng": "8.583092",
+        "name": "STV Unter\u00e4geri",
+        "address": "6314 Unter\u00e4geri, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695281524,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3107",
+        "lat": "47.141051",
+        "lng": "8.429827",
+        "name": "TSV 2001 Rotkreuz",
+        "address": "6343 Risch, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695281553,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3108",
+        "lat": "47.181225",
+        "lng": "8.459209",
+        "name": "TV Cham 1884",
+        "address": "6332 Cham, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695280169,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3109",
+        "lat": "47.312435",
+        "lng": "8.527046",
+        "name": "Adliswil Track Team",
+        "address": "8134 Adliswil, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695281582,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3110",
+        "lat": "47.594829",
+        "lng": "8.678957",
+        "name": "LA Wyland",
+        "address": "8450 Andelfingen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695281609,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3111",
+        "lat": "47.376927",
+        "lng": "8.541202",
+        "name": "LAC TV Unterstrass Z\u00fcrich",
+        "address": "8000 Z\u00fcrich, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708522988,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3112",
+        "lat": "47.256700",
+        "lng": "8.854421",
+        "name": "LAR TV R\u00fcti",
+        "address": "8630 R\u00fcti, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695281863,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3113",
+        "lat": "47.442195",
+        "lng": "8.464943",
+        "name": "LC Furttal ZH-Nord",
+        "address": "8105 Regensdorf, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695281893,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3114",
+        "lat": "47.269436",
+        "lng": "8.648750",
+        "name": "LC Meilen",
+        "address": "8706 Meilen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695281933,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3115",
+        "lat": "47.595973",
+        "lng": "8.492069",
+        "name": "LC Rafzerfeld",
+        "address": "8194 H\u00fcntwangen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695281957,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3116",
+        "lat": "47.442195",
+        "lng": "8.464943",
+        "name": "LC Regensdorf",
+        "address": "8106 Regensdorf, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695281908,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3117",
+        "lat": "47.377041",
+        "lng": "8.543774",
+        "name": "LC Turicum",
+        "address": "8001 Z\u00fcrich, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708523013,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3118",
+        "lat": "47.348275",
+        "lng": "8.717874",
+        "name": "LC Uster",
+        "address": "8606 Uster, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695281990,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3119",
+        "lat": "47.376715",
+        "lng": "8.543450",
+        "name": "Leichtathletik Club Z\u00fcrich",
+        "address": "8002 Z\u00fcrich, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708523063,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3120",
+        "lat": "47.397148",
+        "lng": "8.618013",
+        "name": "Leichtathletik-Club D\u00fcbendorf",
+        "address": "8044 D\u00fcbendorf, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695282050,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3121",
+        "lat": "47.318923",
+        "lng": "8.584471",
+        "name": "LGKE K\u00fcsnacht-Erlenbach",
+        "address": "8127 K\u00fcsnacht, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695282091,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3122",
+        "lat": "47.279508",
+        "lng": "8.454008",
+        "name": "LV Albis",
+        "address": "8909 Affoltern am Albis, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695282159,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3123",
+        "lat": "47.498820",
+        "lng": "8.723689",
+        "name": "LV Winterthur",
+        "address": "8310 Winterthur, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695282188,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3124",
+        "lat": "47.327060",
+        "lng": "8.801356",
+        "name": "LV Z\u00fcrcher Oberland",
+        "address": "8620 Wetzikon, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695282234,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3125",
+        "lat": "47.376215",
+        "lng": "8.541090",
+        "name": "SATUS Z\u00fcrich-Oerlikon",
+        "address": "8003 Z\u00fcrich, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708523103,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3126",
+        "lat": "47.415619",
+        "lng": "8.588972",
+        "name": "SSC Athletics",
+        "address": "8304 Wallisellen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695282258,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3127",
+        "lat": "47.508269",
+        "lng": "8.510460",
+        "name": "STV H\u00f6ri",
+        "address": "8181 H\u00f6ri, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695282282,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3128",
+        "lat": "47.376087",
+        "lng": "8.539350",
+        "name": "STV Wiedikon",
+        "address": "8004 Z\u00fcrich, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708523183,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3129",
+        "lat": "47.348275",
+        "lng": "8.717874",
+        "name": "TG H\u00fctten",
+        "address": "8610 Uster, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695282007,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3130",
+        "lat": "47.205389",
+        "lng": "8.707069",
+        "name": "Turnverein Richterswil",
+        "address": "8805 Richterswil, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695282311,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3131",
+        "lat": "47.521335",
+        "lng": "8.790540",
+        "name": "Turnverein Wiesendangen",
+        "address": "8542 Wiesendangen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695282336,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3132",
+        "lat": "47.377828",
+        "lng": "8.543433",
+        "name": "TV Altstetten-Z\u00fcrich",
+        "address": "8005 Z\u00fcrich, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708523286,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3133",
+        "lat": "47.328640",
+        "lng": "8.272277",
+        "name": "TV Buttikon-Sch\u00fcbelbach",
+        "address": "8863 Buttikon, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695282360,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3134",
+        "lat": "47.556420",
+        "lng": "8.730270",
+        "name": "TV D\u00e4gerlen",
+        "address": "8471 D\u00e4gerlen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695282388,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3135",
+        "lat": "47.425199",
+        "lng": "8.616228",
+        "name": "TV Dietlikon",
+        "address": "8305 Dietlikon, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695282417,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3136",
+        "lat": "47.299525",
+        "lng": "8.690392",
+        "name": "TV Egg",
+        "address": "8127 Egg, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695282447,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3137",
+        "lat": "47.243851",
+        "lng": "8.533797",
+        "name": "TV Hausen a. A.",
+        "address": "5212 Hausen am Albis, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695282526,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3138",
+        "lat": "47.252590",
+        "lng": "8.770260",
+        "name": "TV Hombrechtikon",
+        "address": "8714 Hombrechtikon, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695282558,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3139",
+        "lat": "47.260742",
+        "lng": "8.596363",
+        "name": "TV Horgen",
+        "address": "6340 Horgen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695282581,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3140",
+        "lat": "47.322009",
+        "lng": "8.545213",
+        "name": "TV Kilchberg",
+        "address": "8802 Kilchberg, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695282608,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3141",
+        "lat": "47.449512",
+        "lng": "8.582165",
+        "name": "TV Kloten LA",
+        "address": "8309 Kloten, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695282639,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3142",
+        "lat": "46.947974",
+        "lng": "7.447447",
+        "name": "TV L\u00e4nggasse Bern",
+        "address": "3001 Bern, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695282661,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3143",
+        "lat": "47.324786",
+        "lng": "8.653244",
+        "name": "TV Maur",
+        "address": "8127 Forch, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695282779,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3144",
+        "lat": "47.498820",
+        "lng": "8.723689",
+        "name": "TV NS Winterthur",
+        "address": "8405 Winterthur, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695282208,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3145",
+        "lat": "47.376887",
+        "lng": "8.541694",
+        "name": "TV Oerlikon",
+        "address": "8006 Z\u00fcrich, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695281817,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3146",
+        "lat": "47.294928",
+        "lng": "8.564480",
+        "name": "TV Thalwil",
+        "address": "8136 Thalwil, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695282806,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3147",
+        "lat": "47.348275",
+        "lng": "8.717874",
+        "name": "TV Uster",
+        "address": "8614 Uster, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695282029,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3148",
+        "lat": "47.229687",
+        "lng": "8.671819",
+        "name": "TV W\u00e4denswil",
+        "address": "8804 W\u00e4denswil, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695282833,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3149",
+        "lat": "46.519298",
+        "lng": "6.632415",
+        "name": "ATHLE.ch",
+        "address": "1003 Lausanne, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708523389,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3150",
+        "lat": "46.192837",
+        "lng": "6.202767",
+        "name": "Athletic Club 3-Ch\u00eane",
+        "address": "1226 Th\u00f4nex, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695282858,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3152",
+        "lat": "46.453317",
+        "lng": "6.861278",
+        "name": "ATLET (Association Team L\u00e9man Espoirs Triathlon)",
+        "address": "1814 La Tour-de-Peilz, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695282917,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3153",
+        "lat": "46.520697",
+        "lng": "6.631837",
+        "name": "Ecole nouvelle de la Suisse Romande",
+        "address": "1004 Lausanne, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708523476,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3154",
+        "lat": "47.348551",
+        "lng": "7.411066",
+        "name": "F\u00e9mina Vicques",
+        "address": "2824 Vicques , Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695282951,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3155",
+        "lat": "46.508880",
+        "lng": "6.682764",
+        "name": "Lauf-Team Lenzburg",
+        "address": "5600 Lenzburg, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708520773,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3156",
+        "lat": "46.729330",
+        "lng": "6.532359",
+        "name": "FSG Orbe-Ancienne",
+        "address": "1350 Orbe, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695283043,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3157",
+        "lat": "46.203884",
+        "lng": "6.142645",
+        "name": "InVia Run",
+        "address": "1209 Gen\u00e8ve, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708523756,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3158",
+        "lat": "47.393456",
+        "lng": "7.619469",
+        "name": "Laufental Thierstein Athletics",
+        "address": "4204 Nunningen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695283071,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3159",
+        "lat": "47.041123",
+        "lng": "9.067900",
+        "name": "LAV Glarus",
+        "address": "8750 Glarus, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695283097,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3160",
+        "lat": "47.635600",
+        "lng": "9.209519",
+        "name": "LC Bottighofen",
+        "address": "\u00a08598 Bottighofen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695283150,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3161",
+        "lat": "47.290279",
+        "lng": "7.715874",
+        "name": "Leichtathletikclub Oensingen",
+        "address": "4702 Oensingen, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695210774,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3162",
+        "lat": "47.166462",
+        "lng": "8.515866",
+        "name": "LGV 2015 Zug",
+        "address": "6317 Zug, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1708524438,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3163",
+        "lat": "45.872082",
+        "lng": "9.031717",
+        "name": "Societ\u00e0 Sportiva Valle di Muggio",
+        "address": "6837 Caneggio, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695283177,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3164",
+        "lat": "47.141390",
+        "lng": "7.216402",
+        "name": "TIP-TOP Swiss Polysport",
+        "address": "2532 Macolin, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1664346774,
+        "updated": 1695283225,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3555",
+        "lat": "46.126480",
+        "lng": "8.923599",
+        "name": "Comunit\u00e0 Atletica Sottoceneri",
+        "address": "6802 Rivera, Schweiz",
+        "popup": null,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1675862944,
+        "updated": 1695278125,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3557",
+        "lat": "46.925226",
+        "lng": "7.116394",
+        "name": "AC Murten",
+        "address": "1793 Murten, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680157094,
+        "updated": 1695285469,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3558",
+        "lat": "46.501701",
+        "lng": "6.687927",
+        "name": "AthleTEAM Lutry",
+        "address": "1093 Lutry, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680157189,
+        "updated": 1695283015,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3559",
+        "lat": "47.139964",
+        "lng": "7.244327",
+        "name": "Biel\/Bienne Athletics",
+        "address": "2503 Biel\/Bienne, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680157385,
+        "updated": 1695285512,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3560",
+        "lat": "47.177485",
+        "lng": "7.072105",
+        "name": "CA Courtelary",
+        "address": "2608 Courtelary, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680157479,
+        "updated": 1695285580,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3561",
+        "lat": "47.278903",
+        "lng": "7.371483",
+        "name": "CA Moutier",
+        "address": "2740 Moutier, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680166328,
+        "updated": 1695285612,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3562",
+        "lat": "46.520783",
+        "lng": "6.635588",
+        "name": "CNP Lausanne-Aigle",
+        "address": "1005 Lausanne, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680166383,
+        "updated": 1708523444,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3563",
+        "lat": "46.190598",
+        "lng": "6.119900",
+        "name": "Florimont Athletics Club",
+        "address": "1213 Petit-Lancy, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680166474,
+        "updated": 1695287740,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3564",
+        "lat": "46.253797",
+        "lng": "6.204804",
+        "name": "FSG Collonge-Bellerive",
+        "address": "1222 Collonge-Bellerive, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680166507,
+        "updated": 1695285684,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3565",
+        "lat": "47.359130",
+        "lng": "7.378864",
+        "name": "FSG Courroux",
+        "address": "2805 Courroux, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680166685,
+        "updated": 1695285729,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3566",
+        "lat": "47.218775",
+        "lng": "7.199135",
+        "name": "FSG F\u00e9minine Tavannes",
+        "address": "2710 Tavannes, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680166818,
+        "updated": 1695285789,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3568",
+        "lat": "47.063056",
+        "lng": "7.093812",
+        "name": "FSG La Neuveville",
+        "address": "2514 Neuveville, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680167385,
+        "updated": 1695285869,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3570",
+        "lat": "47.148087",
+        "lng": "7.001076",
+        "name": "FSG St-Imier",
+        "address": "2345 Saint-Imier, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680168051,
+        "updated": 1695285963,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3571",
+        "lat": "46.751718",
+        "lng": "7.634125",
+        "name": "Fun and Run Thun",
+        "address": "3600 Thun, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680168115,
+        "updated": 1695285997,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3572",
+        "lat": "46.942895",
+        "lng": "7.456019",
+        "name": "GG Bern",
+        "address": "3003 Bern, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680168243,
+        "updated": 1695282698,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3573",
+        "lat": "46.757340",
+        "lng": "7.631296",
+        "name": "LV Thun",
+        "address": "3603 Thun, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680168471,
+        "updated": 1695286026,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3574",
+        "lat": "47.347477",
+        "lng": "7.905350",
+        "name": "LA-Riege TV Olten",
+        "address": "4663 Olten, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680168559,
+        "updated": 1695286068,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3575",
+        "lat": "46.995546",
+        "lng": "7.458344",
+        "name": "LAG TV Zollikofen",
+        "address": "3052 Zollikofen, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680168662,
+        "updated": 1695286114,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3576",
+        "lat": "47.140694",
+        "lng": "7.241364",
+        "name": "Satus Biel-Bienne",
+        "address": "2504 Biel\/Bienne, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680168807,
+        "updated": 1695285537,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3577",
+        "lat": "47.002336",
+        "lng": "9.502144",
+        "name": "Turnverein Bad Ragaz",
+        "address": "7310 Bad Ragaz, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680168952,
+        "updated": 1695286158,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3578",
+        "lat": "47.211483",
+        "lng": "7.789033",
+        "name": "LV Langenthal",
+        "address": "4900 Langenthal, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680169141,
+        "updated": 1695286190,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3579",
+        "lat": "46.970015",
+        "lng": "7.357063",
+        "name": "LAC Wohlen",
+        "address": "3032 Wohlen bei Bern, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680169219,
+        "updated": 1695286279,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3580",
+        "lat": "46.934275",
+        "lng": "7.511369",
+        "name": "Gerbersport",
+        "address": "3073 G\u00fcmligen, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680169448,
+        "updated": 1695286350,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3581",
+        "lat": "47.017725",
+        "lng": "7.660913",
+        "name": "LA R\u00fcegsauschachen",
+        "address": "3415 R\u00fcegsau, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680169657,
+        "updated": 1695286399,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3583",
+        "lat": "47.084887",
+        "lng": "7.581854",
+        "name": "LC Kirchberg",
+        "address": "3400 Kirchberg, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680239218,
+        "updated": 1695286480,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3584",
+        "lat": "46.614635",
+        "lng": "7.697935",
+        "name": "LC Scharnachtal",
+        "address": "3711 Reichenbach im Kandertal, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680239272,
+        "updated": 1695286525,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3585",
+        "lat": "47.113972",
+        "lng": "7.845955",
+        "name": "LV Huttwil",
+        "address": "4950 Huttwil, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680239354,
+        "updated": 1695286561,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3586",
+        "lat": "46.587866",
+        "lng": "7.651548",
+        "name": "LV Kandertal",
+        "address": "3722 Scharnachtal, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680239465,
+        "updated": 1695286618,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3587",
+        "lat": "46.328316",
+        "lng": "8.022938",
+        "name": "Termen athletics",
+        "address": "3912 Termen, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680239570,
+        "updated": 1695286645,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3590",
+        "lat": "47.391981",
+        "lng": "9.397087",
+        "name": "TV Teufen",
+        "address": "9053 Teufen, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680239913,
+        "updated": 1695286722,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    },
+    {
+        "id": "3591",
+        "lat": "47.469087",
+        "lng": "9.563348",
+        "name": "TV Thal",
+        "address": "9427 Wolfhalden, Schweiz",
+        "popup": false,
+        "link": "",
+        "blank": "1",
+        "icon": "Marker_SwA.png",
+        "created": 1680239955,
+        "updated": 1695286769,
+        "maps": [
+            "7"
+        ],
+        "edit": false
+    }
+]

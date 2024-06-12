@@ -15,7 +15,7 @@ export async function createTeamMember(snapshot: QueryDocumentSnapshot, context:
   const teamId = context.params.teamId;
 
   const teamRef = await db.collection("teams").doc(teamId).get();
-  return db.collection("userProfile").doc(userId).collection("team").doc(`${teamId}`).set({
+  return db.collection("userProfile").doc(userId).collection("teams").doc(`${teamId}`).set({
     "teamRef": teamRef,
   });
 
@@ -34,6 +34,13 @@ export async function createTeamMember(snapshot: QueryDocumentSnapshot, context:
 // I GUESS WE DONT NEED THIS?
 export async function createClubMember(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
   console.log("createClubMember from Club Page via Admin");
+  const userId = context.params.userId;
+  const clubId = context.params.clubId;
+
+  const clubRef = await db.collection("club").doc(clubId).get();
+  return db.collection("userProfile").doc(userId).collection("clubs").doc(`${clubId}`).set({
+    "clubRef": clubRef,
+  });
   // const userId = context.params.userId;
   // const clubId = context.params.clubId;
 
