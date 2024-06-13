@@ -19,7 +19,7 @@ export async function createTeamAdmin(snapshot: QueryDocumentSnapshot, context: 
 
   const teamRef = await db.collection("teams").doc(teamId).get();
   return db.collection("userProfile").doc(userId).collection("teamAdmin").doc(`${teamId}`).set({
-    "teamRef": teamRef,
+    "teamRef": teamRef.ref,
   });
 }
 
@@ -30,6 +30,6 @@ export async function createClubAdmin(snapshot: QueryDocumentSnapshot, context: 
 
   const clubRef = await db.collection("club").doc(clubId).get();
   return db.collection("userProfile").doc(userId).collection("clubAdmin").doc(`${clubId}`).set({
-    "clubRef": clubRef,
+    "clubRef": clubRef.ref,
   });
 }

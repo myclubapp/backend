@@ -16,7 +16,7 @@ export async function createTeamMember(snapshot: QueryDocumentSnapshot, context:
 
   const teamRef = await db.collection("teams").doc(teamId).get();
   return db.collection("userProfile").doc(userId).collection("teams").doc(`${teamId}`).set({
-    "teamRef": teamRef,
+    "teamRef": teamRef.ref,
   });
 
   /* Security is covered by the DB rules. Only auth and admins can create team members and then triggers this method to add it to the userprofile as well.
@@ -39,7 +39,7 @@ export async function createClubMember(snapshot: QueryDocumentSnapshot, context:
 
   const clubRef = await db.collection("club").doc(clubId).get();
   return db.collection("userProfile").doc(userId).collection("clubs").doc(`${clubId}`).set({
-    "clubRef": clubRef,
+    "clubRef": clubRef.ref,
   });
   // const userId = context.params.userId;
   // const clubId = context.params.clubId;
