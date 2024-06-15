@@ -3,110 +3,363 @@ service cloud.firestore {
 
 	match /databases/{database}/documents {
   
-     	function hasCustomClaim(claim) {
-      	return request.auth.token[claim] || false;
-    	}
+     	// function hasCustomClaim(claim) {
+      // 	return request.auth.token[claim] || false;
+    	// }
       
-      function isTeamMember(){
-      	return true;
+      function isSignedIn() {
+        return request.auth != null;
       }
-      
-      function isClubMember(){
-      	return true;
+
+      // TEAM MEMBER
+      function isTeamMember(request,teamId) {
+        return exists(/databases/$(database)/documents/teams/$(teamId)/members/$(request.auth.uid));
       }
+
+      // TEAM ADMIN
+      function isTeamAdmin(request, teamId) {
+        return exists(/databases/$(database)/documents/teams/$(teamId)/admins/$(request.auth.uid));
+      }
+
+      // CLUB MEMBER
+      function isClubMember(request, clubId) {
+        return exists(/databases/$(database)/documents/club/$(clubId)/members/$(request.auth.uid));
+      }
+
+      // CLUB MEMBER via TEAMS - that's why we use path from reference
+      // function isClubMemberPath(request, path) {
+      //   return exists(/databases/$(database)/documents/$(path)/members/$(request.auth.uid));
+      // }
+
+      // CLUB ADMIN
+      function isClubAdmin(request, clubId) {
+        return exists(/databases/$(database)/documents/club/$(clubId)/admins/$(request.auth.uid));
+      }
+
+      // CLUB ADMIN via TEAMS - that's why we use path from reference
+      // function isClubAdminPath(request, path) {
+      //   return exists(/databases/$(database)/documents/$(path)/admins/$(request.auth.uid));
+      // }
   
-		
-      // USERPROFILE
+  		match /exercises/{id} {
+      	allow read;
+      }
+// ************************************
+			// USERPROFILE 2.0
+// ************************************      
       match /userProfile/{userId} {
-        allow read, update, write: if request.auth != null && request.auth.uid == userId; //Eigene Daten
-        allow read: if request.auth != null;
-      }
-       match /userProfile/{userId}/{collection=**} {
-          allow read, update, write, create: if request.auth != null && request.auth.uid == userId; //Eigene Daten
-        }
-     	match /userProfile/{userId}/teamList/{teamId} {
-          allow delete: if request.auth != null && hasCustomClaim(teamId); //is Team ADMIN
-      }
-      match /userProfile/{userId}/teamAdminList/{teamId} {
-        allow delete,create: if request.auth != null && hasCustomClaim(teamId); //is Team ADMIN
-      }
-      match /userProfile/{userId}/clubList/{clubId} {
-        allow delete: if request.auth != null && hasCustomClaim(clubId); //is Club ADMIN
-      }   
-      match /userProfile/{userId}/clubAdminList/{clubId} {
-        allow delete, create: if request.auth != null && hasCustomClaim(clubId); //is Club ADMIN
-      }       
+      //Eigene Daten
+				allow read, write: if isSignedIn() && request.auth.uid == userId;
+        allow read: if isSignedIn(); //REVIEW ACCESS OTHER USERS DATA within CLUB/TEAM
         
+        // push
+        match /push/{deviceId=**} {
+          allow read, delete, create: if isSignedIn() && request.auth.uid == userId;
+        }   
+
+        // Read and Create own Requests 
+        match /clubRequests/{requestId=**} {
+        	allow read, create: if isSignedIn() && request.auth.uid == userId;
+        }
+        match /teamRequests/{requestId=**} {
+        	allow read, create: if isSignedIn() && request.auth.uid == userId;
+        }
+      	// club 
+        match /clubs/{clubId=**} {
+        	allow read: if isSignedIn() && request.auth.uid == userId;
+        }
+        // teams admin
+        match /clubAdmin/{clubId=**} {
+        	allow read: if isSignedIn() && request.auth.uid == userId;
+        }
+        // teams
+        match /teams/{teamId=**} {
+        	allow read: if isSignedIn() && request.auth.uid == userId;
+        }
+        // teams admin
+        match /teamAdmin/{teamId=**} {
+        	allow read: if isSignedIn() && request.auth.uid == userId;
+        }
+        // HELFEREVENTS admin
+        match /helferPunkte/{id=**} {
+        	allow read: if isSignedIn() && request.auth.uid == userId;
+        }
+        
+        // CREATE ASSETS FOR TEAM/CLUB in own PROFILE --> Check for Permissions.
+        // 
+        // Training
+        match /trainings/{trainingId=**} {
+        	allow create: if isSignedIn() && request.auth.uid == userId;
+        }
+        // Event Team
+        match /teamEvents/{eventId=**} {
+        	allow create: if isSignedIn() && request.auth.uid == userId;
+        }
+      	// Event Club
+        match /clubEvents/{eventId=**} {
+        	allow create: if isSignedIn() && request.auth.uid == userId;
+        }
+        // Helfer Event
+        match /helferEvents/{eventId=**} {
+        	allow create: if isSignedIn() && request.auth.uid == userId;
+        }
+        // News Team
+        match /teamNews/{newsId=**} {
+        	allow create: if isSignedIn() && request.auth.uid == userId;
+        }
+      	// News Club
+        match /clubNews/{newsId=**} {
+        	allow create: if isSignedIn() && request.auth.uid == userId;
+        }
+      }
+      
+      // REVIEW!!!!
+      //team as teamAdmin
+     	match /userProfile/{userId}/teams/{teamId} {
+          allow delete: if isSignedIn() && isTeamAdmin(request,teamId); //is Team ADMIN
+      }
+      //teamAdmin as teamAdmin --> create new 
+      match /userProfile/{userId}/teamAdmin/{teamId} {
+        allow delete, create: if isSignedIn() && isTeamAdmin(request,teamId); //is Team ADMIN
+      }
+      //club as clubAdmin
+      match /userProfile/{userId}/clubs/{clubId} {
+        allow delete: if isSignedIn() && isClubAdmin(request,clubId); //is Club ADMIN
+      }   
+      //clubAdmin as clubAdmin
+      match /userProfile/{userId}/clubAdmin/{clubId} {
+        allow read, delete, create: if isSignedIn() && isClubAdmin(request,clubId); //is Club ADMIN
+      }   
+
+// ************************************************      
+      //NEWS (Global News)
+// ************************************************            
+      match /news/{newsId} {
+        allow read: if isSignedIn();
+      }
+      
+// ************************************************        
       //CLUB
+// ************************************************        
       match /club/{clubId} {
-        allow read: if request.auth != null; //&& exists(/databases/$(database)/documents/userProfile/$(request.auth.uid)/clubList/$(clubId));
+				// Needed to Join Clubs
+				allow read: if isSignedIn(); // && exists(/databases/$(database)/documents/userProfile/$(request.auth.uid)/clubs/$(clubId));
+
+        //GAMES
+        match /games/{gamesId=**} {
+          allow read: if isSignedIn() && isClubMember(request, clubId);
+        } 
+	      //NEWS
+      	match /news/{newsId=**} {
+      		allow read: if isSignedIn() && isClubMember(request, clubId);
+      	}
+        //EVENTS
+        match /events/{eventId} {
+          allow read: if isSignedIn() && isClubMember(request, clubId);
+          allow delete: if isSignedIn() && isClubAdmin(request, clubId);
+
+          match /attendees/{memberId=**} {
+            allow read: if isSignedIn() && isClubMember(request, clubId);
+        	}     
+          match /attendees/{memberId} { // Eigener Status ändern
+            allow read, write: if isSignedIn()
+            && memberId == request.auth.uid
+            && isClubMember(request, clubId);
+        	}    
+          match /attendees/{memberId} { // Club Admin dürfen Status ändern
+            allow read, write: if isSignedIn()
+            && isClubAdmin(request, clubId)
+            && isClubMember(request, clubId);
+        	}  
+        } 
+        // HELFEREVENTS
+        match /helferEvents/{eventId} {
+          allow read: if isSignedIn() && isClubMember(request, clubId);
+          allow delete: if isSignedIn() && isClubAdmin(request, clubId)
+          
+          match /attendees/{memberId=**} {
+            allow read: if isSignedIn() && isClubMember(request, clubId);
+        	}     
+          match /attendees/{memberId} { // Eigener Status ändern
+            allow read, write: if isSignedIn()
+            && memberId == request.auth.uid
+            && isClubMember(request, clubId);
+        	}    
+          match /attendees/{memberId} { // Club Admin dürfen Status ändern
+            allow read, write: if isSignedIn()
+            && isClubAdmin(request, clubId)
+            && isClubMember(request, clubId);
+        	}            
+          
+        	match /schichten/{schichtId} {
+            allow read: if isSignedIn() && isClubMember(request, clubId);
+            
+            match /attendees/{memberId=**} {
+              allow read: if isSignedIn() && isClubMember(request, clubId);
+            }  
+            match /attendees/{memberId} { // Eigener Status ändern
+              allow read, write: if isSignedIn()
+              && memberId == request.auth.uid
+              && isClubMember(request, clubId);
+            }    
+            match /attendees/{memberId} { // Club Admin dürfen Status ändern
+              allow read, write: if isSignedIn()
+              && isClubAdmin(request, clubId)
+              && isClubMember(request, clubId);
+            } 
+            // Approve event
+            match /attendees/{memberId} {
+              allow write: if isSignedIn()
+              && isClubAdmin(request, clubId)
+            }
+          }  
+        } 
+        //TEAMS
+      	match /teams/{teamId=**} {
+      		allow read: if isSignedIn() && isClubMember(request, clubId);
+      	}    
+        //MEMBERS
+      	match /members/{memberId=**} {
+      		allow read: if isSignedIn() && isClubMember(request, clubId);
+      		allow write: if isSignedIn() && isClubAdmin(request, clubId);
+				} 
+        //ADMINS for ADMINS
+      	match /admins/{memberId=**} {
+      		allow read: if isSignedIn() && isClubMember(request, clubId);
+ 					allow write: if isSignedIn() && isClubAdmin(request, clubId);
+      	}   
+        //REQUESTS for ADMINS
+      	match /requests/{requestId=**} {
+          allow read: if isSignedIn() && isClubMember(request, clubId)
+          allow write: if isSignedIn() && isClubAdmin(request, clubId);
+      	} 
       }
-      
+// ************************************************      
       //TEAM
-      match /team/{teamId} {
-        allow read: if request.auth != null; //&& exists(/databases/$(database)/documents/userProfile/$(request.auth.uid)/teamList/$(teamId));       
+// ************************************************      
+      match /teams/{teamId} {
+        allow read: if isSignedIn() 
+        && (isTeamMember(request, teamId) || isClubMember(request, resource.data.clubId));
+
+    
+				//TEAM EXERCISES
+        match /exercises/{exerciseId} {
+          allow read, write: if isSignedIn() && isTeamAdmin(request, teamId);
+        } 				        
+              
+        //TRAINING
+        match /trainings/{trainingId} {
+          allow read: if isSignedIn() && isTeamMember(request, teamId);
+          allow delete: if isSignedIn() && isTeamMember(request, teamId);
+          
+					//ATTENDEEES
+          match /attendees/{memberId=**} {
+            allow read: if isSignedIn() && isTeamMember(request, teamId);
+        	}     
+          match /attendees/{memberId} { // Eigener Status ändern
+            allow read, write: if isSignedIn()
+            && memberId == request.auth.uid
+            && isTeamMember(request, teamId);
+          }    
+          match /attendees/{memberId} { // Club Admin dürfen Status ändern
+            allow read, write: if isSignedIn()
+            && isTeamAdmin(request, teamId)
+            && isTeamMember(request, teamId);
+          } 
+        	//Training EXERCISES
+          match /exercises/{exerciseId=**} {
+            allow read: if isSignedIn()  && isTeamMember(request, teamId);
+            allow write: if isSignedIn()  && isTeamAdmin(request, teamId);
+          } 
+          match /exercises/{exerciseId} {
+            allow read: if isSignedIn() && isTeamMember(request, teamId);
+          } 
+        }     
+        //TEAM GAMES
+        match /games/{gamesId} {
+          allow read: if isSignedIn() && isTeamMember(request, teamId);
+          
+          //ATTENDEEES
+          match /attendees/{memberId=**} {
+            allow read: if isSignedIn() && isTeamMember(request, teamId);
+        	}     
+          match /attendees/{memberId} { // Eigener Status ändern
+            allow read, write: if isSignedIn()
+            && memberId == request.auth.uid
+            && isTeamMember(request, teamId);
+          }    
+          match /attendees/{memberId} { // Club Admin dürfen Status ändern
+            allow read, write: if isSignedIn()
+            && isTeamAdmin(request, teamId)
+            && isTeamMember(request, teamId);
+          } 
+        } 
+
+        //Team EVENTS (not yet in use)
+        match /events/{eventId} {
+          allow read: if isSignedIn() && isTeamMember(request, teamId);
+          
+          //ATTENDEEES
+					match /attendees/{memberId=**} {
+            allow read: if isSignedIn() && isTeamMember(request, teamId);
+        	}     
+          match /attendees/{memberId} { // Eigener Status ändern
+            allow read, write: if isSignedIn()
+            && memberId == request.auth.uid
+            && isTeamMember(request, teamId);
+          }    
+          match /attendees/{memberId} { // Club Admin dürfen Status ändern
+            allow read, write: if isSignedIn()
+            && isTeamAdmin(request, teamId)
+            && isTeamMember(request, teamId);
+          }    
+        } 
+	      //Team NEWS
+      	match /news/{newsId=**} {
+      		allow read: if isSignedIn() && isTeamMember(request, teamId);
+      	} 
+        // RANKING TODO! THIS IS SOMEHOW NOT WORKING
+        match /ranking/{document} {
+          allow read: if isSignedIn() && isClubMember(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId);
+          
+          match /table/{document=**} {
+          	  allow read: if isSignedIn() && isClubMember(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId);
+          }
+        }
+      	//MEMBERS
+      	match /members/{memberId=**} {
+          // Access the parent team document to get the clubRef
+          allow read: if isSignedIn() && (isTeamMember(request, teamId) || isClubMemberPath(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubRef.path));
+
+          // Allow create, delete if the user is a team admin or a club admin
+          allow write, delete: if isSignedIn() && (isTeamAdmin(request, teamId) || isClubAdmin(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId));
+        }
+        
+       	//ADMINS for ADMINS
+      	match /admins/{adminId=**} {
+          // Access the parent team document to get the clubRef
+          allow read: if isSignedIn() && (isTeamMember(request, teamId) || isClubMemberPath(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubRef.path));
+        
+          // Allow create, delete if the user is a team admin or a club admin
+          allow write, delete: if isSignedIn() && (isTeamAdmin(request, teamId) || isClubAdmin(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId));
+      	} 
+        //REQUESTS for ADMINS
+      	match /requests/{requestId=**} {
+        	// Access the parent team document to get the clubRef
+          allow read: if isSignedIn() && (isTeamMember(request, teamId) || isClubMemberPath(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubRef.path));
+        
+          // Allow create, delete if the user is a team admin or a club admin
+          allow write, delete: if isSignedIn() && (isTeamAdmin(request, teamId) || isClubAdmin(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId));
+      	} 
+      }
+    
+      //No ACCESS
+      match /template/{documents=**} {
+      	allow read, write: if 1==2;
       }
       
-      //TRAINING STATUS
-      match /team/{teamId}/trainingList/{trainingId}/memberList/{memberId} {
-      	allow read, write: if request.auth != null && request.auth.uid == memberId; //nur eigenen Status ändern
-      }
-      //TRAINING COUNT Anmeldungen
-      match /team/{teamId}/trainingList/{trainingId=**} {
-      	allow read: if request.auth != null && exists(/databases/$(database)/documents/userProfile/$(request.auth.uid)/teamList/$(teamId)) ; 
-      }    
-      
-      
-      //TRAINING CHANGE / DELETE
-      match /team/{teamId}/trainingList/{trainingId} {
-      	allow update, delete: if request.auth != null && hasCustomClaim(teamId); //Team Admin
-      }      
-      
-      // CHAMPIONSHIP STATUS
-      match /team/{teamId}/championshipList/{championshipId}/memberList/{memberId} {
-      	allow read, write: if request.auth != null && request.auth.uid == memberId; //nur eigenen Status ändern
-      }
-      //CHAMPIONSHIP COUNT Anmeldungen
-      match /team/{teamId}/championshipList/{championshipId=**} {
-      	allow read: if request.auth != null && exists(/databases/$(database)/documents/userProfile/$(request.auth.uid)/teamList/$(teamId)) 
-      }     
-      
-      
-      //TEAM MEMBER LIST
-      match /team/{teamId}/memberList/{memberId} {
-      	allow read: if request.auth != null && exists(/databases/$(database)/documents/userProfile/$(request.auth.uid)/teamList/$(teamId)) ;
-      }
-      //TEAM ADMIN LIST
-      match /team/{teamId}/teamAdminList/{document=**} {
-      	allow read: if request.auth != null && exists(/databases/$(database)/documents/userProfile/$(request.auth.uid)/teamList/$(teamId)) ;
-      }
-      
-      
-      //CLUB MEMBER LIST
-      match /club/{clubId}/memberList/{memberId} {
-      	allow read: if request.auth != null && exists(/databases/$(database)/documents/userProfile/$(request.auth.uid)/clubList/$(clubId)) ;
-      }
-      //CLUB ADMIN LIST
-      match /club/{clubId}/clubAdminList/{document=**} {
-      	allow read: if request.auth != null && exists(/databases/$(database)/documents/userProfile/$(request.auth.uid)/clubList/$(clubId)) ;
-      }
-      
-      
-      match /team/{teamId}/requestList {
-      	allow read: if request.auth != null && exists(/databases/$(database)/documents/userProfile/$(request.auth.uid)/teamList/$(teamId)) ;
-      }
-      
-      
-      match /club/{clubId}/requestList/{documents=**} {
-      	allow read: if request.auth != null && exists(/databases/$(database)/documents/userProfile/$(request.auth.uid)/clubList/$(clubId)) ;
-      }
-      
-      match /requests/{documents=**} {
-      	allow read, write: if request.auth != null ;
-      }
- 
-      
-      match /mail { //No ACCESS
+      //No ACCESS
+      match /mail { 
         allow read, write: if 1==2;
       }
   }

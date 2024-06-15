@@ -17,7 +17,7 @@ export async function deleteTeamMember(snapshot: QueryDocumentSnapshot, context:
   console.log("Auth User > " + context.auth);
   console.log("Delete user from team " + userId, teamId);
 
-  return db.collection("userProfile").doc().collection("teams").doc(teamId).delete();
+  return db.collection("userProfile").doc(userId).collection("teams").doc(teamId).delete();
   /*
   const adminUser = await auth.getUser(context.auth?.uid);
   if (adminUser && adminUser.customClaims && adminUser.customClaims[teamId]) {
@@ -26,7 +26,7 @@ export async function deleteTeamMember(snapshot: QueryDocumentSnapshot, context:
     // SEND EMAIL? --> Your are still part of the organization and need to cancel subscription
 
     // FINALLY REMOVE FROM CLUB
-    return db.collection("userProfile").doc().collection("teams").doc(teamId).delete();
+    return db.collection("userProfile").doc(userId).collection("teams").doc(teamId).delete();
   } else {
     // RESTORE DATA!
     console.log("Restore DATA");
@@ -47,10 +47,10 @@ export async function deleteClubMember(snapshot: QueryDocumentSnapshot, context:
   // Delete from all Teams
   for (const team of teamList) {
     await db.collection("teams").doc(team.id).collection("members").doc(userId).delete();
-    await db.collection("userProfile").doc().collection("teams").doc(team.id).delete();
+    await db.collection("userProfile").doc(userId).collection("teams").doc(team.id).delete();
 
     await db.collection("teams").doc(team.id).collection("admins").doc(userId).delete();
-    await db.collection("userProfile").doc().collection("teamAdmins").doc(team.id).delete();
+    await db.collection("userProfile").doc(userId).collection("teamAdmins").doc(team.id).delete();
   }
 
   return db.collection("userProfile").doc(userId).collection("club").doc(clubId).delete();
