@@ -60,7 +60,7 @@ export async function deleteClubMember(snapshot: QueryDocumentSnapshot, context:
   await db.collection("club").doc(clubId).collection("admins").doc(userId).delete();
   await db.collection("userProfile").doc(userId).collection("clubAdmins").doc(clubId).delete();
 
-  return db.collection("userProfile").doc(userId).collection("club").doc(clubId).delete();
+  return db.collection("userProfile").doc(userId).collection("clubs").doc(clubId).delete();
   /*
   const adminUser = await auth.getUser(context.auth?.uid);
   if (adminUser && adminUser.customClaims && adminUser.customClaims[clubId]) {
