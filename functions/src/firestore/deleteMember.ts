@@ -17,6 +17,10 @@ export async function deleteTeamMember(snapshot: QueryDocumentSnapshot, context:
   console.log("Auth User > " + context.auth);
   console.log("Delete user from team " + userId, teamId);
 
+  // If removed from team, delete as well team admin
+  await db.collection("teams").doc(teamId).collection("admins").doc(userId).delete();
+  await db.collection("userProfile").doc(userId).collection("teamAdmins").doc(teamId).delete();
+
   return db.collection("userProfile").doc(userId).collection("teams").doc(teamId).delete();
   /*
   const adminUser = await auth.getUser(context.auth?.uid);
@@ -52,6 +56,9 @@ export async function deleteClubMember(snapshot: QueryDocumentSnapshot, context:
     await db.collection("teams").doc(team.id).collection("admins").doc(userId).delete();
     await db.collection("userProfile").doc(userId).collection("teamAdmins").doc(team.id).delete();
   }
+  // Delete as Admin from Club as well.
+  await db.collection("club").doc(clubId).collection("admins").doc(userId).delete();
+  await db.collection("userProfile").doc(userId).collection("clubAdmins").doc(clubId).delete();
 
   return db.collection("userProfile").doc(userId).collection("club").doc(clubId).delete();
   /*
