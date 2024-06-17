@@ -51,7 +51,7 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
         console.log(">> SEND PUSH EVENT: ", statusCode, headers, body); */
       } else {
         // Send native Push
-        const nativePush = await messaging.sendToDevice(push.data().token,
+        /* const nativePush = await messaging.sendToDevice(push.data().token,
             {
               notification: <NotificationMessagePayload> {
                 title: "Neue Beitrittsanfrage für deinen Verein: " + clubRef.data().name,
@@ -65,8 +65,8 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
                 "id": clubId,
               },
             },
-        );
-        console.log(">> SEND Native PUSH EVENT: ", nativePush);
+        );*/
+        // console.log(">> SEND Native PUSH EVENT: ", nativePush);
       }
     }
   }
