@@ -49,6 +49,17 @@ export async function deleteClubMember(snapshot: QueryDocumentSnapshot, context:
   // TODO: DELETE FROM ALL TEAMS AS WELL!
   const teamList = await db.collection("club").doc(clubId).collection("teams").get();
   // Delete from all Teams
+  try {
+    for (const team of teamList) {
+      await db.collection("teams").doc(team.id).collection("members").doc(userId).delete();
+      await db.collection("userProfile").doc(userId).collection("teams").doc(team.id).delete();
+
+      await db.collection("teams").doc(team.id).collection("admins").doc(userId).delete();
+      await db.collection("userProfile").doc(userId).collection("teamAdmins").doc(team.id).delete();
+    }
+  } catch (e) {
+    console.log("no teams to delete from");
+  }
   for (const team of teamList) {
     await db.collection("teams").doc(team.id).collection("members").doc(userId).delete();
     await db.collection("userProfile").doc(userId).collection("teams").doc(team.id).delete();
