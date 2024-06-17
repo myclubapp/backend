@@ -43,14 +43,14 @@ export async function deleteClubMember(snapshot: QueryDocumentSnapshot, context:
   console.log("deleteClubMember > Club Page via Administrator");
   const userId = context.params.userId;
   const clubId = context.params.clubId;
-  console.log("Auth User > " + context.auth);
+  // console.log("Auth User > " + context.auth);
   console.log("Delete user from club " + userId, clubId);
 
   // TODO: DELETE FROM ALL TEAMS AS WELL!
   const teamList = await db.collection("club").doc(clubId).collection("teams").get();
   // Delete from all Teams
   try {
-    for (const team of teamList) {
+    for (const team of teamList.docs) {
       await db.collection("teams").doc(team.id).collection("members").doc(userId).delete();
       await db.collection("userProfile").doc(userId).collection("teams").doc(team.id).delete();
 
@@ -59,13 +59,6 @@ export async function deleteClubMember(snapshot: QueryDocumentSnapshot, context:
     }
   } catch (e) {
     console.log("no teams to delete from");
-  }
-  for (const team of teamList) {
-    await db.collection("teams").doc(team.id).collection("members").doc(userId).delete();
-    await db.collection("userProfile").doc(userId).collection("teams").doc(team.id).delete();
-
-    await db.collection("teams").doc(team.id).collection("admins").doc(userId).delete();
-    await db.collection("userProfile").doc(userId).collection("teamAdmins").doc(team.id).delete();
   }
   // Delete as Admin from Club as well.
   await db.collection("club").doc(clubId).collection("admins").doc(userId).delete();
