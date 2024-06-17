@@ -50,9 +50,10 @@ export async function approveClubRequest(change: Change<QueryDocumentSnapshot>, 
     });
   } else if (change.after.data().approve === false) {
     console.log(`CLUB request NOT APPROVED ${requestRef.id}`);
+
     // clean up requests
-    await db.collection("club").doc(clubId).collection("requests").doc(userProfileRef.id).delete();
     await db.collection("userProfile").doc(userProfileRef.id).collection("clubRequests").doc(clubId).delete();
+    await db.collection("club").doc(clubId).collection("requests").doc(requestId).delete();
 
     // send out mail to user
     return db.collection("mail").add({
