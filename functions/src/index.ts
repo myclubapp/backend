@@ -70,11 +70,11 @@ export const dbRemoveTeamAdmin = functions.region("europe-west6").firestore.docu
 export const dbAddTeamMember = functions.region("europe-west6").firestore.document("/teams/{teamId}/members/{userId}").onCreate(createTeamMember);
 export const dbAddTeamAdmin = functions.region("europe-west6").firestore.document("/teams/{teamId}/admins/{userId}").onCreate(createTeamAdmin);
 
-// DB Hooks CLUB
-export const dbRemoveClubMember = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubs/{clubId}").onDelete(deleteClubMember);
-export const dbRemoveClubAdmin = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubAdmin/{clubId}").onDelete(deleteClubAdmin);
-export const dbAddClubMember = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubs/{clubId}").onCreate(createClubMember); // Not needed?
-export const dbAddClubAdmin = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubAdmin/{clubId}").onCreate(createClubAdmin);
+// DB Hooks CLUB > Manage club currently only available for ADMIN
+export const dbRemoveClubMember = functions.region("europe-west6").firestore.document("/club/{clubId}/members/{userId}").onDelete(deleteClubMember);
+export const dbRemoveClubAdmin = functions.region("europe-west6").firestore.document("/club/{clubId}/admins/{userId}").onDelete(deleteClubAdmin);
+export const dbAddClubMember = functions.region("europe-west6").firestore.document("/club/{clubId}/members/{userId}").onCreate(createClubMember); // Not needed? Maybe a new INVITE Proccess
+export const dbAddClubAdmin = functions.region("europe-west6").firestore.document("/club/{clubId}/admins/{userId}").onCreate(createClubAdmin);
 
 // export const dbRemoveMemberFromClub = functions.region("europe-west6").firestore.document("/club/{clubId}/members/{userId}").onDelete(deleteMemberFromClub);
 // export const dbRemoveMemberFromTeam = functions.region("europe-west6").firestore.document("/teams/{teamId}/members/{userId}").onDelete(deleteMemberFromTeam);
