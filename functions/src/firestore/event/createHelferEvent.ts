@@ -80,29 +80,33 @@ export async function createNotificationHelferEvent(snapshot: QueryDocumentSnaps
         if (push.data().platform === "web") {
           // Send WebPush
           const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
-              JSON.stringify( {
+              JSON.stringify({
                 title: "Neuer Helferevent verfügbar: " + helferEvent.data().name,
                 message: "Details: " + helferEvent.data().description,
               }));
           console.log(">> SEND PUSH EVENT: ", statusCode, headers, body);
         } else {
           // Send native Push
-          const nativePush = await messaging.sendToDevice(push.data().token,
-              {
-                notification: <NotificationMessagePayload> {
-                  title: "Neuer Helferevent verfügbar: " + helferEvent.data().name,
-                  body: "Details: " + helferEvent.data().description,
-                  sound: "default",
-                  badge: "0",
+          try {
+            const nativePush = await messaging.sendToDevice(push.data().token,
+                {
+                  notification: <NotificationMessagePayload>{
+                    title: "Neuer Helferevent verfügbar: " + helferEvent.data().name,
+                    body: "Details: " + helferEvent.data().description,
+                    sound: "default",
+                    badge: "0",
+                  },
+                  data: <DataMessagePayload>{
+                    "type": "helferEvent",
+                    "clubId": clubId,
+                    "id": helferEvent.data().id,
+                  },
                 },
-                data: <DataMessagePayload> {
-                  "type": "helferEvent",
-                  "clubId": clubId,
-                  "id": helferEvent.data().id,
-                },
-              },
-          );
-          console.log(">> SEND Native PUSH EVENT: ", nativePush);
+            );
+            console.log(">> SEND Native PUSH EVENT: ", nativePush);
+          } catch (e) {
+            console.log("Error Sending Push to Device:  " + push.id + " / Identifier: " + push.data().identifier + " with Error " + e);
+          }
         }
       }
     }

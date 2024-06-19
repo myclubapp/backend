@@ -39,9 +39,9 @@ export async function createNotificationNews(snapshot: QueryDocumentSnapshot, co
         for (const push of userProfilePushRef.docs) {
           console.log(">> PUSH DEVICE: ", push.data());
           if (push.data().platform === "web") {
-          // Send WebPush
+            // Send WebPush
             const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
-                JSON.stringify( {
+                JSON.stringify({
                   title: newsRef.data().title,
                   message: newsRef.data().text,
                 }));
@@ -57,21 +57,25 @@ export async function createNotificationNews(snapshot: QueryDocumentSnapshot, co
             });
 
             delete newsRef.data().updated;
-            const nativePush = await messaging.sendToDevice(push.data().token,
-                {
-                  notification: <NotificationMessagePayload> {
-                    title: newsRef.data().title,
-                    body: newsRef.data().text,
-                    sound: "default",
-                    badge: "0",
+            try {
+              const nativePush = await messaging.sendToDevice(push.data().token,
+                  {
+                    notification: <NotificationMessagePayload>{
+                      title: newsRef.data().title,
+                      body: newsRef.data().text,
+                      sound: "default",
+                      badge: "0",
+                    },
+                    data: <DataMessagePayload>{
+                      "type": "news",
+                      ...newsRef.data(),
+                    },
                   },
-                  data: <DataMessagePayload> {
-                    "type": "news",
-                    ...newsRef.data(),
-                  },
-                },
-            );
-            console.log(">> SEND Native PUSH EVENT: ", nativePush);
+              );
+              console.log(">> SEND Native PUSH EVENT: ", nativePush);
+            } catch (e) {
+              console.log("Error Sending Push to Device:  " + push.id + " / Identifier: " + push.data().identifier + " with Error " + e);
+            }
           }
         }
       }

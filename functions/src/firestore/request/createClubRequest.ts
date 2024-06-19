@@ -106,22 +106,26 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
           console.log(">> SEND PUSH EVENT: ", statusCode, headers, body); */
         } else {
           // Send native Push
-          const nativePush = await messaging.sendToDevice(push.data().token,
-              {
-                notification: <NotificationMessagePayload> {
-                  title: "Neue Beitrittsanfrage für deinen Verein: " + clubRef.data().name,
-                  body: `${userProfileRef.data()?.firstName} ${userProfileRef.data()?.lastName} (${userProfileRef.data()?.email}) möchte deinem Verein beitreten.`,
-                  sound: "default",
-                  badge: "0",
+          try {
+            const nativePush = await messaging.sendToDevice(push.data().token,
+                {
+                  notification: <NotificationMessagePayload>{
+                    title: "Neue Beitrittsanfrage für deinen Verein: " + clubRef.data().name,
+                    body: `${userProfileRef.data()?.firstName} ${userProfileRef.data()?.lastName} (${userProfileRef.data()?.email}) möchte deinem Verein beitreten.`,
+                    sound: "default",
+                    badge: "0",
+                  },
+                  data: <DataMessagePayload>{
+                    "type": "clubRequestAdmin",
+                    "clubId": clubId,
+                    "id": clubId,
+                  },
                 },
-                data: <DataMessagePayload> {
-                  "type": "clubRequestAdmin",
-                  "clubId": clubId,
-                  "id": clubId,
-                },
-              },
-          );
-          console.log(">> SEND Native PUSH EVENT: ", nativePush);
+            );
+            console.log(">> SEND Native PUSH EVENT: ", nativePush);
+          } catch (e) {
+            console.log("Error Sending Push to Device:  " + push.id + " / Identifier: " + push.data().identifier + " with Error " + e);
+          }
         }
       }
     }

@@ -39,7 +39,7 @@ export async function createNotificationClubNews(snapshot: QueryDocumentSnapshot
         if (push.data().platform === "web") {
           // Send WebPush
           const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
-              JSON.stringify( {
+              JSON.stringify({
                 title: clubNewsRef.data().title,
                 message: clubNewsRef.data().text,
               }));
@@ -56,22 +56,27 @@ export async function createNotificationClubNews(snapshot: QueryDocumentSnapshot
 
 
           delete clubNewsRef.data().updated;
-          const nativePush = await messaging.sendToDevice(push.data().token,
-              {
-                notification: <NotificationMessagePayload> {
-                  title: clubNewsRef.data().title,
-                  body: clubNewsRef.data().text,
-                  sound: "default",
-                  badge: "0",
+
+          try {
+            const nativePush = await messaging.sendToDevice(push.data().token,
+                {
+                  notification: <NotificationMessagePayload>{
+                    title: clubNewsRef.data().title,
+                    body: clubNewsRef.data().text,
+                    sound: "default",
+                    badge: "0",
+                  },
+                  data: <DataMessagePayload>{
+                    "type": "clubNews",
+                    "clubId": clubId,
+                    ...clubNewsRef.data(),
+                  },
                 },
-                data: <DataMessagePayload> {
-                  "type": "clubNews",
-                  "clubId": clubId,
-                  ...clubNewsRef.data(),
-                },
-              },
-          );
-          console.log(">> SEND Native PUSH EVENT: ", nativePush);
+            );
+            console.log(">> SEND Native PUSH EVENT: ", nativePush);
+          } catch (e) {
+            console.log("Error Sending Push to Device:  " + push.id + " / Identifier: " + push.data().identifier + " with Error " + e);
+          }
         }
       }
     }
