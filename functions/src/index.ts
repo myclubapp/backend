@@ -34,6 +34,7 @@ import {createNotificationNews} from "./firestore/news/createNews";
 import {youtubeScheduler} from "./scheduler/youtube.scheduler";
 import {confirmHelferEvent} from "./firestore/event/confirmHelferEvent";
 import {getGamePreview} from "./requests/gamePreview/gamePreview.get";
+import {leaveClubAsMember, leaveTeamAsMember} from "./firestore/userProfile/leaveAsMember";
 
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -69,12 +70,14 @@ export const dbRemoveTeamMember = functions.region("europe-west6").firestore.doc
 export const dbRemoveTeamAdmin = functions.region("europe-west6").firestore.document("/teams/{teamId}/admins/{userId}").onDelete(deleteTeamAdmin);
 export const dbAddTeamMember = functions.region("europe-west6").firestore.document("/teams/{teamId}/members/{userId}").onCreate(createTeamMember);
 export const dbAddTeamAdmin = functions.region("europe-west6").firestore.document("/teams/{teamId}/admins/{userId}").onCreate(createTeamAdmin);
+export const dbLeaveTeamAsMember = functions.region("europe-west6").firestore.document("/userProfile/{userId}/teams/{teamId}").onDelete(leaveTeamAsMember);
 
 // DB Hooks CLUB > Manage club currently only available for ADMIN
 export const dbRemoveClubMember = functions.region("europe-west6").firestore.document("/club/{clubId}/members/{userId}").onDelete(deleteClubMember);
 export const dbRemoveClubAdmin = functions.region("europe-west6").firestore.document("/club/{clubId}/admins/{userId}").onDelete(deleteClubAdmin);
 export const dbAddClubMember = functions.region("europe-west6").firestore.document("/club/{clubId}/members/{userId}").onCreate(createClubMember); // Not needed? Maybe a new INVITE Proccess
 export const dbAddClubAdmin = functions.region("europe-west6").firestore.document("/club/{clubId}/admins/{userId}").onCreate(createClubAdmin);
+export const dbLeaveClubAsMember = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubs/{clubId}").onDelete(leaveClubAsMember);
 
 // export const dbRemoveMemberFromClub = functions.region("europe-west6").firestore.document("/club/{clubId}/members/{userId}").onDelete(deleteMemberFromClub);
 // export const dbRemoveMemberFromTeam = functions.region("europe-west6").firestore.document("/teams/{teamId}/members/{userId}").onDelete(deleteMemberFromTeam);
