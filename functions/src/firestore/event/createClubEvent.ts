@@ -70,8 +70,8 @@ export async function createNotificationClubEvent(snapshot: QueryDocumentSnapsho
           // Send WebPush
           const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
               JSON.stringify({
-                title: "Neue Veranstaltung verfügbar: " + clubEventRef.data().name,
-                message: "Details: " + clubEventRef.data().description,
+                title: "Neue Veranstaltung verfügbar",
+                message: clubEventRef.data().name + " - " + clubEventRef.data().description,
               }));
           console.log(">> SEND PUSH EVENT: ", statusCode, headers, body);
         } else {
@@ -80,8 +80,8 @@ export async function createNotificationClubEvent(snapshot: QueryDocumentSnapsho
             const nativePush = await messaging.sendToDevice(push.data().token,
                 {
                   notification: <NotificationMessagePayload>{
-                    title: "Neue Veranstaltung verfügbar: " + clubEventRef.data().name,
-                    body: "Details: " + clubEventRef.data().description,
+                    title: "Neue Veranstaltung verfügbar",
+                    body: clubEventRef.data().name + " - " + clubEventRef.data().description,
                     sound: "default",
                     badge: "0",
                   },

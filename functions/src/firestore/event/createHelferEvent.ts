@@ -91,8 +91,8 @@ export async function createNotificationHelferEvent(snapshot: QueryDocumentSnaps
             const nativePush = await messaging.sendToDevice(push.data().token,
                 {
                   notification: <NotificationMessagePayload>{
-                    title: "Neuer Helferevent verfügbar: " + helferEvent.data().name,
-                    body: "Details: " + helferEvent.data().description,
+                    title: "Neuer Helferevent verfügbar",
+                    body: helferEvent.data().name + " - " + helferEvent.data().description,
                     sound: "default",
                     badge: "0",
                   },

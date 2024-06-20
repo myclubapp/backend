@@ -150,8 +150,8 @@ export async function createNotificationTeamTraining(snapshot: QueryDocumentSnap
           // Send WebPush
           const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
               JSON.stringify({
-                title: "Neues Training verfügbar: " + teamTrainingRef.data().name,
-                message: "Details: " + teamTrainingRef.data().description,
+                title: "Neues Training verfügbar: ",
+                message: teamTrainingRef.data().name + " - " + teamTrainingRef.data().description,
               }));
           console.log(">> SEND PUSH EVENT: ", statusCode, headers, body);
         } else {
@@ -160,8 +160,8 @@ export async function createNotificationTeamTraining(snapshot: QueryDocumentSnap
             const nativePush = await messaging.sendToDevice(push.data().token,
                 {
                   notification: <NotificationMessagePayload>{
-                    title: "Neues Training verfügbar: " + teamTrainingRef.data().name,
-                    body: "Details: " + teamTrainingRef.data().description,
+                    title: "Neues Training verfügbar: ",
+                    body: teamTrainingRef.data().name + " - " + teamTrainingRef.data().description,
                     sound: "default",
                     badge: "0",
                   },
