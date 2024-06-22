@@ -35,6 +35,7 @@ import {youtubeScheduler} from "./scheduler/youtube.scheduler";
 import {confirmHelferEvent} from "./firestore/event/confirmHelferEvent";
 import {getGamePreview} from "./requests/gamePreview/gamePreview.get";
 import {leaveClubAsMember, leaveTeamAsMember} from "./firestore/userProfile/leaveAsMember";
+import {addClubTeam} from "./firestore/club/createClubTeam";
 
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -95,6 +96,8 @@ export const dbRemoveTeamRequest = functions.region("europe-west6").firestore.do
 export const dbApproveClubRequest = functions.region("europe-west6").firestore.document("/club/{clubId}/requests/{requestId}").onUpdate(approveClubRequest);
 export const dbApproveTeamRequest = functions.region("europe-west6").firestore.document("/teams/{teamId}/requests/{requestId}").onUpdate(approveTeamRequest);
 
+// DB Hooks CLUB > TEAMS
+export const dbAddClubTeam = functions.region("europe-west6").firestore.document("/club/{clubId}/teams/{teamId}").onCreate(addClubTeam);
 
 // DB Hooks TRAININGS from USER Profile
 export const dbAddTeamTraining = functions.region("europe-west6").firestore.document("/userProfile/{userId}/trainings/{trainingId}").onCreate(createTeamTraining);
