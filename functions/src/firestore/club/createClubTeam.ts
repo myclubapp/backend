@@ -39,7 +39,7 @@ export async function addClubTeam(snapshot: QueryDocumentSnapshot, context: func
   await db.collection("teams").doc(teamId).set({
     ...teamData,
     externalId: "-",
-    logo: clubRef.data().logo,
+    logo: clubRef.data().logo || "-",
     type: "Manual",
     updated: new Date(),
     clubId: clubId,
