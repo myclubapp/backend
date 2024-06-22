@@ -40,7 +40,7 @@ export async function addClubTeam(snapshot: QueryDocumentSnapshot, context: func
     ...teamData,
     externalId: "-",
     logo: clubRef.data().logo || "-",
-    type: "Manual",
+    type: "Club",
     updated: new Date(),
     clubId: clubId,
     clubRef: clubRef.ref,
