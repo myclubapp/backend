@@ -45,7 +45,7 @@ export async function addClubTeam(snapshot: QueryDocumentSnapshot, context: func
     clubId: clubId,
     clubRef: clubRef.ref,
   });
-  const teamRef = await db.collection("teams").doc(teamId).get()
+  const teamRef = await db.collection("teams").doc(teamId).get();
 
   return db.collection("club").doc(clubId).collection("teams").doc(teamId).set({
     teamRef: teamRef.ref,
