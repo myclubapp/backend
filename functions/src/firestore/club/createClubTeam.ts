@@ -36,7 +36,7 @@ export async function addClubTeam(snapshot: QueryDocumentSnapshot, context: func
   const teamData = snapshot.data();
   const clubRef = await db.collection("club").doc(clubId).get();
 
-  const teamRef = await db.collection("teams").doc(teamId).set({
+  await db.collection("teams").doc(teamId).set({
     ...teamData,
     externalId: "-",
     logo: "-",
@@ -45,6 +45,7 @@ export async function addClubTeam(snapshot: QueryDocumentSnapshot, context: func
     clubId: clubId,
     clubRef: clubRef.ref,
   });
+  const teamRef = await db.collection("teams").doc(teamId).get()
 
   return db.collection("club").doc(clubId).collection("teams").doc(teamId).set({
     teamRef: teamRef.ref,
