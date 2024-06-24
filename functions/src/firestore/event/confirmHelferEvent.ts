@@ -27,6 +27,7 @@ export async function confirmHelferEvent(change: Change<QueryDocumentSnapshot>, 
     await db.collection("userProfile").doc(userId).collection("helferPunkte").add({
       ...change.after.data(),
       clubRef: clubRef.ref,
+      clubId: clubRef.id,
       eventRef: helferEventRef.ref,
       eventName: helferEventRef.data().name,
       eventDate: helferEventRef.data().date,
