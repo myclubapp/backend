@@ -11,7 +11,7 @@ import {Change} from "firebase-functions";
 const db = firebaseDAO.instance.db;
 
 export async function confirmHelferEvent(change: Change<QueryDocumentSnapshot>, context: functions.EventContext) {
-  console.log("confirmHelferEvent");
+  console.log("confirmHelferEvent /club/{clubId}/helferEvents/{eventId}/schichten/{schichtId}/attendees/{userId}");
   const clubId = context.params.clubId;
   const eventId = context.params.eventId;
   const schichtId = context.params.schichtId;
@@ -25,11 +25,12 @@ export async function confirmHelferEvent(change: Change<QueryDocumentSnapshot>, 
     const schichtRef = await db.collection("club").doc(clubId).collection("helferEvents").doc(eventId).collection("schichten").doc(schichtId).get();
 
     await db.collection("userProfile").doc(userId).collection("helferPunkte").add({
+      ...change.after.data(),
       clubRef: clubRef.ref,
       eventRef: helferEventRef.ref,
       eventName: helferEventRef.data().name,
       eventDate: helferEventRef.data().date,
-      punkte: change.after.data().points || 1,
+      points: change.after.data().points || 1,
 
       schichtRef: schichtRef.ref,
       schichtName: schichtRef.data().name,

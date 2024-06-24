@@ -37,20 +37,6 @@ export async function createTeamTraining(snapshot: QueryDocumentSnapshot, contex
   const teamRef = await db.collection("teams").doc(trainingData.teamId).get();
   console.log("teamId" + trainingData.teamId);
 
-  const teamAdminTeam = await db.collection("teams").doc(trainingData.teamId).collection("admins").doc(userId).get();
-  const teamAdminProfile = await db.collection("userProfile").doc(userId).collection("teamAdmin").doc(trainingData.teamId).get();
-
-  console.log("teamAdmin " + teamAdminTeam.data());
-  console.log("userTeamAdmin " + teamAdminProfile.data());
-
-  // const user = await firebaseDAO.instance.auth.getUser(context.auth?.uid);
-  // console.log("Custom Claim for User: " + user.customClaims[trainingData.teamId]);
-  if (!teamAdminTeam.data() || !teamAdminProfile.data()) { // || userId ==! context.auth?.uid) {
-    console.error("NO PERMISSION");
-
-    return;
-  }
-
   const calculatedDate: Date = new Date();
   let offSet = 0; // in milliseconds
   switch (trainingData.repeatFrequency) {
