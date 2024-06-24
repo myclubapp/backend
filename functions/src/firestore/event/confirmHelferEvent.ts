@@ -20,14 +20,18 @@ export async function confirmHelferEvent(change: Change<QueryDocumentSnapshot>, 
   if (change.after.data().confirmed === true) {
     console.log("confirmed");
 
+    const userRef = await db.collection("userProfile").doc(userId).get();
     const clubRef = await db.collection("club").doc(clubId).get();
     const helferEventRef = await db.collection("club").doc(clubId).collection("helferEvents").doc(eventId).get();
     const schichtRef = await db.collection("club").doc(clubId).collection("helferEvents").doc(eventId).collection("schichten").doc(schichtId).get();
 
-    await db.collection("userProfile").doc(userId).collection("helferPunkte").add({
+    await db.collection("club").doc(clubId).collection("helferPunkte").add({
       ...change.after.data(),
-      clubRef: clubRef.ref,
+      userId: userId,
+      userRef: userRef.ref,
       clubId: clubRef.id,
+      clubRef: clubRef.ref,
+      name: helferEventRef.data().name,
       eventRef: helferEventRef.ref,
       eventName: helferEventRef.data().name,
       eventDate: helferEventRef.data().date,
