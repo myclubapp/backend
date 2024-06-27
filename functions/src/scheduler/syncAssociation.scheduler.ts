@@ -66,16 +66,17 @@ async function updateClubNewsFromWordpress(): Promise<any> {
 
   const clubListRef = await db.collection("club").where("active", "==", true).get();
   for (const club of clubListRef.docs) {
-    console.log(club.id);
+    // console.log(club.id);
 
     if (club.data().wordpress) {
-      console.log(club.data().wordpress);
+      // console.log(club.data().wordpress);
       const url = club.data().wordpress + "/wp-json/wp/v2/posts?per_page=20";
       const wpData = await fetch(url);
       const wpNews = await wpData.json();
+      console.log("News URL: " + url);
 
       for (const news of wpNews) {
-        console.log(news);
+        console.log(news.link);
 
         let text = String(news["content"].rendered).replaceAll("<p>", "");
         text = String(text).replaceAll("</p><p>", "/n");
@@ -92,7 +93,7 @@ async function updateClubNewsFromWordpress(): Promise<any> {
         const wpUser = await wpUserData.json();
         const authorImage = wpUser.avatar_urls[96] || wpUser.avatar_urls[48] || wpUser.avatar_urls[24] || "";
 
-        await db.collection("club").doc(`${club.id}`).collection("news").doc(`su-${news.id}`).set({
+        await db.collection("club").doc(`${club.id}`).collection("news").doc(`${club.id}-${news.id}`).set({
           externalId: `${news["id"]}`,
           title: news["title"].rendered,
           leadText: String(text).substring(0, 200) + " ...",
