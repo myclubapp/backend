@@ -5,14 +5,20 @@
 import firebaseDAO from "./../../firebaseSingleton";
 import resolversSH from "./../../graphql/swisshandball/resolvers";
 
+import fs = require("fs");
+const handballClubJSON = fs.readFileSync("./src/scheduler/utils/handball_clubs_with_teams_and_contact.json", "utf8");
+
 const db = firebaseDAO.instance.db;
 
 export async function updateGamesSwisshandball(): Promise<any> {
   console.log("Update Games swisshandball");
 
+  const data: Array<any> = JSON.parse(handballClubJSON);
+
   // Get Clubs from DB where Type = SWISS HANDBALL && STATUS is active
-  const clubListRef = await db.collection("club").where("active", "==", true).where("type", "==", "swisshandball").get();
-  for (const clubData of clubListRef.docs) {
+  // const clubListRef = await db.collection("club").where("active", "==", true).where("type", "==", "swisshandball").get();
+  // for (const clubData of clubListRef.docs) {
+  for (const clubData of data) {
     // create Club Object from DB.
     const club = {...{id: clubData.data().externalId}, ...clubData.data()};
 
