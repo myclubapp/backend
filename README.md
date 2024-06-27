@@ -70,8 +70,9 @@ Verfügbare Dienste:
 
 
 ### Swiss Handball
-based on this [documentation](https://www.handball.ch/media/1845/vat-anleitung-dataservice_de.pdf) & [VAT DataService](https://www.api.handballwelt.ch/dokumentation/VAT-Anleitung_DataService_de.pdf) 
+based on this [documentation](https://clubapi-test.handball.ch/swagger/index.html) 
 available [here](https://europe-west6-myclubmanagement.cloudfunctions.net/api/swisshandball): 
+
 
 Verfügbare Dienste: 
 - Vereine
