@@ -11,6 +11,9 @@ const fetch = require("node-fetch");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const {convert} = require("html-to-text");
 
+import fs = require("fs");
+const handballClubJSON = fs.readFileSync("./src/scheduler/utils/handball_clubs_with_teams_and_contact.json", "utf8");
+
 import * as functions from "firebase-functions";
 const headers: any = {"Authorization": "Basic " + functions.config().swisshandball.token};
 
@@ -109,14 +112,18 @@ async function getTeam(teamId: string) {
   };
 }
 async function getClubs() {
-  const data = await fetch("https://clubapi.handball.ch/rest/v1/clubs", {
+  /* const data = await fetch("https://clubapi.handball.ch/rest/v1/clubs", {
     headers: headers,
   });
   const clubData = await data.json();
+  */
+
+  const data: Array<any> = JSON.parse(handballClubJSON);
+
 
   // console.log(clubData);
   const clubList = < any > [];
-  for (const item of clubData) {
+  for (const item of data) {
     /* const contactDataRequest = await fetch("https://www.handball.ch/Umbraco/Api/MatchCenter/Query", {
       "headers": {
         "content-type": "application/json",
