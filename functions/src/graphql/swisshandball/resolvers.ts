@@ -77,7 +77,7 @@ export default {
 };
 
 async function getTeams(clubId: string) {
-  const data = await fetch("https://api.handball.ch/rest/v1/clubs/" + clubId + "/teams", {
+  const data = await fetch("https://clubapi.handball.ch/rest/v1/clubs/" + clubId + "/teams", {
     headers: headers,
   });
 
@@ -97,7 +97,7 @@ async function getTeams(clubId: string) {
 }
 
 async function getTeam(teamId: string) {
-  const data = await fetch("https://api.handball.ch/rest/v1/teams/" + teamId, {
+  const data = await fetch("https://clubapi.handball.ch/rest/v1/teams/" + teamId, {
     headers: headers,
   });
   const teamData = await data.json();
@@ -109,7 +109,7 @@ async function getTeam(teamId: string) {
   };
 }
 async function getClubs() {
-  const data = await fetch("https://api.handball.ch/rest/v1/clubs", {
+  const data = await fetch("https://clubapi.handball.ch/rest/v1/clubs", {
     headers: headers,
   });
   const clubData = await data.json();
@@ -197,7 +197,7 @@ async function getClubs() {
 }
 
 async function getClub(clubId: string) {
-  const data = await fetch("https://api.handball.ch/rest/v1/clubs/" + clubId, {
+  const data = await fetch("https://clubapi.handball.ch/rest/v1/clubs/" + clubId, {
     headers: headers,
   });
   const clubData = await data.json();
@@ -255,7 +255,7 @@ async function getClub(clubId: string) {
 
 
 async function getClubGames(clubId: string) {
-  const data = await fetch("https://api.handball.ch/rest/v1/clubs/" + clubId + "/games", {
+  const data = await fetch("https://clubapi.handball.ch/rest/v1/clubs/" + clubId + "/games", {
     headers: headers,
   });
   const gameData = await data.json();
@@ -296,7 +296,7 @@ async function getClubGames(clubId: string) {
 }
 
 async function getGames(teamId: string) {
-  const data = await fetch("https://api.handball.ch/rest/v1/teams/" + teamId + "/games", {
+  const data = await fetch("https://clubapi.handball.ch/rest/v1/teams/" + teamId + "/games", {
     headers: headers,
   });
   const gameData = await data.json();
@@ -360,7 +360,7 @@ async function getGames(teamId: string) {
 
 // async function getGame(gameId: string) {
 // DOES NOT EXIST
-/* const data = await fetch("https://api.handball.ch/rest/v1/games/" + gameId, {
+/* const data = await fetch("https://clubapi.handball.ch/rest/v1/games/" + gameId, {
     headers: headers,
   });
   const gameData = await data.json();
@@ -422,7 +422,7 @@ async function getGames(teamId: string) {
 
 
 async function getRankings(teamId: string) {
-  const data = await fetch("https://api.handball.ch/rest/v1/teams/" + teamId + "/group/ranking", {
+  const data = await fetch("https://clubapi.handball.ch/rest/v1/teams/" + teamId + "/group/ranking", {
     headers: headers,
   });
   const rankingData = await data.json();

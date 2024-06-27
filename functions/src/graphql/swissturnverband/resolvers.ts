@@ -169,7 +169,7 @@ async function getTeams(clubIdParent: string) {
 }
 
 async function getTeam(teamId: string) {
-  /* const data = await fetch("https://api.handball.ch/rest/v1/teams/" + teamId, {
+  /* const data = await fetch("https://clubapi.handball.ch/rest/v1/teams/" + teamId, {
     headers: headers,
   });
   const teamData = await data.json();
