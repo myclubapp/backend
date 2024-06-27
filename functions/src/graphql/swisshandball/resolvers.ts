@@ -189,13 +189,15 @@ async function getClubs() {
       });
     } else { */
     clubList.push({
-      id: item.clubId,
-      name: item.clubName,
+      id: item.id,
+      name: item.name,
       logo: `https://www.handball.ch/images/club/${item.clubId}.png?height=140&language=de-CH`,
-      website: "",
-      latitude: "",
-      longitude: "",
-      foundingYear: "",
+      website: item.website,
+      latitude: item.latitude,
+      longitude: item.longitude,
+      foundingYear: item.foundingYear,
+      club_link: item.club_link,
+      google_maps_link: item.google_maps_link,
       // address: addressArray,
     });
   //  }
