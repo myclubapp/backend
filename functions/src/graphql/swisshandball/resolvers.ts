@@ -413,10 +413,10 @@ async function getRankings(teamId: string) {
 }
 
 async function getNews() {
-  const data = await fetch("https://api.newsroom.co/walls?token=xgoo9jkoc2ee&count=30&channelId=663&tag=top,pin,!top,!pin");
-  const newsData = await data.json();
   const newsList = < any > [];
-  newsData._embedded.wallList.forEach((item: any) => {
+  // const data = await fetch("https://www.handball.ch/Umbraco/Api/Entities/Collect");
+  // const newsData = await data.json();
+  /* newsData._embedded.wallList.forEach((item: any) => {
     // console.log(item);
     newsList.push({
       id: item.id,
@@ -434,6 +434,6 @@ async function getNews() {
       authorImage: item.author.image,
       url: item.url,
     });
-  });
+  });*/
   return newsList;
 }
