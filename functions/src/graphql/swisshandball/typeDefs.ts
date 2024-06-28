@@ -12,6 +12,16 @@ type Team {
     logo: String,
     liga: String,
     info: String,
+    
+    clubId: String,
+    clubName: String,
+
+    groupId: String,
+    groupText: String,
+
+    leagueId: String,
+    leagueLong: String,
+    leagueShort: String,
 
     website: String,
     portrait: String,
@@ -43,7 +53,7 @@ type Club {
     longitude: String,
     foundingYear: String,
 
-    address: [ContactAddress],
+    address: String.
     """
     the list of Teams by this club
     """

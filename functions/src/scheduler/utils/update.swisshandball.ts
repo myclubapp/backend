@@ -80,6 +80,7 @@ export async function updateTeamsSwisshandball(): Promise<any> {
       for (const team of teamData) {
         console.log(club.name + " / " + team.name);
         await db.collection("teams").doc(`sh-${team.id}`).set({
+          ...team,
           externalId: `${team.id}`,
           name: team.name,
           type: "swisshandball",
@@ -108,6 +109,7 @@ export async function updateClubsSwisshandball(): Promise<any> {
     console.log(club.name);
 
     await db.collection("club").doc(`sh-${club.id}`).set({
+      ...club,
       externalId: `${club.id}`,
       name: club.name,
       type: "swisshandball",

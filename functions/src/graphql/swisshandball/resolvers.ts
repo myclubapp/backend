@@ -80,122 +80,63 @@ export default {
 };
 
 async function getTeams(clubId: string) {
-  const data = await fetch("https://clubapi.handball.ch/rest/v1/clubs/" + clubId + "/teams", {
-    headers: headers,
-  });
-
-  const teamData = await data.json();
   const teamList = < any > [];
-
-  console.log(teamData);
-  for (const item of teamData) {
-  // teamData.forEach((item: any) => {
-    teamList.push({
-      id: item.teamId,
-      liga: item.groupText,
-      name: item.teamName,
-      clubId: item.clubId,
-      clubName: item.clubName,
-      groupId: item.groupId,
-      groupText: item.groupText,
-      leagueId: item.leagueId,
-      leagueLong: item.leagueLong,
-      leagueShort: item.leagueShort,
-      logo: `https://www.handball.ch/images/logo/${item.teamId}.png?fallbackType=club&fallbackId=${clubId}&height=25&width=25&scale=canvas`,
+  if (functions.config().swisshandball["sh-" + clubId] && functions.config().swisshandball["sh-" + clubId].token) {
+    const token = functions.config().swisshandball["sh-" + clubId].token;
+    const data = await fetch("https://clubapi.handball.ch/rest/v1/clubs/" + clubId + "/teams", {
+      headers: {"Authorization": "Basic " + token},
     });
+
+    const teamData = await data.json();
+    // console.log(teamData);
+    for (const item of teamData) {
+    // teamData.forEach((item: any) => {
+      teamList.push({
+        id: item.teamId,
+        name: item.teamName,
+
+        logo: `https://www.handball.ch/images/logo/${item.teamId}.png?fallbackType=club&fallbackId=${clubId}&height=25&width=25&scale=canvas`,
+        liga: item.groupText,
+
+        clubId: item.clubId,
+        clubName: item.clubName,
+
+        groupId: item.groupId,
+        groupText: item.groupText,
+
+        leagueId: item.leagueId,
+        leagueLong: item.leagueLong,
+        leagueShort: item.leagueShort,
+      });
+    }
   }
+
   return teamList;
 }
 
 async function getTeam(teamId: string) {
-  const data = await fetch("https://clubapi.handball.ch/rest/v1/teams/" + teamId, {
-    headers: headers,
-  });
-  const teamData = await data.json();
-  // console.log(teamData);
+  // teamId is wrong -> change to clubId for token fetch
+  const token = functions.config().swisshandball["sh-" + teamId].token;
+  if (token) {
+    const data = await fetch("https://clubapi.handball.ch/rest/v1/teams/" + teamId, {
+      headers: {"Authorization": "Basic " + token},
+    });
+    const teamData = await data.json();
+    // console.log(teamData);
 
-  return {
-    id: teamId,
-    name: teamData.teamName,
-  };
+    return {
+      id: teamId,
+      name: teamData.teamName,
+    };
+  } else {
+    return null;
+  }
 }
 async function getClubs() {
-  /* const data = await fetch("https://clubapi.handball.ch/rest/v1/clubs", {
-    headers: headers,
-  });
-  const clubData = await data.json();
-  */
-
   const data: Array<any> = JSON.parse(handballClubJSON);
-
-
   // console.log(clubData);
   const clubList = < any > [];
   for (const item of data) {
-    /* const contactDataRequest = await fetch("https://www.handball.ch/Umbraco/Api/MatchCenter/Query", {
-      "headers": {
-        "content-type": "application/json",
-        "__RequestVerificationToken": "Wtq36irQvaqcaf7CxprqiNm5KqIj1lV6FUmjv5oAVHr12jELhomIm-pah3Z-XEZAoUOxLmsI2c6vmZp_xUZr5arLqCY1",
-        "Cookie": "__RequestVerificationToken=QQ0HjCIIvHqUxo1Ur6KE8WkBbCet-QkH6YqDvmcMrKlsGBonyZM7Bq37_1uT2SoeDP7wZ8Oot7r6P-x6SE60X2nQ8IQ1; _dd_s=logs=1&id=0ccf55d7-fd2d-44f3-ac4c-b033b19d4da9&created=1649076359310&expire=1649077394496",
-      },
-      "body": `{"operationName":"getClubContactDetail","variables":{"clubId":"${item.clubId}"},"query":"query getClubContactDetail($clubId: Int) {\n  clubContactDetail(clubId: $clubId) {\n    name\n    zipCode\n    city\n    canton\n    email\n    phone\n    latitude\n    longitude\n    foundingYear\n    website\n    contactPerson {\n      firstName\n      lastName\n      phone\n      email\n      __typename\n    }\n    teams {\n      name\n      email\n      __typename\n    }\n    venues {\n      venueId\n      name\n      __typename\n    }\n    __typename\n  }\n}\n"}`,
-      "method": "POST",
-      "mode": "cors",
-    });
-
-    const contactData = await contactDataRequest.json();
-    // console.log(">>>" + JSON.stringify(contactData));
-    const contact = contactData.data.clubContactDetail[0];
-    let addressArray: any = [];
-    if (contact && contact.website && contact.contactPerson) {
-      // console.log(">> " + JSON.stringify(contact));
-      if (contact.contactPerson.email !== contact.email ) {
-        addressArray = [{
-          id: item.clubId,
-          firstName: contact.contactPerson.firstName,
-          lastName: contact.contactPerson.lastName,
-          street: "",
-          number: "",
-          postalcode: contact.zipCode,
-          city: contact.city,
-          email: contact.contactPerson.email,
-          phone: contact.contactPerson.phone,
-        }, {
-          id: item.clubId + "-2",
-          firstName: contact.contactPerson.firstName,
-          lastName: contact.contactPerson.lastName,
-          street: "",
-          number: "",
-          postalcode: contact.zipCode,
-          city: contact.city,
-          email: contact.email,
-          phone: contact.phone,
-        }];
-      } else {
-        addressArray = [{
-          id: item.clubId + "-2",
-          firstName: contact.contactPerson.firstName,
-          lastName: contact.contactPerson.lastName,
-          street: "",
-          number: "",
-          postalcode: contact.zipCode,
-          city: contact.city,
-          email: contact.email,
-          phone: contact.phone,
-        }];
-      }
-
-      clubList.push({
-        id: item.clubId,
-        name: item.clubName,
-        logo: `https://www.handball.ch/images/club/${item.clubId}.png?height=140&language=de-CH`,
-        website: contact.website || "",
-        latitude: contact.latitude || "",
-        longitude: contact.longitude || "",
-        foundingYear: contact.foundingYear || "",
-        address: addressArray,
-      });
-    } else { */
     clubList.push({
       id: item.id,
       name: item.name,
