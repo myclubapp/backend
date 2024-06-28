@@ -92,7 +92,14 @@ async function getTeams(clubId: string) {
     teamList.push({
       id: item.teamId,
       liga: item.groupText,
-      name: item.teamName + " (" + item.groupText + ")",
+      name: item.teamName,
+      clubId: item.clubId,
+      clubName: item.clubName,
+      groupId: item.groupId,
+      groupText: item.groupText,
+      leagueId: item.leagueId,
+      leagueLong: item.leagueLong,
+      leagueShort: item.leagueShort,
       logo: `https://www.handball.ch/images/logo/${item.teamId}.png?fallbackType=club&fallbackId=${clubId}&height=25&width=25&scale=canvas`,
     });
   });
