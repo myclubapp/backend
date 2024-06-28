@@ -53,7 +53,7 @@ type Club {
     longitude: String,
     foundingYear: String,
 
-    address: String.
+    address: String,
     """
     the list of Teams by this club
     """
