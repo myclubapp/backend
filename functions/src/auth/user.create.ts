@@ -95,11 +95,12 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord, conte
         "clubRef": clubRef.ref,
       });
 
-      console.log(`set user ${user.uid} custom claims for admin role: ${clubId}`);
+      // Wird nicht mehr gebraucht...
+      /* console.log(`set user ${user.uid} custom claims for admin role: ${clubId}`);
       const userRef = await admin.auth().getUser(user.uid);
       const _customClaims = userRef.customClaims || {};
       _customClaims[clubId] = true;
-      admin.auth().setCustomUserClaims(user.uid, _customClaims);
+      admin.auth().setCustomUserClaims(user.uid, _customClaims); */
 
       // ADD TO ALL TEAMS
       const teamListRef = await db.collection("club").doc(clubId).collection("teams").get();
