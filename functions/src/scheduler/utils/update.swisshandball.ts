@@ -135,9 +135,9 @@ export async function updateNewsSwisshandball(): Promise<any> {
 
   const newsData = await resolversSH.SwissHandball.news();
   for (const news of newsData) {
-    const newsDoc = await db.collection("news").doc(`su-${news.id}`).get();
+    const newsDoc = await db.collection("news").doc(`sh-${news.id}`).get();
     if (!newsDoc.exists) {
-      await db.collection("news").doc(`su-${news.id}`).set({
+      await db.collection("news").doc(`sh-${news.id}`).set({
         externalId: `${news.id}`,
         title: news.title,
         leadText: news.leadText + " ..." || " ",
@@ -150,7 +150,7 @@ export async function updateNewsSwisshandball(): Promise<any> {
         author: news.author || " ",
         authorImage: news.authorImage || " ",
         url: news.url || " ",
-        type: "swissunihockey",
+        type: "swisshandball",
         updated: new Date(),
       }, {
         merge: true,
