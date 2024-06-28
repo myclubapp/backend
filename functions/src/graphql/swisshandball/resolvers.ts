@@ -88,7 +88,8 @@ async function getTeams(clubId: string) {
   const teamList = < any > [];
 
   // console.log(teamData);
-  teamData.forEach((item: any) => {
+  for (const item of teamData) {
+  // teamData.forEach((item: any) => {
     teamList.push({
       id: item.teamId,
       liga: item.groupText,
@@ -102,7 +103,7 @@ async function getTeams(clubId: string) {
       leagueShort: item.leagueShort,
       logo: `https://www.handball.ch/images/logo/${item.teamId}.png?fallbackType=club&fallbackId=${clubId}&height=25&width=25&scale=canvas`,
     });
-  });
+  }
   return teamList;
 }
 
