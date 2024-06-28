@@ -205,7 +205,8 @@ async function getClubs() {
       foundingYear: item.founding_year,
       address: item.address,
       phone: item.phone,
-      website: item.club_link,
+      website: item.website,
+      link_club: "https://www.handball.ch" + item.club_link,
       link_location: item.google_maps_link,
       // address: addressArray,
     });
