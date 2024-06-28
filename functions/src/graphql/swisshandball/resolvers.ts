@@ -87,7 +87,7 @@ async function getTeams(clubId: string) {
   const teamData = await data.json();
   const teamList = < any > [];
 
-  // console.log(teamData);
+  console.log(teamData);
   for (const item of teamData) {
   // teamData.forEach((item: any) => {
     teamList.push({
