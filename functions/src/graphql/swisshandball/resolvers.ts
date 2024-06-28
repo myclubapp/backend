@@ -140,7 +140,7 @@ async function getClubs() {
     clubList.push({
       id: item.id,
       name: item.name,
-      logo: `https://www.handball.ch/images/club/${item.clubId}.png?height=140&language=de-CH`,
+      logo: `https://www.handball.ch/images/club/${item.id}.png?height=140&language=de-CH`,
       latitude: item.latitude,
       longitude: item.longitude,
       foundingYear: item.founding_year,
