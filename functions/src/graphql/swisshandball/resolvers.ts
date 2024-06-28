@@ -9,7 +9,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const fetch = require("node-fetch");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const {convert} = require("html-to-text");
+// const {convert} = require("html-to-text");
 
 import fs = require("fs");
 const handballClubJSON = fs.readFileSync("./src/scheduler/utils/handball_clubs_with_teams_and_contact.json", "utf8");
