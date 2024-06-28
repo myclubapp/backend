@@ -132,9 +132,30 @@ export async function updateClubsSwisshandball(): Promise<any> {
 
 export async function updateNewsSwisshandball(): Promise<any> {
   console.log("Update NEWS swisshandball");
-  // const newsData = await resolversSH.SwissHandball.news();
 
-  return new Promise(() => {
-    return true;
-  });
+  const newsData = await resolversSH.SwissHandball.news();
+  for (const news of newsData) {
+    const newsDoc = await db.collection("news").doc(`su-${news.id}`).get();
+    if (!newsDoc.exists) {
+      await db.collection("news").doc(`su-${news.id}`).set({
+        externalId: `${news.id}`,
+        title: news.title,
+        leadText: news.leadText + " ..." || " ",
+        date: news.date,
+        slug: news.slug || " ",
+        image: news.image || " ",
+        text: news.text || " ",
+        htmlText: news.htmlText || " ",
+        tags: news.tags || " ",
+        author: news.author || " ",
+        authorImage: news.authorImage || " ",
+        url: news.url || " ",
+        type: "swissunihockey",
+        updated: new Date(),
+      }, {
+        merge: true,
+        ignoreUndefinedProperties: true,
+      });
+    }
+  }
 }
