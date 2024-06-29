@@ -479,10 +479,8 @@ async function getNews() {
       date: item.date,
       slug: item.slug,
       image: imagePath,
-      text: convert(item.html, {
-        wordwrap: 130,
-      }),
-      htmlText: item.text,
+      text: item.html,
+      htmlText: item.html,
       tags: item.tags,
       author: item.author.realName,
       authorImage: item.author.image,
