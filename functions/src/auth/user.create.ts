@@ -67,7 +67,7 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord, conte
       console.log(">> NO clubId");
     } else {
       // Club aktivieren, falls noch nicht..
-      // Könnte auch anders gemacht werden? bswp. falls aktiv, dann abbrechen?
+      // Könnte auch anders gemacht werden?
       console.log(`Activate Club with ID: ${clubId}`);
       await db.collection("club").doc(clubId).set({
         "active": true,
@@ -102,7 +102,8 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord, conte
       _customClaims[clubId] = true;
       admin.auth().setCustomUserClaims(user.uid, _customClaims); */
 
-      // ADD TO ALL TEAMS
+      // ADD TO ALL TEAMS --> NOT NEEEDED ANDYMORE SINCE CLUB ADMIN CAN ACCESS ALL TEAMS ANYWAY
+      /*
       const teamListRef = await db.collection("club").doc(clubId).collection("teams").get();
       for (const team of teamListRef.docs) {
         // ADD User to Club as Admin
@@ -123,7 +124,7 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord, conte
         await db.collection("userProfile").doc(user.uid).collection("teams").doc(team.id).set({
           "teamRef": teamRef.ref,
         });
-      }
+      }*/
     }
 
     // TODO
