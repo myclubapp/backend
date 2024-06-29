@@ -482,7 +482,7 @@ async function getNews() {
       text: item.html,
       htmlText: item.html,
       tags: item.tags,
-      author: item.author.realName,
+      author: item.authorName || item.author.name,
       authorImage: item.author.image,
       url: item.url,
     });
