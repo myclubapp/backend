@@ -94,7 +94,7 @@ async function updateClubNewsFromWordpress(): Promise<any> {
 
 
         // Load the HTML content using Cheerio
-        const $ = cheerio.load(news["content"].rendered);
+        /* const $ = cheerio.load(news["content"].rendered);
 
         // Create an array to hold the transformed content
         const ionicContent: string[] = [];
@@ -123,10 +123,11 @@ async function updateClubNewsFromWordpress(): Promise<any> {
 
         // Combine everything into an <ion-card-content> wrapper
         const textResult = `<ion-text>${ionicContent.join("")}</ion-text>`;
+        */
 
         // LEAD TEXT
         // Load the HTML content using Cheerio
-        const $lead = cheerio.load(news["excerpt"].rendered);
+        /* const $lead = cheerio.load(news["excerpt"].rendered);
 
         // Create an array to hold the transformed content
         const ionicLead: string[] = [];
@@ -155,6 +156,7 @@ async function updateClubNewsFromWordpress(): Promise<any> {
 
         // Combine everything into an <ion-card-content> wrapper
         const leadResult = `<ion-text>${ionicLead.join("")}</ion-text>`;
+        */
 
         const wpUserData = await fetch(news["_links"].author[0].href);
         const wpUser = await wpUserData.json();
@@ -167,11 +169,11 @@ async function updateClubNewsFromWordpress(): Promise<any> {
         await db.collection("club").doc(`${club.id}`).collection("news").doc(`${club.id}-${news.id}`).set({
           externalId: `${news["id"]}`,
           title: news["title"].rendered,
-          leadText: leadResult,
+          leadText: news["excerpt"].rendered,
           date: news["date"],
           slug: news["slug"],
           image: featuredMedia || authorImage || "https://placehold.co/600x400",
-          text: textResult,
+          text: news["content"].rendered,
           htmlText: news["content"].rendered || " ",
           tags: "Webseite",
           author: wpUser.name,
