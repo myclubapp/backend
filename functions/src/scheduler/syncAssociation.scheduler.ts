@@ -18,6 +18,7 @@ import firebaseDAO from "./../firebaseSingleton";
 const db = firebaseDAO.instance.db;
 const fetch = require("node-fetch");
 // const jsdom = require("jsdom");
+const cheerio = require("cheerio");
 
 export async function updatePersistenceJobClubs(context: EventContext) {
   try {
@@ -89,6 +90,39 @@ async function updateClubNewsFromWordpress(): Promise<any> {
         // element.innerHTML = news["excerpt"].rendered;
         // const leadText = element.innerText;
         */
+
+
+        // Load the HTML content using Cheerio
+        const $ = cheerio.load(news["content"].rendered);
+
+        // Create an array to hold the transformed content
+        const ionicContent: string[] = [];
+
+        // Process paragraphs and strong text
+        $("p").each((index: any, element: any) => {
+          const strongText = $(element).find("strong").text();
+          const text = $(element).text().replace(strongText, "");
+          ionicContent.push(`<p><strong>${strongText}</strong>${text}</p>`);
+        });
+
+        // Process images
+        $("img").each((index: any, element: any) => {
+          const src = $(element).attr("src");
+          const alt = $(element).attr("alt") || "Image";
+          if (src) {
+            ionicContent.push(`<ion-img src="${src}" alt="${alt}"></ion-img>`);
+          }
+        });
+
+        // Process ordered lists
+        $("ol").each((index: any, element: any) => {
+          const items = $(element).find("li").map((i: any, li: any) => `<ion-item>${$(li).text()}</ion-item>`).get().join("");
+          ionicContent.push(`<ion-list>${items}</ion-list>`);
+        });
+
+        // Combine everything into an <ion-card-content> wrapper
+        const result = `<ion-text>${ionicContent.join("")}</ion-text>`;
+
         const wpUserData = await fetch(news["_links"].author[0].href);
         const wpUser = await wpUserData.json();
         const authorImage = wpUser.avatar_urls[96] || wpUser.avatar_urls[48] || wpUser.avatar_urls[24] || "";
@@ -97,7 +131,6 @@ async function updateClubNewsFromWordpress(): Promise<any> {
         const wpFeaturedMedia = await wpFeaturedMediaData.json();
         const featuredMedia = wpFeaturedMedia.media_details.sizes.medium.source_url || wpFeaturedMedia.guid.rendered || wpFeaturedMedia.source_url;
 
-
         await db.collection("club").doc(`${club.id}`).collection("news").doc(`${club.id}-${news.id}`).set({
           externalId: `${news["id"]}`,
           title: news["title"].rendered,
@@ -105,7 +138,7 @@ async function updateClubNewsFromWordpress(): Promise<any> {
           date: news["date"],
           slug: news["slug"],
           image: featuredMedia || authorImage || "https://placehold.co/600x400",
-          text: text,
+          text: result || text,
           htmlText: news["content"].rendered || " ",
           tags: "Webseite",
           author: wpUser.name,
