@@ -162,13 +162,18 @@ async function updateClubNewsFromWordpress(): Promise<any> {
         const wpUser = await wpUserData.json();
         const authorImage = wpUser.avatar_urls[96] || wpUser.avatar_urls[48] || wpUser.avatar_urls[24] || "";
 
-        const wpFeaturedMediaData = await fetch(news["_links"]["wp:featuredmedia"][0].href);
-        const wpFeaturedMedia = await wpFeaturedMediaData.json();
         let featuredMedia = "";
         try {
-          featuredMedia = wpFeaturedMedia.media_details.sizes.medium.source_url || wpFeaturedMedia.source_url || wpFeaturedMedia.guid.rendered;
+          if (news.featuredMedia > 0) {
+            const wpFeaturedMediaData = await fetch(news["_links"]["wp:featuredmedia"][0].href);
+            const wpFeaturedMedia = await wpFeaturedMediaData.json();
+            featuredMedia = wpFeaturedMedia.media_details.sizes.medium.source_url || wpFeaturedMedia.source_url || wpFeaturedMedia.guid.rendered;
+          } else {
+            featuredMedia = authorImage || "https://placehold.co/600x400";
+          }
         } catch (e) {
           // console.log(e);
+          featuredMedia = authorImage || "https://placehold.co/600x400";
         }
 
         await db.collection("club").doc(`${club.id}`).collection("news").doc(`${club.id}-${news.id}`).set({
@@ -177,7 +182,7 @@ async function updateClubNewsFromWordpress(): Promise<any> {
           leadText: news["excerpt"].rendered,
           date: news["date"],
           slug: news["slug"],
-          image: featuredMedia || authorImage || "https://placehold.co/600x400",
+          image: featuredMedia,
           text: news["content"].rendered,
           htmlText: news["content"].rendered || " ",
           tags: "Webseite",
