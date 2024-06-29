@@ -79,9 +79,10 @@ async function updateClubNewsFromWordpress(): Promise<any> {
       for (const news of wpNews) {
         console.log(news.link);
 
-        let text = String(news["content"].rendered).replaceAll("<p>", "");
+        /* let text = String(news["content"].rendered).replaceAll("<p>", "");
         text = String(text).replaceAll("</p><p>", "/n");
-        text = String(text).replaceAll("</p>", "");
+        text = String(text).replaceAll("</p>", ""); */
+
         /* const dom = new jsdom.JSDOM(news["content"].rendered);
         const element = dom.window.document.createElement("div");
         element.innerHTML = news["content"].rendered;
@@ -121,7 +122,39 @@ async function updateClubNewsFromWordpress(): Promise<any> {
         });
 
         // Combine everything into an <ion-card-content> wrapper
-        const result = `<ion-text>${ionicContent.join("")}</ion-text>`;
+        const textResult = `<ion-text>${ionicContent.join("")}</ion-text>`;
+
+        // LEAD TEXT
+        // Load the HTML content using Cheerio
+        const $lead = cheerio.load(news["excerpt"].rendered);
+
+        // Create an array to hold the transformed content
+        const ionicLead: string[] = [];
+
+        // Process paragraphs and strong text
+        $lead("p").each((index: any, element: any) => {
+          const strongText = $lead(element).find("strong").text();
+          const text = $lead(element).text().replace(strongText, "");
+          ionicLead.push(`<p><strong>${strongText}</strong>${text}</p>`);
+        });
+
+        // Process images
+        $lead("img").each((index: any, element: any) => {
+          const src = $lead(element).attr("src");
+          const alt = $lead(element).attr("alt") || "Image";
+          if (src) {
+            ionicLead.push(`<ion-img src="${src}" alt="${alt}"></ion-img>`);
+          }
+        });
+
+        // Process ordered lists
+        $lead("ol").each((index: any, element: any) => {
+          const items = $lead(element).find("li").map((i: any, li: any) => `<ion-item>${$lead(li).text()}</ion-item>`).get().join("");
+          ionicLead.push(`<ion-list>${items}</ion-list>`);
+        });
+
+        // Combine everything into an <ion-card-content> wrapper
+        const leadResult = `<ion-text>${ionicLead.join("")}</ion-text>`;
 
         const wpUserData = await fetch(news["_links"].author[0].href);
         const wpUser = await wpUserData.json();
@@ -134,11 +167,11 @@ async function updateClubNewsFromWordpress(): Promise<any> {
         await db.collection("club").doc(`${club.id}`).collection("news").doc(`${club.id}-${news.id}`).set({
           externalId: `${news["id"]}`,
           title: news["title"].rendered,
-          leadText: String(text).substring(0, 200) + " ...",
+          leadText: leadResult,
           date: news["date"],
           slug: news["slug"],
           image: featuredMedia || authorImage || "https://placehold.co/600x400",
-          text: result || text,
+          text: textResult,
           htmlText: news["content"].rendered || " ",
           tags: "Webseite",
           author: wpUser.name,
