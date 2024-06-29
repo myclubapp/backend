@@ -164,9 +164,9 @@ async function updateClubNewsFromWordpress(): Promise<any> {
 
         const wpFeaturedMediaData = await fetch(news["_links"]["wp:featuredmedia"][0].href);
         const wpFeaturedMedia = await wpFeaturedMediaData.json();
-        let featuredMedia = wpFeaturedMedia.source_url || wpFeaturedMedia.guid.rendered;
+        let featuredMedia = "";
         try {
-          featuredMedia = wpFeaturedMedia.media_details.sizes.medium.source_url;
+          featuredMedia = wpFeaturedMedia.media_details.sizes.medium.source_url || wpFeaturedMedia.source_url || wpFeaturedMedia.guid.rendered;
         } catch (e) {
           // console.log(e);
         }
