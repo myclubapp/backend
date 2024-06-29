@@ -87,6 +87,7 @@ export async function updateTeamsSwisshandball(): Promise<any> {
           logo: team.logo,
           liga: team.liga,
           updated: new Date(),
+          clubId: `sh-${club.id}`,
           clubRef: db.collection("club").doc(`sh-${club.id}`),
         }, {
           merge: true,
