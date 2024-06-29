@@ -164,7 +164,12 @@ async function updateClubNewsFromWordpress(): Promise<any> {
 
         const wpFeaturedMediaData = await fetch(news["_links"]["wp:featuredmedia"][0].href);
         const wpFeaturedMedia = await wpFeaturedMediaData.json();
-        const featuredMedia = wpFeaturedMedia.media_details.sizes.medium.source_url || wpFeaturedMedia.guid.rendered || wpFeaturedMedia.source_url;
+        let featuredMedia = wpFeaturedMedia.source_url || wpFeaturedMedia.guid.rendered;
+        try {
+          featuredMedia = wpFeaturedMedia.media_details.sizes.medium.source_url;
+        } catch (e) {
+          // console.log(e);
+        }
 
         await db.collection("club").doc(`${club.id}`).collection("news").doc(`${club.id}-${news.id}`).set({
           externalId: `${news["id"]}`,
