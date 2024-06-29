@@ -98,7 +98,6 @@ async function updateClubNewsFromWordpress(): Promise<any> {
         const featuredMedia = wpFeaturedMedia.guid.rendered || wpFeaturedMedia.source_url;
 
 
-
         await db.collection("club").doc(`${club.id}`).collection("news").doc(`${club.id}-${news.id}`).set({
           externalId: `${news["id"]}`,
           title: news["title"].rendered,
