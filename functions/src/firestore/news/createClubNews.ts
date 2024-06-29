@@ -49,8 +49,8 @@ export async function createNotificationClubNews(snapshot: QueryDocumentSnapshot
           console.log(">> Message used ", {
             token: push.data().token,
             data: {
-              title: clubNewsRef.data().title,
-              message: clubNewsRef.data().text,
+              title: "Neuer News Beitrag verfügbar",
+              message: clubNewsRef.data().title,
             },
           });
 
@@ -61,8 +61,8 @@ export async function createNotificationClubNews(snapshot: QueryDocumentSnapshot
             const nativePush = await messaging.sendToDevice(push.data().token,
                 {
                   notification: <NotificationMessagePayload>{
-                    title: clubNewsRef.data().title,
-                    body: clubNewsRef.data().text,
+                    title: "Neuer News Beitrag verfügbar",
+                    body: clubNewsRef.data().title,
                     sound: "default",
                     badge: "0",
                   },

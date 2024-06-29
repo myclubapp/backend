@@ -42,8 +42,8 @@ export async function createNotificationNews(snapshot: QueryDocumentSnapshot, co
             // Send WebPush
             const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
                 JSON.stringify({
-                  title: newsRef.data().title,
-                  message: newsRef.data().text,
+                  title: "Neuer News Beitrag verfügbar",
+                  message: newsRef.data().title,
                 }));
             console.log(">> SEND PUSH NEWS: ", statusCode, headers, body);
           } else {
@@ -51,8 +51,8 @@ export async function createNotificationNews(snapshot: QueryDocumentSnapshot, co
             console.log(">> Message used ", {
               token: push.data().token,
               data: {
-                title: newsRef.data().title,
-                message: newsRef.data().text,
+                title: "Neuer News Beitrag verfügbar",
+                message: newsRef.data().title,
               },
             });
 
@@ -61,8 +61,8 @@ export async function createNotificationNews(snapshot: QueryDocumentSnapshot, co
               const nativePush = await messaging.sendToDevice(push.data().token,
                   {
                     notification: <NotificationMessagePayload>{
-                      title: newsRef.data().title,
-                      body: newsRef.data().text,
+                      title: "Neuer News Beitrag verfügbar",
+                      body: newsRef.data().title,
                       sound: "default",
                       badge: "0",
                     },
