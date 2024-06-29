@@ -93,13 +93,19 @@ async function updateClubNewsFromWordpress(): Promise<any> {
         const wpUser = await wpUserData.json();
         const authorImage = wpUser.avatar_urls[96] || wpUser.avatar_urls[48] || wpUser.avatar_urls[24] || "";
 
+        const wpFeaturedMediaData = await fetch(news["_links"]["wp:featuredmedia"][0].href);
+        const wpFeaturedMedia = await wpFeaturedMediaData.json();
+        const featuredMedia = wpFeaturedMedia.guid.rendered || wpFeaturedMedia.source_url;
+
+
+
         await db.collection("club").doc(`${club.id}`).collection("news").doc(`${club.id}-${news.id}`).set({
           externalId: `${news["id"]}`,
           title: news["title"].rendered,
           leadText: String(text).substring(0, 200) + " ...",
           date: news["date"],
           slug: news["slug"],
-          image: news.featured_media || authorImage || "https://placehold.co/600x400",
+          image: featuredMedia || authorImage || "https://placehold.co/600x400",
           text: text,
           htmlText: news["content"].rendered || " ",
           tags: "Webseite",
