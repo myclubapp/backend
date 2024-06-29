@@ -18,7 +18,7 @@ import firebaseDAO from "./../firebaseSingleton";
 const db = firebaseDAO.instance.db;
 const fetch = require("node-fetch");
 // const jsdom = require("jsdom");
-const cheerio = require("cheerio");
+// const cheerio = require("cheerio");
 
 export async function updatePersistenceJobClubs(context: EventContext) {
   try {
