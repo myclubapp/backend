@@ -58,6 +58,8 @@ export async function createNotificationNews(snapshot: QueryDocumentSnapshot, co
 
             delete newsRef.data().updated;
             try {
+              // Tags attribute not supported? --> ERROR in logs
+              delete newsRef.data().tags;
               const nativePush = await messaging.sendToDevice(push.data().token,
                   {
                     notification: <NotificationMessagePayload>{
@@ -68,7 +70,7 @@ export async function createNotificationNews(snapshot: QueryDocumentSnapshot, co
                     },
                     data: <DataMessagePayload>{
                       "type": "news",
-                      ...newsRef.data().id,
+                      ...newsRef.data(),
                     },
                   },
               );
