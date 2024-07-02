@@ -27,9 +27,9 @@ service cloud.firestore {
       }
 
       // CLUB MEMBER via TEAMS - that's why we use path from reference
-      // function isClubMemberPath(request, path) {
-      //   return exists(/databases/$(database)/documents/$(path)/members/$(request.auth.uid));
-      // }
+      function isClubMemberPath(request, path) {
+        return exists(/databases/$(database)/documents/$(path)/members/$(request.auth.uid));
+      }
 
       // CLUB ADMIN
       function isClubAdmin(request, clubId) {
@@ -37,9 +37,9 @@ service cloud.firestore {
       }
 
       // CLUB ADMIN via TEAMS - that's why we use path from reference
-      // function isClubAdminPath(request, path) {
-      //   return exists(/databases/$(database)/documents/$(path)/admins/$(request.auth.uid));
-      // }
+      function isClubAdminPath(request, path) {
+        return exists(/databases/$(database)/documents/$(path)/admins/$(request.auth.uid));
+      }
   
   		match /exercises/{id} {
       	allow read;
@@ -75,12 +75,13 @@ service cloud.firestore {
         // teams
         match /teams/{teamId=**} {
         	allow read: if isSignedIn() && request.auth.uid == userId;
+          allow delete: if isSignedIn() && request.auth.uid == userId;
         }
         // teams admin
         match /teamAdmin/{teamId=**} {
         	allow read: if isSignedIn() && request.auth.uid == userId;
         }
-        // HELFEREVENTS admin
+        // helferPunkte admin
         match /helferPunkte/{id=**} {
         	allow read: if isSignedIn() && request.auth.uid == userId;
         }
@@ -89,27 +90,27 @@ service cloud.firestore {
         // 
         // Training
         match /trainings/{trainingId=**} {
-        	allow create: if isSignedIn() && request.auth.uid == userId;
+        	allow create: if isSignedIn() && request.auth.uid == userId && isTeamAdmin(request, request.resource.data.teamId);
         }
         // Event Team
         match /teamEvents/{eventId=**} {
-        	allow create: if isSignedIn() && request.auth.uid == userId;
-        }
-      	// Event Club
-        match /clubEvents/{eventId=**} {
-        	allow create: if isSignedIn() && request.auth.uid == userId;
-        }
-        // Helfer Event
-        match /helferEvents/{eventId=**} {
-        	allow create: if isSignedIn() && request.auth.uid == userId;
+        	allow create: if isSignedIn() && request.auth.uid == userId && isTeamAdmin(request, request.resource.data.teamId);
         }
         // News Team
         match /teamNews/{newsId=**} {
-        	allow create: if isSignedIn() && request.auth.uid == userId;
+        	allow create: if isSignedIn() && request.auth.uid == userId && isTeamAdmin(request, request.resource.data.teamId);
+        }
+      	// Event Club
+        match /clubEvents/{eventId=**} {
+        	allow create: if isSignedIn() && request.auth.uid == userId && isClubAdmin(request, request.resource.data. clubId);
+        }
+        // Helfer Event
+        match /helferEvents/{eventId=**} {
+        	allow create: if isSignedIn() && request.auth.uid == userId && isClubAdmin(request, request.resource.data.clubId);
         }
       	// News Club
         match /clubNews/{newsId=**} {
-        	allow create: if isSignedIn() && request.auth.uid == userId;
+        	allow create: if isSignedIn() && request.auth.uid == userId && isClubAdmin(request, request.resource.data.clubId);
         }
       }
       
@@ -217,6 +218,7 @@ service cloud.firestore {
         //TEAMS
       	match /teams/{teamId=**} {
       		allow read: if isSignedIn() && isClubMember(request, clubId);
+          allow create: if isSignedIn() && isClubAdmin(request, clubId);
       	}    
         //MEMBERS
       	match /members/{memberId=**} {
@@ -329,7 +331,7 @@ service cloud.firestore {
       	//MEMBERS
       	match /members/{memberId=**} {
           // Access the parent team document to get the clubRef
-          allow read: if isSignedIn() && (isTeamMember(request, teamId) || isClubMemberPath(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubRef.path));
+          allow read: if isSignedIn() && (isTeamMember(request, teamId) || isClubMember(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId));
 
           // Allow create, delete if the user is a team admin or a club admin
           allow write, delete: if isSignedIn() && (isTeamAdmin(request, teamId) || isClubAdmin(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId));
@@ -338,7 +340,7 @@ service cloud.firestore {
        	//ADMINS for ADMINS
       	match /admins/{adminId=**} {
           // Access the parent team document to get the clubRef
-          allow read: if isSignedIn() && (isTeamMember(request, teamId) || isClubMemberPath(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubRef.path));
+          allow read: if isSignedIn() && (isTeamMember(request, teamId) || isClubMember(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId));
         
           // Allow create, delete if the user is a team admin or a club admin
           allow write, delete: if isSignedIn() && (isTeamAdmin(request, teamId) || isClubAdmin(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId));
@@ -346,7 +348,7 @@ service cloud.firestore {
         //REQUESTS for ADMINS
       	match /requests/{requestId=**} {
         	// Access the parent team document to get the clubRef
-          allow read: if isSignedIn() && (isTeamMember(request, teamId) || isClubMemberPath(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubRef.path));
+          allow read: if isSignedIn() && (isTeamMember(request, teamId) || isClubMember(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId));
         
           // Allow create, delete if the user is a team admin or a club admin
           allow write, delete: if isSignedIn() && (isTeamAdmin(request, teamId) || isClubAdmin(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId));
