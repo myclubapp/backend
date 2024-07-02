@@ -56,7 +56,7 @@ export async function updatePersistenceJobNews(context: EventContext) {
   try {
     await updateClubNewsFromWordpress();
     await updateNewsSwissunihockey();
-    await updateNewsSwisshandball();
+    // await updateNewsSwisshandball();
   } catch (err) {
     console.error(err);
   }

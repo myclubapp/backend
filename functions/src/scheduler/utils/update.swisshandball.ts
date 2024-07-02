@@ -67,6 +67,26 @@ export async function updateGamesSwisshandball(): Promise<any> {
           merge: true,
         });
       }
+      // Get rankings
+      const teamRankings = await resolversSH.Team.rankings({id: `${team.id}`, clubId: `${club.id}`}, {}, {}, {});
+      console.log(" >> READ TEAM RANKINGS");
+      for (const item of teamRankings) {
+        console.log(JSON.stringify({
+          title: item.title,
+          season: item.season,
+          updated: new Date(),
+          type: "swisshandball",
+        }));
+        await db.collection("teams").doc(`su-${team.id}`).collection("ranking").doc(`${item.season}`).set({
+          title: item.title,
+          season: item.season,
+          updated: new Date(),
+          type: "swisshandball",
+        }, {
+          merge: true,
+        });
+        await db.collection("teams").doc(`su-${team.id}`).collection("ranking").doc(`${item.season}`).collection("table").doc(`${item.ranking}`).set(item);
+      }
     }
   }
 }

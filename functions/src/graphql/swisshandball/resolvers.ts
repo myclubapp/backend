@@ -351,7 +351,7 @@ async function getRankings(teamId: string, clubId: string) {
         pointQuotient: item.totalScoresMinus, // PQ 10
         points: item.totalPoints, // P 11
         ranking: item.rank, // 0
-        season: "",
+        season: "2024",
         title: rankingData.leagueLong,
       });
 
