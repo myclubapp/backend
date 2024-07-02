@@ -223,22 +223,38 @@ async function getClubGames(clubId: string) {
   gameData.forEach((item: any) => {
     console.log(item);
     gameList.push({
-      id: item.gameId,
-      name: item.title,
-      description: item.subtitle,
 
-      teamHomeId: "sh-",
+      id: item.gameId,
+      gameNr: item.gameNr,
+      name: item.gameTypeShort + " " + item.teamAName + " - " + item.teamBName,
+      description: item.gameTypeLong + " " + item.teamAName + " - " + item.teamBName,
+
+      date: new Date(item.gameDateTime),
+      time: new Date(item.gameDateTime),
+      languageId: item.languageId,
+
+      teamHomeId: "sh-" + item.teamAId,
       teamHome: item.teamAName,
       teamHomeLogo: "",
       teamHomeLogoText: "Logo " + item.teamAName,
 
-      teamAwayId: "sh-",
+      teamAwayId: "sh-" + item.teamBId,
       teamAway: item.teamBName,
       teamAwayLogo: "",
       teamAwayLogoText: "Logo " + item.teamBName,
 
+      clubTeamAId: "sh-" + item.clubTeamAId,
+      clubTeamBId: "sh-" + item.clubTeamBId,
+
+      gameTypeLong: item.gameTypeLong,
+      gameTypeShort: item.gameTypeShort,
+      gameTypeId: item.gameTypeId,
+
       liga: item.leagueShort,
       ligaText: item.leagueLong,
+
+      groupId: item.groupId,
+      groupCupText: item.groupCupText,
 
       venue: item.venue,
       venueAddress: item.venueAddress,
@@ -248,7 +264,12 @@ async function getClubGames(clubId: string) {
       referee1: "",
       referee2: "",
 
+      gameStatusId: item.gameStatusId,
+      gameStatus: item.gameStatus,
+      roundNr: item.roundNr,
+
       spectators: item.spectators,
+
       result: item.teamAScoreFT + ":" + item.teamBScoreFT + "(" + item.teamAScoreHT + ":" + item.teamBScoreHT + ")",
     });
   });
@@ -264,21 +285,36 @@ async function getGames(teamId: string) {
   gameData.forEach((item: any) => {
     gameList.push({
       id: item.gameId,
-      name: item.title,
-      description: item.subtitle,
+      gameNr: item.gameNr,
+      name: item.gameTypeShort + " " + item.teamAName + " - " + item.teamBName,
+      description: item.gameTypeLong + " " + item.teamAName + " - " + item.teamBName,
 
-      teamHomeId: "sh-",
+      date: new Date(item.gameDateTime),
+      time: new Date(item.gameDateTime),
+      languageId: item.languageId,
+
+      teamHomeId: "sh-" + item.teamAId,
       teamHome: item.teamAName,
       teamHomeLogo: "",
       teamHomeLogoText: "Logo " + item.teamAName,
 
-      teamAwayId: "sh-",
+      teamAwayId: "sh-" + item.teamBId,
       teamAway: item.teamBName,
       teamAwayLogo: "",
       teamAwayLogoText: "Logo " + item.teamBName,
 
+      clubTeamAId: "sh-" + item.clubTeamAId,
+      clubTeamBId: "sh-" + item.clubTeamBId,
+
+      gameTypeLong: item.gameTypeLong,
+      gameTypeShort: item.gameTypeShort,
+      gameTypeId: item.gameTypeId,
+
       liga: item.leagueShort,
       ligaText: item.leagueLong,
+
+      groupId: item.groupId,
+      groupCupText: item.groupCupText,
 
       venue: item.venue,
       venueAddress: item.venueAddress,
@@ -288,7 +324,12 @@ async function getGames(teamId: string) {
       referee1: "",
       referee2: "",
 
+      gameStatusId: item.gameStatusId,
+      gameStatus: item.gameStatus,
+      roundNr: item.roundNr,
+
       spectators: item.spectators,
+
       result: item.teamAScoreFT + ":" + item.teamBScoreFT + "(" + item.teamAScoreHT + ":" + item.teamBScoreHT + ")",
     });
     /*     {
