@@ -15,7 +15,7 @@ import fs = require("fs");
 const handballClubJSON = fs.readFileSync("./src/scheduler/utils/handball_clubs_with_teams_and_contact.json", "utf8");
 
 import * as functions from "firebase-functions";
-const headers: any = {"Authorization": "Basic " + functions.config().swisshandball.token};
+// const headers: any = {"Authorization": "Basic " + functions.config().swisshandball.token};
 
 export default {
 
@@ -29,13 +29,13 @@ export default {
   },
   Team: {
     games(parent: any, args: any, context: any, info: any) {
-      return getGames(parent.id);
+      return getGames(parent.id, parent.clubId);
     },
     rankings(parent: any, args: any, context: any, info: any) {
-      return getRankings(parent.id);
+      return getRankings(parent.id, parent.clubId);
     },
     details(parent: any, args: any, context: any, info: any) {
-      return getTeam(parent.id);
+      return getTeam(parent.id, parent.clubId);
     },
   },
 
@@ -49,9 +49,9 @@ export default {
       return getClub(args.clubId);
     },
     team: (parent: any, args: {
-      teamId: string
+      teamId: string; clubId: string;
     }, context: any, info: any) => {
-      return getTeam(args.teamId);
+      return getTeam(args.teamId, args.clubId);
     },
     teams: (parent: any, args: {
       clubId: string; season: string;
@@ -59,9 +59,9 @@ export default {
       return getTeams(args.clubId);
     },
     games: (parent: any, args: {
-      teamId: string; season: string;
+      teamId: string; season: string; clubId: string;
     }, context: any, info: any) => {
-      return getGames(args.teamId);
+      return getGames(args.teamId, args.clubId);
     },
     clubGames: (parent: any, args: {
       clubId: string; season: string;
@@ -69,9 +69,9 @@ export default {
       return getClubGames(args.clubId);
     },
     rankings: (parent: any, args: {
-      id: string; season: string;
+      id: string; season: string; clubId: string;
     }, context: any, info: any) => {
-      return getRankings(args.id);
+      return getRankings(args.id, args.clubId);
     },
     news: () => {
       return getNews();
@@ -114,10 +114,9 @@ async function getTeams(clubId: string) {
   return teamList;
 }
 
-async function getTeam(teamId: string) {
-  // teamId is wrong -> change to clubId for token fetch
-  const token = functions.config().swisshandball["sh-" + teamId].token;
-  if (token) {
+async function getTeam(teamId: string, clubId: string) {
+  if (functions.config().swisshandball["sh-" + clubId] && functions.config().swisshandball["sh-" + clubId].token) {
+    const token = functions.config().swisshandball["sh-" + clubId].token;
     const data = await fetch("https://clubapi.handball.ch/rest/v1/teams/" + teamId, {
       headers: {"Authorization": "Basic " + token},
     });
@@ -157,273 +156,162 @@ async function getClubs() {
 }
 
 async function getClub(clubId: string) {
-  const data = await fetch("https://clubapi.handball.ch/rest/v1/clubs/" + clubId, {
-    headers: headers,
-  });
-  const clubData = await data.json();
-  console.log(clubData);
+  if (functions.config().swisshandball["sh-" + clubId] && functions.config().swisshandball["sh-" + clubId].token) {
+    const token = functions.config().swisshandball["sh-" + clubId].token;
+    const data = await fetch("https://clubapi.handball.ch/rest/v1/clubs/" + clubId, {
+      headers: {"Authorization": "Basic " + token},
+    });
 
-  /* const contactDataRequest = await fetch("https://www.handball.ch/Umbraco/Api/MatchCenter/Query", {
-    "headers": {
-      "content-type": "application/json",
-      "__RequestVerificationToken": "Wtq36irQvaqcaf7CxprqiNm5KqIj1lV6FUmjv5oAVHr12jELhomIm-pah3Z-XEZAoUOxLmsI2c6vmZp_xUZr5arLqCY1",
-      "Cookie": "__RequestVerificationToken=QQ0HjCIIvHqUxo1Ur6KE8WkBbCet-QkH6YqDvmcMrKlsGBonyZM7Bq37_1uT2SoeDP7wZ8Oot7r6P-x6SE60X2nQ8IQ1; _dd_s=logs=1&id=0ccf55d7-fd2d-44f3-ac4c-b033b19d4da9&created=1649076359310&expire=1649077394496",
-    },
-    "body": `{"operationName":"getClubContactDetail","variables":{"clubId":"${clubId}"},"query":"query getClubContactDetail($clubId: Int) {\n  clubContactDetail(clubId: $clubId) {\n    name\n    zipCode\n    city\n    canton\n    email\n    phone\n    latitude\n    longitude\n    foundingYear\n    website\n    contactPerson {\n      firstName\n      lastName\n      phone\n      email\n      __typename\n    }\n    teams {\n      name\n      email\n      __typename\n    }\n    venues {\n      venueId\n      name\n      __typename\n    }\n    __typename\n  }\n}\n"}`,
-    "method": "POST",
-    "mode": "cors",
-  });
+    const clubData = await data.json();
+    console.log(clubData);
 
-  const contactData = await contactDataRequest.json();
-  // console.log(">>>" + JSON.stringify(contactData));
-  const contact = contactData.data.clubContactDetail[0];
-  // console.log(JSON.stringify(contact));
-
-  const addressArray = [{
-    id: clubId,
-    firstName: contact.contactPerson.firstName,
-    lastName: contact.contactPerson.lastName,
-    street: "",
-    number: "",
-    postalcode: contact.zipCode,
-    city: contact.city,
-    email: contact.contactPerson.email,
-    phone: contact.contactPerson.phone,
-  }, {
-    id: clubId + "-2",
-    firstName: contact.contactPerson.firstName,
-    lastName: contact.contactPerson.lastName,
-    street: "",
-    number: "",
-    postalcode: contact.zipCode,
-    city: contact.city,
-    email: contact.email,
-    phone: contact.phone,
-  }];
-  */
-  return {
-    id: clubId,
-    name: clubData.clubName,
-    logo: `https://www.handball.ch/images/club/${clubId}.png?height=140&language=de-CH`,
-    /* website: contact.website || "",
-      latitude: contact.latitude || "",
-      longitude: contact.longitude || "",
-      foundingYear: contact.foundingYear || "",
-      address: addressArray, */
-  };
+    return {
+      id: clubId,
+      name: clubData.clubName,
+      logo: `https://www.handball.ch/images/club/${clubId}.png?height=140&language=de-CH`,
+      /* website: contact.website || "",
+        latitude: contact.latitude || "",
+        longitude: contact.longitude || "",
+        foundingYear: contact.foundingYear || "",
+        address: addressArray, */
+    };
+  } else {
+    return null;
+  }
 }
 
 
 async function getClubGames(clubId: string) {
-  const data = await fetch("https://clubapi.handball.ch/rest/v1/clubs/" + clubId + "/games", {
-    headers: headers,
-  });
-  const gameData = await data.json();
   const gameList = <any>[];
-  gameData.forEach((item: any) => {
-    console.log(item);
-    gameList.push({
-
-      id: item.gameId,
-      gameNr: item.gameNr,
-      name: item.gameTypeShort + " " + item.teamAName + " - " + item.teamBName,
-      description: item.gameTypeLong + " " + item.teamAName + " - " + item.teamBName,
-
-      date: new Date(item.gameDateTime),
-      time: new Date(item.gameDateTime),
-      languageId: item.languageId,
-
-      teamHomeId: "sh-" + item.teamAId,
-      teamHome: item.teamAName,
-      teamHomeLogo: "",
-      teamHomeLogoText: "Logo " + item.teamAName,
-
-      teamAwayId: "sh-" + item.teamBId,
-      teamAway: item.teamBName,
-      teamAwayLogo: "",
-      teamAwayLogoText: "Logo " + item.teamBName,
-
-      clubTeamAId: "sh-" + item.clubTeamAId,
-      clubTeamBId: "sh-" + item.clubTeamBId,
-
-      gameTypeLong: item.gameTypeLong,
-      gameTypeShort: item.gameTypeShort,
-      gameTypeId: item.gameTypeId,
-
-      liga: item.leagueShort,
-      ligaText: item.leagueLong,
-
-      groupId: item.groupId,
-      groupCupText: item.groupCupText,
-
-      venue: item.venue,
-      venueAddress: item.venueAddress,
-      venueZip: item.venueZip,
-      venueCity: item.venueCity,
-
-      referee1: "",
-      referee2: "",
-
-      gameStatusId: item.gameStatusId,
-      gameStatus: item.gameStatus,
-      roundNr: item.roundNr,
-
-      spectators: item.spectators,
-
-      result: item.teamAScoreFT + ":" + item.teamBScoreFT + "(" + item.teamAScoreHT + ":" + item.teamBScoreHT + ")",
+  if (functions.config().swisshandball["sh-" + clubId] && functions.config().swisshandball["sh-" + clubId].token) {
+    const token = functions.config().swisshandball["sh-" + clubId].token;
+    const data = await fetch("https://clubapi.handball.ch/rest/v1/clubs/" + clubId + "/games", {
+      headers: {"Authorization": "Basic " + token},
     });
-  });
+    const gameData = await data.json();
+    gameData.forEach((item: any) => {
+      console.log(item);
+      gameList.push({
+
+        id: item.gameId,
+        gameNr: item.gameNr,
+        name: item.gameTypeShort + " " + item.teamAName + " - " + item.teamBName,
+        description: item.gameTypeLong + " " + item.teamAName + " - " + item.teamBName,
+
+        date: new Date(item.gameDateTime),
+        time: new Date(item.gameDateTime),
+        languageId: item.languageId,
+
+        teamHomeId: "sh-" + item.teamAId,
+        teamHome: item.teamAName,
+        teamHomeLogo: "",
+        teamHomeLogoText: "Logo " + item.teamAName,
+
+        teamAwayId: "sh-" + item.teamBId,
+        teamAway: item.teamBName,
+        teamAwayLogo: "",
+        teamAwayLogoText: "Logo " + item.teamBName,
+
+        clubTeamAId: "sh-" + item.clubTeamAId,
+        clubTeamBId: "sh-" + item.clubTeamBId,
+
+        gameTypeLong: item.gameTypeLong,
+        gameTypeShort: item.gameTypeShort,
+        gameTypeId: item.gameTypeId,
+
+        liga: item.leagueShort,
+        ligaText: item.leagueLong,
+
+        groupId: item.groupId,
+        groupCupText: item.groupCupText,
+
+        venue: item.venue,
+        venueAddress: item.venueAddress,
+        venueZip: item.venueZip,
+        venueCity: item.venueCity,
+
+        referee1: "",
+        referee2: "",
+
+        gameStatusId: item.gameStatusId,
+        gameStatus: item.gameStatus,
+        roundNr: item.roundNr,
+
+        spectators: item.spectators,
+
+        result: item.teamAScoreFT + ":" + item.teamBScoreFT + "(" + item.teamAScoreHT + ":" + item.teamBScoreHT + ")",
+      });
+    });
+  }
   return gameList;
 }
 
-async function getGames(teamId: string) {
-  const data = await fetch("https://clubapi.handball.ch/rest/v1/teams/" + teamId + "/games", {
-    headers: headers,
-  });
-  const gameData = await data.json();
+async function getGames(teamId: string, clubId: string) {
   const gameList = <any>[];
-  gameData.forEach((item: any) => {
-    gameList.push({
-      id: item.gameId,
-      gameNr: item.gameNr,
-      name: item.gameTypeShort + " " + item.teamAName + " - " + item.teamBName,
-      description: item.gameTypeLong + " " + item.teamAName + " - " + item.teamBName,
-
-      date: new Date(item.gameDateTime),
-      time: new Date(item.gameDateTime),
-      languageId: item.languageId,
-
-      teamHomeId: "sh-" + item.teamAId,
-      teamHome: item.teamAName,
-      teamHomeLogo: "",
-      teamHomeLogoText: "Logo " + item.teamAName,
-
-      teamAwayId: "sh-" + item.teamBId,
-      teamAway: item.teamBName,
-      teamAwayLogo: "",
-      teamAwayLogoText: "Logo " + item.teamBName,
-
-      clubTeamAId: "sh-" + item.clubTeamAId,
-      clubTeamBId: "sh-" + item.clubTeamBId,
-
-      gameTypeLong: item.gameTypeLong,
-      gameTypeShort: item.gameTypeShort,
-      gameTypeId: item.gameTypeId,
-
-      liga: item.leagueShort,
-      ligaText: item.leagueLong,
-
-      groupId: item.groupId,
-      groupCupText: item.groupCupText,
-
-      venue: item.venue,
-      venueAddress: item.venueAddress,
-      venueZip: item.venueZip,
-      venueCity: item.venueCity,
-
-      referee1: "",
-      referee2: "",
-
-      gameStatusId: item.gameStatusId,
-      gameStatus: item.gameStatus,
-      roundNr: item.roundNr,
-
-      spectators: item.spectators,
-
-      result: item.teamAScoreFT + ":" + item.teamBScoreFT + "(" + item.teamAScoreHT + ":" + item.teamBScoreHT + ")",
+  if (functions.config().swisshandball["sh-" + clubId] && functions.config().swisshandball["sh-" + clubId].token) {
+    const token = functions.config().swisshandball["sh-" + clubId].token;
+    const data = await fetch("https://clubapi.handball.ch/rest/v1/teams/" + teamId + "/games", {
+      headers: {"Authorization": "Basic " + token},
     });
-    /*     {
-        "gameId": 423129,
-        "gameNr": 1795,
-        "gameDateTime": "2021-09-04T15:00:00",
-        "gameTypeLong": "Hallenmeisterschaft",
-        "gameTypeShort": "MS",
-        "teamAName": "Kadetten Schaffhausen",
-        "teamBName": "SG Arbon Lakers",
-        "leagueLong": "Junioren U13 Inter",
-        "leagueShort": "MU13I",
-        "round": null,
-        "gameStatus": "Gespielt",
-        "teamAScoreHT": 21,
-        "teamBScoreHT": 3,
-        "teamAScoreFT": 47,
-        "teamBScoreFT": 7,
-        "venue": "Schaffhausen BBC Arena B",
-        "venueAddress": "Schweizersbildstrasse 10",
-        "venueZip": 8207,
-        "venueCity": "Schaffhausen",
-        "spectators": 45,
-        "roundNr": 5
-    }, */
-  });
+
+    const gameData = await data.json();
+    gameData.forEach((item: any) => {
+      gameList.push({
+        id: item.gameId,
+        gameNr: item.gameNr,
+        name: item.gameTypeShort + " " + item.teamAName + " - " + item.teamBName,
+        description: item.gameTypeLong + " " + item.teamAName + " - " + item.teamBName,
+
+        date: new Date(item.gameDateTime),
+        time: new Date(item.gameDateTime),
+        languageId: item.languageId,
+
+        teamHomeId: "sh-" + item.teamAId,
+        teamHome: item.teamAName,
+        teamHomeLogo: "",
+        teamHomeLogoText: "Logo " + item.teamAName,
+
+        teamAwayId: "sh-" + item.teamBId,
+        teamAway: item.teamBName,
+        teamAwayLogo: "",
+        teamAwayLogoText: "Logo " + item.teamBName,
+
+        clubTeamAId: "sh-" + item.clubTeamAId,
+        clubTeamBId: "sh-" + item.clubTeamBId,
+
+        gameTypeLong: item.gameTypeLong,
+        gameTypeShort: item.gameTypeShort,
+        gameTypeId: item.gameTypeId,
+
+        liga: item.leagueShort,
+        ligaText: item.leagueLong,
+
+        groupId: item.groupId,
+        groupCupText: item.groupCupText,
+
+        venue: item.venue,
+        venueAddress: item.venueAddress,
+        venueZip: item.venueZip,
+        venueCity: item.venueCity,
+
+        referee1: "",
+        referee2: "",
+
+        gameStatusId: item.gameStatusId,
+        gameStatus: item.gameStatus,
+        roundNr: item.roundNr,
+
+        spectators: item.spectators,
+
+        result: item.teamAScoreFT + ":" + item.teamBScoreFT + "(" + item.teamAScoreHT + ":" + item.teamBScoreHT + ")",
+      });
+    });
+  }
   return gameList;
 }
 
-// async function getGame(gameId: string) {
-// DOES NOT EXIST
-/* const data = await fetch("https://clubapi.handball.ch/rest/v1/games/" + gameId, {
-    headers: headers,
-  });
-  const gameData = await data.json();
 
-  return {
-    id: gameData.gameId,
-    name: gameData.data.title,
-    description: gameData.data.subtitle,
-
-    teamHomeId: "sh-",
-    teamHome: gameData.data.teamAName,
-    teamHomeLogo: "",
-    teamHomeLogoText: "Logo " + gameData.data.teamAName,
-
-    teamAwayId: "sh-",
-    teamAway: gameData.data.teamBName,
-    teamAwayLogo: "",
-    teamAwayLogoText: "Logo " + gameData.data.teamBName,
-
-    liga: gameData.data.leagueShort,
-    ligaText: gameData.data.leagueLong,
-
-    venue: gameData.data.venue,
-    venueAddress: gameData.data.venueAddress,
-    venueZip: gameData.data.venueZip,
-    venueCity: gameData.data.venueCity,
-
-    referee1: "",
-    referee2: "",
-
-    spectators: gameData.data.spectators,
-    result: gameData.data.teamAScoreFT + ":" + gameData.data.teamBScoreFT + "(" + gameData.data.teamAScoreHT + ":" + gameData.data.teamBScoreHT + ")",
-  };
-
-  /*     {
-      "gameId": 423129,
-      "gameNr": 1795,
-      "gameDateTime": "2021-09-04T15:00:00",
-      "gameTypeLong": "Hallenmeisterschaft",
-      "gameTypeShort": "MS",
-      "teamAName": "Kadetten Schaffhausen",
-      "teamBName": "SG Arbon Lakers",
-      "leagueLong": "Junioren U13 Inter",
-      "leagueShort": "MU13I",
-      "round": null,
-      "gameStatus": "Gespielt",
-      "teamAScoreHT": 21,
-      "teamBScoreHT": 3,
-      "teamAScoreFT": 47,
-      "teamBScoreFT": 7,
-      "venue": "Schaffhausen BBC Arena B",
-      "venueAddress": "Schweizersbildstrasse 10",
-      "venueZip": 8207,
-      "venueCity": "Schaffhausen",
-      "spectators": 45,
-      "roundNr": 5
-  }, */
-// }
-
-
-async function getRankings(teamId: string) {
-  const clubId = 140561;
+async function getRankings(teamId: string, clubId: string) {
   const rankingList = <any>[];
   if (functions.config().swisshandball["sh-" + clubId] && functions.config().swisshandball["sh-" + clubId].token) {
     const token = functions.config().swisshandball["sh-" + clubId].token;
