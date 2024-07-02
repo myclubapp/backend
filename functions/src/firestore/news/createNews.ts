@@ -59,6 +59,7 @@ export async function createNotificationNews(snapshot: QueryDocumentSnapshot, co
             delete newsRef.data().updated;
             try {
               // Tags attribute not supported? --> ERROR in logs
+              // Error: Messaging payload contains an invalid value for the "data.tags" property. Values must be strings.
               delete newsRef.data().tags;
               const nativePush = await messaging.sendToDevice(push.data().token,
                   {
