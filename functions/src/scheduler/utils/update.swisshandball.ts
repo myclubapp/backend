@@ -52,7 +52,7 @@ export async function updateGamesSwisshandball(): Promise<any> {
 
         const clubRef = await db.collection("club").doc(`sh-${club.id}`).get();
         const teamRef = await db.collection("teams").doc(`sh-${team.id}`).get();
-        console.log("read match report for game: " + game.id);
+        // console.log("read match report for game: " + game.id);
 
         // await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).get();
         await db.collection("teams").doc(`sh-${team.id}`).collection("games").doc(`sh-${game.id}`).set({

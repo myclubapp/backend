@@ -198,6 +198,7 @@ async function getClubGames(clubId: string) {
         name: item.gameTypeShort + " " + item.teamAName + " - " + item.teamBName,
         description: item.gameTypeLong + " " + item.teamAName + " - " + item.teamBName,
 
+        dateTime: new Date(item.gameDateTime),
         date: new Date(item.gameDateTime),
         time: new Date(item.gameDateTime),
         languageId: item.languageId,
@@ -262,6 +263,7 @@ async function getGames(teamId: string, clubId: string) {
         name: item.gameTypeShort + " " + item.teamAName + " - " + item.teamBName,
         description: item.gameTypeLong + " " + item.teamAName + " - " + item.teamBName,
 
+        dateTime: new Date(item.gameDateTime),
         date: new Date(item.gameDateTime),
         time: new Date(item.gameDateTime),
         languageId: item.languageId,
