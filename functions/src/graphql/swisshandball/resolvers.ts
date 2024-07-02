@@ -54,22 +54,22 @@ export default {
       return getTeam(args.teamId);
     },
     teams: (parent: any, args: {
-      clubId: string;season: string;
+      clubId: string; season: string;
     }, context: any, info: any) => {
       return getTeams(args.clubId);
     },
     games: (parent: any, args: {
-      teamId: string;season: string;
+      teamId: string; season: string;
     }, context: any, info: any) => {
       return getGames(args.teamId);
     },
     clubGames: (parent: any, args: {
-      clubId: string;season: string;
+      clubId: string; season: string;
     }, context: any, info: any) => {
       return getClubGames(args.clubId);
     },
     rankings: (parent: any, args: {
-      id: string;season: string;
+      id: string; season: string;
     }, context: any, info: any) => {
       return getRankings(args.id);
     },
@@ -80,7 +80,7 @@ export default {
 };
 
 async function getTeams(clubId: string) {
-  const teamList = < any > [];
+  const teamList = <any>[];
   if (functions.config().swisshandball["sh-" + clubId] && functions.config().swisshandball["sh-" + clubId].token) {
     const token = functions.config().swisshandball["sh-" + clubId].token;
     const data = await fetch("https://clubapi.handball.ch/rest/v1/clubs/" + clubId + "/teams", {
@@ -90,7 +90,7 @@ async function getTeams(clubId: string) {
     const teamData = await data.json();
     // console.log(teamData);
     for (const item of teamData) {
-    // teamData.forEach((item: any) => {
+      // teamData.forEach((item: any) => {
       teamList.push({
         id: item.teamId,
         name: item.teamName,
@@ -135,7 +135,7 @@ async function getTeam(teamId: string) {
 async function getClubs() {
   const data: Array<any> = JSON.parse(handballClubJSON);
   // console.log(clubData);
-  const clubList = < any > [];
+  const clubList = <any>[];
   for (const item of data) {
     clubList.push({
       id: item.id,
@@ -151,7 +151,7 @@ async function getClubs() {
       link_location: item.google_maps_link,
       // address: addressArray,
     });
-  //  }
+    //  }
   }
   return clubList;
 }
@@ -205,11 +205,11 @@ async function getClub(clubId: string) {
     id: clubId,
     name: clubData.clubName,
     logo: `https://www.handball.ch/images/club/${clubId}.png?height=140&language=de-CH`,
-  /* website: contact.website || "",
-    latitude: contact.latitude || "",
-    longitude: contact.longitude || "",
-    foundingYear: contact.foundingYear || "",
-    address: addressArray, */
+    /* website: contact.website || "",
+      latitude: contact.latitude || "",
+      longitude: contact.longitude || "",
+      foundingYear: contact.foundingYear || "",
+      address: addressArray, */
   };
 }
 
@@ -219,7 +219,7 @@ async function getClubGames(clubId: string) {
     headers: headers,
   });
   const gameData = await data.json();
-  const gameList = < any > [];
+  const gameList = <any>[];
   gameData.forEach((item: any) => {
     console.log(item);
     gameList.push({
@@ -281,7 +281,7 @@ async function getGames(teamId: string) {
     headers: headers,
   });
   const gameData = await data.json();
-  const gameList = < any > [];
+  const gameList = <any>[];
   gameData.forEach((item: any) => {
     gameList.push({
       id: item.gameId,
@@ -423,62 +423,68 @@ async function getGames(teamId: string) {
 
 
 async function getRankings(teamId: string) {
-  const data = await fetch("https://clubapi.handball.ch/rest/v1/teams/" + teamId + "/group", {
-    headers: headers,
-  });
-  const rankingData = await data.json();
-  console.log(JSON.stringify(rankingData));
-  const rankingList = < any > [];
-  rankingData.ranking.forEach((item: any) => {
-    rankingList.push({
-      id: item.teamId,
-      name: item.teamName, // 2 teamname
-
-      teamId: "sh-" + item.teamId,
-      clubId: "sh-" + item.clubId,
-
-      /* "groupText": "MU19E",
-      "leagueLong": "Junioren U19 Elite",
-      "leagueShort": "MU19E",
-      "leagueId": 3220,
-      "languageId": 1,
-      "modus": "14 Teams in einer 2-fach Runde",
-      */
-
-      image: "", // item.cells[1].image.url,
-      games: item.totalGames, // Sp Spiele 3
-      gamesSoW: "", // SoW Spiele ohne Wertung 4
-      wins: item.totalWins, // S Siege 5
-      loss: item.totalLoss, // N Niederlage 7
-      draw: item.totalDraws, // U Unentschieden 6
-      goals: item.totalPoints, // T Tore 8
-      goalDifference: item.totalScoresPlus, // TD Tordifferenz 9
-      pointQuotient: item.totalScoresMinus, // PQ 10
-      points: item.totalPoints, // P 11
-      ranking: item.rank, // 0
-      season: "",
-      title: rankingData.leagueLong,
+  const clubId = 140561;
+  const rankingList = <any>[];
+  if (functions.config().swisshandball["sh-" + clubId] && functions.config().swisshandball["sh-" + clubId].token) {
+    const token = functions.config().swisshandball["sh-" + clubId].token;
+    const data = await fetch("https://clubapi.handball.ch/rest/v1/teams/" + teamId + "/group", {
+      headers: {"Authorization": "Basic " + token},
     });
 
-    /* {
-      "rank": 1,
-      "teamName": "Kadetten Schaffhausen",
-      "totalPoints": 12,
-      "totalPointsPerGame": 2.000,
-      "totalWins": 6,
-      "totalLoss": 0,
-      "totalDraws": 0,
-      "totalScoresPlus": 273,
-      "totalScoresMinus": 119,
-      "totalGames": 6,
-      "totalScoresDiff": 154
-  }, */
-  });
+    const rankingData = await data.json();
+    console.log(JSON.stringify(rankingData));
+
+    rankingData.ranking.forEach((item: any) => {
+      rankingList.push({
+        id: item.teamId,
+        name: item.teamName, // 2 teamname
+
+        teamId: "sh-" + item.teamId,
+        clubId: "sh-" + item.clubId,
+
+        /* "groupText": "MU19E",
+        "leagueLong": "Junioren U19 Elite",
+        "leagueShort": "MU19E",
+        "leagueId": 3220,
+        "languageId": 1,
+        "modus": "14 Teams in einer 2-fach Runde",
+        */
+
+        image: `https://www.handball.ch/images/logo/${item.teamId}.png?fallbackType=club&fallbackId=${item.clubId}&height=25&width=25&scale=canvas`, // item.cells[1].image.url,
+        games: item.totalGames, // Sp Spiele 3
+        gamesSoW: "", // SoW Spiele ohne Wertung 4
+        wins: item.totalWins, // S Siege 5
+        loss: item.totalLoss, // N Niederlage 7
+        draw: item.totalDraws, // U Unentschieden 6
+        goals: item.totalPoints, // T Tore 8
+        goalDifference: item.totalScoresPlus, // TD Tordifferenz 9
+        pointQuotient: item.totalScoresMinus, // PQ 10
+        points: item.totalPoints, // P 11
+        ranking: item.rank, // 0
+        season: "",
+        title: rankingData.leagueLong,
+      });
+
+      /* {
+        "rank": 1,
+        "teamName": "Kadetten Schaffhausen",
+        "totalPoints": 12,
+        "totalPointsPerGame": 2.000,
+        "totalWins": 6,
+        "totalLoss": 0,
+        "totalDraws": 0,
+        "totalScoresPlus": 273,
+        "totalScoresMinus": 119,
+        "totalGames": 6,
+        "totalScoresDiff": 154
+    }, */
+    });
+  }
   return rankingList;
 }
 
 async function getNews() {
-  const newsList = < any > [];
+  const newsList = <any>[];
   // const data = await fetch("https://www.handball.ch/Umbraco/Api/Entities/Collect");
   // const newsData = await data.json();
   /* newsData._embedded.wallList.forEach((item: any) => {
