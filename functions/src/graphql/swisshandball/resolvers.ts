@@ -423,17 +423,41 @@ async function getGames(teamId: string) {
 
 
 async function getRankings(teamId: string) {
-  const data = await fetch("https://clubapi.handball.ch/rest/v1/teams/" + teamId + "/group/ranking", {
+  const data = await fetch("https://clubapi.handball.ch/rest/v1/teams/" + teamId + "/group", {
     headers: headers,
   });
   const rankingData = await data.json();
   console.log(JSON.stringify(rankingData));
   const rankingList = < any > [];
-  rankingData.forEach((item: any) => {
+  rankingData.ranking.forEach((item: any) => {
     rankingList.push({
-      id: item.rank,
-      name: item.teamName,
-      ranking: item.rank,
+      id: item.teamId,
+      name: item.teamName, // 2 teamname
+
+      teamId: "sh-" + item.teamId,
+      clubId: "sh-" + item.clubId,
+
+      /* "groupText": "MU19E",
+      "leagueLong": "Junioren U19 Elite",
+      "leagueShort": "MU19E",
+      "leagueId": 3220,
+      "languageId": 1,
+      "modus": "14 Teams in einer 2-fach Runde",
+      */
+
+      image: "", // item.cells[1].image.url,
+      games: item.totalGames, // Sp Spiele 3
+      gamesSoW: "", // SoW Spiele ohne Wertung 4
+      wins: item.totalWins, // S Siege 5
+      loss: item.totalLoss, // N Niederlage 7
+      draw: item.totalDraws, // U Unentschieden 6
+      goals: item.totalPoints, // T Tore 8
+      goalDifference: item.totalScoresPlus, // TD Tordifferenz 9
+      pointQuotient: item.totalScoresMinus, // PQ 10
+      points: item.totalPoints, // P 11
+      ranking: item.rank, // 0
+      season: "",
+      title: rankingData.leagueLong,
     });
 
     /* {
