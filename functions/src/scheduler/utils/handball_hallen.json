@@ -1,0 +1,3662 @@
+[
+  {
+    "id": "140837",
+    "name": "Genève Bois-des-frères",
+    "street": "Chemin de l'Ecu 24",
+    "city": "1219 Châtelaine GE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140837",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.2102736,6.1052969",
+    "latitude": 46.2102736,
+    "longitude": 6.1052969
+  },
+  {
+    "id": "140838",
+    "name": "Genève Bout-du-Monde",
+    "street": "Route de Vessy 12",
+    "city": "1206 Genève GE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140838",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.1807437,6.1555235",
+    "latitude": 46.1807437,
+    "longitude": 6.1555235
+  },
+  {
+    "id": "140840",
+    "name": "Lancy Ecole de Mécanique",
+    "street": "Av. Louis-Bertrand 38",
+    "city": "1213 Petit-Lancy GE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140840",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.191968,6.11361",
+    "latitude": 46.191968,
+    "longitude": 6.11361
+  },
+  {
+    "id": "140843",
+    "name": "Lausanne Vallee de la jeunesse",
+    "street": "Vallée de la Jeunesse 1",
+    "city": "1007 Lausanne VD",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140843",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.5195323,6.6037448",
+    "latitude": 46.5195323,
+    "longitude": 6.6037448
+  },
+  {
+    "id": "140844",
+    "name": "Lausanne Dorigny",
+    "street": "",
+    "city": "1015 Lausanne VD",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140844",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.5195985,6.5684919",
+    "latitude": 46.5195985,
+    "longitude": 6.5684919
+  },
+  {
+    "id": "140846",
+    "name": "Yverdon Cheseaux-Noréaz",
+    "street": "Route du Gymnase 6",
+    "city": "1401 Yverdon-les-Bains VD",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140846",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.7796007,6.6676085",
+    "latitude": 46.7796007,
+    "longitude": 6.6676085
+  },
+  {
+    "id": "140847",
+    "name": "Chamblon",
+    "street": "Caserne",
+    "city": "1400 Yverdon-les-Bains VD",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140847",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.7850399,6.6399425",
+    "latitude": 46.7850399,
+    "longitude": 6.6399425
+  },
+  {
+    "id": "140848",
+    "name": "Moudon Valacrêt",
+    "street": "Chemin de Valacrêt 2",
+    "city": "1510 Moudon VD",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140848",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.6584601,6.7867424",
+    "latitude": 46.6584601,
+    "longitude": 6.7867424
+  },
+  {
+    "id": "140849",
+    "name": "Vevey Burier",
+    "street": "Rte de Chailly 170",
+    "city": "1814 La Tour-de-Peilz VD",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140849",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.4502905,6.8776758",
+    "latitude": 46.4502905,
+    "longitude": 6.8776758
+  },
+  {
+    "id": "140850",
+    "name": "Leysin Centre sportif ",
+    "street": "Place Large",
+    "city": "1854 Leysin VD",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140850",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.3471851,7.0175439",
+    "latitude": 46.3471851,
+    "longitude": 7.0175439
+  },
+  {
+    "id": "140854",
+    "name": "Amriswil Oberfeld",
+    "street": "St. Gallerstrasse 9b",
+    "city": "8580 Amriswil TG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140854",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5428132,9.2997702",
+    "latitude": 47.5428132,
+    "longitude": 9.2997702
+  },
+  {
+    "id": "140857",
+    "name": "Arbon Stacherholz",
+    "street": "Stacherholzstrasse 38",
+    "city": "9320 Arbon TG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140857",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5064863,9.4195481",
+    "latitude": 47.5064863,
+    "longitude": 9.4195481
+  },
+  {
+    "id": "140858",
+    "name": "Bischofszell Bruggwiesen",
+    "street": "Bruggwiesenweg",
+    "city": "9220 Bischofszell TG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140858",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4981087,9.2424231",
+    "latitude": 47.4981087,
+    "longitude": 9.2424231
+  },
+  {
+    "id": "140859",
+    "name": "Buchs bzb",
+    "street": "Hanflandstrasse 17",
+    "city": "9470 Buchs SG SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140859",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1730734,9.4710792",
+    "latitude": 47.1730734,
+    "longitude": 9.4710792
+  },
+  {
+    "id": "140861",
+    "name": "Ebnat - Kappel Schafbüchel",
+    "street": "Untersandstrasse",
+    "city": "9642 Ebnat-Kappel SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140861",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2612918,9.1229069",
+    "latitude": 47.2612918,
+    "longitude": 9.1229069
+  },
+  {
+    "id": "140864",
+    "name": "Frauenfeld Auen",
+    "street": "Thurstrasse 23",
+    "city": "8500 Frauenfeld TG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140864",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5631767,8.8903369",
+    "latitude": 47.5631767,
+    "longitude": 8.8903369
+  },
+  {
+    "id": "140865",
+    "name": "Frauenfeld Rüegerholz",
+    "street": "Festhüttenstrasse 21",
+    "city": "8500 Frauenfeld TG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140865",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.549419,8.8999522",
+    "latitude": 47.549419,
+    "longitude": 8.8999522
+  },
+  {
+    "id": "140867",
+    "name": "Goldach Wartegg",
+    "street": "Warteggweg 18",
+    "city": "9403 Goldach SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140867",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4756031,9.4646857",
+    "latitude": 47.4756031,
+    "longitude": 9.4646857
+  },
+  {
+    "id": "140868",
+    "name": "Gossau Buechenwald",
+    "street": "Seminarstrasse 10",
+    "city": "9200 Gossau SG SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140868",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4085913,9.2536109",
+    "latitude": 47.4085913,
+    "longitude": 9.2536109
+  },
+  {
+    "id": "140869",
+    "name": "Heerbrugg Kantonsschule",
+    "street": "Karl Völkerstrasse 11",
+    "city": "9435 Heerbrugg SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140869",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4158235,9.6292876",
+    "latitude": 47.4158235,
+    "longitude": 9.6292876
+  },
+  {
+    "id": "140870",
+    "name": "Heiden Wies",
+    "street": "Wiesstrasse 10a",
+    "city": "9410 Heiden AR",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140870",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4371736,9.5373871",
+    "latitude": 47.4371736,
+    "longitude": 9.5373871
+  },
+  {
+    "id": "140871",
+    "name": "Herisau Sportzentrum",
+    "street": "Kasernenstrasse 71",
+    "city": "9100 Herisau AR",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140871",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3902953,9.2899713",
+    "latitude": 47.3902953,
+    "longitude": 9.2899713
+  },
+  {
+    "id": "140872",
+    "name": "Kreuzlingen Egelsee",
+    "street": "Gaissbergstrasse 6",
+    "city": "8280 Kreuzlingen TG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140872",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.6449676,9.1765375",
+    "latitude": 47.6449676,
+    "longitude": 9.1765375
+  },
+  {
+    "id": "140873",
+    "name": "Mels Feldacker",
+    "street": "Melibündtenweg 30",
+    "city": "8887 Mels SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140873",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0470954,9.4265697",
+    "latitude": 47.0470954,
+    "longitude": 9.4265697
+  },
+  {
+    "id": "140875",
+    "name": "Neuhausen Rhyfall",
+    "street": "Rheingoldstrasse",
+    "city": "8212 Neuhausen am Rheinfall SH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140875",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.6809369,8.6216836",
+    "latitude": 47.6809369,
+    "longitude": 8.6216836
+  },
+  {
+    "id": "140876",
+    "name": "Romanshorn Kantonsschule",
+    "street": "Weitenzelgstrasse 12",
+    "city": "8590 Romanshorn TG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140876",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5681848,9.3710847",
+    "latitude": 47.5681848,
+    "longitude": 9.3710847
+  },
+  {
+    "id": "140877",
+    "name": "Rorschach Seminar",
+    "street": "Seminarstrasse 27a",
+    "city": "9400 Rorschach SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140877",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.47168,9.4946948",
+    "latitude": 47.47168,
+    "longitude": 9.4946948
+  },
+  {
+    "id": "140878",
+    "name": "Schaffhausen Breite",
+    "street": "Spielweg 4",
+    "city": "8200 Schaffhausen SH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140878",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.7039554,8.6232489",
+    "latitude": 47.7039554,
+    "longitude": 8.6232489
+  },
+  {
+    "id": "140879",
+    "name": "Schaffhausen Munot",
+    "street": "Munotstrasse 50",
+    "city": "8200 Schaffhausen SH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140879",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.6988758,8.6405621",
+    "latitude": 47.6988758,
+    "longitude": 8.6405621
+  },
+  {
+    "id": "140881",
+    "name": "St. Gallen Kreuzbleiche",
+    "street": "Bogenstrasse 10",
+    "city": "9000 St. Gallen SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140881",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4196433,9.361467",
+    "latitude": 47.4196433,
+    "longitude": 9.361467
+  },
+  {
+    "id": "140882",
+    "name": "St. Gallen AZSG 1-3",
+    "street": "Parkstrasse 2",
+    "city": "9000 St. Gallen SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140882",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4292163,9.3838311",
+    "latitude": 47.4292163,
+    "longitude": 9.3838311
+  },
+  {
+    "id": "140885",
+    "name": "Teufen Landhaus",
+    "street": "Landhausstrasse 2345",
+    "city": "9053 Teufen AR AR",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140885",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3904201,9.3946669",
+    "latitude": 47.3904201,
+    "longitude": 9.3946669
+  },
+  {
+    "id": "140886",
+    "name": "Thayngen Stockwiesen",
+    "street": "Stockwiesenstrasse",
+    "city": "8240 Thayngen SH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140886",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.7427557,8.711188",
+    "latitude": 47.7427557,
+    "longitude": 8.711188
+  },
+  {
+    "id": "140888",
+    "name": "Uzwil bzu",
+    "street": "Schöntalstrasse 7",
+    "city": "9244 Niederuzwil SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140888",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4424331,9.1362318",
+    "latitude": 47.4424331,
+    "longitude": 9.1362318
+  },
+  {
+    "id": "140889",
+    "name": "Vaduz Gymnasium",
+    "street": "Marianumstrasse 45",
+    "city": "9490 Vaduz FL",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140889",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1555461,9.5036366",
+    "latitude": 47.1555461,
+    "longitude": 9.5036366
+  },
+  {
+    "id": "140891",
+    "name": "Weinfelden Güttingersreuti",
+    "street": "Lauligstrasse 6",
+    "city": "8570 Weinfelden TG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140891",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5612321,9.1261392",
+    "latitude": 47.5612321,
+    "longitude": 9.1261392
+  },
+  {
+    "id": "140892",
+    "name": "Wil Lindenhof",
+    "street": "Lindenhofstrasse 23",
+    "city": "9500 Wil SG SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140892",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4590231,9.0516381",
+    "latitude": 47.4590231,
+    "longitude": 9.0516381
+  },
+  {
+    "id": "140893",
+    "name": "Winterthur Eulach",
+    "street": "Wartstrasse 73",
+    "city": "8400 Winterthur ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140893",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5033241,8.7120699",
+    "latitude": 47.5033241,
+    "longitude": 8.7120699
+  },
+  {
+    "id": "140894",
+    "name": "Winterthur Mattenbach",
+    "street": "Talgutstrasse 71",
+    "city": "8400 Winterthur ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140894",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4901233,8.7408175",
+    "latitude": 47.4901233,
+    "longitude": 8.7408175
+  },
+  {
+    "id": "140897",
+    "name": "Wittenbach Steig",
+    "street": "Steigstrasse 20",
+    "city": "9300 Wittenbach SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140897",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4591144,9.3805203",
+    "latitude": 47.4591144,
+    "longitude": 9.3805203
+  },
+  {
+    "id": "140898",
+    "name": "Winterthur Oberseen",
+    "street": "Gotzenwilerstrasse 12",
+    "city": "8405 Winterthur ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140898",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.478189,8.7716896",
+    "latitude": 47.478189,
+    "longitude": 8.7716896
+  },
+  {
+    "id": "140899",
+    "name": "Appenzell Wühre",
+    "street": "Kaustrasse 3c",
+    "city": "9050 Appenzell AI",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140899",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3293979,9.4050083",
+    "latitude": 47.3293979,
+    "longitude": 9.4050083
+  },
+  {
+    "id": "140902",
+    "name": "Winterthur Eulach 2 B",
+    "street": "Wartstrasse 73",
+    "city": "8400 Winterthur ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140902",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5033241,8.7120699",
+    "latitude": 47.5033241,
+    "longitude": 8.7120699
+  },
+  {
+    "id": "140904",
+    "name": "Zürich Saalsporthalle",
+    "street": "Giesshübelstrasse 41",
+    "city": "8045 Zürich ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140904",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3565848,8.5201875",
+    "latitude": 47.3565848,
+    "longitude": 8.5201875
+  },
+  {
+    "id": "140906",
+    "name": "Zürich Utogrund",
+    "street": "Dennlerstrasse 43a",
+    "city": "8047 Zürich ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140906",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3791964,8.4979088",
+    "latitude": 47.3791964,
+    "longitude": 8.4979088
+  },
+  {
+    "id": "140907",
+    "name": "Zürich Stettbach",
+    "street": "Dübendorfstrasse 158",
+    "city": "8051 Zürich ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140907",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4010658,8.5820554",
+    "latitude": 47.4010658,
+    "longitude": 8.5820554
+  },
+  {
+    "id": "140911",
+    "name": "Zürich Sihlhölzli A",
+    "street": "Manessestrasse 1",
+    "city": "8003 Zürich ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140911",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3690279,8.5260736",
+    "latitude": 47.3690279,
+    "longitude": 8.5260736
+  },
+  {
+    "id": "140912",
+    "name": "Zürich Sihlhölzli B",
+    "street": "Manessestrasse 1",
+    "city": "8003 Zürich ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140912",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3690279,8.5260736",
+    "latitude": 47.3690279,
+    "longitude": 8.5260736
+  },
+  {
+    "id": "140917",
+    "name": "Kilchberg Hochweid",
+    "street": "Hochweidstrasse 13",
+    "city": "8802 Kilchberg ZH ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140917",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3189724,8.5386226",
+    "latitude": 47.3189724,
+    "longitude": 8.5386226
+  },
+  {
+    "id": "140918",
+    "name": "Thalwil Sonnenberg",
+    "street": "Rudishaldenstrasse 5",
+    "city": "8800 Thalwil ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140918",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2936269,8.5572155",
+    "latitude": 47.2936269,
+    "longitude": 8.5572155
+  },
+  {
+    "id": "140919",
+    "name": "Horgen Waldegg",
+    "street": "Waldeggstrasse 5",
+    "city": "8810 Horgen ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140919",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2451794,8.6061807",
+    "latitude": 47.2451794,
+    "longitude": 8.6061807
+  },
+  {
+    "id": "140921",
+    "name": "Wädenswil Untermosen",
+    "street": "Speerstrasse 95",
+    "city": "8820 Wädenswil ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140921",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2285662,8.6606486",
+    "latitude": 47.2285662,
+    "longitude": 8.6606486
+  },
+  {
+    "id": "140922",
+    "name": "Einsiedeln Brühl",
+    "street": "Etzelstrasse 1",
+    "city": "8840 Einsiedeln SZ",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140922",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1296444,8.7515591",
+    "latitude": 47.1296444,
+    "longitude": 8.7515591
+  },
+  {
+    "id": "140923",
+    "name": "Glarus Kantonsschule",
+    "street": "Winkelstrasse 1",
+    "city": "8750 Glarus GL",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140923",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0436526,9.0659658",
+    "latitude": 47.0436526,
+    "longitude": 9.0659658
+  },
+  {
+    "id": "140924",
+    "name": "Erlenbach Allmendli",
+    "street": "Im Allmendli",
+    "city": "8703 Erlenbach ZH ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140924",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3010205,8.5981535",
+    "latitude": 47.3010205,
+    "longitude": 8.5981535
+  },
+  {
+    "id": "140925",
+    "name": "Herrliberg Langacker",
+    "street": "Sportweg 8",
+    "city": "8704 Herrliberg ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140925",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2929458,8.6125512",
+    "latitude": 47.2929458,
+    "longitude": 8.6125512
+  },
+  {
+    "id": "140926",
+    "name": "Meilen Allmend",
+    "street": "Burgstrasse 160",
+    "city": "8706 Meilen ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140926",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2732339,8.6491675",
+    "latitude": 47.2732339,
+    "longitude": 8.6491675
+  },
+  {
+    "id": "140927",
+    "name": "Stäfa Frohberg",
+    "street": "Rhynerstrasse 62",
+    "city": "8712 Stäfa ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140927",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2472687,8.7394951",
+    "latitude": 47.2472687,
+    "longitude": 8.7394951
+  },
+  {
+    "id": "140928",
+    "name": "Stäfa Obstgarten",
+    "street": "Geimoosstrasse",
+    "city": "8712 Stäfa ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140928",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2426242,8.730399",
+    "latitude": 47.2426242,
+    "longitude": 8.730399
+  },
+  {
+    "id": "140929",
+    "name": "Jona Bollwies",
+    "street": "Bollwiesstrasse 9",
+    "city": "8645 Jona SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140929",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2309423,8.8420852",
+    "latitude": 47.2309423,
+    "longitude": 8.8420852
+  },
+  {
+    "id": "140930",
+    "name": "Rüti Roosriedt",
+    "street": "Sonnenplatz 1",
+    "city": "8630 Rüti ZH ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140930",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2555603,8.8541879",
+    "latitude": 47.2555603,
+    "longitude": 8.8541879
+  },
+  {
+    "id": "140931",
+    "name": "Rüti Schwarz",
+    "street": "Schwarz",
+    "city": "8630 Rüti ZH ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140931",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.26091,8.84555",
+    "latitude": 47.26091,
+    "longitude": 8.84555
+  },
+  {
+    "id": "140932",
+    "name": "Uznach Haslen",
+    "street": "Schulhausstrasse 5",
+    "city": "8730 Uznach SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140932",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2254569,8.983852",
+    "latitude": 47.2254569,
+    "longitude": 8.983852
+  },
+  {
+    "id": "140933",
+    "name": "Pfäffikon ZH Mettlen",
+    "street": "Mettlenstrasse",
+    "city": "8330 Pfäffikon ZH ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140933",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3627576,8.7928175",
+    "latitude": 47.3627576,
+    "longitude": 8.7928175
+  },
+  {
+    "id": "140935",
+    "name": "Uster Buchholz",
+    "street": "Hallenbadweg 7",
+    "city": "8610 Uster ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140935",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3594559,8.7256394",
+    "latitude": 47.3594559,
+    "longitude": 8.7256394
+  },
+  {
+    "id": "140937",
+    "name": "Wetzikon Walenbach",
+    "street": "Wallenbachstrasse 27",
+    "city": "8623 Wetzikon ZH ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140937",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3351241,8.8144442",
+    "latitude": 47.3351241,
+    "longitude": 8.8144442
+  },
+  {
+    "id": "140940",
+    "name": "Dübendorf Stägenbuck",
+    "street": "Lägernstrasse 15",
+    "city": "8600 Dübendorf ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140940",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4028147,8.6220764",
+    "latitude": 47.4028147,
+    "longitude": 8.6220764
+  },
+  {
+    "id": "140942",
+    "name": "Dietlikon Hüenerweid",
+    "street": "Riedenerstrasse 3",
+    "city": "8305 Dietlikon ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140942",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4237349,8.6159169",
+    "latitude": 47.4237349,
+    "longitude": 8.6159169
+  },
+  {
+    "id": "140944",
+    "name": "Kloten Ruebisbach",
+    "street": "Talacherstrasse 2",
+    "city": "8302 Kloten ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140944",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.462167,8.5779148",
+    "latitude": 47.462167,
+    "longitude": 8.5779148
+  },
+  {
+    "id": "140947",
+    "name": "Bassersdorf Sportanlage",
+    "street": "Grindelstrasse 20",
+    "city": "8303 Bassersdorf ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140947",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4440554,8.6099064",
+    "latitude": 47.4440554,
+    "longitude": 8.6099064
+  },
+  {
+    "id": "140948",
+    "name": "Bülach Militärhalle",
+    "street": "Müliweg 16",
+    "city": "8180 Bülach ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140948",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5112943,8.5267533",
+    "latitude": 47.5112943,
+    "longitude": 8.5267533
+  },
+  {
+    "id": "140949",
+    "name": "Oberglatt Chliriethalle",
+    "street": "Chlirietstrasse",
+    "city": "8154 Oberglatt ZH ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140949",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4699853,8.5149025",
+    "latitude": 47.4699853,
+    "longitude": 8.5149025
+  },
+  {
+    "id": "140950",
+    "name": "Rümlang Heuel",
+    "street": "Katzenrütistrasse 46",
+    "city": "8153 Rümlang ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140950",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.448694,8.5244525",
+    "latitude": 47.448694,
+    "longitude": 8.5244525
+  },
+  {
+    "id": "140951",
+    "name": "Regensdorf Wisacher",
+    "street": "Wiesackerstrasse 30",
+    "city": "8105 Regensdorf ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140951",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4380996,8.4611171",
+    "latitude": 47.4380996,
+    "longitude": 8.4611171
+  },
+  {
+    "id": "140953",
+    "name": "Unterengstringen Büel",
+    "street": "Grundweg 6",
+    "city": "8103 Unterengstringen ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140953",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4125953,8.4424494",
+    "latitude": 47.4125953,
+    "longitude": 8.4424494
+  },
+  {
+    "id": "140954",
+    "name": "Dietikon Stadthalle",
+    "street": "Fondlistrasse 9",
+    "city": "8953 Dietikon ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140954",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4070624,8.38786",
+    "latitude": 47.4070624,
+    "longitude": 8.38786
+  },
+  {
+    "id": "140955",
+    "name": "Urdorf Zentrum",
+    "street": "Birmensdorferstrasse 77",
+    "city": "8902 Urdorf ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140955",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3856081,8.4221162",
+    "latitude": 47.3856081,
+    "longitude": 8.4221162
+  },
+  {
+    "id": "140956",
+    "name": "Schlieren Unterrohr",
+    "street": "Unterrohrstrasse 2",
+    "city": "8952 Schlieren ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140956",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4037704,8.4387813",
+    "latitude": 47.4037704,
+    "longitude": 8.4387813
+  },
+  {
+    "id": "140957",
+    "name": "Effretikon Eselriet",
+    "street": "Sportplatzstrasse 1",
+    "city": "8307 Effretikon ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140957",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4226917,8.7005453",
+    "latitude": 47.4226917,
+    "longitude": 8.7005453
+  },
+  {
+    "id": "140958",
+    "name": "Freienstein",
+    "street": "Dorfstrasse 1",
+    "city": "8427 Freienstein ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140958",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5307372,8.5823582",
+    "latitude": 47.5307372,
+    "longitude": 8.5823582
+  },
+  {
+    "id": "140959",
+    "name": "Rothrist Breite",
+    "street": "Breitenstrasse 14",
+    "city": "4852 Rothrist AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140959",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3035398,7.8802083",
+    "latitude": 47.3035398,
+    "longitude": 7.8802083
+  },
+  {
+    "id": "140960",
+    "name": "Zofingen MZH",
+    "street": "Strengelbacherstrasse",
+    "city": "4800 Zofingen AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140960",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2842104,7.940659",
+    "latitude": 47.2842104,
+    "longitude": 7.940659
+  },
+  {
+    "id": "140961",
+    "name": "Zofingen BZZ",
+    "street": "Strengelbacherstrasse 27",
+    "city": "4800 Zofingen AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140961",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2824034,7.9415367",
+    "latitude": 47.2824034,
+    "longitude": 7.9415367
+  },
+  {
+    "id": "140962",
+    "name": "Aarburg MZA Paradiesli",
+    "street": "Paradiesli",
+    "city": "4663 Aarburg AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140962",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3159281,7.9005859",
+    "latitude": 47.3159281,
+    "longitude": 7.9005859
+  },
+  {
+    "id": "140963",
+    "name": "Olten Stadthalle Kleinholz",
+    "street": "Erlimattweg 3",
+    "city": "4600 Olten SO",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140963",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3428626,7.9012429",
+    "latitude": 47.3428626,
+    "longitude": 7.9012429
+  },
+  {
+    "id": "140964",
+    "name": "Olten BBZ (Giroud-Halle)",
+    "street": "Louis-Giroud-Strasse 37",
+    "city": "4600 Olten SO",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140964",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3456602,7.9100675",
+    "latitude": 47.3456602,
+    "longitude": 7.9100675
+  },
+  {
+    "id": "140966",
+    "name": "Oensingen Bechburg",
+    "street": "Jurastrasse 12",
+    "city": "4702 Oensingen SO",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140966",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2864659,7.7220361",
+    "latitude": 47.2864659,
+    "longitude": 7.7220361
+  },
+  {
+    "id": "140967",
+    "name": "Aarau Schachen",
+    "street": "Sporthalle Schachen",
+    "city": "5000 Aarau AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140967",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3899614,8.0404667",
+    "latitude": 47.3899614,
+    "longitude": 8.0404667
+  },
+  {
+    "id": "140968",
+    "name": "Aarau Telli",
+    "street": "Tellistrasse 80",
+    "city": "5000 Aarau AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140968",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3976677,8.0600949",
+    "latitude": 47.3976677,
+    "longitude": 8.0600949
+  },
+  {
+    "id": "140969",
+    "name": "Aarau Berufsschule",
+    "street": "Tellistrasse 58",
+    "city": "5000 Aarau AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140969",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3971392,8.0563399",
+    "latitude": 47.3971392,
+    "longitude": 8.0563399
+  },
+  {
+    "id": "140970",
+    "name": "Erlinsbach Bläuen",
+    "street": "Bläuenstrasse 4",
+    "city": "5015 Erlinsbach SO SO",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140970",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.395711,8.0123062",
+    "latitude": 47.395711,
+    "longitude": 8.0123062
+  },
+  {
+    "id": "140971",
+    "name": "Buchs Suhrenmatte",
+    "street": "Zopfweg 23",
+    "city": "5033 Buchs AG AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140971",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3925694,8.0763274",
+    "latitude": 47.3925694,
+    "longitude": 8.0763274
+  },
+  {
+    "id": "140972",
+    "name": "Oberentfelden SPH",
+    "street": "Erlenweg",
+    "city": "5036 Oberentfelden AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140972",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3583811,8.0431524",
+    "latitude": 47.3583811,
+    "longitude": 8.0431524
+  },
+  {
+    "id": "140973",
+    "name": "Schöftland SPH",
+    "street": "Birkenweg 4",
+    "city": "5040 Schöftland AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140973",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3074409,8.0524716",
+    "latitude": 47.3074409,
+    "longitude": 8.0524716
+  },
+  {
+    "id": "140974",
+    "name": "Lenzburg Neuhof",
+    "street": "Neuhofstrasse",
+    "city": "5600 Lenzburg AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140974",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3894104,8.1895599",
+    "latitude": 47.3894104,
+    "longitude": 8.1895599
+  },
+  {
+    "id": "140975",
+    "name": "Gränichen SPH",
+    "street": "Mitteldorfstrasse 22",
+    "city": "5722 Gränichen AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140975",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3592463,8.0979123",
+    "latitude": 47.3592463,
+    "longitude": 8.0979123
+  },
+  {
+    "id": "140977",
+    "name": "Seon SPH",
+    "street": "Friedhofweg",
+    "city": "5703 Seon AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140977",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3445775,8.1578172",
+    "latitude": 47.3445775,
+    "longitude": 8.1578172
+  },
+  {
+    "id": "140978",
+    "name": "Widen Burkertsmatt",
+    "street": "Burkertsmatt 11",
+    "city": "8967 Widen AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140978",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3682091,8.3680459",
+    "latitude": 47.3682091,
+    "longitude": 8.3680459
+  },
+  {
+    "id": "140980",
+    "name": "Wohlen Hofmatten 1",
+    "street": "Hofmattenweg 17",
+    "city": "5610 Wohlen AG AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140980",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3530503,8.2808777",
+    "latitude": 47.3530503,
+    "longitude": 8.2808777
+  },
+  {
+    "id": "140981",
+    "name": "Wohlen Junkholz",
+    "street": "Junkholz",
+    "city": "5610 Wohlen AG AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140981",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3440677,8.2804931",
+    "latitude": 47.3440677,
+    "longitude": 8.2804931
+  },
+  {
+    "id": "140982",
+    "name": "Muri Bachmatten",
+    "street": "Talstrasse",
+    "city": "5630 Muri AG AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140982",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.28588,8.345305",
+    "latitude": 47.28588,
+    "longitude": 8.345305
+  },
+  {
+    "id": "140983",
+    "name": "Mutschellen Kreisschule",
+    "street": "Bahnhofstrasse 34",
+    "city": "8965 Berikon AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140983",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3562716,8.3652871",
+    "latitude": 47.3562716,
+    "longitude": 8.3652871
+  },
+  {
+    "id": "140984",
+    "name": "Suhr Doppelturnhalle",
+    "street": "Dorfzentrum Schulanlage",
+    "city": "5034 Suhr AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140984",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3757768,8.080895",
+    "latitude": 47.3757768,
+    "longitude": 8.080895
+  },
+  {
+    "id": "140986",
+    "name": "Brugg Mülimatt",
+    "street": "Gaswerkstrasse 2",
+    "city": "5210 Windisch AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140986",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4838924,8.2154436",
+    "latitude": 47.4838924,
+    "longitude": 8.2154436
+  },
+  {
+    "id": "140987",
+    "name": "Berikon Berikerhuus",
+    "street": "Bahnhofstrasse",
+    "city": "8965 Berikon AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140987",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3567365,8.3664061",
+    "latitude": 47.3567365,
+    "longitude": 8.3664061
+  },
+  {
+    "id": "140989",
+    "name": "Baden Aue",
+    "street": "Kanalstrasse 9",
+    "city": "5400 Baden AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140989",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4693863,8.3110916",
+    "latitude": 47.4693863,
+    "longitude": 8.3110916
+  },
+  {
+    "id": "140991",
+    "name": "Frick Ebnet",
+    "street": "Sportplatzweg",
+    "city": "5070 Frick AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140991",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5032106,8.0168152",
+    "latitude": 47.5032106,
+    "longitude": 8.0168152
+  },
+  {
+    "id": "140992",
+    "name": "Brittnau SPH",
+    "street": "Dorfstrasse",
+    "city": "4805 Brittnau AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140992",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.259466,7.945855",
+    "latitude": 47.259466,
+    "longitude": 7.945855
+  },
+  {
+    "id": "140993",
+    "name": "Klingnau Schützenmatt",
+    "street": "Schützenmattweg 1",
+    "city": "5313 Klingnau AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140993",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5780445,8.2500141",
+    "latitude": 47.5780445,
+    "longitude": 8.2500141
+  },
+  {
+    "id": "140995",
+    "name": "Wettingen Tägerhard",
+    "street": "Tägerhardstrasse 122",
+    "city": "5430 Wettingen AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140995",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.454916,8.3372159",
+    "latitude": 47.454916,
+    "longitude": 8.3372159
+  },
+  {
+    "id": "140996",
+    "name": "Würenlingen Weissenstein",
+    "street": "Lilienweg 1",
+    "city": "5303 Würenlingen AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140996",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5267,8.2496",
+    "latitude": 47.5267,
+    "longitude": 8.2496
+  },
+  {
+    "id": "140997",
+    "name": "Bad Zurzach Tiergarten",
+    "street": "Neubergstrasse 6",
+    "city": "5330 Bad Zurzach AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140997",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5843615,8.2944369",
+    "latitude": 47.5843615,
+    "longitude": 8.2944369
+  },
+  {
+    "id": "140998",
+    "name": "Obersiggenthal SPH",
+    "street": "Kirchweg 74",
+    "city": "5415 Nussbaumen AG AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140998",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4920733,8.2836332",
+    "latitude": 47.4920733,
+    "longitude": 8.2836332
+  },
+  {
+    "id": "140999",
+    "name": "Brugg Militärhalle",
+    "street": "Wickihaldenweg 20",
+    "city": "5200 Brugg AG AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/140999",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4867355,8.2109103",
+    "latitude": 47.4867355,
+    "longitude": 8.2109103
+  },
+  {
+    "id": "141000",
+    "name": "Luzern Maihof",
+    "street": "Maihofstrasse 7",
+    "city": "6004 Luzern LU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141000",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0620298,8.3073485",
+    "latitude": 47.0620298,
+    "longitude": 8.3073485
+  },
+  {
+    "id": "141001",
+    "name": "Luzern Utenberg",
+    "street": "Utenbergstrasse 1",
+    "city": "6006 Luzern LU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141001",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0613066,8.3254636",
+    "latitude": 47.0613066,
+    "longitude": 8.3254636
+  },
+  {
+    "id": "141003",
+    "name": "Luzern Allmend",
+    "street": "Armee-Ausbildungszentrum",
+    "city": "6006 Luzern LU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141003",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0352152,8.300033",
+    "latitude": 47.0352152,
+    "longitude": 8.300033
+  },
+  {
+    "id": "141004",
+    "name": "Luzern Wartegg",
+    "street": "Warteggstrasse 5",
+    "city": "6005 Luzern LU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141004",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0398519,8.3243326",
+    "latitude": 47.0398519,
+    "longitude": 8.3243326
+  },
+  {
+    "id": "141005",
+    "name": "Kriens Krauerhalle",
+    "street": "Horwerstrasse 10",
+    "city": "6010 Kriens LU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141005",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0326311,8.2812947",
+    "latitude": 47.0326311,
+    "longitude": 8.2812947
+  },
+  {
+    "id": "141006",
+    "name": "Kriens Meiersmatt",
+    "street": "Südstrasse 36",
+    "city": "6010 Kriens LU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141006",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0317717,8.2680202",
+    "latitude": 47.0317717,
+    "longitude": 8.2680202
+  },
+  {
+    "id": "141007",
+    "name": "Horw Horwerhalle",
+    "street": "Allmendstrasse 16 A",
+    "city": "6048 Horw LU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141007",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0202141,8.3079082",
+    "latitude": 47.0202141,
+    "longitude": 8.3079082
+  },
+  {
+    "id": "141008",
+    "name": "Littau Ruopigen",
+    "street": "Schulhaus Ruopigen",
+    "city": "6015 Luzern LU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141008",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.060885,8.272305",
+    "latitude": 47.060885,
+    "longitude": 8.272305
+  },
+  {
+    "id": "141009",
+    "name": "Emmen Rossmoos",
+    "street": "Rossmoos",
+    "city": "6032 Emmen LU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141009",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0810864,8.2850993",
+    "latitude": 47.0810864,
+    "longitude": 8.2850993
+  },
+  {
+    "id": "141010",
+    "name": "Emmenbrücke Erlen",
+    "street": "Erlenmatte 80",
+    "city": "6020 Emmenbrücke LU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141010",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0756215,8.2609692",
+    "latitude": 47.0756215,
+    "longitude": 8.2609692
+  },
+  {
+    "id": "141011",
+    "name": "Emmen Gersag",
+    "street": "Gersag Stadion",
+    "city": "6032 Emmen LU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141011",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0794661,8.2838319",
+    "latitude": 47.0794661,
+    "longitude": 8.2838319
+  },
+  {
+    "id": "141013",
+    "name": "Rothenburg Chärnshalle",
+    "street": "Chärnsmatt",
+    "city": "6023 Rothenburg LU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141013",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0999626,8.2711087",
+    "latitude": 47.0999626,
+    "longitude": 8.2711087
+  },
+  {
+    "id": "141014",
+    "name": "Malters Oberei",
+    "street": "Hellbühlstrasse",
+    "city": "6102 Malters LU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141014",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0466766,8.1912039",
+    "latitude": 47.0466766,
+    "longitude": 8.1912039
+  },
+  {
+    "id": "141015",
+    "name": "Nottwil SPZ",
+    "street": "Schweiz. Paraplegikerzentrum Nottwil",
+    "city": "6207 Nottwil LU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141015",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.141529,8.130884",
+    "latitude": 47.141529,
+    "longitude": 8.130884
+  },
+  {
+    "id": "141016",
+    "name": "Sursee Stadthalle",
+    "street": "St. Urbanstrasse 3",
+    "city": "6210 Sursee LU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141016",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1742158,8.1075737",
+    "latitude": 47.1742158,
+    "longitude": 8.1075737
+  },
+  {
+    "id": "141017",
+    "name": "Dagmersellen Chrüzmatt",
+    "street": "Stermelstrasse 1",
+    "city": "6252 Dagmersellen LU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141017",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2163343,7.9856801",
+    "latitude": 47.2163343,
+    "longitude": 7.9856801
+  },
+  {
+    "id": "141018",
+    "name": "Hochdorf Avanti",
+    "street": "Sagenbachstrasse 24",
+    "city": "6280 Hochdorf LU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141018",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.169065,8.2943124",
+    "latitude": 47.169065,
+    "longitude": 8.2943124
+  },
+  {
+    "id": "141019",
+    "name": "Ruswil MZH",
+    "street": "Wolhuserstrasse 29",
+    "city": "6017 Ruswil LU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141019",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.081645,8.1193396",
+    "latitude": 47.081645,
+    "longitude": 8.1193396
+  },
+  {
+    "id": "141020",
+    "name": "Wolhusen Berghof",
+    "street": "Berghofstrasse 10",
+    "city": "6110 Wolhusen LU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141020",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0609905,8.0713202",
+    "latitude": 47.0609905,
+    "longitude": 8.0713202
+  },
+  {
+    "id": "141023",
+    "name": "Willisau Hallenbad",
+    "street": "Schlossfeldstrasse 2",
+    "city": "6130 Willisau LU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141023",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1189505,7.9905136",
+    "latitude": 47.1189505,
+    "longitude": 7.9905136
+  },
+  {
+    "id": "141027",
+    "name": "Hünenberg Ehret",
+    "street": "Zentrumstrasse 10",
+    "city": "6331 Hünenberg ZG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141027",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1734153,8.4303616",
+    "latitude": 47.1734153,
+    "longitude": 8.4303616
+  },
+  {
+    "id": "141029",
+    "name": "Baar Waldmannhalle",
+    "street": "Sonnackerstrasse",
+    "city": "6340 Baar ZG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141029",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1982676,8.5181584",
+    "latitude": 47.1982676,
+    "longitude": 8.5181584
+  },
+  {
+    "id": "141030",
+    "name": "Stans Eichli",
+    "street": "Sporthalle Eichli",
+    "city": "6370 Stans NW",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141030",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.965558,8.3638837",
+    "latitude": 46.965558,
+    "longitude": 8.3638837
+  },
+  {
+    "id": "141031",
+    "name": "Stans Pestalozzi",
+    "street": "Turnhalle Pestalozzi",
+    "city": "6370 Stans NW",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141031",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.9578151,8.3697883",
+    "latitude": 46.9578151,
+    "longitude": 8.3697883
+  },
+  {
+    "id": "141033",
+    "name": "Sarnen Kanti",
+    "street": "Rütistrasse 3",
+    "city": "6060 Sarnen OW",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141033",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.8917677,8.2434627",
+    "latitude": 46.8917677,
+    "longitude": 8.2434627
+  },
+  {
+    "id": "141034",
+    "name": "Goldau Berufsbildungszentrum (BBZG)",
+    "street": "Zaystrasse 44",
+    "city": "6410 Goldau SZ",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141034",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0459981,8.554242",
+    "latitude": 47.0459981,
+    "longitude": 8.554242
+  },
+  {
+    "id": "141035",
+    "name": "Brunnen Sporthalle",
+    "street": "Schulhausplatz 9",
+    "city": "6440 Brunnen SZ",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141035",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.9986033,8.6123363",
+    "latitude": 46.9986033,
+    "longitude": 8.6123363
+  },
+  {
+    "id": "141037",
+    "name": "Muotathal MZH",
+    "street": "Stumpenmatt 5",
+    "city": "6436 Muotathal SZ",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141037",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.976292,8.759921",
+    "latitude": 46.976292,
+    "longitude": 8.759921
+  },
+  {
+    "id": "141038",
+    "name": "Altdorf Feldli",
+    "street": "Seedorferstrasse 1a",
+    "city": "6460 Altdorf UR UR",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141038",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.8806989,8.6375269",
+    "latitude": 46.8806989,
+    "longitude": 8.6375269
+  },
+  {
+    "id": "141039",
+    "name": "Basel St. Jakob Spielhalle",
+    "street": "Brüglingerstrasse 21",
+    "city": "4052 Basel BS",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141039",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5398991,7.6182583",
+    "latitude": 47.5398991,
+    "longitude": 7.6182583
+  },
+  {
+    "id": "141040",
+    "name": "Basel Bäumlihof",
+    "street": "zu den 3 Linden 80",
+    "city": "4058 Basel BS",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141040",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.56783,7.6262858",
+    "latitude": 47.56783,
+    "longitude": 7.6262858
+  },
+  {
+    "id": "141041",
+    "name": "Basel Freies Gymnasium",
+    "street": "Scherkesselweg 30",
+    "city": "4052 Basel BS",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141041",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5457838,7.6161198",
+    "latitude": 47.5457838,
+    "longitude": 7.6161198
+  },
+  {
+    "id": "141043",
+    "name": "Basel Dreirosen",
+    "street": "Breisacherstrasse 134",
+    "city": "4053 Basel BS",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141043",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5697458,7.5889895",
+    "latitude": 47.5697458,
+    "longitude": 7.5889895
+  },
+  {
+    "id": "141044",
+    "name": "Aesch Löhrenacker",
+    "street": "Landskronstrasse 41",
+    "city": "4147 Aesch BL BL",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141044",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4735592,7.5869681",
+    "latitude": 47.4735592,
+    "longitude": 7.5869681
+  },
+  {
+    "id": "141046",
+    "name": "Binningen Spiegelfeld",
+    "street": "Wassergrabenstrasse 21",
+    "city": "4102 Binningen BL",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141046",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5348037,7.5676157",
+    "latitude": 47.5348037,
+    "longitude": 7.5676157
+  },
+  {
+    "id": "141047",
+    "name": "Eiken Lindenboden",
+    "street": "Bachweg",
+    "city": "5074 Eiken AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141047",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5326718,7.9944254",
+    "latitude": 47.5326718,
+    "longitude": 7.9944254
+  },
+  {
+    "id": "141048",
+    "name": "Frenkendorf Auf der Egg",
+    "street": "Fasanenstrasse 23",
+    "city": "4402 Frenkendorf BL",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141048",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5070027,7.7161613",
+    "latitude": 47.5070027,
+    "longitude": 7.7161613
+  },
+  {
+    "id": "141049",
+    "name": "Laufen Gymnasium",
+    "street": "Steinackerweg 7",
+    "city": "4242 Laufen BL",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141049",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4205238,7.506567",
+    "latitude": 47.4205238,
+    "longitude": 7.506567
+  },
+  {
+    "id": "141051",
+    "name": "Liestal Frenkenbündten",
+    "street": "Gitterlistrasse 5B",
+    "city": "4410 Liestal BL",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141051",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4773637,7.7401904",
+    "latitude": 47.4773637,
+    "longitude": 7.7401904
+  },
+  {
+    "id": "141052",
+    "name": "Magden Juch",
+    "street": "Schulstrasse 27",
+    "city": "4312 Magden AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141052",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5287581,7.8132775",
+    "latitude": 47.5287581,
+    "longitude": 7.8132775
+  },
+  {
+    "id": "141053",
+    "name": "Möhlin Steinli B",
+    "street": "Sportplatzweg 1",
+    "city": "4313 Möhlin AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141053",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.569378,7.84458",
+    "latitude": 47.569378,
+    "longitude": 7.84458
+  },
+  {
+    "id": "141054",
+    "name": "Muttenz Kriegacker",
+    "street": "Gründenstrasse 32",
+    "city": "4132 Muttenz BL",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141054",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5337754,7.6395792",
+    "latitude": 47.5337754,
+    "longitude": 7.6395792
+  },
+  {
+    "id": "141055",
+    "name": "Muttenz Margelacker",
+    "street": "Reichensteinerstrasse 2",
+    "city": "4132 Muttenz BL",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141055",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5306168,7.6299795",
+    "latitude": 47.5306168,
+    "longitude": 7.6299795
+  },
+  {
+    "id": "141056",
+    "name": "Basel Pfaffenholz",
+    "street": "im Burgfelderhof 60B",
+    "city": "4055 Basel BS",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141056",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.573268,7.556801",
+    "latitude": 47.573268,
+    "longitude": 7.556801
+  },
+  {
+    "id": "141057",
+    "name": "Oberwil Thomasgarten",
+    "street": "Schmiedengasse 3",
+    "city": "4104 Oberwil BL BL",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141057",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5145578,7.5537887",
+    "latitude": 47.5145578,
+    "longitude": 7.5537887
+  },
+  {
+    "id": "141058",
+    "name": "Pratteln KSZ",
+    "street": "Oberemattstrasse 13",
+    "city": "4133 Pratteln BL",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141058",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5194367,7.6956194",
+    "latitude": 47.5194367,
+    "longitude": 7.6956194
+  },
+  {
+    "id": "141059",
+    "name": "Reinach Fiechten",
+    "street": "Fiechtenweg 72",
+    "city": "4153 Reinach BL BL",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141059",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4871485,7.5874702",
+    "latitude": 47.4871485,
+    "longitude": 7.5874702
+  },
+  {
+    "id": "141060",
+    "name": "Rheinfelden Engerfeld S1",
+    "street": "Engerfeldstrasse 16-20",
+    "city": "4310 Rheinfelden AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141060",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5478498,7.8019579",
+    "latitude": 47.5478498,
+    "longitude": 7.8019579
+  },
+  {
+    "id": "141061",
+    "name": "Sissach Tannenbrunn",
+    "street": "Zunzgerstrasse 66",
+    "city": "4450 Sissach BL",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141061",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4584185,7.8057805",
+    "latitude": 47.4584185,
+    "longitude": 7.8057805
+  },
+  {
+    "id": "141062",
+    "name": "Stein Bustelbach",
+    "street": "Sportplatzweg 2",
+    "city": "4332 Stein AG AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141062",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5442576,7.9615074",
+    "latitude": 47.5442576,
+    "longitude": 7.9615074
+  },
+  {
+    "id": "141067",
+    "name": "Riehen Niederholz",
+    "street": "Niederholzstrasse 95",
+    "city": "4125 Riehen BS",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141067",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5711711,7.6345106",
+    "latitude": 47.5711711,
+    "longitude": 7.6345106
+  },
+  {
+    "id": "141068",
+    "name": "Münchenstein KUSPO",
+    "street": "Loogstrasse 2",
+    "city": "4142 Münchenstein BL",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141068",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5200702,7.6166117",
+    "latitude": 47.5200702,
+    "longitude": 7.6166117
+  },
+  {
+    "id": "141069",
+    "name": "Bern Spitalacker 1-3",
+    "street": "Gotthelfstrasse 30",
+    "city": "3013 Bern BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141069",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.9543832,7.453083",
+    "latitude": 46.9543832,
+    "longitude": 7.453083
+  },
+  {
+    "id": "141070",
+    "name": "Bern Tscharnergut 1-2",
+    "street": "Fellerstrasse 18",
+    "city": "3027 Bern BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141070",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.9476927,7.3905512",
+    "latitude": 46.9476927,
+    "longitude": 7.3905512
+  },
+  {
+    "id": "141071",
+    "name": "Bern ZSSw",
+    "street": "Bremgartenstrasse 145",
+    "city": "3012 Bern BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141071",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.9620819,7.4320308",
+    "latitude": 46.9620819,
+    "longitude": 7.4320308
+  },
+  {
+    "id": "141072",
+    "name": "Bern Wankdorf",
+    "street": "Papiermühlestrasse 91",
+    "city": "3014 Bern BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141072",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.9646443,7.4665272",
+    "latitude": 46.9646443,
+    "longitude": 7.4665272
+  },
+  {
+    "id": "141074",
+    "name": "Moosseedorf Staffel 3",
+    "street": "Schulhausstrasse 23-25",
+    "city": "3302 Moosseedorf BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141074",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0114508,7.4803592",
+    "latitude": 47.0114508,
+    "longitude": 7.4803592
+  },
+  {
+    "id": "141075",
+    "name": "Gümligen Moos",
+    "street": "Rohrmattstrasse 10",
+    "city": "3073 Gümligen BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141075",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.9310394,7.5074404",
+    "latitude": 46.9310394,
+    "longitude": 7.5074404
+  },
+  {
+    "id": "141076",
+    "name": "Münchenbuchsee Bodenacker",
+    "street": "Quellenweg",
+    "city": "3053 Münchenbuchsee BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141076",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0181897,7.444825",
+    "latitude": 47.0181897,
+    "longitude": 7.444825
+  },
+  {
+    "id": "141077",
+    "name": "Zollikofen Geisshubel",
+    "street": "Alpenstrasse 74",
+    "city": "3052 Zollikofen BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141077",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0002775,7.4400134",
+    "latitude": 47.0002775,
+    "longitude": 7.4400134
+  },
+  {
+    "id": "141078",
+    "name": "Belp Alte Neumatt",
+    "street": "Neumattstrasse 33",
+    "city": "3123 Belp BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141078",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.899066,7.4991322",
+    "latitude": 46.899066,
+    "longitude": 7.4991322
+  },
+  {
+    "id": "141079",
+    "name": "Köniz OZK",
+    "street": "Schwarzenburgstrasse 321",
+    "city": "3098 Köniz BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141079",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.9195967,7.4136496",
+    "latitude": 46.9195967,
+    "longitude": 7.4136496
+  },
+  {
+    "id": "141082",
+    "name": "Köniz Lerbermatte",
+    "street": "Kirchstrasse 72",
+    "city": "3098 Köniz BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141082",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.929971,7.4352056",
+    "latitude": 46.929971,
+    "longitude": 7.4352056
+  },
+  {
+    "id": "141084",
+    "name": "Burgdorf Lindenfeld",
+    "street": "Zähringerstrasse 37",
+    "city": "3400 Burgdorf BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141084",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0496547,7.6189267",
+    "latitude": 47.0496547,
+    "longitude": 7.6189267
+  },
+  {
+    "id": "141086",
+    "name": "Worb Worbboden",
+    "street": "Lauigasse 5",
+    "city": "3076 Worb BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141086",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.9314135,7.5565388",
+    "latitude": 46.9314135,
+    "longitude": 7.5565388
+  },
+  {
+    "id": "141087",
+    "name": "Langnau Höhenweg",
+    "street": "Höhenweg 10 A",
+    "city": "3550 Langnau im Emmental BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141087",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.9400408,7.7905887",
+    "latitude": 46.9400408,
+    "longitude": 7.7905887
+  },
+  {
+    "id": "141088",
+    "name": "Bolligen Eisengasse",
+    "street": "Eisengasse 3",
+    "city": "3065 Bolligen BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141088",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.9710474,7.4953881",
+    "latitude": 46.9710474,
+    "longitude": 7.4953881
+  },
+  {
+    "id": "141089",
+    "name": "Langenthal Hard",
+    "street": "Weststrasse 33",
+    "city": "4900 Langenthal BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141089",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2193899,7.774807",
+    "latitude": 47.2193899,
+    "longitude": 7.774807
+  },
+  {
+    "id": "141091",
+    "name": "Ittigen Rain",
+    "street": "Rain 15",
+    "city": "3063 Ittigen BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141091",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.9761239,7.4806809",
+    "latitude": 46.9761239,
+    "longitude": 7.4806809
+  },
+  {
+    "id": "141093",
+    "name": "Jegenstorf Gyrisberg",
+    "street": "Brüggackerstrasse 34 a",
+    "city": "3303 Jegenstorf BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141093",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0506163,7.5139615",
+    "latitude": 47.0506163,
+    "longitude": 7.5139615
+  },
+  {
+    "id": "141094",
+    "name": "Steffisburg Musterplatz",
+    "street": "Zulgstrasse 32",
+    "city": "3612 Steffisburg BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141094",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.7779935,7.6320287",
+    "latitude": 46.7779935,
+    "longitude": 7.6320287
+  },
+  {
+    "id": "141098",
+    "name": "Spiez ABC-Zentrum",
+    "street": "Austrasse",
+    "city": "3700 Spiez BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141098",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.6913408,7.6432401",
+    "latitude": 46.6913408,
+    "longitude": 7.6432401
+  },
+  {
+    "id": "141099",
+    "name": "Thun Lachen",
+    "street": "Gwattstrasse 25",
+    "city": "3604 Thun BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141099",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.7369913,7.628105",
+    "latitude": 46.7369913,
+    "longitude": 7.628105
+  },
+  {
+    "id": "141100",
+    "name": "Unterseen Bödeli-Bad",
+    "street": "Untere Goldey 67",
+    "city": "3800 Unterseen BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141100",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.690239,7.8575554",
+    "latitude": 46.690239,
+    "longitude": 7.8575554
+  },
+  {
+    "id": "141103",
+    "name": "Interlaken BZI",
+    "street": "Obere Bönigstrasse 19",
+    "city": "3800 Interlaken BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141103",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.6839421,7.8721542",
+    "latitude": 46.6839421,
+    "longitude": 7.8721542
+  },
+  {
+    "id": "141104",
+    "name": "Münsingen Schlossmatt",
+    "street": "Schlossmattstrasse 2",
+    "city": "3110 Münsingen BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141104",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.8757866,7.5568376",
+    "latitude": 46.8757866,
+    "longitude": 7.5568376
+  },
+  {
+    "id": "141105",
+    "name": "Visp Turn- u. Spielhalle",
+    "street": "Zendenstrasse 4",
+    "city": "3930 Visp VS",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141105",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.2894137,7.8806047",
+    "latitude": 46.2894137,
+    "longitude": 7.8806047
+  },
+  {
+    "id": "141106",
+    "name": "Neuenegg Dorf",
+    "street": "Schulhausstrasse 7",
+    "city": "3176 Neuenegg BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141106",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.8967401,7.2964689",
+    "latitude": 46.8967401,
+    "longitude": 7.2964689
+  },
+  {
+    "id": "141107",
+    "name": "Biel BBZ 1-3",
+    "street": "Wasenstrasse 5",
+    "city": "2504 Biel/Bienne BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141107",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1452077,7.254438",
+    "latitude": 47.1452077,
+    "longitude": 7.254438
+  },
+  {
+    "id": "141108",
+    "name": "Biel BBZ 4-6",
+    "street": "Wasenstrasse 5",
+    "city": "2504 Biel/Bienne BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141108",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1452077,7.254438",
+    "latitude": 47.1452077,
+    "longitude": 7.254438
+  },
+  {
+    "id": "141111",
+    "name": "Lyss Grien",
+    "street": "Oberer Aareweg 37",
+    "city": "3250 Lyss BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141111",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0783958,7.2967709",
+    "latitude": 47.0783958,
+    "longitude": 7.2967709
+  },
+  {
+    "id": "141112",
+    "name": "Biel Gym Seeland",
+    "street": "Ländtestrasse 12",
+    "city": "2501 Biel/Bienne BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141112",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1334112,7.2359728",
+    "latitude": 47.1334112,
+    "longitude": 7.2359728
+  },
+  {
+    "id": "141114",
+    "name": "Solothurn CIS",
+    "street": "Hans-Huberstrasse 43",
+    "city": "4500 Solothurn SO",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141114",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2001374,7.5273537",
+    "latitude": 47.2001374,
+    "longitude": 7.5273537
+  },
+  {
+    "id": "141115",
+    "name": "Büren Turn- u. Sporthalle",
+    "street": "Aarbergstrasse 20",
+    "city": "3294 Büren an der Aare BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141115",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1399648,7.3683795",
+    "latitude": 47.1399648,
+    "longitude": 7.3683795
+  },
+  {
+    "id": "141119",
+    "name": "La Chaux-de-Fonds Pavillon des sports",
+    "street": "Route de la Charrière 78",
+    "city": "2300 La Chaux-de-Fonds NE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141119",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1122471,6.8366403",
+    "latitude": 47.1122471,
+    "longitude": 6.8366403
+  },
+  {
+    "id": "141120",
+    "name": "Ins Rötschmatte",
+    "street": "Rötschmattenweg",
+    "city": "3232 Ins BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141120",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0077403,7.1123423",
+    "latitude": 47.0077403,
+    "longitude": 7.1123423
+  },
+  {
+    "id": "141122",
+    "name": "Utzenstorf MZG",
+    "street": "Gotthelfstrasse 15",
+    "city": "3427 Utzenstorf BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141122",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1257613,7.555738",
+    "latitude": 47.1257613,
+    "longitude": 7.555738
+  },
+  {
+    "id": "141126",
+    "name": "Magglingen Sport-Toto 1",
+    "street": "Hohmattstrasse",
+    "city": "2532 Magglingen/Macolin BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141126",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.135797,7.206774",
+    "latitude": 47.135797,
+    "longitude": 7.206774
+  },
+  {
+    "id": "141127",
+    "name": "Lausanne Bergières",
+    "street": "Avenue des Bergières 44",
+    "city": "1004 Lausanne VD",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141127",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.5320024,6.621883",
+    "latitude": 46.5320024,
+    "longitude": 6.621883
+  },
+  {
+    "id": "141129",
+    "name": "Lausanne Grand-Vennes",
+    "street": "Chemin des Abeilles 11",
+    "city": "1010 Lausanne VD",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141129",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.54107,6.6471503",
+    "latitude": 46.54107,
+    "longitude": 6.6471503
+  },
+  {
+    "id": "141130",
+    "name": "Le Sentier La Raisse Armand",
+    "street": "Rue du Centre Sportif 1",
+    "city": "1347 Le Sentier VD",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141130",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.6034504,6.2284859",
+    "latitude": 46.6034504,
+    "longitude": 6.2284859
+  },
+  {
+    "id": "141131",
+    "name": "Yverdon Léon Michaud",
+    "street": "Rue Roger-de-Guimps",
+    "city": "1400 Yverdon-les-Bains VD",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141131",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.7756943,6.6359855",
+    "latitude": 46.7756943,
+    "longitude": 6.6359855
+  },
+  {
+    "id": "141132",
+    "name": "Crissier Marcolet",
+    "street": "Route de Marcolet 44",
+    "city": "1023 Crissier VD",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141132",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.544477,6.5752474",
+    "latitude": 46.544477,
+    "longitude": 6.5752474
+  },
+  {
+    "id": "141133",
+    "name": "Nyon Rocher",
+    "street": "Chemin de Prelaz 5",
+    "city": "1260 Nyon VD",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141133",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.3871454,6.236342",
+    "latitude": 46.3871454,
+    "longitude": 6.236342
+  },
+  {
+    "id": "141134",
+    "name": "Genève Queue d'Arve",
+    "street": "Rue François-Dussaud 12",
+    "city": "1227 Les Acacias GE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141134",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.1964936,6.1309375",
+    "latitude": 46.1964936,
+    "longitude": 6.1309375
+  },
+  {
+    "id": "141136",
+    "name": "Vevey Galeries",
+    "street": "Rue L.-Meyer 4",
+    "city": "1800 Vevey VD",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141136",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.4602283,6.8402386",
+    "latitude": 46.4602283,
+    "longitude": 6.8402386
+  },
+  {
+    "id": "141137",
+    "name": "Chênois Sous-Moulin",
+    "street": "Sous-Moulin 39",
+    "city": "1226 Thônex GE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141137",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.188672,6.1926308",
+    "latitude": 46.188672,
+    "longitude": 6.1926308
+  },
+  {
+    "id": "141138",
+    "name": "Fribourg Halle de Ste-Croix",
+    "street": "Rue Antoine-de-Saint-Exupéry 14",
+    "city": "1700 Fribourg FR",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141138",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.7964244,7.1576957",
+    "latitude": 46.7964244,
+    "longitude": 7.1576957
+  },
+  {
+    "id": "141139",
+    "name": "Renens Léman",
+    "street": "Av. du Léman 10",
+    "city": "1020 Renens VD VD",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/141139",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.5310881,6.5867886",
+    "latitude": 46.5310881,
+    "longitude": 6.5867886
+  },
+  {
+    "id": "164401",
+    "name": "Flawil Botsberg",
+    "street": "Unterstrasse 10",
+    "city": "9230 Flawil SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/164401",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4153628,9.1747546",
+    "latitude": 47.4153628,
+    "longitude": 9.1747546
+  },
+  {
+    "id": "164403",
+    "name": "Herzogenbuchsee Mittelholz",
+    "street": "Mittelholzstrasse 2",
+    "city": "3360 Herzogenbuchsee BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/164403",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1873544,7.7158651",
+    "latitude": 47.1873544,
+    "longitude": 7.7158651
+  },
+  {
+    "id": "164404",
+    "name": "Zug Sporthalle",
+    "street": "General Guisanstrasse 2",
+    "city": "6300 Zug ZG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/164404",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1759887,8.5086145",
+    "latitude": 47.1759887,
+    "longitude": 8.5086145
+  },
+  {
+    "id": "164409",
+    "name": "Suhr Hofstattmatten",
+    "street": "Suhrestrasse 44",
+    "city": "5034 Suhr AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/164409",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3706901,8.0712009",
+    "latitude": 47.3706901,
+    "longitude": 8.0712009
+  },
+  {
+    "id": "164411",
+    "name": "Endingen MZH",
+    "street": "Lochstrasse 8",
+    "city": "5304 Endingen AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/164411",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5344349,8.2858104",
+    "latitude": 47.5344349,
+    "longitude": 8.2858104
+  },
+  {
+    "id": "164413",
+    "name": "Balsthal Haulismatt",
+    "street": "Haulismattstrasse",
+    "city": "4710 Balsthal SO",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/164413",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3144705,7.6917414",
+    "latitude": 47.3144705,
+    "longitude": 7.6917414
+  },
+  {
+    "id": "164414",
+    "name": "Muri Badweiher",
+    "street": "Badweiherstrasse 4",
+    "city": "5630 Muri AG AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/164414",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2698027,8.3368143",
+    "latitude": 47.2698027,
+    "longitude": 8.3368143
+  },
+  {
+    "id": "164415",
+    "name": "Siggenthal Station GoEasy 1",
+    "street": "Hardstrasse 10",
+    "city": "5301 Siggenthal Station AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/164415",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.517536,8.237707",
+    "latitude": 47.517536,
+    "longitude": 8.237707
+  },
+  {
+    "id": "164416",
+    "name": "Siggenthal Station GoEasy 2",
+    "street": "Hardstrasse 10",
+    "city": "5301 Siggenthal Station AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/164416",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.517536,8.237707",
+    "latitude": 47.517536,
+    "longitude": 8.237707
+  },
+  {
+    "id": "164419",
+    "name": "Wohlen Bünzmatt",
+    "street": "Mattenhofweg 3",
+    "city": "5610 Wohlen AG AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/164419",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3532746,8.2705027",
+    "latitude": 47.3532746,
+    "longitude": 8.2705027
+  },
+  {
+    "id": "164420",
+    "name": "Wettingen Margelächer",
+    "street": "Margelstrasse 8",
+    "city": "5430 Wettingen AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/164420",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4650388,8.344792",
+    "latitude": 47.4650388,
+    "longitude": 8.344792
+  },
+  {
+    "id": "164421",
+    "name": "Wettingen Bez",
+    "street": "Alberich-Zwyssigstrasse 72",
+    "city": "5430 Wettingen AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/164421",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4632478,8.3237647",
+    "latitude": 47.4632478,
+    "longitude": 8.3237647
+  },
+  {
+    "id": "164475",
+    "name": "St. Gallen Volksbad",
+    "street": "Volksbadstrasse 24",
+    "city": "9000 St. Gallen SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/164475",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4290775,9.3861993",
+    "latitude": 47.4290775,
+    "longitude": 9.3861993
+  },
+  {
+    "id": "244509",
+    "name": "Biglen Espace Arena",
+    "street": "Syrengasse 13",
+    "city": "3507 Biglen BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/244509",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.922322,7.628637",
+    "latitude": 46.922322,
+    "longitude": 7.628637
+  },
+  {
+    "id": "244960",
+    "name": "Volketswil Gries",
+    "street": "Usterstrasse 35",
+    "city": "8604 Volketswil ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/244960",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3857768,8.6804393",
+    "latitude": 47.3857768,
+    "longitude": 8.6804393
+  },
+  {
+    "id": "245483",
+    "name": "Fehraltorf Heiget",
+    "street": "Schulhausstrasse 7",
+    "city": "8320 Fehraltorf ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/245483",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3898107,8.7548307",
+    "latitude": 47.3898107,
+    "longitude": 8.7548307
+  },
+  {
+    "id": "245504",
+    "name": "Birsfelden Sporthalle",
+    "street": "Sternenfeldstrasse 9",
+    "city": "4127 Birsfelden BL",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/245504",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5515404,7.6332415",
+    "latitude": 47.5515404,
+    "longitude": 7.6332415
+  },
+  {
+    "id": "250213",
+    "name": "Winterthur Eulach 2 A",
+    "street": "Wartstrasse 73",
+    "city": "8400 Winterthur ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/250213",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5033241,8.7120699",
+    "latitude": 47.5033241,
+    "longitude": 8.7120699
+  },
+  {
+    "id": "250610",
+    "name": "Basel Rankhof",
+    "street": "Grenzacherstrasse 351",
+    "city": "4058 Basel BS",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/250610",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5611471,7.6209474",
+    "latitude": 47.5611471,
+    "longitude": 7.6209474
+  },
+  {
+    "id": "250616",
+    "name": "Hasle Farbschachen",
+    "street": "Farbschachen",
+    "city": "6166 Hasle LU LU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/250616",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.9854083,8.0589023",
+    "latitude": 46.9854083,
+    "longitude": 8.0589023
+  },
+  {
+    "id": "250619",
+    "name": "Huttwil Campus Perspektiven",
+    "street": "Schwarzenbach Dörfli 2",
+    "city": "4950 Huttwil BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/250619",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1057505,7.8285048",
+    "latitude": 47.1057505,
+    "longitude": 7.8285048
+  },
+  {
+    "id": "250621",
+    "name": "Sumiswald Forum",
+    "street": "Burghof 104",
+    "city": "3454 Sumiswald BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/250621",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0309231,7.7608409",
+    "latitude": 47.0309231,
+    "longitude": 7.7608409
+  },
+  {
+    "id": "250623",
+    "name": "Willisau BBZ",
+    "street": "Schlossfeldstrasse 10",
+    "city": "6130 Willisau LU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/250623",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1174454,7.9889295",
+    "latitude": 47.1174454,
+    "longitude": 7.9889295
+  },
+  {
+    "id": "251259",
+    "name": "Stammheim Stammertal",
+    "street": "Rietweg 5",
+    "city": "8476 Unterstammheim ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/251259",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.6337718,8.7919582",
+    "latitude": 47.6337718,
+    "longitude": 8.7919582
+  },
+  {
+    "id": "251311",
+    "name": "Sarnen Dorfhalle",
+    "street": "Brünigstrasse 162",
+    "city": "6060 Sarnen OW",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/251311",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.8939099,8.2445705",
+    "latitude": 46.8939099,
+    "longitude": 8.2445705
+  },
+  {
+    "id": "252206",
+    "name": "Murten Prehl",
+    "street": "Wilerweg 53",
+    "city": "3280 Murten FR",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/252206",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.923245,7.124033",
+    "latitude": 46.923245,
+    "longitude": 7.124033
+  },
+  {
+    "id": "255308",
+    "name": "Le Locle Salle Polyvalente",
+    "street": "Communal 1",
+    "city": "2400 Le Locle NE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/255308",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0516279,6.7563152",
+    "latitude": 47.0516279,
+    "longitude": 6.7563152
+  },
+  {
+    "id": "255310",
+    "name": "Delémont Centre sportif",
+    "street": "Rue de la Blancherie 4",
+    "city": "2800 Delémont JU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/255310",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3605816,7.3409486",
+    "latitude": 47.3605816,
+    "longitude": 7.3409486
+  },
+  {
+    "id": "255382",
+    "name": "Frauenfeld Kantonsschule",
+    "street": "Sternwartestrasse 5",
+    "city": "8500 Frauenfeld TG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/255382",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.55669,8.9047156",
+    "latitude": 47.55669,
+    "longitude": 8.9047156
+  },
+  {
+    "id": "255745",
+    "name": "Eschen Schulzentrum",
+    "street": "Fronagasse 16",
+    "city": "9492 Eschen FL",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/255745",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2134801,9.5262509",
+    "latitude": 47.2134801,
+    "longitude": 9.5262509
+  },
+  {
+    "id": "255897",
+    "name": "Andelfingen Sporthalle",
+    "street": "Niederfeldstrasse 1",
+    "city": "8450 Andelfingen ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/255897",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5979095,8.6716778",
+    "latitude": 47.5979095,
+    "longitude": 8.6716778
+  },
+  {
+    "id": "257800",
+    "name": "Gossau Rosenau",
+    "street": "Friedbergstrasse 34",
+    "city": "9200 Gossau SG SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/257800",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4197741,9.2495914",
+    "latitude": 47.4197741,
+    "longitude": 9.2495914
+  },
+  {
+    "id": "259030",
+    "name": "Magglingen End der Welt 1",
+    "street": "End der Welt-Strasse 19",
+    "city": "2532 Magglingen/Macolin BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/259030",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.141202,7.199906",
+    "latitude": 47.141202,
+    "longitude": 7.199906
+  },
+  {
+    "id": "259043",
+    "name": "Magglingen End der Welt 2",
+    "street": "End der Welt-Strasse 19",
+    "city": "2532 Magglingen/Macolin BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/259043",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.141202,7.199906",
+    "latitude": 47.141202,
+    "longitude": 7.199906
+  },
+  {
+    "id": "260768",
+    "name": "Affoltern a/A Stigeli",
+    "street": "Butzenstrasse 2",
+    "city": "8910 Affoltern am Albis ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/260768",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2791497,8.4568444",
+    "latitude": 47.2791497,
+    "longitude": 8.4568444
+  },
+  {
+    "id": "261240",
+    "name": "Neftenbach Ebni",
+    "street": "Schulstrasse",
+    "city": "8413 Neftenbach ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/261240",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5253796,8.663186",
+    "latitude": 47.5253796,
+    "longitude": 8.663186
+  },
+  {
+    "id": "261278",
+    "name": "Zürich im Birch",
+    "street": "Margrit Rainerstrasse 6a",
+    "city": "8050 Zürich ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/261278",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4159657,8.5401649",
+    "latitude": 47.4159657,
+    "longitude": 8.5401649
+  },
+  {
+    "id": "261328",
+    "name": "Therwil 99er",
+    "street": "Schulgasse 1",
+    "city": "4106 Therwil BL",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/261328",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4998346,7.5512204",
+    "latitude": 47.4998346,
+    "longitude": 7.5512204
+  },
+  {
+    "id": "261512",
+    "name": "Zürich Apfelbaum",
+    "street": "Apfelbaumstrasse 31",
+    "city": "8050 Zürich ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/261512",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4066432,8.5555407",
+    "latitude": 47.4066432,
+    "longitude": 8.5555407
+  },
+  {
+    "id": "261546",
+    "name": "Jona Rain",
+    "street": "Tägernaustrasse 40",
+    "city": "8645 Jona SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/261546",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2340223,8.8425491",
+    "latitude": 47.2340223,
+    "longitude": 8.8425491
+  },
+  {
+    "id": "264717",
+    "name": "Gland En Grand Champ",
+    "street": "Rue du College",
+    "city": "1196 Gland VD",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/264717",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.4219485,6.2601283",
+    "latitude": 46.4219485,
+    "longitude": 6.2601283
+  },
+  {
+    "id": "264735",
+    "name": "Wil Kantonsschule",
+    "street": "Hubstrasse 75",
+    "city": "9500 Wil SG SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/264735",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4601272,9.032995",
+    "latitude": 47.4601272,
+    "longitude": 9.032995
+  },
+  {
+    "id": "265120",
+    "name": "Worblaufen Altikofen",
+    "street": "Fischrainweg 17",
+    "city": "3048 Worblaufen BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/265120",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.9796125,7.4654833",
+    "latitude": 46.9796125,
+    "longitude": 7.4654833
+  },
+  {
+    "id": "265359",
+    "name": "St. Gallen Oberzil",
+    "street": "Brauerstrasse 78",
+    "city": "9016 St. Gallen SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/265359",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4413126,9.4101196",
+    "latitude": 47.4413126,
+    "longitude": 9.4101196
+  },
+  {
+    "id": "265559",
+    "name": "Kirchberg Grossmatt",
+    "street": "Neuhofstrasse 32/33",
+    "city": "3422 Kirchberg BE BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/265559",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0926481,7.5748561",
+    "latitude": 47.0926481,
+    "longitude": 7.5748561
+  },
+  {
+    "id": "265662",
+    "name": "Liestal SH Kaserne",
+    "street": "Nonnenbodenweg 30",
+    "city": "4410 Liestal BL",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/265662",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4846102,7.7386326",
+    "latitude": 47.4846102,
+    "longitude": 7.7386326
+  },
+  {
+    "id": "265751",
+    "name": "Neuchâtel Riveraine",
+    "street": "Rue du littoral 1",
+    "city": "2000 Neuchâtel NE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/265751",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.99516,6.94645",
+    "latitude": 46.99516,
+    "longitude": 6.94645
+  },
+  {
+    "id": "266055",
+    "name": "Annemasse Gymnase Jacques Balmat",
+    "street": "Pl. de Lattre de Tassigny 1",
+    "city": "74100 Vétraz Monthoux -",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/266055",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.1827697,6.2462693",
+    "latitude": 46.1827697,
+    "longitude": 6.2462693
+  },
+  {
+    "id": "266172",
+    "name": "Moudon-Ochette",
+    "street": "Avenue de Lucens 3",
+    "city": "1510 Moudon VD",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/266172",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.6709629,6.8002092",
+    "latitude": 46.6709629,
+    "longitude": 6.8002092
+  },
+  {
+    "id": "266295",
+    "name": "Etoy salle polyvalente",
+    "street": " Rte de la Gare 15",
+    "city": "1163 Etoy VD",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/266295",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.4824466,6.4240199",
+    "latitude": 46.4824466,
+    "longitude": 6.4240199
+  },
+  {
+    "id": "268093",
+    "name": "Pfäffikon SZ Weid",
+    "street": "Weidstrasse 20",
+    "city": "8808 Pfäffikon SZ SZ",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/268093",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1960778,8.7713245",
+    "latitude": 47.1960778,
+    "longitude": 8.7713245
+  },
+  {
+    "id": "269376",
+    "name": "Wädenswil Glärnisch",
+    "street": "Glärnischstrasse 5",
+    "city": "8820 Wädenswil ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/269376",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2307398,8.667372",
+    "latitude": 47.2307398,
+    "longitude": 8.667372
+  },
+  {
+    "id": "270078",
+    "name": "Thun Gotthelf",
+    "street": "Sustenstrasse 2",
+    "city": "3604 Thun BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/270078",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.7376992,7.6186084",
+    "latitude": 46.7376992,
+    "longitude": 7.6186084
+  },
+  {
+    "id": "270440",
+    "name": "Elsau Sporthalle",
+    "street": "Im Ebnet 5",
+    "city": "8352 Räterschen ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/270440",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5020165,8.799458",
+    "latitude": 47.5020165,
+    "longitude": 8.799458
+  },
+  {
+    "id": "270448",
+    "name": "Zürich Falletsche",
+    "street": "Rebenstrasse 73",
+    "city": "8041 Zürich ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/270448",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3336214,8.5147136",
+    "latitude": 47.3336214,
+    "longitude": 8.5147136
+  },
+  {
+    "id": "270749",
+    "name": "Morges Beausobre",
+    "street": "Chemin. de la Grosse Pierre 1",
+    "city": "1110 Morges VD",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/270749",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.5170147,6.5008192",
+    "latitude": 46.5170147,
+    "longitude": 6.5008192
+  },
+  {
+    "id": "273642",
+    "name": "Grafstal Schulhaus",
+    "street": "Rütelistrasse 1",
+    "city": "8310 Grafstal ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/273642",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4427432,8.6979711",
+    "latitude": 47.4427432,
+    "longitude": 8.6979711
+  },
+  {
+    "id": "273951",
+    "name": "Baldegg Sporthalle KMS",
+    "street": "Alte Klosterstrasse 15",
+    "city": "6283 Baldegg LU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/273951",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1799819,8.2801328",
+    "latitude": 47.1799819,
+    "longitude": 8.2801328
+  },
+  {
+    "id": "274748",
+    "name": "Nottwil Kirchmatte",
+    "street": "Obere Kirchmatte",
+    "city": "6207 Nottwil LU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/274748",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1336233,8.1379704",
+    "latitude": 47.1336233,
+    "longitude": 8.1379704
+  },
+  {
+    "id": "275576",
+    "name": "Frauenfeld Auenfeld",
+    "street": "Haubitzenstrasse",
+    "city": "8500 Frauenfeld TG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/275576",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.572878,8.8889761",
+    "latitude": 47.572878,
+    "longitude": 8.8889761
+  },
+  {
+    "id": "278047",
+    "name": "Weinfelden Paul-Reinhart",
+    "street": "Industriestrasse 23",
+    "city": "8570 Weinfelden TG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/278047",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5617262,9.1057659",
+    "latitude": 47.5617262,
+    "longitude": 9.1057659
+  },
+  {
+    "id": "278527",
+    "name": "Belp Neumatt",
+    "street": "Neumattstrasse 39",
+    "city": "3123 Belp BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/278527",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.8991788,7.4990567",
+    "latitude": 46.8991788,
+    "longitude": 7.4990567
+  },
+  {
+    "id": "278903",
+    "name": "Zürich Hardau",
+    "street": "Bullingerstrasse 80",
+    "city": "8004 Zürich ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/278903",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3824803,8.5091974",
+    "latitude": 47.3824803,
+    "longitude": 8.5091974
+  },
+  {
+    "id": "283093",
+    "name": "Biel Esplanade",
+    "street": "Silbergasse 54",
+    "city": "2502 Biel/Bienne BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/283093",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.135727,7.251075",
+    "latitude": 47.135727,
+    "longitude": 7.251075
+  },
+  {
+    "id": "283201",
+    "name": "Sursee Kottenmatte",
+    "street": "Kottenmatte 4",
+    "city": "6210 Sursee LU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/283201",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1738203,8.0948016",
+    "latitude": 47.1738203,
+    "longitude": 8.0948016
+  },
+  {
+    "id": "283443",
+    "name": "Uster Oberuster",
+    "street": "Aathalstrasse 31",
+    "city": "8610 Uster ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/283443",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3456021,8.7305514",
+    "latitude": 47.3456021,
+    "longitude": 8.7305514
+  },
+  {
+    "id": "283578",
+    "name": "Gerlafingen Kirchacker",
+    "street": "Kriegstettenstrasse 60",
+    "city": "4563 Gerlafingen SO",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/283578",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1719839,7.5813883",
+    "latitude": 47.1719839,
+    "longitude": 7.5813883
+  },
+  {
+    "id": "285475",
+    "name": "Zürich Hirzenbach",
+    "street": "Luchswiesenstrasse 186",
+    "city": "8051 Zürich ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/285475",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4046316,8.5873236",
+    "latitude": 47.4046316,
+    "longitude": 8.5873236
+  },
+  {
+    "id": "285575",
+    "name": "Magglingen Sport-Toto 2",
+    "street": "Hohmattstrasse",
+    "city": "2532 Magglingen/Macolin BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/285575",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.135797,7.206774",
+    "latitude": 47.135797,
+    "longitude": 7.206774
+  },
+  {
+    "id": "285889",
+    "name": "Nesslau Büelen",
+    "street": "Büelen",
+    "city": "9650 Nesslau SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/285889",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2281131,9.2012124",
+    "latitude": 47.2281131,
+    "longitude": 9.2012124
+  },
+  {
+    "id": "286775",
+    "name": "Neuchâtel Maladière",
+    "street": "rue de la Pierre-à-Mazel 10",
+    "city": "2000 Neuchâtel NE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/286775",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.9950589,6.9438657",
+    "latitude": 46.9950589,
+    "longitude": 6.9438657
+  },
+  {
+    "id": "286959",
+    "name": "Montreux Pierrier",
+    "street": "Rue du Lac 119",
+    "city": "1815 Clarens VD",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/286959",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.4410845,6.8898601",
+    "latitude": 46.4410845,
+    "longitude": 6.8898601
+  },
+  {
+    "id": "289408",
+    "name": "Horgen Berghalden",
+    "street": "Rainweg 16",
+    "city": "8810 Horgen ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/289408",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2563333,8.5982194",
+    "latitude": 47.2563333,
+    "longitude": 8.5982194
+  },
+  {
+    "id": "289795",
+    "name": "Turbenthal Grosshalle",
+    "street": "Tösstalstrasse 15",
+    "city": "8488 Turbenthal ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/289795",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4416564,8.8356682",
+    "latitude": 47.4416564,
+    "longitude": 8.8356682
+  },
+  {
+    "id": "289972",
+    "name": "Heerbrugg OMR",
+    "street": "Blattackerstrasse 5",
+    "city": "9435 Heerbrugg SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/289972",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4142555,9.6272033",
+    "latitude": 47.4142555,
+    "longitude": 9.6272033
+  },
+  {
+    "id": "290124",
+    "name": "Schaffhausen BBC Arena A",
+    "street": "Schweizersbildstrasse 10",
+    "city": "8207 Schaffhausen SH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/290124",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.7204311,8.6458608",
+    "latitude": 47.7204311,
+    "longitude": 8.6458608
+  },
+  {
+    "id": "290135",
+    "name": "Schaffhausen BBC Arena B",
+    "street": "Schweizersbildstrasse 10",
+    "city": "8207 Schaffhausen SH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/290135",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.7204311,8.6458608",
+    "latitude": 47.7204311,
+    "longitude": 8.6458608
+  },
+  {
+    "id": "290136",
+    "name": "Schaffhausen BBC Arena C",
+    "street": "Schweizersbildstrasse 10",
+    "city": "8207 Schaffhausen SH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/290136",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.7204311,8.6458608",
+    "latitude": 47.7204311,
+    "longitude": 8.6458608
+  },
+  {
+    "id": "290137",
+    "name": "Schaffhausen BBC Arena D",
+    "street": "Schweizersbildstrasse 10",
+    "city": "8207 Schaffhausen SH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/290137",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.7204311,8.6458608",
+    "latitude": 47.7204311,
+    "longitude": 8.6458608
+  },
+  {
+    "id": "292408",
+    "name": "Genève Queue d'Arve salle 1",
+    "street": "Rue François-Dussaud 12",
+    "city": "1227 Les Acacias GE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/292408",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.1964936,6.1309375",
+    "latitude": 46.1964936,
+    "longitude": 6.1309375
+  },
+  {
+    "id": "293199",
+    "name": "Yverdon aux Isles",
+    "street": "Av. des Trois Lacs 1",
+    "city": "1400 Yverdon-les-Bains VD",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/293199",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.7722585,6.6344073",
+    "latitude": 46.7722585,
+    "longitude": 6.6344073
+  },
+  {
+    "id": "293467",
+    "name": "Visp BFO Sand",
+    "street": "Kleegärtenweg 2 D",
+    "city": "3930 Visp VS",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/293467",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.2953412,7.8778203",
+    "latitude": 46.2953412,
+    "longitude": 7.8778203
+  },
+  {
+    "id": "295515",
+    "name": "Vaduz Mühleholz 2",
+    "street": "Marianumstrasse 43",
+    "city": "9490 Vaduz FL",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/295515",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1562021,9.504468",
+    "latitude": 47.1562021,
+    "longitude": 9.504468
+  },
+  {
+    "id": "296655",
+    "name": "Arbon Kybunhalle",
+    "street": "St. Gallerstrasse 69",
+    "city": "9320 Arbon TG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/296655",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5090684,9.4215575",
+    "latitude": 47.5090684,
+    "longitude": 9.4215575
+  },
+  {
+    "id": "296695",
+    "name": "Biberist Bleichenmatt",
+    "street": "Schachenstrasse 6",
+    "city": "4562 Biberist SO",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/296695",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1781822,7.5615694",
+    "latitude": 47.1781822,
+    "longitude": 7.5615694
+  },
+  {
+    "id": "296697",
+    "name": "Grenchen Velodrome",
+    "street": "Neumattstrasse 25",
+    "city": "2540 Grenchen SO",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/296697",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1845698,7.4057607",
+    "latitude": 47.1845698,
+    "longitude": 7.4057607
+  },
+  {
+    "id": "297047",
+    "name": "Schwyz Lückenhalle",
+    "street": "Schmittenmattstrasse 12",
+    "city": "6430 Schwyz SZ",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/297047",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0194087,8.6489396",
+    "latitude": 47.0194087,
+    "longitude": 8.6489396
+  },
+  {
+    "id": "297182",
+    "name": "Genève Queue d'Arve salle 2",
+    "street": "Rue François-Dussaud 12",
+    "city": "1227 Les Acacias GE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/297182",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.1964936,6.1309375",
+    "latitude": 46.1964936,
+    "longitude": 6.1309375
+  },
+  {
+    "id": "297426",
+    "name": "Evian Gymn. de la Léchère",
+    "street": "Av. des Rives du Léman 851",
+    "city": "74500 Evian-les-Bains ",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/297426",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.3953554,6.5677129",
+    "latitude": 46.3953554,
+    "longitude": 6.5677129
+  },
+  {
+    "id": "299741",
+    "name": "Lausanne Malley",
+    "street": "Chemin des Pyramides 22",
+    "city": "1007 Lausanne VD",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/299741",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.5221305,6.6028558",
+    "latitude": 46.5221305,
+    "longitude": 6.6028558
+  },
+  {
+    "id": "300238",
+    "name": "Stein am Rhein Hoga",
+    "street": "Klingenstrasse 5",
+    "city": "8260 Stein am Rhein SH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/300238",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.6625058,8.8630064",
+    "latitude": 47.6625058,
+    "longitude": 8.8630064
+  },
+  {
+    "id": "300754",
+    "name": "St. Gallen Schönenwegen",
+    "street": "Zürcher Strasse 67",
+    "city": "9000 St. Gallen SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/300754",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4173312,9.3505979",
+    "latitude": 47.4173312,
+    "longitude": 9.3505979
+  },
+  {
+    "id": "305264",
+    "name": "Aarberg AARfit",
+    "street": "Aareweg 32",
+    "city": "3270 Aarberg BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/305264",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0488693,7.2760232",
+    "latitude": 47.0488693,
+    "longitude": 7.2760232
+  },
+  {
+    "id": "305800",
+    "name": "Aadorf Löhracker",
+    "street": "Schützenstrasse 42",
+    "city": "8355 Aadorf TG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/305800",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4948395,8.9041261",
+    "latitude": 47.4948395,
+    "longitude": 8.9041261
+  },
+  {
+    "id": "306053",
+    "name": "Küsnacht Heslibach",
+    "street": "Untere Heslibachstrasse 37",
+    "city": "8700 Küsnacht ZH ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/306053",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3134267,8.5857042",
+    "latitude": 47.3134267,
+    "longitude": 8.5857042
+  },
+  {
+    "id": "306155",
+    "name": "Möhlin Steinli A",
+    "street": "Sportplatzweg 1",
+    "city": "4313 Möhlin AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/306155",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.569378,7.84458",
+    "latitude": 47.569378,
+    "longitude": 7.84458
+  },
+  {
+    "id": "306228",
+    "name": "Wetzikon Zentrum (Egg)",
+    "street": "Eggstrasse 11",
+    "city": "8620 Wetzikon ZH ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/306228",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3251781,8.8001129",
+    "latitude": 47.3251781,
+    "longitude": 8.8001129
+  },
+  {
+    "id": "306258",
+    "name": "Oberdiessbach Primarschule",
+    "street": "Schulhausstrasse 20",
+    "city": "3672 Oberdiessbach BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/306258",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.8416715,7.6222055",
+    "latitude": 46.8416715,
+    "longitude": 7.6222055
+  },
+  {
+    "id": "306361",
+    "name": "Schönenberg Sporthalle",
+    "street": "Hirzelstrasse 1",
+    "city": "8824 Schönenberg ZH ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/306361",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1925977,8.6435201",
+    "latitude": 47.1925977,
+    "longitude": 8.6435201
+  },
+  {
+    "id": "306385",
+    "name": "St. Julien Léman",
+    "street": "Rue du Léman",
+    "city": "74160 St. Julien -",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/306385",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.145225,6.087213",
+    "latitude": 46.145225,
+    "longitude": 6.087213
+  },
+  {
+    "id": "306501",
+    "name": "Magden Matte",
+    "street": "Schulstrasse 12 A",
+    "city": "4312 Magden AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/306501",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5280035,7.8131495",
+    "latitude": 47.5280035,
+    "longitude": 7.8131495
+  },
+  {
+    "id": "306838",
+    "name": "Zürich Hallenstadion",
+    "street": "Wallisellenstrasse 45",
+    "city": "8050 Zürich ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/306838",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4116099,8.5516563",
+    "latitude": 47.4116099,
+    "longitude": 8.5516563
+  },
+  {
+    "id": "310268",
+    "name": "Zürich Blumenfeld",
+    "street": "Blumenfeldstrasse 50",
+    "city": "8046 Zürich ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/310268",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.423106,8.5043315",
+    "latitude": 47.423106,
+    "longitude": 8.5043315
+  },
+  {
+    "id": "310903",
+    "name": "Winterthur Steinacker",
+    "street": "Sempacherweg 4",
+    "city": "8405 Winterthur ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/310903",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4851709,8.7547757",
+    "latitude": 47.4851709,
+    "longitude": 8.7547757
+  },
+  {
+    "id": "310914",
+    "name": "Basel Sandgruben",
+    "street": "Schwarzwaldallee 161",
+    "city": "4058 Basel BS",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/310914",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5649553,7.6077621",
+    "latitude": 47.5649553,
+    "longitude": 7.6077621
+  },
+  {
+    "id": "310990",
+    "name": "Emmen Ballonhalle Rossmoos",
+    "street": "Rossmoos",
+    "city": "6032 Emmen LU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/310990",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0810864,8.2850993",
+    "latitude": 47.0810864,
+    "longitude": 8.2850993
+  },
+  {
+    "id": "312763",
+    "name": "Bülach Hirslen",
+    "street": "Hochfelderstrasse 77",
+    "city": "8180 Bülach ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/312763",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5222011,8.5252371",
+    "latitude": 47.5222011,
+    "longitude": 8.5252371
+  },
+  {
+    "id": "314590",
+    "name": "Bronschhofen Ebnet-Saal",
+    "street": "Industriestrasse 2",
+    "city": "9552 Bronschhofen SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/314590",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.47537,9.0335025",
+    "latitude": 47.47537,
+    "longitude": 9.0335025
+  },
+  {
+    "id": "314633",
+    "name": "Lyss Nespoly",
+    "street": "Oberer Aareweg 35",
+    "city": "3250 Lyss BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/314633",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0783958,7.2967709",
+    "latitude": 47.0783958,
+    "longitude": 7.2967709
+  },
+  {
+    "id": "315271",
+    "name": "Winterthur Eishalle Zielbau Arena",
+    "street": "Grüzefeldstrasse 30",
+    "city": "8400 Winterthur ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/315271",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4954371,8.7481945",
+    "latitude": 47.4954371,
+    "longitude": 8.7481945
+  },
+  {
+    "id": "315777",
+    "name": "Jona Sportanlage Grünfeld",
+    "street": "Grünfeldstrasse 8",
+    "city": "8645 Jona SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/315777",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2221825,8.8441",
+    "latitude": 47.2221825,
+    "longitude": 8.8441
+  },
+  {
+    "id": "315815",
+    "name": "Oensingen Oberdorf",
+    "street": "Buttenstrasse 8",
+    "city": "4702 Oensingen SO",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/315815",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2921679,7.716355",
+    "latitude": 47.2921679,
+    "longitude": 7.716355
+  },
+  {
+    "id": "316918",
+    "name": "St. Gallen Tal der Demut",
+    "street": "Demutstrasse 115",
+    "city": "9012 St. Gallen SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/316918",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4120529,9.3683346",
+    "latitude": 47.4120529,
+    "longitude": 9.3683346
+  },
+  {
+    "id": "319240",
+    "name": "St-Prex Cherrat",
+    "street": "Chemin du Cherrat 7",
+    "city": "1162 St-Prex VD",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/319240",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.4865235,6.4548246",
+    "latitude": 46.4865235,
+    "longitude": 6.4548246
+  },
+  {
+    "id": "319296",
+    "name": "Jona Weiden",
+    "street": "Weidenstrasse 17",
+    "city": "8645 Jona SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/319296",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2238181,8.8383327",
+    "latitude": 47.2238181,
+    "longitude": 8.8383327
+  },
+  {
+    "id": "319845",
+    "name": "Ruswil Wolfsmatt",
+    "street": "Wolhuserstrasse 27",
+    "city": "6017 Ruswil LU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/319845",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.081645,8.1193396",
+    "latitude": 47.081645,
+    "longitude": 8.1193396
+  },
+  {
+    "id": "320155",
+    "name": "Gümligen Mobiliar Arena",
+    "street": "Rohrmattstrasse 8",
+    "city": "3073 Gümligen BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/320155",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.9309521,7.507335",
+    "latitude": 46.9309521,
+    "longitude": 7.507335
+  },
+  {
+    "id": "320536",
+    "name": "Plan-les-Ouates Aimée-Stitelmann",
+    "street": "22, route de Base",
+    "city": "1228 Plan-les-Ouates GE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/320536",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.1724963,6.1103357",
+    "latitude": 46.1724963,
+    "longitude": 6.1103357
+  },
+  {
+    "id": "320537",
+    "name": "Winterthur Neuhegi",
+    "street": "Ida- Streulistrasse 50",
+    "city": "8404 Winterthur ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/320537",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5046686,8.7641825",
+    "latitude": 47.5046686,
+    "longitude": 8.7641825
+  },
+  {
+    "id": "320539",
+    "name": "Winterthur AXA Arena",
+    "street": "Grüzefeldstrasse 32",
+    "city": "8400 Winterthur ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/320539",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4946672,8.7494629",
+    "latitude": 47.4946672,
+    "longitude": 8.7494629
+  },
+  {
+    "id": "320540",
+    "name": "Rothenburg Lindau",
+    "street": "Schulhausstrasse 2",
+    "city": "6023 Rothenburg LU",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/320540",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.0971654,8.2680472",
+    "latitude": 47.0971654,
+    "longitude": 8.2680472
+  },
+  {
+    "id": "320541",
+    "name": "Moudon Champ-du-Gour ",
+    "street": "Chemin du Champ-du-Gour 12",
+    "city": "1510 Moudon VD",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/320541",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.664335,6.79495",
+    "latitude": 46.664335,
+    "longitude": 6.79495
+  },
+  {
+    "id": "320544",
+    "name": "Nyon Cossy",
+    "street": "Chemin de Precossy",
+    "city": "1260 Nyon VD",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/320544",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.3894955,6.2261448",
+    "latitude": 46.3894955,
+    "longitude": 6.2261448
+  },
+  {
+    "id": "324071",
+    "name": "Annemasse Gymnase Robert Sallaz",
+    "street": "Rue Albert Curioz 2",
+    "city": "74100 Annemasse -",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/324071",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.1846392,6.2461905",
+    "latitude": 46.1846392,
+    "longitude": 6.2461905
+  },
+  {
+    "id": "325204",
+    "name": "Basel Erlenmatt",
+    "street": "Erlenmattstrasse 6",
+    "city": "4058 Basel BS",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/325204",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5687837,7.6001136",
+    "latitude": 47.5687837,
+    "longitude": 7.6001136
+  },
+  {
+    "id": "325281",
+    "name": "Diessenhofen Lettenhalle",
+    "street": "Alte Basadingerstrasse 10",
+    "city": "8253 Diessenhofen TG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/325281",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.6864669,8.748337",
+    "latitude": 47.6864669,
+    "longitude": 8.748337
+  },
+  {
+    "id": "325466",
+    "name": "Oberrieden Langweg",
+    "street": "Langweg",
+    "city": "8942 Oberrieden ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/325466",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2760526,8.5755248",
+    "latitude": 47.2760526,
+    "longitude": 8.5755248
+  },
+  {
+    "id": "329761",
+    "name": "Wittenbach Sonnenrain",
+    "street": "Grüntalstrasse 21a",
+    "city": "9300 Wittenbach SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/329761",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4658556,9.3795215",
+    "latitude": 47.4658556,
+    "longitude": 9.3795215
+  },
+  {
+    "id": "329762",
+    "name": "Würenlingen Tannenweg",
+    "street": "Weissensteinweg 4",
+    "city": "5303 Würenlingen AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/329762",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5251515,8.2487737",
+    "latitude": 47.5251515,
+    "longitude": 8.2487737
+  },
+  {
+    "id": "331804",
+    "name": "Giubiasco Scoula Media",
+    "street": "Via Fabrizia 13",
+    "city": "6512 Giubiasco TI",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/331804",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.1791436,9.0198493",
+    "latitude": 46.1791436,
+    "longitude": 9.0198493
+  },
+  {
+    "id": "335805",
+    "name": "Illnau Hagen",
+    "street": "Hagenstrasse 31",
+    "city": "8308 Illnau ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/335805",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4096897,8.7195054",
+    "latitude": 47.4096897,
+    "longitude": 8.7195054
+  },
+  {
+    "id": "335900",
+    "name": "Zürich Hofacker",
+    "street": "Freiestrasse 191",
+    "city": "8032 Zürich ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/335900",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3615371,8.5653224",
+    "latitude": 47.3615371,
+    "longitude": 8.5653224
+  },
+  {
+    "id": "336479",
+    "name": "Bern Weissenstein OG",
+    "street": "Könizstrasse 111",
+    "city": "3008 Bern BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/336479",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.9375983,7.4176463",
+    "latitude": 46.9375983,
+    "longitude": 7.4176463
+  },
+  {
+    "id": "336636",
+    "name": "Wettingen Sportplatz Scharten",
+    "street": "Schartenstrasse",
+    "city": "5430 Wettingen AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/336636",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.4695707,8.3233385",
+    "latitude": 47.4695707,
+    "longitude": 8.3233385
+  },
+  {
+    "id": "337446",
+    "name": "Bellinzona Scuola d'arti e mestieri",
+    "street": "Viale Stefano Franscini 25",
+    "city": "6500 Bellinzona TI",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/337446",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.1909845,9.0164224",
+    "latitude": 46.1909845,
+    "longitude": 9.0164224
+  },
+  {
+    "id": "339488",
+    "name": "Yverdon Rives",
+    "street": "Rue de l'Arsenal 14",
+    "city": "1400 Yverdon VD",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/339488",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.7846884,6.6414119",
+    "latitude": 46.7846884,
+    "longitude": 6.6414119
+  },
+  {
+    "id": "339705",
+    "name": "Niederweningen Wehntal",
+    "street": "Alte Stationsstrasse 1",
+    "city": "8166 Niederweningen ZH",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/339705",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.5071361,8.3799436",
+    "latitude": 47.5071361,
+    "longitude": 8.3799436
+  },
+  {
+    "id": "340677",
+    "name": "Amsteg Energie Uri Arena",
+    "street": "Grund 39",
+    "city": "6474 Amsteg UR",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/340677",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.776458,8.6679438",
+    "latitude": 46.776458,
+    "longitude": 8.6679438
+  },
+  {
+    "id": "340874",
+    "name": "Losone Palestra Vacchini",
+    "street": "Via Arbigo 15",
+    "city": "6616 Losone TI",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/340874",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.1729162,8.7510197",
+    "latitude": 46.1729162,
+    "longitude": 8.7510197
+  },
+  {
+    "id": "340925",
+    "name": "Baar Wiesental (Ballonhalle)",
+    "street": "Neugasse 55",
+    "city": "6340 Baar ZG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/340925",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1995333,8.5189348",
+    "latitude": 47.1995333,
+    "longitude": 8.5189348
+  },
+  {
+    "id": "344592",
+    "name": "Wohlen Hofmatten 2",
+    "street": "Hofmattenweg 17",
+    "city": "5610 Wohlen AG AG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/344592",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.3530921,8.2809862",
+    "latitude": 47.3530921,
+    "longitude": 8.2809862
+  },
+  {
+    "id": "344657",
+    "name": "Magglingen Ausbildungshalle",
+    "street": "Hohmattstrasse",
+    "city": "2532 Magglingen/Macolin BE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/344657",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1312526,7.1984983",
+    "latitude": 47.1312526,
+    "longitude": 7.1984983
+  },
+  {
+    "id": "344672",
+    "name": "Ebnat-Kappel Wier",
+    "street": "Rosenbüelstrasse 45",
+    "city": "9642 Ebnat-Kappel SG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/344672",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.2633775,9.1272142",
+    "latitude": 47.2633775,
+    "longitude": 9.1272142
+  },
+  {
+    "id": "344711",
+    "name": "Buttikon Sek 1 March",
+    "street": "Kantonsstrasse 67",
+    "city": "8863 Buttikon SZ SZ",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/344711",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1738694,8.9597419",
+    "latitude": 47.1738694,
+    "longitude": 8.9597419
+  },
+  {
+    "id": "344969",
+    "name": "Biasca Centro Professionale",
+    "street": "Via Stradone Vecchio Sud 29",
+    "city": "6710 Biasca TI",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/344969",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.3493674,8.9700128",
+    "latitude": 46.3493674,
+    "longitude": 8.9700128
+  },
+  {
+    "id": "346214",
+    "name": "Müllheim Sek Schule Rietwies",
+    "street": "Gashausstrasse 6",
+    "city": "8555 Müllheim Dorf TG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/346214",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.6009786,8.9957672",
+    "latitude": 47.6009786,
+    "longitude": 8.9957672
+  },
+  {
+    "id": "346287",
+    "name": "Chur Hallenstadion Obere Au",
+    "street": "Grossbruggerweg 8",
+    "city": "7000 Chur GR",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/346287",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.8581965,9.504375",
+    "latitude": 46.8581965,
+    "longitude": 9.504375
+  },
+  {
+    "id": "346316",
+    "name": "Klettgau Sporthalle Erzingen",
+    "street": "In der Bütze 19",
+    "city": "79771 Klettgau -",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/346316",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.65379,8.41917",
+    "latitude": 47.65379,
+    "longitude": 8.41917
+  },
+  {
+    "id": "348908",
+    "name": "Stans Marechaux",
+    "street": "Eichli 4",
+    "city": "6370 Stans NW",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/348908",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.9679576,8.3643054",
+    "latitude": 46.9679576,
+    "longitude": 8.3643054
+  },
+  {
+    "id": "348936",
+    "name": "Palestra Naviglio",
+    "street": "Via Brere",
+    "city": "6598 Tenero TI",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/348936",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.1733565,8.8560791",
+    "latitude": 46.1733565,
+    "longitude": 8.8560791
+  },
+  {
+    "id": "349671",
+    "name": "Etoy Salle Omnisport",
+    "street": "Route de la Gare 15",
+    "city": "1163 Etoy VD",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/349671",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.4921578,6.4172906",
+    "latitude": 46.4921578,
+    "longitude": 6.4172906
+  },
+  {
+    "id": "349995",
+    "name": "Baar Sternmatt II",
+    "street": "Inwilerstrasse 22b",
+    "city": "6340 Baar ZG",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/349995",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=47.1918194,8.5268697",
+    "latitude": 47.1918194,
+    "longitude": 8.5268697
+  },
+  {
+    "id": "350003",
+    "name": "Thônex Belle-Terre",
+    "street": "Allée de Belle-Terre",
+    "city": "1226 Thônex GE",
+    "website": "https://www.handball.ch/de/matchcenter/hallen/350003",
+    "googleMapsLink": "https://www.google.com/maps/search/?api=1&query=46.2039384,6.2140512",
+    "latitude": 46.2039384,
+    "longitude": 6.2140512
+  }
+]

@@ -68,7 +68,7 @@ export async function createNotificationNews(snapshot: QueryDocumentSnapshot, co
                     },
                     data: <DataMessagePayload>{
                       "type": "news",
-                      ...newsRef.data(),
+                      ...newsRef.data().id,
                     },
                   },
               );
