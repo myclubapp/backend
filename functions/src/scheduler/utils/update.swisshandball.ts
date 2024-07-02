@@ -77,7 +77,7 @@ export async function updateGamesSwisshandball(): Promise<any> {
           updated: new Date(),
           type: "swisshandball",
         }));
-        await db.collection("teams").doc(`su-${team.id}`).collection("ranking").doc(`${item.season}`).set({
+        await db.collection("teams").doc(`sh-${team.id}`).collection("ranking").doc(`${item.season}`).set({
           title: item.title,
           season: item.season,
           updated: new Date(),
