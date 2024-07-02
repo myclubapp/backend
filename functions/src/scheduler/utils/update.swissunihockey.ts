@@ -30,14 +30,14 @@ export async function updateGamesSwissunihockey(): Promise<any> {
     const club = {...{id: clubData.data().externalId}, ...clubData.data()};
 
     // GET CLUB GAMES
-    console.log(`>:  ${club.id} ${club.name}`);
+    console.log(`> GET CLUB GAMES:  ${club.id} ${club.name}`);
 
     // Get ALL CLUB GAMES from club based on API from SWISS UNIHOCKEY
     const clubGamesData = await resolversSU.Club.games({id: `${club.id}`}, {}, {}, {});
     for (const i in clubGamesData) {
       // Create Game Object
       const game = clubGamesData[i];
-      console.log(`>> Read Club Game:  ${game.id}`);
+      console.log(`>> READ CLUB GAME:  ${game.id}`);
 
       // Get Game Detail
       const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
@@ -112,11 +112,11 @@ export async function updateGamesSwissunihockey(): Promise<any> {
     // TODO -> GET FROM DB instead of API -> Teams should be updated with another JOB
     const teamData = await resolversSU.Club.teams({id: `${club.id}`}, {}, {}, {});
     for (const team of teamData) {
-      console.log(`>> Team: ${team.id} ${team.name} ${team.liga} `);
+      console.log(`>> READ TEAM GAMES: ${team.id} ${team.name} ${team.liga} `);
       const gamesData = await resolversSU.Team.games({id: `${team.id}`}, {}, {}, {});
       for (const i in gamesData) {
         const game = gamesData[i];
-        console.log(`>>> Read Team Game:  ${game.id}`);
+        console.log(`>>> READ TEAM GAME:  ${game.id}`);
 
         const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
 
@@ -148,7 +148,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
 
         const clubRef = await db.collection("club").doc(`su-${club.id}`).get();
         const teamRef = await db.collection("teams").doc(`su-${team.id}`).get();
-        console.log("read match report for game: " + game.id);
+        // console.log("read match report for game: " + game.id);
 
         // await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).get();
         await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).set({
@@ -188,9 +188,9 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           merge: true,
         });
 
-        const matchReportRef = await db.collection("teams").doc(`su-${team.id}`).collection("reports").doc(`su-${game.id}`).get();
-        if (!matchReportRef.exists) {
-          /* const matchReport = await generateMatchReport(game.id);
+        /* const matchReportRef = await db.collection("teams").doc(`su-${team.id}`).collection("reports").doc(`su-${game.id}`).get();
+         if (!matchReportRef.exists) {
+         const matchReport = await generateMatchReport(game.id);
           if (matchReport) {
             await db.collection("teams").doc(`su-${team.id}`).collection("reports").doc(`su-${game.id}`).set({
               externalId: `${game.id}`,
@@ -208,13 +208,19 @@ export async function updateGamesSwissunihockey(): Promise<any> {
             }, {
               merge: true,
             });
-          } */
-        }
+          }
+        } */
       }
       // Get rankings
       const teamRankings = await resolversSU.Team.rankings({id: `${team.id}`}, {}, {}, {});
+      console.log(" >> READ TEAM RANKINGS");
       for (const item of teamRankings) {
-        console.log(JSON.stringify(item));
+        console.log(JSON.stringify({
+          title: item.title,
+          season: item.season,
+          updated: new Date(),
+          type: "swissunihockey",
+        }));
         await db.collection("teams").doc(`su-${team.id}`).collection("ranking").doc(`${item.season}`).set({
           title: item.title,
           season: item.season,

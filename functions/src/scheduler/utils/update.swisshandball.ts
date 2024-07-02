@@ -17,14 +17,14 @@ export async function updateGamesSwisshandball(): Promise<any> {
     const club = {...{id: clubData.data().externalId}, ...clubData.data()};
 
     // GET CLUB GAMES
-    console.log(`>:  ${club.id} ${club.name}`);
+    console.log(`> GET CLUB GAMES:  ${club.id} ${club.name}`);
 
     // Get ALL CLUB GAMES from club based on API from SWISS HANDBALL
     const clubGamesData = await resolversSH.Club.games({id: `${club.id}`}, {}, {}, {});
     for (const i in clubGamesData) {
       // Create Game Object
       const game = clubGamesData[i];
-      console.log(`>> Read Club Game:  ${game.id}`);
+      console.log(`>> READ CLUB GAME::  ${game.id}`);
 
       // Get Game Detail --> Does not edxist for handball
       // const gameDetail = await resolversSH.SwissHandball.game({}, {gameId: game.id}, {}, {});
@@ -45,7 +45,7 @@ export async function updateGamesSwisshandball(): Promise<any> {
     const teamData = await resolversSH.Club.teams({id: `${club.id}`}, {}, {}, {});
     for (const team of teamData) {
       console.log(`>> Team: ${team.id} ${team.name} ${team.liga} `);
-      const gamesData = await resolversSH.Team.games({id: `${team.id}`}, {}, {}, {});
+      const gamesData = await resolversSH.Team.games({id: `${team.id}`, clubId: `${club.id}`}, {}, {}, {});
       for (const i in gamesData) {
         const game = gamesData[i];
         console.log(`>>> Read Team Game:  ${game.id}`);

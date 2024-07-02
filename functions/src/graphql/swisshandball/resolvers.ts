@@ -190,7 +190,7 @@ async function getClubGames(clubId: string) {
     });
     const gameData = await data.json();
     gameData.forEach((item: any) => {
-      console.log(item);
+      // console.log(item);
       gameList.push({
 
         id: item.gameId,
