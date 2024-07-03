@@ -31,6 +31,8 @@ export async function updateGamesSwisshandball(): Promise<any> {
 
       await db.collection("club").doc(`sh-${club.id}`).collection("games").doc(`sh-${game.id}`).set({
         ...game,
+        location: game.venue,
+        city: game.venueCity,
         externalId: `${game.id}`,
         type: "swisshandball",
         updated: new Date(),
@@ -58,7 +60,8 @@ export async function updateGamesSwisshandball(): Promise<any> {
         await db.collection("teams").doc(`sh-${team.id}`).collection("games").doc(`sh-${game.id}`).set({
           ...game,
           externalId: `${game.id}`,
-
+          location: game.venue,
+          city: game.venueCity,
           type: "swisshandball",
           updated: new Date(),
           clubRef: clubRef.ref,

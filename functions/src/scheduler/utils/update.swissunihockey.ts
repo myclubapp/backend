@@ -75,6 +75,8 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         dateTime: gameDateTime,
         venue: game.venue,
         venueCity: game.venueCity,
+        location: game.venue,
+        city: game.venueCity,
 
         longitude: game.longitude,
         latitude: game.latitude,
