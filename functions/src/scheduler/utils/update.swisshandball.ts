@@ -54,7 +54,7 @@ export async function updateGamesSwisshandball(): Promise<any> {
         const teamRef = await db.collection("teams").doc(`sh-${team.id}`).get();
         // console.log("read match report for game: " + game.id);
 
-        // await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).get();
+        // await db.collection("teams").doc(`sh-${team.id}`).collection("games").doc(`sh-${game.id}`).get();
         await db.collection("teams").doc(`sh-${team.id}`).collection("games").doc(`sh-${game.id}`).set({
           ...game,
           externalId: `${game.id}`,
@@ -85,7 +85,7 @@ export async function updateGamesSwisshandball(): Promise<any> {
         }, {
           merge: true,
         });
-        await db.collection("teams").doc(`su-${team.id}`).collection("ranking").doc(`${item.season}`).collection("table").doc(`${item.ranking}`).set(item);
+        await db.collection("teams").doc(`sh-${team.id}`).collection("ranking").doc(`${item.season}`).collection("table").doc(`${item.ranking}`).set(item);
       }
     }
   }
