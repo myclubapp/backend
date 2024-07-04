@@ -36,7 +36,7 @@ export async function updateCheckoutSession(change: Change<QueryDocumentSnapshot
 
   const userProfileRef = await db.collection("userProfile").doc(userId).get();
 
-  return db.collection("userProfile").doc(userId).collection("checkout_sessions").doc(sessionId).set({
+  return db.collection("club").doc(change.before.data().clubId).collection("checkout_sessions").doc(sessionId).set({
     ...change.after.data(),
     userProfileRef: userProfileRef.ref,
     updated: new Date(),
@@ -52,7 +52,7 @@ export async function updateSubscription(change: Change<QueryDocumentSnapshot>, 
 
   const userProfileRef = await db.collection("userProfile").doc(userId).get();
 
-  return db.collection("userProfile").doc(userId).collection("checkout_sessions").doc(sessionId).collection("subscriptions").doc(subscriptionId).set({
+  return db.collection("club").doc(change.before.data().clubId).collection("checkout_sessions").doc(sessionId).collection("subscriptions").doc(subscriptionId).set({
     ...change.after.data(),
     userProfileRef: userProfileRef.ref,
     updated: new Date(),
@@ -68,7 +68,7 @@ export async function updatePayments(change: Change<QueryDocumentSnapshot>, cont
 
   const userProfileRef = await db.collection("userProfile").doc(userId).get();
 
-  return db.collection("userProfile").doc(userId).collection("checkout_sessions").doc(sessionId).collection("payments").doc(paymentId).set({
+  return db.collection("club").doc(change.before.data().clubId).collection("checkout_sessions").doc(sessionId).collection("payments").doc(paymentId).set({
     ...change.after.data(),
     userProfileRef: userProfileRef.ref,
     updated: new Date(),
