@@ -26,6 +26,7 @@ export async function createCheckoutSession(snapshot: QueryDocumentSnapshot, con
     clubId: clubId,
     metadata: {
       "clubId": clubId,
+      "subscriptionType": sessionData.subscriptionType,
     },
     clubRef: clubRef.ref,
   });
@@ -64,22 +65,34 @@ export async function updateSubscription(change: Change<DocumentSnapshot>, conte
 
     if (subscriptionData.status == "active") {
       await db.collection("club").doc(clubId).set({
-        subscriptionActive: true}, {merge: true});
+        subscriptionActive: true,
+        subscriptionType: subscriptionData.metadata.subscriptionType},
+      {
+        merge: true,
+      });
     } else if (subscriptionData.status == "canceled") {
       const activeSubscription = await db.collection("club").doc(clubId).collection("subscriptions").where("status", "==", "active").get();
       if (activeSubscription.docs.length > 0) {
         console.log("has active subsription");
       } else {
         await db.collection("club").doc(clubId).set({
-          subscriptionActive: false}, {merge: true});
+          subscriptionActive: false,
+          subscriptionType: ""},
+        {
+          merge: true,
+        });
       }
-    } else {
+    } else { // Everything else that is not Active nor Canceled
       const activeSubscription = await db.collection("club").doc(clubId).collection("subscriptions").where("status", "==", "active").get();
       if (activeSubscription.docs.length > 0) {
         console.log("has active subsription");
       } else {
         await db.collection("club").doc(clubId).set({
-          subscriptionActive: false}, {merge: true});
+          subscriptionActive: false,
+          subscriptionType: ""},
+        {
+          merge: true,
+        });
       }
     }
 
