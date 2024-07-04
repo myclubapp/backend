@@ -36,6 +36,7 @@ import {confirmHelferEvent} from "./firestore/event/confirmHelferEvent";
 import {getGamePreview} from "./requests/gamePreview/gamePreview.get";
 import {leaveClubAsMember, leaveTeamAsMember} from "./firestore/userProfile/leaveAsMember";
 import {addClubTeam} from "./firestore/club/createClubTeam";
+import {createCheckoutSession} from "./firestore/club/stripeCheckout";
 
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -79,6 +80,9 @@ export const dbRemoveClubAdmin = functions.region("europe-west6").firestore.docu
 export const dbAddClubMember = functions.region("europe-west6").firestore.document("/club/{clubId}/members/{userId}").onCreate(createClubMember); // Not needed? Maybe a new INVITE Proccess
 export const dbAddClubAdmin = functions.region("europe-west6").firestore.document("/club/{clubId}/admins/{userId}").onCreate(createClubAdmin);
 export const dbLeaveClubAsMember = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubs/{clubId}").onDelete(leaveClubAsMember);
+
+// DB Hooks STRIPE
+export const dbAddCheckoutSession = functions.region("europe-west6").firestore.document("/club/{clubId}/checkout_sessions/{sessionId}").onCreate(createCheckoutSession);
 
 // export const dbRemoveMemberFromClub = functions.region("europe-west6").firestore.document("/club/{clubId}/members/{userId}").onDelete(deleteMemberFromClub);
 // export const dbRemoveMemberFromTeam = functions.region("europe-west6").firestore.document("/teams/{teamId}/members/{userId}").onDelete(deleteMemberFromTeam);
