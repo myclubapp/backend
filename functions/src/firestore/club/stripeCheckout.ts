@@ -75,11 +75,15 @@ export async function updateInvoice(change: Change<DocumentSnapshot>, context: f
   const invoiceId = context.params.invoiceId;
   const userId = context.params.userId;
 
+  // GET subscription = parent object, as there is a metadata object with clubId Available
+  const subscriptionRef = await db.collection("userProfile").collection("subscriptions").doc(subscriptionId).get();
+  const subscriptionData = subscriptionRef.data();
+
   const userProfileRef = await db.collection("userProfile").doc(userId).get();
-  const invoiceData = change.after.data() || {};
+
   let clubId = "";
-  if (invoiceData && invoiceData.metadata && invoiceData.metadata.clubId) {
-    clubId = invoiceData.metadata.clubId;
+  if (subscriptionData && subscriptionData.metadata && subscriptionData.metadata.clubId) {
+    clubId = subscriptionData.metadata.clubId;
     return db.collection("club").doc(clubId).collection("subscriptions").doc(subscriptionId).collection("invoices").doc(invoiceId).set({
       ...change.after.data(),
       userProfileRef: userProfileRef.ref,
@@ -92,15 +96,15 @@ export async function updateInvoice(change: Change<DocumentSnapshot>, context: f
   }
 }
 export async function updatePayments(change: Change<DocumentSnapshot>, context: functions.EventContext) {
-  console.log("change Checkout Session");
+  console.log("change Payment - this will never succeed, as metadata is not filled - but anyway it's not urgent as we can show this only to the user.");
   const paymentId = context.params.paymentId;
   const userId = context.params.userId;
 
   const userProfileRef = await db.collection("userProfile").doc(userId).get();
-  const invoiceData = change.after.data() || {};
+  const paymentData = change.after.data() || {};
   let clubId = "";
-  if (invoiceData && invoiceData.metadata && invoiceData.metadata.clubId) {
-    clubId = invoiceData.metadata.clubId;
+  if (paymentData && paymentData.metadata && paymentData.metadata.clubId) {
+    clubId = paymentData.metadata.clubId;
     return db.collection("club").doc(clubId).collection("payments").doc(paymentId).set({
       ...change.after.data(),
       userProfileRef: userProfileRef.ref,
