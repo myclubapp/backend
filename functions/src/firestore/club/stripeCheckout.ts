@@ -55,9 +55,34 @@ export async function updateSubscription(change: Change<DocumentSnapshot>, conte
 
   const userProfileRef = await db.collection("userProfile").doc(userId).get();
   const subscriptionData = change.after.data() || {};
+  // const subscriptionDataBefore = change.before.data() || {};
+
+
   let clubId = "";
   if (subscriptionData && subscriptionData.metadata && subscriptionData.metadata.clubId) {
     clubId = subscriptionData.metadata.clubId;
+
+    if (subscriptionData.status == "active") {
+      await db.collection("club").doc(clubId).set({
+        subscriptionActive: true}, {merge: true});
+    } else if (subscriptionData.status == "canceled") {
+      const activeSubscription = await db.collection("club").doc(clubId).collection("subscriptions").where("status", "==", "active").get();
+      if (activeSubscription.docs.length > 0) {
+        console.log("has active subsription");
+      } else {
+        await db.collection("club").doc(clubId).set({
+          subscriptionActive: false}, {merge: true});
+      }
+    } else {
+      const activeSubscription = await db.collection("club").doc(clubId).collection("subscriptions").where("status", "==", "active").get();
+      if (activeSubscription.docs.length > 0) {
+        console.log("has active subsription");
+      } else {
+        await db.collection("club").doc(clubId).set({
+          subscriptionActive: false}, {merge: true});
+      }
+    }
+
     return db.collection("club").doc(clubId).collection("subscriptions").doc(subscriptionId).set({
       ...change.after.data(),
       userProfileRef: userProfileRef.ref,
