@@ -36,7 +36,7 @@ import {confirmHelferEvent} from "./firestore/event/confirmHelferEvent";
 import {getGamePreview} from "./requests/gamePreview/gamePreview.get";
 import {leaveClubAsMember, leaveTeamAsMember} from "./firestore/userProfile/leaveAsMember";
 import {addClubTeam} from "./firestore/club/createClubTeam";
-import {createCheckoutSession, updateCheckoutSession} from "./firestore/club/stripeCheckout";
+import {createCheckoutSession, updateCheckoutSession, updatePayments, updateSubscription} from "./firestore/club/stripeCheckout";
 
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -84,6 +84,8 @@ export const dbLeaveClubAsMember = functions.region("europe-west6").firestore.do
 // DB Hooks STRIPE
 export const dbAddCheckoutSession = functions.region("europe-west6").firestore.document("/club/{clubId}/checkout_sessions/{sessionId}").onCreate(createCheckoutSession);
 export const dbChangeCheckoutSession = functions.region("europe-west6").firestore.document("/userProfile/{userId}/checkout_sessions/{sessionId}").onUpdate(updateCheckoutSession);
+export const dbChangeSubscription = functions.region("europe-west6").firestore.document("/userProfile/{userId}/checkout_sessions/{sessionId}/subscriptions/{subscriptionId}").onUpdate(updateSubscription);
+export const dbChangePayment = functions.region("europe-west6").firestore.document("/userProfile/{userId}/checkout_sessions/{sessionId}/payments/{paymentId}").onUpdate(updatePayments);
 // export const dbRemoveMemberFromClub = functions.region("europe-west6").firestore.document("/club/{clubId}/members/{userId}").onDelete(deleteMemberFromClub);
 // export const dbRemoveMemberFromTeam = functions.region("europe-west6").firestore.document("/teams/{teamId}/members/{userId}").onDelete(deleteMemberFromTeam);
 

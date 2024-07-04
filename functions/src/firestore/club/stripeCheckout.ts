@@ -39,6 +39,39 @@ export async function updateCheckoutSession(change: Change<QueryDocumentSnapshot
   return db.collection("userProfile").doc(userId).collection("checkout_sessions").doc(sessionId).set({
     ...change.after.data(),
     userProfileRef: userProfileRef.ref,
+    updated: new Date(),
+  },
+  {merge: true}
+  );
+}
+export async function updateSubscription(change: Change<QueryDocumentSnapshot>, context: functions.EventContext) {
+  console.log("change Checkout Session");
+  const sessionId = context.params.sessionId;
+  const subscriptionId = context.params.subscriptionId;
+  const userId = context.params.userId;
+
+  const userProfileRef = await db.collection("userProfile").doc(userId).get();
+
+  return db.collection("userProfile").doc(userId).collection("checkout_sessions").doc(sessionId).collection("subscriptions").doc(subscriptionId).set({
+    ...change.after.data(),
+    userProfileRef: userProfileRef.ref,
+    updated: new Date(),
+  },
+  {merge: true}
+  );
+}
+export async function updatePayments(change: Change<QueryDocumentSnapshot>, context: functions.EventContext) {
+  console.log("change Checkout Session");
+  const sessionId = context.params.sessionId;
+  const paymentId = context.params.paymentId;
+  const userId = context.params.userId;
+
+  const userProfileRef = await db.collection("userProfile").doc(userId).get();
+
+  return db.collection("userProfile").doc(userId).collection("checkout_sessions").doc(sessionId).collection("payments").doc(paymentId).set({
+    ...change.after.data(),
+    userProfileRef: userProfileRef.ref,
+    updated: new Date(),
   },
   {merge: true}
   );
