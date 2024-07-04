@@ -5,16 +5,15 @@
 /* eslint-disable max-len */
 import * as functions from "firebase-functions";
 import firebaseDAO from "../../firebaseSingleton";
-import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
+import {DocumentSnapshot, QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 import {Change} from "firebase-functions";
 const db = firebaseDAO.instance.db;
 
 export async function createCheckoutSession(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
-  console.log("Create New Checkout Session");
+  console.log("Create New Checkout Session based on Checkout Session in Club");
 
   const clubId = context.params.clubId;
   const sessionId = context.params.sessionId;
-
   console.log("clubId: " + clubId);
   console.log("sessionId: " + sessionId);
 
@@ -25,54 +24,91 @@ export async function createCheckoutSession(snapshot: QueryDocumentSnapshot, con
     ...sessionData,
     updated: new Date(),
     clubId: clubId,
+    metadata: {
+      "clubId": clubId,
+    },
     clubRef: clubRef.ref,
   });
 }
 
 export async function updateCheckoutSession(change: Change<QueryDocumentSnapshot>, context: functions.EventContext) {
-  console.log("change Checkout Session");
+  console.log("Update Checkout Session on Club, because STRIPE does only update userProfile collection");
   const sessionId = context.params.sessionId;
   const userId = context.params.userId;
 
   const userProfileRef = await db.collection("userProfile").doc(userId).get();
+  const sessionData = change.after.data();
+  const clubId = change.before.data().clubId;
 
-  return db.collection("club").doc(change.before.data().clubId).collection("checkout_sessions").doc(sessionId).set({
-    ...change.after.data(),
+  return db.collection("club").doc(clubId).collection("checkout_sessions").doc(sessionId).set({
+    ...sessionData,
     userProfileRef: userProfileRef.ref,
     updated: new Date(),
   },
   {merge: true}
   );
 }
-export async function updateSubscription(change: Change<QueryDocumentSnapshot>, context: functions.EventContext) {
+export async function updateSubscription(change: Change<DocumentSnapshot>, context: functions.EventContext) {
   console.log("change Checkout Session");
-  const sessionId = context.params.sessionId;
   const subscriptionId = context.params.subscriptionId;
   const userId = context.params.userId;
 
   const userProfileRef = await db.collection("userProfile").doc(userId).get();
-
-  return db.collection("club").doc(change.before.data().clubId).collection("checkout_sessions").doc(sessionId).collection("subscriptions").doc(subscriptionId).set({
-    ...change.after.data(),
-    userProfileRef: userProfileRef.ref,
-    updated: new Date(),
-  },
-  {merge: true}
-  );
+  const subscriptionData = change.after.data() || {};
+  let clubId = "";
+  if (subscriptionData && subscriptionData.metadata && subscriptionData.metadata.clubId) {
+    clubId = subscriptionData.metadata.clubId;
+    return db.collection("club").doc(clubId).collection("subscriptions").doc(subscriptionId).set({
+      ...change.after.data(),
+      userProfileRef: userProfileRef.ref,
+      updated: new Date(),
+    },
+    {merge: true}
+    );
+  } else {
+    return true;
+  }
 }
-export async function updatePayments(change: Change<QueryDocumentSnapshot>, context: functions.EventContext) {
+export async function updateInvoice(change: Change<DocumentSnapshot>, context: functions.EventContext) {
   console.log("change Checkout Session");
-  const sessionId = context.params.sessionId;
+  const subscriptionId = context.params.subscriptionId;
+  const invoiceId = context.params.invoiceId;
+  const userId = context.params.userId;
+
+  const userProfileRef = await db.collection("userProfile").doc(userId).get();
+  const invoiceData = change.after.data() || {};
+  let clubId = "";
+  if (invoiceData && invoiceData.metadata && invoiceData.metadata.clubId) {
+    clubId = invoiceData.metadata.clubId;
+    return db.collection("club").doc(clubId).collection("subscriptions").doc(subscriptionId).collection("invoices").doc(invoiceId).set({
+      ...change.after.data(),
+      userProfileRef: userProfileRef.ref,
+      updated: new Date(),
+    },
+    {merge: true}
+    );
+  } else {
+    return true;
+  }
+}
+export async function updatePayments(change: Change<DocumentSnapshot>, context: functions.EventContext) {
+  console.log("change Checkout Session");
   const paymentId = context.params.paymentId;
   const userId = context.params.userId;
 
   const userProfileRef = await db.collection("userProfile").doc(userId).get();
-
-  return db.collection("club").doc(change.before.data().clubId).collection("checkout_sessions").doc(sessionId).collection("payments").doc(paymentId).set({
-    ...change.after.data(),
-    userProfileRef: userProfileRef.ref,
-    updated: new Date(),
-  },
-  {merge: true}
-  );
+  const invoiceData = change.after.data() || {};
+  let clubId = "";
+  if (invoiceData && invoiceData.metadata && invoiceData.metadata.clubId) {
+    clubId = invoiceData.metadata.clubId;
+    return db.collection("club").doc(clubId).collection("payments").doc(paymentId).set({
+      ...change.after.data(),
+      userProfileRef: userProfileRef.ref,
+      updated: new Date(),
+    },
+    {merge: true}
+    );
+  } else {
+    return true;
+  }
 }
