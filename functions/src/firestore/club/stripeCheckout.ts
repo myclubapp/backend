@@ -56,13 +56,20 @@ export async function updateSubscription(change: Change<DocumentSnapshot>, conte
 
   const userProfileRef = await db.collection("userProfile").doc(userId).get();
   const subscriptionData = change.after.data() || {};
-  // const subscriptionDataBefore = change.before.data() || {};
-
 
   let clubId = "";
   if (subscriptionData && subscriptionData.metadata && subscriptionData.metadata.clubId) {
     clubId = subscriptionData.metadata.clubId;
 
+    await db.collection("club").doc(clubId).collection("subscriptions").doc(subscriptionId).set({
+      ...change.after.data(),
+      userProfileRef: userProfileRef.ref,
+      updated: new Date(),
+    },
+    {merge: true}
+    );
+
+    console.log(">> STATUS " + subscriptionData.status);
     if (subscriptionData.status == "active") {
       await db.collection("club").doc(clubId).set({
         subscriptionActive: true,
@@ -95,14 +102,7 @@ export async function updateSubscription(change: Change<DocumentSnapshot>, conte
         });
       }
     }
-
-    return db.collection("club").doc(clubId).collection("subscriptions").doc(subscriptionId).set({
-      ...change.after.data(),
-      userProfileRef: userProfileRef.ref,
-      updated: new Date(),
-    },
-    {merge: true}
-    );
+    return true;
   } else {
     return true;
   }
