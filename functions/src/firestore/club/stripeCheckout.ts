@@ -76,7 +76,7 @@ export async function updateInvoice(change: Change<DocumentSnapshot>, context: f
   const userId = context.params.userId;
 
   // GET subscription = parent object, as there is a metadata object with clubId Available
-  const subscriptionRef = await db.collection("userProfile").collection("subscriptions").doc(subscriptionId).get();
+  const subscriptionRef = await db.collection("userProfile").doc(userId).collection("subscriptions").doc(subscriptionId).get();
   const subscriptionData = subscriptionRef.data();
 
   const userProfileRef = await db.collection("userProfile").doc(userId).get();
@@ -105,6 +105,7 @@ export async function updatePayments(change: Change<DocumentSnapshot>, context: 
   let clubId = "";
   if (paymentData && paymentData.metadata && paymentData.metadata.clubId) {
     clubId = paymentData.metadata.clubId;
+    console.log("payment updated for club");
     return db.collection("club").doc(clubId).collection("payments").doc(paymentId).set({
       ...change.after.data(),
       userProfileRef: userProfileRef.ref,
@@ -113,6 +114,7 @@ export async function updatePayments(change: Change<DocumentSnapshot>, context: 
     {merge: true}
     );
   } else {
+    console.log("No payment updated for club because of missing metadata.");
     return true;
   }
 }
