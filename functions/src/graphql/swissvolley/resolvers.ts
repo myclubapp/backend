@@ -384,6 +384,21 @@ async function getClub(clubId: string) {
 
 async function getGames(teamId: string) {
   const gameList = < any > [];
+
+  const data = await fetch("hhttps://api.volleyball.ch/indoor/games?region=SVRNO&teamId=" + teamId + "&includeCup=1", {
+    headers: {
+      "Accept": "application/json",
+      "authorization": "HYT_qY$m3-53nmA-",
+    },
+  });
+  const clubData = await data.json();
+
+  clubData.forEach((item: any) => {
+    gameList.push({
+      ...item,
+      id: item.gameId,
+    });
+  });
   return gameList;
   // https://api.volleyball.ch/indoor/games?region=$1&dateStart=${START}&dateEnd=${END}"
   // https://api.volleyball.ch/indoor/games?region=SV&gender=f&leagueId=1975&phaseId=3486&groupId=11786&
