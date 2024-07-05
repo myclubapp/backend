@@ -134,12 +134,10 @@ export async function updateClubsSwissvolleyball(): Promise<any> {
     }, {
       merge: true,
     });
-    // address: club.address,
-    for (const address of club.address) {
-      await db.collection("club").doc(`sv-${club.id}`).collection("contacts").doc(`sv-${address.id}`).set(address, {
-        merge: true,
-      });
-    }
+
+    await db.collection("club").doc(`sv-${club.id}`).collection("contacts").doc(`sv-${club.id}`).set(club.contact, {
+      merge: true,
+    });
   }
   // }
 }
