@@ -383,12 +383,14 @@ async function getClub(clubId: string) {
 }
 
 async function getGames(teamId: string) {
+  const gameList = < any > [];
+  return gameList;
   // https://api.volleyball.ch/indoor/games?region=$1&dateStart=${START}&dateEnd=${END}"
   // https://api.volleyball.ch/indoor/games?region=SV&gender=f&leagueId=1975&phaseId=3486&groupId=11786&
-  const args = {
+  /* const args = {
     team_ID: teamId,
   };
-  const gameList = < any > [];
+
   const client = await soap.createClientAsync(soapUrl);
   const result = await client.getGamesTeamAsync(args);
   // console.log(JSON.stringify(result));
@@ -400,6 +402,7 @@ async function getGames(teamId: string) {
     });
   });
   return gameList;
+  */
 }
 
 async function getGame(gameId: string) {
