@@ -39,7 +39,6 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
     "userProfileRef": userProfileRef.ref,
   });
 
-
   if (club && club.active == false) {
     // club ist noch nicht aktiv. -> Prüfen ob in der Contactliste eingetragen
     const contactDataRef = await db.collection("club").doc(clubId).collection("contacts").where("email", "==", user.email).get();
@@ -57,6 +56,13 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
       });
     } else {
       // E-Mail, dass Request gelöscht wurde, da nicht bereichtig. Bitte info@my-club.app kontaktieren, sollte es sich um einen Fehler handeln.
+      // Wird via Request rejected Methode gemacht. daher zuerst request ablehnen.
+      await db.collection("club").doc(clubId).collection("requests").doc(userId).set({
+        "userProfileRef": userProfileRef.ref,
+        "approveDateTime": Date.now(),
+        "approve": false,
+        "isAdmin": false,
+      });
     }
   } else {
     // Club ist aktiv, normales Prozedere
@@ -171,4 +177,5 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
       },
     });
   }
+  return true;
 }
