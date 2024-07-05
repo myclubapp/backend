@@ -138,6 +138,10 @@ export async function updateClubsSwissvolleyball(): Promise<any> {
     await db.collection("club").doc(`sv-${club.id}`).collection("contacts").doc(`sv-${club.id}`).set(club.contact, {
       merge: true,
     });
+
+    await db.collection("club").doc(`sh-${club.id}`).collection("venues").doc(`sh-${club.id}`).set(club.mainHall, {
+      merge: true,
+    });
   }
   // }
 }

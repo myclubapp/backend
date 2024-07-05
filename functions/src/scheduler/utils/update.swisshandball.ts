@@ -150,6 +150,22 @@ export async function updateClubsSwisshandball(): Promise<any> {
     await db.collection("club").doc(`sh-${club.id}`).collection("contacts").doc(`sh-${club.id}`).set(club.contact_person, {
       merge: true,
     });
+
+    for (const venue of club.halls) {
+      const regex = /(\d+)(?=")/;
+      const match = venue.link.match(regex);
+
+      if (match) {
+        const number = match[0];
+        console.log(number); // Output: 141088
+
+        await db.collection("club").doc(`sh-${club.id}`).collection("venues").doc(`sh-${number}`).set(venue, {
+          merge: true,
+        });
+      } else {
+        console.log("Number not found");
+      }
+    }
   }
 }
 
