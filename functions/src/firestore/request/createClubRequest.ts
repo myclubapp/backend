@@ -10,7 +10,8 @@ import firebaseDAO from "../../firebaseSingleton";
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 import {Messaging} from "firebase-admin/lib/messaging/messaging";
 import {DataMessagePayload, NotificationMessagePayload} from "firebase-admin/lib/messaging/messaging-api";
-
+import {updatePersistenceJobClubs, updatePersistenceJobTeams, updatePersistenceJobGames, updatePersistenceJobNews} from "../../scheduler/syncAssociation.scheduler";
+import {EventContext, Resource} from "firebase-functions";
 const db = firebaseDAO.instance.db;
 const messaging: Messaging = firebaseDAO.instance.messaging;
 
@@ -46,7 +47,10 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
       // ACTIVATE CLUB!
       await db.collection("club").doc(clubId).set({
         active: true,
+        subscriptionActive: false,
+        subscroptionType: "",
       }, {merge: true});
+
       // Request kann angenommen werden.
       await db.collection("club").doc(clubId).collection("requests").doc(userId).set({
         "userProfileRef": userProfileRef.ref,
@@ -54,6 +58,11 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
         "approve": true,
         "isAdmin": true,
       });
+      // REFRESH DB
+      await updatePersistenceJobClubs(context);
+      await updatePersistenceJobTeams(context);
+      await updatePersistenceJobGames(context);
+      await updatePersistenceJobNews(context);
     } else {
       // E-Mail, dass Request gelöscht wurde, da nicht bereichtig. Bitte info@my-club.app kontaktieren, sollte es sich um einen Fehler handeln.
       // Wird via Request rejected Methode gemacht. daher zuerst request ablehnen.
