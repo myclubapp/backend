@@ -24,7 +24,7 @@ const db = firebaseDAO.instance.db;
 } */
 
 export async function authUserCreateSendWelcomeEmail(user: admin.auth.UserRecord, context: functions.EventContext) {
-  console.log(">>> NEW USER with ID: " + user.uid + " SEND WELCOME MAIL");
+  console.log(">>> NEW USER with ID: " + user.uid + " SEND WELCOME E-MAIL to VALIDATE E-MAIL");
   const link = await admin.auth().generateEmailVerificationLink(user.email as string);
 
   const userProfile: any = await db.collection("userProfile").doc(`${user.uid}`).get();
@@ -50,7 +50,7 @@ export async function authUserCreateSendWelcomeEmail(user: admin.auth.UserRecord
 }
 
 export async function authUserCreateAdminUser(user: admin.auth.UserRecord, context: functions.EventContext) {
-  console.log(">>> NEW USER with ID: " + user.uid + " CREATE ADMIN USER?");
+  /* console.log(">>> NEW USER with ID: " + user.uid + " CREATE ADMIN USER?");
 
   const userProfile: any = await db.collection("userProfile").doc(`${user.uid}`).get();
   if (!userProfile.exists) {
@@ -94,16 +94,16 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord, conte
       await db.collection("userProfile").doc(user.uid).collection("clubs").doc(clubId).set({
         "clubRef": clubRef.ref,
       });
-
-      // Wird nicht mehr gebraucht...
-      /* console.log(`set user ${user.uid} custom claims for admin role: ${clubId}`);
+  */
+  // Wird nicht mehr gebraucht...
+  /* console.log(`set user ${user.uid} custom claims for admin role: ${clubId}`);
       const userRef = await admin.auth().getUser(user.uid);
       const _customClaims = userRef.customClaims || {};
       _customClaims[clubId] = true;
       admin.auth().setCustomUserClaims(user.uid, _customClaims); */
 
-      // ADD TO ALL TEAMS --> NOT NEEEDED ANDYMORE SINCE CLUB ADMIN CAN ACCESS ALL TEAMS ANYWAY
-      /*
+  // ADD TO ALL TEAMS --> NOT NEEEDED ANDYMORE SINCE CLUB ADMIN CAN ACCESS ALL TEAMS ANYWAY
+  /*
       const teamListRef = await db.collection("club").doc(clubId).collection("teams").get();
       for (const team of teamListRef.docs) {
         // ADD User to Club as Admin
@@ -125,11 +125,11 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord, conte
           "teamRef": teamRef.ref,
         });
       }*/
-    }
+  // }
 
-    // TODO
-    // SEND MAIL TO CLUB ADMIN AND INFORM, THAT A NEW CLUB IS ACTIVE.
-  }
+  // TODO
+  // SEND MAIL TO CLUB ADMIN AND INFORM, THAT A NEW CLUB IS ACTIVE.
+  // }
 }
 
 

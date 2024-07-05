@@ -32,6 +32,19 @@ export async function approveClubRequest(change: Change<QueryDocumentSnapshot>, 
       "clubRef": clubRef.ref,
     });
 
+    // IS manged via createClubRequest and Club is not acitve.
+    if (change.after.data().isAdmin === true) {
+      // ADD User to Club as Admin
+      await db.collection("club").doc(clubId).collection("admins").doc(userProfileRef.id).set({
+        "userProfileRef": userProfileRef.ref,
+      });
+      // Add ClubAdmin to User
+      const clubRef = await db.collection("club").doc(clubId).get();
+      await db.collection("userProfile").doc(userProfileRef.id).collection("clubAdmin").doc(clubId).set({
+        "clubRef": clubRef.ref,
+      });
+    }
+
     // clean up requests
     await db.collection("userProfile").doc(userProfileRef.id).collection("clubRequests").doc(clubId).delete();
     await db.collection("club").doc(clubId).collection("requests").doc(requestId).delete();
