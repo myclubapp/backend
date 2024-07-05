@@ -77,28 +77,28 @@ export default {
       return getTeam(args.teamId);
     },
     teams: (parent: any, args: {
-      clubId: string;season: string;
+      clubId: string; season: string;
     }, context: any, info: any) => {
       return getTeams(args.clubId, args.season);
     },
     games: (parent: any, args: {
-      teamId: string;season: string;
+      teamId: string; season: string;
     }, context: any, info: any) => {
       return getGames(args.teamId, args.season);
     },
     clubGames: (parent: any, args: {
-      clubId: string;season: string;
+      clubId: string; season: string;
     }, context: any, info: any) => {
       return getClubGames(args.clubId, args.season);
     },
-    game: (parent: any, args: {gameId: string }, context: any, info: any) => {
+    game: (parent: any, args: { gameId: string }, context: any, info: any) => {
       return getGame(args.gameId);
     },
     seasons: () => {
       return getSeasons();
     },
     rankings: (parent: any, args: {
-      id: string;season: string;
+      id: string; season: string;
     }, context: any, info: any) => {
       return getRankings(args.id, args.season);
     },
@@ -135,7 +135,7 @@ async function getTeams(clubId: string, season: string) {
   console.log(`get team by club: https://api-v2.swissunihockey.ch/api/teams?mode=by_club&club_id= + ${clubId} + &season= + ${season}`);
   const data = await fetch("https://api-v2.swissunihockey.ch/api/teams?mode=by_club&club_id=" + clubId + "&season=" + season);
   const teamData = await data.json();
-  const teamList = < any > [];
+  const teamList = <any>[];
   // console.log(teamData);
   for (const team of teamData.entries) {
     console.log(`team id: ${team.set_in_context.team_id} ${team.text}`);
@@ -177,7 +177,7 @@ async function getTeam(teamId: string) {
 async function getClubs() {
   const data = await fetch("https://api-v2.swissunihockey.ch/api/clubs");
   const clubData = await data.json();
-  const clubList = < any > [];
+  const clubList = <any>[];
   // clubData.entries.forEach(async (item: any) => {
   for (const item of clubData.entries) {
     // console.log(`Read Club: ${item.set_in_context.club_id} ${item.text}`);
@@ -256,7 +256,7 @@ async function getClubGames(clubId: string, season: string) {
   const gameData = await data.json();
   const gameList = [];
   if (gameData && gameData.data && gameData.data.regions && gameData.data.regions.length > 0) {
-    for (const item of gameData.data.regions[0].rows ) {
+    for (const item of gameData.data.regions[0].rows) {
       let latitude = "-";
       let longitude = "-";
       try {
@@ -295,10 +295,10 @@ async function getGames(teamId: string, season: string) {
   const data = await fetch("https://api-v2.swissunihockey.ch/api/games?mode=team&season=" + season + "&team_id=" + teamId + "&games_per_page=100");
   console.log("https://api-v2.swissunihockey.ch/api/games?mode=team&season=" + season + "&team_id=" + teamId + "&games_per_page=100");
   const gameData = await data.json();
-  const gameList = < any > [];
+  const gameList = <any>[];
   if (gameData && gameData.data && gameData.data.regions && gameData.data.regions.length > 0) {
     // gameData.data.regions[0].rows.forEach((item: any) => {
-    for (const item of gameData.data.regions[0].rows ) {
+    for (const item of gameData.data.regions[0].rows) {
       let latitude = "-";
       let longitude = "-";
       try {
@@ -386,7 +386,7 @@ async function getSeasons() {
   const data = await fetch("https://api-v2.swissunihockey.ch/api/seasons");
   const seasonData = await data.json();
   // console.log(seasonData.entries);
-  const seasonList = < any > [];
+  const seasonList = <any>[];
   // seasonData.entries.forEach((item: any) => {
   for (const item of seasonData.entries) {
     seasonList.push({
@@ -408,7 +408,7 @@ async function getRankings(teamId: string, season: string) {
   const data = await fetch("https://api-v2.swissunihockey.ch/api/rankings?season=" + season + "&team_id=" + teamId);
   const rankingData = await data.json();
   // console.log(JSON.stringify(rankingData));
-  const rankingList = < any > [];
+  const rankingList = <any>[];
   // rankingData.data.regions[0].rows.forEach((item: any) => {
   if (rankingData && rankingData.data && rankingData.data.regions && rankingData.data.regions.length > 0 && rankingData.data.regions[0].rows) {
     for (const item of rankingData.data.regions[0].rows) {
@@ -444,7 +444,7 @@ async function getStatistics(teamId: string) {
   const data = await fetch("https://api-v2.swissunihockey.ch/api/teams/" + teamId + "/statistics");
   const statisticsData = await data.json();
 
-  const statisticsList = < any > [];
+  const statisticsList = <any>[];
   // statisticsData.data.regions[0].rows.forEach((item: any) => {
   for (const item of statisticsData.data.regions[0].rows) {
     console.log(JSON.stringify(item.cells[1]), JSON.stringify(item.cells[3]));
@@ -457,16 +457,21 @@ async function getStatistics(teamId: string) {
 async function getNews() {
   const data = await fetch("https://api.newsroom.co/walls?token=xgoo9jkoc2ee&count=30&channelId=663&tag=top,pin,!top,!pin");
   const newsData = await data.json();
-  const newsList = < any > [];
+  const newsList = <any>[];
   // newsData._embedded.wallList.forEach((item: any) => {
   for (const item of newsData._embedded.wallList) {
-    // console.log(item);
-    let imagePath = item.featuredImage;
+    // GET IMAGE IF AVAILABLE
+    let imagePath = Object.hasOwn(item, "featuredImage"); // THIS IS MAINLY FOR DESKTOP USAGE
     try {
-      if (item.media && item.media.length == 1) {
+      if (item.media && item.media.length == 0 && !imagePath) {
+        // NOTHING HERE -> SOCIAL MEDIA POST without IMAGE
+        imagePath = item.author.image;
+      } else if (item.media && item.media.length == 1) {
+        // GET WHAT WE HAVE
         imagePath = item.media[1].url;
       } else if (item.media && item.media.length > 1) {
-        imagePath = item.media[2].url;
+        // GET Mobile Picture
+        imagePath = item.media.find((image: any) => image.resolution == "mobile").url;
       }
     } catch (e) {
       console.log(JSON.stringify(item.media));
