@@ -11,7 +11,6 @@ import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore"
 import {Messaging} from "firebase-admin/lib/messaging/messaging";
 import {DataMessagePayload, NotificationMessagePayload} from "firebase-admin/lib/messaging/messaging-api";
 import {updatePersistenceJobClubs, updatePersistenceJobTeams, updatePersistenceJobGames, updatePersistenceJobNews} from "../../scheduler/syncAssociation.scheduler";
-import {EventContext, Resource} from "firebase-functions";
 const db = firebaseDAO.instance.db;
 const messaging: Messaging = firebaseDAO.instance.messaging;
 

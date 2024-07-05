@@ -8,11 +8,11 @@
 import {EventContext} from "firebase-functions";
 
 import {updateTeamsSwissunihockey, updateClubsSwissunihockey, updateGamesSwissunihockey, updateNewsSwissunihockey} from "./utils/update.swissunihockey";
-import {updateTeamsSwissvolleyball, updateClubsSwissvolleyball} from "./utils/update.swissvolleyball";
+import {updateTeamsSwissvolleyball, updateClubsSwissvolleyball, updateNewsSwissvolley, updateGamesSwissvolley} from "./utils/update.swissvolleyball";
 import {updateTeamsSwisshandball, updateClubsSwisshandball, updateGamesSwisshandball} from "./utils/update.swisshandball";
-import {updateTeamsSwissturnverband, updateClubsSwissturnverband} from "./utils/update.swissturnverband";
+// import {updateTeamsSwissturnverband, updateClubsSwissturnverband} from "./utils/update.swissturnverband";
 // import {updateClubsSwissvolleyball} from "./utils/update.swissvolleyball";
-import {updateClubsSwisstennis} from "./utils/update.swisstennis";
+// import {updateClubsSwisstennis} from "./utils/update.swisstennis";
 
 import firebaseDAO from "./../firebaseSingleton";
 const db = firebaseDAO.instance.db;
@@ -25,8 +25,8 @@ export async function updatePersistenceJobClubs(context: EventContext) {
     await updateClubsSwissunihockey();
     await updateClubsSwisshandball();
     await updateClubsSwissvolleyball();
-    await updateClubsSwissturnverband();
-    await updateClubsSwisstennis();
+    // await updateClubsSwissturnverband();
+    // await updateClubsSwisstennis();
   } catch (err) {
     console.error(err);
   }
@@ -37,7 +37,7 @@ export async function updatePersistenceJobTeams(context: EventContext) {
     await updateTeamsSwissunihockey();
     await updateTeamsSwisshandball();
     await updateTeamsSwissvolleyball();
-    await updateTeamsSwissturnverband();
+    // await updateTeamsSwissturnverband();
   } catch (err) {
     console.error(err);
   }
@@ -47,6 +47,7 @@ export async function updatePersistenceJobGames(context: EventContext) {
   try {
     await updateGamesSwissunihockey();
     await updateGamesSwisshandball();
+    await updateGamesSwissvolley();
   } catch (err) {
     console.error(err);
   }
@@ -56,6 +57,7 @@ export async function updatePersistenceJobNews(context: EventContext) {
   try {
     await updateClubNewsFromWordpress();
     await updateNewsSwissunihockey();
+    await updateNewsSwissvolley();
     // await updateNewsSwisshandball();
   } catch (err) {
     console.error(err);

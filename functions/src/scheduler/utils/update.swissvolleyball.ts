@@ -7,39 +7,112 @@ const db = firebaseDAO.instance.db;
 
 import resolversSV from "./../../graphql/swissvolley/resolvers";
 
-export async function updateTeamsSwissvolleyball(): Promise<any> {
-  console.log("Update Teams SwissVolley");
+export async function updateGamesSwissvolley(): Promise<any> {
+  console.log("Update Games swissvolley");
 
-  const associationsData = await resolversSV.SwissVolley.associations({}, {}, {}, {});
-  for (const assocation of associationsData) {
-    const clubData = await resolversSV.SwissVolley.clubs({}, {associationId: assocation.id}, {}, {});
-    for (const club of clubData) {
-      const fbClubData = await db.collection("club").doc(`sv-${club.id}`).get();
-      if (fbClubData.exists && fbClubData.data().active) {
-        const teamData = await resolversSV.Club.teams({id: `${club.id}`});
-        for (const team of teamData) {
-          console.log(club.name + " / " + team.name);
-          await db.collection("teams").doc(`sv-${team.id}`).set({
-            externalId: `${team.id}`,
-            name: team.name,
+  // Get Clubs from DB where Type = SWISS UNIHOCKEY && STATUS is active
+  const clubListRef = await db.collection("club").where("active", "==", true).where("type", "==", "swissvolley").get();
+  for (const clubData of clubListRef.docs) {
+    // create Club Object from DB.
+    const club = {...{id: clubData.data().externalId}, ...clubData.data()};
+
+    // TEAM GAMES
+    // TODO -> GET FROM DB instead of API -> Teams should be updated with another JOB
+    const teamData = await resolversSV.Club.teams({id: `${club.id}`});
+    for (const team of teamData) {
+      console.log(`>> READ TEAM GAMES: ${team.id} ${team.name} ${team.liga} `);
+      const gamesData = await resolversSV.Team.games({id: `${team.id}`}, {}, {}, {});
+      for (const i in gamesData) {
+        if (gamesData[i]) {
+          const game = gamesData[i];
+          console.log(`>>> READ TEAM GAME:  ${game.id}`);
+
+          const clubRef = await db.collection("club").doc(`sv-${club.id}`).get();
+          const teamRef = await db.collection("teams").doc(`sv-${team.id}`).get();
+          // console.log("read match report for game: " + game.id);
+
+          // await db.collection("teams").doc(`sv-${team.id}`).collection("games").doc(`sv-${game.id}`).get();
+          await db.collection("teams").doc(`sv-${team.id}`).collection("games").doc(`sv-${game.id}`).set({
+            externalId: `${game.id}`,
+            date: game.playDate.substr(8, 2) + "." + game.playDate.substr(5, 2) + "." + game.playDate.substr(0, 4),
+            time: game.time,
+            dateTime: game.playDate,
+            location: game.hall.caption,
+            street: game.hall.street + " " + game.hall.number,
+            city: game.hall.city,
+            longitude: game.hall.longitude,
+            latitude: game.hall.latitude,
+            liga: game.league.leagueId,
+
+            name: game.league.caption,
+            description: game.phase.caption,
+
+            teamHomeId: game.teams.home.teamId,
+            teamHome: game.teams.home.caption,
+            teamHomeLogo: game.teams.home.logo,
+            teamHomeLogoText: game.teams.home.caption,
+
+            teamAwayId: game.teams.away.teamId,
+            teamAway: game.teams.away.caption,
+            teamAwayLogo: game.teams.away.logo,
+            teamAwayLogoText: game.teams.away.caption,
+
+            referee1: game.referee[0] || "",
+            referee2: game.referee[1] || "",
+            spectators: "",
+
+            result: "",
             type: "swissvolley",
-            liga: team.liga,
-            info: team.info,
             updated: new Date(),
-            associationId: assocation.id,
-            clubRef: fbClubData.ref,
-            clubId: fbClubData.id,
+            clubRef: clubRef.ref,
+            teamRef: teamRef.ref,
           }, {
             merge: true,
           });
-          await db.collection("club").doc(`sv-${club.id}`).collection("teams").doc(`sv-${team.id}`).set({
-            teamRef: db.collection("teams").doc(`sv-${team.id}`),
-          });
         }
-      } else {
-        console.log(`${club.name} is not active`);
       }
     }
+  }
+}
+
+export async function updateTeamsSwissvolleyball(): Promise<any> {
+  console.log("Update Teams SwissVolley");
+
+  // GET Clubs from DB where Type = SWISSVOLLEY && STATUS is active
+  const clubListRef = await db.collection("club").where("active", "==", true).where("type", "==", "swissvolley").get();
+  for (const clubData of clubListRef.docs) {
+    const club = {...{id: clubData.data().externalId}, ...clubData.data()};
+    /* const associationsData = await resolversSV.SwissVolley.associations({}, {}, {}, {});
+    for (const assocation of associationsData) {
+      const clubData = await resolversSV.SwissVolley.clubs({}, {associationId: assocation.id}, {}, {});
+      for (const club of clubData) {
+        const fbClubData = await db.collection("club").doc(`sv-${club.id}`).get();
+        if (fbClubData.exists && fbClubData.data().active) { */
+    const teamData = await resolversSV.Club.teams({id: `${club.id}`});
+    for (const team of teamData) {
+      console.log(club.name + " / " + team.name);
+      await db.collection("teams").doc(`sv-${team.id}`).set({
+        externalId: `${team.id}`,
+        name: team.name,
+        liga: team.liga,
+        info: team.info,
+        logo: team.logo,
+        associationId: clubData.data().associationId,
+        type: "swissvolley",
+        updated: new Date(),
+        clubRef: clubData.ref,
+        clubId: clubData.id,
+      }, {
+        merge: true,
+      });
+      await db.collection("club").doc(`sv-${club.id}`).collection("teams").doc(`sv-${team.id}`).set({
+        teamRef: db.collection("teams").doc(`sv-${team.id}`),
+      });
+    }
+    /* } else {
+          console.log(`${club.name} is not active`);
+        }
+      }*/
   }
 }
 
@@ -57,8 +130,7 @@ export async function updateClubsSwissvolleyball(): Promise<any> {
       website: club.website,
       type: "swissvolley",
       updated: new Date(),
-      // associationId: assocation.id,
-      // address: club.address,
+
     }, {
       merge: true,
     });
@@ -69,5 +141,35 @@ export async function updateClubsSwissvolleyball(): Promise<any> {
       });
     }
   }
-// }
+  // }
+}
+
+export async function updateNewsSwissvolley(): Promise<any> {
+  console.log("Update NEWS SwissVolley");
+
+  const newsData = await resolversSV.SwissVolley.news();
+  for (const news of newsData) {
+    const newsDoc = await db.collection("news").doc(`sv-${news.id}`).get();
+    if (!newsDoc.exists) {
+      await db.collection("news").doc(`sv-${news.id}`).set({
+        externalId: `${news.id}`,
+        title: news.title,
+        leadText: news.leadText + " ..." || " ",
+        date: news.date,
+        slug: news.slug || " ",
+        image: news.image || " ",
+        text: news.text || " ",
+        htmlText: news.htmlText || " ",
+        tags: news.tags || " ",
+        author: news.author || " ",
+        authorImage: news.authorImage || " ",
+        url: news.url || " ",
+        type: "swissvolley",
+        updated: new Date(),
+      }, {
+        merge: true,
+        ignoreUndefinedProperties: true,
+      });
+    }
+  }
 }
