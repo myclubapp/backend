@@ -164,7 +164,8 @@ async function updateClubNewsFromWordpress(): Promise<any> {
 
         let featuredMedia = "";
         try {
-          if (news.featuredMedia > 0) {
+          if (news.featured_media > 0) {
+            // Features Media via media fetch available
             const wpFeaturedMediaData = await fetch(news["_links"]["wp:featuredmedia"][0].href);
             const wpFeaturedMedia = await wpFeaturedMediaData.json();
             featuredMedia = wpFeaturedMedia.media_details.sizes.medium.source_url || wpFeaturedMedia.source_url || wpFeaturedMedia.guid.rendered;

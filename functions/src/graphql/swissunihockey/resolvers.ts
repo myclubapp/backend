@@ -461,7 +461,7 @@ async function getNews() {
   // newsData._embedded.wallList.forEach((item: any) => {
   for (const item of newsData._embedded.wallList) {
     // GET IMAGE IF AVAILABLE
-    let imagePath = Object.hasOwn(item, "featuredImage"); // THIS IS MAINLY FOR DESKTOP USAGE
+    let imagePath = item.featuredImage;// Object.hasOwn(item, "featuredImage"); // THIS IS MAINLY FOR DESKTOP USAGE
     try {
       if (item.media && item.media.length == 0 && !imagePath) {
         // NOTHING HERE -> SOCIAL MEDIA POST without IMAGE
@@ -487,7 +487,7 @@ async function getNews() {
       text: item.html,
       htmlText: item.html,
       tags: item.tags,
-      author: item.authorName || item.author.name,
+      author: item.authorName || item.author.name || item.source,
       authorImage: item.author.image,
       url: item.url,
     });
