@@ -57,8 +57,8 @@ export async function updateGamesSwissvolley(): Promise<any> {
             teamAwayLogo: game.teams.away.logo,
             teamAwayLogoText: game.teams.away.caption,
 
-            referee1: game.referee[0] || "",
-            referee2: game.referee[1] || "",
+            referee1: "", // game.referee[0] || "",
+            referee2: "", // game.referee[1] || "",
             spectators: "",
 
             result: "",
