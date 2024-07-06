@@ -137,6 +137,7 @@ async function getClubs() {
   const clubList = <any>[];
   for (const item of data) {
     clubList.push({
+      ...item,
       id: item.id,
       name: item.name,
       logo: `https://www.handball.ch/images/club/${item.id}.png?height=140&language=de-CH`,

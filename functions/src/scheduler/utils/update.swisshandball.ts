@@ -155,10 +155,15 @@ export async function updateClubsSwisshandball(): Promise<any> {
     // Update contacts
     await db.collection("club").doc(`sh-${club.id}`).collection("contacts").doc(`sh-${club.id}`).set({
       ...club.contact_person,
+      clubRef: clubRef.ref,
+      clubId: clubRef.id,
+      type: "swisshandball",
+      updated: new Date(),
     }, {
       merge: true,
     });
     // Update venues
+    // console.log(JSON.stringify(club.halls));
     if (club && club.halls && club.halls.length > 0) {
       for (const venue of club.halls) {
         const regex = /(\d+)(?=")/;
@@ -172,6 +177,8 @@ export async function updateClubsSwisshandball(): Promise<any> {
             ...venue,
             clubRef: clubRef.ref,
             clubId: clubRef.id,
+            type: "swisshandball",
+            updated: new Date(),
           }, {
             merge: true,
           });
