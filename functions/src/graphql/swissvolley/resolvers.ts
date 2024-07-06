@@ -160,7 +160,7 @@ async function getClubs() {
 async function getGames(teamId: string) {
   const gameList = < any > [];
 
-  const data = await fetch("hhttps://api.volleyball.ch/indoor/games?region=SVRNO&teamId=" + teamId + "&includeCup=1", {
+  const data = await fetch("https://api.volleyball.ch/indoor/games?region=SVRNO&teamId=" + teamId + "&includeCup=1", {
     headers: {
       "Accept": "application/json",
       "authorization": "HYT_qY$m3-53nmA-",

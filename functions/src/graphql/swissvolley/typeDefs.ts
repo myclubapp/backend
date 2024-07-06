@@ -95,7 +95,7 @@ type Association {
     name: String,
 
     clubs: [Club], # List of Clubs for given Association
-    leagues: [League] # List of League for given Association
+    # leagues: [League] # List of League for given Association
 }
 
 # the schema allows the following query:
