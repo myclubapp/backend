@@ -24,8 +24,8 @@ type Team {
 
 
     games: [Game], # List of games for given team
+    rankings: [Ranking]
     # statistics: [Statistics], # statistics for given team
-    details: [TeamDetail], # details for given team
 
 }
 type Club {
@@ -41,23 +41,9 @@ type Club {
     longitude: String,
     foundingYear: String,
 
-    address: [ContactAddress],   
-
     teams: [Team], # List of Teams for given Club
-    games: [Game], # List of games for given team
 
-}
 
-type ContactAddress {
-    id: ID!,
-    firstName: String,
-    lastName: String,
-    street: String,
-    number: String,
-    postalcode: String,
-    city: String,
-    email: String,
-    phone: String,
 }
 
 type Game {
@@ -65,15 +51,8 @@ type Game {
     Game documentation
     """
     id: ID!, # the ! means that every object _must_ have an id
-    details: GameDetails,
 }
 
-type GameDetails {
-    """
-    Game Detail documentation
-    """
-    id: ID!, # the ! means that every object _must_ have an id
-}
 
 type News {
     """
@@ -101,14 +80,6 @@ type Ranking {
     rank: String,
 }
 
-type TeamDetail {
-    """
-    Team Detail documentation
-    """
-    id: ID!, # the ! means that every object _must_ have an id
-    name: String,
-}
-
 type Association {
     """
     Association documentation
@@ -120,57 +91,21 @@ type Association {
     leagues: [League] # List of League for given Association
 }
 
-type League {
-    """
-    Team Detail documentation
-    """    
-    id: ID!,
-    name: String,
-
-    phases: [Phase] # List of phases for given League
-}
-
-type Phase {
-    """
-    Phase Detail documentation
-    """    
-    id: ID!,
-    name: String,
-
-    groups: [Group] # List of groups for given Phase
-}
-
-type Group {
-    """
-    Group documentation
-    """    
-    id: ID!,
-    name: String,
-
-    rankings: [Ranking], # ranking for given team
-}
-
 # the schema allows the following query:
 type SwissVolley {
     news: [News] # General Swiss Unihockey Newsfeed
 
     clubs: [Club], # List of clubs
-    clubsSOAP(assocationId: String): [Club], # List of clubs
     club(clubId: String): Club, # List of clubs
 
     teams(clubId: String): [Team], # List of Teams for a given Club
     team(teamId: String): Team, # TODO: Check if the same as Team
 
     games: [Game], # List of Games for a given Team 
-    game(gameId: String): Game, # List of Games for a given Team 
-    clubGames: [Game], # List of Games for a given Team 
 
     rankings(groupId: String): [Ranking], # Ranking for a given Team
 
     associations: [Association],
-    leagues(associationId: String): [League],
-    phases(leagueId: String): [Phase],
-    groups(phaseId: String): [Group],
 }
 
 

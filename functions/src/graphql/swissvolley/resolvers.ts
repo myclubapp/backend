@@ -12,38 +12,34 @@ const fetch = require("node-fetch");
 
 export default {
   SwissVolley: {
-    club: (parent: any, args: { clubId: string }, context: any, info: any) => {
-      return getClub(args.clubId); // 913245 "VBG Klettgau
+    news: () => {
+      return getNews();
     },
     clubs: (parent: any, args: any, context: any, info: any) => {
       return getClubs();
     },
-    team: (parent: any, args: { teamId: string }, context: any, info: any) => {
-      return getTeam(args.teamId);
+    club: (parent: any, args: { clubId: string }, context: any, info: any) => {
+      return getClub(args.clubId); // 913245 "VBG Klettgau
     },
     teams: (parent: any, args: { clubId: string}, context: any, info: any) => {
       return getTeams(args.clubId);
     },
+    team: (parent: any, args: { teamId: string }, context: any, info: any) => {
+      return getTeam(args.teamId);
+    },
+
 
     games: (parent: any, args: {teamId: string}, context: any, info: any) => {
       return getGames(args.teamId);
     },
-    game: (parent: any, args: {gameId: string }, context: any, info: any) => {
-      return getGame(args.gameId);
-    },
-    clubGames: (parent: any, args: {clubId: string;season: string; }, context: any, info: any) => {
-      return getClubGames(args.clubId);
-    },
-
-    associations: (parent: any, args: any, context: any, info: any) => {
-      return getAssociations();
-    },
     rankings: (parent: any, args: {groupId: string}, context: any, info: any) => {
       return getRankings(args.groupId);
     },
-    news: () => {
-      return getNews();
+    associations: (parent: any, args: any, context: any, info: any) => {
+      return getAssociations();
     },
+
+
   },
   Club: {
     teams(parent: any) {
@@ -138,6 +134,10 @@ async function getTeams(clubId: string) {
   return teamList;
 }
 
+function getClub(clubId: string) {
+  console.log("not needed");
+}
+
 async function getClubs() {
   const data = await fetch("https://api.volleyball.ch/indoor/clubs", {
     headers: {
@@ -157,11 +157,6 @@ async function getClubs() {
   });
   return clubList;
 }
-
-async function getClub(clubId: string) {
-  console.log("not working anymore");
-}
-
 async function getGames(teamId: string) {
   const gameList = < any > [];
 
@@ -183,10 +178,6 @@ async function getGames(teamId: string) {
 }
 
 async function getGame(gameId: string) {
-  console.log("not working anymore");
-}
-
-async function getClubGames(clubId: string) {
   console.log("not working anymore");
 }
 
