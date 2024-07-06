@@ -151,6 +151,7 @@ export async function updateClubsSwisshandball(): Promise<any> {
     }, {
       merge: true,
     });
+    const clubRef = await db.collection("club").doc(`sh-${club.id}`).get();
     // Update contacts
     await db.collection("club").doc(`sh-${club.id}`).collection("contacts").doc(`sh-${club.id}`).set({
       ...club.contact_person,
@@ -167,8 +168,10 @@ export async function updateClubsSwisshandball(): Promise<any> {
           const number = match[0];
           console.log(number); // Output: 141088
 
-          await db.collection("club").doc(`sh-${club.id}`).collection("venues").doc(`sh-${number}`).set({
+          await db.collection("venues").doc(`sh-${number}`).set({
             ...venue,
+            clubRef: clubRef.ref,
+            clubId: clubRef.id,
           }, {
             merge: true,
           });

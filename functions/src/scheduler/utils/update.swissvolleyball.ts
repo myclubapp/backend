@@ -134,12 +134,18 @@ export async function updateClubsSwissvolleyball(): Promise<any> {
     }, {
       merge: true,
     });
-
-    await db.collection("club").doc(`sv-${club.id}`).collection("contacts").doc(`sv-${club.id}`).set(club.contact, {
+    const clubRef = await db.collection("club").doc(`sv-${club.id}`).get();
+    await db.collection("club").doc(`sv-${club.id}`).collection("contacts").doc(`sv-${club.id}`).set({
+      ...club.contact,
+    }, {
       merge: true,
     });
 
-    await db.collection("club").doc(`sh-${club.id}`).collection("venues").doc(`sh-${club.id}`).set(club.mainHall, {
+    await db.collection("venues").doc(`sv-${club.id}`).set({
+      ...club.mainHall,
+      clubRef: clubRef.ref,
+      clubId: clubRef.id,
+    }, {
       merge: true,
     });
   }
