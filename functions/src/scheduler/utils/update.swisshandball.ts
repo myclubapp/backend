@@ -132,13 +132,13 @@ export async function updateClubsSwisshandball(): Promise<any> {
   for (const club of clubData) {
     console.log(club.name);
 
-    const clubData = club;
-    delete clubData.contact_person;
-    delete clubData.halls;
-    delete clubData.teams;
+    const tempData = club;
+    delete tempData.contact_person;
+    delete tempData.halls;
+    delete tempData.teams;
 
     await db.collection("club").doc(`sh-${club.id}`).set({
-      ...clubData,
+      ...tempData,
       externalId: `${club.id}`,
       name: club.name,
       type: "swisshandball",
@@ -164,7 +164,8 @@ export async function updateClubsSwisshandball(): Promise<any> {
     });
     // Update venues
     // console.log(JSON.stringify(club.halls));
-    if (club && club.halls && club.halls.length > 0) {
+    // if (club && club.halls && club.halls.length > 0) {
+    try {
       for (const venue of club.halls) {
         const regex = /(\d+)(?=")/;
         const match = venue.link.match(regex);
@@ -186,6 +187,8 @@ export async function updateClubsSwisshandball(): Promise<any> {
           console.log("Number not found");
         }
       }
+    } catch (e) {
+      console.log(club.halls);
     }
   }
 }
