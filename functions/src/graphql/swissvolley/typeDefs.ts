@@ -51,8 +51,15 @@ type Game {
     Game documentation
     """
     id: ID!, # the ! means that every object _must_ have an id
+    details: GameDetails,
 }
 
+type GameDetails {
+    """
+    Game Detail documentation
+    """
+    id: ID!, # the ! means that every object _must_ have an id
+}
 
 type News {
     """
