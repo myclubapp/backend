@@ -132,8 +132,13 @@ export async function updateClubsSwisshandball(): Promise<any> {
   for (const club of clubData) {
     console.log(club.name);
 
+    const clubData = club;
+    delete clubData.contact_person;
+    delete clubData.halls;
+    delete clubData.teams;
+
     await db.collection("club").doc(`sh-${club.id}`).set({
-      ...club,
+      ...clubData,
       externalId: `${club.id}`,
       name: club.name,
       type: "swisshandball",
