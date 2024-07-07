@@ -192,7 +192,7 @@ export async function updateClubsSwisshandball(): Promise<any> {
         }
       }
     } catch (e) {
-      console.log(club.halls);
+      console.log(hallen);
     }
   }
 }
