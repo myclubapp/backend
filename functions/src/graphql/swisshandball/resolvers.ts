@@ -136,6 +136,7 @@ async function getClubs() {
   // console.log(clubData);
   const clubList = <any>[];
   for (const item of data) {
+    console.log(item.halls);
     clubList.push({
       ...item,
       id: item.id,
