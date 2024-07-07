@@ -15,14 +15,14 @@ export async function updateTeamsSwissturnverband(): Promise<any> {
 export async function updateClubsSwissturnverband(): Promise<any> {
   console.log("Update Clubs SwissTurnverband");
 
-  const clubListRef = await db.collection("club").where("type", "==", "swissturnverband").get();
+  /* const clubListRef = await db.collection("club").where("type", "==", "swissturnverband").get();
   for (const club of clubListRef.docs) {
     const clubContactList = await db.collection("club").doc(club.id).collection("contacts").get();
     for (const contact of clubContactList.docs) {
       await db.collection("club").doc(club.id).collection("contacts").doc(contact.id).delete();
     }
     await db.collection("club").doc(club.id).delete();
-  }
+  }*/
   // const clubData = await resolversST.SwissTurnverband.clubs();
   const clubData= await resolversST.SwissTurnverband.clubs();
   for (const club of clubData) {

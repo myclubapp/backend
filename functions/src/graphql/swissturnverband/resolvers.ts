@@ -99,6 +99,7 @@ async function getClubs() {
   const data: Array<any> = JSON.parse(stvClubsJSON);
   const clubList = <any>[];
   for (const item of data) {
+    delete item.teams;
     // console.log(item.halls);
     clubList.push({
       ...item,
