@@ -7,6 +7,9 @@ import resolversSH from "./../../graphql/swisshandball/resolvers";
 
 const db = firebaseDAO.instance.db;
 
+import fs = require("fs");
+const handballHallenJSON = fs.readFileSync("./src/scheduler/utils/handball_hallen.json", "utf8");
+
 export async function updateGamesSwisshandball(): Promise<any> {
   console.log("Update Games swisshandball");
 
@@ -185,6 +188,18 @@ export async function updateClubsSwisshandball(): Promise<any> {
     } catch (e) {
       console.log(hallen);
     }
+  }
+  // HALLEN
+  const data: Array<any> = JSON.parse(handballHallenJSON);
+  // console.log(clubData);
+  for (const halle of data) {
+    await db.collection("venues").doc(`sh-${halle.id}`).set({
+      ...halle,
+      type: "swisshandball",
+      updated: new Date(),
+    }, {
+      merge: true,
+    });
   }
 }
 
