@@ -98,32 +98,30 @@ export async function updateGamesSwisshandball(): Promise<any> {
 }
 export async function updateTeamsSwisshandball(): Promise<any> {
   console.log("Update Teams SwissHandball");
-  const clubData = await resolversSH.SwissHandball.clubs();
-  for (const club of clubData) {
-    const fbClubData = await db.collection("club").doc(`sh-${club.id}`).get();
-    if (fbClubData.exists && fbClubData.data().active) {
-      const teamData = await resolversSH.Club.teams({id: `${club.id}`}, {}, {}, {});
-      for (const team of teamData) {
-        console.log(club.name + " / " + team.name);
-        await db.collection("teams").doc(`sh-${team.id}`).set({
-          ...team,
-          externalId: `${team.id}`,
-          name: team.name,
-          type: "swisshandball",
-          logo: team.logo,
-          liga: team.liga,
-          updated: new Date(),
-          clubId: `sh-${club.id}`,
-          clubRef: db.collection("club").doc(`sh-${club.id}`),
-        }, {
-          merge: true,
-        });
-        await db.collection("club").doc(`sh-${club.id}`).collection("teams").doc(`sh-${team.id}`).set({
-          teamRef: db.collection("teams").doc(`sh-${team.id}`),
-        });
-      }
-    } else {
-      console.log(`${club.name} is not active`);
+
+  const clubListRef = await db.collection("club").where("active", "==", true).where("type", "==", "swisshandball").get();
+  for (const clubData of clubListRef.docs) {
+    // create Club Object from DB.
+    const club = {...{id: clubData.data().externalId}, ...clubData.data()};
+    const teamData = await resolversSH.Club.teams({id: `${club.id}`}, {}, {}, {});
+    for (const team of teamData) {
+      console.log(club.name + " / " + team.name);
+      await db.collection("teams").doc(`sh-${team.id}`).set({
+        ...team,
+        externalId: `${team.id}`,
+        name: team.name,
+        type: "swisshandball",
+        logo: team.logo,
+        liga: team.liga,
+        updated: new Date(),
+        clubId: `sh-${club.id}`,
+        clubRef: db.collection("club").doc(`sh-${club.id}`),
+      }, {
+        merge: true,
+      });
+      await db.collection("club").doc(`sh-${club.id}`).collection("teams").doc(`sh-${team.id}`).set({
+        teamRef: db.collection("teams").doc(`sh-${team.id}`),
+      });
     }
   }
 }
