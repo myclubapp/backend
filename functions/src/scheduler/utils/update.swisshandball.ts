@@ -169,8 +169,8 @@ export async function updateClubsSwisshandball(): Promise<any> {
     // console.log(JSON.stringify(club.halls));
     // if (club && club.halls && club.halls.length > 0) {
     try {
-      for (const item of hallen) {
-        const venue = club.halls[item];
+      for (const venue of hallen) {
+        // const venue = club.halls[item];
         const regex = /(\d+)(?=")/;
         const match = venue.link.match(regex);
 
