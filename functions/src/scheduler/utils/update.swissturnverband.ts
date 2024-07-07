@@ -18,11 +18,20 @@ export async function updateTeamsSwissturnverband(): Promise<any> {
 export async function updateClubsSwissturnverband(): Promise<any> {
   console.log("Update Clubs SwissTurnverband");
 
+  const clubListRef = await db.collection("club").where("type", "===", "swissturnverband").get();
+  for (const club of clubListRef.docs) {
+    await db.collection("club").doc(club.id).delete();
+  }
+  const teamRefList = await db.collection("teams").where("type", "===", "swissturnverband").get();
+  for (const team of teamRefList.docs) {
+    await db.collection("teams").doc(team.id).delete();
+  }
   // const clubData = await resolversST.SwissTurnverband.clubs();
   const clubData = await getClubs();
   for (const club of clubData) {
     console.log(club.name);
     await db.collection("club").doc(`st-${club.id}`).set({
+      ...club,
       externalId: `${club.id}`,
       name: club.name,
       type: "swissturnverband",
@@ -31,34 +40,15 @@ export async function updateClubsSwissturnverband(): Promise<any> {
       merge: true,
     });
 
-
-    // address
-    for (const address of club.address) {
-      address.externalId = address.id;
-      address.type = "swissturnverband";
-      address.updated = new Date();
-      await db.collection("club").doc(`st-${club.id}`).collection("contacts").doc(`st-${address.id}`).set(address, {
-        merge: true,
-      });
-    }
-    // teams
-    const fbClubData = await db.collection("club").doc(`st-${club.id}`).get();
-    if (fbClubData.exists && fbClubData.data().active) {
-      for (const team of club.teams) {
-        team.externalId = team.id;
-        team.type = "swissturnverband";
-        team.updated = new Date();
-        team.clubRef = db.collection("club").doc(`st-${club.id}`),
-        await db.collection("teams").doc(`st-${team.id}`).set(team, {
-          merge: true,
-        });
-        await db.collection("club").doc(`st-${club.id}`).collection("teams").doc(`st-${team.id}`).set({
-          teamRef: db.collection("teams").doc(`st-${team.id}`),
-        });
-      }
-    } else {
-      console.log(`${club.name} is not active`);
-    }
+    await db.collection("club").doc(`st-${club.id}`).collection("contacts").doc(`st-${club.id}`).set({
+      name: club.contactName,
+      phone: club.contactPhone,
+      email: club.contactEmail,
+      type: "swissturnverband",
+      updated: new Date(),
+    }, {
+      merge: true,
+    });
   }
 }
 
