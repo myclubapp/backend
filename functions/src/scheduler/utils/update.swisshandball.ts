@@ -130,7 +130,8 @@ export async function updateClubsSwisshandball(): Promise<any> {
 
   const clubData = await resolversSH.SwissHandball.clubs();
   for (const club of clubData) {
-    console.log(club.name);
+    console.log(club.name + "und Hallen?");
+    console.log(club.halls);
 
     const tempData = club;
     delete tempData.contact_person;
