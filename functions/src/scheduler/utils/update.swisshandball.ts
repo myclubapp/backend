@@ -170,27 +170,17 @@ export async function updateClubsSwisshandball(): Promise<any> {
     // if (club && club.halls && club.halls.length > 0) {
     try {
       for (const venue of hallen) {
-        // const venue = club.halls[item];
-        const regex = /(\d+)(?=")/;
-        const match = venue.link.match(regex);
-        console.log(venue);
-
-        if (match) {
-          const number = match[0];
-          console.log(number); // Output: 141088
-
-          await db.collection("venues").doc(`sh-${number}`).set({
-            ...venue,
-            clubRef: clubRef.ref,
-            clubId: clubRef.id,
-            type: "swisshandball",
-            updated: new Date(),
-          }, {
-            merge: true,
-          });
-        } else {
-          console.log("Number not found");
-        }
+        const parts = venue.link.split("/");
+        const number = parts[parts.length - 1];
+        await db.collection("venues").doc(`sh-${number}`).set({
+          ...venue,
+          clubRef: clubRef.ref,
+          clubId: clubRef.id,
+          type: "swisshandball",
+          updated: new Date(),
+        }, {
+          merge: true,
+        });
       }
     } catch (e) {
       console.log(hallen);
