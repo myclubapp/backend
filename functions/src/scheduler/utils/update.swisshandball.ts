@@ -189,9 +189,9 @@ export async function updateClubsSwisshandball(): Promise<any> {
       console.log(hallen);
     }
   }
-  // HALLEN
+  // HALLEN / NOT NEEDED TO frequently update this..
   const data: Array<any> = JSON.parse(handballHallenJSON);
-  // console.log(clubData);
+
   for (const halle of data) {
     await db.collection("venues").doc(`sh-${halle.id}`).set({
       ...halle,

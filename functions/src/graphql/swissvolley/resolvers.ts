@@ -86,7 +86,7 @@ async function getTeam(teamId: string) {
   const data = await fetch("https://api.volleyball.ch/indoor/teams/" + teamId, {
     headers: {
       "Accept": "application/json",
-      "authorization": "HYT_qY$m3-53nmA-",
+      "authorization": "clicsoftGmbhMasterApiKey",
     },
   });
   const teamData = await data.json();
@@ -110,7 +110,7 @@ async function getTeams(clubId: string) {
   const data = await fetch("https://api.volleyball.ch/indoor/teams?clubId=" + clubId, {
     headers: {
       "Accept": "application/json",
-      "authorization": "HYT_qY$m3-53nmA-",
+      "authorization": "clicsoftGmbhMasterApiKey",
     },
   });
   const teamListData = await data.json();
@@ -139,10 +139,14 @@ function getClub(clubId: string) {
 }
 
 async function getClubs() {
+  /* headers: {
+    "Accept": "application/json",
+    "authorization": "HYT_qY$m3-53nmA-",
+  }, */
   const data = await fetch("https://api.volleyball.ch/indoor/clubs", {
     headers: {
       "Accept": "application/json",
-      "authorization": "HYT_qY$m3-53nmA-",
+      "authorization": "clicsoftGmbhMasterApiKey",
     },
   });
   const clubData = await data.json();
@@ -163,7 +167,7 @@ async function getGames(teamId: string) {
   const data = await fetch("https://api.volleyball.ch/indoor/games?region=SVRNO&teamId=" + teamId + "&includeCup=1", {
     headers: {
       "Accept": "application/json",
-      "authorization": "HYT_qY$m3-53nmA-",
+      "authorization": "clicsoftGmbhMasterApiKey",
     },
   });
   const gameData = await data.json();
@@ -187,7 +191,7 @@ async function getRankings(groupId: string) {
   const data = await fetch("https://api.volleyball.ch/indoor/ranking/" + groupId, {
     headers: {
       "Accept": "application/json",
-      "authorization": "HYT_qY$m3-53nmA-",
+      "authorization": "clicsoftGmbhMasterApiKey",
     },
   });
   const rankingData = await data.json();
