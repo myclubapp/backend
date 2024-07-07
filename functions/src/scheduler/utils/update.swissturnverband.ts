@@ -5,7 +5,7 @@
 /* eslint-disable require-jsdoc */
 import firebaseDAO from "./../../firebaseSingleton";
 const db = firebaseDAO.instance.db;
-const {FieldValue} = require("firebase-admin/firestore");
+// const {FieldValue} = require("firebase-admin/firestore");
 import resolversST from "./../../graphql/swissturnverband/resolvers";
 
 export async function updateTeamsSwissturnverband(): Promise<any> {
@@ -33,7 +33,7 @@ export async function updateClubsSwissturnverband(): Promise<any> {
       name: club.name,
       type: "swissturnverband",
       updated: new Date(),
-      Teams: FieldValue.delete(),
+      // Teams: FieldValue.delete(),
     }, {
       merge: true,
     });
