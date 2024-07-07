@@ -132,11 +132,13 @@ export async function updateClubsSwisshandball(): Promise<any> {
   for (const club of clubData) {
     console.log(club.name + "und Hallen?");
 
+    const hallen = club.halls;
+
     const tempData = club;
     delete tempData.contact_person;
     delete tempData.halls;
     delete tempData.teams;
-    console.log(club.halls);
+
 
     await db.collection("club").doc(`sh-${club.id}`).set({
       ...tempData,
@@ -167,7 +169,7 @@ export async function updateClubsSwisshandball(): Promise<any> {
     // console.log(JSON.stringify(club.halls));
     // if (club && club.halls && club.halls.length > 0) {
     try {
-      for (const item of club.halls) {
+      for (const item of hallen) {
         const venue = club.halls[item];
         const regex = /(\d+)(?=")/;
         const match = venue.link.match(regex);
