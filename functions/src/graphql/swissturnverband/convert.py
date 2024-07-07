@@ -1,5 +1,5 @@
 import json
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup # type: ignore
 import base64
 
 # Load the HTML content

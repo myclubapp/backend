@@ -9,14 +9,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 // const fetch = require("node-fetch");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-// const {convert} = require("html-to-text");
-const jsdom = require("jsdom");
 
-// const fs = require("fs");
-// const path = require("path");
-import {html} from "./stv-vereine.finder.html";
-
-// const {JSDOM} = jsdom;
 import fs = require("fs");
 const stvClubsJSON = fs.readFileSync("./src/graphql/swissturnverband/clubs_data_final.json", "utf8");
 
