@@ -9,6 +9,7 @@
 const fetch = require("node-fetch");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 // const {convert} = require("html-to-text");
+import * as functions from "firebase-functions";
 
 export default {
   SwissVolley: {
@@ -86,7 +87,7 @@ async function getTeam(teamId: string) {
   const data = await fetch("https://api.volleyball.ch/indoor/teams/" + teamId, {
     headers: {
       "Accept": "application/json",
-      "authorization": "clicsoftGmbhMasterApiKey",
+      "authorization": functions.config().swissvolley.token,
     },
   });
   const teamData = await data.json();
@@ -110,7 +111,7 @@ async function getTeams(clubId: string) {
   const data = await fetch("https://api.volleyball.ch/indoor/teams?clubId=" + clubId, {
     headers: {
       "Accept": "application/json",
-      "authorization": "clicsoftGmbhMasterApiKey",
+      "authorization": functions.config().swissvolley.token,
     },
   });
   const teamListData = await data.json();
@@ -139,14 +140,10 @@ function getClub(clubId: string) {
 }
 
 async function getClubs() {
-  /* headers: {
-    "Accept": "application/json",
-    "authorization": "HYT_qY$m3-53nmA-",
-  }, */
   const data = await fetch("https://api.volleyball.ch/indoor/clubs", {
     headers: {
       "Accept": "application/json",
-      "authorization": "clicsoftGmbhMasterApiKey",
+      "authorization": functions.config().swissvolley.token,
     },
   });
   const clubData = await data.json();
@@ -167,7 +164,7 @@ async function getGames(teamId: string) {
   const data = await fetch("https://api.volleyball.ch/indoor/games?region=SVRNO&teamId=" + teamId + "&includeCup=1", {
     headers: {
       "Accept": "application/json",
-      "authorization": "clicsoftGmbhMasterApiKey",
+      "authorization": functions.config().swissvolley.token,
     },
   });
   const gameData = await data.json();
@@ -191,7 +188,7 @@ async function getRankings(groupId: string) {
   const data = await fetch("https://api.volleyball.ch/indoor/ranking/" + groupId, {
     headers: {
       "Accept": "application/json",
-      "authorization": "clicsoftGmbhMasterApiKey",
+      "authorization": functions.config().swissvolley.token,
     },
   });
   const rankingData = await data.json();
