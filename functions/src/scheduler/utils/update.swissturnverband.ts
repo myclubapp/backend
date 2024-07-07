@@ -33,7 +33,7 @@ export async function updateClubsSwissturnverband(): Promise<any> {
       name: club.name,
       type: "swissturnverband",
       updated: new Date(),
-      teams: FieldValue.delete(),
+      Teams: FieldValue.delete(),
     }, {
       merge: true,
     });
