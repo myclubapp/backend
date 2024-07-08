@@ -68,8 +68,16 @@ export async function createNotificationClubNews(snapshot: QueryDocumentSnapshot
                   },
                   data: <DataMessagePayload>{
                     "type": "clubNews",
+                    "id": clubNewsRef.id,
                     "clubId": clubId,
-                    ...clubNewsRef.data(),
+                    "image": clubNewsRef.data().image,
+                    "leadText": clubNewsRef.data().image,
+                    "text": clubNewsRef.data().image,
+                    "author": clubNewsRef.data().author,
+                    "authorImage": clubNewsRef.data().authorImage,
+                    "slug": clubNewsRef.data().slug,
+                    "title": clubNewsRef.data().title,
+                    "url": clubNewsRef.data().url,
                   },
                 },
             );
