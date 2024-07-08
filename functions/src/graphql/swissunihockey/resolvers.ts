@@ -423,7 +423,7 @@ async function getRankings(teamId: string, season: string) {
       rankingList.push({
         id: item.data.team.id,
         name: item.data.team.name, // 2 teamname // headers.findIndex(head=>head.text="Rg.")
-        image: item.cells[headers.findIndex((head: { text: string; })=>head.text=="")].image.url,
+        image: item.cells[headers.findIndex((head: { text: string; })=>head.text=="")].image.url || "",
         games: item.cells[headers.findIndex((head: { text: string; })=>head.text=="Sp")].text[0] || "", // Sp Spiele 3
         gamesSoW: item.cells[headers.findIndex((head: { text: string; })=>head.text=="SoW")].text[0] || "", // SoW Spiele ohne Wertung 4
         wins: item.cells[headers.findIndex((head: { text: string; })=>head.text=="S")].text[0] || "", // S Siege 5
