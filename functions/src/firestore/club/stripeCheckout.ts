@@ -85,23 +85,23 @@ export async function updateSubscription(change: Change<DocumentSnapshot>, conte
         {
           merge: true,
         });
-      } else if (subscriptionData.metadata.subscriptionType === "training" || subscriptionData.metadata.subscriptionType === "helfer" || subscriptionData.metadata.subscriptionType === "championship") {
+      } else if (subscriptionData.metadata.subscriptionType === "module" ) {
         // IF ADDON -> ACTIVATE MODULE
-        if (subscriptionData.metadata.subscriptionType === "training") {
+        if (subscriptionData.metadata.addon === "training") {
           await db.collection("club").doc(clubId).set({
             hasFeatureTrainingExercise: true,
           },
           {
             merge: true,
           });
-        } else if (subscriptionData.metadata.subscriptionType === "helfer") {
+        } else if (subscriptionData.metadata.addon === "helfer") {
           await db.collection("club").doc(clubId).set({
             hasFeatureHelferEvent: true,
           },
           {
             merge: true,
           });
-        } else if (subscriptionData.metadata.subscriptionType === "championship") {
+        } else if (subscriptionData.metadata.addon === "championship") {
           await db.collection("club").doc(clubId).set({
             hasFeatureChampionship: true,
           },
@@ -128,23 +128,23 @@ export async function updateSubscription(change: Change<DocumentSnapshot>, conte
           {
             merge: true,
           });
-        } else if (subscriptionData.metadata.subscriptionType === "training" || subscriptionData.metadata.subscriptionType === "helfer" || subscriptionData.metadata.subscriptionType === "championship") {
+        } else if (subscriptionData.metadata.subscriptionType === "module" ) {
           // IF ADDON -> ACTIVATE MODULE
-          if (subscriptionData.metadata.subscriptionType === "training") {
+          if (subscriptionData.metadata.addon === "training") {
             await db.collection("club").doc(clubId).set({
               hasFeatureTrainingExercise: false,
             },
             {
               merge: true,
             });
-          } else if (subscriptionData.metadata.subscriptionType === "helfer") {
+          } else if (subscriptionData.metadata.addon === "helfer") {
             await db.collection("club").doc(clubId).set({
               hasFeatureHelferEvent: false,
             },
             {
               merge: true,
             });
-          } else if (subscriptionData.metadata.subscriptionType === "championship") {
+          } else if (subscriptionData.metadata.addon === "championship") {
             await db.collection("club").doc(clubId).set({
               hasFeatureChampionship: false,
             },
