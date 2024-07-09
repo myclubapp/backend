@@ -31,7 +31,7 @@ import {sendReportingJobMember} from "./reporting/member.scheduler";
 import {createNotificationClubNews} from "./firestore/news/createClubNews";
 import {createNotificationTeamNews} from "./firestore/news/createTeamNews";
 import {createNotificationNews} from "./firestore/news/createNews";
-import {youtubeScheduler} from "./scheduler/youtube.scheduler";
+import {exercisesScheduler} from "./scheduler/exercise.scheduler";
 import {confirmHelferEvent} from "./firestore/event/confirmHelferEvent";
 import {getGamePreview} from "./requests/gamePreview/gamePreview.get";
 import {leaveClubAsMember, leaveTeamAsMember} from "./firestore/userProfile/leaveAsMember";
@@ -62,7 +62,7 @@ export const jobUpdatePersistenceTeams = functions.runWith({timeoutSeconds: 540,
 export const jobUpdatePersistenceGames = functions.runWith({timeoutSeconds: 540, memory: "512MB"}).region("europe-west6").pubsub.schedule("00 06 * * *").timeZone("Europe/Zurich").onRun(updatePersistenceJobGames); // daily 06:00
 export const jobUpdatePersistenceNews = functions.runWith({timeoutSeconds: 360, memory: "512MB"}).region("europe-west6").pubsub.schedule("30 * * * *").timeZone("Europe/Zurich").onRun(updatePersistenceJobNews); // daily every 30 minutes
 export const jobSyncUnihockeyApp = functions.runWith({timeoutSeconds: 360, memory: "512MB"}).region("europe-west6").pubsub.schedule("30 * * * *").timeZone("Europe/Zurich").onRun(syncUnihockeyApp); // daily every 30 minutes
-export const jobYoutube = functions.runWith({timeoutSeconds: 360, memory: "512MB"}).region("europe-west6").pubsub.schedule("00 08 * * 1").timeZone("Europe/Zurich").onRun(youtubeScheduler); // daily every 30 minutes
+export const jobYoutube = functions.runWith({timeoutSeconds: 360, memory: "512MB"}).region("europe-west6").pubsub.schedule("00 08 * * 1").timeZone("Europe/Zurich").onRun(exercisesScheduler); // daily every 30 minutes
 
 // Reporting
 export const jobReportingMember = functions.runWith({timeoutSeconds: 360, memory: "256MB"}).region("europe-west6").pubsub.schedule("00 20 * * 0").timeZone("Europe/Zurich").onRun(sendReportingJobMember); // sunday 20:00
