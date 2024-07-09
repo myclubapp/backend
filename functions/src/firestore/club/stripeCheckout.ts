@@ -51,7 +51,7 @@ export async function updateCheckoutSession(change: Change<QueryDocumentSnapshot
   );
 }
 export async function updateSubscription(change: Change<DocumentSnapshot>, context: functions.EventContext) {
-  console.log("change Checkout Session");
+  console.log("CHANGE Checkout Session");
   const subscriptionId = context.params.subscriptionId;
   const userId = context.params.userId;
 
@@ -71,6 +71,8 @@ export async function updateSubscription(change: Change<DocumentSnapshot>, conte
     );
 
     console.log(">> STATUS " + subscriptionData.status);
+    console.log(">> TYPE " + subscriptionData.type);
+    console.log(">> clubId " + clubId);
     if (subscriptionData.status == "active") {
       // NEW SUBSCRIPTION FOR PRODUCT OR ADDON
       if (subscriptionData.type === "small" || subscriptionData.type === "medium" || subscriptionData.type === "large") {
@@ -156,7 +158,7 @@ export async function updateSubscription(change: Change<DocumentSnapshot>, conte
   }
 }
 export async function updateInvoice(change: Change<DocumentSnapshot>, context: functions.EventContext) {
-  console.log("change Checkout Session");
+  console.log("change Invoice ");
   const subscriptionId = context.params.subscriptionId;
   const invoiceId = context.params.invoiceId;
   const userId = context.params.userId;
