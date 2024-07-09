@@ -135,7 +135,7 @@ export async function exercisesScheduler(context: EventContext) {
     console.error(err);
   }
 
-  try {
+  /* try {
     console.log("Youtube Scheduler - OLD?");
     const response = await youtube.playlistItems.list({
       part: "snippet,contentDetails",
@@ -175,7 +175,8 @@ export async function exercisesScheduler(context: EventContext) {
     }
   } catch (err) {
     console.error(err);
-  }
+  } */
+
   /*
    * MOBILESPORTS
    */
