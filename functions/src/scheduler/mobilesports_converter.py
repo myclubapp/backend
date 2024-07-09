@@ -2,7 +2,7 @@ import json
 from bs4 import BeautifulSoup
 
 # Load the HTML content
-file_path = './mobilesports.html'
+file_path = './mobilesports.html'  # Update with your file path
 with open(file_path, 'r', encoding='utf-8') as file:
     html_content = file.read()
 
@@ -20,8 +20,10 @@ for element in soup.select('.mosp-article-box__wrapper'):
     description = element.select_one('p.is-style-small').text if element.select_one('p.is-style-small') else ''
     image_element = element.select_one('.lbwp-focuspoint img')
     image_url = image_element['src'] if image_element else ''
+    post_id = element.select_one('.mosp-btn')['data-postid'] if element.select_one('.mosp-btn') else ''
 
     articles.append({
+        'id': post_id,
         'category': category,
         'title': title,
         'description': description,
@@ -33,8 +35,8 @@ for element in soup.select('.mosp-article-box__wrapper'):
 json_output = json.dumps(articles, indent=2, ensure_ascii=False)
 
 # Save to a JSON file
-output_file_path = './mobilesports_data.json'
+output_file_path = './mobilesports_data_with_id.json'  # Update with your desired output path
 with open(output_file_path, 'w', encoding='utf-8') as json_file:
     json_file.write(json_output)
 
-output_file_path
+print(f"Data has been extracted and saved to {output_file_path}")

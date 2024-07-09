@@ -181,6 +181,7 @@ export async function exercisesScheduler(context: EventContext) {
    * MOBILESPORTS
    */
   const data: Array<any> = JSON.parse(mobileSportsUnihockey);
+  console.log("Mobilesport ");
   for (const item of data) {
     await db.collection("exercises").doc("su-" + item.id).set({
       "title": item.title,
