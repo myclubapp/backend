@@ -109,8 +109,12 @@ export async function updateSubscription(change: Change<DocumentSnapshot>, conte
             merge: true,
           });
         }
+      } else {
+        console.error("something went wrong - missing type?");
+        console.error(subscriptionData);
       }
-    } else if (subscriptionData.status == "canceled") {
+    } else if (subscriptionData.status !== "active") {
+      // NOT ACTIVE anymore.. cancel subscription / abo
       const activeSubscription = await db.collection("club").doc(clubId).collection("subscriptions").where("status", "==", "active").get();
       if (activeSubscription.docs.length > 0) {
         console.log("has active subsription");
