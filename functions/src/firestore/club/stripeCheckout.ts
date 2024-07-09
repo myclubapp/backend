@@ -27,6 +27,7 @@ export async function createCheckoutSession(snapshot: QueryDocumentSnapshot, con
     metadata: {
       "clubId": clubId,
       "subscriptionType": sessionData.subscriptionType,
+      "addon": sessionData.addon,
     },
     clubRef: clubRef.ref,
   });
@@ -71,36 +72,83 @@ export async function updateSubscription(change: Change<DocumentSnapshot>, conte
 
     console.log(">> STATUS " + subscriptionData.status);
     if (subscriptionData.status == "active") {
-      await db.collection("club").doc(clubId).set({
-        subscriptionActive: true,
-        subscriptionType: subscriptionData.metadata.subscriptionType},
-      {
-        merge: true,
-      });
+      // NEW SUBSCRIPTION FOR PRODUCT OR ADDON
+      if (subscriptionData.type === "small" || subscriptionData.type === "medium" || subscriptionData.type === "large") {
+        // IF SUBSCRIPTION
+        await db.collection("club").doc(clubId).set({
+          subscriptionActive: true,
+          subscriptionType: subscriptionData.metadata.subscriptionType,
+        },
+        {
+          merge: true,
+        });
+      } else if (subscriptionData.type === "training" || subscriptionData.type === "helfer" || subscriptionData.type === "championship") {
+        // IF ADDON -> ACTIVATE MODULE
+        if (subscriptionData.type === "training") {
+          await db.collection("club").doc(clubId).set({
+            hasFeatureTrainingExercise: true,
+          },
+          {
+            merge: true,
+          });
+        } else if (subscriptionData.type === "helfer") {
+          await db.collection("club").doc(clubId).set({
+            hasFeatureHelferEvent: true,
+          },
+          {
+            merge: true,
+          });
+        } else if (subscriptionData.type === "championship") {
+          await db.collection("club").doc(clubId).set({
+            hasFeatureChampionship: true,
+          },
+          {
+            merge: true,
+          });
+        }
+      }
     } else if (subscriptionData.status == "canceled") {
       const activeSubscription = await db.collection("club").doc(clubId).collection("subscriptions").where("status", "==", "active").get();
       if (activeSubscription.docs.length > 0) {
         console.log("has active subsription");
       } else {
-        await db.collection("club").doc(clubId).set({
-          subscriptionActive: false,
-          subscriptionType: ""},
-        {
-          merge: true,
-        });
+        if (subscriptionData.type === "small" || subscriptionData.type === "medium" || subscriptionData.type === "large") {
+          // IF SUBSCRIPTION
+          await db.collection("club").doc(clubId).set({
+            subscriptionActive: false,
+            subscriptionType: "",
+          },
+          {
+            merge: true,
+          });
+        } else if (subscriptionData.type === "training" || subscriptionData.type === "helfer" || subscriptionData.type === "championship") {
+          // IF ADDON -> ACTIVATE MODULE
+          if (subscriptionData.type === "training") {
+            await db.collection("club").doc(clubId).set({
+              hasFeatureTrainingExercise: false,
+            },
+            {
+              merge: true,
+            });
+          } else if (subscriptionData.type === "helfer") {
+            await db.collection("club").doc(clubId).set({
+              hasFeatureHelferEvent: false,
+            },
+            {
+              merge: true,
+            });
+          } else if (subscriptionData.type === "championship") {
+            await db.collection("club").doc(clubId).set({
+              hasFeatureChampionship: false,
+            },
+            {
+              merge: true,
+            });
+          }
+        }
       }
     } else { // Everything else that is not Active nor Canceled
-      const activeSubscription = await db.collection("club").doc(clubId).collection("subscriptions").where("status", "==", "active").get();
-      if (activeSubscription.docs.length > 0) {
-        console.log("has active subsription");
-      } else {
-        await db.collection("club").doc(clubId).set({
-          subscriptionActive: false,
-          subscriptionType: ""},
-        {
-          merge: true,
-        });
-      }
+      console.error(subscriptionData);
     }
     return true;
   } else {
