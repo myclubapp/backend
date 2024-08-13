@@ -229,7 +229,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           // Update status
           console.log("Update status for firestore saved game: " + gameDoc.id + " reading gameDoc id: " + gameDoc.data().externalId);
           await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(gameDoc.id).set({
-            status: "deleted",
+            gameStatus: "deleted",
           }, {
             merge: true,
           });
