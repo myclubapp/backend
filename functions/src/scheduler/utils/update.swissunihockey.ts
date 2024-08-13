@@ -217,17 +217,18 @@ export async function updateGamesSwissunihockey(): Promise<any> {
       }
       // Game still exists?
       const gameList = await db.collection("teams").doc(`su-${team.id}`).collection("games").get();
-      for (const game of gameList.docs) {
-        const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.externalId}, {}, {});
-        if (gameDetail) {
-          console.log("game here..");
+      for (const gameDoc of gameList.docs) {
+        const tempGame = await resolversSU.SwissUnihockey.game({}, {gameId: gameDoc.externalId}, {}, {});
+        if (tempGame && tempGame.name) {
+          // console.log("game here..");
         } else {
           // Update status
-          await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).set({
+          console.log("Update status for game: " + gameDoc.id);
+          /* await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(game.id).set({
             status: "deleted",
           }, {
             merge: true,
-          });
+          }); */
         }
       }
 

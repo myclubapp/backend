@@ -362,7 +362,7 @@ async function getGame(gameId: string) {
     };
   } catch (e) {
     // console.log(e);
-    return null;
+    return {};
   }
 }
 
