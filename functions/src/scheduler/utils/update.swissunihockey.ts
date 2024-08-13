@@ -219,7 +219,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
       const gameList = await db.collection("teams").doc(`su-${team.id}`).collection("games").get();
       for (const game of gameList.docs) {
         const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
-        if (gameDetail) {
+        if (gameDetail && gameDetail.id) {
           console.log("game here..");
         } else {
           // Update status

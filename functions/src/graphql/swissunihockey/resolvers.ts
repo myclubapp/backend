@@ -343,6 +343,7 @@ async function getGame(gameId: string) {
     const gameDetailData = gameData.data.regions[0].rows[0];
     // console.log(gameDetailData);
     return {
+      id: gameId,
       name: gameData.data.title,
       description: gameData.data.subtitle,
 
@@ -361,7 +362,7 @@ async function getGame(gameId: string) {
       spectators: gameDetailData.cells[10].text[0],
     };
   } catch (e) {
-    console.log(e);
+    // console.log(e);
     return {};
   }
 }
