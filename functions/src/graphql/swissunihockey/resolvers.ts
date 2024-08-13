@@ -338,27 +338,32 @@ async function getGames(teamId: string, season: string) {
 
 async function getGame(gameId: string) {
   const data = await fetch("https://api-v2.swissunihockey.ch/api/games/" + gameId);
-  const gameData = await data.json();
-  const gameDetailData = gameData.data.regions[0].rows[0];
-  // console.log(gameDetailData);
-  return {
-    name: gameData.data.title,
-    description: gameData.data.subtitle,
+  try {
+    const gameData = await data.json();
+    const gameDetailData = gameData.data.regions[0].rows[0];
+    // console.log(gameDetailData);
+    return {
+      name: gameData.data.title,
+      description: gameData.data.subtitle,
 
-    teamHomeId: "su-" + gameDetailData.cells[0].link.ids[0],
-    teamHome: gameDetailData.cells[1].text[0],
-    teamHomeLogo: gameDetailData.cells[0].image.url,
-    teamHomeLogoText: gameDetailData.cells[0].image.alt,
+      teamHomeId: "su-" + gameDetailData.cells[0].link.ids[0],
+      teamHome: gameDetailData.cells[1].text[0],
+      teamHomeLogo: gameDetailData.cells[0].image.url,
+      teamHomeLogoText: gameDetailData.cells[0].image.alt,
 
-    teamAwayId: "su-" + gameDetailData.cells[2].link.ids[0],
-    teamAway: gameDetailData.cells[3].text[0],
-    teamAwayLogo: gameDetailData.cells[2].image.url,
-    teamAwayLogoText: gameDetailData.cells[2].image.alt,
+      teamAwayId: "su-" + gameDetailData.cells[2].link.ids[0],
+      teamAway: gameDetailData.cells[3].text[0],
+      teamAwayLogo: gameDetailData.cells[2].image.url,
+      teamAwayLogoText: gameDetailData.cells[2].image.alt,
 
-    referee1: gameDetailData.cells[8].text[0],
-    referee2: gameDetailData.cells[9].text[0],
-    spectators: gameDetailData.cells[10].text[0],
-  };
+      referee1: gameDetailData.cells[8].text[0],
+      referee2: gameDetailData.cells[9].text[0],
+      spectators: gameDetailData.cells[10].text[0],
+    };
+  } catch (e) {
+    console.log(e);
+    return {};
+  }
 }
 
 async function getSeason() {
@@ -423,16 +428,16 @@ async function getRankings(teamId: string, season: string) {
       rankingList.push({
         id: item.data.team.id,
         name: item.data.team.name, // 2 teamname // headers.findIndex(head=>head.text="Rg.")
-        image: item.cells[headers.findIndex((head: { text: string; })=>head.text=="")].image.url || "",
-        games: item.cells[headers.findIndex((head: { text: string; })=>head.text=="Sp")].text[0] || "", // Sp Spiele 3
-        gamesSoW: item.cells[headers.findIndex((head: { text: string; })=>head.text=="SoW")].text[0] || "", // SoW Spiele ohne Wertung 4
-        wins: item.cells[headers.findIndex((head: { text: string; })=>head.text=="S")].text[0] || "", // S Siege 5
-        loss: item.cells[headers.findIndex((head: { text: string; })=>head.text=="N")].text[0] || "", // N Niederlage 7
-        draw: item.cells[headers.findIndex((head: { text: string; })=>head.text=="U")].text[0] || "", // U Unentschieden 6
-        goals: item.cells[headers.findIndex((head: { text: string; })=>head.text=="T")].text[0] || "", // T Tore 8
-        goalDifference: item.cells[headers.findIndex((head: { text: string; })=>head.text=="TD")].text[0] || "", // TD Tordifferenz 9
-        pointQuotient: item.cells[headers.findIndex((head: { text: string; })=>head.text=="PQ")].text[0] || "", // PQ 10
-        points: item.cells[headers.findIndex((head: { text: string; })=>head.text=="P")].text[0] || "", // P 11
+        image: item.cells[headers.findIndex((head: { text: string; }) => head.text == "")].image.url || "",
+        games: item.cells[headers.findIndex((head: { text: string; }) => head.text == "Sp")].text[0] || "", // Sp Spiele 3
+        gamesSoW: item.cells[headers.findIndex((head: { text: string; }) => head.text == "SoW")].text[0] || "", // SoW Spiele ohne Wertung 4
+        wins: item.cells[headers.findIndex((head: { text: string; }) => head.text == "S")].text[0] || "", // S Siege 5
+        loss: item.cells[headers.findIndex((head: { text: string; }) => head.text == "N")].text[0] || "", // N Niederlage 7
+        draw: item.cells[headers.findIndex((head: { text: string; }) => head.text == "U")].text[0] || "", // U Unentschieden 6
+        goals: item.cells[headers.findIndex((head: { text: string; }) => head.text == "T")].text[0] || "", // T Tore 8
+        goalDifference: item.cells[headers.findIndex((head: { text: string; }) => head.text == "TD")].text[0] || "", // TD Tordifferenz 9
+        pointQuotient: item.cells[headers.findIndex((head: { text: string; }) => head.text == "PQ")].text[0] || "", // PQ 10
+        points: item.cells[headers.findIndex((head: { text: string; }) => head.text == "P")].text[0] || "", // P 11
         ranking: item.data.rank, // 0
         season: season,
         title: rankingData.data.title,
