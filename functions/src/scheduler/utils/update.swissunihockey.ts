@@ -218,7 +218,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
       // Game still exists?
       const gameList = await db.collection("teams").doc(`su-${team.id}`).collection("games").get();
       for (const game of gameList.docs) {
-        const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
+        const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.externalId}, {}, {});
         if (gameDetail && gameDetail.id) {
           console.log("game here..");
         } else {

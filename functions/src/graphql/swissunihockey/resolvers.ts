@@ -343,7 +343,6 @@ async function getGame(gameId: string) {
     const gameDetailData = gameData.data.regions[0].rows[0];
     // console.log(gameDetailData);
     return {
-      id: gameId,
       name: gameData.data.title,
       description: gameData.data.subtitle,
 
@@ -363,7 +362,7 @@ async function getGame(gameId: string) {
     };
   } catch (e) {
     // console.log(e);
-    return {};
+    return null;
   }
 }
 
