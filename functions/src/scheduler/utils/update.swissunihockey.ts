@@ -218,9 +218,9 @@ export async function updateGamesSwissunihockey(): Promise<any> {
       // Game still exists?
       const gameList = await db.collection("teams").doc(`su-${team.id}`).collection("games").get();
       for (const gameDoc of gameList.docs) {
-        if (gameDoc && gameDoc.id.startsWith("su-su")) {
+        /* if (gameDoc && gameDoc.id.startsWith("su-su")) {
           await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(gameDoc.id).delete();
-        }
+        } */
 
         const tempGame = await resolversSU.SwissUnihockey.game({}, {gameId: gameDoc.data().externalId}, {}, {});
         if (tempGame && tempGame.name) {
@@ -228,33 +228,37 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         } else {
           // Update status
           console.log("Update status for firestore saved game: " + gameDoc.id + " reading gameDoc id: " + gameDoc.data().externalId);
-          /* await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(game.id).set({
+          await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(gameDoc.id).set({
             status: "deleted",
           }, {
             merge: true,
-          }); */
+          });
         }
       }
 
       // Get rankings
-      const teamRankings = await resolversSU.Team.rankings({id: `${team.id}`}, {}, {}, {});
-      console.log(" >> READ TEAM RANKINGS");
-      for (const item of teamRankings) {
-        console.log(JSON.stringify({
-          title: item.title,
-          season: item.season,
-          updated: new Date(),
-          type: "swissunihockey",
-        }));
-        await db.collection("teams").doc(`su-${team.id}`).collection("ranking").doc(`${item.season}`).set({
-          title: item.title,
-          season: item.season,
-          updated: new Date(),
-          type: "swissunihockey",
-        }, {
-          merge: true,
-        });
-        await db.collection("teams").doc(`su-${team.id}`).collection("ranking").doc(`${item.season}`).collection("table").doc(`${item.ranking}`).set(item);
+      if (gamesData.docs.length > 0) {
+        const teamRankings = await resolversSU.Team.rankings({id: `${team.id}`}, {}, {}, {});
+        console.log(" >> READ TEAM RANKINGS");
+        for (const item of teamRankings) {
+          console.log(JSON.stringify({
+            title: item.title,
+            season: item.season,
+            updated: new Date(),
+            type: "swissunihockey",
+          }));
+          await db.collection("teams").doc(`su-${team.id}`).collection("ranking").doc(`${item.season}`).set({
+            title: item.title,
+            season: item.season,
+            updated: new Date(),
+            type: "swissunihockey",
+          }, {
+            merge: true,
+          });
+          await db.collection("teams").doc(`su-${team.id}`).collection("ranking").doc(`${item.season}`).collection("table").doc(`${item.ranking}`).set(item);
+        }
+      } else {
+        console.log("No ranking update for team without games for season");
       }
     }
   }
