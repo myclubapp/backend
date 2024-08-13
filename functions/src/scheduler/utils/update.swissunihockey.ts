@@ -223,7 +223,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           // console.log("game here..");
         } else {
           // Update status
-          console.log("Update status for game: " + gameDoc.id);
+          console.log("Update status for firestore saved game: " + gameDoc.id + " reading gameDoc id: " + gameDoc.externalId);
           /* await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(game.id).set({
             status: "deleted",
           }, {
