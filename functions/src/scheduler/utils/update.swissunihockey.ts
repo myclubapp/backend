@@ -105,6 +105,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         type: "swissunihockey",
         updated: new Date(),
         clubRef: clubData.ref,
+        clubId: clubData.id,
       }, {
         merge: true,
       });
@@ -185,6 +186,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           type: "swissunihockey",
           updated: new Date(),
           clubRef: clubRef.ref,
+          clubId: clubRef.id,
           teamRef: teamRef.ref,
         }, {
           merge: true,
@@ -213,6 +215,22 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           }
         } */
       }
+      // Game still exists?
+      const gameList = await db.collection("teams").doc(`su-${team.id}`).collection("games").get();
+      for (const game of gameList) {
+        const gameDetail = await resolversSU.SwissUnihockey.game({}, {gameId: game.id}, {}, {});
+        if (gameDetail) {
+          console.log("game here..");
+        } else {
+          // Update status
+          await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(`su-${game.id}`).set({
+            status: "deleted",
+          }, {
+            merge: true,
+          });
+        }
+      }
+
       // Get rankings
       const teamRankings = await resolversSU.Team.rankings({id: `${team.id}`}, {}, {}, {});
       console.log(" >> READ TEAM RANKINGS");
