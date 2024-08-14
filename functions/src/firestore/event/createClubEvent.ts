@@ -80,7 +80,7 @@ export async function createNotificationClubEvent(snapshot: QueryDocumentSnapsho
                   data: <DataMessagePayload>{
                     "type": "clubEvent",
                     "clubId": clubId,
-                    "id": clubEventRef.data().id,
+                    "id": clubEventRef.id,
                   },
                 },
             );

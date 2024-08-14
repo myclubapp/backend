@@ -92,7 +92,7 @@ export async function createNotificationHelferEvent(snapshot: QueryDocumentSnaps
                   data: <DataMessagePayload>{
                     "type": "helferEvent",
                     "clubId": clubId,
-                    "id": helferEvent.data().id,
+                    "id": helferEvent.id,
                   },
                 },
             );
