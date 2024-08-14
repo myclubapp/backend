@@ -40,6 +40,7 @@ import {createCheckoutSession, updateCheckoutSession, updateInvoice, updatePayme
 import {deleteTeamTraining} from "./firestore/training/deleteTeamTraining";
 import {deleteClubEvent} from "./firestore/event/deleteClubEvent";
 import {deleteHelferEvent} from "./firestore/event/deleteHelferEvent";
+import {deleteTeamGame} from "./firestore/game/deleteTeamGame";
 
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -138,6 +139,7 @@ export const dbAddTeamTrainingNotification = functions.region("europe-west6").fi
 
 // DB HOOKS DELETE TRAINING, EVENTS, HELFEREVENTS
 export const dbDeleteTraining = functions.region("europe-west6").firestore.document("/teams/{teamId}/trainings/{trainingId}").onDelete(deleteTeamTraining);
+export const dbDeleteTeamGame = functions.region("europe-west6").firestore.document("/teams/{teamId}/games/{gameId}").onDelete(deleteTeamGame);
 export const dbDeleteClubEvent = functions.region("europe-west6").firestore.document("/club/{clubId}/events/{eventId}").onDelete(deleteClubEvent);
 export const dbDeleteHelferEvent = functions.region("europe-west6").firestore.document("/club/{clubId}/helferEvents/{eventId}").onDelete(deleteHelferEvent);
 
