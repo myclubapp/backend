@@ -68,7 +68,7 @@ export async function confirmHelferEvent(change: Change<QueryDocumentSnapshot>, 
           // Send WebPush
           const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
               JSON.stringify({
-                title: "Helereinsatz bestätigt",
+                title: "Helfereinsatz bestätigt",
                 message: "Dein Helfereinsatz am " + helferEventRef.data().name + " für die Schicht: " + schichtRef.data().name + " wurde bestätigt",
               }));
           console.log(">> SEND PUSH EVENT: ", statusCode, headers, body);
@@ -78,7 +78,7 @@ export async function confirmHelferEvent(change: Change<QueryDocumentSnapshot>, 
             const nativePush = await messaging.sendToDevice(push.data().token,
                 {
                   notification: <NotificationMessagePayload>{
-                    title: "Helereinsatz bestätigt",
+                    title: "Helfereinsatz bestätigt",
                     body: "Dein Helfereinsatz am " + helferEventRef.data().name + " für die Schicht: " + schichtRef.data().name + " wurde bestätigt",
                     sound: "default",
                     badge: "0",
