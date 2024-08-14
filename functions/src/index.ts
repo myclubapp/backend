@@ -37,6 +37,9 @@ import {getGamePreview} from "./requests/gamePreview/gamePreview.get";
 import {leaveClubAsMember, leaveTeamAsMember} from "./firestore/userProfile/leaveAsMember";
 import {addClubTeam} from "./firestore/club/createClubTeam";
 import {createCheckoutSession, updateCheckoutSession, updateInvoice, updatePayments, updateSubscription} from "./firestore/club/stripeCheckout";
+import {deleteTeamTraining} from "./firestore/training/deleteTeamTraining";
+import {deleteClubEvent} from "./firestore/event/deleteClubEvent";
+import {deleteHelferEvent} from "./firestore/event/deleteHelferEvent";
 
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -132,6 +135,12 @@ export const dbAddHelferEventNotification = functions.region("europe-west6").fir
 
 // DB Hooks for Training Push
 export const dbAddTeamTrainingNotification = functions.region("europe-west6").firestore.document("/teams/{teamId}/trainings/{trainingId}").onCreate(createNotificationTeamTraining);
+
+// DB HOOKS DELETE TRAINING, EVENTS, HELFEREVENTS
+export const dbDeleteTraining = functions.region("europe-west6").firestore.document("/teams/{teamId}/trainings/{trainingId}").onDelete(deleteTeamTraining);
+export const dbDeleteClubEvent = functions.region("europe-west6").firestore.document("/club/{clubId}/events/{eventId}").onDelete(deleteClubEvent);
+export const dbDeleteHelferEvent = functions.region("europe-west6").firestore.document("/club/{clubId}/helferEvents/{eventId}").onDelete(deleteHelferEvent);
+
 
 // TOTOMAT
 // export const totomat = functions.region("europe-west6").https.onRequest(graphql);

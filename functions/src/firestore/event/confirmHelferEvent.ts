@@ -17,7 +17,7 @@ export async function confirmHelferEvent(change: Change<QueryDocumentSnapshot>, 
   const schichtId = context.params.schichtId;
   const userId = context.params.userId;
 
-  if (change.after.data().confirmed === true) {
+  if (change.after.data().confirmed === true && change.before.data().confirmed !== true) {
     console.log("confirmed");
 
     const userRef = await db.collection("userProfile").doc(userId).get();
@@ -25,7 +25,7 @@ export async function confirmHelferEvent(change: Change<QueryDocumentSnapshot>, 
     const helferEventRef = await db.collection("club").doc(clubId).collection("helferEvents").doc(eventId).get();
     const schichtRef = await db.collection("club").doc(clubId).collection("helferEvents").doc(eventId).collection("schichten").doc(schichtId).get();
 
-    await db.collection("club").doc(clubId).collection("helferPunkte").add({
+    const helferPunktRef = await db.collection("club").doc(clubId).collection("helferPunkte").add({
       ...change.after.data(),
       userId: userId,
       userRef: userRef.ref,
@@ -41,6 +41,14 @@ export async function confirmHelferEvent(change: Change<QueryDocumentSnapshot>, 
       schichtName: schichtRef.data().name,
       schichtTimeFrom: schichtRef.data().timeFrom,
       schichtTimeTo: schichtRef.data().timeTo,
+    });
+    // Set Helferpunkt Ref to HelferEinsatz
+    return db.collection("club").doc(clubId).collection("helferEvents").doc(eventId).collection("schichten").doc(schichtId).collection("attendees").doc(userId).set({
+      helferPunktRef: helferPunktRef.ref,
+      helferPunktId: helferPunktRef.id,
+    },
+    {
+      merge: true,
     });
   }
 }
