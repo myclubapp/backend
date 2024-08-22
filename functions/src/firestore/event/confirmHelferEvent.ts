@@ -7,23 +7,9 @@ import * as functions from "firebase-functions";
 import firebaseDAO from "../../firebaseSingleton";
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 import {Change} from "firebase-functions";
-import webpush = require("web-push");
-import {Messaging} from "firebase-admin/lib/messaging/messaging";
-import {DataMessagePayload, NotificationMessagePayload} from "firebase-admin/lib/messaging/messaging-api";
+import {sendPushNotificationByUserProfileId} from "../../utils/push";
 
 const db = firebaseDAO.instance.db;
-const messaging: Messaging = firebaseDAO.instance.messaging;
-
-const gcmAPIKey = functions.config().webpush.gcmapikey;
-const publicKey = functions.config().webpush.publickey;
-const privateKey = functions.config().webpush.privatekey;
-
-webpush.setGCMAPIKey(gcmAPIKey);
-webpush.setVapidDetails(
-    "mailto:info@my-club.app",
-    publicKey,
-    privateKey
-);
 
 export async function confirmHelferEvent(change: Change<QueryDocumentSnapshot>, context: functions.EventContext) {
   console.log("confirmHelferEvent /club/{clubId}/helferEvents/{eventId}/schichten/{schichtId}/attendees/{userId}");
@@ -61,40 +47,14 @@ export async function confirmHelferEvent(change: Change<QueryDocumentSnapshot>, 
     // Send Push to Member
     const userProfileRef = await db.collection("userProfile").doc(userRef.id).get();
     if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushEvent) {
-      const userProfilePushRef = await db.collection("userProfile").doc(userRef.id).collection("push").get();
-      for (const push of userProfilePushRef.docs) {
-        console.log(">> PUSH DEVICE: ", push.data());
-        if (push.data().platform === "web") {
-          // Send WebPush
-          const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
-              JSON.stringify({
-                title: "Helfereinsatz bestätigt",
-                message: "Dein Helfereinsatz am " + helferEventRef.data().name + " für die Schicht: " + schichtRef.data().name + " wurde bestätigt",
-              }));
-          console.log(">> SEND PUSH EVENT: ", statusCode, headers, body);
-        } else {
-          // Send native Push
-          try {
-            const nativePush = await messaging.sendToDevice(push.data().token,
-                {
-                  notification: <NotificationMessagePayload>{
-                    title: "Helfereinsatz bestätigt",
-                    body: "Dein Helfereinsatz am " + helferEventRef.data().name + " für die Schicht: " + schichtRef.data().name + " wurde bestätigt",
-                    sound: "default",
-                    badge: "0",
-                  },
-                  data: <DataMessagePayload>{
-                    "type": "helferPunkt",
-                    "id": helferPunktRef.id,
-                  },
-                },
-            );
-            console.log(">> SEND Native PUSH EVENT: ", nativePush);
-          } catch (e) {
-            console.log("Error Sending Push to Device:  " + push.id + " / Identifier: " + push.data().identifier + " with Error " + e);
-          }
-        }
-      }
+      await sendPushNotificationByUserProfileId(
+          userRef.id,
+          "Helfereinsatz bestätigt",
+          "Dein Helfereinsatz am " + helferEventRef.data().name + " für die Schicht: " + schichtRef.data().name + " wurde bestätigt",
+          {
+            "type": "helferPunkt",
+            "id": helferPunktRef.id,
+          });
     }
 
     // Set Helferpunkt Ref to HelferEinsatz
