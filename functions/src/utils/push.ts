@@ -7,7 +7,7 @@ import * as functions from "firebase-functions";
 import firebaseDAO from "../firebaseSingleton";
 import webpush = require("web-push");
 import {Messaging} from "firebase-admin/lib/messaging/messaging";
-import {DataMessagePayload, NotificationMessagePayload} from "firebase-admin/lib/messaging/messaging-api";
+import {DataMessagePayload, Message, NotificationMessagePayload} from "firebase-admin/lib/messaging/messaging-api";
 
 const db = firebaseDAO.instance.db;
 const messaging: Messaging = firebaseDAO.instance.messaging;
@@ -57,7 +57,8 @@ export async function sendPushNotificationByUserProfileId(userProfileId: string,
       } else {
         // Send native Push
         try {
-          const nativePush = await messaging.sendToDevice(pushData.token, {
+          const nativePush = await messaging.send({
+            token: pushData.token,
             notification: <NotificationMessagePayload>{
               title: title,
               body: message,
