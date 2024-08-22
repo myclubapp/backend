@@ -37,7 +37,7 @@ export async function sendPushNotificationByUserProfileId(userProfileId: string,
     });
 
     const notificationsRef = await db.collection("userProfile").doc(userProfileId).collection("notification").where("opened", "==", false).get();
-    const badgeCount = notificationsRef.docs.length || 0;
+    const badgeCount: string = notificationsRef.docs.length || 0;
 
     // SEND PUSH NOTIFICATIONs
     for (const push of userProfilePushRef.docs) {

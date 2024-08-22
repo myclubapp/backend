@@ -6,21 +6,10 @@
 /* eslint-disable max-len */
 import * as functions from "firebase-functions";
 import firebaseDAO from "../../firebaseSingleton";
-import webpush = require("web-push");
 import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
+import {sendPushNotificationByUserProfileId} from "../../utils/push";
 
 const db = firebaseDAO.instance.db;
-
-const gcmAPIKey = functions.config().webpush.gcmapikey;
-const publicKey = functions.config().webpush.publickey;
-const privateKey = functions.config().webpush.privatekey;
-
-webpush.setGCMAPIKey(gcmAPIKey);
-webpush.setVapidDetails(
-    "mailto:info@my-club.app",
-    publicKey,
-    privateKey
-);
 
 export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
   console.log("createTeamRequest");
@@ -53,23 +42,14 @@ export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context
   const clubAdminRef = await db.collection("club").doc(teamRef.data().clubRef.id).collection("admins").get();
   for (const admin of clubAdminRef.docs) {
     console.log(`Read Admin user for Club with id ${admin.id}`);
-    const userProfileAdminRef = await db.collection("userProfile").doc(admin.id).get();
-    if (userProfileAdminRef.exists) {
-      if (userProfileAdminRef.data().settingsEmail === true) {
-        receipient.push(userProfileAdminRef.data().email);
-      }
-      if (userProfileAdminRef.data().settingsPush === true) {
-        const userProfilePushRef = await db.collection("userProfile").doc(admin.id).collection("push").get();
-        for (const push of userProfilePushRef.docs) {
-          const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
-              JSON.stringify( {
-                title: "Neue Beitrittsanfrage für dein Team: " + teamRef.data().name,
-                message: `${userProfileRef.data()?.firstName} ${userProfileRef.data()?.lastName} (${userProfileRef.data()?.email}) möchte deinem Verein beitreten.`,
-              }));
-          console.log(">> SEND PUSH: ", statusCode, headers, body);
+
+    await sendPushNotificationByUserProfileId(
+        admin.id,
+        "Neue Beitrittsanfrage für dein Team: " + teamRef.data().name,
+        `${userProfileRef.data()?.firstName} ${userProfileRef.data()?.lastName} (${userProfileRef.data()?.email}) möchte deinem Team beitreten.`,
+        {
         }
-      }
-    }
+    );
   }
 
   // SEND REQUEST E-MAIL TO TEAM ADMIN
@@ -82,15 +62,13 @@ export async function createTeamRequest(snapshot: QueryDocumentSnapshot, context
         receipient.push(userProfileAdminRef.data().email);
       }
       if (userProfileAdminRef.data().settingsPush === true) {
-        const userProfilePushRef = await db.collection("userProfile").doc(admin.id).collection("push").get();
-        for (const push of userProfilePushRef.docs) {
-          const {statusCode, headers, body} = await webpush.sendNotification(JSON.parse(push.data().pushObject),
-              JSON.stringify( {
-                title: "Neue Beitrittsanfrage für dein Team: " + teamRef.data().name,
-                message: `${userProfileRef.data()?.firstName} ${userProfileRef.data()?.lastName} (${userProfileRef.data()?.email}) möchte deinem Team beitreten.`,
-              }));
-          console.log(">> SEND PUSH: ", statusCode, headers, body);
-        }
+        await sendPushNotificationByUserProfileId(
+            admin.id,
+            "Neue Beitrittsanfrage für dein Team: " + teamRef.data().name,
+            `${userProfileRef.data()?.firstName} ${userProfileRef.data()?.lastName} (${userProfileRef.data()?.email}) möchte deinem Team beitreten.`,
+            {
+            }
+        );
       }
     }
   }
