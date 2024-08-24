@@ -7,7 +7,7 @@ import * as functions from "firebase-functions";
 import firebaseDAO from "../firebaseSingleton";
 import webpush = require("web-push");
 import {Messaging} from "firebase-admin/lib/messaging/messaging";
-import {DataMessagePayload, NotificationMessagePayload} from "firebase-admin/lib/messaging/messaging-api";
+import {DataMessagePayload, Message, NotificationMessagePayload, Notification} from "firebase-admin/lib/messaging/messaging-api";
 
 const db = firebaseDAO.instance.db;
 const messaging: Messaging = firebaseDAO.instance.messaging;
@@ -37,7 +37,7 @@ export async function sendPushNotificationByUserProfileId(userProfileId: string,
     });
 
     const notificationsRef = await db.collection("userProfile").doc(userProfileId).collection("notification").where("opened", "==", false).get();
-    const badgeCount: string = notificationsRef.docs.length || 1;
+    const badgeCount = notificationsRef.docs.length || 1;
 
     // SEND PUSH NOTIFICATIONs
     for (const push of userProfilePushRef.docs) {
@@ -57,30 +57,36 @@ export async function sendPushNotificationByUserProfileId(userProfileId: string,
       } else {
         // Send native Push
         try {
-          const nativePush = await messaging.sendToDevice(pushData.token, {
+          /* const nativePush = await messaging.sendToDevice(pushData.token, {
             notification: <NotificationMessagePayload>{
               title: title,
               body: message,
               sound: "default",
-              badge: badgeCount,
+              badge: badgeCount as string,
             },
             data: <DataMessagePayload>{
               ...data,
+            },
+          });*/
+          const nativePush = messaging.send(<Message>{
+            token: pushData.token,
+            notification: <Notification>{
+              title: title,
+              body: message,
+              imageUrl: "",
+            },
+            data: <DataMessagePayload>{
+              ...data,
+            },
+            apns: {
+              payload: {
+                aps: {
+                  badge: badgeCount,
+                  sound: "default",
+                },
+              },
             },
           });
-
-          /* const nativePush = await messaging.send({
-            token: pushData.token,
-            notification: <NotificationMessagePayload>{
-              title: title,
-              body: message,
-              sound: "default",
-              badge: badgeCount,
-            },
-            data: <DataMessagePayload>{
-              ...data,
-            },
-          }); */
           console.log(">> SEND NATIVE PUSH EVENT: ", nativePush);
         } catch (e) {
           console.log("Error Sending Native Push to Device:  " + push.id + " / Identifier: " + pushData.identifier + " with Error " + e);
