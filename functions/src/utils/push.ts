@@ -7,7 +7,7 @@ import * as functions from "firebase-functions";
 import firebaseDAO from "../firebaseSingleton";
 import webpush = require("web-push");
 import {Messaging} from "firebase-admin/lib/messaging/messaging";
-import {DataMessagePayload, Message, NotificationMessagePayload, Notification} from "firebase-admin/lib/messaging/messaging-api";
+import {DataMessagePayload, Message, Notification} from "firebase-admin/lib/messaging/messaging-api";
 
 const db = firebaseDAO.instance.db;
 const messaging: Messaging = firebaseDAO.instance.messaging;
