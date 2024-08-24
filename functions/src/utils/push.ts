@@ -57,8 +57,7 @@ export async function sendPushNotificationByUserProfileId(userProfileId: string,
       } else {
         // Send native Push
         try {
-          const nativePush = await messaging.send({
-            token: pushData.token,
+          const nativePush = await messaging.sendToDevice(pushData.token, {
             notification: <NotificationMessagePayload>{
               title: title,
               body: message,
@@ -69,6 +68,19 @@ export async function sendPushNotificationByUserProfileId(userProfileId: string,
               ...data,
             },
           });
+
+          /* const nativePush = await messaging.send({
+            token: pushData.token,
+            notification: <NotificationMessagePayload>{
+              title: title,
+              body: message,
+              sound: "default",
+              badge: badgeCount,
+            },
+            data: <DataMessagePayload>{
+              ...data,
+            },
+          }); */
           console.log(">> SEND NATIVE PUSH EVENT: ", nativePush);
         } catch (e) {
           console.log("Error Sending Native Push to Device:  " + push.id + " / Identifier: " + pushData.identifier + " with Error " + e);
