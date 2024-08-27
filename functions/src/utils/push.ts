@@ -7,7 +7,7 @@ import * as functions from "firebase-functions";
 import firebaseDAO from "../firebaseSingleton";
 import webpush = require("web-push");
 import {Messaging} from "firebase-admin/lib/messaging/messaging";
-import {DataMessagePayload, NotificationMessagePayload} from "firebase-admin/lib/messaging/messaging-api";
+import {DataMessagePayload, Message} from "firebase-admin/lib/messaging/messaging-api";
 
 const db = firebaseDAO.instance.db;
 const messaging: Messaging = firebaseDAO.instance.messaging;
@@ -57,7 +57,7 @@ export async function sendPushNotificationByUserProfileId(userProfileId: string,
       } else {
         // Send native Push
         try {
-          const nativePush = await messaging.sendToDevice(pushData.token, {
+          /* const nativePush = await messaging.sendToDevice(pushData.token, {
             notification: <NotificationMessagePayload>{
               title: title,
               body: message,
@@ -67,13 +67,13 @@ export async function sendPushNotificationByUserProfileId(userProfileId: string,
             data: <DataMessagePayload>{
               ...data,
             },
-          });
-          /* const nativePush = messaging.send(<Message>{
+          });*/
+          const nativePush = messaging.send(<Message>{
             token: pushData.token,
             notification: <Notification>{
               title: title,
               body: message,
-              imageUrl: "",
+              // imageUrl: "",
             },
             data: <DataMessagePayload>{
               ...data,
@@ -86,7 +86,7 @@ export async function sendPushNotificationByUserProfileId(userProfileId: string,
                 },
               },
             },
-          }); */
+          });
           console.log(">> SEND NATIVE PUSH EVENT: ", nativePush);
         } catch (e) {
           console.log("Error Sending Native Push to Device:  " + push.id + " / Identifier: " + pushData.identifier + " with Error " + e);
