@@ -184,6 +184,7 @@ async function updateClubNewsFromWordpress(): Promise<any> {
           externalId: `${news["id"]}`,
           title: news["title"].rendered,
           leadText: news["excerpt"].rendered,
+          clubId: club.id,
           date: news["date"],
           slug: news["slug"],
           image: featuredMedia,
