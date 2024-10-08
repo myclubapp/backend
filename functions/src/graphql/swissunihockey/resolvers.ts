@@ -428,6 +428,9 @@ async function getRankings(teamId: string, season: string) {
       rankingList.push({
         id: item.data.team.id,
         name: item.data.team.name,
+
+        image: getCellImageUrl(item, headers, ""), // Assuming the headerText for the image column is an empty string
+
         // image: item.cells[headers.findIndex((head: { text: string; }) => head.text == "")]?.image.url || "",
         games: getCellText(item, headers, "Sp"), // Spiele
         gamesSoW: getCellText(item, headers, "SoW"), // Spiele ohne Wertung
@@ -454,6 +457,15 @@ function getCellText(item: { cells: { [x: string]: { text: any[]; }; }; }, heade
     return item.cells[index].text[0] || "";
   } else {
     return ""; // Fallback to empty string if header not found or cell is undefined
+  }
+}
+
+function getCellImageUrl(item: { cells: { [x: string]: { image: { url: any; }; }; }; }, headers: any[], headerText: any) {
+  const index = headers.findIndex((head) => head.text == headerText);
+  if (index !== -1 && item.cells[index] && item.cells[index].image) {
+    return item.cells[index].image.url || "";
+  } else {
+    return ""; // Fallback to empty string if header not found or image is undefined
   }
 }
 
