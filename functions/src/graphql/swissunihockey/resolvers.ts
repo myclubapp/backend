@@ -411,7 +411,7 @@ async function getRankings(teamId: string, season: string) {
     console.log(`No Season parameter provided. Used internal logic and found: ${season}`);
   }
   const data = await fetch("https://api-v2.swissunihockey.ch/api/rankings?season=" + season + "&team_id=" + teamId);
-  console.log("https://api-v2.swissunihockey.ch/api/rankings?season=" + season + "&team_id=" + teamId);
+  // console.log("https://api-v2.swissunihockey.ch/api/rankings?season=" + season + "&team_id=" + teamId);
   const rankingData = await data.json();
   const rankingList = <any>[];
   // rankingData.data.regions[0].rows.forEach((item: any) => {
@@ -424,7 +424,7 @@ async function getRankings(teamId: string, season: string) {
       if (item.cells[1] && item.cells[1].image && item.cells[1].image.url) {
         url = item.cells[1].image.url;
       }*/
-      console.log(item);
+      // console.log(item);
       rankingList.push({
         id: item.data.team.id,
         name: item.data.team.name,
