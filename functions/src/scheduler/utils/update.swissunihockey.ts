@@ -216,12 +216,9 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         } */
       }
       // Game still exists?
-      const gameList = await db.collection("teams").doc(`su-${team.id}`).collection("games").get();
+      // This is needed to identify if a game has been deleted in the swissunihockey api
+      /* const gameList = await db.collection("teams").doc(`su-${team.id}`).collection("games").get();
       for (const gameDoc of gameList.docs) {
-        /* if (gameDoc && gameDoc.id.startsWith("su-su")) {
-          await db.collection("teams").doc(`su-${team.id}`).collection("games").doc(gameDoc.id).delete();
-        } */
-
         const tempGame = await resolversSU.SwissUnihockey.game({}, {gameId: gameDoc.data().externalId}, {}, {});
         if (tempGame && tempGame.name) {
           // console.log("game here..");
@@ -234,9 +231,9 @@ export async function updateGamesSwissunihockey(): Promise<any> {
             merge: true,
           });
         }
-      }
+      }*/
 
-      // Get rankings (only if there are games available)
+      // Get rankings (only if there are games available from the graphql api)
       if (gamesData.length > 0) {
         const teamRankings = await resolversSU.Team.rankings({id: `${team.id}`}, {}, {}, {});
         console.log(" >> READ TEAM RANKINGS");
