@@ -424,10 +424,11 @@ async function getRankings(teamId: string, season: string) {
       if (item.cells[1] && item.cells[1].image && item.cells[1].image.url) {
         url = item.cells[1].image.url;
       }*/
+      console.log(item);
       rankingList.push({
         id: item.data.team.id,
         name: item.data.team.name,
-        image: item.cells[headers.findIndex((head: { text: string; }) => head.text == "")]?.image.url || "",
+        // image: item.cells[headers.findIndex((head: { text: string; }) => head.text == "")]?.image.url || "",
         games: getCellText(item, headers, "Sp"), // Spiele
         gamesSoW: getCellText(item, headers, "SoW"), // Spiele ohne Wertung
         wins: getCellText(item, headers, "S"), // Siege
