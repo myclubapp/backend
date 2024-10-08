@@ -433,7 +433,9 @@ async function getRankings(teamId: string, season: string) {
         gamesSoW: item.cells[headers.findIndex((head: { text: string; }) => head.text == "SoW")].text[0] || "", // SoW Spiele ohne Wertung 4
         wins: item.cells[headers.findIndex((head: { text: string; }) => head.text == "S")].text[0] || "", // S Siege 5
         loss: item.cells[headers.findIndex((head: { text: string; }) => head.text == "N")].text[0] || "", // N Niederlage 7
-        draw: item.cells[headers.findIndex((head: { text: string; }) => head.text == "U")].text[0] || "", // U Unentschieden 6
+        winsAfterOvertime: item.cells[headers.findIndex((head: { text: string; }) => head.text == "SnV")].text[0] || "",
+        lossesAfterOvertime: item.cells[headers.findIndex((head: { text: string; }) => head.text == "NnV")].text[0] || "",
+        // draw: item.cells[headers.findIndex((head: { text: string; }) => head.text == "U")].text[0] || "", // U Unentschieden 6
         goals: item.cells[headers.findIndex((head: { text: string; }) => head.text == "T")].text[0] || "", // T Tore 8
         goalDifference: item.cells[headers.findIndex((head: { text: string; }) => head.text == "TD")].text[0] || "", // TD Tordifferenz 9
         pointQuotient: item.cells[headers.findIndex((head: { text: string; }) => head.text == "PQ")].text[0] || "", // PQ 10
