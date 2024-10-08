@@ -237,7 +237,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
       }
 
       // Get rankings (only if there are games available)
-      if (gamesData && gamesData.docs) {
+      if (gamesData.length > 0) {
         const teamRankings = await resolversSU.Team.rankings({id: `${team.id}`}, {}, {}, {});
         console.log(" >> READ TEAM RANKINGS");
         for (const item of teamRankings) {
