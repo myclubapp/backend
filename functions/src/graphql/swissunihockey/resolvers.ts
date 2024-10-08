@@ -424,23 +424,20 @@ async function getRankings(teamId: string, season: string) {
       if (item.cells[1] && item.cells[1].image && item.cells[1].image.url) {
         url = item.cells[1].image.url;
       }*/
-
       rankingList.push({
         id: item.data.team.id,
-        name: item.data.team.name, // 2 teamname // headers.findIndex(head=>head.text="Rg.")
-        image: item.cells[headers.findIndex((head: { text: string; }) => head.text == "")].image.url || "",
-        games: item.cells[headers.findIndex((head: { text: string; }) => head.text == "Sp")].text[0] || "", // Sp Spiele 3
-        gamesSoW: item.cells[headers.findIndex((head: { text: string; }) => head.text == "SoW")].text[0] || "", // SoW Spiele ohne Wertung 4
-        wins: item.cells[headers.findIndex((head: { text: string; }) => head.text == "S")].text[0] || "", // S Siege 5
-        loss: item.cells[headers.findIndex((head: { text: string; }) => head.text == "N")].text[0] || "", // N Niederlage 7
-        winsAfterOvertime: item.cells[headers.findIndex((head: { text: string; }) => head.text == "SnV")].text[0] || "",
-        lossesAfterOvertime: item.cells[headers.findIndex((head: { text: string; }) => head.text == "NnV")].text[0] || "",
-        // draw: item.cells[headers.findIndex((head: { text: string; }) => head.text == "U")].text[0] || "", // U Unentschieden 6
-        goals: item.cells[headers.findIndex((head: { text: string; }) => head.text == "T")].text[0] || "", // T Tore 8
-        goalDifference: item.cells[headers.findIndex((head: { text: string; }) => head.text == "TD")].text[0] || "", // TD Tordifferenz 9
-        pointQuotient: item.cells[headers.findIndex((head: { text: string; }) => head.text == "PQ")].text[0] || "", // PQ 10
-        points: item.cells[headers.findIndex((head: { text: string; }) => head.text == "P")].text[0] || "", // P 11
-        ranking: item.data.rank, // 0
+        name: item.data.team.name,
+        image: item.cells[headers.findIndex((head: { text: string; }) => head.text == "")]?.image.url || "",
+        games: getCellText(item, headers, "Sp"), // Spiele
+        gamesSoW: getCellText(item, headers, "SoW"), // Spiele ohne Wertung
+        wins: getCellText(item, headers, "S"), // Siege
+        loss: getCellText(item, headers, "N"), // Niederlagen
+        draw: getCellText(item, headers, "U"), // Unentschieden (returns empty string if header not found)
+        goals: getCellText(item, headers, "T"), // Tore
+        goalDifference: getCellText(item, headers, "TD"), // Tordifferenz
+        pointQuotient: getCellText(item, headers, "PQ"),
+        points: getCellText(item, headers, "P"),
+        ranking: item.data.rank,
         season: season,
         title: rankingData.data.title,
       });
@@ -448,6 +445,15 @@ async function getRankings(teamId: string, season: string) {
   }
   // });
   return rankingList;
+}
+
+function getCellText(item: { cells: { [x: string]: { text: any[]; }; }; }, headers: any[], headerText: string) {
+  const index = headers.findIndex((head) => head.text == headerText);
+  if (index !== -1 && item.cells[index]) {
+    return item.cells[index].text[0] || "";
+  } else {
+    return ""; // Fallback to empty string if header not found or cell is undefined
+  }
 }
 
 async function getStatistics(teamId: string) {
