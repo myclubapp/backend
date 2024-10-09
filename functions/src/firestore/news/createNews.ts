@@ -20,7 +20,7 @@ export async function createNotificationNews(snapshot: QueryDocumentSnapshot, co
     const clubMembersRef = await db.collection("club").doc(club.id).collection("members").get();
     for (const clubMember of clubMembersRef.docs) {
       const userProfileRef = await db.collection("userProfile").doc(clubMember.id).get();
-      if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushNews) {
+      if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushNewsVerband) {
         await sendPushNotificationByUserProfileId(
             clubMember.id,
             "Neuer News Beitrag verfügbar: ",
