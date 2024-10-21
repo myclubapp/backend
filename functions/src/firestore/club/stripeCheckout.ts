@@ -76,7 +76,7 @@ export async function updateSubscription(change: Change<DocumentSnapshot>, conte
     if (subscriptionData.status == "active") {
       // NEW SUBSCRIPTION FOR PRODUCT OR ADDON
       // TODO SEND EMAIL!
-      if (subscriptionData.metadata.subscriptionType === "small" || subscriptionData.metadata.subscriptionType === "medium" || subscriptionData.metadata.subscriptionType === "large") {
+      if (subscriptionData.metadata.subscriptionType === "free" || subscriptionData.metadata.subscriptionType === "small" || subscriptionData.metadata.subscriptionType === "medium" || subscriptionData.metadata.subscriptionType === "large") {
         // IF SUBSCRIPTION
         await db.collection("club").doc(clubId).set({
           subscriptionActive: true,
@@ -119,7 +119,7 @@ export async function updateSubscription(change: Change<DocumentSnapshot>, conte
       if (activeSubscription.docs.length > 0) {
         console.log("has active subsription");
       } else {
-        if (subscriptionData.metadata.subscriptionType === "small" || subscriptionData.metadata.subscriptionType === "medium" || subscriptionData.metadata.subscriptionType === "large") {
+        if (subscriptionData.metadata.subscriptionType === "free" || subscriptionData.metadata.subscriptionType === "small" || subscriptionData.metadata.subscriptionType === "medium" || subscriptionData.metadata.subscriptionType === "large") {
           // IF SUBSCRIPTION
           await db.collection("club").doc(clubId).set({
             subscriptionActive: false,
