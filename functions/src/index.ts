@@ -41,6 +41,7 @@ import {deleteTeamTraining} from "./firestore/training/deleteTeamTraining";
 import {deleteClubEvent} from "./firestore/event/deleteClubEvent";
 import {deleteHelferEvent} from "./firestore/event/deleteHelferEvent";
 import {deleteTeamGame} from "./firestore/game/deleteTeamGame";
+import {deleteHelferPunkt} from "./firestore/event/deleteHelferPunkt";
 
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -121,6 +122,8 @@ export const dbAddHelferEvent = functions.region("europe-west6").firestore.docum
 // HELFER EVENTS DB HOOKS
 // `club/${clubId}/helferEvents/${eventId}/schichten/${schichtId}/attendees/${userId
 export const dbConfirmHelferEvent = functions.region("europe-west6").firestore.document("/club/{clubId}/helferEvents/{eventId}/schichten/{schichtId}/attendees/{userId}").onUpdate(confirmHelferEvent);
+export const dbRemoveHelerPunkt = functions.region("europe-west6").firestore.document("/club/{clubId}/helferPunkte/{helferPunktId}").onDelete(deleteHelferPunkt);
+
 
 // NOTIFICATION DB HOOKS
 
