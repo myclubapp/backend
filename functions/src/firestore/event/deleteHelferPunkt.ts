@@ -23,7 +23,7 @@ export async function deleteHelferPunkt(snapshot: QueryDocumentSnapshot, context
     console.log("delete Helerpunkt");
 
     return db.collection("club").doc(clubId).collection("helferEvents").doc(helferPunktData.eventRef.id).collection("schichten").doc(helferPunktData.schichtRef.id).collection("attendees").doc(helferPunktData.userId).set({
-      "status": true,
+      "status": helferEvent.data().status,
     });
   } else {
     return true;
