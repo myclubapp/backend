@@ -19,7 +19,7 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
   const clubRef = await db.collection("club").doc(clubId).get();
   const club = clubRef.data();
   const userProfileRef = await db.collection("userProfile").doc(userId).get();
-  const user = userProfileRef.data();
+  // const user = userProfileRef.data();
 
   await db.collection("club").doc(clubId).collection("requests").doc(userId).set({
     "userProfileRef": userProfileRef.ref,
@@ -27,9 +27,9 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
 
   if (club && club.active == false) {
     // club ist noch nicht aktiv. -> Prüfen ob in der Contactliste eingetragen
-    const contactDataRef = await db.collection("club").doc(clubId).collection("contacts").where("email", "==", user.email).get();
+    const contactDataRef = await db.collection("club").doc(clubId).collection("contacts").where("email", "==", userProfileRef.data()?.email).get();
     console.log("ClubId" + clubId);
-    console.log("User Email" + user.email);
+    console.log("User Email" + userProfileRef.data()?.email);
     console.log("User Email" + contactDataRef.docs.length);
 
     if (contactDataRef.docs.length > 0) {
