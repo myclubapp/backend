@@ -140,23 +140,41 @@ function getClub(clubId: string) {
 }
 
 async function getClubs() {
-  const data = await fetch("https://api.volleyball.ch/indoor/clubs", {
-    headers: {
-      "Accept": "application/json",
-      "authorization": functions.config().swissvolley.token,
-    },
-  });
-  const clubData = await data.json();
-  const clubList = < any > [];
-  clubData.forEach((item: any) => {
-    clubList.push({
-      ...item,
-      id: item.clubId,
-      name: item.caption,
-      website: item.website,
+  try {
+    const data = await fetch("https://api.volleyball.ch/indoor/clubs", {
+      headers: {
+        "Accept": "application/json",
+        "authorization": functions.config().swissvolley.token,
+      },
     });
-  });
-  return clubList;
+
+    // Check if the response is okay before proceeding
+    if (!data.ok) {
+      throw new Error(`HTTP error! Status: ${data.status}`);
+    }
+
+    const clubData = await data.json();
+    const clubList: {
+      contact: any;
+      mainHall: any; id: any; name: any; website: any; clubId: any; caption: any;
+}[] = [];
+
+    clubData.forEach((item: { clubId: any; caption: any; website: any; }) => {
+      return clubList.push({
+        ...item,
+        id: item.clubId,
+        name: item.caption,
+        website: item.website,
+        contact: undefined,
+        mainHall: undefined,
+      });
+    });
+
+    return clubList;
+  } catch (error) {
+    console.error("Error fetching club data:", error);
+    return []; // Return an empty array or handle the error as needed
+  }
 }
 async function getGames(teamId: string) {
   const gameList = < any > [];
