@@ -9,7 +9,37 @@ const db = firebaseDAO.instance.db;
 import resolversST from "./../../graphql/swissturnverband/resolvers";
 
 export async function updateTeamsSwissturnverband(): Promise<any> {
-  console.log("no need to update turnverband");
+  const clubListRef = await db.collection("club").where("active", "==", true).where("type", "==", "swussturnverband").get();
+
+  for (const clubData of clubListRef.docs) {
+    const club = {...{id: clubData.data().externalId}, ...clubData.data()};
+
+    const teamData = await resolversST.Club.teams({id: `${club.id}`}, {}, {}, {});
+    for (const team of teamData) {
+      console.log(club.name + " / " + team.name);
+      const clubRef = await db.collection("club").doc(`st-${club.id}`).get();
+      const teamRef = await db.collection("teams").doc(`st-${team.id}`).get();
+
+      await db.collection("teams").doc(`st-${team.id}`).set({
+        externalId: `${team.id}`,
+        name: team.name,
+        info: team.info,
+        logo: team.logo,
+        website: team.website,
+        portrait: team.portrait,
+        liga: team.liga,
+        type: "swissturnverband",
+        updated: new Date(),
+        clubRef: clubRef.ref,
+        clubId: clubRef.id,
+      }, {
+        merge: true,
+      });
+      await db.collection("club").doc(`st-${club.id}`).collection("teams").doc(`st-${team.id}`).set({
+        teamRef: teamRef.ref,
+      });
+    }
+  }
 }
 
 export async function updateClubsSwissturnverband(): Promise<any> {
