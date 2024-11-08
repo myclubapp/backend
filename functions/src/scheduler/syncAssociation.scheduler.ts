@@ -25,8 +25,8 @@ export async function updatePersistenceJobClubs(context: EventContext) {
   try {
     await updateClubsSwissunihockey();
     await updateClubsSwisshandball();
-    await updateClubsSwissvolleyball();
     await updateClubsSwissturnverband();
+    await updateClubsSwissvolleyball();
     // await updateClubsSwisstennis();
   } catch (err) {
     console.error(err);
@@ -38,7 +38,7 @@ export async function updatePersistenceJobTeams(context: EventContext) {
     await updateTeamsSwissunihockey();
     await updateTeamsSwisshandball();
     await updateTeamsSwissvolleyball();
-    // await updateTeamsSwissturnverband();
+    // await updateTeamsSwissturnverband(); is it needed? Club Method should fix it? --> Please check and adapt comment if needed.
   } catch (err) {
     console.error(err);
   }
