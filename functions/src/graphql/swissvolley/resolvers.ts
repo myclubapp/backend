@@ -108,6 +108,7 @@ async function getTeam(teamId: string) {
 }
 
 async function getTeams(clubId: string) {
+  console.log(">> https://api.volleyball.ch/indoor/teams?clubId=" + clubId);
   const data = await fetch("https://api.volleyball.ch/indoor/teams?clubId=" + clubId, {
     headers: {
       "Accept": "application/json",
