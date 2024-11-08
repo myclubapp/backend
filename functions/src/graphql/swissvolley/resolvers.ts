@@ -121,6 +121,7 @@ async function getTeams(clubId: string) {
     if (!data.ok) {
       // throw new Error(`HTTP error! Status: ${data.status}`);
       console.log(`HTTP error! Status: ${data.status}`);
+      return [];
     }
 
     const teamListData = await data.json();
