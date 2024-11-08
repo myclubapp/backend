@@ -25,7 +25,7 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
     "userProfileRef": userProfileRef.ref,
   });
 
-  if (club && club.active == false) {
+  if (club && (club.active === undefined || club.active === false)) {
     // club ist noch nicht aktiv. -> Prüfen ob in der Contactliste eingetragen
     const contactDataRef = await db.collection("club").doc(clubId).collection("contacts").where("email", "==", userProfileRef.data()?.email).get();
     console.log("ClubId" + clubId);
@@ -116,6 +116,8 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
         receipient.push(adminRef.data().email);
       }
     }
+
+    // TODOOOOOOO CHECK IF THERE IS NO CLUB ADMIN -> NEW CLUB --> DELETE CLUB REQUEST???
 
     return db.collection("mail").add({
       to: receipient,
