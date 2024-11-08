@@ -77,19 +77,28 @@ export default {
   },
 };
 
-async function getTeams(clubIdParent: string) {
-  /* const data: Array<any> = JSON.parse(stvClubsJSON);
-  const clubList = <any>[];
-  for (const item of data) {
-    // console.log(item.halls);
-    clubList.push({
-      ...item,
-      id: item.id,
-    });
-    //  }
+async function getTeams(clubId: string) {
+  const data: Array<any> = JSON.parse(stvClubsJSON);
+  const teamList = <any>[];
+  // Find the club with the specified clubIdParent
+  const club = data.find((club) => club.id === clubId);
+
+  if (club && club.Teams) {
+    for (const team of club.Teams) {
+      const cleanData:any = {
+        id: team.id,
+        name: team.name.replace(/\s+/g, " ").trim(),
+        info: team.info.replace(/\s+/g, " ").trim(),
+        jahresbeitrag: team.jahresbeitrag,
+      };
+
+      teamList.push({
+        ...cleanData,
+        id: cleanData.id,
+      });
+    }
   }
-  return clubList;*/
-  return [];
+  return teamList;
 }
 
 async function getTeam(teamId: string) {

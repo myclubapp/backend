@@ -10,7 +10,7 @@ import {EventContext} from "firebase-functions";
 import {updateTeamsSwissunihockey, updateClubsSwissunihockey, updateGamesSwissunihockey, updateNewsSwissunihockey} from "./utils/update.swissunihockey";
 import {updateTeamsSwissvolleyball, updateClubsSwissvolleyball, updateNewsSwissvolley, updateGamesSwissvolley} from "./utils/update.swissvolleyball";
 import {updateTeamsSwisshandball, updateClubsSwisshandball, updateGamesSwisshandball} from "./utils/update.swisshandball";
-import {updateClubsSwissturnverband} from "./utils/update.swissturnverband";
+import {updateClubsSwissturnverband, updateTeamsSwissturnverband} from "./utils/update.swissturnverband";
 // import {updateTeamsSwissturnverband, updateClubsSwissturnverband} from "./utils/update.swissturnverband";
 // import {updateClubsSwissvolleyball} from "./utils/update.swissvolleyball";
 // import {updateClubsSwisstennis} from "./utils/update.swisstennis";
@@ -25,8 +25,8 @@ export async function updatePersistenceJobClubs(context: EventContext) {
   try {
     await updateClubsSwissunihockey();
     await updateClubsSwisshandball();
-    await updateClubsSwissturnverband();
     await updateClubsSwissvolleyball();
+    await updateClubsSwissturnverband();
     // await updateClubsSwisstennis();
   } catch (err) {
     console.error(err);
@@ -38,7 +38,7 @@ export async function updatePersistenceJobTeams(context: EventContext) {
     await updateTeamsSwissunihockey();
     await updateTeamsSwisshandball();
     await updateTeamsSwissvolleyball();
-    // await updateTeamsSwissturnverband(); is it needed? Club Method should fix it? --> Please check and adapt comment if needed.
+    await updateTeamsSwissturnverband();
   } catch (err) {
     console.error(err);
   }

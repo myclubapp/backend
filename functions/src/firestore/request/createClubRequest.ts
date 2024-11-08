@@ -28,9 +28,9 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
   if (club && (club.active === undefined || club.active === false)) {
     // club ist noch nicht aktiv. -> Prüfen ob in der Contactliste eingetragen
     const contactDataRef = await db.collection("club").doc(clubId).collection("contacts").where("email", "==", userProfileRef.data()?.email).get();
-    console.log("ClubId" + clubId);
+    /* console.log("ClubId" + clubId);
     console.log("User Email" + userProfileRef.data()?.email);
-    console.log("User Email" + contactDataRef.docs.length);
+    console.log("User Email" + contactDataRef.docs.length); */
 
     if (contactDataRef.docs.length > 0) {
       // ACTIVATE CLUB!
@@ -39,6 +39,28 @@ export async function createClubRequest(snapshot: QueryDocumentSnapshot, context
         subscriptionActive: false,
         subscroptionType: "",
       }, {merge: true});
+
+      // TODO CREATE CLUB NEWS to have first NEWS Item.
+      /* await db.collection("club").doc(`${club.id}`).collection("news").doc(`${club.id}-${news.id}`).set({
+        externalId: `${news["id"]}`,
+        title: news["title"].rendered,
+        leadText: news["excerpt"].rendered,
+        clubId: club.id,
+        date: news["date"],
+        slug: news["slug"],
+        image: featuredMedia,
+        text: news["content"].rendered,
+        htmlText: news["content"].rendered || " ",
+        tags: "Webseite",
+        author: wpUser.name,
+        authorImage: authorImage,
+        url: news["link"],
+        type: club.type,
+        updated: new Date(),
+      }, {
+        merge: true,
+        ignoreUndefinedProperties: true,
+      });*/
 
       // Request kann angenommen werden.
       await db.collection("club").doc(clubId).collection("requests").doc(userId).set({
