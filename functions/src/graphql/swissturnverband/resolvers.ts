@@ -109,12 +109,12 @@ async function getTeam(teamId: string) {
 async function getClubs() {
   const data: Array<any> = JSON.parse(stvClubsJSON);
   const clubList = <any>[];
-  for (const item of data) {
-    delete item.teams;
+  for (const club of data) {
+    delete club.teams;
     // console.log(item.halls);
     clubList.push({
-      ...item,
-      id: item.id,
+      ...club,
+      id: club.id,
     });
     //  }
   }
