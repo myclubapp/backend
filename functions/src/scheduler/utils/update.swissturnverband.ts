@@ -9,7 +9,9 @@ const db = firebaseDAO.instance.db;
 import resolversST from "./../../graphql/swissturnverband/resolvers";
 
 export async function updateTeamsSwissturnverband(): Promise<any> {
-  const clubListRef = await db.collection("club").where("active", "==", true).where("type", "==", "swussturnverband").get();
+  console.log("Update Teams SwissTurnverband");
+
+  const clubListRef = await db.collection("club").where("active", "==", true).where("type", "==", "swissturnverband").get();
 
   for (const clubData of clubListRef.docs) {
     const club = {...{id: clubData.data().externalId}, ...clubData.data()};

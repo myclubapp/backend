@@ -87,7 +87,7 @@ async function getTeam(teamId: string) {
   const data = await fetch("https://api.volleyball.ch/indoor/teams/" + teamId, {
     headers: {
       "Accept": "application/json",
-      "authorization": functions.config().swissvolley.token,
+      "Authorization": functions.config().swissvolley.token,
     },
   });
   const teamData = await data.json();
@@ -111,17 +111,19 @@ async function getTeams(clubId: string) {
   try {
     console.log(">> https://api.volleyball.ch/indoor/teams?clubId=" + clubId);
     const data = await fetch("https://api.volleyball.ch/indoor/teams?clubId=" + clubId, {
+      method: "GET",
+      // redirect: "follow",
       headers: {
+        // "Content-Type": "application/json",
         "Accept": "application/json",
-        "authorization": functions.config().swissvolley.token,
-        "Content-Type": "application/json",
+        "Authorization": functions.config().swissvolley.token,
       },
     });
 
     // Check if the response is okay before proceeding
     if (!data.ok) {
       // throw new Error(`HTTP error! Status: ${data.status}`);
-      console.log(`HTTP error! Status: ${data.status}`);
+      console.log(`HTTP error! Status: ${data.status} ${data.statusText}`);
       return [];
     }
 
@@ -159,7 +161,7 @@ async function getClubs() {
     const data = await fetch("https://api.volleyball.ch/indoor/clubs", {
       headers: {
         "Accept": "application/json",
-        "authorization": functions.config().swissvolley.token,
+        "Authorization": functions.config().swissvolley.token,
         "Content-Type": "application/json",
       },
     });
@@ -200,7 +202,7 @@ async function getGames(teamId: string) {
   const data = await fetch("https://api.volleyball.ch/indoor/games?region=SVRNO&teamId=" + teamId + "&includeCup=1", {
     headers: {
       "Accept": "application/json",
-      "authorization": functions.config().swissvolley.token,
+      "Authorization": functions.config().swissvolley.token,
       "Content-Type": "application/json",
     },
   });
@@ -225,7 +227,7 @@ async function getRankings(groupId: string) {
   const data = await fetch("https://api.volleyball.ch/indoor/ranking/" + groupId, {
     headers: {
       "Accept": "application/json",
-      "authorization": functions.config().swissvolley.token,
+      "Authorization": functions.config().swissvolley.token,
       "Content-Type": "application/json",
     },
   });

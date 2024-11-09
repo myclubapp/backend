@@ -42,7 +42,7 @@ import {deleteClubEvent} from "./firestore/event/deleteClubEvent";
 import {deleteHelferEvent} from "./firestore/event/deleteHelferEvent";
 import {deleteTeamGame} from "./firestore/game/deleteTeamGame";
 import {deleteHelferPunkt} from "./firestore/event/deleteHelferPunkt";
-
+import {deleteTeam} from "./firestore/team/deleteTeam";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const graphql = require("./graphql/server");
@@ -63,7 +63,7 @@ export const api = functions.runWith({timeoutSeconds: 300, memory: "1GB"}).regio
 
 // Jobs
 export const jobUpdatePersistenceClubs = functions.runWith({timeoutSeconds: 360, memory: "1GB"}).region("europe-west6").pubsub.schedule("00 08 * * 1").timeZone("Europe/Zurich").onRun(updatePersistenceJobClubs); // monday 8:00
-export const jobUpdatePersistenceTeams = functions.runWith({timeoutSeconds: 540, memory: "1GB"}).region("europe-west6").pubsub.schedule("10 08 * * 1").timeZone("Europe/Zurich").onRun(updatePersistenceJobTeams); // monday 8:10
+export const jobUpdatePersistenceTeams = functions.runWith({timeoutSeconds: 540, memory: "1GB"}).region("europe-west1").pubsub.schedule("10 08 * * 1").timeZone("Europe/Zurich").onRun(updatePersistenceJobTeams); // monday 8:10
 export const jobUpdatePersistenceGames = functions.runWith({timeoutSeconds: 540, memory: "512MB"}).region("europe-west6").pubsub.schedule("00 06 * * *").timeZone("Europe/Zurich").onRun(updatePersistenceJobGames); // daily 06:00
 export const jobUpdatePersistenceNews = functions.runWith({timeoutSeconds: 360, memory: "512MB"}).region("europe-west6").pubsub.schedule("30 * * * *").timeZone("Europe/Zurich").onRun(updatePersistenceJobNews); // daily every 30 minutes
 export const jobSyncUnihockeyApp = functions.runWith({timeoutSeconds: 360, memory: "512MB"}).region("europe-west6").pubsub.schedule("30 * * * *").timeZone("Europe/Zurich").onRun(syncUnihockeyApp); // daily every 30 minutes
@@ -73,6 +73,7 @@ export const jobYoutube = functions.runWith({timeoutSeconds: 360, memory: "512MB
 export const jobReportingMember = functions.runWith({timeoutSeconds: 360, memory: "256MB"}).region("europe-west6").pubsub.schedule("00 20 * * 0").timeZone("Europe/Zurich").onRun(sendReportingJobMember); // sunday 20:00
 
 // DB Hooks TEAM > Manage teams currently only available for ADMIN
+export const dbDeleteTeam = functions.region("europe-west6").firestore.document("/teams/{teamId}").onDelete(deleteTeam);
 export const dbRemoveTeamMember = functions.region("europe-west6").firestore.document("/teams/{teamId}/members/{userId}").onDelete(deleteTeamMember);
 export const dbRemoveTeamAdmin = functions.region("europe-west6").firestore.document("/teams/{teamId}/admins/{userId}").onDelete(deleteTeamAdmin);
 export const dbAddTeamMember = functions.region("europe-west6").firestore.document("/teams/{teamId}/members/{userId}").onCreate(createTeamMember);
