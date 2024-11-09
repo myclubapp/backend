@@ -111,6 +111,10 @@ async function getClubs() {
   const clubList = <any>[];
   for (const club of data) {
     delete club.Teams;
+    delete club.teams;
+    delete club.contactName;
+    delete club.contactEmail;
+    delete club.contactPhone;
     // console.log(item.halls);
     clubList.push({
       ...club,
