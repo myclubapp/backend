@@ -84,9 +84,10 @@ async function getTeams(clubId: string) {
   const club = data.find((club) => club.id === clubId);
 
   if (club && club.Teams) {
+    let index = 1;
     for (const team of club.Teams) {
       const cleanData:any = {
-        id: team.id,
+        id: team.id + "-" + `${index}`,
         name: team.name.replace(/\s+/g, " ").trim(),
         info: team.info.replace(/\s+/g, " ").trim(),
         jahresbeitrag: team.jahresbeitrag,
@@ -96,6 +97,7 @@ async function getTeams(clubId: string) {
         ...cleanData,
         id: cleanData.id,
       });
+      index++;
     }
   }
   return teamList;

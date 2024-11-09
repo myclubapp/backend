@@ -13,7 +13,7 @@ export async function deleteTeam(snapshot: QueryDocumentSnapshot, context: funct
   console.log("deleteTeamData");
   const teamId = context.params.teamId;
 
-  // delete user from all CLUBS
+  // ADMINS
   const adminList = await db.collection("teams").doc(teamId).collection("admins").get();
   if (!adminList.empty) {
     console.log("Delete Admin from Team ");

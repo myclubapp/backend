@@ -11,11 +11,16 @@ import {sendPushNotificationByUserProfileId} from "../../utils/push";
 const db = firebaseDAO.instance.db;
 
 export async function addClubTeam(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
-  console.log("Add New Team to Club");
-
   const clubId = context.params.clubId;
   const teamId = context.params.teamId;
 
+  // CHECK IF TEAM was added via JOB?
+  const teamRef = await db.collection("teams").doc(teamId).get();
+  if (teamRef.exists) {
+    console.log(" > Do not Update");
+    return true;
+  }
+  console.log("Add New Team to Club via Manual Action NOT via JOB");
   console.log("clubId: " + clubId);
   console.log("teamId: " + teamId);
 
@@ -31,7 +36,7 @@ export async function addClubTeam(snapshot: QueryDocumentSnapshot, context: func
     clubId: clubId,
     clubRef: clubRef.ref,
   });
-  const teamRef = await db.collection("teams").doc(teamId).get();
+  // const teamRef = await db.collection("teams").doc(teamId).get();
 
   return db.collection("club").doc(clubId).collection("teams").doc(teamId).set({
     teamRef: teamRef.ref,

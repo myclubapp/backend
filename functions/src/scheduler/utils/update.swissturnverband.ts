@@ -23,6 +23,7 @@ export async function updateTeamsSwissturnverband(): Promise<any> {
       const teamRef = await db.collection("teams").doc(`st-${team.id}`).get();
 
       await db.collection("teams").doc(`st-${team.id}`).set({
+        ...team,
         externalId: `${team.id}`,
         name: team.name,
         info: team.info,
@@ -36,6 +37,7 @@ export async function updateTeamsSwissturnverband(): Promise<any> {
         clubId: clubRef.id,
       }, {
         merge: true,
+        ignoreUndefinedProperties: true,
       });
       await db.collection("club").doc(`st-${club.id}`).collection("teams").doc(`st-${team.id}`).set({
         teamRef: teamRef.ref,
@@ -65,7 +67,6 @@ export async function updateClubsSwissturnverband(): Promise<any> {
       name: club.name,
       type: "swissturnverband",
       updated: new Date(),
-      // Teams: FieldValue.delete(),
     }, {
       merge: true,
     });
