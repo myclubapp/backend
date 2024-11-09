@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable guard-for-in */
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -6,9 +7,11 @@ import firebaseDAO from "./../../firebaseSingleton";
 import resolversSH from "./../../graphql/swisshandball/resolvers";
 
 const db = firebaseDAO.instance.db;
+// const admin = require("firebase-admin");
+const MAX_WRITES_PER_BATCH = 500;
 
-import fs = require("fs");
-const handballHallenJSON = fs.readFileSync("./src/scheduler/utils/handball_hallen.json", "utf8");
+// import fs = require("fs");
+// const handballHallenJSON = fs.readFileSync("./src/scheduler/utils/handball_hallen.json", "utf8");
 
 export async function updateGamesSwisshandball(): Promise<any> {
   console.log("Update Games swisshandball");
@@ -128,67 +131,17 @@ export async function updateTeamsSwisshandball(): Promise<any> {
 
 export async function updateClubsSwisshandball(): Promise<any> {
   console.log("Update Clubs swisshandball");
-
   const clubData = await resolversSH.SwissHandball.clubs();
-  for (const club of clubData) {
-    console.log(club.name);
+  updateClubsInBatches(clubData)
+      .then(() => {
+        console.log("All clubs updated successfully");
+      })
+      .catch((error) => {
+        console.error("Error updating clubs in batches:", error);
+      });
 
-    const hallen = club.halls;
-
-    const tempData = club;
-    delete tempData.contact_person;
-    delete tempData.halls;
-    delete tempData.teams;
-
-
-    await db.collection("club").doc(`sh-${club.id}`).set({
-      ...tempData,
-      externalId: `${club.id}`,
-      name: club.name,
-      type: "swisshandball",
-      logo: club.logo,
-      website: club.website,
-      latitude: club.latitude,
-      longitude: club.longitude,
-      foundingYear: club.foundingYear,
-      updated: new Date(),
-    }, {
-      merge: true,
-    });
-    const clubRef = await db.collection("club").doc(`sh-${club.id}`).get();
-    // Update contacts
-    await db.collection("club").doc(`sh-${club.id}`).collection("contacts").doc(`sh-${club.id}`).set({
-      ...club.contact_person,
-      clubRef: clubRef.ref,
-      clubId: clubRef.id,
-      type: "swisshandball",
-      updated: new Date(),
-    }, {
-      merge: true,
-    });
-    // Update venues
-    // console.log(JSON.stringify(club.halls));
-    // if (club && club.halls && club.halls.length > 0) {
-    try {
-      for (const venue of hallen) {
-        const parts = venue.link.split("/");
-        const number = parts[parts.length - 1];
-        await db.collection("venues").doc(`sh-${number}`).set({
-          ...venue,
-          clubRef: clubRef.ref,
-          clubId: clubRef.id,
-          type: "swisshandball",
-          updated: new Date(),
-        }, {
-          merge: true,
-        });
-      }
-    } catch (e) {
-      console.log(hallen);
-    }
-  }
   // HALLEN / NOT NEEDED TO frequently update this..
-  const data: Array<any> = JSON.parse(handballHallenJSON);
+  /* const data: Array<any> = JSON.parse(handballHallenJSON);
 
   for (const halle of data) {
     await db.collection("venues").doc(`sh-${halle.id}`).set({
@@ -198,7 +151,7 @@ export async function updateClubsSwisshandball(): Promise<any> {
     }, {
       merge: true,
     });
-  }
+  } */
 }
 
 export async function updateNewsSwisshandball(): Promise<any> {
@@ -230,3 +183,97 @@ export async function updateNewsSwisshandball(): Promise<any> {
     }
   }
 }
+
+// Function to batch update documents
+async function updateClubsInBatches(clubData: any) {
+  const batches = [];
+  let batch = db.batch(); // Initialize a batch
+  let batchSize = 0;
+
+  for (const club of clubData) {
+    console.log(club.name);
+
+    // const hallen = club.halls;
+
+    const tempData = club;
+    delete tempData.contact_person;
+    delete tempData.halls;
+    delete tempData.teams;
+
+    const clubRefHandball = db.collection("club").doc(`sh-${club.id}`);
+    batch.set(clubRefHandball, {
+      ...tempData,
+      externalId: `${club.id}`,
+      name: club.name,
+      type: "swisshandball",
+      logo: club.logo,
+      website: club.website,
+      latitude: club.latitude,
+      longitude: club.longitude,
+      foundingYear: club.foundingYear,
+      updated: new Date(),
+    }, {
+      merge: true,
+    });
+    batchSize++;
+
+    const clubRef = await db.collection("club").doc(`sh-${club.id}`).get();
+    // Create a reference for the club's contacts document
+    const contactRef = clubRef.collection("contacts").doc(`st-${club.id}`);
+    batch.set(contactRef, {
+      ...club.contact_person,
+      clubRef: clubRef.ref,
+      clubId: clubRef.id,
+      type: "swisshandball",
+      updated: new Date(),
+    }, {
+      merge: true,
+    });
+
+    batchSize++;
+
+    // Update venues
+    // console.log(JSON.stringify(club.halls));
+    // if (club && club.halls && club.halls.length > 0) {
+    /* try {
+      for (const venue of hallen) {
+        const parts = venue.link.split("/");
+        const number = parts[parts.length - 1];
+        await db.collection("venues").doc(`sh-${number}`).set({
+          ...venue,
+          clubRef: clubRef.ref,
+          clubId: clubRef.id,
+          type: "swisshandball",
+          updated: new Date(),
+        }, {
+          merge: true,
+        });
+      }
+    } catch (e) {
+      console.log(hallen);
+    } */
+
+    // If batch reaches max writes, commit it and start a new batch
+    if (batchSize >= MAX_WRITES_PER_BATCH - 3) {
+      batches.push(batch.commit());
+      batch = db.batch(); // Start a new batch
+      batchSize = 0;
+    }
+  }
+
+  // Commit any remaining writes in the last batch
+  if (batchSize > 0) {
+    batches.push(batch.commit());
+  }
+
+  // Wait for all batches to complete
+
+  try {
+    const results = await Promise.all(batches);
+    console.log("Results:", results);
+  } catch (error) {
+    console.error("Caught an error:", error);
+  }
+}
+
+

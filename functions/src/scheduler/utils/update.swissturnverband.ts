@@ -126,7 +126,7 @@ async function updateClubsInBatches(clubData: any) {
     batchSize++;
 
     // If batch reaches max writes, commit it and start a new batch
-    if (batchSize >= MAX_WRITES_PER_BATCH) {
+    if (batchSize >= MAX_WRITES_PER_BATCH - 3) {
       batches.push(batch.commit());
       batch = db.batch(); // Start a new batch
       batchSize = 0;
