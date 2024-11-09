@@ -7,3 +7,8 @@ typings/
 
 # Node.js dependency directory
 node_modules/
+
+# Firebase Functions Config
+.env.default
+.env
+.env.local

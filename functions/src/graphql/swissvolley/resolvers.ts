@@ -110,6 +110,7 @@ async function getTeam(teamId: string) {
 async function getTeams(clubId: string) {
   try {
     console.log(">> https://api.volleyball.ch/indoor/teams?clubId=" + clubId);
+    console.log(">>> ", functions.config().swissvolley.token);
     const data = await fetch("https://api.volleyball.ch/indoor/teams?clubId=" + clubId, {
       headers: {
         "Accept": "application/json",
@@ -164,7 +165,9 @@ async function getClubs() {
 
     // Check if the response is okay before proceeding
     if (!data.ok) {
-      throw new Error(`HTTP error! Status: ${data.status}`);
+      // throw new Error(`HTTP error! Status: ${data.status}`);
+      console.log(`HTTP error! Status: ${data.status}`);
+      return [];
     }
 
     const clubData = await data.json();
