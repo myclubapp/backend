@@ -112,7 +112,7 @@ export async function updateClubsSwissturnverband(): Promise<any> {
 
       // Optional: Add a small delay between chunks to prevent rate limiting
       if (i + CHUNK_SIZE < batches.length) {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 10000));
       }
     }
 
