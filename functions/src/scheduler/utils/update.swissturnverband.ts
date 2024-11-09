@@ -5,9 +5,11 @@
 /* eslint-disable require-jsdoc */
 import firebaseDAO from "./../../firebaseSingleton";
 const db = firebaseDAO.instance.db;
-import * as admin from "firebase-admin";
+
 // const {FieldValue} = require("firebase-admin/firestore");
 import resolversST from "./../../graphql/swissturnverband/resolvers";
+
+const MAX_WRITES_PER_BATCH = 500;
 
 export async function updateTeamsSwissturnverband(): Promise<any> {
   console.log("Update Teams SwissTurnverband");
@@ -51,77 +53,13 @@ export async function updateClubsSwissturnverband(): Promise<any> {
   console.log("Update Clubs SwissTurnverband");
 
   const clubData = await resolversST.SwissTurnverband.clubs();
-  // Constants for batch operations
-  const BATCH_SIZE = 500; // Firestore's limit is 500 operations per batch
-  const batches: admin.firestore.WriteBatch[] = [];
-  let operationCount = 0;
-  let currentBatch = admin.firestore().batch();
-
-  console.log(`Starting bulk update for ${clubData.length} clubs`);
-
-  for (const club of clubData) {
-    // Reference to main club document
-    const clubRef = db.collection("club").doc(`st-${club.id}`);
-
-    // Reference to club's contact document
-    const contactRef = clubRef.collection("contacts").doc(`st-${club.id}`);
-
-    // Add club document to batch
-    currentBatch.set(clubRef, {
-      ...club,
-      externalId: `${club.id}`,
-      name: club.name,
-      type: "swissturnverband",
-      updated: new Date(),
-    }, {merge: true});
-    operationCount++;
-
-    // Add contact document to batch
-    currentBatch.set(contactRef, {
-      name: club.contactName,
-      phone: club.contactPhone,
-      email: club.contactEmail,
-      type: "swissturnverband",
-      updated: new Date(),
-    }, {merge: true});
-    operationCount++;
-
-    // If we've reached batch size limit, commit current batch and start a new one
-    if (operationCount >= BATCH_SIZE) {
-      batches.push(currentBatch);
-      currentBatch = admin.firestore().batch();
-      operationCount = 0;
-    }
-  }
-
-  // Push the last batch if it has any operations
-  if (operationCount > 0) {
-    batches.push(currentBatch);
-  }
-
-  // Commit all batches
-  console.log(`Committing ${batches.length} batches`);
-
-  try {
-    // Process batches in chunks to avoid overwhelming the system
-    const CHUNK_SIZE = 5; // Number of simultaneous batch commits
-    for (let i = 0; i < batches.length; i += CHUNK_SIZE) {
-      const chunk = batches.slice(i, i + CHUNK_SIZE);
-      await Promise.all(chunk.map((batch) => batch.commit()));
-      console.log(`Committed batches ${i + 1} to ${Math.min(i + CHUNK_SIZE, batches.length)}`);
-
-      // Optional: Add a small delay between chunks to prevent rate limiting
-      if (i + CHUNK_SIZE < batches.length) {
-        await new Promise((resolve) => setTimeout(resolve, 10000));
-      }
-    }
-
-    console.log("Bulk update completed successfully");
-    return true;
-  } catch (error) {
-    console.error("Error during bulk update:", error);
-    throw error;
-  }
+  updateClubsInBatches(clubData)
+      .then(() => {
+        console.log("All clubs updated successfully");
+      })
+      .catch((error) => {
+        console.error("Error updating clubs in batches:", error);
+      });
 
 /*
   for (const club of clubData) {
@@ -145,6 +83,55 @@ export async function updateClubsSwissturnverband(): Promise<any> {
     }, {
       merge: true,
     });
-  } */
+  }
+  */
+}
+
+// Function to batch update documents
+async function updateClubsInBatches(clubData: any) {
+  const batches = [];
+  let batch = db.batch(); // Initialize a batch
+  let batchSize = 0;
+
+  for (const club of clubData) {
+    // Create a reference for the main club document
+    const clubRef = db.collection("club").doc(`st-${club.id}`);
+    batch.set(clubRef, {
+      ...club,
+      externalId: `${club.id}`,
+      name: club.name,
+      type: "swissturnverband",
+      updated: new Date(),
+    }, {merge: true});
+
+    batchSize++;
+
+    // Create a reference for the club's contacts document
+    const contactRef = clubRef.collection("contacts").doc(`st-${club.id}`);
+    batch.set(contactRef, {
+      name: club.contactName,
+      phone: club.contactPhone,
+      email: club.contactEmail,
+      type: "swissturnverband",
+      updated: new Date(),
+    }, {merge: true});
+
+    batchSize++;
+
+    // If batch reaches max writes, commit it and start a new batch
+    if (batchSize >= MAX_WRITES_PER_BATCH) {
+      batches.push(batch.commit());
+      batch = db.batch(); // Start a new batch
+      batchSize = 0;
+    }
+  }
+
+  // Commit any remaining writes in the last batch
+  if (batchSize > 0) {
+    batches.push(batch.commit());
+  }
+
+  // Wait for all batches to complete
+  await Promise.all(batches);
 }
 
