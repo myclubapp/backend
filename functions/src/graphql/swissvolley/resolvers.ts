@@ -160,6 +160,7 @@ async function getClubs() {
       headers: {
         "Accept": "application/json",
         "authorization": functions.config().swissvolley.token,
+        "Content-Type": "application/json",
       },
     });
 
@@ -200,6 +201,7 @@ async function getGames(teamId: string) {
     headers: {
       "Accept": "application/json",
       "authorization": functions.config().swissvolley.token,
+      "Content-Type": "application/json",
     },
   });
   const gameData = await data.json();
@@ -224,6 +226,7 @@ async function getRankings(groupId: string) {
     headers: {
       "Accept": "application/json",
       "authorization": functions.config().swissvolley.token,
+      "Content-Type": "application/json",
     },
   });
   const rankingData = await data.json();
