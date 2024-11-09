@@ -8,7 +8,7 @@ const db = firebaseDAO.instance.db;
 
 // const {FieldValue} = require("firebase-admin/firestore");
 import resolversST from "./../../graphql/swissturnverband/resolvers";
-
+const admin = require("firebase-admin");
 const MAX_WRITES_PER_BATCH = 500;
 
 export async function updateTeamsSwissturnverband(): Promise<any> {
@@ -96,6 +96,13 @@ async function updateClubsInBatches(clubData: any) {
   for (const club of clubData) {
     // Create a reference for the main club document
     const clubRef = db.collection("club").doc(`st-${club.id}`);
+
+    batch.set(clubRef, {
+      Teams: admin.firestore.FieldValue.delete(), // Replace 'capital' with the field you want to delete
+    });
+
+    batchSize++;
+
     batch.set(clubRef, {
       ...club,
       externalId: `${club.id}`,
