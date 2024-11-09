@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup # type: ignore
 import base64
 
 # Load the HTML content
-file_path = './stv-vereine.html'
+file_path = './20241109_stv-vereine.html'
 with open(file_path, 'r', encoding='utf-8') as file:
     html_content = file.read()
 
