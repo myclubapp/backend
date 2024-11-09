@@ -97,9 +97,9 @@ async function updateClubsInBatches(clubData: any) {
     // Create a reference for the main club document
     const clubRef = db.collection("club").doc(`st-${club.id}`);
 
-    batch.update(clubRef, {
+    batch.set(clubRef, {
       Teams: admin.firestore.FieldValue.delete(), // Replace 'capital' with the field you want to delete
-    });
+    }, {merge: true});
 
     batchSize++;
 
