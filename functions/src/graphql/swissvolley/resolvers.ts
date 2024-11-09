@@ -110,11 +110,11 @@ async function getTeam(teamId: string) {
 async function getTeams(clubId: string) {
   try {
     console.log(">> https://api.volleyball.ch/indoor/teams?clubId=" + clubId);
-    console.log(">>> ", functions.config().swissvolley.token);
     const data = await fetch("https://api.volleyball.ch/indoor/teams?clubId=" + clubId, {
       headers: {
         "Accept": "application/json",
         "authorization": functions.config().swissvolley.token,
+        "Content-Type": "application/json",
       },
     });
 
