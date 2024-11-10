@@ -216,6 +216,12 @@ async function updateClubsInBatches(clubData: any) {
       merge: true,
     });
     batchSize++;
+    // If batch reaches max writes, commit it and start a new batch
+    if (batchSize >= MAX_WRITES_PER_BATCH ) {
+      batches.push(batch.commit());
+      batch = db.batch(); // Start a new batch
+      batchSize = 0;
+    }
 
     const clubRef = await db.collection("club").doc(`sh-${club.id}`).get();
     // Create a reference for the club's contacts document
@@ -254,7 +260,7 @@ async function updateClubsInBatches(clubData: any) {
     } */
 
     // If batch reaches max writes, commit it and start a new batch
-    if (batchSize >= MAX_WRITES_PER_BATCH - 3) {
+    if (batchSize >= MAX_WRITES_PER_BATCH ) {
       batches.push(batch.commit());
       batch = db.batch(); // Start a new batch
       batchSize = 0;
@@ -270,9 +276,12 @@ async function updateClubsInBatches(clubData: any) {
 
   try {
     const results = await Promise.all(batches);
-    console.log("Results:", results);
-  } catch (error) {
-    console.error("Caught an error:", error);
+    console.log("Batch SwissHandball", results);
+    /* for (const result of results) {
+      console.log("Batch erfolgreich:", result);
+    } */
+  } catch (error: any) {
+    console.error("Batch-Fehler:", error.code, error.message);
   }
 }
 

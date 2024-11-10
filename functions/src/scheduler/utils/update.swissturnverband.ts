@@ -103,6 +103,12 @@ async function updateClubsInBatches(clubData: any) {
     }, {merge: true});
 
     batchSize++;
+    // If batch reaches max writes, commit it and start a new batch
+    if (batchSize >= MAX_WRITES_PER_BATCH) {
+      batches.push(batch.commit());
+      batch = db.batch(); // Start a new batch
+      batchSize = 0;
+    }
 
     batch.set(clubRef, {
       ...club,
@@ -113,7 +119,12 @@ async function updateClubsInBatches(clubData: any) {
     }, {merge: true});
 
     batchSize++;
-
+    // If batch reaches max writes, commit it and start a new batch
+    if (batchSize >= MAX_WRITES_PER_BATCH) {
+      batches.push(batch.commit());
+      batch = db.batch(); // Start a new batch
+      batchSize = 0;
+    }
     // Create a reference for the club's contacts document
     const contactRef = clubRef.collection("contacts").doc(`st-${club.id}`);
     batch.set(contactRef, {
@@ -127,7 +138,7 @@ async function updateClubsInBatches(clubData: any) {
     batchSize++;
 
     // If batch reaches max writes, commit it and start a new batch
-    if (batchSize >= MAX_WRITES_PER_BATCH - 3) {
+    if (batchSize >= MAX_WRITES_PER_BATCH) {
       batches.push(batch.commit());
       batch = db.batch(); // Start a new batch
       batchSize = 0;
@@ -143,10 +154,10 @@ async function updateClubsInBatches(clubData: any) {
 
   try {
     const results = await Promise.all(batches);
-    // console.log("Results:", results);
-    for (const result of results) {
+    console.log("Batch SwissTurnverband", results);
+    /* for (const result of results) {
       console.log("Batch erfolgreich:", result);
-    }
+    } */
   } catch (error: any) {
     console.error("Batch-Fehler:", error.code, error.message);
   }
