@@ -55,10 +55,10 @@ export async function updateClubsSwissturnverband(): Promise<any> {
   const clubData = await resolversST.SwissTurnverband.clubs();
   updateClubsInBatches(clubData)
       .then(() => {
-        console.log("All clubs updated successfully");
+        console.log("All turnverein clubs updated successfully");
       })
       .catch((error) => {
-        console.error("Error updating clubs in batches:", error);
+        console.error("Error updating turnverein clubs in batches:", error);
       });
 
 /*
@@ -94,6 +94,7 @@ async function updateClubsInBatches(clubData: any) {
   let batchSize = 0;
 
   for (const club of clubData) {
+    console.log(club.name, club.id);
     // Create a reference for the main club document
     const clubRef = db.collection("club").doc(`st-${club.id}`);
 

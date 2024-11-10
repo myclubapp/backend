@@ -134,10 +134,10 @@ export async function updateClubsSwisshandball(): Promise<any> {
   const clubData = await resolversSH.SwissHandball.clubs();
   updateClubsInBatches(clubData)
       .then(() => {
-        console.log("All clubs updated successfully");
+        console.log("All handball clubs updated successfully");
       })
       .catch((error) => {
-        console.error("Error updating clubs in batches:", error);
+        console.error("Error updating handball clubs in batches:", error);
       });
 
   // HALLEN / NOT NEEDED TO frequently update this..
@@ -191,7 +191,7 @@ async function updateClubsInBatches(clubData: any) {
   let batchSize = 0;
 
   for (const club of clubData) {
-    console.log(club.name);
+    console.log(club.name, club.id);
 
     // const hallen = club.halls;
 
