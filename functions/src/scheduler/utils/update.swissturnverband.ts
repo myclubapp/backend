@@ -143,9 +143,12 @@ async function updateClubsInBatches(clubData: any) {
 
   try {
     const results = await Promise.all(batches);
-    console.log("Results:", results);
-  } catch (error) {
-    console.error("Caught an error:", error);
+    // console.log("Results:", results);
+    for (const result of results) {
+      console.log("Batch erfolgreich:", result);
+    }
+  } catch (error: any) {
+    console.error("Batch-Fehler:", error.code, error.message);
   }
 }
 
