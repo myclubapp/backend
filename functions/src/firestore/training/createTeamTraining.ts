@@ -107,19 +107,21 @@ export async function createTeamTraining(snapshot: QueryDocumentSnapshot, contex
 }
 
 export async function createNotificationTeamTraining(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
-  const teamId = context.params.teamId;
-  const trainingId = context.params.trainingId;
-  console.log(teamId, trainingId);
+  const trainingData = snapshot.data();
+  const teamRef = await db.collection("teams").doc(trainingData.teamId).get();
+  console.log("teamId" + trainingData.teamId);
+  console.log("Create Trainings for TeamId: " + teamRef.id);
+  console.log(`Start Date used: ${trainingData.startDate}`);
+  console.log(`End Date used: ${trainingData.endDate}`);
 
-  const teamTrainingRef = await db.collection("teams").doc(teamId).collection("trainings").doc(trainingId).get();
-  const teamMembersRef = await db.collection("teams").doc(teamId).collection("members").get();
+  const teamMembersRef = await db.collection("teams").doc(teamRef.id).collection("members").get();
   for (const teamMember of teamMembersRef.docs) {
     const userProfileRef = await db.collection("userProfile").doc(teamMember.id).get();
     if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushTraining) {
-      await sendPushNotificationByUserProfileId(teamMember.id, "Neues Training verfügbar: ", teamTrainingRef.data().name + " - " + teamTrainingRef.data().description, {
+      await sendPushNotificationByUserProfileId(teamMember.id, "Neues Training verfügbar: ", trainingData.name + " - " + trainingData.description, {
         "type": "trainings",
-        "teamId": teamId,
-        "id": teamTrainingRef.id,
+        "teamId": teamRef.id,
+        "id": trainingData.id,
       });
     }
   }

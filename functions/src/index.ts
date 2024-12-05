@@ -139,7 +139,8 @@ export const dbAddHelferEventNotification = functions.region("europe-west6").fir
 // export const dbAddTeamEventNotification = functions.region("europe-west6").firestore.document("/teams/{teamId}/event/{eventId}").onCreate(createNotificationTeamEvent);
 
 // DB Hooks for Training Push
-export const dbAddTeamTrainingNotification = functions.region("europe-west6").firestore.document("/teams/{teamId}/trainings/{trainingId}").onCreate(createNotificationTeamTraining);
+// export const dbAddTeamTrainingNotification = functions.region("europe-west6").firestore.document("/teams/{teamId}/trainings/{trainingId}").onCreate(createNotificationTeamTraining);
+export const dbAddTeamTrainingNotification = functions.region("europe-west6").firestore.document("/userProfile/{userId}/trainings/{trainingId}").onCreate(createNotificationTeamTraining);
 
 // DB HOOKS DELETE TRAINING, EVENTS, HELFEREVENTS
 export const dbDeleteTraining = functions.region("europe-west6").firestore.document("/teams/{teamId}/trainings/{trainingId}").onDelete(deleteTeamTraining);
