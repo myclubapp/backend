@@ -132,7 +132,7 @@ export async function createNotificationTeamTraining(snapshot: QueryDocumentSnap
     const userProfileRef = await db.collection("userProfile").doc(teamMember.id).get();
     if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushTraining) {
       await sendPushNotificationByUserProfileId(teamMember.id, "Neues Training verfügbar: ", trainingData.name + " - " + trainingData.description, {
-        "type": "trainings",
+        "type": "training",
         "teamId": teamRef.id,
         "id": trainingData.id,
       });
