@@ -349,6 +349,7 @@ export async function updateNewsSwissunihockey(): Promise<any> {
 
   const newsData = await resolversSU.SwissUnihockey.news();
   for (const news of newsData) {
+    console.log(news.title);
     const newsDoc = await db.collection("news").doc(`su-${news.id}`).get();
     if (!newsDoc.exists) {
       await db.collection("news").doc(`su-${news.id}`).set({
