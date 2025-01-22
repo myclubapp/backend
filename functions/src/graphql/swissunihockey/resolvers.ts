@@ -482,45 +482,55 @@ async function getStatistics(teamId: string) {
   return statisticsList;
 }
 
-
 async function getNews() {
-  const data = await fetch("https://api.newsroom.co/walls?token=xgoo9jkoc2ee&count=30&channelId=663&tag=top,pin,!top,!pin");
-  const newsData = await data.json();
-  const newsList = <any>[];
-  // newsData._embedded.wallList.forEach((item: any) => {
-  for (const item of newsData._embedded.wallList) {
-    // GET IMAGE IF AVAILABLE
-    let imagePath = item.featuredImage;// Object.hasOwn(item, "featuredImage"); // THIS IS MAINLY FOR DESKTOP USAGE
-    try {
-      if (item.media && item.media.length == 0 && !imagePath) {
-        // NOTHING HERE -> SOCIAL MEDIA POST without IMAGE
-        imagePath = item.author.image;
-      } else if (item.media && item.media.length == 1) {
-        // GET WHAT WE HAVE
-        imagePath = item.media[1].url;
-      } else if (item.media && item.media.length > 1) {
-        // GET Mobile Picture
-        imagePath = item.media.find((image: any) => image.resolution == "mobile").url;
-      }
-    } catch (e) {
-      console.log(JSON.stringify(item.media));
-    }
+  const [data662, data663] = await Promise.all([
+    fetch("https://api.newsroom.co/walls?token=xgoo9jkoc2ee&count=8&type=story&tag=!top&tag=!pin&channelId=662"),
+    fetch("https://api.newsroom.co/walls?token=xgoo9jkoc2ee&count=30&channelId=663&tag=top,pin,!top,!pin"),
+  ]);
 
-    newsList.push({
-      id: item.id,
-      title: item.title,
-      leadText: item.leadText,
-      date: item.date,
-      slug: item.slug,
-      image: imagePath,
-      text: item.html,
-      htmlText: item.html,
-      tags: item.tags,
-      author: item.authorName || item.author.name || item.source,
-      authorImage: item.author.image,
-      url: item.url,
-    });
-  }
-  // });
+  const [newsData662, newsData663] = await Promise.all([
+    data662.json(),
+    data663.json(),
+  ]);
+
+  const newsList: any[] = [];
+
+  const processItems = (data: any) => {
+    if (!data?._embedded?.wallList) return;
+
+    for (const item of data._embedded.wallList) {
+      let imagePath = item.featuredImage;
+
+      try {
+        if (item.media && item.media.length === 0 && !imagePath) {
+          imagePath = item.author.image;
+        } else if (item.media && item.media.length >= 1) {
+          const mobileImage = item.media.find((image: any) => image.resolution === "mobile");
+          imagePath = mobileImage ? mobileImage.url : item.media[0].url;
+        }
+      } catch (e) {
+        console.log("Image processing error:", item.id, JSON.stringify(item.media));
+      }
+
+      newsList.push({
+        id: item.id,
+        title: item.title,
+        leadText: item.leadText,
+        date: item.date,
+        slug: item.slug,
+        image: imagePath,
+        text: item.html,
+        htmlText: item.html,
+        tags: item.tags,
+        author: item.authorName || item.author?.name || item.source,
+        authorImage: item.author?.image,
+        url: item.url,
+      });
+    }
+  };
+
+  processItems(newsData662);
+  processItems(newsData663);
+
   return newsList;
 }
