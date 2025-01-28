@@ -5,12 +5,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-len */
-import {EventContext} from "firebase-functions";
+import { EventContext } from "firebase-functions";
 
-import {updateTeamsSwissunihockey, updateClubsSwissunihockey, updateGamesSwissunihockey, updateNewsSwissunihockey} from "./utils/update.swissunihockey";
-import {updateTeamsSwissvolleyball, updateClubsSwissvolleyball, updateNewsSwissvolley, updateGamesSwissvolley} from "./utils/update.swissvolleyball";
-import {updateTeamsSwisshandball, updateClubsSwisshandball, updateGamesSwisshandball} from "./utils/update.swisshandball";
-import {updateClubsSwissturnverband, updateTeamsSwissturnverband} from "./utils/update.swissturnverband";
+import { updateTeamsSwissunihockey, updateClubsSwissunihockey, updateGamesSwissunihockey, updateNewsSwissunihockey } from "./utils/update.swissunihockey";
+import { updateTeamsSwissvolleyball, updateClubsSwissvolleyball, updateNewsSwissvolley, updateGamesSwissvolley } from "./utils/update.swissvolleyball";
+import { updateTeamsSwisshandball, updateClubsSwisshandball, updateGamesSwisshandball } from "./utils/update.swisshandball";
+import { updateClubsSwissturnverband, updateTeamsSwissturnverband } from "./utils/update.swissturnverband";
 // import {updateTeamsSwissturnverband, updateClubsSwissturnverband} from "./utils/update.swissturnverband";
 // import {updateClubsSwissvolleyball} from "./utils/update.swissvolleyball";
 // import {updateClubsSwisstennis} from "./utils/update.swisstennis";
@@ -75,137 +75,136 @@ async function updateClubNewsFromWordpress(): Promise<any> {
     if (club.data().wordpress) {
       // console.log(club.data().wordpress);
       try {
-        
-      
-      const url = club.data().wordpress + "/wp-json/wp/v2/posts?per_page=20";
-      const wpData = await fetch(url);
-      const wpNews = await wpData.json();
-      console.log("News URL: " + url);
+        const url = club.data().wordpress + "/wp-json/wp/v2/posts?per_page=20";
+        const wpData = await fetch(url);
+        const wpNews = await wpData.json();
+        console.log("News URL: " + url);
 
-      for (const news of wpNews) {
-        console.log(news.link);
+        for (const news of wpNews) {
+          console.log(news.link);
 
-        /* let text = String(news["content"].rendered).replaceAll("<p>", "");
-        text = String(text).replaceAll("</p><p>", "/n");
-        text = String(text).replaceAll("</p>", ""); */
+          /* let text = String(news["content"].rendered).replaceAll("<p>", "");
+          text = String(text).replaceAll("</p><p>", "/n");
+          text = String(text).replaceAll("</p>", ""); */
 
-        /* const dom = new jsdom.JSDOM(news["content"].rendered);
-        const element = dom.window.document.createElement("div");
-        element.innerHTML = news["content"].rendered;
-        // const newsText = element.innerText;
-
-        // element.innerHTML = news["excerpt"].rendered;
-        // const leadText = element.innerText;
-        */
+          /* const dom = new jsdom.JSDOM(news["content"].rendered);
+          const element = dom.window.document.createElement("div");
+          element.innerHTML = news["content"].rendered;
+          // const newsText = element.innerText;
+  
+          // element.innerHTML = news["excerpt"].rendered;
+          // const leadText = element.innerText;
+          */
 
 
-        // Load the HTML content using Cheerio
-        /* const $ = cheerio.load(news["content"].rendered);
+          // Load the HTML content using Cheerio
+          /* const $ = cheerio.load(news["content"].rendered);
+  
+          // Create an array to hold the transformed content
+          const ionicContent: string[] = [];
+  
+          // Process paragraphs and strong text
+          $("p").each((index: any, element: any) => {
+            const strongText = $(element).find("strong").text();
+            const text = $(element).text().replace(strongText, "");
+            ionicContent.push(`<p><strong>${strongText}</strong>${text}</p>`);
+          });
+  
+          // Process images
+          $("img").each((index: any, element: any) => {
+            const src = $(element).attr("src");
+            const alt = $(element).attr("alt") || "Image";
+            if (src) {
+              ionicContent.push(`<ion-img src="${src}" alt="${alt}"></ion-img>`);
+            }
+          });
+  
+          // Process ordered lists
+          $("ol").each((index: any, element: any) => {
+            const items = $(element).find("li").map((i: any, li: any) => `<ion-item>${$(li).text()}</ion-item>`).get().join("");
+            ionicContent.push(`<ion-list>${items}</ion-list>`);
+          });
+  
+          // Combine everything into an <ion-card-content> wrapper
+          const textResult = `<ion-text>${ionicContent.join("")}</ion-text>`;
+          */
 
-        // Create an array to hold the transformed content
-        const ionicContent: string[] = [];
+          // LEAD TEXT
+          // Load the HTML content using Cheerio
+          /* const $lead = cheerio.load(news["excerpt"].rendered);
+  
+          // Create an array to hold the transformed content
+          const ionicLead: string[] = [];
+  
+          // Process paragraphs and strong text
+          $lead("p").each((index: any, element: any) => {
+            const strongText = $lead(element).find("strong").text();
+            const text = $lead(element).text().replace(strongText, "");
+            ionicLead.push(`<p><strong>${strongText}</strong>${text}</p>`);
+          });
+  
+          // Process images
+          $lead("img").each((index: any, element: any) => {
+            const src = $lead(element).attr("src");
+            const alt = $lead(element).attr("alt") || "Image";
+            if (src) {
+              ionicLead.push(`<ion-img src="${src}" alt="${alt}"></ion-img>`);
+            }
+          });
+  
+          // Process ordered lists
+          $lead("ol").each((index: any, element: any) => {
+            const items = $lead(element).find("li").map((i: any, li: any) => `<ion-item>${$lead(li).text()}</ion-item>`).get().join("");
+            ionicLead.push(`<ion-list>${items}</ion-list>`);
+          });
+  
+          // Combine everything into an <ion-card-content> wrapper
+          const leadResult = `<ion-text>${ionicLead.join("")}</ion-text>`;
+          */
 
-        // Process paragraphs and strong text
-        $("p").each((index: any, element: any) => {
-          const strongText = $(element).find("strong").text();
-          const text = $(element).text().replace(strongText, "");
-          ionicContent.push(`<p><strong>${strongText}</strong>${text}</p>`);
-        });
+          const wpUserData = await fetch(news["_links"].author[0].href);
+          const wpUser = await wpUserData.json();
+          const authorImage = wpUser.avatar_urls[96] || wpUser.avatar_urls[48] || wpUser.avatar_urls[24] || "";
 
-        // Process images
-        $("img").each((index: any, element: any) => {
-          const src = $(element).attr("src");
-          const alt = $(element).attr("alt") || "Image";
-          if (src) {
-            ionicContent.push(`<ion-img src="${src}" alt="${alt}"></ion-img>`);
-          }
-        });
-
-        // Process ordered lists
-        $("ol").each((index: any, element: any) => {
-          const items = $(element).find("li").map((i: any, li: any) => `<ion-item>${$(li).text()}</ion-item>`).get().join("");
-          ionicContent.push(`<ion-list>${items}</ion-list>`);
-        });
-
-        // Combine everything into an <ion-card-content> wrapper
-        const textResult = `<ion-text>${ionicContent.join("")}</ion-text>`;
-        */
-
-        // LEAD TEXT
-        // Load the HTML content using Cheerio
-        /* const $lead = cheerio.load(news["excerpt"].rendered);
-
-        // Create an array to hold the transformed content
-        const ionicLead: string[] = [];
-
-        // Process paragraphs and strong text
-        $lead("p").each((index: any, element: any) => {
-          const strongText = $lead(element).find("strong").text();
-          const text = $lead(element).text().replace(strongText, "");
-          ionicLead.push(`<p><strong>${strongText}</strong>${text}</p>`);
-        });
-
-        // Process images
-        $lead("img").each((index: any, element: any) => {
-          const src = $lead(element).attr("src");
-          const alt = $lead(element).attr("alt") || "Image";
-          if (src) {
-            ionicLead.push(`<ion-img src="${src}" alt="${alt}"></ion-img>`);
-          }
-        });
-
-        // Process ordered lists
-        $lead("ol").each((index: any, element: any) => {
-          const items = $lead(element).find("li").map((i: any, li: any) => `<ion-item>${$lead(li).text()}</ion-item>`).get().join("");
-          ionicLead.push(`<ion-list>${items}</ion-list>`);
-        });
-
-        // Combine everything into an <ion-card-content> wrapper
-        const leadResult = `<ion-text>${ionicLead.join("")}</ion-text>`;
-        */
-
-        const wpUserData = await fetch(news["_links"].author[0].href);
-        const wpUser = await wpUserData.json();
-        const authorImage = wpUser.avatar_urls[96] || wpUser.avatar_urls[48] || wpUser.avatar_urls[24] || "";
-
-        let featuredMedia = "";
-        try {
-          if (news.featured_media > 0) {
-            // Features Media via media fetch available
-            const wpFeaturedMediaData = await fetch(news["_links"]["wp:featuredmedia"][0].href);
-            const wpFeaturedMedia = await wpFeaturedMediaData.json();
-            featuredMedia = wpFeaturedMedia.media_details.sizes.medium.source_url || wpFeaturedMedia.source_url || wpFeaturedMedia.guid.rendered;
-          } else {
+          let featuredMedia = "";
+          try {
+            if (news.featured_media > 0) {
+              // Features Media via media fetch available
+              const wpFeaturedMediaData = await fetch(news["_links"]["wp:featuredmedia"][0].href);
+              const wpFeaturedMedia = await wpFeaturedMediaData.json();
+              featuredMedia = wpFeaturedMedia.media_details.sizes.medium.source_url || wpFeaturedMedia.source_url || wpFeaturedMedia.guid.rendered;
+            } else {
+              featuredMedia = authorImage || "https://placehold.co/600x400";
+            }
+          } catch (e) {
+            // console.log(e);
             featuredMedia = authorImage || "https://placehold.co/600x400";
           }
-        } catch (e) {
-          // console.log(e);
-          featuredMedia = authorImage || "https://placehold.co/600x400";
-        }
 
-        await db.collection("club").doc(`${club.id}`).collection("news").doc(`${club.id}-${news.id}`).set({
-          externalId: `${news["id"]}`,
-          title: news["title"].rendered,
-          leadText: news["excerpt"].rendered,
-          clubId: club.id,
-          date: news["date"],
-          slug: news["slug"],
-          image: featuredMedia,
-          text: news["content"].rendered,
-          htmlText: news["content"].rendered || " ",
-          tags: "Webseite",
-          author: wpUser.name,
-          authorImage: authorImage,
-          url: news["link"],
-          type: club.type,
-          updated: new Date(),
-        }, {
-          merge: true,
-          ignoreUndefinedProperties: true,
-        });
-        } catch (e) {
-          console.error(e);
+          await db.collection("club").doc(`${club.id}`).collection("news").doc(`${club.id}-${news.id}`).set({
+            externalId: `${news["id"]}`,
+            title: news["title"].rendered,
+            leadText: news["excerpt"].rendered,
+            clubId: club.id,
+            date: news["date"],
+            slug: news["slug"],
+            image: featuredMedia,
+            text: news["content"].rendered,
+            htmlText: news["content"].rendered || " ",
+            tags: "Webseite",
+            author: wpUser.name,
+            authorImage: authorImage,
+            url: news["link"],
+            type: club.type,
+            updated: new Date(),
+          }, {
+            merge: true,
+            ignoreUndefinedProperties: true,
+          });
+
         }
+      } catch (e) {
+        console.error(e);
       }
     }
   }
