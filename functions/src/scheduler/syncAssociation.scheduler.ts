@@ -5,12 +5,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-len */
-import { EventContext } from "firebase-functions";
+import {EventContext} from "firebase-functions";
 
-import { updateTeamsSwissunihockey, updateClubsSwissunihockey, updateGamesSwissunihockey, updateNewsSwissunihockey } from "./utils/update.swissunihockey";
-import { updateTeamsSwissvolleyball, updateClubsSwissvolleyball, updateNewsSwissvolley, updateGamesSwissvolley } from "./utils/update.swissvolleyball";
-import { updateTeamsSwisshandball, updateClubsSwisshandball, updateGamesSwisshandball } from "./utils/update.swisshandball";
-import { updateClubsSwissturnverband, updateTeamsSwissturnverband } from "./utils/update.swissturnverband";
+import {updateTeamsSwissunihockey, updateClubsSwissunihockey, updateGamesSwissunihockey, updateNewsSwissunihockey} from "./utils/update.swissunihockey";
+import {updateTeamsSwissvolleyball, updateClubsSwissvolleyball, updateNewsSwissvolley, updateGamesSwissvolley} from "./utils/update.swissvolleyball";
+import {updateTeamsSwisshandball, updateClubsSwisshandball, updateGamesSwisshandball} from "./utils/update.swisshandball";
+import {updateClubsSwissturnverband, updateTeamsSwissturnverband} from "./utils/update.swissturnverband";
 // import {updateTeamsSwissturnverband, updateClubsSwissturnverband} from "./utils/update.swissturnverband";
 // import {updateClubsSwissvolleyball} from "./utils/update.swissvolleyball";
 // import {updateClubsSwisstennis} from "./utils/update.swisstennis";
@@ -74,12 +74,11 @@ async function updateClubNewsFromWordpress(): Promise<any> {
 
     if (club.data().wordpress) {
       // console.log(club.data().wordpress);
+      const url = club.data().wordpress + "/wp-json/wp/v2/posts?per_page=20";
+      const wpData = await fetch(url);
+      const wpNews = await wpData.json();
+      console.log("News URL: " + url);
       try {
-        const url = club.data().wordpress + "/wp-json/wp/v2/posts?per_page=20";
-        const wpData = await fetch(url);
-        const wpNews = await wpData.json();
-        console.log("News URL: " + url);
-
         for (const news of wpNews) {
           console.log(news.link);
 
@@ -91,7 +90,7 @@ async function updateClubNewsFromWordpress(): Promise<any> {
           const element = dom.window.document.createElement("div");
           element.innerHTML = news["content"].rendered;
           // const newsText = element.innerText;
-  
+
           // element.innerHTML = news["excerpt"].rendered;
           // const leadText = element.innerText;
           */
@@ -99,17 +98,17 @@ async function updateClubNewsFromWordpress(): Promise<any> {
 
           // Load the HTML content using Cheerio
           /* const $ = cheerio.load(news["content"].rendered);
-  
+
           // Create an array to hold the transformed content
           const ionicContent: string[] = [];
-  
+
           // Process paragraphs and strong text
           $("p").each((index: any, element: any) => {
             const strongText = $(element).find("strong").text();
             const text = $(element).text().replace(strongText, "");
             ionicContent.push(`<p><strong>${strongText}</strong>${text}</p>`);
           });
-  
+
           // Process images
           $("img").each((index: any, element: any) => {
             const src = $(element).attr("src");
@@ -118,13 +117,13 @@ async function updateClubNewsFromWordpress(): Promise<any> {
               ionicContent.push(`<ion-img src="${src}" alt="${alt}"></ion-img>`);
             }
           });
-  
+
           // Process ordered lists
           $("ol").each((index: any, element: any) => {
             const items = $(element).find("li").map((i: any, li: any) => `<ion-item>${$(li).text()}</ion-item>`).get().join("");
             ionicContent.push(`<ion-list>${items}</ion-list>`);
           });
-  
+
           // Combine everything into an <ion-card-content> wrapper
           const textResult = `<ion-text>${ionicContent.join("")}</ion-text>`;
           */
@@ -132,17 +131,17 @@ async function updateClubNewsFromWordpress(): Promise<any> {
           // LEAD TEXT
           // Load the HTML content using Cheerio
           /* const $lead = cheerio.load(news["excerpt"].rendered);
-  
+
           // Create an array to hold the transformed content
           const ionicLead: string[] = [];
-  
+
           // Process paragraphs and strong text
           $lead("p").each((index: any, element: any) => {
             const strongText = $lead(element).find("strong").text();
             const text = $lead(element).text().replace(strongText, "");
             ionicLead.push(`<p><strong>${strongText}</strong>${text}</p>`);
           });
-  
+
           // Process images
           $lead("img").each((index: any, element: any) => {
             const src = $lead(element).attr("src");
@@ -151,13 +150,13 @@ async function updateClubNewsFromWordpress(): Promise<any> {
               ionicLead.push(`<ion-img src="${src}" alt="${alt}"></ion-img>`);
             }
           });
-  
+
           // Process ordered lists
           $lead("ol").each((index: any, element: any) => {
             const items = $lead(element).find("li").map((i: any, li: any) => `<ion-item>${$lead(li).text()}</ion-item>`).get().join("");
             ionicLead.push(`<ion-list>${items}</ion-list>`);
           });
-  
+
           // Combine everything into an <ion-card-content> wrapper
           const leadResult = `<ion-text>${ionicLead.join("")}</ion-text>`;
           */
@@ -201,7 +200,6 @@ async function updateClubNewsFromWordpress(): Promise<any> {
             merge: true,
             ignoreUndefinedProperties: true,
           });
-
         }
       } catch (e) {
         console.error(e);
