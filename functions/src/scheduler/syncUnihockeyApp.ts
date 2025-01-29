@@ -5,12 +5,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-len */
-import {EventContext} from "firebase-functions";
+
 import firebaseDAO from "./../firebaseSingleton";
 const dbUA = firebaseDAO.instance.dbUA;
 const db = firebaseDAO.instance.db;
 
-export async function syncUnihockeyApp(context: EventContext) {
+export async function syncUnihockeyApp() {
   try {
     console.log("test");
 

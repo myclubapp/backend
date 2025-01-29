@@ -5,7 +5,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-len */
-import {EventContext} from "firebase-functions";
+
 import firebaseDAO from "../firebaseSingleton";
 const db = firebaseDAO.instance.db;
 const {google} = require("googleapis");
@@ -20,7 +20,7 @@ const youtube = google.youtube({
   auth: functions.config().api.youtube, // Replace with your API key
 });
 
-export async function exercisesScheduler(context: EventContext) {
+export async function exercisesScheduler() {
   try {
     console.log("Youtube Scheduler: Trainerausbildung Breitensport Grossfeld");
     const response = await youtube.playlistItems.list({
@@ -198,5 +198,5 @@ export async function exercisesScheduler(context: EventContext) {
     });
   }
 
-  return true;
+  return;
 }

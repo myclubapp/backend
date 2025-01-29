@@ -4,16 +4,15 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable require-jsdoc */
 /* eslint-disable max-len */
-import * as functions from "firebase-functions";
 import firebaseDAO from "../../firebaseSingleton";
-import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
+import {DocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 import {sendPushNotificationByUserProfileId} from "../../utils/push";
 
 const db = firebaseDAO.instance.db;
 
-export async function createNotificationTeamNews(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
-  const teamId = context.params.teamId;
-  const newsId = context.params.newsId;
+export async function createNotificationTeamNews(event: DocumentSnapshot) {
+  const teamId = event.params.teamId;
+  const newsId = event.params.newsId;
   console.log(teamId, newsId);
 
   const teamNewsRef = await db.collection("teams").doc(teamId).collection("news").doc(newsId).get();

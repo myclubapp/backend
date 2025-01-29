@@ -4,23 +4,22 @@
 /* eslint-disable max-len */
 import * as functions from "firebase-functions";
 import firebaseDAO from "./../../firebaseSingleton";
-import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 
 const db = firebaseDAO.instance.db;
 // const auth = firebaseDAO.instance.auth;
 
-export async function leaveTeamAsMember(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
+export const leaveTeamAsMember = async (event: functions.firestore.FirestoreEvent<functions.firestore.QueryDocumentSnapshot | undefined>) => {
   console.log("leaveTeamAsMember");
-  const userId = context.params.userId;
-  const teamId = context.params.teamId;
+  const userId = event.params.userId;
+  const teamId = event.params.teamId;
 
   return db.collection("teams").doc(teamId).collection("members").doc(userId).delete();
-}
+};
 
-export async function leaveClubAsMember(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
+export const leaveClubAsMember = async (event: functions.firestore.FirestoreEvent<functions.firestore.QueryDocumentSnapshot | undefined>) => {
   console.log("leaveTeamAsMember");
-  const userId = context.params.userId;
-  const clubId = context.params.clubId;
+  const userId = event.params.userId;
+  const clubId = event.params.clubId;
 
   return db.collection("club").doc(clubId).collection("members").doc(userId).delete();
-}
+};

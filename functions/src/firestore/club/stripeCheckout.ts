@@ -9,15 +9,15 @@ import {DocumentSnapshot, QueryDocumentSnapshot} from "firebase-functions/lib/pr
 import {Change} from "firebase-functions";
 const db = firebaseDAO.instance.db;
 
-export async function createCheckoutSession(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
+export async function createCheckoutSession(event: DocumentSnapshot) {
   console.log("Create New Checkout Session based on Checkout Session in Club");
 
-  const clubId = context.params.clubId;
-  const sessionId = context.params.sessionId;
+  const clubId = event.params.clubId;
+  const sessionId = event.params.sessionId;
   console.log("clubId: " + clubId);
   console.log("sessionId: " + sessionId);
 
-  const sessionData = snapshot.data();
+  const sessionData = event.data();
   const clubRef = await db.collection("club").doc(clubId).get();
 
   return db.collection("userProfile").doc(sessionData.userId).collection("checkout_sessions").doc(sessionId).set({

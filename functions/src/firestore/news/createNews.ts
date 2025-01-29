@@ -4,15 +4,14 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable require-jsdoc */
 /* eslint-disable max-len */
-import * as functions from "firebase-functions";
 import firebaseDAO from "../../firebaseSingleton";
-import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
+import {DocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 import {sendPushNotificationByUserProfileId} from "../../utils/push";
 
 const db = firebaseDAO.instance.db;
 
-export async function createNotificationNews(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
-  const newsId = context.params.newsId;
+export async function createNotificationNews(event: DocumentSnapshot) {
+  const newsId = event.params.newsId;
   const newsRef = await db.collection("news").doc(newsId).get();
 
   const associationClubs = await db.collection("club").where("type", "==", newsRef.data().type).where("active", "==", true).get();

@@ -2,17 +2,16 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable require-jsdoc */
 /* eslint-disable max-len */
-import * as functions from "firebase-functions";
 import firebaseDAO from "./../firebaseSingleton";
-import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
+import {DocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 
 const db = firebaseDAO.instance.db;
 // const auth = firebaseDAO.instance.auth;
 
-export async function createTeamMember(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
+export async function createTeamMember(event: DocumentSnapshot) {
   console.log("createTeamMember from Team Page via Admin");
-  const userId = context.params.userId;
-  const teamId = context.params.teamId;
+  const userId = event.params.userId;
+  const teamId = event.params.teamId;
 
   const teamRef = await db.collection("teams").doc(teamId).get();
   return db.collection("userProfile").doc(userId).collection("teams").doc(`${teamId}`).set({
@@ -32,10 +31,10 @@ export async function createTeamMember(snapshot: QueryDocumentSnapshot, context:
 }
 
 // I GUESS WE DONT NEED THIS?
-export async function createClubMember(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
+export async function createClubMember(event: DocumentSnapshot) {
   console.log("createClubMember from Club Page via Admin");
-  const userId = context.params.userId;
-  const clubId = context.params.clubId;
+  const userId = event.params.userId;
+  const clubId = event.params.clubId;
 
   const clubRef = await db.collection("club").doc(clubId).get();
   return db.collection("userProfile").doc(userId).collection("clubs").doc(`${clubId}`).set({

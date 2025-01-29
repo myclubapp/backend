@@ -1,6 +1,5 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable max-len */
-import * as functions from "firebase-functions";
 import {authUserBlockBeforeCreate, authUserBlockBeforeSignIn} from "./auth/user.block";
 
 import {authUserCreateSendWelcomeEmail} from "./auth/user.create";
@@ -47,110 +46,310 @@ import {deleteTeam} from "./firestore/team/deleteTeam";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const graphql = require("./graphql/server");
 
+import {beforeUserDeleted, beforeUserCreated, beforeUserSignedIn} from "firebase-functions/v2/auth";
+import {onSchedule} from "firebase-functions/v2/scheduler";
+import {onDocumentDeleted, onDocumentCreated, onDocumentUpdated} from "firebase-functions/v2/firestore";
+import {onRequest} from "firebase-functions/v2/https";
+
 // Firebase AUTH Welcome User Stuff
 
-export const sendWelcomeMail = functions.region("europe-west6").auth.user().onCreate(authUserCreateSendWelcomeEmail);
 // export const onCreateUserCreateAdminUser = functions.region("europe-west6").auth.user().onCreate(authUserCreateAdminUser);
-export const sendByeEmail = functions.region("europe-west6").auth.user().onDelete(authUserDeleteUserSendByEmail);
-export const deleteUserAccount = functions.region("europe-west6").auth.user().onDelete(authUserDeleteUserAccount);
+export const sendWelcomeMail = beforeUserCreated({
+  region: "europe-west6",
+}, authUserCreateSendWelcomeEmail);
+
+export const sendByeEmail = beforeUserDeleted({
+  region: "europe-west6",
+}, authUserDeleteUserSendByEmail);
+
+export const deleteUserAccount = beforeUserDeleted({
+  region: "europe-west6",
+}, authUserDeleteUserAccount);
 
 // NEW AUTH BLOCK FUNCTIONS
-export const beforeCreate = functions.region("europe-west6").auth.user().beforeCreate(authUserBlockBeforeCreate);
-export const beforeSignIn = functions.region("europe-west6").auth.user().beforeSignIn(authUserBlockBeforeSignIn);
+export const beforeCreate = beforeUserCreated({
+  region: "europe-west6",
+}, authUserBlockBeforeCreate);
+
+export const beforeSignIn = beforeUserSignedIn({
+  region: "europe-west6",
+}, authUserBlockBeforeSignIn);
 
 // GrapphQL API
-export const api = functions.runWith({timeoutSeconds: 300, memory: "1GB"}).region("europe-west6").https.onRequest(graphql);
+export const api = onRequest({
+  timeoutSeconds: 300,
+  memory: "1GiB",
+}, graphql);
 
 // Jobs
-export const jobUpdatePersistenceClubs = functions.runWith({timeoutSeconds: 360, memory: "1GB"}).region("europe-west6").pubsub.schedule("00 08 * * 1").timeZone("Europe/Zurich").onRun(updatePersistenceJobClubs); // monday 8:00
-export const jobUpdatePersistenceTeams = functions.runWith({timeoutSeconds: 540, memory: "1GB"}).region("europe-west6").pubsub.schedule("10 08 * * 1").timeZone("Europe/Zurich").onRun(updatePersistenceJobTeams); // monday 8:10
-export const jobUpdatePersistenceGames = functions.runWith({timeoutSeconds: 540, memory: "512MB"}).region("europe-west6").pubsub.schedule("00 06 * * *").timeZone("Europe/Zurich").onRun(updatePersistenceJobGames); // daily 06:00
-export const jobUpdatePersistenceNews = functions.runWith({timeoutSeconds: 360, memory: "512MB"}).region("europe-west6").pubsub.schedule("30 * * * *").timeZone("Europe/Zurich").onRun(updatePersistenceJobNews); // daily every 30 minutes
-export const jobSyncUnihockeyApp = functions.runWith({timeoutSeconds: 360, memory: "512MB"}).region("europe-west6").pubsub.schedule("30 * * * *").timeZone("Europe/Zurich").onRun(syncUnihockeyApp); // daily every 30 minutes
-export const jobYoutube = functions.runWith({timeoutSeconds: 360, memory: "512MB"}).region("europe-west6").pubsub.schedule("00 08 * * 1").timeZone("Europe/Zurich").onRun(exercisesScheduler); // daily every 30 minutes
+export const jobUpdatePersistenceClubs = onSchedule({
+  schedule: "00 08 * * 1",
+  region: "europe-west6",
+  memory: "1GiB",
+  timeoutSeconds: 360,
+  timeZone: "Europe/Zurich",
+}, updatePersistenceJobClubs);
+
+export const jobUpdatePersistenceTeams = onSchedule({
+  schedule: "10 08 * * 1",
+  region: "europe-west6",
+  memory: "1GiB",
+  timeoutSeconds: 540,
+  timeZone: "Europe/Zurich",
+}, updatePersistenceJobTeams);
+
+export const jobUpdatePersistenceGames = onSchedule({
+  schedule: "00 06 * * *",
+  region: "europe-west6",
+  memory: "512MiB",
+  timeoutSeconds: 540,
+  timeZone: "Europe/Zurich",
+}, updatePersistenceJobGames);
+
+export const jobUpdatePersistenceNews = onSchedule({
+  schedule: "30 * * * *",
+  region: "europe-west6",
+  memory: "512MiB",
+  timeoutSeconds: 360,
+  timeZone: "Europe/Zurich",
+}, updatePersistenceJobNews);
+
+export const jobSyncUnihockeyApp = onSchedule({
+  schedule: "30 * * * *",
+  region: "europe-west6",
+  memory: "512MiB",
+  timeoutSeconds: 360,
+  timeZone: "Europe/Zurich",
+}, syncUnihockeyApp);
+
+export const jobYoutube = onSchedule({
+  schedule: "00 08 * * 1",
+  region: "europe-west6",
+  memory: "512MiB",
+  timeoutSeconds: 360,
+  timeZone: "Europe/Zurich",
+}, exercisesScheduler);
 
 // Reporting
-export const jobReportingMember = functions.runWith({timeoutSeconds: 360, memory: "256MB"}).region("europe-west6").pubsub.schedule("00 20 * * 0").timeZone("Europe/Zurich").onRun(sendReportingJobMember); // sunday 20:00
+export const jobReportingMember = onSchedule({
+  schedule: "00 20 * * 0",
+  region: "europe-west6",
+  memory: "256MiB",
+  timeoutSeconds: 360,
+  timeZone: "Europe/Zurich",
+}, sendReportingJobMember);
 
 // DB Hooks TEAM > Manage teams currently only available for ADMIN
-export const dbDeleteTeam = functions.region("europe-west6").firestore.document("/teams/{teamId}").onDelete(deleteTeam);
-export const dbRemoveTeamMember = functions.region("europe-west6").firestore.document("/teams/{teamId}/members/{userId}").onDelete(deleteTeamMember);
-export const dbRemoveTeamAdmin = functions.region("europe-west6").firestore.document("/teams/{teamId}/admins/{userId}").onDelete(deleteTeamAdmin);
-export const dbAddTeamMember = functions.region("europe-west6").firestore.document("/teams/{teamId}/members/{userId}").onCreate(createTeamMember);
-export const dbAddTeamAdmin = functions.region("europe-west6").firestore.document("/teams/{teamId}/admins/{userId}").onCreate(createTeamAdmin);
-export const dbLeaveTeamAsMember = functions.region("europe-west6").firestore.document("/userProfile/{userId}/teams/{teamId}").onDelete(leaveTeamAsMember);
+export const dbDeleteTeam = onDocumentDeleted( {document: "/teams/{teamId}",
+  region: "europe-west6",
+}, deleteTeam);
+
+export const dbRemoveTeamMember = onDocumentDeleted({
+  document: "/teams/{teamId}/members/{userId}",
+  region: "europe-west6",
+}, deleteTeamMember);
+
+export const dbRemoveTeamAdmin = onDocumentDeleted({
+  document: "/teams/{teamId}/admins/{userId}",
+  region: "europe-west6",
+}, deleteTeamAdmin);
+
+export const dbAddTeamMember = onDocumentCreated({
+  document: "/teams/{teamId}/members/{userId}",
+  region: "europe-west6",
+}, createTeamMember);
+
+export const dbAddTeamAdmin = onDocumentCreated({
+  document: "/teams/{teamId}/admins/{userId}",
+  region: "europe-west6",
+}, createTeamAdmin);
+
+export const dbLeaveTeamAsMember = onDocumentDeleted({
+  document: "/userProfile/{userId}/teams/{teamId}",
+  region: "europe-west6",
+}, leaveTeamAsMember);
 
 // DB Hooks CLUB > Manage club currently only available for ADMIN
-export const dbRemoveClubMember = functions.region("europe-west6").firestore.document("/club/{clubId}/members/{userId}").onDelete(deleteClubMember);
-export const dbRemoveClubAdmin = functions.region("europe-west6").firestore.document("/club/{clubId}/admins/{userId}").onDelete(deleteClubAdmin);
-export const dbAddClubMember = functions.region("europe-west6").firestore.document("/club/{clubId}/members/{userId}").onCreate(createClubMember); // Not needed? Maybe a new INVITE Proccess
-export const dbAddClubAdmin = functions.region("europe-west6").firestore.document("/club/{clubId}/admins/{userId}").onCreate(createClubAdmin);
-export const dbLeaveClubAsMember = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubs/{clubId}").onDelete(leaveClubAsMember);
+export const dbRemoveClubMember = onDocumentDeleted({
+  document: "/club/{clubId}/members/{userId}",
+  region: "europe-west6",
+}, deleteClubMember);
+
+export const dbRemoveClubAdmin = onDocumentDeleted({
+  document: "/club/{clubId}/admins/{userId}",
+  region: "europe-west6",
+}, deleteClubAdmin);
+
+export const dbAddClubMember = onDocumentCreated({
+  document: "/club/{clubId}/members/{userId}",
+  region: "europe-west6",
+}, createClubMember);
+
+export const dbAddClubAdmin = onDocumentCreated({
+  document: "/club/{clubId}/admins/{userId}",
+  region: "europe-west6",
+}, createClubAdmin);
+
+export const dbLeaveClubAsMember = onDocumentDeleted({
+  document: "/userProfile/{userId}/clubs/{clubId}",
+  region: "europe-west6",
+}, leaveClubAsMember);
 
 // DB Hooks STRIPE
-export const dbAddCheckoutSession = functions.region("europe-west6").firestore.document("/club/{clubId}/checkout_sessions/{sessionId}").onCreate(createCheckoutSession);
-export const dbChangeCheckoutSession = functions.region("europe-west6").firestore.document("/userProfile/{userId}/checkout_sessions/{sessionId}").onUpdate(updateCheckoutSession);
-export const dbChangeSubscription = functions.region("europe-west6").firestore.document("/userProfile/{userId}/subscriptions/{subscriptionId}").onWrite(updateSubscription);
-export const dbChangeInvoice = functions.region("europe-west6").firestore.document("/userProfile/{userId}/subscriptions/{subscriptionId}/invoices/{invoiceId}").onWrite(updateInvoice);
-export const dbChangePayment = functions.region("europe-west6").firestore.document("/userProfile/{userId}/payments/{paymentId}").onWrite(updatePayments);
-// export const dbRemoveMemberFromClub = functions.region("europe-west6").firestore.document("/club/{clubId}/members/{userId}").onDelete(deleteMemberFromClub);
-// export const dbRemoveMemberFromTeam = functions.region("europe-west6").firestore.document("/teams/{teamId}/members/{userId}").onDelete(deleteMemberFromTeam);
+export const dbAddCheckoutSession = onDocumentCreated({
+  document: "/club/{clubId}/checkout_sessions/{sessionId}",
+  region: "europe-west6",
+}, createCheckoutSession);
+
+export const dbChangeCheckoutSession = onDocumentUpdated({
+  document: "/userProfile/{userId}/checkout_sessions/{sessionId}",
+  region: "europe-west6",
+}, updateCheckoutSession);
+
+export const dbChangeSubscription = onDocumentUpdated({
+  document: "/userProfile/{userId}/subscriptions/{subscriptionId}",
+  region: "europe-west6",
+}, updateSubscription);
+
+export const dbChangeInvoice = onDocumentUpdated({
+  document: "/userProfile/{userId}/subscriptions/{subscriptionId}/invoices/{invoiceId}",
+  region: "europe-west6",
+}, updateInvoice);
+
+export const dbChangePayment = onDocumentUpdated({
+  document: "/userProfile/{userId}/payments/{paymentId}",
+  region: "europe-west6",
+}, updatePayments);
 
 // DB Hooks REQUESTS
 // user perspective: create Request in onboarding
-export const dbAddClubRequest = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubRequests/{clubId}").onCreate(createClubRequest);
-export const dbAddTeamRequest = functions.region("europe-west6").firestore.document("/userProfile/{userId}/teamRequests/{teamId}").onCreate(createTeamRequest);
+export const dbAddClubRequest = onDocumentCreated({
+  document: "/userProfile/{userId}/clubRequests/{clubId}",
+  region: "europe-west6",
+}, createClubRequest);
+
+export const dbAddTeamRequest = onDocumentCreated({
+  document: "/userProfile/{userId}/teamRequests/{teamId}",
+  region: "europe-west6",
+}, createTeamRequest);
 
 // user perspective: delete Request in profile
-export const dbRemoveClubRequest = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubRequests/{clubId}").onDelete(deleteClubRequest);
-export const dbRemoveTeamRequest = functions.region("europe-west6").firestore.document("/userProfile/{userId}/teamRequests/{teamId}").onDelete(deleteTeamRequest);
+export const dbRemoveClubRequest = onDocumentDeleted({
+  document: "/userProfile/{userId}/clubRequests/{clubId}",
+  region: "europe-west6",
+}, deleteClubRequest);
+
+export const dbRemoveTeamRequest = onDocumentDeleted({
+  document: "/userProfile/{userId}/teamRequests/{teamId}",
+  region: "europe-west6",
+}, deleteTeamRequest);
 
 // approve or delete request in team / club management page from admin perspective
-export const dbApproveClubRequest = functions.region("europe-west6").firestore.document("/club/{clubId}/requests/{requestId}").onUpdate(approveClubRequest);
-export const dbApproveTeamRequest = functions.region("europe-west6").firestore.document("/teams/{teamId}/requests/{requestId}").onUpdate(approveTeamRequest);
+export const dbApproveClubRequest = onDocumentUpdated({
+  document: "/club/{clubId}/requests/{requestId}",
+  region: "europe-west6",
+}, approveClubRequest);
+
+export const dbApproveTeamRequest = onDocumentUpdated({
+  document: "/teams/{teamId}/requests/{requestId}",
+  region: "europe-west6",
+}, approveTeamRequest);
 
 // DB Hooks CLUB > TEAMS
-export const dbAddClubTeam = functions.region("europe-west6").firestore.document("/club/{clubId}/teams/{teamId}").onCreate(addClubTeam);
+export const dbAddClubTeam = onDocumentCreated({
+  document: "/club/{clubId}/teams/{teamId}",
+  region: "europe-west6",
+}, addClubTeam);
 
 // DB Hooks TRAININGS from USER Profile
-export const dbAddTeamTraining = functions.region("europe-west6").firestore.document("/userProfile/{userId}/trainings/{trainingId}").onCreate(createTeamTraining);
+export const dbAddTeamTraining = onDocumentCreated({
+  document: "/userProfile/{userId}/trainings/{trainingId}",
+  region: "europe-west6",
+}, createTeamTraining);
 
 // DB Hooks EVENTS from USER Profile
 // export const dbAddTeamEvent = functions.region("europe-west6").firestore.document("/userProfile/{userId}/teamEvent/{eventId}").onCreate(createTeamEvent);
-export const dbAddClubEvent = functions.region("europe-west6").firestore.document("/userProfile/{userId}/clubEvents/{eventId}").onCreate(createClubEvent);
-export const dbAddHelferEvent = functions.region("europe-west6").firestore.document("/userProfile/{userId}/helferEvents/{eventId}").onCreate(createHelferEvent);
+export const dbAddClubEvent = onDocumentCreated({
+  document: "/userProfile/{userId}/clubEvents/{eventId}",
+  region: "europe-west6",
+}, createClubEvent);
+export const dbAddHelferEvent = onDocumentCreated({
+  document: "/userProfile/{userId}/helferEvents/{eventId}",
+  region: "europe-west6",
+}, createHelferEvent);
 
 // HELFER EVENTS DB HOOKS
 // `club/${clubId}/helferEvents/${eventId}/schichten/${schichtId}/attendees/${userId
-export const dbConfirmHelferEvent = functions.region("europe-west6").firestore.document("/club/{clubId}/helferEvents/{eventId}/schichten/{schichtId}/attendees/{userId}").onUpdate(confirmHelferEvent);
-export const dbRemoveHelerPunkt = functions.region("europe-west6").firestore.document("/club/{clubId}/helferPunkte/{helferPunktId}").onDelete(deleteHelferPunkt);
+export const dbConfirmHelferEvent = onDocumentUpdated({
+  document: "/club/{clubId}/helferEvents/{eventId}/schichten/{schichtId}/attendees/{userId}",
+  region: "europe-west6",
+}, confirmHelferEvent);
+export const dbRemoveHelerPunkt = onDocumentDeleted({
+  document: "/club/{clubId}/helferPunkte/{helferPunktId}",
+  region: "europe-west6",
+}, deleteHelferPunkt);
 
 
 // NOTIFICATION DB HOOKS
 
 // DB Hooks for News Push
-export const dbAddClubNewsNotification = functions.region("europe-west6").firestore.document("/club/{clubId}/news/{newsId}").onCreate(createNotificationClubNews);
-export const dbAddTeamNewsNotification = functions.region("europe-west6").firestore.document("/teams/{teamId}/news/{newsId}").onCreate(createNotificationTeamNews);
-export const dbAddNewsNotification = functions.region("europe-west6").firestore.document("/news/{newsId}").onCreate(createNotificationNews);
+export const dbAddClubNewsNotification = onDocumentCreated({
+  document: "/club/{clubId}/news/{newsId}",
+  region: "europe-west6",
+}, createNotificationClubNews);
+export const dbAddTeamNewsNotification = onDocumentCreated({
+  document: "/teams/{teamId}/news/{newsId}",
+  region: "europe-west6",
+}, createNotificationTeamNews);
+export const dbAddNewsNotification = onDocumentCreated({
+  document: "/news/{newsId}",
+  region: "europe-west6",
+}, createNotificationNews);
 
 // DB Hooks for New Events
-export const dbAddClubEventNotification = functions.region("europe-west6").firestore.document("/club/{clubId}/events/{eventId}").onCreate(createNotificationClubEvent);
-export const dbAddHelferEventNotification = functions.region("europe-west6").firestore.document("/club/{clubId}/helferEvents/{eventId}").onCreate(createNotificationHelferEvent);
+export const dbAddClubEventNotification = onDocumentCreated({
+  document: "/club/{clubId}/events/{eventId}",
+  region: "europe-west6",
+}, createNotificationClubEvent);
+export const dbAddHelferEventNotification = onDocumentCreated({
+  document: "/club/{clubId}/helferEvents/{eventId}",
+  region: "europe-west6",
+}, createNotificationHelferEvent);
 // export const dbAddTeamEventNotification = functions.region("europe-west6").firestore.document("/teams/{teamId}/event/{eventId}").onCreate(createNotificationTeamEvent);
 
 // DB Hooks for Training Push
 // export const dbAddTeamTrainingNotification = functions.region("europe-west6").firestore.document("/teams/{teamId}/trainings/{trainingId}").onCreate(createNotificationTeamTraining);
-export const dbAddTeamTrainingNotification = functions.region("europe-west6").firestore.document("/userProfile/{userId}/trainings/{trainingId}").onCreate(createNotificationTeamTraining);
+export const dbAddTeamTrainingNotification = onDocumentCreated({
+  document: "/userProfile/{userId}/trainings/{trainingId}",
+  region: "europe-west6",
+}, createNotificationTeamTraining);
 
 // DB HOOKS DELETE TRAINING, EVENTS, HELFEREVENTS
-export const dbDeleteTraining = functions.region("europe-west6").firestore.document("/teams/{teamId}/trainings/{trainingId}").onDelete(deleteTeamTraining);
-export const dbDeleteTeamGame = functions.region("europe-west6").firestore.document("/teams/{teamId}/games/{gameId}").onDelete(deleteTeamGame);
-export const dbDeleteClubEvent = functions.region("europe-west6").firestore.document("/club/{clubId}/events/{eventId}").onDelete(deleteClubEvent);
-export const dbDeleteHelferEvent = functions.region("europe-west6").firestore.document("/club/{clubId}/helferEvents/{eventId}").onDelete(deleteHelferEvent);
+export const dbDeleteTraining = onDocumentDeleted({
+  document: "/teams/{teamId}/trainings/{trainingId}",
+  region: "europe-west6",
+}, deleteTeamTraining);
+
+export const dbDeleteTeamGame = onDocumentDeleted({
+  document: "/teams/{teamId}/games/{gameId}",
+  region: "europe-west6",
+}, deleteTeamGame);
+
+export const dbDeleteClubEvent = onDocumentDeleted({
+  document: "/club/{clubId}/events/{eventId}",
+  region: "europe-west6",
+}, deleteClubEvent);
+
+export const dbDeleteHelferEvent = onDocumentDeleted({
+  document: "/club/{clubId}/helferEvents/{eventId}",
+  region: "europe-west6",
+}, deleteHelferEvent);
 
 
 // TOTOMAT
 // export const totomat = functions.region("europe-west6").https.onRequest(graphql);
 
 // Game Preview
-export const gamePreview = functions.region("europe-west6").https.onRequest(getGamePreview);
+export const gamePreview = onRequest({
+  region: "europe-west6",
+}, getGamePreview);

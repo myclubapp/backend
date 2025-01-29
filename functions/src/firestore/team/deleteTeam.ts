@@ -4,14 +4,13 @@
 /* eslint-disable max-len */
 import * as functions from "firebase-functions";
 import firebaseDAO from "./../../firebaseSingleton";
-import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 
 const db = firebaseDAO.instance.db;
 // const auth = firebaseDAO.instance.auth;
 
-export async function deleteTeam(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
+export const deleteTeam = async (event: functions.firestore.FirestoreEvent<functions.firestore.QueryDocumentSnapshot | undefined>) => {
   console.log("deleteTeamData");
-  const teamId = context.params.teamId;
+  const teamId = event.params.teamId;
 
   // ADMINS
   const adminList = await db.collection("teams").doc(teamId).collection("admins").get();
@@ -98,4 +97,4 @@ export async function deleteTeam(snapshot: QueryDocumentSnapshot, context: funct
   }
 
   return db.collection("teams").doc(teamId).delete();
-}
+};

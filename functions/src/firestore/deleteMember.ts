@@ -5,16 +5,15 @@
 /* eslint-disable max-len */
 import * as functions from "firebase-functions";
 import firebaseDAO from "./../firebaseSingleton";
-import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 
 const db = firebaseDAO.instance.db;
 // const auth = firebaseDAO.instance.auth;
 
-export async function deleteTeamMember(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
+export const deleteTeamMember = async (event: functions.firestore.FirestoreEvent<functions.firestore.QueryDocumentSnapshot | undefined>) => {
   console.log("deleteTeamMember > Team Page via Administrator");
-  const userId = context.params.userId;
-  const teamId = context.params.teamId;
-  console.log("Auth User > " + context.auth);
+  const userId = event.params.userId;
+  const teamId = event.params.teamId;
+  // console.log("Auth User > " +  event.auth);
   console.log("Delete user from team " + userId, teamId);
 
   // If removed from team, delete as well team admin
@@ -38,11 +37,12 @@ export async function deleteTeamMember(snapshot: QueryDocumentSnapshot, context:
         snapshot.data()
     );
   }*/
-}
-export async function deleteClubMember(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
+};
+
+export const deleteClubMember = async (event: functions.firestore.FirestoreEvent<functions.firestore.QueryDocumentSnapshot | undefined>) => {
   console.log("deleteClubMember > Club Page via Administrator");
-  const userId = context.params.userId;
-  const clubId = context.params.clubId;
+  const userId = event.params.userId;
+  const clubId = event.params.clubId;
   // console.log("Auth User > " + context.auth);
   console.log("Delete user from club " + userId, clubId);
 
@@ -86,7 +86,7 @@ export async function deleteClubMember(snapshot: QueryDocumentSnapshot, context:
         snapshot.data()
     );
   }*/
-}
+};
 /* export async function deleteMemberFromClub(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
   console.log("Delete Member From Club");
   // const userId = context.params.userId;

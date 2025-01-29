@@ -3,22 +3,21 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable require-jsdoc */
 /* eslint-disable max-len */
-import * as functions from "firebase-functions";
 import firebaseDAO from "../../firebaseSingleton";
-import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
+import {DocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 import {sendPushNotificationByUserProfileId} from "../../utils/push";
 
 const db = firebaseDAO.instance.db;
-export async function createHelferEvent(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
+export async function createHelferEvent(event: DocumentSnapshot) {
   console.log("CREATE Helferevent");
 
-  const userId = context.params.userId;
-  const eventId = context.params.eventId;
+  const userId = event.params.userId;
+  const eventId = event.params.eventId;
 
   console.log("userId: " + userId);
   console.log("HelfereventId: " + eventId);
 
-  const eventData = snapshot.data();
+  const eventData = event.data();
   const clubRef = await db.collection("club").doc(eventData.clubId).get();
   console.log(clubRef.id);
 
@@ -42,9 +41,9 @@ export async function createHelferEvent(snapshot: QueryDocumentSnapshot, context
   return db.collection("userProfile").doc(userId).collection("helferEvents").doc(eventId).delete();
 }
 
-export async function createNotificationHelferEvent(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
-  const clubId = context.params.clubId;
-  const eventId = context.params.eventId;
+export async function createNotificationHelferEvent(event: DocumentSnapshot) {
+  const clubId = event.params.clubId;
+  const eventId = event.params.eventId;
   console.log(clubId, eventId);
 
   const helferEvent = await db.collection("club").doc(clubId).collection("helferEvents").doc(eventId).get();

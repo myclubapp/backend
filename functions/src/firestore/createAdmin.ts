@@ -2,20 +2,18 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable require-jsdoc */
 /* eslint-disable max-len */
-import * as functions from "firebase-functions";
-import firebaseDAO from "./../firebaseSingleton";
-import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 
+import firebaseDAO from "./../firebaseSingleton";
+import {DocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 const db = firebaseDAO.instance.db;
 
 // const db = firebaseDAO.instance.db;
 // const auth = firebaseDAO.instance.auth;
 
-export async function createTeamAdmin(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
+export async function createTeamAdmin(event: DocumentSnapshot) {
   console.log("createTeamAdmin");
-
-  const userId = context.params.userId;
-  const teamId = context.params.teamId;
+  const userId = event.params.userId;
+  const teamId = event.params.teamId;
 
   const teamRef = await db.collection("teams").doc(teamId).get();
   return db.collection("userProfile").doc(userId).collection("teamAdmin").doc(`${teamId}`).set({
@@ -23,10 +21,10 @@ export async function createTeamAdmin(snapshot: QueryDocumentSnapshot, context: 
   });
 }
 
-export async function createClubAdmin(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
+export async function createClubAdmin(event: DocumentSnapshot) {
   console.log("createClubAdmin");
-  const userId = context.params.userId;
-  const clubId = context.params.clubId;
+  const userId = event.params.userId;
+  const clubId = event.params.clubId;
 
   const clubRef = await db.collection("club").doc(clubId).get();
   return db.collection("userProfile").doc(userId).collection("clubAdmin").doc(`${clubId}`).set({

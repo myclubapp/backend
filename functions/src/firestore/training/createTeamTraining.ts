@@ -3,23 +3,22 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable require-jsdoc */
 /* eslint-disable max-len */
-import * as functions from "firebase-functions";
-import firebaseDAO from "../../firebaseSingleton";
-import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
-import {sendPushNotificationByUserProfileId} from "../../utils/push";
 
+import firebaseDAO from "../../firebaseSingleton";
+import {sendPushNotificationByUserProfileId} from "../../utils/push";
+import {DocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 const db = firebaseDAO.instance.db;
 
-export async function createTeamTraining(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
+export async function createTeamTraining(event: DocumentSnapshot) {
   console.log("CREATE Training");
 
-  const userId = context.params.userId;
-  const trainingId = context.params.trainingId;
+  const userId = event.params.userId;
+  const trainingId = event.params.trainingId;
 
   console.log("userId: " + userId);
   console.log("trainingId: " + trainingId);
 
-  const trainingData = snapshot.data();
+  const trainingData = event.data();
   const teamRef = await db.collection("teams").doc(trainingData.teamId).get();
   console.log("teamId" + trainingData.teamId);
 
@@ -119,8 +118,8 @@ export async function createTeamTraining(snapshot: QueryDocumentSnapshot, contex
       .delete();
 }
 
-export async function createNotificationTeamTraining(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
-  const trainingData = snapshot.data();
+export async function createNotificationTeamTraining(event: DocumentSnapshot) {
+  const trainingData = event.data();
   const teamRef = await db.collection("teams").doc(trainingData.teamId).get();
   console.log("teamId" + trainingData.teamId);
   console.log("Create Trainings for TeamId: " + teamRef.id);

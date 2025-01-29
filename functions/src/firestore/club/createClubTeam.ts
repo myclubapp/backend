@@ -3,16 +3,15 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable require-jsdoc */
 /* eslint-disable max-len */
-import * as functions from "firebase-functions";
 import firebaseDAO from "../../firebaseSingleton";
-import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
+import {DocumentSnapshot} from "firebase-functions/lib/providers/firestore";
 import {sendPushNotificationByUserProfileId} from "../../utils/push";
 
 const db = firebaseDAO.instance.db;
 
-export async function addClubTeam(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
-  const clubId = context.params.clubId;
-  const teamId = context.params.teamId;
+export async function addClubTeam(event: DocumentSnapshot) {
+  const clubId = event.params.clubId;
+  const teamId = event.params.teamId;
 
   // CHECK IF TEAM was added via JOB?
   const teamRef = await db.collection("teams").doc(teamId).get();
@@ -24,7 +23,7 @@ export async function addClubTeam(snapshot: QueryDocumentSnapshot, context: func
   console.log("clubId: " + clubId);
   console.log("teamId: " + teamId);
 
-  const teamData = snapshot.data();
+  const teamData = event.data();
   const clubRef = await db.collection("club").doc(clubId).get();
 
   await db.collection("teams").doc(teamId).set({
@@ -43,9 +42,9 @@ export async function addClubTeam(snapshot: QueryDocumentSnapshot, context: func
   });
 }
 
-export async function createNotificationClubEvent(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
-  const clubId = context.params.clubId;
-  const eventId = context.params.eventId;
+export async function createNotificationClubEvent(event: DocumentSnapshot) {
+  const clubId = event.params.clubId;
+  const eventId = event.params.eventId;
   console.log(clubId, eventId);
 
   const clubEventRef = await db.collection("club").doc(clubId).collection("events").doc(eventId).get();

@@ -4,9 +4,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable max-len */
-import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import firebaseDAO from "./../firebaseSingleton";
+import {AuthBlockingEvent} from "firebase-functions/v2/identity";
 
 const db = firebaseDAO.instance.db;
 
@@ -23,7 +23,8 @@ const db = firebaseDAO.instance.db;
   });
 } */
 
-export async function authUserCreateSendWelcomeEmail(user: admin.auth.UserRecord, context: functions.EventContext) {
+export async function authUserCreateSendWelcomeEmail(event: AuthBlockingEvent) {
+  const user = event.data;
   console.log(">>> NEW USER with ID: " + user.uid + " SEND WELCOME E-MAIL to VALIDATE E-MAIL");
   const link = await admin.auth().generateEmailVerificationLink(user.email as string);
 
@@ -49,7 +50,7 @@ export async function authUserCreateSendWelcomeEmail(user: admin.auth.UserRecord
   });
 }
 
-export async function authUserCreateAdminUser(user: admin.auth.UserRecord, context: functions.EventContext) {
+export async function authUserCreateAdminUser(user: admin.auth.UserRecord) {
   /* console.log(">>> NEW USER with ID: " + user.uid + " CREATE ADMIN USER?");
 
   const userProfile: any = await db.collection("userProfile").doc(`${user.uid}`).get();
