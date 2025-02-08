@@ -1,21 +1,17 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable require-jsdoc */
 /* eslint-disable max-len */
-import firebaseDAO from "./../firebaseSingleton";
-import {DocumentSnapshot} from "firebase-functions/lib/providers/firestore";
-
+import firebaseDAO from './../firebaseSingleton';
+import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
 const db = firebaseDAO.instance.db;
 // const auth = firebaseDAO.instance.auth;
 
-export async function createTeamMember(event: DocumentSnapshot) {
-  console.log("createTeamMember from Team Page via Admin");
+export async function createTeamMember(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
+  console.log('createTeamMember from Team Page via Admin');
   const userId = event.params.userId;
   const teamId = event.params.teamId;
 
-  const teamRef = await db.collection("teams").doc(teamId).get();
-  return db.collection("userProfile").doc(userId).collection("teams").doc(`${teamId}`).set({
-    "teamRef": teamRef.ref,
+  const teamRef = await db.collection('teams').doc(teamId).get();
+  return db.collection('userProfile').doc(userId).collection('teams').doc(`${teamId}`).set({
+    'teamRef': teamRef.ref,
   });
 
   /* Security is covered by the DB rules. Only auth and admins can create team members and then triggers this method to add it to the userprofile as well.
@@ -31,14 +27,14 @@ export async function createTeamMember(event: DocumentSnapshot) {
 }
 
 // I GUESS WE DONT NEED THIS?
-export async function createClubMember(event: DocumentSnapshot) {
-  console.log("createClubMember from Club Page via Admin");
+export async function createClubMember(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
+  console.log('createClubMember from Club Page via Admin');
   const userId = event.params.userId;
   const clubId = event.params.clubId;
 
-  const clubRef = await db.collection("club").doc(clubId).get();
-  return db.collection("userProfile").doc(userId).collection("clubs").doc(`${clubId}`).set({
-    "clubRef": clubRef.ref,
+  const clubRef = await db.collection('club').doc(clubId).get();
+  return db.collection('userProfile').doc(userId).collection('clubs').doc(`${clubId}`).set({
+    'clubRef': clubRef.ref,
   });
   // const userId = context.params.userId;
   // const clubId = context.params.clubId;

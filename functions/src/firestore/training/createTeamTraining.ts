@@ -1,49 +1,46 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable require-jsdoc */
+
 /* eslint-disable max-len */
 
-import firebaseDAO from "../../firebaseSingleton";
-import {sendPushNotificationByUserProfileId} from "../../utils/push";
-import {DocumentSnapshot} from "firebase-functions/lib/providers/firestore";
+import firebaseDAO from '../../firebaseSingleton';
+import {sendPushNotificationByUserProfileId} from '../../utils/push';
+import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
 const db = firebaseDAO.instance.db;
 
-export async function createTeamTraining(event: DocumentSnapshot) {
-  console.log("CREATE Training");
+export async function createTeamTraining(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
+  console.log('CREATE Training');
 
   const userId = event.params.userId;
   const trainingId = event.params.trainingId;
 
-  console.log("userId: " + userId);
-  console.log("trainingId: " + trainingId);
+  console.log('userId: ' + userId);
+  console.log('trainingId: ' + trainingId);
 
-  const trainingData = event.data();
-  const teamRef = await db.collection("teams").doc(trainingData.teamId).get();
-  console.log("teamId" + trainingData.teamId);
+  const trainingData = event.data?.data();
+  const teamRef = await db.collection('teams').doc(trainingData?.teamId).get();
+  console.log('teamId' + trainingData?.teamId);
 
   // const calculatedDate: Date = new Date();
   let offSet = 0; // in milliseconds
-  switch (trainingData.repeatFrequency) {
-    case "D":
-      offSet = 1000 * 60 * 60 * 24 * trainingData.repeatAmount;
+  switch (trainingData?.repeatFrequency) {
+    case 'D':
+      offSet = 1000 * 60 * 60 * 24 * trainingData?.repeatAmount;
       break;
-    case "W":
-      offSet = 1000 * 60 * 60 * 24 * 7 * trainingData.repeatAmount;
+    case 'W':
+      offSet = 1000 * 60 * 60 * 24 * 7 * trainingData?.repeatAmount;
       break;
     /* case "M":
       offSet = 1000 * 60 * 60 * 24 * trainingData.repeatAmount;
       break;
     case "Y":
-      offSet = 1000 * 60 * 60 * 24 * trainingData.repeatAmount;
+      offSet = 1000 * 60 * 60 * 24 * trainingData?.repeatAmount;
       break;*/
     default:
-      console.log("calculated other date.. ");
+      console.log('calculated other date.. ');
   }
 
-  console.log("Create Trainings for TeamId: " + teamRef.id);
-  console.log(`Start Date used: ${trainingData.startDate}`);
-  console.log(`End Date used: ${trainingData.endDate}`);
+  console.log('Create Trainings for TeamId: ' + teamRef.id);
+  console.log(`Start Date used: ${trainingData?.startDate}`);
+  console.log(`End Date used: ${trainingData?.endDate}`);
 
   // Set Date based on first Training and Start Hours/minutes
   /* calculatedDate.setTime(new Date(trainingData.startDate).getTime());
@@ -53,30 +50,30 @@ export async function createTeamTraining(event: DocumentSnapshot) {
   calculatedDate.setMilliseconds(0); */
 
   // Initialisierung des ersten Datums
-  const calculatedDate = new Date(new Date(trainingData.startDate).getTime());
-  calculatedDate.setHours(new Date(trainingData.timeFrom).getHours());
-  calculatedDate.setMinutes(new Date(trainingData.timeFrom).getMinutes());
+  const calculatedDate = new Date(new Date(trainingData?.startDate).getTime());
+  calculatedDate.setHours(new Date(trainingData?.timeFrom).getHours());
+  calculatedDate.setMinutes(new Date(trainingData?.timeFrom).getMinutes());
   calculatedDate.setSeconds(0);
   calculatedDate.setMilliseconds(0);
 
   // Set EndDate
   const calculatedEndDate = calculatedDate;
-  calculatedEndDate.setHours(new Date(trainingData.timeTo).getHours());
-  calculatedEndDate.setMinutes(new Date(trainingData.timeTo).getMinutes());
+  calculatedEndDate.setHours(new Date(trainingData?.timeTo).getHours());
+  calculatedEndDate.setMinutes(new Date(trainingData?.timeTo).getMinutes());
   calculatedEndDate.setSeconds(0);
   calculatedEndDate.setMilliseconds(0);
 
   // Add Training Entry
-  const newTrainingRef = await db.collection("teams").doc(trainingData.teamId).collection("trainings").add({
+  const newTrainingRef = await db.collection('teams').doc(trainingData?.teamId).collection('trainings').add({
     ...trainingData,
-    clubId: teamRef.data().clubId,
+    clubId: teamRef.data()?.clubId,
     date: calculatedDate,
     startDate: calculatedDate,
     endDate: calculatedEndDate,
-    teamName: teamRef.data().name,
-    liga: teamRef.data().liga,
+    teamName: teamRef.data()?.name,
+    liga: teamRef.data()?.liga,
   });
-  console.log("New Training: " + newTrainingRef.id + " " + calculatedDate.toISOString());
+  console.log('New Training: ' + newTrainingRef.id + ' ' + calculatedDate.toISOString());
   console.log(`Calculated Start Date used: ${calculatedDate}`);
   console.log(`Calculated End Date used: ${calculatedEndDate}`);
 
@@ -84,56 +81,56 @@ export async function createTeamTraining(event: DocumentSnapshot) {
   do {
     // Erstelle eine neue Kopie für das Enddatum
     const calculatedEndDate = new Date(calculatedDate.getTime());
-    calculatedEndDate.setHours(new Date(trainingData.timeTo).getHours());
-    calculatedEndDate.setMinutes(new Date(trainingData.timeTo).getMinutes());
+    calculatedEndDate.setHours(new Date(trainingData?.timeTo).getHours());
+    calculatedEndDate.setMinutes(new Date(trainingData?.timeTo).getMinutes());
     calculatedEndDate.setSeconds(0);
     calculatedEndDate.setMilliseconds(0);
 
     // Erstelle Training
-    const newTrainingRef = await db.collection("teams")
-        .doc(trainingData.teamId)
-        .collection("trainings")
+    const newTrainingRef = await db.collection('teams')
+        .doc(trainingData?.teamId)
+        .collection('trainings')
         .add({
           ...trainingData,
-          clubId: teamRef.data().clubId,
+          clubId: teamRef.data()?.clubId,
           date: calculatedDate,
           startDate: calculatedDate,
           endDate: calculatedEndDate,
-          teamName: teamRef.data().name,
-          liga: teamRef.data().liga,
+          teamName: teamRef.data()?.name,
+          liga: teamRef.data()?.liga,
         });
 
-    console.log("New Training: " + newTrainingRef.id + " " + calculatedDate.toISOString());
+    console.log('New Training: ' + newTrainingRef.id + ' ' + calculatedDate.toISOString());
     console.log(`Calculated Start Date used: ${calculatedDate}`);
     console.log(`Calculated End Date used: ${calculatedEndDate}`);
 
     // Berechne nächstes Datum
     calculatedDate.setTime(calculatedDate.getTime() + offSet);
-  } while (calculatedDate.getTime() <= new Date(trainingData.endDate).getTime());
+  } while (calculatedDate.getTime() <= new Date(trainingData?.endDate).getTime());
 
-  return db.collection("userProfile")
+  return db.collection('userProfile')
       .doc(userId)
-      .collection("trainings")
+      .collection('trainings')
       .doc(trainingId)
       .delete();
 }
 
-export async function createNotificationTeamTraining(event: DocumentSnapshot) {
-  const trainingData = event.data();
-  const teamRef = await db.collection("teams").doc(trainingData.teamId).get();
-  console.log("teamId" + trainingData.teamId);
-  console.log("Create Trainings for TeamId: " + teamRef.id);
-  console.log(`Start Date used: ${trainingData.startDate}`);
-  console.log(`End Date used: ${trainingData.endDate}`);
+export async function createNotificationTeamTraining(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
+  const trainingData = event.data?.data();
+  const teamRef = await db.collection('teams').doc(trainingData?.teamId).get();
+  console.log('teamId' + trainingData?.teamId);
+  console.log('Create Trainings for TeamId: ' + teamRef.id);
+  console.log(`Start Date used: ${trainingData?.startDate}`);
+  console.log(`End Date used: ${trainingData?.endDate}`);
 
-  const teamMembersRef = await db.collection("teams").doc(teamRef.id).collection("members").get();
+  const teamMembersRef = await db.collection('teams').doc(teamRef.id).collection('members').get();
   for (const teamMember of teamMembersRef.docs) {
-    const userProfileRef = await db.collection("userProfile").doc(teamMember.id).get();
+    const userProfileRef = await db.collection('userProfile').doc(teamMember.id).get();
     if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushTraining) {
-      await sendPushNotificationByUserProfileId(teamMember.id, "Neues Training verfügbar: ", trainingData.name + " - " + trainingData.description, {
-        "type": "training",
-        "teamId": teamRef.id,
-        "id": trainingData.id,
+      await sendPushNotificationByUserProfileId(teamMember.id, 'Neues Training verfügbar: ', trainingData?.name + ' - ' + trainingData?.description, {
+        'type': 'training',
+        'teamId': teamRef.id,
+        'id': trainingData?.id,
       });
     }
   }

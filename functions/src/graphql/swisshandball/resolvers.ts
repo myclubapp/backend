@@ -1,20 +1,16 @@
-/* eslint-disable linebreak-style */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable max-len */
-/* eslint-disable require-jsdoc */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import fetch from "node-fetch";
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const fetch = require("node-fetch");
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+import fetch from 'node-fetch';
+
 // const {convert} = require("html-to-text");
 
-import fs = require("fs");
-const handballClubJSON = fs.readFileSync("./src/scheduler/utils/handball_clubs_with_teams_and_contact.json", "utf8");
+import * as fs from 'fs';
+const handballClubJSON = fs.readFileSync('./src/scheduler/utils/handball_clubs_with_teams_and_contact.json', 'utf8');
 
-import * as functions from "firebase-functions";
+import * as functions from 'firebase-functions/v1';
 // const headers: any = {"Authorization": "Basic " + functions.config().swisshandball.token};
 
 export default {
@@ -81,10 +77,10 @@ export default {
 
 async function getTeams(clubId: string) {
   const teamList = <any>[];
-  if (functions.config().swisshandball["sh-" + clubId] && functions.config().swisshandball["sh-" + clubId].token) {
-    const token = functions.config().swisshandball["sh-" + clubId].token;
-    const data = await fetch("https://clubapi.handball.ch/rest/v1/clubs/" + clubId + "/teams", {
-      headers: {"Authorization": "Basic " + token},
+  if (functions.config().swisshandball['sh-' + clubId] && functions.config().swisshandball['sh-' + clubId].token) {
+    const token = functions.config().swisshandball['sh-' + clubId].token;
+    const data = await fetch('https://clubapi.handball.ch/rest/v1/clubs/' + clubId + '/teams', {
+      headers: {'Authorization': 'Basic ' + token},
     });
 
     const teamData = await data.json();
@@ -115,10 +111,10 @@ async function getTeams(clubId: string) {
 }
 
 async function getTeam(teamId: string, clubId: string) {
-  if (functions.config().swisshandball["sh-" + clubId] && functions.config().swisshandball["sh-" + clubId].token) {
-    const token = functions.config().swisshandball["sh-" + clubId].token;
-    const data = await fetch("https://clubapi.handball.ch/rest/v1/teams/" + teamId, {
-      headers: {"Authorization": "Basic " + token},
+  if (functions.config().swisshandball['sh-' + clubId] && functions.config().swisshandball['sh-' + clubId].token) {
+    const token = functions.config().swisshandball['sh-' + clubId].token;
+    const data = await fetch('https://clubapi.handball.ch/rest/v1/teams/' + teamId, {
+      headers: {'Authorization': 'Basic ' + token},
     });
     const teamData = await data.json();
     // console.log(teamData);
@@ -149,7 +145,7 @@ async function getClubs() {
       halls: item.halls || [],
       phone: item.phone,
       website: item.website,
-      link_club: "https://www.handball.ch" + item.club_link,
+      link_club: 'https://www.handball.ch' + item.club_link,
       link_location: item.google_maps_link,
       // address: addressArray,
     });
@@ -159,10 +155,10 @@ async function getClubs() {
 }
 
 async function getClub(clubId: string) {
-  if (functions.config().swisshandball["sh-" + clubId] && functions.config().swisshandball["sh-" + clubId].token) {
-    const token = functions.config().swisshandball["sh-" + clubId].token;
-    const data = await fetch("https://clubapi.handball.ch/rest/v1/clubs/" + clubId, {
-      headers: {"Authorization": "Basic " + token},
+  if (functions.config().swisshandball['sh-' + clubId] && functions.config().swisshandball['sh-' + clubId].token) {
+    const token = functions.config().swisshandball['sh-' + clubId].token;
+    const data = await fetch('https://clubapi.handball.ch/rest/v1/clubs/' + clubId, {
+      headers: {'Authorization': 'Basic ' + token},
     });
 
     const clubData = await data.json();
@@ -186,10 +182,10 @@ async function getClub(clubId: string) {
 
 async function getClubGames(clubId: string) {
   const gameList = <any>[];
-  if (functions.config().swisshandball["sh-" + clubId] && functions.config().swisshandball["sh-" + clubId].token) {
-    const token = functions.config().swisshandball["sh-" + clubId].token;
-    const data = await fetch("https://clubapi.handball.ch/rest/v1/clubs/" + clubId + "/games", {
-      headers: {"Authorization": "Basic " + token},
+  if (functions.config().swisshandball['sh-' + clubId] && functions.config().swisshandball['sh-' + clubId].token) {
+    const token = functions.config().swisshandball['sh-' + clubId].token;
+    const data = await fetch('https://clubapi.handball.ch/rest/v1/clubs/' + clubId + '/games', {
+      headers: {'Authorization': 'Basic ' + token},
     });
     const gameData = await data.json();
     gameData.forEach((item: any) => {
@@ -198,26 +194,26 @@ async function getClubGames(clubId: string) {
 
         id: item.gameId,
         gameNr: item.gameNr,
-        name: item.gameTypeShort + " " + item.teamAName + " - " + item.teamBName,
-        description: item.gameTypeLong + " " + item.teamAName + " - " + item.teamBName,
+        name: item.gameTypeShort + ' ' + item.teamAName + ' - ' + item.teamBName,
+        description: item.gameTypeLong + ' ' + item.teamAName + ' - ' + item.teamBName,
 
         dateTime: new Date(item.gameDateTime),
         time: item.gameDateTime.substr(11, 5),
-        date: item.gameDateTime.substr(8, 2) + "." + item.gameDateTime.substr(5, 2) + "." + item.gameDateTime.substr(0, 4),
+        date: item.gameDateTime.substr(8, 2) + '.' + item.gameDateTime.substr(5, 2) + '.' + item.gameDateTime.substr(0, 4),
         languageId: item.languageId,
 
-        teamHomeId: "sh-" + item.teamAId,
+        teamHomeId: 'sh-' + item.teamAId,
         teamHome: item.teamAName,
         teamHomeLogo: `https://www.handball.ch/images/logo/${item.teamAId}.png?fallbackType=club&fallbackId=${item.clubTeamAId}&height=25&width=25&scale=canvas`, // item.cells[1].image.url,,
-        teamHomeLogoText: "Logo " + item.teamAName,
+        teamHomeLogoText: 'Logo ' + item.teamAName,
 
-        teamAwayId: "sh-" + item.teamBId,
+        teamAwayId: 'sh-' + item.teamBId,
         teamAway: item.teamBName,
         teamAwayLogo: `https://www.handball.ch/images/logo/${item.teamBId}.png?fallbackType=club&fallbackId=${item.clubTeamBId}&height=25&width=25&scale=canvas`, // item.cells[1].image.url,,
-        teamAwayLogoText: "Logo " + item.teamBName,
+        teamAwayLogoText: 'Logo ' + item.teamBName,
 
-        clubTeamAId: "sh-" + item.clubTeamAId,
-        clubTeamBId: "sh-" + item.clubTeamBId,
+        clubTeamAId: 'sh-' + item.clubTeamAId,
+        clubTeamBId: 'sh-' + item.clubTeamBId,
 
         gameTypeLong: item.gameTypeLong,
         gameTypeShort: item.gameTypeShort,
@@ -234,8 +230,8 @@ async function getClubGames(clubId: string) {
         venueZip: item.venueZip,
         venueCity: item.venueCity,
 
-        referee1: "",
-        referee2: "",
+        referee1: '',
+        referee2: '',
 
         gameStatusId: item.gameStatusId,
         gameStatus: item.gameStatus,
@@ -243,7 +239,7 @@ async function getClubGames(clubId: string) {
 
         spectators: item.spectators,
 
-        result: item.teamAScoreFT + ":" + item.teamBScoreFT + "(" + item.teamAScoreHT + ":" + item.teamBScoreHT + ")",
+        result: item.teamAScoreFT + ':' + item.teamBScoreFT + '(' + item.teamAScoreHT + ':' + item.teamBScoreHT + ')',
       });
     });
   }
@@ -252,10 +248,10 @@ async function getClubGames(clubId: string) {
 
 async function getGames(teamId: string, clubId: string) {
   const gameList = <any>[];
-  if (functions.config().swisshandball["sh-" + clubId] && functions.config().swisshandball["sh-" + clubId].token) {
-    const token = functions.config().swisshandball["sh-" + clubId].token;
-    const data = await fetch("https://clubapi.handball.ch/rest/v1/teams/" + teamId + "/games", {
-      headers: {"Authorization": "Basic " + token},
+  if (functions.config().swisshandball['sh-' + clubId] && functions.config().swisshandball['sh-' + clubId].token) {
+    const token = functions.config().swisshandball['sh-' + clubId].token;
+    const data = await fetch('https://clubapi.handball.ch/rest/v1/teams/' + teamId + '/games', {
+      headers: {'Authorization': 'Basic ' + token},
     });
 
     const gameData = await data.json();
@@ -263,26 +259,26 @@ async function getGames(teamId: string, clubId: string) {
       gameList.push({
         id: item.gameId,
         gameNr: item.gameNr,
-        name: item.gameTypeShort + " " + item.teamAName + " - " + item.teamBName,
-        description: item.gameTypeLong + " " + item.teamAName + " - " + item.teamBName,
+        name: item.gameTypeShort + ' ' + item.teamAName + ' - ' + item.teamBName,
+        description: item.gameTypeLong + ' ' + item.teamAName + ' - ' + item.teamBName,
 
         dateTime: new Date(item.gameDateTime),
         time: item.gameDateTime.substr(11, 5),
-        date: item.gameDateTime.substr(8, 2) + "." + item.gameDateTime.substr(5, 2) + "." + item.gameDateTime.substr(0, 4),
+        date: item.gameDateTime.substr(8, 2) + '.' + item.gameDateTime.substr(5, 2) + '.' + item.gameDateTime.substr(0, 4),
         languageId: item.languageId,
 
-        teamHomeId: "sh-" + item.teamAId,
+        teamHomeId: 'sh-' + item.teamAId,
         teamHome: item.teamAName,
         teamHomeLogo: `https://www.handball.ch/images/logo/${item.teamAId}.png?fallbackType=club&fallbackId=${item.clubTeamAId}&height=25&width=25&scale=canvas`, // item.cells[1].image.url,,
-        teamHomeLogoText: "Logo " + item.teamAName,
+        teamHomeLogoText: 'Logo ' + item.teamAName,
 
-        teamAwayId: "sh-" + item.teamBId,
+        teamAwayId: 'sh-' + item.teamBId,
         teamAway: item.teamBName,
         teamAwayLogo: `https://www.handball.ch/images/logo/${item.teamBId}.png?fallbackType=club&fallbackId=${item.clubTeamBId}&height=25&width=25&scale=canvas`, // item.cells[1].image.url,,
-        teamAwayLogoText: "Logo " + item.teamBName,
+        teamAwayLogoText: 'Logo ' + item.teamBName,
 
-        clubTeamAId: "sh-" + item.clubTeamAId,
-        clubTeamBId: "sh-" + item.clubTeamBId,
+        clubTeamAId: 'sh-' + item.clubTeamAId,
+        clubTeamBId: 'sh-' + item.clubTeamBId,
 
         gameTypeLong: item.gameTypeLong,
         gameTypeShort: item.gameTypeShort,
@@ -299,8 +295,8 @@ async function getGames(teamId: string, clubId: string) {
         venueZip: item.venueZip,
         venueCity: item.venueCity,
 
-        referee1: "",
-        referee2: "",
+        referee1: '',
+        referee2: '',
 
         gameStatusId: item.gameStatusId,
         gameStatus: item.gameStatus,
@@ -308,7 +304,7 @@ async function getGames(teamId: string, clubId: string) {
 
         spectators: item.spectators,
 
-        result: item.teamAScoreFT + ":" + item.teamBScoreFT + "(" + item.teamAScoreHT + ":" + item.teamBScoreHT + ")",
+        result: item.teamAScoreFT + ':' + item.teamBScoreFT + '(' + item.teamAScoreHT + ':' + item.teamBScoreHT + ')',
       });
     });
   }
@@ -318,10 +314,10 @@ async function getGames(teamId: string, clubId: string) {
 
 async function getRankings(teamId: string, clubId: string) {
   const rankingList = <any>[];
-  if (functions.config().swisshandball["sh-" + clubId] && functions.config().swisshandball["sh-" + clubId].token) {
-    const token = functions.config().swisshandball["sh-" + clubId].token;
-    const data = await fetch("https://clubapi.handball.ch/rest/v1/teams/" + teamId + "/group", {
-      headers: {"Authorization": "Basic " + token},
+  if (functions.config().swisshandball['sh-' + clubId] && functions.config().swisshandball['sh-' + clubId].token) {
+    const token = functions.config().swisshandball['sh-' + clubId].token;
+    const data = await fetch('https://clubapi.handball.ch/rest/v1/teams/' + teamId + '/group', {
+      headers: {'Authorization': 'Basic ' + token},
     });
 
     const rankingData = await data.json();
@@ -332,8 +328,8 @@ async function getRankings(teamId: string, clubId: string) {
         id: item.teamId,
         name: item.teamName, // 2 teamname
 
-        teamId: "sh-" + item.teamId,
-        clubId: "sh-" + item.clubId,
+        teamId: 'sh-' + item.teamId,
+        clubId: 'sh-' + item.clubId,
 
         /* "groupText": "MU19E",
         "leagueLong": "Junioren U19 Elite",
@@ -345,7 +341,7 @@ async function getRankings(teamId: string, clubId: string) {
 
         image: `https://www.handball.ch/images/logo/${item.teamId}.png?fallbackType=club&fallbackId=${item.clubId}&height=25&width=25&scale=canvas`, // item.cells[1].image.url,
         games: item.totalGames, // Sp Spiele 3
-        gamesSoW: "", // SoW Spiele ohne Wertung 4
+        gamesSoW: '', // SoW Spiele ohne Wertung 4
         wins: item.totalWins, // S Siege 5
         loss: item.totalLoss, // N Niederlage 7
         draw: item.totalDraws, // U Unentschieden 6
@@ -354,7 +350,7 @@ async function getRankings(teamId: string, clubId: string) {
         pointQuotient: item.totalScoresMinus, // PQ 10
         points: item.totalPoints, // P 11
         ranking: item.rank, // 0
-        season: "2024",
+        season: '2024',
         title: rankingData.leagueLong,
       });
 

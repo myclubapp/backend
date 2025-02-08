@@ -1,59 +1,55 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable require-jsdoc */
+
 /* eslint-disable max-len */
-import * as functions from "firebase-functions";
-import firebaseDAO from "../../firebaseSingleton";
-import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
-import {Change} from "firebase-functions";
+
+import firebaseDAO from '../../firebaseSingleton';
+import {FirestoreEvent, QueryDocumentSnapshot, Change} from 'firebase-functions/v2/firestore';
 
 const db = firebaseDAO.instance.db;
 
-export async function approveClubRequest(change: Change<QueryDocumentSnapshot>, context: functions.EventContext) {
-  console.log("approveClubRequest");
-  const requestId = context.params.requestId;
-  const clubId = context.params.clubId;
+export async function approveClubRequest(event: FirestoreEvent<Change<QueryDocumentSnapshot> | undefined>) {
+  console.log('approveClubRequest');
+  const requestId = event.params.requestId;
+  const clubId = event.params.clubId;
 
-  const requestRef = await db.collection("club").doc(clubId).collection("requests").doc(requestId).get();
-  const userProfileRef = await db.collection("userProfile").doc(requestId).get();
-  const clubRef = await db.collection("club").doc(clubId).get();
+  const requestRef = await db.collection('club').doc(clubId).collection('requests').doc(requestId).get();
+  const userProfileRef = await db.collection('userProfile').doc(requestId).get();
+  const clubRef = await db.collection('club').doc(clubId).get();
 
-  if (change.after.data().approve === true) {
+  if (event.data?.after.data().approve === true) {
     console.log(`approve club request ${requestRef.id}`);
 
     // Add user to club as member
-    await db.collection("club").doc(clubId).collection("members").doc(userProfileRef.id).set({
-      "userProfileRef": userProfileRef.ref,
+    await db.collection('club').doc(clubId).collection('members').doc(userProfileRef.id).set({
+      'userProfileRef': userProfileRef.ref,
     });
 
     // Add Club to User as Member
-    await db.collection("userProfile").doc(userProfileRef.id).collection("clubs").doc(clubId).set({
-      "clubRef": clubRef.ref,
+    await db.collection('userProfile').doc(userProfileRef.id).collection('clubs').doc(clubId).set({
+      'clubRef': clubRef.ref,
     });
 
     // IS manged via createClubRequest and Club is not acitve.
-    if (change.after.data().isAdmin === true) {
+    if (event.data?.after.data().isAdmin === true) {
       // ADD User to Club as Admin
-      await db.collection("club").doc(clubId).collection("admins").doc(userProfileRef.id).set({
-        "userProfileRef": userProfileRef.ref,
+      await db.collection('club').doc(clubId).collection('admins').doc(userProfileRef.id).set({
+        'userProfileRef': userProfileRef.ref,
       });
       // Add ClubAdmin to User
-      const clubRef = await db.collection("club").doc(clubId).get();
-      await db.collection("userProfile").doc(userProfileRef.id).collection("clubAdmin").doc(clubId).set({
-        "clubRef": clubRef.ref,
+      const clubRef = await db.collection('club').doc(clubId).get();
+      await db.collection('userProfile').doc(userProfileRef.id).collection('clubAdmin').doc(clubId).set({
+        'clubRef': clubRef.ref,
       });
     }
 
     // clean up requests
-    await db.collection("userProfile").doc(userProfileRef.id).collection("clubRequests").doc(clubId).delete();
-    await db.collection("club").doc(clubId).collection("requests").doc(requestId).delete();
+    await db.collection('userProfile').doc(userProfileRef.id).collection('clubRequests').doc(clubId).delete();
+    await db.collection('club').doc(clubId).collection('requests').doc(requestId).delete();
 
     // send out mail to user
-    return db.collection("mail").add({
+    return db.collection('mail').add({
       to: userProfileRef.data().email,
       template: {
-        name: "ClubRequestApproved",
+        name: 'ClubRequestApproved',
         data: {
           clubName: clubRef.data().name,
           firstName: userProfileRef.data()?.firstName,
@@ -61,18 +57,18 @@ export async function approveClubRequest(change: Change<QueryDocumentSnapshot>, 
         },
       },
     });
-  } else if (change.after.data().approve === false) {
+  } else if (event.data?.after.data().approve === false) {
     console.log(`CLUB request NOT APPROVED ${requestRef.id}`);
 
     // clean up requests
-    await db.collection("userProfile").doc(userProfileRef.id).collection("clubRequests").doc(clubId).delete();
-    await db.collection("club").doc(clubId).collection("requests").doc(requestId).delete();
+    await db.collection('userProfile').doc(userProfileRef.id).collection('clubRequests').doc(clubId).delete();
+    await db.collection('club').doc(clubId).collection('requests').doc(requestId).delete();
 
     // send out mail to user
-    return db.collection("mail").add({
+    return db.collection('mail').add({
       to: userProfileRef.data().email,
       template: {
-        name: "ClubRequestRejected",
+        name: 'ClubRequestRejected',
         data: {
           clubName: clubRef.data().name,
           firstName: userProfileRef.data()?.firstName,

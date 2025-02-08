@@ -1,26 +1,21 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable require-jsdoc */
 /* eslint-disable max-len */
-import * as functions from "firebase-functions";
-import firebaseDAO from "../../firebaseSingleton";
-import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
+import firebaseDAO from '../../firebaseSingleton';
+import {QueryDocumentSnapshot, FirestoreEvent} from 'firebase-functions/v2/firestore';
 
 const db = firebaseDAO.instance.db;
 
-export async function createNotificationTeamEvent(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
-  const teamId = context.params.teamId;
-  const eventId = context.params.eventId;
+export async function createNotificationTeamEvent(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
+  const teamId = event.params.teamId;
+  const eventId = event.params.eventId;
   console.log(teamId, eventId);
 }
 
 
-export async function createTeamEvent(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
-  const userId = context.params.userId;
-  const userProfileRef = await db.collection("userProfile").doc(userId).get();
+export async function createTeamEvent(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
+  const userId = event.params.userId;
+  const userProfileRef = await db.collection('userProfile').doc(userId).get();
 
-  console.log("createTeamEvent" + userProfileRef.id);
+  console.log('createTeamEvent' + userProfileRef.id);
 
   /*
   const trainingId = context.params.trainingId;

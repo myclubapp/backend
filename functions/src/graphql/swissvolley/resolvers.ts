@@ -1,15 +1,12 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-len */
-/* eslint-disable require-jsdoc */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import fetch from "node-fetch";
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const fetch = require("node-fetch");
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+
+import fetch from 'node-fetch';
+
 // const {convert} = require("html-to-text");
-import * as functions from "firebase-functions";
+import * as functions from 'firebase-functions/v1';
 
 export default {
   SwissVolley: {
@@ -70,24 +67,24 @@ export default {
 
 async function getAssociations() {
   return [
-    {id: "NATIONAL", name: "NATIONAL"},
-    {id: "RVNO", name: "RVNO"},
-    {id: "GSGL", name: "GSGL"},
-    {id: "RVI", name: "RVI"},
-    {id: "RVZ", name: "RVZ"},
-    {id: "RVA", name: "RVA"},
-    {id: "SVRW", name: "SVRW"},
-    {id: "SVRF", name: "SVRF"},
-    {id: "SVRBE", name: "SVRBE"},
+    {id: 'NATIONAL', name: 'NATIONAL'},
+    {id: 'RVNO', name: 'RVNO'},
+    {id: 'GSGL', name: 'GSGL'},
+    {id: 'RVI', name: 'RVI'},
+    {id: 'RVZ', name: 'RVZ'},
+    {id: 'RVA', name: 'RVA'},
+    {id: 'SVRW', name: 'SVRW'},
+    {id: 'SVRF', name: 'SVRF'},
+    {id: 'SVRBE', name: 'SVRBE'},
   ];
 }
 
 async function getTeam(teamId: string) {
 // https://api.volleyball.ch/indoor/teams/2404
-  const data = await fetch("https://api.volleyball.ch/indoor/teams/" + teamId, {
+  const data = await fetch('https://api.volleyball.ch/indoor/teams/' + teamId, {
     headers: {
-      "Accept": "application/json",
-      "Authorization": functions.config().swissvolley.token,
+      'Accept': 'application/json',
+      'Authorization': functions.config().swissvolley.token,
     },
   });
   const teamData = await data.json();
@@ -109,14 +106,14 @@ async function getTeam(teamId: string) {
 
 async function getTeams(clubId: string) {
   try {
-    console.log(">> https://api.volleyball.ch/indoor/teams?clubId=" + clubId);
-    const data = await fetch("https://api.volleyball.ch/indoor/teams?clubId=" + clubId, {
-      method: "GET",
+    console.log('>> https://api.volleyball.ch/indoor/teams?clubId=' + clubId);
+    const data = await fetch('https://api.volleyball.ch/indoor/teams?clubId=' + clubId, {
+      method: 'GET',
       // redirect: "follow",
       headers: {
         // "Content-Type": "application/json",
-        "Accept": "application/json",
-        "Authorization": functions.config().swissvolley.token,
+        'Accept': 'application/json',
+        'Authorization': functions.config().swissvolley.token,
       },
     });
 
@@ -139,30 +136,30 @@ async function getTeams(clubId: string) {
         ...item,
         ...league,
         ...club,
-        "id": item.teamId,
-        "liga": league.leagueId,
-        "name": item.caption,
-        "logo": item.teamlogo,
+        'id': item.teamId,
+        'liga': league.leagueId,
+        'name': item.caption,
+        'logo': item.teamlogo,
       });
     });
     return teamList;
   } catch (error) {
-    console.error("Error fetching club data:", error);
+    console.error('Error fetching club data:', error);
     return []; // Return an empty array or handle the error as needed
   }
 }
 
 function getClub(clubId: string) {
-  console.log("not needed");
+  console.log('not needed');
 }
 
 async function getClubs() {
   try {
-    const data = await fetch("https://api.volleyball.ch/indoor/clubs", {
+    const data = await fetch('https://api.volleyball.ch/indoor/clubs', {
       headers: {
-        "Accept": "application/json",
-        "Authorization": functions.config().swissvolley.token,
-        "Content-Type": "application/json",
+        'Accept': 'application/json',
+        'Authorization': functions.config().swissvolley.token,
+        'Content-Type': 'application/json',
       },
     });
 
@@ -192,18 +189,18 @@ async function getClubs() {
 
     return clubList;
   } catch (error) {
-    console.error("Error fetching club data:", error);
+    console.error('Error fetching club data:', error);
     return []; // Return an empty array or handle the error as needed
   }
 }
 async function getGames(teamId: string) {
   const gameList = < any > [];
 
-  const data = await fetch("https://api.volleyball.ch/indoor/games?region=SVRNO&teamId=" + teamId + "&includeCup=1", {
+  const data = await fetch('https://api.volleyball.ch/indoor/games?region=SVRNO&teamId=' + teamId + '&includeCup=1', {
     headers: {
-      "Accept": "application/json",
-      "Authorization": functions.config().swissvolley.token,
-      "Content-Type": "application/json",
+      'Accept': 'application/json',
+      'Authorization': functions.config().swissvolley.token,
+      'Content-Type': 'application/json',
     },
   });
   const gameData = await data.json();
@@ -218,17 +215,17 @@ async function getGames(teamId: string) {
 }
 
 async function getGame(gameId: string) {
-  console.log("not working anymore");
+  console.log('not working anymore');
 }
 
 async function getRankings(groupId: string) {
   // https://api.volleyball.ch/indoor/ranking/24319
 
-  const data = await fetch("https://api.volleyball.ch/indoor/ranking/" + groupId, {
+  const data = await fetch('https://api.volleyball.ch/indoor/ranking/' + groupId, {
     headers: {
-      "Accept": "application/json",
-      "Authorization": functions.config().swissvolley.token,
-      "Content-Type": "application/json",
+      'Accept': 'application/json',
+      'Authorization': functions.config().swissvolley.token,
+      'Content-Type': 'application/json',
     },
   });
   const rankingData = await data.json();
@@ -251,7 +248,7 @@ async function getRankings(groupId: string) {
 // Top story https://api.newsroom.co/walls?token=1pdtktbc3ra5i&tag=top&channelId=484&count=9
 
 async function getNews() {
-  const data = await fetch("https://api.newsroom.co/walls?token=1pdtktbc3ra5i&count=20&tag=top,pin,!top,!pin&channelId=484");
+  const data = await fetch('https://api.newsroom.co/walls?token=1pdtktbc3ra5i&count=20&tag=top,pin,!top,!pin&channelId=484');
   const newsData = await data.json();
   const newsList = <any>[];
   // newsData._embedded.wallList.forEach((item: any) => {
@@ -267,7 +264,7 @@ async function getNews() {
         imagePath = item.media[1].url;
       } else if (item.media && item.media.length > 1) {
         // GET Mobile Picture
-        imagePath = item.media.find((image: any) => image.resolution == "mobile").url;
+        imagePath = item.media.find((image: any) => image.resolution == 'mobile').url;
       }
     } catch (e) {
       console.log(JSON.stringify(item.media));

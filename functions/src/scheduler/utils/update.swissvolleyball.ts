@@ -1,17 +1,16 @@
 /* eslint-disable max-len */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable require-jsdoc */
-import firebaseDAO from "./../../firebaseSingleton";
+import firebaseDAO from './../../firebaseSingleton';
 const db = firebaseDAO.instance.db;
 
-import resolversSV from "./../../graphql/swissvolley/resolvers";
+import resolversSV from './../../graphql/swissvolley/resolvers';
 
 export async function updateGamesSwissvolley(): Promise<any> {
-  console.log("Update Games swissvolley");
+  console.log('Update Games swissvolley');
 
   // Get Clubs from DB where Type = SWISS UNIHOCKEY && STATUS is active
-  const clubListRef = await db.collection("club").where("active", "==", true).where("type", "==", "swissvolley").get();
+  const clubListRef = await db.collection('club').where('active', '==', true).where('type', '==', 'swissvolley').get();
   for (const clubData of clubListRef.docs) {
     // create Club Object from DB.
     const club = {...{id: clubData.data().externalId}, ...clubData.data()};
@@ -27,18 +26,18 @@ export async function updateGamesSwissvolley(): Promise<any> {
           const game = gamesData[i];
           console.log(`>>> READ TEAM GAME:  ${game.id}`);
 
-          const clubRef = await db.collection("club").doc(`sv-${club.id}`).get();
-          const teamRef = await db.collection("teams").doc(`sv-${team.id}`).get();
+          const clubRef = await db.collection('club').doc(`sv-${club.id}`).get();
+          const teamRef = await db.collection('teams').doc(`sv-${team.id}`).get();
           // console.log("read match report for game: " + game.id);
 
           // await db.collection("teams").doc(`sv-${team.id}`).collection("games").doc(`sv-${game.id}`).get();
-          await db.collection("teams").doc(`sv-${team.id}`).collection("games").doc(`sv-${game.id}`).set({
+          await db.collection('teams').doc(`sv-${team.id}`).collection('games').doc(`sv-${game.id}`).set({
             externalId: `${game.id}`,
-            date: game.playDate.substr(8, 2) + "." + game.playDate.substr(5, 2) + "." + game.playDate.substr(0, 4),
+            date: game.playDate.substr(8, 2) + '.' + game.playDate.substr(5, 2) + '.' + game.playDate.substr(0, 4),
             time: game.time,
             dateTime: game.playDate,
             location: game.hall.caption,
-            street: game.hall.street + " " + game.hall.number,
+            street: game.hall.street + ' ' + game.hall.number,
             city: game.hall.city,
             longitude: game.hall.longitude,
             latitude: game.hall.latitude,
@@ -57,12 +56,12 @@ export async function updateGamesSwissvolley(): Promise<any> {
             teamAwayLogo: game.teams.away.logo,
             teamAwayLogoText: game.teams.away.caption,
 
-            referee1: "", // game.referee[0] || "",
-            referee2: "", // game.referee[1] || "",
-            spectators: "",
+            referee1: '', // game.referee[0] || "",
+            referee2: '', // game.referee[1] || "",
+            spectators: '',
 
-            result: "",
-            type: "swissvolley",
+            result: '',
+            type: 'swissvolley',
             updated: new Date(),
             clubRef: clubRef.ref,
             teamRef: teamRef.ref,
@@ -76,10 +75,10 @@ export async function updateGamesSwissvolley(): Promise<any> {
 }
 
 export async function updateTeamsSwissvolleyball(): Promise<any> {
-  console.log("Update Teams SwissVolley");
+  console.log('Update Teams SwissVolley');
 
   // GET Clubs from DB where Type = SWISSVOLLEY && STATUS is active
-  const clubListRef = await db.collection("club").where("active", "==", true).where("type", "==", "swissvolley").get();
+  const clubListRef = await db.collection('club').where('active', '==', true).where('type', '==', 'swissvolley').get();
   for (const clubData of clubListRef.docs) {
     const club = {...{id: clubData.data().externalId}, ...clubData.data()};
     /* const associationsData = await resolversSV.SwissVolley.associations({}, {}, {}, {});
@@ -90,23 +89,23 @@ export async function updateTeamsSwissvolleyball(): Promise<any> {
         if (fbClubData.exists && fbClubData.data().active) { */
     const teamData = await resolversSV.Club.teams({id: `${club.id}`});
     for (const team of teamData) {
-      console.log(club.name + " / " + team.name);
-      await db.collection("teams").doc(`sv-${team.id}`).set({
+      console.log(club.name + ' / ' + team.name);
+      await db.collection('teams').doc(`sv-${team.id}`).set({
         externalId: `${team.id}`,
         name: team.name,
         liga: team.liga,
         info: team.info,
         logo: team.logo,
         associationId: clubData.data().associationId,
-        type: "swissvolley",
+        type: 'swissvolley',
         updated: new Date(),
         clubRef: clubData.ref,
         clubId: clubData.id,
       }, {
         merge: true,
       });
-      await db.collection("club").doc(`sv-${club.id}`).collection("teams").doc(`sv-${team.id}`).set({
-        teamRef: db.collection("teams").doc(`sv-${team.id}`),
+      await db.collection('club').doc(`sv-${club.id}`).collection('teams').doc(`sv-${team.id}`).set({
+        teamRef: db.collection('teams').doc(`sv-${team.id}`),
       });
     }
     /* } else {
@@ -117,27 +116,27 @@ export async function updateTeamsSwissvolleyball(): Promise<any> {
 }
 
 export async function updateClubsSwissvolleyball(): Promise<any> {
-  console.log("Update Clubs Swissvolley");
+  console.log('Update Clubs Swissvolley');
 
   // const associationsData = await resolversSV.SwissVolley.associations({}, {}, {}, {});
   // for (const assocation of associationsData) {
   const clubData = await resolversSV.SwissVolley.clubs({}, {}, {}, {});
   for (const club of clubData) {
     console.log(club.name);
-    await db.collection("club").doc(`sv-${club.id}`).set({
+    await db.collection('club').doc(`sv-${club.id}`).set({
       externalId: `${club.id}`,
       name: club.name,
       website: club.website,
-      type: "swissvolley",
+      type: 'swissvolley',
       updated: new Date(),
 
     }, {
       merge: true,
     });
-    const clubRef = await db.collection("club").doc(`sv-${club.id}`).get();
-    await db.collection("club").doc(`sv-${club.id}`).collection("contacts").doc(`sv-${club.id}`).set({
+    const clubRef = await db.collection('club').doc(`sv-${club.id}`).get();
+    await db.collection('club').doc(`sv-${club.id}`).collection('contacts').doc(`sv-${club.id}`).set({
       ...club.contact,
-      type: "swissvolley",
+      type: 'swissvolley',
       updated: new Date(),
       clubId: clubRef.id,
       clubRef: clubRef.ref,
@@ -145,11 +144,11 @@ export async function updateClubsSwissvolleyball(): Promise<any> {
       merge: true,
     });
 
-    await db.collection("venues").doc(`sv-${club.id}`).set({
+    await db.collection('venues').doc(`sv-${club.id}`).set({
       ...club.mainHall,
       clubRef: clubRef.ref,
       clubId: clubRef.id,
-      type: "swissvolley",
+      type: 'swissvolley',
       updated: new Date(),
     }, {
       merge: true,
@@ -159,26 +158,26 @@ export async function updateClubsSwissvolleyball(): Promise<any> {
 }
 
 export async function updateNewsSwissvolley(): Promise<any> {
-  console.log("Update NEWS SwissVolley");
+  console.log('Update NEWS SwissVolley');
 
   const newsData = await resolversSV.SwissVolley.news();
   for (const news of newsData) {
-    const newsDoc = await db.collection("news").doc(`sv-${news.id}`).get();
+    const newsDoc = await db.collection('news').doc(`sv-${news.id}`).get();
     if (!newsDoc.exists) {
-      await db.collection("news").doc(`sv-${news.id}`).set({
+      await db.collection('news').doc(`sv-${news.id}`).set({
         externalId: `${news.id}`,
         title: news.title,
-        leadText: news.leadText + " ..." || " ",
+        leadText: news.leadText + ' ...' || ' ',
         date: news.date,
-        slug: news.slug || " ",
-        image: news.image || " ",
-        text: news.text || " ",
-        htmlText: news.htmlText || " ",
-        tags: news.tags || " ",
-        author: news.author || " ",
-        authorImage: news.authorImage || " ",
-        url: news.url || " ",
-        type: "swissvolley",
+        slug: news.slug || ' ',
+        image: news.image || ' ',
+        text: news.text || ' ',
+        htmlText: news.htmlText || ' ',
+        tags: news.tags || ' ',
+        author: news.author || ' ',
+        authorImage: news.authorImage || ' ',
+        url: news.url || ' ',
+        type: 'swissvolley',
         updated: new Date(),
       }, {
         merge: true,

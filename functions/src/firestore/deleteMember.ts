@@ -1,26 +1,23 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable require-jsdoc */
-/* eslint-disable max-len */
-import * as functions from "firebase-functions";
-import firebaseDAO from "./../firebaseSingleton";
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable max-len */
+import firebaseDAO from './../firebaseSingleton';
+import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
 const db = firebaseDAO.instance.db;
 // const auth = firebaseDAO.instance.auth;
 
-export const deleteTeamMember = async (event: functions.firestore.FirestoreEvent<functions.firestore.QueryDocumentSnapshot | undefined>) => {
-  console.log("deleteTeamMember > Team Page via Administrator");
+export const deleteTeamMember = async (event: FirestoreEvent<QueryDocumentSnapshot | undefined>) => {
+  console.log('deleteTeamMember > Team Page via Administrator');
   const userId = event.params.userId;
   const teamId = event.params.teamId;
   // console.log("Auth User > " +  event.auth);
-  console.log("Delete user from team " + userId, teamId);
+  console.log('Delete user from team ' + userId, teamId);
 
   // If removed from team, delete as well team admin
-  await db.collection("teams").doc(teamId).collection("admins").doc(userId).delete();
-  await db.collection("userProfile").doc(userId).collection("teamAdmins").doc(teamId).delete();
+  await db.collection('teams').doc(teamId).collection('admins').doc(userId).delete();
+  await db.collection('userProfile').doc(userId).collection('teamAdmins').doc(teamId).delete();
 
-  return db.collection("userProfile").doc(userId).collection("teams").doc(teamId).delete();
+  return db.collection('userProfile').doc(userId).collection('teams').doc(teamId).delete();
   /*
   const adminUser = await auth.getUser(context.auth?.uid);
   if (adminUser && adminUser.customClaims && adminUser.customClaims[teamId]) {
@@ -39,32 +36,32 @@ export const deleteTeamMember = async (event: functions.firestore.FirestoreEvent
   }*/
 };
 
-export const deleteClubMember = async (event: functions.firestore.FirestoreEvent<functions.firestore.QueryDocumentSnapshot | undefined>) => {
-  console.log("deleteClubMember > Club Page via Administrator");
+export const deleteClubMember = async (event: FirestoreEvent<QueryDocumentSnapshot | undefined>) => {
+  console.log('deleteClubMember > Club Page via Administrator');
   const userId = event.params.userId;
   const clubId = event.params.clubId;
   // console.log("Auth User > " + context.auth);
-  console.log("Delete user from club " + userId, clubId);
+  console.log('Delete user from club ' + userId, clubId);
 
   // TODO: DELETE FROM ALL TEAMS AS WELL!
-  const teamList = await db.collection("club").doc(clubId).collection("teams").get();
+  const teamList = await db.collection('club').doc(clubId).collection('teams').get();
   // Delete from all Teams
   try {
     for (const team of teamList.docs) {
-      await db.collection("teams").doc(team.id).collection("members").doc(userId).delete();
-      await db.collection("userProfile").doc(userId).collection("teams").doc(team.id).delete();
+      await db.collection('teams').doc(team.id).collection('members').doc(userId).delete();
+      await db.collection('userProfile').doc(userId).collection('teams').doc(team.id).delete();
 
-      await db.collection("teams").doc(team.id).collection("admins").doc(userId).delete();
-      await db.collection("userProfile").doc(userId).collection("teamAdmins").doc(team.id).delete();
+      await db.collection('teams').doc(team.id).collection('admins').doc(userId).delete();
+      await db.collection('userProfile').doc(userId).collection('teamAdmins').doc(team.id).delete();
     }
   } catch (e) {
-    console.log("no teams to delete from");
+    console.log('no teams to delete from');
   }
   // Delete as Admin from Club as well.
-  await db.collection("club").doc(clubId).collection("admins").doc(userId).delete();
-  await db.collection("userProfile").doc(userId).collection("clubAdmins").doc(clubId).delete();
+  await db.collection('club').doc(clubId).collection('admins').doc(userId).delete();
+  await db.collection('userProfile').doc(userId).collection('clubAdmins').doc(clubId).delete();
 
-  return db.collection("userProfile").doc(userId).collection("clubs").doc(clubId).delete();
+  return db.collection('userProfile').doc(userId).collection('clubs').doc(clubId).delete();
   /*
   const adminUser = await auth.getUser(context.auth?.uid);
   if (adminUser && adminUser.customClaims && adminUser.customClaims[clubId]) {
@@ -87,7 +84,7 @@ export const deleteClubMember = async (event: functions.firestore.FirestoreEvent
     );
   }*/
 };
-/* export async function deleteMemberFromClub(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
+/* export async function deleteMemberFromClub(snapshot: QueryDocumentSnapshot, context: EventContext) {
   console.log("Delete Member From Club");
   // const userId = context.params.userId;
   // const clubId = context.params.clubId;

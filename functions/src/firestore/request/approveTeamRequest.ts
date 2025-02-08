@@ -1,43 +1,51 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable require-jsdoc */
+
 /* eslint-disable max-len */
-import * as functions from "firebase-functions";
-import firebaseDAO from "../../firebaseSingleton";
-import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
-import {Change} from "firebase-functions";
+import firebaseDAO from '../../firebaseSingleton';
+import {FirestoreEvent, Change, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
 
 const db = firebaseDAO.instance.db;
 
-export async function approveTeamRequest(change: Change<QueryDocumentSnapshot>, context: functions.EventContext) {
-  console.log("approveTeamRequest");
-  const requestId = context.params.requestId;
-  const teamId = context.params.teamId;
+export async function approveTeamRequest(event: FirestoreEvent<Change<QueryDocumentSnapshot> | undefined>) {
+  console.log('approveTeamRequest');
 
-  const requestRef = await db.collection("teamId").doc(teamId).collection("requests").doc(requestId).get();
-  const userProfileRef = await db.collection("userProfile").doc(requestId).get();
-  const teamRef = await db.collection("teams").doc(teamId).get();
+  // Sicherstellen dass event.data und after existieren
+  if (!event.data?.after) {
+    console.log('No data associated with the event');
+    return;
+  }
 
-  if ("approve" in change.after.data() && change.after.data().approve === true) {
+  const afterData = event.data.after.data();
+  if (!afterData) {
+    console.log('No after data available');
+    return;
+  }
+
+  const requestId = event.params.requestId;
+  const teamId = event.params.teamId;
+
+  const requestRef = await db.collection('teamId').doc(teamId).collection('requests').doc(requestId).get();
+  const userProfileRef = await db.collection('userProfile').doc(requestId).get();
+  const teamRef = await db.collection('teams').doc(teamId).get();
+
+  if ('approve' in afterData && afterData.approve === true) {
     console.log(`approve request ${requestRef.id}`);
 
-    await db.collection("teams").doc(teamId).collection("members").doc(userProfileRef.id).set({
-      "userProfileRef": userProfileRef.ref,
+    await db.collection('teams').doc(teamId).collection('members').doc(userProfileRef.id).set({
+      'userProfileRef': userProfileRef.ref,
     });
-    await db.collection("userProfile").doc(userProfileRef.id).collection("teams").doc(teamId).set({
-      "teamRef": teamRef.ref,
+    await db.collection('userProfile').doc(userProfileRef.id).collection('teams').doc(teamId).set({
+      'teamRef': teamRef.ref,
     });
 
     // clean up requests
-    await db.collection("teams").doc(teamId).collection("requests").doc(userProfileRef.id).delete();
-    await db.collection("userProfile").doc(userProfileRef.id).collection("teamRequests").doc(teamId).delete();
+    await db.collection('teams').doc(teamId).collection('requests').doc(userProfileRef.id).delete();
+    await db.collection('userProfile').doc(userProfileRef.id).collection('teamRequests').doc(teamId).delete();
 
     // send out mail to user
-    return db.collection("mail").add({
+    return db.collection('mail').add({
       to: userProfileRef.data().email,
       template: {
-        name: "TeamRequestApproved",
+        name: 'TeamRequestApproved',
         data: {
           teamName: teamRef.data().name,
           firstName: userProfileRef.data()?.firstName,
@@ -45,16 +53,16 @@ export async function approveTeamRequest(change: Change<QueryDocumentSnapshot>, 
         },
       },
     });
-  } else if ("approve" in change.after.data() && change.after.data().approve === false) {
+  } else if ('approve' in afterData && afterData.approve === false) {
     console.log(`TEAM request NOT APPROVED ${requestRef.id}`);
     // clean up requests
-    await db.collection("teams").doc(teamId).collection("requests").doc(userProfileRef.id).delete();
-    await db.collection("userProfile").doc(userProfileRef.id).collection("teamRequests").doc(teamId).delete();
+    await db.collection('teams').doc(teamId).collection('requests').doc(userProfileRef.id).delete();
+    await db.collection('userProfile').doc(userProfileRef.id).collection('teamRequests').doc(teamId).delete();
     // send out mail to user
-    return db.collection("mail").add({
+    return db.collection('mail').add({
       to: userProfileRef.data().email,
       template: {
-        name: "TeamRequestRejected",
+        name: 'TeamRequestRejected',
         data: {
           teamName: teamRef.data().name,
           firstName: userProfileRef.data()?.firstName,

@@ -1,16 +1,14 @@
-/* eslint-disable linebreak-style */
+
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable require-jsdoc */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable max-len */
-import * as admin from "firebase-admin";
-import firebaseDAO from "./../firebaseSingleton";
-import {AuthBlockingEvent} from "firebase-functions/v2/identity";
+import * as admin from 'firebase-admin';
+import firebaseDAO from './../firebaseSingleton';
+import {AuthBlockingEvent} from 'firebase-functions/v2/identity';
 
 const db = firebaseDAO.instance.db;
 
-/* export function authUserCreate(user: admin.auth.UserRecord, context: functions.EventContext) {
+/* export function authUserCreate(user: admin.auth.UserRecord, context: EventContext) {
   db.collection("userProfile").doc(`${user.uid}`).set({
     "email": user.email,
     "id": user.uid,
@@ -23,25 +21,28 @@ const db = firebaseDAO.instance.db;
   });
 } */
 
-export async function authUserCreateSendWelcomeEmail(event: AuthBlockingEvent) {
+export async function authUserCreateSendWelcomeEmail(event: AuthBlockingEvent): Promise<any> {
+  if (!event.data) {
+    throw new Error('No user data provided');
+  }
   const user = event.data;
-  console.log(">>> NEW USER with ID: " + user.uid + " SEND WELCOME E-MAIL to VALIDATE E-MAIL");
+  console.log('>>> NEW USER with ID: ' + user.uid + ' SEND WELCOME E-MAIL to VALIDATE E-MAIL');
   const link = await admin.auth().generateEmailVerificationLink(user.email as string);
 
-  const userProfile: any = await db.collection("userProfile").doc(`${user.uid}`).get();
+  const userProfile: any = await db.collection('userProfile').doc(`${user.uid}`).get();
   if (!userProfile.exists) {
-    console.error("no user data found");
+    console.error('no user data found');
   }
 
   await admin.auth().updateUser(user.uid, {
-    displayName: userProfile.data()?.firstName + " " + userProfile.data()?.lastName,
+    displayName: userProfile.data()?.firstName + ' ' + userProfile.data()?.lastName,
   });
 
-  console.log(">>> SEND WELCOME MAIL TO USER " + user.email );
-  return db.collection("mail").add({
+  console.log('>>> SEND WELCOME MAIL TO USER ' + user.email );
+  return db.collection('mail').add({
     to: user.email,
     template: {
-      name: "UserCreateWelcomeMail",
+      name: 'UserCreateWelcomeMail',
       data: {
         link: link,
         firstName: userProfile.data().firstName,
@@ -143,7 +144,7 @@ await updateGamesSwissunihockey();
 
 
 /*
-export async function authUserCreateSendVerifyMail(user: admin.auth.UserRecord, context: functions.EventContext) {
+export async function authUserCreateSendVerifyMail(user: admin.auth.UserRecord, context: EventContext) {
   // Send E-Mail that user has to verify his account first.
   if (!user.emailVerified) {
     const code = await admin.auth().generateEmailVerificationLink(user.email as string);

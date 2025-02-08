@@ -1,29 +1,26 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable require-jsdoc */
+
+
 /* eslint-disable max-len */
-import * as functions from "firebase-functions";
-import firebaseDAO from "../../firebaseSingleton";
-import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
+import firebaseDAO from '../../firebaseSingleton';
+import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
 
 const db = firebaseDAO.instance.db;
 // const auth = firebaseDAO.instance.auth;
 
-export async function deleteHelferPunkt(snapshot: QueryDocumentSnapshot, context: functions.EventContext) {
-  console.log("deleteClubEvent");
+export async function deleteHelferPunkt(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
+  console.log('deleteHelferPunkt');
 
-  const clubId = context.params.clubId;
-  const helferPunktId = context.params.helferPunktId;
+  const clubId = event.params.clubId;
+  const helferPunktId = event.params.helferPunktId;
 
-  const helferPunktData = snapshot.data();
+  const helferPunktData = event.data?.data();
 
-  const helferEvent = await db.collection("club").doc(clubId).collection("helferEvents").doc(helferPunktData.eventRef.id).collection("schichten").doc(helferPunktData.schichtRef.id).collection("attendees").doc(helferPunktData.userId).get();
+  const helferEvent = await db.collection('club').doc(clubId).collection('helferEvents').doc(helferPunktData?.eventRef?.id).collection('schichten').doc(helferPunktData?.schichtRef?.id).collection('attendees').doc(helferPunktData?.userId).get();
   if (helferEvent.data().helferPunktId === helferPunktId) {
-    console.log("delete Helerpunkt");
+    console.log('delete Helerpunkt');
 
-    return db.collection("club").doc(clubId).collection("helferEvents").doc(helferPunktData.eventRef.id).collection("schichten").doc(helferPunktData.schichtRef.id).collection("attendees").doc(helferPunktData.userId).set({
-      "status": helferEvent.data().status,
+    return db.collection('club').doc(clubId).collection('helferEvents').doc(helferPunktData?.eventRef?.id).collection('schichten').doc(helferPunktData?.schichtRef?.id).collection('attendees').doc(helferPunktData?.userId).set({
+      'status': helferEvent.data()?.status,
     });
   } else {
     return true;

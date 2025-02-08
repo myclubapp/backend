@@ -1,17 +1,15 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
+
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+
 /* eslint-disable max-len */
-/* eslint-disable require-jsdoc */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import fetch from "node-fetch";
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-// const fetch = require("node-fetch");
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 
-import fs = require("fs");
-const stvClubsJSON = fs.readFileSync("./src/graphql/swissturnverband/clubs_data_final.json", "utf8");
+// const fetch = require("node-fetch");
+
+import * as fs from 'fs';
+const stvClubsJSON = fs.readFileSync('./src/graphql/swissturnverband/clubs_data_final.json', 'utf8');
 
 
 export default {
@@ -87,9 +85,9 @@ async function getTeams(clubId: string) {
     let index = 1;
     for (const team of club.Teams) {
       const cleanData:any = {
-        id: team.id + "-" + `${index}`,
-        name: team.name.replace(/\s+/g, " ").trim(),
-        info: team.info.replace(/\s+/g, " ").trim(),
+        id: team.id + '-' + `${index}`,
+        name: team.name.replace(/\s+/g, ' ').trim(),
+        info: team.info.replace(/\s+/g, ' ').trim(),
         jahresbeitrag: team.jahresbeitrag,
       };
 
@@ -126,23 +124,23 @@ async function getClubs() {
 }
 
 async function getClub(clubId: string) {
-  console.log("");
+  console.log('');
 }
 
 
 async function getClubGames(clubId: string) {
-  console.log("");
+  console.log('');
 }
 
 async function getGames(teamId: string) {
-  console.log("");
+  console.log('');
 }
 
 
 async function getRankings(teamId: string) {
-  console.log("");
+  console.log('');
 }
 
 async function getNews() {
-  console.log("");
+  console.log('');
 }

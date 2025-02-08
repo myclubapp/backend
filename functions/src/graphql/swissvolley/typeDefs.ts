@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-
 const typeDefs = /* GraphQL */ `
 
 type Team {

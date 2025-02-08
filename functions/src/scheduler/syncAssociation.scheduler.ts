@@ -1,27 +1,22 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable require-jsdoc */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-len */
-import {EventContext} from "firebase-functions/v2/event";
 
-import {updateTeamsSwissunihockey, updateClubsSwissunihockey, updateGamesSwissunihockey, updateNewsSwissunihockey} from "./utils/update.swissunihockey";
-import {updateTeamsSwissvolleyball, updateClubsSwissvolleyball, updateNewsSwissvolley, updateGamesSwissvolley} from "./utils/update.swissvolleyball";
-import {updateTeamsSwisshandball, updateClubsSwisshandball, updateGamesSwisshandball} from "./utils/update.swisshandball";
-import {updateClubsSwissturnverband, updateTeamsSwissturnverband} from "./utils/update.swissturnverband";
+import {updateTeamsSwissunihockey, updateClubsSwissunihockey, updateGamesSwissunihockey, updateNewsSwissunihockey} from './utils/update.swissunihockey';
+import {updateTeamsSwissvolleyball, updateClubsSwissvolleyball, updateNewsSwissvolley, updateGamesSwissvolley} from './utils/update.swissvolleyball';
+import {updateTeamsSwisshandball, updateClubsSwisshandball, updateGamesSwisshandball} from './utils/update.swisshandball';
+import {updateClubsSwissturnverband, updateTeamsSwissturnverband} from './utils/update.swissturnverband';
 // import {updateTeamsSwissturnverband, updateClubsSwissturnverband} from "./utils/update.swissturnverband";
 // import {updateClubsSwissvolleyball} from "./utils/update.swissvolleyball";
 // import {updateClubsSwisstennis} from "./utils/update.swisstennis";
 
-import firebaseDAO from "./../firebaseSingleton";
+import firebaseDAO from './../firebaseSingleton';
 const db = firebaseDAO.instance.db;
-const fetch = require("node-fetch");
+import fetch from 'node-fetch';
+import {ScheduledEvent} from 'firebase-functions/v2/scheduler';
 // const jsdom = require("jsdom");
 // const cheerio = require("cheerio");
 
-export async function updatePersistenceJobClubs(context: EventContext) {
+export async function updatePersistenceJobClubs(event: ScheduledEvent) {
   try {
     await updateClubsSwissunihockey();
     await updateClubsSwisshandball();
@@ -33,7 +28,7 @@ export async function updatePersistenceJobClubs(context: EventContext) {
   }
 }
 
-export async function updatePersistenceJobTeams(context: EventContext) {
+export async function updatePersistenceJobTeams(event: ScheduledEvent) {
   try {
     await updateTeamsSwissunihockey();
     await updateTeamsSwisshandball();
@@ -44,7 +39,7 @@ export async function updatePersistenceJobTeams(context: EventContext) {
   }
 }
 
-export async function updatePersistenceJobGames(context: EventContext) {
+export async function updatePersistenceJobGames(event: ScheduledEvent) {
   try {
     await updateGamesSwissunihockey();
     await updateGamesSwisshandball();
@@ -54,7 +49,7 @@ export async function updatePersistenceJobGames(context: EventContext) {
   }
 }
 
-export async function updatePersistenceJobNews(context: EventContext) {
+export async function updatePersistenceJobNews(event: ScheduledEvent) {
   try {
     await updateClubNewsFromWordpress();
     await updateNewsSwissunihockey();
@@ -65,19 +60,20 @@ export async function updatePersistenceJobNews(context: EventContext) {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function updateClubNewsFromWordpress(): Promise<any> {
-  console.log("updateClubNewsFromWordpress");
+  console.log('updateClubNewsFromWordpress');
 
-  const clubListRef = await db.collection("club").where("active", "==", true).get();
+  const clubListRef = await db.collection('club').where('active', '==', true).get();
   for (const club of clubListRef.docs) {
     // console.log(club.id);
 
     if (club.data().wordpress) {
       // console.log(club.data().wordpress);
-      const url = club.data().wordpress + "/wp-json/wp/v2/posts?per_page=20";
+      const url = club.data().wordpress + '/wp-json/wp/v2/posts?per_page=20';
       const wpData = await fetch(url);
       const wpNews = await wpData.json();
-      console.log("News URL: " + url);
+      console.log('News URL: ' + url);
 
       for (const news of wpNews) {
         console.log(news.link);
@@ -161,39 +157,39 @@ async function updateClubNewsFromWordpress(): Promise<any> {
         const leadResult = `<ion-text>${ionicLead.join("")}</ion-text>`;
         */
 
-        const wpUserData = await fetch(news["_links"].author[0].href);
+        const wpUserData = await fetch(news['_links'].author[0].href);
         const wpUser = await wpUserData.json();
-        const authorImage = wpUser.avatar_urls[96] || wpUser.avatar_urls[48] || wpUser.avatar_urls[24] || "";
+        const authorImage = wpUser.avatar_urls[96] || wpUser.avatar_urls[48] || wpUser.avatar_urls[24] || '';
 
-        let featuredMedia = "";
+        let featuredMedia = '';
         try {
           if (news.featured_media > 0) {
             // Features Media via media fetch available
-            const wpFeaturedMediaData = await fetch(news["_links"]["wp:featuredmedia"][0].href);
+            const wpFeaturedMediaData = await fetch(news['_links']['wp:featuredmedia'][0].href);
             const wpFeaturedMedia = await wpFeaturedMediaData.json();
             featuredMedia = wpFeaturedMedia.media_details.sizes.medium.source_url || wpFeaturedMedia.source_url || wpFeaturedMedia.guid.rendered;
           } else {
-            featuredMedia = authorImage || "https://placehold.co/600x400";
+            featuredMedia = authorImage || 'https://placehold.co/600x400';
           }
         } catch (e) {
           // console.log(e);
-          featuredMedia = authorImage || "https://placehold.co/600x400";
+          featuredMedia = authorImage || 'https://placehold.co/600x400';
         }
 
-        await db.collection("club").doc(`${club.id}`).collection("news").doc(`${club.id}-${news.id}`).set({
-          externalId: `${news["id"]}`,
-          title: news["title"].rendered,
-          leadText: news["excerpt"].rendered,
+        await db.collection('club').doc(`${club.id}`).collection('news').doc(`${club.id}-${news.id}`).set({
+          externalId: `${news['id']}`,
+          title: news['title'].rendered,
+          leadText: news['excerpt'].rendered,
           clubId: club.id,
-          date: news["date"],
-          slug: news["slug"],
+          date: news['date'],
+          slug: news['slug'],
           image: featuredMedia,
-          text: news["content"].rendered,
-          htmlText: news["content"].rendered || " ",
-          tags: "Webseite",
+          text: news['content'].rendered,
+          htmlText: news['content'].rendered || ' ',
+          tags: 'Webseite',
           author: wpUser.name,
           authorImage: authorImage,
-          url: news["link"],
+          url: news['link'],
           type: club.type,
           updated: new Date(),
         }, {

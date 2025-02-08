@@ -1,12 +1,10 @@
-/* eslint-disable linebreak-style */
+
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable require-jsdoc */
 /* eslint-disable max-len */
-import * as functions from "firebase-functions";
+import * as functions from 'firebase-functions/v1';
 // import firebaseDAO from "../../firebaseSingleton";
-import {QueryDocumentSnapshot} from "firebase-functions/lib/providers/firestore";
-import {Change} from "firebase-functions";
+import {QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
+import {Change} from 'firebase-functions';
 
 // const db = firebaseDAO.instance.db;
 

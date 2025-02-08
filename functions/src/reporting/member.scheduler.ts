@@ -1,20 +1,16 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable require-jsdoc */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-len */
-import {EventContext} from "firebase-functions";
+import {ScheduledEvent} from 'firebase-functions/v2/scheduler';
 
 // import * as firebase from "firebase-admin";
-import firebaseDAO from "./../firebaseSingleton";
+import firebaseDAO from './../firebaseSingleton';
 
 const db = firebaseDAO.instance.db;
 
-export async function sendReportingJobMember(context: EventContext) {
+export async function sendReportingJobMember(event: ScheduledEvent) {
   try {
-    console.log(">> START Reporting ");
-    const userProfileList = await db.collection("userProfile").get();
+    console.log('>> START Reporting ');
+    const userProfileList = await db.collection('userProfile').get();
     if (!userProfileList.empty) {
       // Loop über Profiles
       for (const userProfile of userProfileList.docs) {
@@ -27,7 +23,7 @@ export async function sendReportingJobMember(context: EventContext) {
 
 
           // GET ALL TEAMS & CLUBS for Member
-          const teamList = await db.collection("userProfile").doc(userProfile.id).collection("teams").get();
+          const teamList = await db.collection('userProfile').doc(userProfile.id).collection('teams').get();
           if (!teamList.empty) {
             // Loop über Teams
             for (const team of teamList.docs) {
@@ -39,17 +35,17 @@ export async function sendReportingJobMember(context: EventContext) {
             }
           }
 
-          const clubList = await db.collection("userProfile").doc(userProfile.id).collection("clubs").get();
+          const clubList = await db.collection('userProfile').doc(userProfile.id).collection('clubs').get();
           if (!clubList.empty) {
             // Loop über Clubs
             for (const club of clubList.docs) {
               console.log(`> Club ${club.id}`);
 
-              console.log("Read news back to: " + calculatedDate);
-              const clubNewsList = await db.collection("club").doc(club.id).collection("news").where("date", ">=", calculatedDate).get();
+              console.log('Read news back to: ' + calculatedDate);
+              const clubNewsList = await db.collection('club').doc(club.id).collection('news').where('date', '>=', calculatedDate).get();
               if (!clubNewsList.empty) {
                 for (const clubNews of clubNewsList.docs) {
-                  console.log(">> News: " + clubNews);
+                  console.log('>> News: ' + clubNews);
                   nlClubNews.push(clubNews);
                 }
               }
@@ -66,10 +62,10 @@ export async function sendReportingJobMember(context: EventContext) {
           getEvents();
           getTrainings();
 
-          await db.collection("mail").add({
+          await db.collection('mail').add({
             to: userProfile.data().email,
             template: {
-              name: "ReportingUser",
+              name: 'ReportingUser',
               data: {
                 firstName: userProfile.data().firstName,
                 clubNews: nlClubNews,
@@ -86,13 +82,13 @@ export async function sendReportingJobMember(context: EventContext) {
 }
 
 function getNews() {
-  console.log("Get Past News from Member");
+  console.log('Get Past News from Member');
 }
 
 function getTrainings() {
-  console.log("training");
+  console.log('training');
 }
 
 function getEvents() {
-  console.log("events");
+  console.log('events');
 }

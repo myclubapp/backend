@@ -1,16 +1,13 @@
-/* eslint-disable linebreak-style */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable max-len */
-/* eslint-disable require-jsdoc */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import fetch from "node-fetch";
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const fetch = require("node-fetch");
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+
+import fetch from 'node-fetch';
+
 // const {convert} = require("html-to-text");
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+
 // const jsdom = require("jsdom");
 
 export default {
@@ -19,21 +16,21 @@ export default {
     teams(parent: any, args: any, context: any, info: any) {
       try {
         const seasonParam = info.operation.selectionSet.selections[0].arguments.find((element: any) => {
-          return element.kind === "Argument" && element.name.kind === "Name" && element.name.value === "season";
+          return element.kind === 'Argument' && element.name.kind === 'Name' && element.name.value === 'season';
         });
         return getTeams(parent.id, seasonParam.value.value);
       } catch (e) {
-        return getTeams(parent.id, "");
+        return getTeams(parent.id, '');
       }
     },
     games(parent: any, args: any, context: any, info: any) {
       try {
         const seasonParam = info.operation.selectionSet.selections[0].arguments.find((element: any) => {
-          return element.kind === "Argument" && element.name.kind === "Name" && element.name.value === "season";
+          return element.kind === 'Argument' && element.name.kind === 'Name' && element.name.value === 'season';
         });
         return getClubGames(parent.id, seasonParam.value.value);
       } catch (e) {
-        return getClubGames(parent.id, "");
+        return getClubGames(parent.id, '');
       }
     },
   },
@@ -41,21 +38,21 @@ export default {
     games(parent: any, args: any, context: any, info: any) {
       try {
         const seasonParam = info.operation.selectionSet.selections[0].arguments.find((element: any) => {
-          return element.kind === "Argument" && element.name.kind === "Name" && element.name.value === "season";
+          return element.kind === 'Argument' && element.name.kind === 'Name' && element.name.value === 'season';
         });
         return getGames(parent.id, seasonParam.value.value);
       } catch (e) {
-        return getGames(parent.id, "");
+        return getGames(parent.id, '');
       }
     },
     rankings(parent: any, args: any, context: any, info: any) {
       try {
         const seasonParam = info.operation.selectionSet.selections[0].arguments.find((element: any) => {
-          return element.kind === "Argument" && element.name.kind === "Name" && element.name.value === "season";
+          return element.kind === 'Argument' && element.name.kind === 'Name' && element.name.value === 'season';
         });
         return getRankings(parent.id, seasonParam.value.value);
       } catch (e) {
-        return getRankings(parent.id, "");
+        return getRankings(parent.id, '');
       }
     },
 
@@ -133,7 +130,7 @@ async function getTeams(clubId: string, season: string) {
   }
 
   console.log(`get team by club: https://api-v2.swissunihockey.ch/api/teams?mode=by_club&club_id= + ${clubId} + &season= + ${season}`);
-  const data = await fetch("https://api-v2.swissunihockey.ch/api/teams?mode=by_club&club_id=" + clubId + "&season=" + season);
+  const data = await fetch('https://api-v2.swissunihockey.ch/api/teams?mode=by_club&club_id=' + clubId + '&season=' + season);
   const teamData = await data.json();
   const teamList = <any>[];
   // console.log(teamData);
@@ -147,10 +144,10 @@ async function getTeams(clubId: string, season: string) {
       id: team.set_in_context.team_id,
       name: team.text,
       info: teamDetailData.data.regions[0].rows[0].cells[0].text[0],
-      logo: teamDetailData.data.regions[0].rows[0].cells[1].image.url || "",
-      website: teamDetailData.data.regions[0].rows[0].cells[2].url.href || "",
-      portrait: teamDetailData.data.regions[0].rows[0].cells[3].image.url || "",
-      liga: teamDetailData.data.regions[0].rows[0].cells[4].text[0] || "",
+      logo: teamDetailData.data.regions[0].rows[0].cells[1].image.url || '',
+      website: teamDetailData.data.regions[0].rows[0].cells[2].url.href || '',
+      portrait: teamDetailData.data.regions[0].rows[0].cells[3].image.url || '',
+      liga: teamDetailData.data.regions[0].rows[0].cells[4].text[0] || '',
     });
   }
   /* teamData.entries.forEach((item: any) => {
@@ -164,7 +161,7 @@ async function getTeams(clubId: string, season: string) {
 }
 
 async function getTeam(teamId: string) {
-  const data = await fetch("https://api-v2.swissunihockey.ch/api/teams/" + teamId);
+  const data = await fetch('https://api-v2.swissunihockey.ch/api/teams/' + teamId);
   const teamData = await data.json();
   // console.log(teamData);
 
@@ -175,17 +172,17 @@ async function getTeam(teamId: string) {
 }
 
 async function getClubs() {
-  const data = await fetch("https://api-v2.swissunihockey.ch/api/clubs");
+  const data = await fetch('https://api-v2.swissunihockey.ch/api/clubs');
   const clubData = await data.json();
   const clubList = <any>[];
   // clubData.entries.forEach(async (item: any) => {
   for (const item of clubData.entries) {
     // console.log(`Read Club: ${item.set_in_context.club_id} ${item.text}`);
 
-    const contactPerson = "";
-    const contactAddress = "";
-    const contactPhone = "";
-    const contactEmail = "";
+    const contactPerson = '';
+    const contactAddress = '';
+    const contactPhone = '';
+    const contactEmail = '';
     /* try {
       const response = await fetch("https://portal.swissunihockey.ch/clubregister/?club_id=" + item.set_in_context.club_id +"&mode=details", {
         headers: {
@@ -252,30 +249,30 @@ async function getClubGames(clubId: string, season: string) {
     season = await getSeason() as unknown as string;
     console.log(`No Season parameter provided. Used internal logic and found: ${season}`);
   }
-  const data = await fetch("https://api-v2.swissunihockey.ch/api/games?mode=club&season=" + season + "&club_id=" + clubId + "&games_per_page=100");
+  const data = await fetch('https://api-v2.swissunihockey.ch/api/games?mode=club&season=' + season + '&club_id=' + clubId + '&games_per_page=100');
   const gameData = await data.json();
   const gameList = [];
   if (gameData && gameData.data && gameData.data.regions && gameData.data.regions.length > 0) {
     for (const item of gameData.data.regions[0].rows) {
-      let latitude = "-";
-      let longitude = "-";
+      let latitude = '-';
+      let longitude = '-';
       try {
-        latitude = item.cells[1].link.y || "-";
-        longitude = item.cells[1].link.x || "-";
+        latitude = item.cells[1].link.y || '-';
+        longitude = item.cells[1].link.x || '-';
       } catch (e) {
-        console.log(">> Error: Longitude/Latitude missing");
+        console.log('>> Error: Longitude/Latitude missing');
         // console.log(e);
       }
       gameList.push({
         id: item.link.ids[0],
         date: item.cells[0].text[0],
-        time: item.cells[0].text[1] || "00:00",
+        time: item.cells[0].text[1] || '00:00',
         venue: item.cells[1].text[0],
-        venueCity: item.cells[1].text[1] || "-",
+        venueCity: item.cells[1].text[1] || '-',
         longitude: longitude,
         latitude: latitude,
         liga: item.cells[2].text[0],
-        ligaText: "",
+        ligaText: '',
         result: item.cells[5].text[0],
       });
     }
@@ -292,26 +289,26 @@ async function getGames(teamId: string, season: string) {
     season = await getSeason() as unknown as string;
     console.log(`No Season parameter provided. Used internal logic and found: ${season}`);
   }
-  const data = await fetch("https://api-v2.swissunihockey.ch/api/games?mode=team&season=" + season + "&team_id=" + teamId + "&games_per_page=100");
-  console.log("https://api-v2.swissunihockey.ch/api/games?mode=team&season=" + season + "&team_id=" + teamId + "&games_per_page=100");
+  const data = await fetch('https://api-v2.swissunihockey.ch/api/games?mode=team&season=' + season + '&team_id=' + teamId + '&games_per_page=100');
+  console.log('https://api-v2.swissunihockey.ch/api/games?mode=team&season=' + season + '&team_id=' + teamId + '&games_per_page=100');
   const gameData = await data.json();
   const gameList = <any>[];
   if (gameData && gameData.data && gameData.data.regions && gameData.data.regions.length > 0) {
     // gameData.data.regions[0].rows.forEach((item: any) => {
     for (const item of gameData.data.regions[0].rows) {
-      let latitude = "-";
-      let longitude = "-";
+      let latitude = '-';
+      let longitude = '-';
       try {
-        latitude = item.cells[1].link.y || "-";
-        longitude = item.cells[1].link.x || "-";
+        latitude = item.cells[1].link.y || '-';
+        longitude = item.cells[1].link.x || '-';
       } catch (e) {
-        console.log(">> Error: Longitude/Latitude missing");
+        console.log('>> Error: Longitude/Latitude missing');
         console.log({
           id: item.link.ids[0],
           date: item.cells[0].text[0],
-          time: item.cells[0].text[1] || "00:00",
+          time: item.cells[0].text[1] || '00:00',
           venue: item.cells[1].text[0],
-          venueCity: item.cells[1].text[1] || "-",
+          venueCity: item.cells[1].text[1] || '-',
           longitude: longitude,
           latitude: latitude,
           result: item.cells[4].text[0],
@@ -321,9 +318,9 @@ async function getGames(teamId: string, season: string) {
       gameList.push({
         id: item.link.ids[0],
         date: item.cells[0].text[0],
-        time: item.cells[0].text[1] || "00:00",
+        time: item.cells[0].text[1] || '00:00',
         venue: item.cells[1].text[0],
-        venueCity: item.cells[1].text[1] || "-",
+        venueCity: item.cells[1].text[1] || '-',
         longitude: longitude,
         latitude: latitude,
         result: item.cells[4].text[0],
@@ -337,7 +334,7 @@ async function getGames(teamId: string, season: string) {
 }
 
 async function getGame(gameId: string) {
-  const data = await fetch("https://api-v2.swissunihockey.ch/api/games/" + gameId);
+  const data = await fetch('https://api-v2.swissunihockey.ch/api/games/' + gameId);
   try {
     const gameData = await data.json();
     const gameDetailData = gameData.data.regions[0].rows[0];
@@ -346,12 +343,12 @@ async function getGame(gameId: string) {
       name: gameData.data.title,
       description: gameData.data.subtitle,
 
-      teamHomeId: "su-" + gameDetailData.cells[0].link.ids[0],
+      teamHomeId: 'su-' + gameDetailData.cells[0].link.ids[0],
       teamHome: gameDetailData.cells[1].text[0],
       teamHomeLogo: gameDetailData.cells[0].image.url,
       teamHomeLogoText: gameDetailData.cells[0].image.alt,
 
-      teamAwayId: "su-" + gameDetailData.cells[2].link.ids[0],
+      teamAwayId: 'su-' + gameDetailData.cells[2].link.ids[0],
       teamAway: gameDetailData.cells[3].text[0],
       teamAwayLogo: gameDetailData.cells[2].image.url,
       teamAwayLogoText: gameDetailData.cells[2].image.alt,
@@ -367,7 +364,7 @@ async function getGame(gameId: string) {
 }
 
 async function getSeason() {
-  const data = await fetch("https://api-v2.swissunihockey.ch/api/seasons");
+  const data = await fetch('https://api-v2.swissunihockey.ch/api/seasons');
   const seasonData = await data.json();
   const currentSeason = seasonData.entries.filter((element: any, index: any) => {
     return element.highlight === true; // && index === 0; // 2024 / 25
@@ -388,7 +385,7 @@ async function getSeason() {
 } */
 
 async function getSeasons() {
-  const data = await fetch("https://api-v2.swissunihockey.ch/api/seasons");
+  const data = await fetch('https://api-v2.swissunihockey.ch/api/seasons');
   const seasonData = await data.json();
   // console.log(seasonData.entries);
   const seasonList = <any>[];
@@ -410,7 +407,7 @@ async function getRankings(teamId: string, season: string) {
     season = await getSeason() as unknown as string;
     console.log(`No Season parameter provided. Used internal logic and found: ${season}`);
   }
-  const data = await fetch("https://api-v2.swissunihockey.ch/api/rankings?season=" + season + "&team_id=" + teamId);
+  const data = await fetch('https://api-v2.swissunihockey.ch/api/rankings?season=' + season + '&team_id=' + teamId);
   // console.log("https://api-v2.swissunihockey.ch/api/rankings?season=" + season + "&team_id=" + teamId);
   const rankingData = await data.json();
   const rankingList = <any>[];
@@ -429,18 +426,18 @@ async function getRankings(teamId: string, season: string) {
         id: item.data.team.id,
         name: item.data.team.name,
 
-        image: getCellImageUrl(item, headers, ""), // Assuming the headerText for the image column is an empty string
+        image: getCellImageUrl(item, headers, ''), // Assuming the headerText for the image column is an empty string
 
         // image: item.cells[headers.findIndex((head: { text: string; }) => head.text == "")]?.image.url || "",
-        games: getCellText(item, headers, "Sp"), // Spiele
-        gamesSoW: getCellText(item, headers, "SoW"), // Spiele ohne Wertung
-        wins: getCellText(item, headers, "S"), // Siege
-        loss: getCellText(item, headers, "N"), // Niederlagen
-        draw: getCellText(item, headers, "U"), // Unentschieden (returns empty string if header not found)
-        goals: getCellText(item, headers, "T"), // Tore
-        goalDifference: getCellText(item, headers, "TD"), // Tordifferenz
-        pointQuotient: getCellText(item, headers, "PQ"),
-        points: getCellText(item, headers, "P"),
+        games: getCellText(item, headers, 'Sp'), // Spiele
+        gamesSoW: getCellText(item, headers, 'SoW'), // Spiele ohne Wertung
+        wins: getCellText(item, headers, 'S'), // Siege
+        loss: getCellText(item, headers, 'N'), // Niederlagen
+        draw: getCellText(item, headers, 'U'), // Unentschieden (returns empty string if header not found)
+        goals: getCellText(item, headers, 'T'), // Tore
+        goalDifference: getCellText(item, headers, 'TD'), // Tordifferenz
+        pointQuotient: getCellText(item, headers, 'PQ'),
+        points: getCellText(item, headers, 'P'),
         ranking: item.data.rank,
         season: season,
         title: rankingData.data.title,
@@ -454,23 +451,23 @@ async function getRankings(teamId: string, season: string) {
 function getCellText(item: { cells: { [x: string]: { text: any[]; }; }; }, headers: any[], headerText: string) {
   const index = headers.findIndex((head) => head.text == headerText);
   if (index !== -1 && item.cells[index]) {
-    return item.cells[index].text[0] || "";
+    return item.cells[index].text[0] || '';
   } else {
-    return ""; // Fallback to empty string if header not found or cell is undefined
+    return ''; // Fallback to empty string if header not found or cell is undefined
   }
 }
 
 function getCellImageUrl(item: { cells: { [x: string]: { image: { url: any; }; }; }; }, headers: any[], headerText: any) {
   const index = headers.findIndex((head) => head.text == headerText);
   if (index !== -1 && item.cells[index] && item.cells[index].image) {
-    return item.cells[index].image.url || "";
+    return item.cells[index].image.url || '';
   } else {
-    return ""; // Fallback to empty string if header not found or image is undefined
+    return ''; // Fallback to empty string if header not found or image is undefined
   }
 }
 
 async function getStatistics(teamId: string) {
-  const data = await fetch("https://api-v2.swissunihockey.ch/api/teams/" + teamId + "/statistics");
+  const data = await fetch('https://api-v2.swissunihockey.ch/api/teams/' + teamId + '/statistics');
   const statisticsData = await data.json();
 
   const statisticsList = <any>[];
@@ -484,8 +481,8 @@ async function getStatistics(teamId: string) {
 
 async function getNews() {
   const [data662, data663] = await Promise.all([
-    fetch("https://api.newsroom.co/walls?token=xgoo9jkoc2ee&count=8&type=story&tag=!top&tag=!pin&channelId=662"),
-    fetch("https://api.newsroom.co/walls?token=xgoo9jkoc2ee&count=30&channelId=663&tag=top,pin,!top,!pin"),
+    fetch('https://api.newsroom.co/walls?token=xgoo9jkoc2ee&count=8&type=story&tag=!top&tag=!pin&channelId=662'),
+    fetch('https://api.newsroom.co/walls?token=xgoo9jkoc2ee&count=30&channelId=663&tag=top,pin,!top,!pin'),
   ]);
 
   const [newsData662, newsData663] = await Promise.all([
@@ -505,11 +502,11 @@ async function getNews() {
         if (item.media && item.media.length === 0 && !imagePath) {
           imagePath = item.author.image;
         } else if (item.media && item.media.length >= 1) {
-          const mobileImage = item.media.find((image: any) => image.resolution === "mobile");
+          const mobileImage = item.media.find((image: any) => image.resolution === 'mobile');
           imagePath = mobileImage ? mobileImage.url : item.media[0].url;
         }
       } catch (e) {
-        console.log("Image processing error:", item.id, JSON.stringify(item.media));
+        console.log('Image processing error:', item.id, JSON.stringify(item.media));
       }
 
       newsList.push({
