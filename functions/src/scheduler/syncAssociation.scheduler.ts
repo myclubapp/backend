@@ -52,9 +52,9 @@ export async function updatePersistenceJobGames(event: ScheduledEvent) {
 
 export async function updatePersistenceJobNews(event: ScheduledEvent) {
   try {
-    await updateClubNewsFromWordpress();
     await updateNewsSwissunihockey();
     await updateNewsSwissvolley();
+    await updateClubNewsFromWordpress();
     // await updateNewsSwisshandball();
   } catch (err) {
     logger.error(err);
@@ -71,10 +71,11 @@ async function updateClubNewsFromWordpress(): Promise<any> {
 
     if (club.data().wordpress) {
       // logger.info(club.data().wordpress);
-      const url = club.data().wordpress + '/wp-json/wp/v2/posts?per_page=20';
-      const wpData = await fetch(url);
-      const wpNews = await wpData.json();
-      logger.info('News URL: ' + url);
+      try {
+        const url = club.data().wordpress + '/wp-json/wp/v2/posts?per_page=20';
+        const wpData = await fetch(url);
+        const wpNews = await wpData.json();
+        logger.info('News URL: ' + url);
 
       for (const news of wpNews) {
         logger.info(news.link);
@@ -158,45 +159,48 @@ async function updateClubNewsFromWordpress(): Promise<any> {
         const leadResult = `<ion-text>${ionicLead.join("")}</ion-text>`;
         */
 
-        const wpUserData = await fetch(news['_links'].author[0].href);
-        const wpUser = await wpUserData.json();
-        const authorImage = wpUser.avatar_urls[96] || wpUser.avatar_urls[48] || wpUser.avatar_urls[24] || '';
+          const wpUserData = await fetch(news['_links'].author[0].href);
+          const wpUser = await wpUserData.json();
+          const authorImage = wpUser.avatar_urls[96] || wpUser.avatar_urls[48] || wpUser.avatar_urls[24] || '';
 
-        let featuredMedia = '';
-        try {
-          if (news.featured_media > 0) {
-            // Features Media via media fetch available
-            const wpFeaturedMediaData = await fetch(news['_links']['wp:featuredmedia'][0].href);
-            const wpFeaturedMedia = await wpFeaturedMediaData.json();
-            featuredMedia = wpFeaturedMedia.media_details.sizes.medium.source_url || wpFeaturedMedia.source_url || wpFeaturedMedia.guid.rendered;
-          } else {
+          let featuredMedia = '';
+          try {
+            if (news.featured_media > 0) {
+              // Features Media via media fetch available
+              const wpFeaturedMediaData = await fetch(news['_links']['wp:featuredmedia'][0].href);
+              const wpFeaturedMedia = await wpFeaturedMediaData.json();
+              featuredMedia = wpFeaturedMedia.media_details.sizes.medium.source_url || wpFeaturedMedia.source_url || wpFeaturedMedia.guid.rendered;
+            } else {
+              featuredMedia = authorImage || 'https://placehold.co/600x400';
+            }
+          } catch (e) {
+            // logger.info(e);
             featuredMedia = authorImage || 'https://placehold.co/600x400';
           }
-        } catch (e) {
-          // logger.info(e);
-          featuredMedia = authorImage || 'https://placehold.co/600x400';
-        }
 
-        await db.collection('club').doc(`${club.id}`).collection('news').doc(`${club.id}-${news.id}`).set({
-          externalId: `${news['id']}`,
-          title: news['title'].rendered,
-          leadText: news['excerpt'].rendered,
-          clubId: club.id,
-          date: news['date'],
-          slug: news['slug'],
-          image: featuredMedia,
-          text: news['content'].rendered,
-          htmlText: news['content'].rendered || ' ',
-          tags: 'Webseite',
-          author: wpUser.name,
-          authorImage: authorImage,
-          url: news['link'],
-          type: club.type,
-          updated: new Date(),
-        }, {
-          merge: true,
-          ignoreUndefinedProperties: true,
-        });
+          await db.collection('club').doc(`${club.id}`).collection('news').doc(`${club.id}-${news.id}`).set({
+            externalId: `${news['id']}`,
+            title: news['title'].rendered,
+            leadText: news['excerpt'].rendered,
+            clubId: club.id,
+            date: news['date'],
+            slug: news['slug'],
+            image: featuredMedia,
+            text: news['content'].rendered,
+            htmlText: news['content'].rendered || ' ',
+            tags: 'Webseite',
+            author: wpUser.name,
+            authorImage: authorImage,
+            url: news['link'],
+            type: club.type,
+            updated: new Date(),
+          }, {
+            merge: true,
+            ignoreUndefinedProperties: true,
+          });
+        }
+      } catch (e) {
+        console.error(e);
       }
     }
   }
