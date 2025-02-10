@@ -1,8 +1,8 @@
 /* eslint-disable guard-for-in */
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import firebaseDAO from './../../firebaseSingleton';
-import resolversSH from './../../graphql/swisshandball/resolvers';
+import firebaseDAO from './../../firebaseSingleton.js';
+import resolversSH from './../../graphql/swisshandball/resolvers.js';
 import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 // const admin = require("firebase-admin");

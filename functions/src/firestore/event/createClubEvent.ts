@@ -1,8 +1,8 @@
 
 /* eslint-disable max-len */
 
-import firebaseDAO from '../../firebaseSingleton';
-import {sendPushNotificationByUserProfileId} from '../../utils/push';
+import firebaseDAO from '../../firebaseSingleton.js';
+import {sendPushNotificationByUserProfileId} from '../../utils/push.js';
 import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
 import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;

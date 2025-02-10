@@ -3,7 +3,7 @@
 import {ScheduledEvent} from 'firebase-functions/v2/scheduler';
 import {logger} from 'firebase-functions';
 // import * as firebase from "firebase-admin";
-import firebaseDAO from './../firebaseSingleton';
+import firebaseDAO from './../firebaseSingleton.js';
 
 const db = firebaseDAO.instance.db;
 

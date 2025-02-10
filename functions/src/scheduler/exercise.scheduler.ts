@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable max-len */
 
-import firebaseDAO from '../firebaseSingleton';
+import firebaseDAO from '../firebaseSingleton.js';
 const db = firebaseDAO.instance.db;
 import {google} from 'googleapis';
 import * as functions from 'firebase-functions/v1';
-import fs from 'fs';
+import * as fs from 'fs';
 const mobileSportsUnihockey = fs.readFileSync('./src/scheduler/mobilesports_data_unihockey.json', 'utf8');
 import {logger} from 'firebase-functions';
 

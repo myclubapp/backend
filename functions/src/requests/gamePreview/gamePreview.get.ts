@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable max-len */
 import * as functions from 'firebase-functions/v1';
-import firebaseDAO from '../../firebaseSingleton';
+import firebaseDAO from '../../firebaseSingleton.js';
 import {logger} from 'firebase-functions';
 import cors from 'cors';
 

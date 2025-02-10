@@ -2,12 +2,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable max-len */
-// import * as admin from 'firebase-admin';
-import firebaseDAO from '../firebaseSingleton';
-const db = firebaseDAO.instance.db;
 import * as functions from 'firebase-functions/v1';
 import {logger} from 'firebase-functions';
 import {UserRecord} from 'firebase-functions/v1/auth';
+import firebaseDAO from '../firebaseSingleton.js';
+
+const db = firebaseDAO.instance.db;
 const storage = firebaseDAO.instance.storage;
 const admin = firebaseDAO.instance.auth;
 

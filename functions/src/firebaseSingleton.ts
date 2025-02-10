@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import * as functions from 'firebase-functions/v1';
-import * as admin from 'firebase-admin';
+import functions from 'firebase-functions/v2';
+import admin from 'firebase-admin';
 
 // const serviceAccount = require("path/to/serviceAccountKey.json");
 

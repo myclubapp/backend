@@ -1,11 +1,8 @@
-
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import fetch from "node-fetch";
-
-
-import fetch from 'node-fetch';
+// import fetch from 'node-fetch';
 import {logger} from 'firebase-functions';
 export default {
   Query: {
@@ -19,6 +16,7 @@ export default {
 };
 
 async function getNews() {
+  // eslint-disable-next-line no-undef
   const newsData = await fetch('https://swiss.basketball/!/eloquent-entries/entries?locale=de&collection=posts|game-recaps|team-presentations&page=1&category=&tag=&query=',
       {
         // 'credentials': 'include',
@@ -50,6 +48,7 @@ async function getNews() {
 }
 
 async function getClubs() {
+  // eslint-disable-next-line no-undef
   const clubList = await fetch('https://api.swish.nbn23.com/competitions', {
     // 'credentials': 'include',
     'headers': {
@@ -69,7 +68,7 @@ async function getClubs() {
     // 'mode': 'cors',
   });
   logger.info(JSON.stringify(clubList));
-
+  // eslint-disable-next-line no-undef
   const games = await fetch('https://api.swish.nbn23.com/calendar?groupId=62418736eb22311aa46a1a83', {
     // 'credentials': 'include',
     'headers': {
@@ -89,7 +88,7 @@ async function getClubs() {
     // 'mode': 'cors',
   });
   logger.info(JSON.stringify(games));
-
+  // eslint-disable-next-line no-undef
   const standings = await fetch('https://api.swish.nbn23.com/standings?groupId=6154474527ba6c49b0c9ee19', {
     // 'credentials': 'include',
     'headers': {

@@ -4,7 +4,7 @@
 // import fetch from "node-fetch";
 
 
-import fetch from 'node-fetch';
+// import fetch from 'node-fetch';
 import {logger} from 'firebase-functions';
 // const {convert} = require("html-to-text");
 
@@ -130,6 +130,7 @@ async function getTeams(clubId: string, season: string) {
   }
 
   logger.info(`get team by club: https://api-v2.swissunihockey.ch/api/teams?mode=by_club&club_id= + ${clubId} + &season= + ${season}`);
+  // eslint-disable-next-line no-undef
   const data = await fetch('https://api-v2.swissunihockey.ch/api/teams?mode=by_club&club_id=' + clubId + '&season=' + season);
   const teamData = await data.json();
   const teamList = <any>[];
@@ -137,6 +138,7 @@ async function getTeams(clubId: string, season: string) {
   for (const team of teamData.entries) {
     logger.info(`team id: ${team.set_in_context.team_id} ${team.text}`);
 
+    // eslint-disable-next-line no-undef
     const teamDetaoöRequestData = await fetch(`https://api-v2.swissunihockey.ch/api/teams/${team.set_in_context.team_id}`);
     const teamDetailData = await teamDetaoöRequestData.json();
 
@@ -161,6 +163,7 @@ async function getTeams(clubId: string, season: string) {
 }
 
 async function getTeam(teamId: string) {
+  // eslint-disable-next-line no-undef
   const data = await fetch('https://api-v2.swissunihockey.ch/api/teams/' + teamId);
   const teamData = await data.json();
   // logger.info(teamData);
@@ -172,6 +175,7 @@ async function getTeam(teamId: string) {
 }
 
 async function getClubs() {
+  // eslint-disable-next-line no-undef
   const data = await fetch('https://api-v2.swissunihockey.ch/api/clubs');
   const clubData = await data.json();
   const clubList = <any>[];
@@ -249,6 +253,7 @@ async function getClubGames(clubId: string, season: string) {
     season = await getSeason() as unknown as string;
     logger.info(`No Season parameter provided. Used internal logic and found: ${season}`);
   }
+  // eslint-disable-next-line no-undef
   const data = await fetch('https://api-v2.swissunihockey.ch/api/games?mode=club&season=' + season + '&club_id=' + clubId + '&games_per_page=100');
   const gameData = await data.json();
   const gameList = [];
@@ -289,6 +294,7 @@ async function getGames(teamId: string, season: string) {
     season = await getSeason() as unknown as string;
     logger.info(`No Season parameter provided. Used internal logic and found: ${season}`);
   }
+  // eslint-disable-next-line no-undef
   const data = await fetch('https://api-v2.swissunihockey.ch/api/games?mode=team&season=' + season + '&team_id=' + teamId + '&games_per_page=100');
   logger.info('https://api-v2.swissunihockey.ch/api/games?mode=team&season=' + season + '&team_id=' + teamId + '&games_per_page=100');
   const gameData = await data.json();
@@ -334,6 +340,7 @@ async function getGames(teamId: string, season: string) {
 }
 
 async function getGame(gameId: string) {
+  // eslint-disable-next-line no-undef
   const data = await fetch('https://api-v2.swissunihockey.ch/api/games/' + gameId);
   try {
     const gameData = await data.json();
@@ -364,6 +371,7 @@ async function getGame(gameId: string) {
 }
 
 async function getSeason() {
+  // eslint-disable-next-line no-undef
   const data = await fetch('https://api-v2.swissunihockey.ch/api/seasons');
   const seasonData = await data.json();
   const currentSeason = seasonData.entries.filter((element: any, index: any) => {
@@ -386,6 +394,7 @@ async function getSeason() {
 } */
 
 async function getSeasons() {
+  // eslint-disable-next-line no-undef
   const data = await fetch('https://api-v2.swissunihockey.ch/api/seasons');
   const seasonData = await data.json();
   // logger.info(seasonData.entries);
@@ -408,6 +417,7 @@ async function getRankings(teamId: string, season: string) {
     season = await getSeason() as unknown as string;
     logger.info(`No Season parameter provided. Used internal logic and found: ${season}`);
   }
+  // eslint-disable-next-line no-undef
   const data = await fetch('https://api-v2.swissunihockey.ch/api/rankings?season=' + season + '&team_id=' + teamId);
   // logger.info("https://api-v2.swissunihockey.ch/api/rankings?season=" + season + "&team_id=" + teamId);
   const rankingData = await data.json();
@@ -468,6 +478,7 @@ function getCellImageUrl(item: { cells: { [x: string]: { image: { url: any; }; }
 }
 
 async function getStatistics(teamId: string) {
+  // eslint-disable-next-line no-undef
   const data = await fetch('https://api-v2.swissunihockey.ch/api/teams/' + teamId + '/statistics');
   const statisticsData = await data.json();
 
@@ -482,7 +493,9 @@ async function getStatistics(teamId: string) {
 
 async function getNews() {
   const [data662, data663] = await Promise.all([
+    // eslint-disable-next-line no-undef
     fetch('https://api.newsroom.co/walls?token=xgoo9jkoc2ee&count=8&type=story&tag=!top&tag=!pin&channelId=662'),
+    // eslint-disable-next-line no-undef
     fetch('https://api.newsroom.co/walls?token=xgoo9jkoc2ee&count=30&channelId=663&tag=top,pin,!top,!pin'),
   ]);
 

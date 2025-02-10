@@ -3,23 +3,23 @@ import cors from 'cors';
 import {graphqlHTTP} from 'express-graphql';
 import {makeExecutableSchema} from '@graphql-tools/schema';
 
-import typeDefsSU from './swissunihockey/typeDefs';
-import resolversSU from './swissunihockey/resolvers';
+import typeDefsSU from './swissunihockey/typeDefs.js';
+import resolversSU from './swissunihockey/resolvers.js';
 
-import typeDefsSV from './swissvolley/typeDefs';
-import resolversSV from './swissvolley/resolvers';
+import typeDefsSV from './swissvolley/typeDefs.js';
+import resolversSV from './swissvolley/resolvers.js';
 
-import typeDefsSH from './swisshandball/typeDefs';
-import resolversSH from './swisshandball/resolvers';
+import typeDefsSH from './swisshandball/typeDefs.js';
+import resolversSH from './swisshandball/resolvers.js';
 
-import typeDefsSB from './swissbasketball/typeDefs';
-import resolversSB from './swissbasketball/resolvers';
+import typeDefsSB from './swissbasketball/typeDefs.js';
+import resolversSB from './swissbasketball/resolvers.js';
 
-import typeDefsST from './swissturnverband/typeDefs';
-import resolversST from './swissturnverband/resolvers';
+import typeDefsST from './swissturnverband/typeDefs.js';
+import resolversST from './swissturnverband/resolvers.js';
 
-import typeDefsSE from './swisstennis/typeDefs';
-import resolversSE from './swisstennis/resolvers';
+import typeDefsSE from './swisstennis/typeDefs.js';
+import resolversSE from './swisstennis/resolvers.js';
 
 const app = express();
 app.use(cors());
@@ -43,5 +43,4 @@ sportsConfigs.forEach(({path, typeDefs, resolvers}) => {
   }));
 });
 
-// eslint-disable-next-line no-undef
-module.exports = app;
+export default app;

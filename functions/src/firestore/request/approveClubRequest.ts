@@ -1,7 +1,7 @@
 
 /* eslint-disable max-len */
 import {logger} from 'firebase-functions';
-import firebaseDAO from '../../firebaseSingleton';
+import firebaseDAO from '../../firebaseSingleton.js';
 import {FirestoreEvent, QueryDocumentSnapshot, Change} from 'firebase-functions/v2/firestore';
 
 const db = firebaseDAO.instance.db;

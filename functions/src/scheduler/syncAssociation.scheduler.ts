@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-len */
 
-import {updateTeamsSwissunihockey, updateClubsSwissunihockey, updateGamesSwissunihockey, updateNewsSwissunihockey} from './utils/update.swissunihockey';
-import {updateTeamsSwissvolleyball, updateClubsSwissvolleyball, updateNewsSwissvolley, updateGamesSwissvolley} from './utils/update.swissvolleyball';
-import {updateTeamsSwisshandball, updateClubsSwisshandball, updateGamesSwisshandball} from './utils/update.swisshandball';
-import {updateClubsSwissturnverband, updateTeamsSwissturnverband} from './utils/update.swissturnverband';
+import {updateTeamsSwissunihockey, updateClubsSwissunihockey, updateGamesSwissunihockey, updateNewsSwissunihockey} from './utils/update.swissunihockey.js';
+import {updateTeamsSwissvolleyball, updateClubsSwissvolleyball, updateNewsSwissvolley, updateGamesSwissvolley} from './utils/update.swissvolleyball.js';
+import {updateTeamsSwisshandball, updateClubsSwisshandball, updateGamesSwisshandball} from './utils/update.swisshandball.js';
+import {updateClubsSwissturnverband, updateTeamsSwissturnverband} from './utils/update.swissturnverband.js';
 // import {updateTeamsSwissturnverband, updateClubsSwissturnverband} from "./utils/update.swissturnverband";
 // import {updateClubsSwissvolleyball} from "./utils/update.swissvolleyball";
 // import {updateClubsSwisstennis} from "./utils/update.swisstennis";
 
-import firebaseDAO from './../firebaseSingleton';
+import firebaseDAO from './../firebaseSingleton.js';
 const db = firebaseDAO.instance.db;
-import fetch from 'node-fetch';
+// import fetch from 'node-fetch';
 import {ScheduledEvent} from 'firebase-functions/v2/scheduler';
 import {logger} from 'firebase-functions';
 // const jsdom = require("jsdom");
@@ -73,6 +73,7 @@ async function updateClubNewsFromWordpress(): Promise<any> {
       // logger.info(club.data().wordpress);
       try {
         const url = club.data().wordpress + '/wp-json/wp/v2/posts?per_page=20';
+        // eslint-disable-next-line no-undef
         const wpData = await fetch(url);
         const wpNews = await wpData.json();
         logger.info('News URL: ' + url);
@@ -159,6 +160,7 @@ async function updateClubNewsFromWordpress(): Promise<any> {
         const leadResult = `<ion-text>${ionicLead.join("")}</ion-text>`;
         */
 
+          // eslint-disable-next-line no-undef
           const wpUserData = await fetch(news['_links'].author[0].href);
           const wpUser = await wpUserData.json();
           const authorImage = wpUser.avatar_urls[96] || wpUser.avatar_urls[48] || wpUser.avatar_urls[24] || '';
@@ -167,6 +169,7 @@ async function updateClubNewsFromWordpress(): Promise<any> {
           try {
             if (news.featured_media > 0) {
               // Features Media via media fetch available
+              // eslint-disable-next-line no-undef
               const wpFeaturedMediaData = await fetch(news['_links']['wp:featuredmedia'][0].href);
               const wpFeaturedMedia = await wpFeaturedMediaData.json();
               featuredMedia = wpFeaturedMedia.media_details.sizes.medium.source_url || wpFeaturedMedia.source_url || wpFeaturedMedia.guid.rendered;

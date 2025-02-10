@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 
-import firebaseDAO from './../firebaseSingleton';
+import firebaseDAO from './../firebaseSingleton.js';
 const dbUA = firebaseDAO.instance.dbUA;
 const db = firebaseDAO.instance.db;
 import {logger} from 'firebase-functions';

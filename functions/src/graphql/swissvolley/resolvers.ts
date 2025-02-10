@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import fetch from "node-fetch";
 
-import fetch from 'node-fetch';
+// import fetch from 'node-fetch';
 import {logger} from 'firebase-functions';
 // const {convert} = require("html-to-text");
 import * as functions from 'firebase-functions/v1';
@@ -80,7 +80,8 @@ async function getAssociations() {
 }
 
 async function getTeam(teamId: string) {
-// https://api.volleyball.ch/indoor/teams/2404
+  // https://api.volleyball.ch/indoor/teams/2404
+  // eslint-disable-next-line no-undef
   const data = await fetch('https://api.volleyball.ch/indoor/teams/' + teamId, {
     headers: {
       'Accept': 'application/json',
@@ -107,6 +108,7 @@ async function getTeam(teamId: string) {
 async function getTeams(clubId: string) {
   try {
     logger.info('>> https://api.volleyball.ch/indoor/teams?clubId=' + clubId);
+    // eslint-disable-next-line no-undef
     const data = await fetch('https://api.volleyball.ch/indoor/teams?clubId=' + clubId, {
       method: 'GET',
       // redirect: "follow",
@@ -155,6 +157,7 @@ function getClub(clubId: string) {
 
 async function getClubs() {
   try {
+    // eslint-disable-next-line no-undef
     const data = await fetch('https://api.volleyball.ch/indoor/clubs', {
       headers: {
         'Accept': 'application/json',
@@ -196,6 +199,7 @@ async function getClubs() {
 async function getGames(teamId: string) {
   const gameList = < any > [];
 
+  // eslint-disable-next-line no-undef
   const data = await fetch('https://api.volleyball.ch/indoor/games?region=SVRNO&teamId=' + teamId + '&includeCup=1', {
     headers: {
       'Accept': 'application/json',
@@ -221,6 +225,7 @@ async function getGame(gameId: string) {
 async function getRankings(groupId: string) {
   // https://api.volleyball.ch/indoor/ranking/24319
 
+  // eslint-disable-next-line no-undef
   const data = await fetch('https://api.volleyball.ch/indoor/ranking/' + groupId, {
     headers: {
       'Accept': 'application/json',
@@ -248,6 +253,7 @@ async function getRankings(groupId: string) {
 // Top story https://api.newsroom.co/walls?token=1pdtktbc3ra5i&tag=top&channelId=484&count=9
 
 async function getNews() {
+  // eslint-disable-next-line no-undef
   const data = await fetch('https://api.newsroom.co/walls?token=1pdtktbc3ra5i&count=20&tag=top,pin,!top,!pin&channelId=484');
   const newsData = await data.json();
   const newsList = <any>[];

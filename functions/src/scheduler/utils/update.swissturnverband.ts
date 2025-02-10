@@ -1,12 +1,13 @@
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import firebaseDAO from './../../firebaseSingleton';
+import firebaseDAO from './../../firebaseSingleton.js';
 import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 
 // const {FieldValue} = require("firebase-admin/firestore");
-import resolversST from './../../graphql/swissturnverband/resolvers';
-import admin from 'firebase-admin';
+import resolversST from './../../graphql/swissturnverband/resolvers.js';
+// import admin from 'firebase-admin';
+const admin = firebaseDAO.instance.auth;
 const MAX_WRITES_PER_BATCH = 500;
 
 export async function updateTeamsSwissturnverband(): Promise<any> {

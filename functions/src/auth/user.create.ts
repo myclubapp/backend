@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable max-len */
 // import * as admin from 'firebase-admin';
-import firebaseDAO from './../firebaseSingleton';
+import firebaseDAO from '../firebaseSingleton.js';
 import {AuthBlockingEvent} from 'firebase-functions/v2/identity';
 import {logger} from 'firebase-functions';
 // import {UserRecord} from 'firebase-functions/v1/auth';
@@ -22,7 +22,7 @@ const admin = firebaseDAO.instance.auth;
   });
 } */
 
-export async function authUserCreateSendWelcomeEmail(event?: AuthBlockingEvent): Promise<any> {
+export async function authUserCreateSendWelcomeEmail(event: AuthBlockingEvent): Promise<any> {
   if (!event?.data) {
     throw new Error('No user data provided');
   }

@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import fetch from "node-fetch";
 
-import fetch from 'node-fetch';
+// import * as fetch from 'node-fetch';
 import {logger} from 'firebase-functions';
 export default {
   SwissTennis: {
@@ -16,6 +16,7 @@ export default {
 };
 
 async function getNews() {
+  // eslint-disable-next-line no-undef
   const newsData = await fetch('https://swiss.basketball/!/eloquent-entries/entries?locale=de&collection=posts|game-recaps|team-presentations&page=1&category=&tag=&query=',
       {
         // 'credentials': 'include',
@@ -47,6 +48,7 @@ async function getNews() {
 }
 
 async function getClubs() {
+  // eslint-disable-next-line no-undef
   const clubList = await fetch('https://comp.swisstennis.ch/ic/servlet/ClubList?servletToCall=..%2Fservlet%2FEntryPage&FirstLetter=B&outputFormat=JSON', {
     'method': 'GET',
   });

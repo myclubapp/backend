@@ -1,10 +1,10 @@
 /* eslint-disable max-len */
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import firebaseDAO from './../../firebaseSingleton';
+import firebaseDAO from './../../firebaseSingleton.js';
 const db = firebaseDAO.instance.db;
 import {logger} from 'firebase-functions';
-import resolversSV from './../../graphql/swissvolley/resolvers';
+import resolversSV from './../../graphql/swissvolley/resolvers.js';
 
 export async function updateGamesSwissvolley(): Promise<any> {
   logger.info('Update Games swissvolley');

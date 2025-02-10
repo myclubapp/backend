@@ -4,10 +4,10 @@
 
 import * as firebase from 'firebase-admin';
 import {logger} from 'firebase-functions';
-import firebaseDAO from './../../firebaseSingleton';
-import resolversSU from './../../graphql/swissunihockey/resolvers';
+import firebaseDAO from './../../firebaseSingleton.js';
+import resolversSU from './../../graphql/swissunihockey/resolvers.js';
 // import OpenAI from "openai";
-import fs from 'fs';
+import * as fs from 'fs';
 
 const db = firebaseDAO.instance.db;
 

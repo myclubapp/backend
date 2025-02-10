@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-len */
 import {logger} from 'firebase-functions';
-import firebaseDAO from './../firebaseSingleton';
+import firebaseDAO from './../firebaseSingleton.js';
 import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
 const db = firebaseDAO.instance.db;
 // const auth = firebaseDAO.instance.auth;

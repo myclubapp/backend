@@ -1,50 +1,49 @@
 /* eslint-disable max-len */
-import {authUserCreateSendWelcomeEmail} from './auth/user.create';
-import {authUserDeleteUserSendByEmail, authUserDeleteUserAccount} from './auth/user.delete';
+import {authUserDeleteUserSendByEmail, authUserDeleteUserAccount} from './auth/user.delete.js';
+import {authUserCreateSendWelcomeEmail} from './auth/user.create.js';
 
-import {createClubAdmin, createTeamAdmin} from './firestore/createAdmin';
-import {createClubMember, createTeamMember} from './firestore/createMember';
-import {deleteClubAdmin, deleteTeamAdmin} from './firestore/deleteAdmin';
-import {deleteClubMember, deleteTeamMember} from './firestore/deleteMember';
+import {createClubAdmin, createTeamAdmin} from './firestore/createAdmin.js';
+import {createClubMember, createTeamMember} from './firestore/createMember.js';
+import {deleteClubAdmin, deleteTeamAdmin} from './firestore/deleteAdmin.js';
+import {deleteClubMember, deleteTeamMember} from './firestore/deleteMember.js';
 
-import {createClubRequest} from './firestore/request/createClubRequest';
-import {createTeamRequest} from './firestore/request/createTeamRequest';
-import {deleteClubRequest} from './firestore/request/deleteClubRequest';
-import {deleteTeamRequest} from './firestore/request/deleteTeamRequest';
-import {approveClubRequest} from './firestore/request/approveClubRequest';
-import {approveTeamRequest} from './firestore/request/approveTeamRequest';
+import {createClubRequest} from './firestore/request/createClubRequest.js';
+import {createTeamRequest} from './firestore/request/createTeamRequest.js';
+import {deleteClubRequest} from './firestore/request/deleteClubRequest.js';
+import {deleteTeamRequest} from './firestore/request/deleteTeamRequest.js';
+import {approveClubRequest} from './firestore/request/approveClubRequest.js';
+import {approveTeamRequest} from './firestore/request/approveTeamRequest.js';
 
-import {createNotificationTeamTraining, createTeamTraining} from './firestore/training/createTeamTraining';
+import {createNotificationTeamTraining, createTeamTraining} from './firestore/training/createTeamTraining.js';
 
 // import {createNotificationTeamEvent} from "./firestore/event/createTeamEvent";
-import {createHelferEvent, createNotificationHelferEvent} from './firestore/event/createHelferEvent';
-import {createClubEvent, createNotificationClubEvent} from './firestore/event/createClubEvent';
+import {createHelferEvent, createNotificationHelferEvent} from './firestore/event/createHelferEvent.js';
+import {createClubEvent, createNotificationClubEvent} from './firestore/event/createClubEvent.js';
 
-import {updatePersistenceJobClubs, updatePersistenceJobTeams, updatePersistenceJobGames, updatePersistenceJobNews} from './scheduler/syncAssociation.scheduler';
-import {syncUnihockeyApp} from './scheduler/syncUnihockeyApp';
+import {updatePersistenceJobClubs, updatePersistenceJobTeams, updatePersistenceJobGames, updatePersistenceJobNews} from './scheduler/syncAssociation.scheduler.js';
+import {syncUnihockeyApp} from './scheduler/syncUnihockeyApp.js';
 
-import {sendReportingJobMember} from './reporting/member.scheduler';
+import {sendReportingJobMember} from './reporting/member.scheduler.js';
 
-import {createNotificationClubNews} from './firestore/news/createClubNews';
-import {createNotificationTeamNews} from './firestore/news/createTeamNews';
-import {createNotificationNews} from './firestore/news/createNews';
-import {exercisesScheduler} from './scheduler/exercise.scheduler';
-import {confirmHelferEvent} from './firestore/event/confirmHelferEvent';
-import {getGamePreview} from './requests/gamePreview/gamePreview.get';
-import {leaveClubAsMember, leaveTeamAsMember} from './firestore/userProfile/leaveAsMember';
-import {addClubTeam} from './firestore/club/createClubTeam';
-import {createCheckoutSession, updateCheckoutSession, updateInvoice, updatePayments, updateSubscription} from './firestore/club/stripeCheckout';
-import {deleteTeamTraining} from './firestore/training/deleteTeamTraining';
-import {deleteClubEvent} from './firestore/event/deleteClubEvent';
-import {deleteHelferEvent} from './firestore/event/deleteHelferEvent';
-import {deleteTeamGame} from './firestore/game/deleteTeamGame';
-import {deleteHelferPunkt} from './firestore/event/deleteHelferPunkt';
-import {deleteTeam} from './firestore/team/deleteTeam';
+import {createNotificationClubNews} from './firestore/news/createClubNews.js';
+import {createNotificationTeamNews} from './firestore/news/createTeamNews.js';
+import {createNotificationNews} from './firestore/news/createNews.js';
+import {exercisesScheduler} from './scheduler/exercise.scheduler.js';
+import {confirmHelferEvent} from './firestore/event/confirmHelferEvent.js';
+import {getGamePreview} from './requests/gamePreview/gamePreview.get.js';
+import {leaveClubAsMember, leaveTeamAsMember} from './firestore/userProfile/leaveAsMember.js';
+import {addClubTeam} from './firestore/club/createClubTeam.js';
+import {createCheckoutSession, updateCheckoutSession, updateInvoice, updatePayments, updateSubscription} from './firestore/club/stripeCheckout.js';
+import {deleteTeamTraining} from './firestore/training/deleteTeamTraining.js';
+import {deleteClubEvent} from './firestore/event/deleteClubEvent.js';
+import {deleteHelferEvent} from './firestore/event/deleteHelferEvent.js';
+import {deleteTeamGame} from './firestore/game/deleteTeamGame.js';
+import {deleteHelferPunkt} from './firestore/event/deleteHelferPunkt.js';
+import {deleteTeam} from './firestore/team/deleteTeam.js';
 
 import * as functions from 'firebase-functions/v1';
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports, no-undef
-const graphql = require('./graphql/server');
+import graphqlServer from './graphql/server.js';
 
 import {onDocumentUpdated, onDocumentDeleted, onDocumentCreated} from 'firebase-functions/v2/firestore';
 
@@ -98,7 +97,7 @@ export const api = onRequest({
   region: 'europe-west6',
   timeoutSeconds: 300,
   memory: '1GiB',
-}, graphql);
+}, graphqlServer);
 
 // JOBS -> Updated to 2nd gen
 export const jobUpdatePersistenceClubs = onSchedule({
@@ -404,7 +403,10 @@ export const dbDeleteHelferEvent = onDocumentDeleted({
 
 
 // TOTOMAT
-// export const totomat = functions.region("europe-west6").https.onRequest(graphql);
+export const totomat = onRequest({
+  region: 'europe-west6',
+  memory: '1GiB',
+}, graphqlServer);
 
 // Game Preview -> Updated to 2nd gen
 export const gamePreview = onRequest({

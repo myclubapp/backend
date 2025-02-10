@@ -1,13 +1,13 @@
 
 /* eslint-disable max-len */
-import * as functions from 'firebase-functions/v1';
-import firebaseDAO from '../firebaseSingleton';
-import * as webpush from 'web-push';
-import {Messaging} from 'firebase-admin/lib/messaging/messaging';
-import {DataMessagePayload, Message} from 'firebase-admin/lib/messaging/messaging-api';
-import {logger} from 'firebase-functions';
+import functions from 'firebase-functions/v2';
+import firebaseDAO from '../firebaseSingleton.js';
+import webpush from 'web-push';
+
+import {logger} from 'firebase-functions/v2';
+
 const db = firebaseDAO.instance.db;
-const messaging: Messaging = firebaseDAO.instance.messaging;
+const messaging = firebaseDAO.instance.messaging;
 
 const gcmAPIKey = functions.config().webpush.gcmapikey;
 const publicKey = functions.config().webpush.publickey;
@@ -65,14 +65,14 @@ export async function sendPushNotificationByUserProfileId(userProfileId: string,
               ...data,
             },
           });*/
-          const nativePush = messaging.send(<Message>{
+          const nativePush = messaging.send({
             token: pushData.token,
-            notification: <Notification>{
+            notification: {
               title: title,
               body: message,
               // imageUrl: "",
             },
-            data: <DataMessagePayload>{
+            data: {
               ...data,
             },
             apns: {

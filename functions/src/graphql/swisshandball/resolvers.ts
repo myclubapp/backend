@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import fetch from "node-fetch";
 
-import fetch from 'node-fetch';
+// import * as fetch from 'node-fetch';
 import {logger} from 'firebase-functions';
 // const {convert} = require("html-to-text");
 
@@ -79,6 +79,7 @@ async function getTeams(clubId: string) {
   const teamList = <any>[];
   if (functions.config().swisshandball['sh-' + clubId] && functions.config().swisshandball['sh-' + clubId].token) {
     const token = functions.config().swisshandball['sh-' + clubId].token;
+    // eslint-disable-next-line no-undef
     const data = await fetch('https://clubapi.handball.ch/rest/v1/clubs/' + clubId + '/teams', {
       headers: {'Authorization': 'Basic ' + token},
     });
@@ -113,6 +114,7 @@ async function getTeams(clubId: string) {
 async function getTeam(teamId: string, clubId: string) {
   if (functions.config().swisshandball['sh-' + clubId] && functions.config().swisshandball['sh-' + clubId].token) {
     const token = functions.config().swisshandball['sh-' + clubId].token;
+    // eslint-disable-next-line no-undef
     const data = await fetch('https://clubapi.handball.ch/rest/v1/teams/' + teamId, {
       headers: {'Authorization': 'Basic ' + token},
     });
@@ -157,6 +159,7 @@ async function getClubs() {
 async function getClub(clubId: string) {
   if (functions.config().swisshandball['sh-' + clubId] && functions.config().swisshandball['sh-' + clubId].token) {
     const token = functions.config().swisshandball['sh-' + clubId].token;
+    // eslint-disable-next-line no-undef
     const data = await fetch('https://clubapi.handball.ch/rest/v1/clubs/' + clubId, {
       headers: {'Authorization': 'Basic ' + token},
     });
@@ -184,6 +187,7 @@ async function getClubGames(clubId: string) {
   const gameList = <any>[];
   if (functions.config().swisshandball['sh-' + clubId] && functions.config().swisshandball['sh-' + clubId].token) {
     const token = functions.config().swisshandball['sh-' + clubId].token;
+    // eslint-disable-next-line no-undef
     const data = await fetch('https://clubapi.handball.ch/rest/v1/clubs/' + clubId + '/games', {
       headers: {'Authorization': 'Basic ' + token},
     });
@@ -250,6 +254,7 @@ async function getGames(teamId: string, clubId: string) {
   const gameList = <any>[];
   if (functions.config().swisshandball['sh-' + clubId] && functions.config().swisshandball['sh-' + clubId].token) {
     const token = functions.config().swisshandball['sh-' + clubId].token;
+    // eslint-disable-next-line no-undef
     const data = await fetch('https://clubapi.handball.ch/rest/v1/teams/' + teamId + '/games', {
       headers: {'Authorization': 'Basic ' + token},
     });
@@ -316,6 +321,7 @@ async function getRankings(teamId: string, clubId: string) {
   const rankingList = <any>[];
   if (functions.config().swisshandball['sh-' + clubId] && functions.config().swisshandball['sh-' + clubId].token) {
     const token = functions.config().swisshandball['sh-' + clubId].token;
+    // eslint-disable-next-line no-undef
     const data = await fetch('https://clubapi.handball.ch/rest/v1/teams/' + teamId + '/group', {
       headers: {'Authorization': 'Basic ' + token},
     });
