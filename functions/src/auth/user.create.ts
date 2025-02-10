@@ -7,7 +7,7 @@ import {logger} from 'firebase-functions';
 // import {UserRecord} from 'firebase-functions/v1/auth';
 
 const db = firebaseDAO.instance.db;
-const admin = firebaseDAO.instance.auth;
+const auth = firebaseDAO.instance.auth;
 
 /* export function authUserCreate(user: admin.auth.UserRecord, context: EventContext) {
   db.collection("userProfile").doc(`${user.uid}`).set({
@@ -28,14 +28,14 @@ export async function authUserCreateSendWelcomeEmail(event: AuthBlockingEvent): 
   }
   const user = event.data;
   logger.info('>>> NEW USER with ID: ' + user.uid + ' SEND WELCOME E-MAIL to VALIDATE E-MAIL');
-  const link = await admin.auth().generateEmailVerificationLink(user.email as string);
+  const link = await auth.generateEmailVerificationLink(user.email as string);
 
   const userProfile: any = await db.collection('userProfile').doc(`${user.uid}`).get();
   if (!userProfile.exists) {
     logger.error('no user data found');
   }
 
-  await admin.auth().updateUser(user.uid, {
+  await auth.updateUser(user.uid, {
     displayName: userProfile.data()?.firstName + ' ' + userProfile.data()?.lastName,
   });
 
