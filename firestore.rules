@@ -56,6 +56,22 @@ service cloud.firestore {
         match /push/{deviceId=**} {
           allow read, delete, create: if isSignedIn() && request.auth.uid == userId;
         }   
+                // Notifications
+        match /notification/{notificationId=**} {
+          allow read, write, delete, create: if isSignedIn() && request.auth.uid == userId;
+        }   
+        
+        //STRIPE within Customer = CLUB AND NOT! UserProfile
+        match /checkout_sessions/{id} {
+          allow read, write: if isSignedIn();
+    
+          match /subscriptions/{id} {
+            allow read: if isSignedIn();
+          }
+          match /payments/{id} {
+            allow read: if isSignedIn();
+          }
+        }     
 
         // Read and Create own Requests 
         match /clubRequests/{requestId=**} {
@@ -145,6 +161,7 @@ service cloud.firestore {
       match /club/{clubId} {
 				// Needed to Join Clubs
 				allow read: if isSignedIn(); // && exists(/databases/$(database)/documents/userProfile/$(request.auth.uid)/clubs/$(clubId));
+				allow write: if isSignedIn() && isClubAdmin(request, clubId);
 
         //GAMES
         match /games/{gamesId=**} {
@@ -157,7 +174,7 @@ service cloud.firestore {
         //EVENTS
         match /events/{eventId} {
           allow read: if isSignedIn() && isClubMember(request, clubId);
-          allow delete: if isSignedIn() && isClubAdmin(request, clubId);
+          allow update, delete: if isSignedIn() && isClubAdmin(request, clubId);
 
           match /attendees/{memberId=**} {
             allow read: if isSignedIn() && isClubMember(request, clubId);
@@ -173,10 +190,15 @@ service cloud.firestore {
             && isClubMember(request, clubId);
         	}  
         } 
+        //HELFERPUNKT
+        match /helferPunkte/{helferPunkt=**} {
+          allow read: if isSignedIn() && isClubMember(request, clubId);
+          allow write, delete: if isSignedIn() && isClubAdmin(request, clubId);
+        }     
         // HELFEREVENTS
         match /helferEvents/{eventId} {
           allow read: if isSignedIn() && isClubMember(request, clubId);
-          allow delete: if isSignedIn() && isClubAdmin(request, clubId)
+          allow update, delete: if isSignedIn() && isClubAdmin(request, clubId)
           
           match /attendees/{memberId=**} {
             allow read: if isSignedIn() && isClubMember(request, clubId);
@@ -194,7 +216,8 @@ service cloud.firestore {
           
         	match /schichten/{schichtId} {
             allow read: if isSignedIn() && isClubMember(request, clubId);
-            
+            allow write: if isSignedIn() && isClubAdmin(request, clubId);
+     
             match /attendees/{memberId=**} {
               allow read: if isSignedIn() && isClubMember(request, clubId);
             }  
@@ -235,35 +258,61 @@ service cloud.firestore {
           allow read: if isSignedIn() && isClubMember(request, clubId)
           allow write: if isSignedIn() && isClubAdmin(request, clubId);
       	} 
+         //STRIPE within Customer = CLUB AND NOT! UserProfile
+        match /checkout_sessions/{id} {
+          allow read, write: if isSignedIn() && isClubAdmin(request, clubId);
+     		}
+        match /subscriptions/{id} {
+          allow read: if isSignedIn() && isClubAdmin(request, clubId);
+          match /invoices/{id} {
+          	allow read: if isSignedIn() && isClubAdmin(request, clubId);
+        	}
+        }
+        match /payments/{id} {
+          allow read: if isSignedIn() && isClubAdmin(request, clubId);
+        }          
+      }
+// ************************************************      
+      //STRIPE
+// ************************************************
+    match /stripeProducts/{id} {
+      allow read: if true;
+        match /prices/{id} {
+          allow read: if true;
+        }
+        match /tax_rates/{id} {
+          allow read: if true;
+        }
       }
 // ************************************************      
       //TEAM
 // ************************************************      
       match /teams/{teamId} {
-        allow read: if isSignedIn() 
+        allow read: if isSignedIn()
         && (isTeamMember(request, teamId) || isClubMember(request, resource.data.clubId));
-
+				allow write: if isSignedIn() && isTeamAdmin(request, teamId);
+        allow delete: if isSignedIn() && (isTeamAdmin(request, teamId) || isClubAdmin(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId) );
     
 				//TEAM EXERCISES
         match /exercises/{exerciseId} {
-          allow read, write: if isSignedIn() && isTeamAdmin(request, teamId);
+          allow read, write: if isSignedIn() && ( isTeamAdmin(request, teamId) || isClubAdmin(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId) );
         } 				        
               
         //TRAINING
         match /trainings/{trainingId} {
-          allow read: if isSignedIn() && isTeamMember(request, teamId);
-          allow delete: if isSignedIn() && isTeamMember(request, teamId);
-          
+          allow read: if isSignedIn() && ( isTeamMember(request, teamId) || isTeamAdmin(request, teamId) || isClubAdmin(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId) );
+          allow delete: if isSignedIn() && isTeamAdmin(request, teamId);
+         
 					//ATTENDEEES
           match /attendees/{memberId=**} {
-            allow read: if isSignedIn() && isTeamMember(request, teamId);
+            allow read: if isSignedIn() && ( isTeamMember(request, teamId) || isTeamAdmin(request, teamId) || isClubAdmin(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId) );
         	}     
           match /attendees/{memberId} { // Eigener Status ändern
             allow read, write: if isSignedIn()
             && memberId == request.auth.uid
             && isTeamMember(request, teamId);
           }    
-          match /attendees/{memberId} { // Club Admin dürfen Status ändern
+           match /attendees/{memberId} { // Team Admin dürfen Status ändern
             allow read, write: if isSignedIn()
             && isTeamAdmin(request, teamId)
             && isTeamMember(request, teamId);
@@ -279,18 +328,19 @@ service cloud.firestore {
         }     
         //TEAM GAMES
         match /games/{gamesId} {
-          allow read: if isSignedIn() && isTeamMember(request, teamId);
+          allow read: if isSignedIn() && ( isTeamMember(request, teamId) || isTeamAdmin(request, teamId) || isClubAdmin(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId) );
+          allow delete: if isSignedIn() && isTeamAdmin(request, teamId);
           
           //ATTENDEEES
           match /attendees/{memberId=**} {
-            allow read: if isSignedIn() && isTeamMember(request, teamId);
-        	}     
+            allow read: if isSignedIn() && ( isTeamMember(request, teamId) || isTeamAdmin(request, teamId) || isClubAdmin(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId) );
+        	}      
           match /attendees/{memberId} { // Eigener Status ändern
             allow read, write: if isSignedIn()
             && memberId == request.auth.uid
             && isTeamMember(request, teamId);
           }    
-          match /attendees/{memberId} { // Club Admin dürfen Status ändern
+          match /attendees/{memberId} { // Team Admin dürfen Status ändern
             allow read, write: if isSignedIn()
             && isTeamAdmin(request, teamId)
             && isTeamMember(request, teamId);

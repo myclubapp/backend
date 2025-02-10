@@ -35,7 +35,6 @@ function initializeWebPush() {
   );
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function sendPushNotificationByUserProfileId(userProfileId: string, title: string, message: string, data: any) {
   try {
     // Initialisiere WebPush bei der ersten Verwendung

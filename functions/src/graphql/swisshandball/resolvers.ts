@@ -17,8 +17,8 @@ import {defineSecret} from 'firebase-functions/params';
 import {onInit} from 'firebase-functions/v2/core';
 import {SecretParam} from 'firebase-functions/lib/params/types.js';
 
-let swisshandballToken: SecretParam | undefined;
 
+let swisshandballToken: SecretParam | undefined;
 onInit(() => {
   swisshandballToken = defineSecret('SWISSHANDBALL_TOKEN');
 });
@@ -88,8 +88,6 @@ export default {
 async function getTeams(clubId: string) {
   const teamList = <any>[];
   if (functions.config().swisshandball['sh-' + clubId] && functions.config().swisshandball['sh-' + clubId].token) {
-    let swisshandballToken: any = '';
-
     onInit(() => {
       swisshandballToken = defineSecret('SWISSHANDBALL_SH_' + clubId + '_TOKEN');
     });
@@ -128,8 +126,6 @@ async function getTeams(clubId: string) {
 
 async function getTeam(teamId: string, clubId: string) {
   if (functions.config().swisshandball['sh-' + clubId] && functions.config().swisshandball['sh-' + clubId].token) {
-    let swisshandballToken: any = '';
-
     onInit(() => {
       swisshandballToken = defineSecret('SWISSHANDBALL_SH_' + clubId + '_TOKEN');
     });
@@ -177,8 +173,6 @@ async function getClubs() {
 
 async function getClub(clubId: string) {
   if (functions.config().swisshandball['sh-' + clubId] && functions.config().swisshandball['sh-' + clubId].token) {
-    let swisshandballToken: any = '';
-
     onInit(() => {
       swisshandballToken = defineSecret('SWISSHANDBALL_SH_' + clubId + '_TOKEN');
     });
@@ -209,8 +203,6 @@ async function getClub(clubId: string) {
 async function getClubGames(clubId: string) {
   const gameList = <any>[];
   if (functions.config().swisshandball['sh-' + clubId] && functions.config().swisshandball['sh-' + clubId].token) {
-    let swisshandballToken: any = '';
-
     onInit(() => {
       swisshandballToken = defineSecret('SWISSHANDBALL_SH_' + clubId + '_TOKEN');
     });
@@ -280,8 +272,6 @@ async function getClubGames(clubId: string) {
 async function getGames(teamId: string, clubId: string) {
   const gameList = <any>[];
   if (functions.config().swisshandball['sh-' + clubId] && functions.config().swisshandball['sh-' + clubId].token) {
-    let swisshandballToken: any = '';
-
     onInit(() => {
       swisshandballToken = defineSecret('SWISSHANDBALL_SH_' + clubId + '_TOKEN');
     });
@@ -351,8 +341,6 @@ async function getGames(teamId: string, clubId: string) {
 async function getRankings(teamId: string, clubId: string) {
   const rankingList = <any>[];
   if (functions.config().swisshandball['sh-' + clubId] && functions.config().swisshandball['sh-' + clubId].token) {
-    let swisshandballToken: any = '';
-
     onInit(() => {
       swisshandballToken = defineSecret('SWISSHANDBALL_SH_' + clubId + '_TOKEN');
     });
