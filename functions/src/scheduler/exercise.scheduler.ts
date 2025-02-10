@@ -11,11 +11,18 @@ import {logger} from 'firebase-functions';
 
 // Initialize the YouTube API client
 import {defineSecret} from 'firebase-functions/params';
-const youtubeApiKey = defineSecret('YOUTUBE_API_KEY');
+import {onInit} from 'firebase-functions/v2/core';
+import {SecretParam} from 'firebase-functions/lib/params/types.js';
+
+let youtubeApiKey: SecretParam | undefined;
+
+onInit(() => {
+  youtubeApiKey = defineSecret('YOUTUBE_API_KEY');
+});
 
 const youtube = google.youtube({
   version: 'v3',
-  auth: youtubeApiKey.value(), // Replace with your API key
+  auth: youtubeApiKey?.value() || '', // Replace with your API key
 });
 
 export async function exercisesScheduler() {

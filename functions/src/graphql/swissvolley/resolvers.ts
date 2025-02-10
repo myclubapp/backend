@@ -6,7 +6,13 @@
 // import fetch from 'node-fetch';
 import {logger} from 'firebase-functions';
 import {defineSecret} from 'firebase-functions/params';
-const swissvolleyToken = defineSecret('SWISSVOLLEY_TOKEN');
+import {onInit} from 'firebase-functions/v2/core';
+import {SecretParam} from 'firebase-functions/lib/params/types.js';
+let swissvolleyToken: SecretParam | undefined;
+
+onInit(() => {
+  swissvolleyToken = defineSecret('SWISSVOLLEY_TOKEN');
+});
 
 export default {
   SwissVolley: {
@@ -85,7 +91,7 @@ async function getTeam(teamId: string) {
   const data = await fetch('https://api.volleyball.ch/indoor/teams/' + teamId, {
     headers: {
       'Accept': 'application/json',
-      'Authorization': swissvolleyToken.value(),
+      'Authorization': swissvolleyToken?.value() || '',
     },
   });
   const teamData = await data.json();
@@ -115,7 +121,7 @@ async function getTeams(clubId: string) {
       headers: {
         // "Content-Type": "application/json",
         'Accept': 'application/json',
-        'Authorization': swissvolleyToken.value(),
+        'Authorization': swissvolleyToken?.value() || '',
       },
     });
 
@@ -161,7 +167,7 @@ async function getClubs() {
     const data = await fetch('https://api.volleyball.ch/indoor/clubs', {
       headers: {
         'Accept': 'application/json',
-        'Authorization': swissvolleyToken.value(),
+        'Authorization': swissvolleyToken?.value() || '',
         'Content-Type': 'application/json',
       },
     });
@@ -203,7 +209,7 @@ async function getGames(teamId: string) {
   const data = await fetch('https://api.volleyball.ch/indoor/games?region=SVRNO&teamId=' + teamId + '&includeCup=1', {
     headers: {
       'Accept': 'application/json',
-      'Authorization': swissvolleyToken.value(),
+      'Authorization': swissvolleyToken?.value() || '',
       'Content-Type': 'application/json',
     },
   });
@@ -229,7 +235,7 @@ async function getRankings(groupId: string) {
   const data = await fetch('https://api.volleyball.ch/indoor/ranking/' + groupId, {
     headers: {
       'Accept': 'application/json',
-      'Authorization': swissvolleyToken.value(),
+      'Authorization': swissvolleyToken?.value() || '',
       'Content-Type': 'application/json',
     },
   });

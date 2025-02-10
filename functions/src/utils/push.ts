@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable max-len */
 import firebaseDAO from '../firebaseSingleton.js';
 import webpush from 'web-push';
@@ -7,10 +8,18 @@ import {logger} from 'firebase-functions/v2';
 const db = firebaseDAO.instance.db;
 const messaging = firebaseDAO.instance.messaging;
 import {defineSecret} from 'firebase-functions/params';
+import {onInit} from 'firebase-functions/v2/core';
+import {SecretParam} from 'firebase-functions/lib/params/types.js';
 
-const gcmAPIKey = defineSecret('WEBPUSH_GCMAPIKEY');
-const publicKey = defineSecret('WEBPUSH_PUBLICKEY');
-const privateKey = defineSecret('WEBPUSH_PRIVATEKEY');
+let gcmAPIKey: SecretParam | undefined;
+let publicKey: SecretParam | undefined;
+let privateKey: SecretParam | undefined;
+
+onInit(() => {
+  gcmAPIKey = defineSecret('WEBPUSH_GCMAPIKEY');
+  publicKey = defineSecret('WEBPUSH_PUBLICKEY');
+  privateKey = defineSecret('WEBPUSH_PRIVATEKEY');
+});
 
 /* const gcmAPIKey = functions.config().webpush.gcmapikey;
 const publicKey = functions.config().webpush.publickey;
@@ -18,11 +27,11 @@ const privateKey = functions.config().webpush.privatekey; */
 
 // Verschieben der Initialisierung in eine separate Funktion
 function initializeWebPush() {
-  webpush.setGCMAPIKey(gcmAPIKey.value());
+  webpush.setGCMAPIKey(gcmAPIKey?.value() || null);
   webpush.setVapidDetails(
       'mailto:info@my-club.app',
-      publicKey.value(),
-      privateKey.value(),
+      publicKey?.value() || '',
+      privateKey?.value() || '',
   );
 }
 
