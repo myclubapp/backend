@@ -1,14 +1,14 @@
 
 /* eslint-disable max-len */
 import {authUserBlockBeforeCreate, authUserBlockBeforeSignIn} from './auth/user.block';
-
 import {authUserCreateSendWelcomeEmail} from './auth/user.create';
-
 import {authUserDeleteUserSendByEmail, authUserDeleteUserAccount} from './auth/user.delete';
+
 import {createClubAdmin, createTeamAdmin} from './firestore/createAdmin';
 import {createClubMember, createTeamMember} from './firestore/createMember';
 import {deleteClubAdmin, deleteTeamAdmin} from './firestore/deleteAdmin';
 import {deleteClubMember, deleteTeamMember} from './firestore/deleteMember';
+
 import {createClubRequest} from './firestore/request/createClubRequest';
 import {createTeamRequest} from './firestore/request/createTeamRequest';
 import {deleteClubRequest} from './firestore/request/deleteClubRequest';
@@ -80,7 +80,6 @@ export const sendByeEmail = functions.auth.user().onDelete(authUserDeleteUserSen
 export const deleteUserAccount = functions.auth.user().onDelete(authUserDeleteUserAccount);
 
 // NEW AUTH BLOCK FUNCTIONS -> Updated to 2nd gen
-
 export const beforeCreate = beforeUserCreated({
   region: 'europe-west6',
 }, authUserBlockBeforeCreate);
