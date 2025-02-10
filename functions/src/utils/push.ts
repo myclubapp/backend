@@ -21,10 +21,6 @@ onInit(() => {
   privateKey = defineSecret('WEBPUSH_PRIVATEKEY');
 });
 
-/* const gcmAPIKey = functions.config().webpush.gcmapikey;
-const publicKey = functions.config().webpush.publickey;
-const privateKey = functions.config().webpush.privatekey; */
-
 // Verschieben der Initialisierung in eine separate Funktion
 function initializeWebPush() {
   webpush.setGCMAPIKey(gcmAPIKey?.value() || null);
