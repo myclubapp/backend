@@ -9,7 +9,7 @@ import resolversSV from './../../graphql/swissvolley/resolvers.js';
 export async function updateGamesSwissvolley(): Promise<any> {
   logger.info('Update Games swissvolley');
 
-  // Get Clubs from DB where Type = SWISS UNIHOCKEY && STATUS is active
+  // Get Clubs from DB where Type = SWISSVOLLEY && STATUS is active
   const clubListRef = await db.collection('club').where('active', '==', true).where('type', '==', 'swissvolley').get();
   for (const clubData of clubListRef.docs) {
     // create Club Object from DB.

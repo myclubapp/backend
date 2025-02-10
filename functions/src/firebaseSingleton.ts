@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import functions from 'firebase-functions/v2';
 import admin from 'firebase-admin';
 
 // const serviceAccount = require("path/to/serviceAccountKey.json");
@@ -14,7 +13,7 @@ export default class firebaseDAO {
   messaging: any;
   private constructor() {
     // admin.initializeApp();
-    admin.initializeApp(functions.config().firebase); // Default
+    admin.initializeApp(); // Default
 
     this.db = admin.firestore();
     this.db.settings({ignoreUndefinedProperties: true});

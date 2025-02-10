@@ -4,15 +4,18 @@
 import firebaseDAO from '../firebaseSingleton.js';
 const db = firebaseDAO.instance.db;
 import {google} from 'googleapis';
-import * as functions from 'firebase-functions/v1';
+
 import * as fs from 'fs';
 const mobileSportsUnihockey = fs.readFileSync('./src/scheduler/mobilesports_data_unihockey.json', 'utf8');
 import {logger} from 'firebase-functions';
 
 // Initialize the YouTube API client
+import {defineString} from 'firebase-functions/params';
+const youtubeApiKey = defineString('YOUTUBE_API_KEY');
+
 const youtube = google.youtube({
   version: 'v3',
-  auth: functions.config().api.youtube, // Replace with your API key
+  auth: youtubeApiKey.value(), // Replace with your API key
 });
 
 export async function exercisesScheduler() {

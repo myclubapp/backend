@@ -1,6 +1,4 @@
-
 /* eslint-disable max-len */
-import functions from 'firebase-functions/v2';
 import firebaseDAO from '../firebaseSingleton.js';
 import webpush from 'web-push';
 
@@ -8,20 +6,32 @@ import {logger} from 'firebase-functions/v2';
 
 const db = firebaseDAO.instance.db;
 const messaging = firebaseDAO.instance.messaging;
+import {defineString} from 'firebase-functions/params';
 
-const gcmAPIKey = functions.config().webpush.gcmapikey;
+const gcmAPIKey = defineString('WEBPUSH_GCMAPIKEY');
+const publicKey = defineString('WEBPUSH_PUBLICKEY');
+const privateKey = defineString('WEBPUSH_PRIVATEKEY');
+
+/* const gcmAPIKey = functions.config().webpush.gcmapikey;
 const publicKey = functions.config().webpush.publickey;
-const privateKey = functions.config().webpush.privatekey;
+const privateKey = functions.config().webpush.privatekey; */
 
-webpush.setGCMAPIKey(gcmAPIKey);
-webpush.setVapidDetails(
-    'mailto:info@my-club.app',
-    publicKey,
-    privateKey,
-);
+// Verschieben der Initialisierung in eine separate Funktion
+function initializeWebPush() {
+  webpush.setGCMAPIKey(gcmAPIKey.value());
+  webpush.setVapidDetails(
+      'mailto:info@my-club.app',
+      publicKey.value(),
+      privateKey.value(),
+  );
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function sendPushNotificationByUserProfileId(userProfileId: string, title: string, message: string, data: any) {
   try {
+    // Initialisiere WebPush bei der ersten Verwendung
+    initializeWebPush();
+
     const userProfilePushRef = await db.collection('userProfile').doc(userProfileId).collection('push').get();
 
     // SAVE Notification to user profile

@@ -11,8 +11,11 @@ import * as fs from 'fs';
 
 const db = firebaseDAO.instance.db;
 
+/* import {defineString} from 'firebase-functions/params';
+const chatgptApiKey = defineString('API_CHATGPT'); */
+
 /* const openai = new OpenAI({
-  apiKey: functions.config().api.chatgpt, // defaults to process.env["OPENAI_API_KEY"]
+  apiKey: chatgptApiKey.value(), // defaults to process.env["OPENAI_API_KEY"]
 }); */
 
 // Read the contents of the file
