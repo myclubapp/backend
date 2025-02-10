@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-// import {authUserBlockBeforeCreate, authUserBlockBeforeSignIn} from './auth/user.block';
 import {authUserCreateSendWelcomeEmail} from './auth/user.create';
 import {authUserDeleteUserSendByEmail, authUserDeleteUserAccount} from './auth/user.delete';
 
