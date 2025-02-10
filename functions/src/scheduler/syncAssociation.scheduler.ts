@@ -77,14 +77,14 @@ async function updateClubNewsFromWordpress(): Promise<any> {
         const wpNews = await wpData.json();
         logger.info('News URL: ' + url);
 
-      for (const news of wpNews) {
-        logger.info(news.link);
+        for (const news of wpNews) {
+          logger.info(news.link);
 
-        /* let text = String(news["content"].rendered).replaceAll("<p>", "");
+          /* let text = String(news["content"].rendered).replaceAll("<p>", "");
         text = String(text).replaceAll("</p><p>", "/n");
         text = String(text).replaceAll("</p>", ""); */
 
-        /* const dom = new jsdom.JSDOM(news["content"].rendered);
+          /* const dom = new jsdom.JSDOM(news["content"].rendered);
         const element = dom.window.document.createElement("div");
         element.innerHTML = news["content"].rendered;
         // const newsText = element.innerText;
@@ -94,8 +94,8 @@ async function updateClubNewsFromWordpress(): Promise<any> {
         */
 
 
-        // Load the HTML content using Cheerio
-        /* const $ = cheerio.load(news["content"].rendered);
+          // Load the HTML content using Cheerio
+          /* const $ = cheerio.load(news["content"].rendered);
 
         // Create an array to hold the transformed content
         const ionicContent: string[] = [];
@@ -126,9 +126,9 @@ async function updateClubNewsFromWordpress(): Promise<any> {
         const textResult = `<ion-text>${ionicContent.join("")}</ion-text>`;
         */
 
-        // LEAD TEXT
-        // Load the HTML content using Cheerio
-        /* const $lead = cheerio.load(news["excerpt"].rendered);
+          // LEAD TEXT
+          // Load the HTML content using Cheerio
+          /* const $lead = cheerio.load(news["excerpt"].rendered);
 
         // Create an array to hold the transformed content
         const ionicLead: string[] = [];
