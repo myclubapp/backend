@@ -22,8 +22,8 @@ const admin = firebaseDAO.instance.auth;
   });
 } */
 
-export async function authUserCreateSendWelcomeEmail(event: AuthBlockingEvent): Promise<any> {
-  if (!event.data) {
+export async function authUserCreateSendWelcomeEmail(event?: AuthBlockingEvent): Promise<any> {
+  if (!event?.data) {
     throw new Error('No user data provided');
   }
   const user = event.data;

@@ -3,7 +3,7 @@
     "module": "commonjs",
     "noImplicitReturns": true,
     "noUnusedLocals": true,
-    "skipLibCheck": true,
+    // "skipLibCheck": true,
     "outDir": "lib",
     "sourceMap": true,
     "strict": true,
