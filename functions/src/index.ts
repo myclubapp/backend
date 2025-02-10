@@ -47,7 +47,7 @@ import graphqlServer from './graphql/server.js';
 
 import {onDocumentUpdated, onDocumentDeleted, onDocumentCreated} from 'firebase-functions/v2/firestore';
 
-import {beforeUserSignedIn, beforeUserCreated} from 'firebase-functions/v2/identity';
+import {beforeUserCreated} from 'firebase-functions/v2/identity';
 
 import {onSchedule} from 'firebase-functions/v2/scheduler';
 
@@ -85,12 +85,11 @@ export const deleteUserAccount = functions.auth.user().onDelete(authUserDeleteUs
   };
 });*/
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
-export const beforeSignIn = beforeUserSignedIn((_event): any => {
+/* export const beforeSignIn = beforeUserSignedIn((_event): any => {
   return {
     allow: true,
   };
-});
+}); */
 
 // GRAPHQL API -> Updated to 2nd gen
 export const api = onRequest({
