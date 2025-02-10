@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-undef */
+
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-len */
 // import * as admin from "firebase-admin";
 // import firebaseDAO from "./../firebaseSingleton";
 
-import {AuthBlockingEvent} from 'firebase-functions/v2/identity';
 
-// const db = firebaseDAO.instance.db;
-
-export async function authUserBlockBeforeCreate(event: AuthBlockingEvent): Promise<any> {
-// const user = event.data;
+export async function authUserBlockBeforeCreate(
+    event: any) {
+  // const user = event.data;
   // Block User if E-Mail is not @acme.com
   /* if (user.email && user.email.indexOf("@acme.com") === -1) {
     throw new Error(`Unauthorized email "${user.email}"`);
@@ -19,8 +19,9 @@ export async function authUserBlockBeforeCreate(event: AuthBlockingEvent): Promi
   };
 }
 
-export async function authUserBlockBeforeSignIn(event: AuthBlockingEvent): Promise<any> {
-// const user = event.data;
+export async function authUserBlockBeforeSignIn(
+    event: any ) {
+  // const user = event.data;
   // log
   // E-Mail not verified
   /*

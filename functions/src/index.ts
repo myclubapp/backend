@@ -1,6 +1,5 @@
-
 /* eslint-disable max-len */
-import {authUserBlockBeforeCreate, authUserBlockBeforeSignIn} from './auth/user.block';
+// import {authUserBlockBeforeCreate, authUserBlockBeforeSignIn} from './auth/user.block';
 import {authUserCreateSendWelcomeEmail} from './auth/user.create';
 import {authUserDeleteUserSendByEmail, authUserDeleteUserAccount} from './auth/user.delete';
 
@@ -80,13 +79,20 @@ export const sendByeEmail = functions.auth.user().onDelete(authUserDeleteUserSen
 export const deleteUserAccount = functions.auth.user().onDelete(authUserDeleteUserAccount);
 
 // NEW AUTH BLOCK FUNCTIONS -> Updated to 2nd gen
-export const beforeCreate = beforeUserCreated({
-  region: 'europe-west6',
-}, authUserBlockBeforeCreate);
 
-export const beforeSignIn = beforeUserSignedIn({
-  region: 'europe-west6',
-}, authUserBlockBeforeSignIn);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+export const beforecreated = beforeUserCreated((_event): any => {
+  return {
+    allow: true,
+  };
+});
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+export const beforeSignIn = beforeUserSignedIn((_event): any => {
+  return {
+    allow: true,
+  };
+});
 
 // GRAPHQL API -> Updated to 2nd gen
 export const api = onRequest({
