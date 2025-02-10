@@ -3,20 +3,20 @@
 import firebaseDAO from './../firebaseSingleton';
 const dbUA = firebaseDAO.instance.dbUA;
 const db = firebaseDAO.instance.db;
-
+import {logger} from 'firebase-functions';
 export async function syncUnihockeyApp() {
   try {
-    console.log('test');
+    logger.info('test');
 
     const clubListRef = await db.collection('clubs').where('active', '==', true).where('type', '==', 'swissunihockey').get();
     for (const club of clubListRef.docs) {
-      console.log(club.data().externalId);
+      logger.info(club.data().externalId);
       const uaClub = await dbUA.collection('clubs').where('suhvClubId', '==', club.data().externalId).get();
       if (uaClub.exists) {
-        console.log('found old club with ID: ' + uaClub.id);
+        logger.info('found old club with ID: ' + uaClub.id);
       }
     }
   } catch (err) {
-    console.error(err);
+    logger.error(err);
   }
 }

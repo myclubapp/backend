@@ -2,7 +2,7 @@
 import firebaseDAO from '../../firebaseSingleton';
 import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
 import {sendPushNotificationByUserProfileId} from '../../utils/push';
-
+import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 
 export async function addClubTeam(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
@@ -12,12 +12,12 @@ export async function addClubTeam(event: FirestoreEvent<QueryDocumentSnapshot | 
   // CHECK IF TEAM was added via JOB?
   const teamRef = await db.collection('teams').doc(teamId).get();
   if (teamRef.exists) {
-    console.log(' > Do not Update');
+    logger.info(' > Do not Update');
     return true;
   }
-  console.log('Add New Team to Club via Manual Action NOT via JOB');
-  console.log('clubId: ' + clubId);
-  console.log('teamId: ' + teamId);
+  logger.info('Add New Team to Club via Manual Action NOT via JOB');
+  logger.info('clubId: ' + clubId);
+  logger.info('teamId: ' + teamId);
 
   const teamData = event.data?.data();
   const clubRef = await db.collection('club').doc(clubId).get();
@@ -41,7 +41,7 @@ export async function addClubTeam(event: FirestoreEvent<QueryDocumentSnapshot | 
 export async function createNotificationClubEvent(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
   const clubId = event.params.clubId;
   const eventId = event.params.eventId;
-  console.log(clubId, eventId);
+  logger.info(clubId, eventId);
 
   const clubEventRef = await db.collection('club').doc(clubId).collection('events').doc(eventId).get();
   const clubMembersRef = await db.collection('club').doc(clubId).collection('members').get();

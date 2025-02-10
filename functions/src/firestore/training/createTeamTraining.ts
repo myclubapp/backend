@@ -4,20 +4,21 @@
 import firebaseDAO from '../../firebaseSingleton';
 import {sendPushNotificationByUserProfileId} from '../../utils/push';
 import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
+import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 
 export async function createTeamTraining(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
-  console.log('CREATE Training');
+  logger.info('CREATE Training');
 
   const userId = event.params.userId;
   const trainingId = event.params.trainingId;
 
-  console.log('userId: ' + userId);
-  console.log('trainingId: ' + trainingId);
+  logger.info('userId: ' + userId);
+  logger.info('trainingId: ' + trainingId);
 
   const trainingData = event.data?.data();
   const teamRef = await db.collection('teams').doc(trainingData?.teamId).get();
-  console.log('teamId' + trainingData?.teamId);
+  logger.info('teamId' + trainingData?.teamId);
 
   // const calculatedDate: Date = new Date();
   let offSet = 0; // in milliseconds
@@ -35,12 +36,12 @@ export async function createTeamTraining(event: FirestoreEvent<QueryDocumentSnap
       offSet = 1000 * 60 * 60 * 24 * trainingData?.repeatAmount;
       break;*/
     default:
-      console.log('calculated other date.. ');
+      logger.info('calculated other date.. ');
   }
 
-  console.log('Create Trainings for TeamId: ' + teamRef.id);
-  console.log(`Start Date used: ${trainingData?.startDate}`);
-  console.log(`End Date used: ${trainingData?.endDate}`);
+  logger.info('Create Trainings for TeamId: ' + teamRef.id);
+  logger.info(`Start Date used: ${trainingData?.startDate}`);
+  logger.info(`End Date used: ${trainingData?.endDate}`);
 
   // Set Date based on first Training and Start Hours/minutes
   /* calculatedDate.setTime(new Date(trainingData.startDate).getTime());
@@ -73,9 +74,9 @@ export async function createTeamTraining(event: FirestoreEvent<QueryDocumentSnap
     teamName: teamRef.data()?.name,
     liga: teamRef.data()?.liga,
   });
-  console.log('New Training: ' + newTrainingRef.id + ' ' + calculatedDate.toISOString());
-  console.log(`Calculated Start Date used: ${calculatedDate}`);
-  console.log(`Calculated End Date used: ${calculatedEndDate}`);
+  logger.info('New Training: ' + newTrainingRef.id + ' ' + calculatedDate.toISOString());
+  logger.info(`Calculated Start Date used: ${calculatedDate}`);
+  logger.info(`Calculated End Date used: ${calculatedEndDate}`);
 
   // Schleife für alle Trainings
   do {
@@ -100,9 +101,9 @@ export async function createTeamTraining(event: FirestoreEvent<QueryDocumentSnap
           liga: teamRef.data()?.liga,
         });
 
-    console.log('New Training: ' + newTrainingRef.id + ' ' + calculatedDate.toISOString());
-    console.log(`Calculated Start Date used: ${calculatedDate}`);
-    console.log(`Calculated End Date used: ${calculatedEndDate}`);
+    logger.info('New Training: ' + newTrainingRef.id + ' ' + calculatedDate.toISOString());
+    logger.info(`Calculated Start Date used: ${calculatedDate}`);
+    logger.info(`Calculated End Date used: ${calculatedEndDate}`);
 
     // Berechne nächstes Datum
     calculatedDate.setTime(calculatedDate.getTime() + offSet);
@@ -118,10 +119,10 @@ export async function createTeamTraining(event: FirestoreEvent<QueryDocumentSnap
 export async function createNotificationTeamTraining(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
   const trainingData = event.data?.data();
   const teamRef = await db.collection('teams').doc(trainingData?.teamId).get();
-  console.log('teamId' + trainingData?.teamId);
-  console.log('Create Trainings for TeamId: ' + teamRef.id);
-  console.log(`Start Date used: ${trainingData?.startDate}`);
-  console.log(`End Date used: ${trainingData?.endDate}`);
+  logger.info('teamId' + trainingData?.teamId);
+  logger.info('Create Trainings for TeamId: ' + teamRef.id);
+  logger.info(`Start Date used: ${trainingData?.startDate}`);
+  logger.info(`End Date used: ${trainingData?.endDate}`);
 
   const teamMembersRef = await db.collection('teams').doc(teamRef.id).collection('members').get();
   for (const teamMember of teamMembersRef.docs) {

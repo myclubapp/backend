@@ -2,16 +2,16 @@
 
 import firebaseDAO from '../../firebaseSingleton';
 import {FirestoreEvent, QueryDocumentSnapshot, Change} from 'firebase-functions/v2/firestore';
-
+import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 
 export async function createCheckoutSession(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
-  console.log('Create New Checkout Session based on Checkout Session in Club');
+  logger.info('Create New Checkout Session based on Checkout Session in Club');
 
   const clubId = event.params.clubId;
   const sessionId = event.params.sessionId;
-  console.log('clubId: ' + clubId);
-  console.log('sessionId: ' + sessionId);
+  logger.info('clubId: ' + clubId);
+  logger.info('sessionId: ' + sessionId);
 
   const sessionData = event.data?.data();
   const clubRef = await db.collection('club').doc(clubId).get();
@@ -30,7 +30,7 @@ export async function createCheckoutSession(event: FirestoreEvent<QueryDocumentS
 }
 
 export async function updateCheckoutSession(event: FirestoreEvent<Change<QueryDocumentSnapshot> | undefined>) {
-  console.log('Update Checkout Session on Club, because STRIPE does only update userProfile collection');
+  logger.info('Update Checkout Session on Club, because STRIPE does only update userProfile collection');
   const sessionId = event.params.sessionId;
   const userId = event.params.userId;
 
@@ -47,7 +47,7 @@ export async function updateCheckoutSession(event: FirestoreEvent<Change<QueryDo
   );
 }
 export async function updateSubscription(event: FirestoreEvent<Change<QueryDocumentSnapshot> | undefined>) {
-  console.log('CHANGE Checkout Session');
+  logger.info('CHANGE Checkout Session');
   const subscriptionId = event.params.subscriptionId;
   const userId = event.params.userId;
 
@@ -66,9 +66,9 @@ export async function updateSubscription(event: FirestoreEvent<Change<QueryDocum
     {merge: true},
     );
 
-    console.log('>> STATUS ' + subscriptionData.status);
-    console.log('>> TYPE ' + subscriptionData.metadata.subscriptionType);
-    console.log('>> clubId ' + clubId);
+    logger.info('>> STATUS ' + subscriptionData.status);
+    logger.info('>> TYPE ' + subscriptionData.metadata.subscriptionType);
+    logger.info('>> clubId ' + clubId);
     if (subscriptionData.status == 'active') {
       // NEW SUBSCRIPTION FOR PRODUCT OR ADDON
       // TODO SEND EMAIL!
@@ -106,14 +106,14 @@ export async function updateSubscription(event: FirestoreEvent<Change<QueryDocum
           });
         }
       } else {
-        console.error('something went wrong - missing type?');
-        console.error(subscriptionData);
+        logger.error('something went wrong - missing type?');
+        logger.error(subscriptionData);
       }
     } else if (subscriptionData.status !== 'active') {
       // NOT ACTIVE anymore.. cancel subscription / abo
       const activeSubscription = await db.collection('club').doc(clubId).collection('subscriptions').where('status', '==', 'active').get();
       if (activeSubscription.docs.length > 0) {
-        console.log('has active subsription');
+        logger.info('has active subsription');
       } else {
         if (subscriptionData.metadata.subscriptionType === 'free' || subscriptionData.metadata.subscriptionType === 'small' || subscriptionData.metadata.subscriptionType === 'medium' || subscriptionData.metadata.subscriptionType === 'large') {
           // IF SUBSCRIPTION
@@ -151,7 +151,7 @@ export async function updateSubscription(event: FirestoreEvent<Change<QueryDocum
         }
       }
     } else { // Everything else that is not Active nor Canceled
-      console.error(subscriptionData);
+      logger.error(subscriptionData);
     }
     return true;
   } else {
@@ -159,7 +159,7 @@ export async function updateSubscription(event: FirestoreEvent<Change<QueryDocum
   }
 }
 export async function updateInvoice(event: FirestoreEvent<Change<QueryDocumentSnapshot> | undefined>) {
-  console.log('change Invoice ');
+  logger.info('change Invoice ');
   const subscriptionId = event.params.subscriptionId;
   const invoiceId = event.params.invoiceId;
   const userId = event.params.userId;
@@ -185,7 +185,7 @@ export async function updateInvoice(event: FirestoreEvent<Change<QueryDocumentSn
   }
 }
 export async function updatePayments(event: FirestoreEvent<Change<QueryDocumentSnapshot> | undefined>) {
-  console.log('change Payment - this will never succeed, as metadata is not filled - but anyway it\'s not urgent as we can show this only to the user.');
+  logger.info('change Payment - this will never succeed, as metadata is not filled - but anyway it\'s not urgent as we can show this only to the user.');
   const paymentId = event.params.paymentId;
   const userId = event.params.userId;
 
@@ -194,7 +194,7 @@ export async function updatePayments(event: FirestoreEvent<Change<QueryDocumentS
   let clubId = '';
   if (paymentData && paymentData.metadata && paymentData.metadata.clubId) {
     clubId = paymentData.metadata.clubId;
-    console.log('payment updated for club');
+    logger.info('payment updated for club');
     return db.collection('club').doc(clubId).collection('payments').doc(paymentId).set({
       ...event.data?.after.data(),
       userProfileRef: userProfileRef.ref,
@@ -203,7 +203,7 @@ export async function updatePayments(event: FirestoreEvent<Change<QueryDocumentS
     {merge: true},
     );
   } else {
-    console.log('No payment updated for club because of missing metadata.');
+    logger.info('No payment updated for club because of missing metadata.');
     return true;
   }
 }

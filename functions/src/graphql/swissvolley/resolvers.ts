@@ -4,7 +4,7 @@
 // import fetch from "node-fetch";
 
 import fetch from 'node-fetch';
-
+import {logger} from 'firebase-functions';
 // const {convert} = require("html-to-text");
 import * as functions from 'firebase-functions/v1';
 
@@ -106,7 +106,7 @@ async function getTeam(teamId: string) {
 
 async function getTeams(clubId: string) {
   try {
-    console.log('>> https://api.volleyball.ch/indoor/teams?clubId=' + clubId);
+    logger.info('>> https://api.volleyball.ch/indoor/teams?clubId=' + clubId);
     const data = await fetch('https://api.volleyball.ch/indoor/teams?clubId=' + clubId, {
       method: 'GET',
       // redirect: "follow",
@@ -120,7 +120,7 @@ async function getTeams(clubId: string) {
     // Check if the response is okay before proceeding
     if (!data.ok) {
       // throw new Error(`HTTP error! Status: ${data.status}`);
-      console.log(`HTTP error! Status: ${data.status} ${data.statusText}`);
+      logger.info(`HTTP error! Status: ${data.status} ${data.statusText}`);
       return [];
     }
 
@@ -144,13 +144,13 @@ async function getTeams(clubId: string) {
     });
     return teamList;
   } catch (error) {
-    console.error('Error fetching club data:', error);
+    logger.error('Error fetching club data:', error);
     return []; // Return an empty array or handle the error as needed
   }
 }
 
 function getClub(clubId: string) {
-  console.log('not needed');
+  logger.info('not needed');
 }
 
 async function getClubs() {
@@ -166,7 +166,7 @@ async function getClubs() {
     // Check if the response is okay before proceeding
     if (!data.ok) {
       // throw new Error(`HTTP error! Status: ${data.status}`);
-      console.log(`HTTP error! Status: ${data.status}`);
+      logger.info(`HTTP error! Status: ${data.status}`);
       return [];
     }
 
@@ -189,7 +189,7 @@ async function getClubs() {
 
     return clubList;
   } catch (error) {
-    console.error('Error fetching club data:', error);
+    logger.error('Error fetching club data:', error);
     return []; // Return an empty array or handle the error as needed
   }
 }
@@ -215,7 +215,7 @@ async function getGames(teamId: string) {
 }
 
 async function getGame(gameId: string) {
-  console.log('not working anymore');
+  logger.info('not working anymore');
 }
 
 async function getRankings(groupId: string) {
@@ -267,7 +267,7 @@ async function getNews() {
         imagePath = item.media.find((image: any) => image.resolution == 'mobile').url;
       }
     } catch (e) {
-      console.log(JSON.stringify(item.media));
+      logger.info(JSON.stringify(item.media));
     }
 
     newsList.push({

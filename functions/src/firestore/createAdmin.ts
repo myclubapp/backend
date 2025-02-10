@@ -2,10 +2,11 @@
 
 import firebaseDAO from './../firebaseSingleton';
 import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
+import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 
 export async function createTeamAdmin(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
-  console.log('createTeamAdmin');
+  logger.info('createTeamAdmin');
   const userId = event.params.userId;
   const teamId = event.params.teamId;
 
@@ -16,7 +17,7 @@ export async function createTeamAdmin(event: FirestoreEvent<QueryDocumentSnapsho
 }
 
 export async function createClubAdmin(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
-  console.log('createClubAdmin');
+  logger.info('createClubAdmin');
   const userId = event.params.userId;
   const clubId = event.params.clubId;
 

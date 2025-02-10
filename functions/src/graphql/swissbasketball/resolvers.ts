@@ -6,7 +6,7 @@
 
 
 import fetch from 'node-fetch';
-
+import {logger} from 'firebase-functions';
 export default {
   Query: {
     clubs: (parent: any, args: any, context: any, info: any) => {
@@ -39,7 +39,7 @@ async function getNews() {
         // 'mode': 'cors',
       });
   const newsList = <any>[];
-  console.log(JSON.stringify(newsData));
+  logger.info(JSON.stringify(newsData));
   const newsDataJson = await newsData.json();
   newsDataJson.data.forEach((element:any)=> {
     newsList.push({
@@ -68,7 +68,7 @@ async function getClubs() {
     'method': 'GET',
     // 'mode': 'cors',
   });
-  console.log(JSON.stringify(clubList));
+  logger.info(JSON.stringify(clubList));
 
   const games = await fetch('https://api.swish.nbn23.com/calendar?groupId=62418736eb22311aa46a1a83', {
     // 'credentials': 'include',
@@ -88,7 +88,7 @@ async function getClubs() {
     'method': 'GET',
     // 'mode': 'cors',
   });
-  console.log(JSON.stringify(games));
+  logger.info(JSON.stringify(games));
 
   const standings = await fetch('https://api.swish.nbn23.com/standings?groupId=6154474527ba6c49b0c9ee19', {
     // 'credentials': 'include',
@@ -108,7 +108,7 @@ async function getClubs() {
     'method': 'GET',
     // 'mode': 'cors',
   });
-  console.log(JSON.stringify(standings));
+  logger.info(JSON.stringify(standings));
 
   return clubList;
 }

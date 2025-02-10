@@ -5,6 +5,7 @@
 import * as admin from 'firebase-admin';
 import firebaseDAO from '../firebaseSingleton';
 import * as functions from 'firebase-functions/v1';
+import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 const storage = firebaseDAO.instance.storage;
 
@@ -22,17 +23,17 @@ export async function authUserDeleteUserSendByEmail(user: admin.auth.UserRecord,
 }
 
 export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, context: functions.EventContext) {
-  console.log('delete user cleanup functions to delete user media, revoke refresh token for: ' + user.uid);
+  logger.info('delete user cleanup functions to delete user media, revoke refresh token for: ' + user.uid);
 
   // force logout in app
   await admin.auth().revokeRefreshTokens(user.uid).catch((error)=>{
-    console.log(`error revokeRefreshTokens -> most likely already done by deleting user, ${error}`);
+    logger.info(`error revokeRefreshTokens -> most likely already done by deleting user, ${error}`);
   });
 
   // MEDIA
   // -> Profile picture
   await storage.bucket('myclubmanagement').file('userProfile/' + user.uid + '/profilePicture').delete().catch((error:any)=>{
-    console.log(`error deleting bucket for user -> most likely no user data stored, ${error}`);
+    logger.info(`error deleting bucket for user -> most likely no user data stored, ${error}`);
   });
 
   // Send E-Mail that Account is deleted
@@ -40,57 +41,57 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
 
   // DELETE USER DATA
   // const userId = context.params.userId;
-  console.log(`DELETE User ${user.uid} from DB (all Teams, Clubs, TeamAdmins, ClubAdmin)`);
+  logger.info(`DELETE User ${user.uid} from DB (all Teams, Clubs, TeamAdmins, ClubAdmin)`);
 
   const teamList = await db.collection('userProfile').doc(user.uid).collection('teams').get();
   if (!teamList.empty) {
-    console.log('Delete Member in Teams ');
+    logger.info('Delete Member in Teams ');
     for (const team of teamList.docs) {
       await db.collection('teams').doc(team.id).collection('members').doc(`${user.uid}`).delete();
       await db.collection('userProfile').doc(user.uid).collection('teams').doc(`${team.id}`).delete(); // needed to avoid emtpy collections
     }
   } else {
-    console.log('Noting to delete for Member in Teams ');
+    logger.info('Noting to delete for Member in Teams ');
   }
 
   // delete admin from all TEAMS
   const teamAdminList = await db.collection('userProfile').doc(user.uid).collection('teamAdmin').get();
   if (!teamAdminList.empty) {
-    console.log('Delete Admin in Teams ');
+    logger.info('Delete Admin in Teams ');
     for (const team of teamAdminList.docs) {
       await db.collection('teams').doc(team.id).collection('admins').doc(`${user.uid}`).delete();
       await db.collection('userProfile').doc(user.uid).collection('teamAdmin').doc(`${team.id}`).delete(); // needed to avoid emtpy collections
     }
   } else {
-    console.log('Noting to delete for Admin in Teams ');
+    logger.info('Noting to delete for Admin in Teams ');
   }
 
   // delete user from all CLUBS
   const clubList = await db.collection('userProfile').doc(user.uid).collection('clubs').get();
   if (!clubList.empty) {
-    console.log('Delete Member in Clubs ');
+    logger.info('Delete Member in Clubs ');
     for (const club of clubList.docs) {
       await db.collection('club').doc(club.id).collection('members').doc(`${user.uid}`).delete();
       await db.collection('userProfile').doc(user.uid).collection('clubs').doc(`${club.id}`).delete(); // needed to avoid emtpy collections
     }
   } else {
-    console.log('Noting to delete for Member in Clubs ');
+    logger.info('Noting to delete for Member in Clubs ');
   }
   // delete admin from all club Admins
   const clubAdminList = await db.collection('userProfile').doc(user.uid).collection('clubAdmin').get();
   if (!clubAdminList.empty) {
-    console.log('Delete Admin in Clubs ');
+    logger.info('Delete Admin in Clubs ');
     for (const club of clubAdminList.docs) {
       await db.collection('club').doc(club.id).collection('admins').doc(`${user.uid}`).delete();
       await db.collection('userProfile').doc(user.uid).collection('clubAdmin').doc(`${club.id}`).delete(); // needed to avoid emtpy collections
     }
   } else {
-    console.log('Noting to delete for Admin in Clubs ');
+    logger.info('Noting to delete for Admin in Clubs ');
   }
 
   const userCollectionsList = await db.collection('userProfile').doc(user.uid).listCollections();
   for (const collection of userCollectionsList) {
-    console.log('Auto delete collection with id: ' + collection.id);
+    logger.info('Auto delete collection with id: ' + collection.id);
     const collectionData = await db.collection('userProfile').doc(user.uid).collection(collection.id).get();
     for (const document of collectionData.docs) {
       await db.collection('userProfile').doc(user.uid).collection(collection.id).doc(document.id).delete();
@@ -108,17 +109,17 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
   });
 
   // GAMES / Trainings / Events
-  console.log("delete attendee data");
+  logger.info("delete attendee data");
   const querySnapshot = await db.collectionGroup("attendees").where("id", "==", userId).get();
   for (const doc of querySnapshot.docs) {
-    console.log(`Document Ref: ${doc.ref.path}`);
+    logger.info(`Document Ref: ${doc.ref.path}`);
 
     if (doc.ref.parent.parent?.parent?.id === "games") {
       const gameId: string = doc.ref.parent.parent?.id || "";
       const teamId: string = doc.ref.parent.parent?.parent?.parent?.id || "";
 
-      console.log(`GameId: ${gameId}`);
-      console.log(`Team Id: ${teamId}`);
+      logger.info(`GameId: ${gameId}`);
+      logger.info(`Team Id: ${teamId}`);
       await db.collection("teams").doc(teamId).collection("games").doc(gameId).collection("attendees").doc(userId).delete();
     }
   }
@@ -133,6 +134,6 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
 
   // Delete account in firebase --> Should be done already
   return admin.auth().deleteUser(user.uid).catch((error)=> {
-    console.log(`error deleting user -> most likely already done, ${error}`);
+    logger.info(`error deleting user -> most likely already done, ${error}`);
   });
 }

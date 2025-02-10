@@ -3,11 +3,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import firebaseDAO from './../../firebaseSingleton';
 const db = firebaseDAO.instance.db;
-
+import {logger} from 'firebase-functions';
 import resolversSV from './../../graphql/swissvolley/resolvers';
 
 export async function updateGamesSwissvolley(): Promise<any> {
-  console.log('Update Games swissvolley');
+  logger.info('Update Games swissvolley');
 
   // Get Clubs from DB where Type = SWISS UNIHOCKEY && STATUS is active
   const clubListRef = await db.collection('club').where('active', '==', true).where('type', '==', 'swissvolley').get();
@@ -19,16 +19,16 @@ export async function updateGamesSwissvolley(): Promise<any> {
     // TODO -> GET FROM DB instead of API -> Teams should be updated with another JOB
     const teamData = await resolversSV.Club.teams({id: `${club.id}`});
     for (const team of teamData) {
-      console.log(`>> READ TEAM GAMES: ${team.id} ${team.name} ${team.liga} `);
+      logger.info(`>> READ TEAM GAMES: ${team.id} ${team.name} ${team.liga} `);
       const gamesData = await resolversSV.Team.games({id: `${team.id}`}, {}, {}, {});
       for (const i in gamesData) {
         if (gamesData[i]) {
           const game = gamesData[i];
-          console.log(`>>> READ TEAM GAME:  ${game.id}`);
+          logger.info(`>>> READ TEAM GAME:  ${game.id}`);
 
           const clubRef = await db.collection('club').doc(`sv-${club.id}`).get();
           const teamRef = await db.collection('teams').doc(`sv-${team.id}`).get();
-          // console.log("read match report for game: " + game.id);
+          // logger.info("read match report for game: " + game.id);
 
           // await db.collection("teams").doc(`sv-${team.id}`).collection("games").doc(`sv-${game.id}`).get();
           await db.collection('teams').doc(`sv-${team.id}`).collection('games').doc(`sv-${game.id}`).set({
@@ -75,7 +75,7 @@ export async function updateGamesSwissvolley(): Promise<any> {
 }
 
 export async function updateTeamsSwissvolleyball(): Promise<any> {
-  console.log('Update Teams SwissVolley');
+  logger.info('Update Teams SwissVolley');
 
   // GET Clubs from DB where Type = SWISSVOLLEY && STATUS is active
   const clubListRef = await db.collection('club').where('active', '==', true).where('type', '==', 'swissvolley').get();
@@ -89,7 +89,7 @@ export async function updateTeamsSwissvolleyball(): Promise<any> {
         if (fbClubData.exists && fbClubData.data().active) { */
     const teamData = await resolversSV.Club.teams({id: `${club.id}`});
     for (const team of teamData) {
-      console.log(club.name + ' / ' + team.name);
+      logger.info(club.name + ' / ' + team.name);
       await db.collection('teams').doc(`sv-${team.id}`).set({
         externalId: `${team.id}`,
         name: team.name,
@@ -109,20 +109,20 @@ export async function updateTeamsSwissvolleyball(): Promise<any> {
       });
     }
     /* } else {
-          console.log(`${club.name} is not active`);
+          logger.info(`${club.name} is not active`);
         }
       }*/
   }
 }
 
 export async function updateClubsSwissvolleyball(): Promise<any> {
-  console.log('Update Clubs Swissvolley');
+  logger.info('Update Clubs Swissvolley');
 
   // const associationsData = await resolversSV.SwissVolley.associations({}, {}, {}, {});
   // for (const assocation of associationsData) {
   const clubData = await resolversSV.SwissVolley.clubs({}, {}, {}, {});
   for (const club of clubData) {
-    console.log(club.name);
+    logger.info(club.name);
     await db.collection('club').doc(`sv-${club.id}`).set({
       externalId: `${club.id}`,
       name: club.name,
@@ -158,7 +158,7 @@ export async function updateClubsSwissvolleyball(): Promise<any> {
 }
 
 export async function updateNewsSwissvolley(): Promise<any> {
-  console.log('Update NEWS SwissVolley');
+  logger.info('Update NEWS SwissVolley');
 
   const newsData = await resolversSV.SwissVolley.news();
   for (const news of newsData) {

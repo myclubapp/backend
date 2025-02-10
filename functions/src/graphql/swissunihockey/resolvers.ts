@@ -5,7 +5,7 @@
 
 
 import fetch from 'node-fetch';
-
+import {logger} from 'firebase-functions';
 // const {convert} = require("html-to-text");
 
 // const jsdom = require("jsdom");
@@ -126,16 +126,16 @@ async function getTypes() {
 async function getTeams(clubId: string, season: string) {
   if (!season) {
     season = await getSeason() as unknown as string;
-    console.log(`No Season parameter provided. Used internal logic and found: ${season}`);
+    logger.info(`No Season parameter provided. Used internal logic and found: ${season}`);
   }
 
-  console.log(`get team by club: https://api-v2.swissunihockey.ch/api/teams?mode=by_club&club_id= + ${clubId} + &season= + ${season}`);
+  logger.info(`get team by club: https://api-v2.swissunihockey.ch/api/teams?mode=by_club&club_id= + ${clubId} + &season= + ${season}`);
   const data = await fetch('https://api-v2.swissunihockey.ch/api/teams?mode=by_club&club_id=' + clubId + '&season=' + season);
   const teamData = await data.json();
   const teamList = <any>[];
-  // console.log(teamData);
+  // logger.info(teamData);
   for (const team of teamData.entries) {
-    console.log(`team id: ${team.set_in_context.team_id} ${team.text}`);
+    logger.info(`team id: ${team.set_in_context.team_id} ${team.text}`);
 
     const teamDetaoöRequestData = await fetch(`https://api-v2.swissunihockey.ch/api/teams/${team.set_in_context.team_id}`);
     const teamDetailData = await teamDetaoöRequestData.json();
@@ -163,7 +163,7 @@ async function getTeams(clubId: string, season: string) {
 async function getTeam(teamId: string) {
   const data = await fetch('https://api-v2.swissunihockey.ch/api/teams/' + teamId);
   const teamData = await data.json();
-  // console.log(teamData);
+  // logger.info(teamData);
 
   return {
     id: teamId,
@@ -177,7 +177,7 @@ async function getClubs() {
   const clubList = <any>[];
   // clubData.entries.forEach(async (item: any) => {
   for (const item of clubData.entries) {
-    // console.log(`Read Club: ${item.set_in_context.club_id} ${item.text}`);
+    // logger.info(`Read Club: ${item.set_in_context.club_id} ${item.text}`);
 
     const contactPerson = '';
     const contactAddress = '';
@@ -195,8 +195,8 @@ async function getClubs() {
       const domList: NodeList = dom.window.document.getElementsByClassName("portrait_title");
       if (domList && domList.length > 0) {
         domList.forEach((attribute:Node, key:number, parent: NodeList) => {
-          console.log(attribute.childNodes[0].textContent );
-          console.log(parent.item(1)?.textContent as string);
+          logger.info(attribute.childNodes[0].textContent );
+          logger.info(parent.item(1)?.textContent as string);
 
           // if (attribute.childNodes[0].textContent === "Vereinsname") {
             //   contactVereinsname = parent.item(1)?.textContent as string;
@@ -221,7 +221,7 @@ async function getClubs() {
         });
       }
     } catch (e) {
-      console.log(">>> error read & update address swissunihockey");
+      logger.info(">>> error read & update address swissunihockey");
     } */
     clubList.push({
       id: item.set_in_context.club_id,
@@ -242,12 +242,12 @@ async function getClubs() {
 
 async function getClubGames(clubId: string, season: string) {
   if (!season) {
-    /* console.log("NO SEASON!!!");
+    /* logger.info("NO SEASON!!!");
     const seasonList: any = getSeason();
-    console.log(JSON.stringify(seasonList)); */
+    logger.info(JSON.stringify(seasonList)); */
 
     season = await getSeason() as unknown as string;
-    console.log(`No Season parameter provided. Used internal logic and found: ${season}`);
+    logger.info(`No Season parameter provided. Used internal logic and found: ${season}`);
   }
   const data = await fetch('https://api-v2.swissunihockey.ch/api/games?mode=club&season=' + season + '&club_id=' + clubId + '&games_per_page=100');
   const gameData = await data.json();
@@ -260,8 +260,8 @@ async function getClubGames(clubId: string, season: string) {
         latitude = item.cells[1].link.y || '-';
         longitude = item.cells[1].link.x || '-';
       } catch (e) {
-        console.log('>> Error: Longitude/Latitude missing');
-        // console.log(e);
+        logger.info('>> Error: Longitude/Latitude missing');
+        // logger.info(e);
       }
       gameList.push({
         id: item.link.ids[0],
@@ -279,7 +279,7 @@ async function getClubGames(clubId: string, season: string) {
     // gameData.data.regions[0].rows.forEach((item: any) => {
     // });
   } else {
-    console.log(`>>> No Games found for Club ${clubId} and season ${season}`);
+    logger.info(`>>> No Games found for Club ${clubId} and season ${season}`);
   }
   return gameList;
 }
@@ -287,10 +287,10 @@ async function getClubGames(clubId: string, season: string) {
 async function getGames(teamId: string, season: string) {
   if (!season) {
     season = await getSeason() as unknown as string;
-    console.log(`No Season parameter provided. Used internal logic and found: ${season}`);
+    logger.info(`No Season parameter provided. Used internal logic and found: ${season}`);
   }
   const data = await fetch('https://api-v2.swissunihockey.ch/api/games?mode=team&season=' + season + '&team_id=' + teamId + '&games_per_page=100');
-  console.log('https://api-v2.swissunihockey.ch/api/games?mode=team&season=' + season + '&team_id=' + teamId + '&games_per_page=100');
+  logger.info('https://api-v2.swissunihockey.ch/api/games?mode=team&season=' + season + '&team_id=' + teamId + '&games_per_page=100');
   const gameData = await data.json();
   const gameList = <any>[];
   if (gameData && gameData.data && gameData.data.regions && gameData.data.regions.length > 0) {
@@ -302,8 +302,8 @@ async function getGames(teamId: string, season: string) {
         latitude = item.cells[1].link.y || '-';
         longitude = item.cells[1].link.x || '-';
       } catch (e) {
-        console.log('>> Error: Longitude/Latitude missing');
-        console.log({
+        logger.info('>> Error: Longitude/Latitude missing');
+        logger.info({
           id: item.link.ids[0],
           date: item.cells[0].text[0],
           time: item.cells[0].text[1] || '00:00',
@@ -313,7 +313,7 @@ async function getGames(teamId: string, season: string) {
           latitude: latitude,
           result: item.cells[4].text[0],
         });
-        // console.log(e);
+        // logger.info(e);
       }
       gameList.push({
         id: item.link.ids[0],
@@ -328,7 +328,7 @@ async function getGames(teamId: string, season: string) {
     }
     // });
   } else {
-    console.log(`>>> No Games found for Team ${teamId} and season ${season}`);
+    logger.info(`>>> No Games found for Team ${teamId} and season ${season}`);
   }
   return gameList;
 }
@@ -338,7 +338,7 @@ async function getGame(gameId: string) {
   try {
     const gameData = await data.json();
     const gameDetailData = gameData.data.regions[0].rows[0];
-    // console.log(gameDetailData);
+    // logger.info(gameDetailData);
     return {
       name: gameData.data.title,
       description: gameData.data.subtitle,
@@ -358,7 +358,7 @@ async function getGame(gameId: string) {
       spectators: gameDetailData.cells[10].text[0],
     };
   } catch (e) {
-    // console.log(e);
+    // logger.info(e);
     return {};
   }
 }
@@ -387,7 +387,7 @@ async function getSeason() {
 async function getSeasons() {
   const data = await fetch('https://api-v2.swissunihockey.ch/api/seasons');
   const seasonData = await data.json();
-  // console.log(seasonData.entries);
+  // logger.info(seasonData.entries);
   const seasonList = <any>[];
   // seasonData.entries.forEach((item: any) => {
   for (const item of seasonData.entries) {
@@ -405,10 +405,10 @@ async function getSeasons() {
 async function getRankings(teamId: string, season: string) {
   if (!season) {
     season = await getSeason() as unknown as string;
-    console.log(`No Season parameter provided. Used internal logic and found: ${season}`);
+    logger.info(`No Season parameter provided. Used internal logic and found: ${season}`);
   }
   const data = await fetch('https://api-v2.swissunihockey.ch/api/rankings?season=' + season + '&team_id=' + teamId);
-  // console.log("https://api-v2.swissunihockey.ch/api/rankings?season=" + season + "&team_id=" + teamId);
+  // logger.info("https://api-v2.swissunihockey.ch/api/rankings?season=" + season + "&team_id=" + teamId);
   const rankingData = await data.json();
   const rankingList = <any>[];
   // rankingData.data.regions[0].rows.forEach((item: any) => {
@@ -421,7 +421,7 @@ async function getRankings(teamId: string, season: string) {
       if (item.cells[1] && item.cells[1].image && item.cells[1].image.url) {
         url = item.cells[1].image.url;
       }*/
-      // console.log(item);
+      // logger.info(item);
       rankingList.push({
         id: item.data.team.id,
         name: item.data.team.name,
@@ -473,7 +473,7 @@ async function getStatistics(teamId: string) {
   const statisticsList = <any>[];
   // statisticsData.data.regions[0].rows.forEach((item: any) => {
   for (const item of statisticsData.data.regions[0].rows) {
-    console.log(JSON.stringify(item.cells[1]), JSON.stringify(item.cells[3]));
+    logger.info(JSON.stringify(item.cells[1]), JSON.stringify(item.cells[3]));
   }
   // });
   return statisticsList;
@@ -506,7 +506,7 @@ async function getNews() {
           imagePath = mobileImage ? mobileImage.url : item.media[0].url;
         }
       } catch (e) {
-        console.log('Image processing error:', item.id, JSON.stringify(item.media));
+        logger.info('Image processing error:', item.id, JSON.stringify(item.media));
       }
 
       newsList.push({

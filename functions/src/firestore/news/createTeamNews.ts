@@ -3,13 +3,13 @@
 import firebaseDAO from '../../firebaseSingleton';
 import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
 import {sendPushNotificationByUserProfileId} from '../../utils/push';
-
+import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 
 export async function createNotificationTeamNews(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
   const teamId = event.params.teamId;
   const newsId = event.params.newsId;
-  console.log(teamId, newsId);
+  logger.info(teamId, newsId);
 
   const teamNewsRef = await db.collection('teams').doc(teamId).collection('news').doc(newsId).get();
   const teamMembersRef = await db.collection('teams').doc(teamId).collection('members').get();

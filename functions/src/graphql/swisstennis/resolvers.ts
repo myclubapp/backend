@@ -3,7 +3,7 @@
 // import fetch from "node-fetch";
 
 import fetch from 'node-fetch';
-
+import {logger} from 'firebase-functions';
 export default {
   SwissTennis: {
     clubs: () => {
@@ -36,7 +36,7 @@ async function getNews() {
         // 'mode': 'cors',
       });
   const newsList = <any>[];
-  console.log(JSON.stringify(newsData));
+  logger.info(JSON.stringify(newsData));
   const data = await newsData.json();
   data.data.forEach((element:any)=> {
     newsList.push({
@@ -51,7 +51,7 @@ async function getClubs() {
     'method': 'GET',
   });
   const data = await clubList.json();
-  console.log(JSON.stringify(data.ClubList));
+  logger.info(JSON.stringify(data.ClubList));
 
   return data.ClubList;
 }

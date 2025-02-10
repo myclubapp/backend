@@ -1,17 +1,18 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-len */
+import {logger} from 'firebase-functions';
 import firebaseDAO from './../firebaseSingleton';
 import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
 const db = firebaseDAO.instance.db;
 // const auth = firebaseDAO.instance.auth;
 
 export const deleteTeamMember = async (event: FirestoreEvent<QueryDocumentSnapshot | undefined>) => {
-  console.log('deleteTeamMember > Team Page via Administrator');
+  logger.info('deleteTeamMember > Team Page via Administrator');
   const userId = event.params.userId;
   const teamId = event.params.teamId;
-  // console.log("Auth User > " +  event.auth);
-  console.log('Delete user from team ' + userId, teamId);
+  // logger.info("Auth User > " +  event.auth);
+  logger.info('Delete user from team ' + userId, teamId);
 
   // If removed from team, delete as well team admin
   await db.collection('teams').doc(teamId).collection('admins').doc(userId).delete();
@@ -29,7 +30,7 @@ export const deleteTeamMember = async (event: FirestoreEvent<QueryDocumentSnapsh
     return db.collection("userProfile").doc(userId).collection("teams").doc(teamId).delete();
   } else {
     // RESTORE DATA!
-    console.log("Restore DATA");
+    logger.info("Restore DATA");
     return await db.collection("teams").doc(teamId).collection("members").doc(userId).set(
         snapshot.data()
     );
@@ -37,11 +38,11 @@ export const deleteTeamMember = async (event: FirestoreEvent<QueryDocumentSnapsh
 };
 
 export const deleteClubMember = async (event: FirestoreEvent<QueryDocumentSnapshot | undefined>) => {
-  console.log('deleteClubMember > Club Page via Administrator');
+  logger.info('deleteClubMember > Club Page via Administrator');
   const userId = event.params.userId;
   const clubId = event.params.clubId;
-  // console.log("Auth User > " + context.auth);
-  console.log('Delete user from club ' + userId, clubId);
+  // logger.info("Auth User > " + context.auth);
+  logger.info('Delete user from club ' + userId, clubId);
 
   // TODO: DELETE FROM ALL TEAMS AS WELL!
   const teamList = await db.collection('club').doc(clubId).collection('teams').get();
@@ -55,7 +56,7 @@ export const deleteClubMember = async (event: FirestoreEvent<QueryDocumentSnapsh
       await db.collection('userProfile').doc(userId).collection('teamAdmins').doc(team.id).delete();
     }
   } catch (e) {
-    console.log('no teams to delete from');
+    logger.info('no teams to delete from');
   }
   // Delete as Admin from Club as well.
   await db.collection('club').doc(clubId).collection('admins').doc(userId).delete();
@@ -78,14 +79,14 @@ export const deleteClubMember = async (event: FirestoreEvent<QueryDocumentSnapsh
     return db.collection("userProfile").doc(userId).collection("club").doc(clubId).delete();
   } else {
     // RESTORE DATA!
-    console.log("Restore DATA");
+    logger.info("Restore DATA");
     return await db.collection("club").doc(clubId).collection("members").doc(userId).set(
         snapshot.data()
     );
   }*/
 };
 /* export async function deleteMemberFromClub(snapshot: QueryDocumentSnapshot, context: EventContext) {
-  console.log("Delete Member From Club");
+  logger.info("Delete Member From Club");
   // const userId = context.params.userId;
   // const clubId = context.params.clubId;
 
@@ -115,10 +116,10 @@ export const deleteClubMember = async (event: FirestoreEvent<QueryDocumentSnapsh
 // const userClubAdmin = await db.collection("userProfile").doc(userId).collection("clubAdmin").doc(clubId).delete();
 // const clubAdminUser = await db.collection("club").doc(clubId).collection("admins").doc(`${userId}`).delete();
 /*
-  console.log(`Admin with id ${userId} leaves ClubAdminList ${clubId}`);
+  logger.info(`Admin with id ${userId} leaves ClubAdminList ${clubId}`);
   const user = await auth.getUser(userId);
   if (user && user.customClaims && user.customClaims[clubId]) {
-    console.log("remove admin for Club");
+    logger.info("remove admin for Club");
     const customClaims = user.customClaims;
     delete customClaims[clubId];
     await auth.setCustomUserClaims(userId, customClaims);

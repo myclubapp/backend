@@ -9,6 +9,7 @@
 // const fetch = require("node-fetch");
 
 import * as fs from 'fs';
+import {logger} from 'firebase-functions';
 const stvClubsJSON = fs.readFileSync('./src/graphql/swissturnverband/clubs_data_final.json', 'utf8');
 
 
@@ -113,7 +114,7 @@ async function getClubs() {
     delete club.contactName;
     delete club.contactEmail;
     delete club.contactPhone;
-    // console.log(item.halls);
+    // logger.info(item.halls);
     clubList.push({
       ...club,
       id: club.id,
@@ -124,23 +125,23 @@ async function getClubs() {
 }
 
 async function getClub(clubId: string) {
-  console.log('');
+  logger.info('');
 }
 
 
 async function getClubGames(clubId: string) {
-  console.log('');
+  logger.info('');
 }
 
 async function getGames(teamId: string) {
-  console.log('');
+  logger.info('');
 }
 
 
 async function getRankings(teamId: string) {
-  console.log('');
+  logger.info('');
 }
 
 async function getNews() {
-  console.log('');
+  logger.info('');
 }

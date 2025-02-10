@@ -9,7 +9,7 @@ import {Change} from 'firebase-functions';
 // const db = firebaseDAO.instance.db;
 
 export async function checkPushToken(change: Change<QueryDocumentSnapshot>, context: functions.EventContext) {
-  /* 3console.log("approveTeamRequest");
+  /* 3logger.info("approveTeamRequest");
   const requestId = context.params.requestId;
   const teamId = context.params.teamId;
 
@@ -18,7 +18,7 @@ export async function checkPushToken(change: Change<QueryDocumentSnapshot>, cont
   const teamRef = await db.collection("teams").doc(teamId).get();
 
   if ("approve" in change.after.data() && change.after.data().approve === true) {
-    console.log(`approve request ${requestRef.id}`);
+    logger.info(`approve request ${requestRef.id}`);
 
     await db.collection("teams").doc(teamId).collection("members").doc(userProfileRef.id).set({
       "userProfileRef": userProfileRef.ref,
@@ -44,7 +44,7 @@ export async function checkPushToken(change: Change<QueryDocumentSnapshot>, cont
       },
     });
   } else if ("approve" in change.after.data() && change.after.data().approve === false) {
-    console.log(`TEAM request NOT APPROVED ${requestRef.id}`);
+    logger.info(`TEAM request NOT APPROVED ${requestRef.id}`);
     // clean up requests
     await db.collection("teams").doc(teamId).collection("requests").doc(userProfileRef.id).delete();
     await db.collection("userProfile").doc(userProfileRef.id).collection("teamRequests").doc(teamId).delete();

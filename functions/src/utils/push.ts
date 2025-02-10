@@ -5,7 +5,7 @@ import firebaseDAO from '../firebaseSingleton';
 import * as webpush from 'web-push';
 import {Messaging} from 'firebase-admin/lib/messaging/messaging';
 import {DataMessagePayload, Message} from 'firebase-admin/lib/messaging/messaging-api';
-
+import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 const messaging: Messaging = firebaseDAO.instance.messaging;
 
@@ -39,7 +39,7 @@ export async function sendPushNotificationByUserProfileId(userProfileId: string,
     // SEND PUSH NOTIFICATIONs
     for (const push of userProfilePushRef.docs) {
       const pushData = push.data();
-      console.log('>> PUSH DEVICE: ', pushData);
+      logger.info('>> PUSH DEVICE: ', pushData);
 
       if (pushData.platform === 'web') {
         // Send WebPush
@@ -50,7 +50,7 @@ export async function sendPushNotificationByUserProfileId(userProfileId: string,
               message: message,
             }),
         );
-        console.log('>> SEND WEB PUSH EVENT: ', statusCode, headers, body);
+        logger.info('>> SEND WEB PUSH EVENT: ', statusCode, headers, body);
       } else {
         // Send native Push
         try {
@@ -84,13 +84,13 @@ export async function sendPushNotificationByUserProfileId(userProfileId: string,
               },
             },
           });
-          console.log('>> SEND NATIVE PUSH EVENT: ', nativePush);
+          logger.info('>> SEND NATIVE PUSH EVENT: ', nativePush);
         } catch (e) {
-          console.log('Error Sending Native Push to Device:  ' + push.id + ' / Identifier: ' + pushData.identifier + ' with Error ' + e);
+          logger.info('Error Sending Native Push to Device:  ' + push.id + ' / Identifier: ' + pushData.identifier + ' with Error ' + e);
         }
       }
     }
   } catch (e) {
-    console.error('Error sending push notification: ', e);
+    logger.error('Error sending push notification: ', e);
   }
 }

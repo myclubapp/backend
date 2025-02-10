@@ -4,33 +4,34 @@
 import firebaseDAO from '../../firebaseSingleton';
 import {sendPushNotificationByUserProfileId} from '../../utils/push';
 import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
+import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 
 export async function createClubEvent(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
-  console.log('CREATE ClubEvent');
+  logger.info('CREATE ClubEvent');
 
   const userId = event.params.userId;
   const eventId = event.params.eventId;
 
-  console.log('userId: ' + userId);
-  console.log('EventId: ' + eventId);
+  logger.info('userId: ' + userId);
+  logger.info('EventId: ' + eventId);
 
   const eventData = event.data?.data();
   const clubRef = await db.collection('club').doc(eventData?.clubId).get();
-  console.log(clubRef.id);
+  logger.info(clubRef.id);
 
   const newClubEventRef = await db.collection('club').doc(clubRef.id).collection('events').add({
     ...eventData,
   });
 
-  console.log('New Club Event created: ' + newClubEventRef.id);
+  logger.info('New Club Event created: ' + newClubEventRef.id);
   return db.collection('userProfile').doc(userId).collection('clubEvents').doc(eventId).delete();
 }
 
 export async function createNotificationClubEvent(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
   const clubId = event.params.clubId;
   const eventId = event.params.eventId;
-  console.log(clubId, eventId);
+  logger.info(clubId, eventId);
 
   const clubEventRef = await db.collection('club').doc(clubId).collection('events').doc(eventId).get();
   const clubMembersRef = await db.collection('club').doc(clubId).collection('members').get();

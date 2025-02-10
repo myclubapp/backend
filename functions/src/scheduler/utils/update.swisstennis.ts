@@ -1,16 +1,17 @@
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import firebaseDAO from '../../firebaseSingleton';
+import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 
 import resolversSE from '../../graphql/swisstennis/resolvers';
 
 export async function updateClubsSwisstennis(): Promise<any> {
-  console.log('Update Clubs Swiss Tennis');
+  logger.info('Update Clubs Swiss Tennis');
 
   const clubData = await resolversSE.SwissTennis.clubs();
   for (const club of clubData) {
-    console.log(club.name);
+    logger.info(club.name);
 
     await db.collection('club').doc(`se-${club.id}`).set({
       externalId: `${club.id}`,

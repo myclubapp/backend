@@ -2,12 +2,12 @@
 /* eslint-disable max-len */
 import firebaseDAO from '../../firebaseSingleton';
 import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
-
+import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 // const auth = firebaseDAO.instance.auth;
 
 export async function deleteTeamGame(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
-  console.log('deleteTeamGame');
+  logger.info('deleteTeamGame');
   const teamId = event.params.teamId;
   const gameId = event.params.gameId;
 

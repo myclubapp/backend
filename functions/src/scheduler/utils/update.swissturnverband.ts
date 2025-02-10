@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import firebaseDAO from './../../firebaseSingleton';
+import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 
 // const {FieldValue} = require("firebase-admin/firestore");
@@ -9,7 +10,7 @@ import admin from 'firebase-admin';
 const MAX_WRITES_PER_BATCH = 500;
 
 export async function updateTeamsSwissturnverband(): Promise<any> {
-  console.log('Update Teams SwissTurnverband');
+  logger.info('Update Teams SwissTurnverband');
 
   const clubListRef = await db.collection('club').where('active', '==', true).where('type', '==', 'swissturnverband').get();
 
@@ -18,7 +19,7 @@ export async function updateTeamsSwissturnverband(): Promise<any> {
 
     const teamData = await resolversST.Club.teams({id: `${club.id}`}, {}, {}, {});
     for (const team of teamData) {
-      console.log(club.name + ' / ' + team.name);
+      logger.info(club.name + ' / ' + team.name);
       const clubRef = await db.collection('club').doc(`st-${club.id}`).get();
       const teamRef = await db.collection('teams').doc(`st-${team.id}`).get();
 
@@ -47,20 +48,20 @@ export async function updateTeamsSwissturnverband(): Promise<any> {
 }
 
 export async function updateClubsSwissturnverband(): Promise<any> {
-  console.log('Update Clubs SwissTurnverband');
+  logger.info('Update Clubs SwissTurnverband');
 
   const clubData = await resolversST.SwissTurnverband.clubs();
   updateClubsInBatches(clubData)
       .then(() => {
-        console.log('All turnverein clubs updated successfully');
+        logger.info('All turnverein clubs updated successfully');
       })
       .catch((error) => {
-        console.error('Error updating turnverein clubs in batches:', error);
+        logger.error('Error updating turnverein clubs in batches:', error);
       });
 
 /*
   for (const club of clubData) {
-    console.log(club.name);
+    logger.info(club.name);
     await db.collection("club").doc(`st-${club.id}`).set({
       ...club,
       externalId: `${club.id}`,
@@ -91,7 +92,7 @@ async function updateClubsInBatches(clubData: any) {
   let batchSize = 0;
 
   for (const club of clubData) {
-    console.log(club.name, club.id);
+    logger.info(club.name, club.id);
     // Create a reference for the main club document
     const clubRef = db.collection('club').doc(`st-${club.id}`);
 
@@ -151,12 +152,12 @@ async function updateClubsInBatches(clubData: any) {
 
   try {
     const results = await Promise.all(batches);
-    console.log('Batch SwissTurnverband', results);
+    logger.info('Batch SwissTurnverband', results);
     /* for (const result of results) {
-      console.log("Batch erfolgreich:", result);
+      logger.info("Batch erfolgreich:", result);
     } */
   } catch (error: any) {
-    console.error('Batch-Fehler:', error.code, error.message);
+    logger.error('Batch-Fehler:', error.code, error.message);
   }
 }
 

@@ -5,6 +5,7 @@
 import * as admin from 'firebase-admin';
 import firebaseDAO from './../firebaseSingleton';
 import {AuthBlockingEvent} from 'firebase-functions/v2/identity';
+import {logger} from 'firebase-functions';
 
 const db = firebaseDAO.instance.db;
 
@@ -26,19 +27,19 @@ export async function authUserCreateSendWelcomeEmail(event: AuthBlockingEvent): 
     throw new Error('No user data provided');
   }
   const user = event.data;
-  console.log('>>> NEW USER with ID: ' + user.uid + ' SEND WELCOME E-MAIL to VALIDATE E-MAIL');
+  logger.info('>>> NEW USER with ID: ' + user.uid + ' SEND WELCOME E-MAIL to VALIDATE E-MAIL');
   const link = await admin.auth().generateEmailVerificationLink(user.email as string);
 
   const userProfile: any = await db.collection('userProfile').doc(`${user.uid}`).get();
   if (!userProfile.exists) {
-    console.error('no user data found');
+    logger.error('no user data found');
   }
 
   await admin.auth().updateUser(user.uid, {
     displayName: userProfile.data()?.firstName + ' ' + userProfile.data()?.lastName,
   });
 
-  console.log('>>> SEND WELCOME MAIL TO USER ' + user.email );
+  logger.info('>>> SEND WELCOME MAIL TO USER ' + user.email );
   return db.collection('mail').add({
     to: user.email,
     template: {
@@ -52,11 +53,11 @@ export async function authUserCreateSendWelcomeEmail(event: AuthBlockingEvent): 
 }
 
 export async function authUserCreateAdminUser(user: admin.auth.UserRecord) {
-  /* console.log(">>> NEW USER with ID: " + user.uid + " CREATE ADMIN USER?");
+  /* logger.info(">>> NEW USER with ID: " + user.uid + " CREATE ADMIN USER?");
 
   const userProfile: any = await db.collection("userProfile").doc(`${user.uid}`).get();
   if (!userProfile.exists) {
-    console.error("no user data found");
+    logger.error("no user data found");
   }
 
   // CREATE ADMIN USER, IF CONTACT -> SPECIAL ONBOARDING
@@ -66,11 +67,11 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord) {
     const clubId: string = doc.ref.parent.parent?.id || "";
 
     if (clubId == undefined) {
-      console.log(">> NO clubId");
+      logger.info(">> NO clubId");
     } else {
       // Club aktivieren, falls noch nicht..
       // Könnte auch anders gemacht werden?
-      console.log(`Activate Club with ID: ${clubId}`);
+      logger.info(`Activate Club with ID: ${clubId}`);
       await db.collection("club").doc(clubId).set({
         "active": true,
       },
@@ -98,7 +99,7 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord) {
       });
   */
   // Wird nicht mehr gebraucht...
-  /* console.log(`set user ${user.uid} custom claims for admin role: ${clubId}`);
+  /* logger.info(`set user ${user.uid} custom claims for admin role: ${clubId}`);
       const userRef = await admin.auth().getUser(user.uid);
       const _customClaims = userRef.customClaims || {};
       _customClaims[clubId] = true;
@@ -136,7 +137,7 @@ export async function authUserCreateAdminUser(user: admin.auth.UserRecord) {
 
 
 // TODO-> IF CLUB ACTIVE
-/* console.log("Update swissunihockey");
+/* logger.info("Update swissunihockey");
 await updateClubsSwissunihockey();
 await updateTeamsSwissunihockey();
 await updateGamesSwissunihockey();

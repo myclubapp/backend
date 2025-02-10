@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-len */
 
 import firebaseDAO from '../firebaseSingleton';
@@ -8,7 +7,7 @@ import {google} from 'googleapis';
 import * as functions from 'firebase-functions/v1';
 import fs from 'fs';
 const mobileSportsUnihockey = fs.readFileSync('./src/scheduler/mobilesports_data_unihockey.json', 'utf8');
-
+import {logger} from 'firebase-functions';
 
 // Initialize the YouTube API client
 const youtube = google.youtube({
@@ -18,29 +17,29 @@ const youtube = google.youtube({
 
 export async function exercisesScheduler() {
   try {
-    console.log('Youtube Scheduler: Trainerausbildung Breitensport Grossfeld');
+    logger.info('Youtube Scheduler: Trainerausbildung Breitensport Grossfeld');
     const response = await youtube.playlistItems.list({
-      'part': 'snippet,contentDetails',
-      'maxResults': 150, // Adjust if needed
-      'playlistId': 'PL4GcRGPV7hzxG3GSoVtz7MvLhelIOOGcJ',
+      part: ['snippet', 'contentDetails'],
+      maxResults: 150,
+      playlistId: 'PL4GcRGPV7hzxG3GSoVtz7MvLhelIOOGcJ',
     });
-
-    const playlist = response.data.items;
+    const playlist = response.data.items ?? [];
     if (playlist.length === 0) {
       throw new Error('Playlist not found');
     }
 
     for (const item of playlist) {
       let imageURL = '';
-      try {
-        imageURL = item.snippet.thumbnails.standard.url;
-      } catch (e) {
-        console.log(item.snippet.thumbnails);
+      if (!item?.snippet?.thumbnails?.standard?.url || !item?.contentDetails?.videoId || !item?.contentDetails?.videoPublishedAt) {
+        logger.info('Missing required data:', {thumbnails: item.snippet?.thumbnails, contentDetails: item.contentDetails});
+        continue;
       }
+      imageURL = item.snippet.thumbnails.standard.url;
+
       await db.collection('exercises').doc('su-' + item.id).set({
-        'title': item.snippet.title,
+        'title': item.snippet?.title ?? '',
         'category': 'Trainerausbildung Breitensport Grossfeld',
-        'description': item.snippet.description,
+        'description': item.snippet?.description ?? '',
         'type': 'swissunihockey',
         'image': imageURL,
         'date': item.contentDetails.videoPublishedAt,
@@ -52,33 +51,34 @@ export async function exercisesScheduler() {
       });
     }
   } catch (err) {
-    console.error(err);
+    logger.error(err);
   }
 
   try {
-    console.log('Youtube Scheduler: Trainerausbildung - Leistungssport Grossfeld');
+    logger.info('Youtube Scheduler: Trainerausbildung - Leistungssport Grossfeld');
     const response = await youtube.playlistItems.list({
-      part: 'snippet,contentDetails',
-      maxResults: 150, // Adjust if needed
+      part: ['snippet', 'contentDetails'],
+      maxResults: 150,
       playlistId: 'PL4GcRGPV7hzxGudjWhZGXCSeB_beYOtEy',
     });
 
-    const playlist = response.data.items;
+    const playlist = response.data.items ?? [];
     if (playlist.length === 0) {
       throw new Error('Playlist not found');
     }
 
     for (const item of playlist) {
       let imageURL = '';
-      try {
-        imageURL = item.snippet.thumbnails.standard.url;
-      } catch (e) {
-        console.log(item.snippet.thumbnails);
+      if (!item?.snippet?.thumbnails?.standard?.url || !item?.contentDetails?.videoId || !item?.contentDetails?.videoPublishedAt) {
+        logger.info('Missing required data:', {thumbnails: item.snippet?.thumbnails, contentDetails: item.contentDetails});
+        continue;
       }
+      imageURL = item.snippet.thumbnails.standard.url;
+
       await db.collection('exercises').doc('su-' + item.id).set({
-        'title': item.snippet.title,
+        'title': item.snippet?.title ?? '',
         'category': 'Trainerausbildung - Leistungssport Grossfeld',
-        'description': item.snippet.description,
+        'description': item.snippet?.description ?? '',
         'type': 'swissunihockey',
         'image': imageURL,
         'date': item.contentDetails.videoPublishedAt,
@@ -90,33 +90,34 @@ export async function exercisesScheduler() {
       });
     }
   } catch (err) {
-    console.error(err);
+    logger.error(err);
   }
 
   try {
-    console.log('Youtube Scheduler: Trainerausbildung - Einstieg Grossfeld');
+    logger.info('Youtube Scheduler: Trainerausbildung - Einstieg Grossfeld');
     const response = await youtube.playlistItems.list({
-      part: 'snippet,contentDetails',
-      maxResults: 150, // Adjust if needed
+      part: ['snippet', 'contentDetails'],
+      maxResults: 150,
       playlistId: 'PL4GcRGPV7hzx4F41YYudtYuywLLgL3ZX5',
     });
 
-    const playlist = response.data.items;
+    const playlist = response.data.items ?? [];
     if (playlist.length === 0) {
       throw new Error('Playlist not found');
     }
 
     for (const item of playlist) {
       let imageURL = '';
-      try {
-        imageURL = item.snippet.thumbnails.standard.url;
-      } catch (e) {
-        console.log(item.snippet.thumbnails);
+      if (!item?.snippet?.thumbnails?.standard?.url || !item?.contentDetails?.videoId || !item?.contentDetails?.videoPublishedAt) {
+        logger.info('Missing required data:', {thumbnails: item.snippet?.thumbnails, contentDetails: item.contentDetails});
+        continue;
       }
+      imageURL = item.snippet.thumbnails.standard.url;
+
       await db.collection('exercises').doc('su-' + item.id).set({
-        'title': item.snippet.title,
+        'title': item.snippet?.title ?? '',
         'category': 'Trainerausbildung - Einstieg Grossfeld',
-        'description': item.snippet.description,
+        'description': item.snippet?.description ?? '',
         'type': 'swissunihockey',
         'image': imageURL,
         'date': item.contentDetails.videoPublishedAt,
@@ -128,11 +129,11 @@ export async function exercisesScheduler() {
       });
     }
   } catch (err) {
-    console.error(err);
+    logger.error(err);
   }
 
   /* try {
-    console.log("Youtube Scheduler - OLD?");
+    logger.info("Youtube Scheduler - OLD?");
     const response = await youtube.playlistItems.list({
       part: "snippet,contentDetails",
       maxResults: 100, // Adjust if needed
@@ -149,12 +150,12 @@ export async function exercisesScheduler() {
       try {
         imageURL = item.snippet.thumbnails.standard.url;
       } catch (e) {
-        console.log(item.snippet.thumbnails);
+        logger.info(item.snippet.thumbnails);
       }
 
-      // console.log(item);
-      // console.log("channelId: " + item.snippet.channelId);
-      // console.log("title: " + item.snippet.title);
+      // logger.info(item);
+      // logger.info("channelId: " + item.snippet.channelId);
+      // logger.info("title: " + item.snippet.title);
       await db.collection("exercises").doc("su-" + item.id).set({
         "title": item.snippet.title,
         "category": "",
@@ -170,14 +171,14 @@ export async function exercisesScheduler() {
       });
     }
   } catch (err) {
-    console.error(err);
+    logger.error(err);
   } */
 
   /*
    * MOBILESPORTS
    */
   const data: Array<any> = JSON.parse(mobileSportsUnihockey);
-  console.log('Mobilesport ');
+  logger.info('Mobilesport ');
   for (const item of data) {
     await db.collection('exercises').doc('su-' + item.id).set({
       'title': item.title,

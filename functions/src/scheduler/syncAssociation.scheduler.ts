@@ -13,6 +13,7 @@ import firebaseDAO from './../firebaseSingleton';
 const db = firebaseDAO.instance.db;
 import fetch from 'node-fetch';
 import {ScheduledEvent} from 'firebase-functions/v2/scheduler';
+import {logger} from 'firebase-functions';
 // const jsdom = require("jsdom");
 // const cheerio = require("cheerio");
 
@@ -24,7 +25,7 @@ export async function updatePersistenceJobClubs(event: ScheduledEvent) {
     await updateClubsSwissturnverband();
     // await updateClubsSwisstennis();
   } catch (err) {
-    console.error(err);
+    logger.error(err);
   }
 }
 
@@ -35,7 +36,7 @@ export async function updatePersistenceJobTeams(event: ScheduledEvent) {
     await updateTeamsSwissvolleyball();
     await updateTeamsSwissturnverband();
   } catch (err) {
-    console.error(err);
+    logger.error(err);
   }
 }
 
@@ -45,7 +46,7 @@ export async function updatePersistenceJobGames(event: ScheduledEvent) {
     await updateGamesSwisshandball();
     await updateGamesSwissvolley();
   } catch (err) {
-    console.error(err);
+    logger.error(err);
   }
 }
 
@@ -56,27 +57,27 @@ export async function updatePersistenceJobNews(event: ScheduledEvent) {
     await updateNewsSwissvolley();
     // await updateNewsSwisshandball();
   } catch (err) {
-    console.error(err);
+    logger.error(err);
   }
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function updateClubNewsFromWordpress(): Promise<any> {
-  console.log('updateClubNewsFromWordpress');
+  logger.info('updateClubNewsFromWordpress');
 
   const clubListRef = await db.collection('club').where('active', '==', true).get();
   for (const club of clubListRef.docs) {
-    // console.log(club.id);
+    // logger.info(club.id);
 
     if (club.data().wordpress) {
-      // console.log(club.data().wordpress);
+      // logger.info(club.data().wordpress);
       const url = club.data().wordpress + '/wp-json/wp/v2/posts?per_page=20';
       const wpData = await fetch(url);
       const wpNews = await wpData.json();
-      console.log('News URL: ' + url);
+      logger.info('News URL: ' + url);
 
       for (const news of wpNews) {
-        console.log(news.link);
+        logger.info(news.link);
 
         /* let text = String(news["content"].rendered).replaceAll("<p>", "");
         text = String(text).replaceAll("</p><p>", "/n");
@@ -172,7 +173,7 @@ async function updateClubNewsFromWordpress(): Promise<any> {
             featuredMedia = authorImage || 'https://placehold.co/600x400';
           }
         } catch (e) {
-          // console.log(e);
+          // logger.info(e);
           featuredMedia = authorImage || 'https://placehold.co/600x400';
         }
 

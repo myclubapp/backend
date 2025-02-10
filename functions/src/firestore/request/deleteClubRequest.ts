@@ -3,17 +3,17 @@
 
 import firebaseDAO from '../../firebaseSingleton';
 import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
-
+import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 // const auth = firebaseDAO.instance.auth;
 
 export async function deleteClubRequest(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
-  console.log('deleteClubRequest');
+  logger.info('deleteClubRequest');
   const userId = event.params.userId;
   const clubId = event.params.clubId;
 
   if (!event.data) {
-    console.log('No data associated with the Club Request');
+    logger.info('No data associated with the Club Request');
     return;
   }
 

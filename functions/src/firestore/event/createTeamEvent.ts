@@ -1,13 +1,13 @@
 /* eslint-disable max-len */
 import firebaseDAO from '../../firebaseSingleton';
 import {QueryDocumentSnapshot, FirestoreEvent} from 'firebase-functions/v2/firestore';
-
+import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 
 export async function createNotificationTeamEvent(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
   const teamId = event.params.teamId;
   const eventId = event.params.eventId;
-  console.log(teamId, eventId);
+  logger.info(teamId, eventId);
 }
 
 
@@ -15,7 +15,7 @@ export async function createTeamEvent(event: FirestoreEvent<QueryDocumentSnapsho
   const userId = event.params.userId;
   const userProfileRef = await db.collection('userProfile').doc(userId).get();
 
-  console.log('createTeamEvent' + userProfileRef.id);
+  logger.info('createTeamEvent' + userProfileRef.id);
 
   /*
   const trainingId = context.params.trainingId;

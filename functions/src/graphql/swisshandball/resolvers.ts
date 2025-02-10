@@ -4,7 +4,7 @@
 // import fetch from "node-fetch";
 
 import fetch from 'node-fetch';
-
+import {logger} from 'firebase-functions';
 // const {convert} = require("html-to-text");
 
 import * as fs from 'fs';
@@ -84,7 +84,7 @@ async function getTeams(clubId: string) {
     });
 
     const teamData = await data.json();
-    // console.log(teamData);
+    // logger.info(teamData);
     for (const item of teamData) {
       // teamData.forEach((item: any) => {
       teamList.push({
@@ -117,7 +117,7 @@ async function getTeam(teamId: string, clubId: string) {
       headers: {'Authorization': 'Basic ' + token},
     });
     const teamData = await data.json();
-    // console.log(teamData);
+    // logger.info(teamData);
 
     return {
       id: teamId,
@@ -129,10 +129,10 @@ async function getTeam(teamId: string, clubId: string) {
 }
 async function getClubs() {
   const data: Array<any> = JSON.parse(handballClubJSON);
-  // console.log(clubData);
+  // logger.info(clubData);
   const clubList = <any>[];
   for (const item of data) {
-    // console.log(item.halls);
+    // logger.info(item.halls);
     clubList.push({
       ...item,
       id: item.id,
@@ -162,7 +162,7 @@ async function getClub(clubId: string) {
     });
 
     const clubData = await data.json();
-    console.log(clubData);
+    logger.info(clubData);
 
     return {
       id: clubId,
@@ -189,7 +189,7 @@ async function getClubGames(clubId: string) {
     });
     const gameData = await data.json();
     gameData.forEach((item: any) => {
-      // console.log(item);
+      // logger.info(item);
       gameList.push({
 
         id: item.gameId,
@@ -321,7 +321,7 @@ async function getRankings(teamId: string, clubId: string) {
     });
 
     const rankingData = await data.json();
-    console.log(JSON.stringify(rankingData));
+    logger.info(JSON.stringify(rankingData));
 
     rankingData.ranking.forEach((item: any) => {
       rankingList.push({
@@ -377,7 +377,7 @@ async function getNews() {
   // const data = await fetch("https://www.handball.ch/Umbraco/Api/Entities/Collect");
   // const newsData = await data.json();
   /* newsData._embedded.wallList.forEach((item: any) => {
-    // console.log(item);
+    // logger.info(item);
     newsList.push({
       id: item.id,
       title: item.title,

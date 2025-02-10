@@ -1,13 +1,13 @@
 
 /* eslint-disable max-len */
-
+import {logger} from 'firebase-functions';
 import firebaseDAO from '../../firebaseSingleton';
 import {FirestoreEvent, QueryDocumentSnapshot, Change} from 'firebase-functions/v2/firestore';
 
 const db = firebaseDAO.instance.db;
 
 export async function approveClubRequest(event: FirestoreEvent<Change<QueryDocumentSnapshot> | undefined>) {
-  console.log('approveClubRequest');
+  logger.info('approveClubRequest');
   const requestId = event.params.requestId;
   const clubId = event.params.clubId;
 
@@ -16,7 +16,7 @@ export async function approveClubRequest(event: FirestoreEvent<Change<QueryDocum
   const clubRef = await db.collection('club').doc(clubId).get();
 
   if (event.data?.after.data().approve === true) {
-    console.log(`approve club request ${requestRef.id}`);
+    logger.info(`approve club request ${requestRef.id}`);
 
     // Add user to club as member
     await db.collection('club').doc(clubId).collection('members').doc(userProfileRef.id).set({
@@ -58,7 +58,7 @@ export async function approveClubRequest(event: FirestoreEvent<Change<QueryDocum
       },
     });
   } else if (event.data?.after.data().approve === false) {
-    console.log(`CLUB request NOT APPROVED ${requestRef.id}`);
+    logger.info(`CLUB request NOT APPROVED ${requestRef.id}`);
 
     // clean up requests
     await db.collection('userProfile').doc(userProfileRef.id).collection('clubRequests').doc(clubId).delete();

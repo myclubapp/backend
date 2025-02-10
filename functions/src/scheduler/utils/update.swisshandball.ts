@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import firebaseDAO from './../../firebaseSingleton';
 import resolversSH from './../../graphql/swisshandball/resolvers';
-
+import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 // const admin = require("firebase-admin");
 const MAX_WRITES_PER_BATCH = 500;
@@ -12,7 +12,7 @@ const MAX_WRITES_PER_BATCH = 500;
 // const handballHallenJSON = fs.readFileSync("./src/scheduler/utils/handball_hallen.json", "utf8");
 
 export async function updateGamesSwisshandball(): Promise<any> {
-  console.log('Update Games swisshandball');
+  logger.info('Update Games swisshandball');
 
   // Get Clubs from DB where Type = SWISS HANDBALL && STATUS is active
   const clubListRef = await db.collection('club').where('active', '==', true).where('type', '==', 'swisshandball').get();
@@ -21,14 +21,14 @@ export async function updateGamesSwisshandball(): Promise<any> {
     const club = {...{id: clubData.data().externalId}, ...clubData.data()};
 
     // GET CLUB GAMES
-    console.log(`> GET CLUB GAMES:  ${club.id} ${club.name}`);
+    logger.info(`> GET CLUB GAMES:  ${club.id} ${club.name}`);
 
     // Get ALL CLUB GAMES from club based on API from SWISS HANDBALL
     const clubGamesData = await resolversSH.Club.games({id: `${club.id}`}, {}, {}, {});
     for (const i in clubGamesData) {
       // Create Game Object
       const game = clubGamesData[i];
-      console.log(`>> READ CLUB GAME::  ${game.id}`);
+      logger.info(`>> READ CLUB GAME::  ${game.id}`);
 
       // Get Game Detail --> Does not edxist for handball
       // const gameDetail = await resolversSH.SwissHandball.game({}, {gameId: game.id}, {}, {});
@@ -50,15 +50,15 @@ export async function updateGamesSwisshandball(): Promise<any> {
     // TODO -> GET FROM DB instead of API -> Teams should be updated with another JOB
     const teamData = await resolversSH.Club.teams({id: `${club.id}`}, {}, {}, {});
     for (const team of teamData) {
-      console.log(`>> Team: ${team.id} ${team.name} ${team.liga} `);
+      logger.info(`>> Team: ${team.id} ${team.name} ${team.liga} `);
       const gamesData = await resolversSH.Team.games({id: `${team.id}`, clubId: `${club.id}`}, {}, {}, {});
       for (const i in gamesData) {
         const game = gamesData[i];
-        console.log(`>>> Read Team Game:  ${game.id}`);
+        logger.info(`>>> Read Team Game:  ${game.id}`);
 
         const clubRef = await db.collection('club').doc(`sh-${club.id}`).get();
         const teamRef = await db.collection('teams').doc(`sh-${team.id}`).get();
-        // console.log("read match report for game: " + game.id);
+        // logger.info("read match report for game: " + game.id);
 
         // await db.collection("teams").doc(`sh-${team.id}`).collection("games").doc(`sh-${game.id}`).get();
         await db.collection('teams').doc(`sh-${team.id}`).collection('games').doc(`sh-${game.id}`).set({
@@ -76,9 +76,9 @@ export async function updateGamesSwisshandball(): Promise<any> {
       }
       // Get rankings
       const teamRankings = await resolversSH.Team.rankings({id: `${team.id}`, clubId: `${club.id}`}, {}, {}, {});
-      console.log(' >> READ TEAM RANKINGS');
+      logger.info(' >> READ TEAM RANKINGS');
       for (const item of teamRankings) {
-        console.log(JSON.stringify({
+        logger.info(JSON.stringify({
           title: item.title,
           season: item.season,
           updated: new Date(),
@@ -98,7 +98,7 @@ export async function updateGamesSwisshandball(): Promise<any> {
   }
 }
 export async function updateTeamsSwisshandball(): Promise<any> {
-  console.log('Update Teams SwissHandball');
+  logger.info('Update Teams SwissHandball');
 
   const clubListRef = await db.collection('club').where('active', '==', true).where('type', '==', 'swisshandball').get();
   for (const clubData of clubListRef.docs) {
@@ -106,7 +106,7 @@ export async function updateTeamsSwisshandball(): Promise<any> {
     const club = {...{id: clubData.data().externalId}, ...clubData.data()};
     const teamData = await resolversSH.Club.teams({id: `${club.id}`}, {}, {}, {});
     for (const team of teamData) {
-      console.log(club.name + ' / ' + team.name);
+      logger.info(club.name + ' / ' + team.name);
       await db.collection('teams').doc(`sh-${team.id}`).set({
         ...team,
         externalId: `${team.id}`,
@@ -128,14 +128,14 @@ export async function updateTeamsSwisshandball(): Promise<any> {
 }
 
 export async function updateClubsSwisshandball(): Promise<any> {
-  console.log('Update Clubs swisshandball');
+  logger.info('Update Clubs swisshandball');
   const clubData = await resolversSH.SwissHandball.clubs();
   updateClubsInBatches(clubData)
       .then(() => {
-        console.log('All handball clubs updated successfully');
+        logger.info('All handball clubs updated successfully');
       })
       .catch((error) => {
-        console.error('Error updating handball clubs in batches:', error);
+        logger.error('Error updating handball clubs in batches:', error);
       });
 
   // HALLEN / NOT NEEDED TO frequently update this..
@@ -153,7 +153,7 @@ export async function updateClubsSwisshandball(): Promise<any> {
 }
 
 export async function updateNewsSwisshandball(): Promise<any> {
-  console.log('Update NEWS swisshandball');
+  logger.info('Update NEWS swisshandball');
 
   const newsData = await resolversSH.SwissHandball.news();
   for (const news of newsData) {
@@ -189,7 +189,7 @@ async function updateClubsInBatches(clubData: any) {
   let batchSize = 0;
 
   for (const club of clubData) {
-    console.log(club.name, club.id);
+    logger.info(club.name, club.id);
 
     // const hallen = club.halls;
 
@@ -237,7 +237,7 @@ async function updateClubsInBatches(clubData: any) {
     batchSize++;
 
     // Update venues
-    // console.log(JSON.stringify(club.halls));
+    // logger.info(JSON.stringify(club.halls));
     // if (club && club.halls && club.halls.length > 0) {
     /* try {
       for (const venue of hallen) {
@@ -254,7 +254,7 @@ async function updateClubsInBatches(clubData: any) {
         });
       }
     } catch (e) {
-      console.log(hallen);
+      logger.info(hallen);
     } */
 
     // If batch reaches max writes, commit it and start a new batch
@@ -274,12 +274,12 @@ async function updateClubsInBatches(clubData: any) {
 
   try {
     const results = await Promise.all(batches);
-    console.log('Batch SwissHandball', results);
+    logger.info('Batch SwissHandball', results);
     /* for (const result of results) {
-      console.log("Batch erfolgreich:", result);
+      logger.info("Batch erfolgreich:", result);
     } */
   } catch (error: any) {
-    console.error('Batch-Fehler:', error.code, error.message);
+    logger.error('Batch-Fehler:', error.code, error.message);
   }
 }
 

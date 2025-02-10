@@ -3,18 +3,18 @@
 import firebaseDAO from '../../firebaseSingleton';
 import {FirestoreEvent, Change, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
 import {sendPushNotificationByUserProfileId} from '../../utils/push';
-
+import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 
 export async function confirmHelferEvent(event: FirestoreEvent<Change<QueryDocumentSnapshot> | undefined>) {
-  console.log('confirmHelferEvent /club/{clubId}/helferEvents/{eventId}/schichten/{schichtId}/attendees/{userId}');
+  logger.info('confirmHelferEvent /club/{clubId}/helferEvents/{eventId}/schichten/{schichtId}/attendees/{userId}');
   const clubId = event.params.clubId;
   const eventId = event.params.eventId;
   const schichtId = event.params.schichtId;
   const userId = event.params.userId;
 
   if (event.data?.after.data()?.confirmed === true && event.data?.before.data()?.confirmed !== true) {
-    console.log('confirmed');
+    logger.info('confirmed');
 
     const userRef = await db.collection('userProfile').doc(userId).get();
     const clubRef = await db.collection('club').doc(clubId).get();

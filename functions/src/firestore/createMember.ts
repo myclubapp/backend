@@ -1,11 +1,12 @@
 /* eslint-disable max-len */
 import firebaseDAO from './../firebaseSingleton';
 import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
+import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 // const auth = firebaseDAO.instance.auth;
 
 export async function createTeamMember(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
-  console.log('createTeamMember from Team Page via Admin');
+  logger.info('createTeamMember from Team Page via Admin');
   const userId = event.params.userId;
   const teamId = event.params.teamId;
 
@@ -28,7 +29,7 @@ export async function createTeamMember(event: FirestoreEvent<QueryDocumentSnapsh
 
 // I GUESS WE DONT NEED THIS?
 export async function createClubMember(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
-  console.log('createClubMember from Club Page via Admin');
+  logger.info('createClubMember from Club Page via Admin');
   const userId = event.params.userId;
   const clubId = event.params.clubId;
 

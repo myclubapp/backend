@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-len */
 import {ScheduledEvent} from 'firebase-functions/v2/scheduler';
-
+import {logger} from 'firebase-functions';
 // import * as firebase from "firebase-admin";
 import firebaseDAO from './../firebaseSingleton';
 
@@ -9,12 +9,12 @@ const db = firebaseDAO.instance.db;
 
 export async function sendReportingJobMember(event: ScheduledEvent) {
   try {
-    console.log('>> START Reporting ');
+    logger.info('>> START Reporting ');
     const userProfileList = await db.collection('userProfile').get();
     if (!userProfileList.empty) {
       // Loop über Profiles
       for (const userProfile of userProfileList.docs) {
-        console.log(`>>> ${userProfile.data().firstName}`);
+        logger.info(`>>> ${userProfile.data().firstName}`);
 
         if (userProfile.data().settingsEmailReporting) {
           // Prepare data
@@ -27,7 +27,7 @@ export async function sendReportingJobMember(event: ScheduledEvent) {
           if (!teamList.empty) {
             // Loop über Teams
             for (const team of teamList.docs) {
-              console.log(`> Team ${team.id}`);
+              logger.info(`> Team ${team.id}`);
               /*
               const teamTrainingList = await db.collection("teams").doc(team.id).collection("training").where().get();
               const teamNewsList = await db.collection("teams").doc(team.id).collection("news").where().get();
@@ -39,13 +39,13 @@ export async function sendReportingJobMember(event: ScheduledEvent) {
           if (!clubList.empty) {
             // Loop über Clubs
             for (const club of clubList.docs) {
-              console.log(`> Club ${club.id}`);
+              logger.info(`> Club ${club.id}`);
 
-              console.log('Read news back to: ' + calculatedDate);
+              logger.info('Read news back to: ' + calculatedDate);
               const clubNewsList = await db.collection('club').doc(club.id).collection('news').where('date', '>=', calculatedDate).get();
               if (!clubNewsList.empty) {
                 for (const clubNews of clubNewsList.docs) {
-                  console.log('>> News: ' + clubNews);
+                  logger.info('>> News: ' + clubNews);
                   nlClubNews.push(clubNews);
                 }
               }
@@ -72,23 +72,23 @@ export async function sendReportingJobMember(event: ScheduledEvent) {
               },
             }});
         } else {
-          console.log(`Kein Reporting: ${userProfile.data().firstName}`);
+          logger.info(`Kein Reporting: ${userProfile.data().firstName}`);
         }
       }
     }
   } catch (err) {
-    console.error(err);
+    logger.error(err);
   }
 }
 
 function getNews() {
-  console.log('Get Past News from Member');
+  logger.info('Get Past News from Member');
 }
 
 function getTrainings() {
-  console.log('training');
+  logger.info('training');
 }
 
 function getEvents() {
-  console.log('events');
+  logger.info('events');
 }

@@ -5,6 +5,7 @@
 // import firebaseDAO from "./../firebaseSingleton";
 
 import {AuthBlockingEvent} from 'firebase-functions/v2/identity';
+
 // const db = firebaseDAO.instance.db;
 
 export async function authUserBlockBeforeCreate(event: AuthBlockingEvent): Promise<any> {
@@ -23,7 +24,7 @@ export async function authUserBlockBeforeSignIn(event: AuthBlockingEvent): Promi
   // log
   // E-Mail not verified
   /*
-  console.log("authUserBlockBeforeSignIn");
+  logger.info("authUserBlockBeforeSignIn");
   if (user.email && !user.emailVerified) {
     throw new functions.auth.HttpsError(
         "invalid-argument", `"${user.email}" needs to be verified before access is granted.`);

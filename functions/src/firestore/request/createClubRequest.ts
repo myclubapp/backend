@@ -5,15 +5,16 @@ import firebaseDAO from '../../firebaseSingleton';
 import {updatePersistenceJobClubs, updatePersistenceJobTeams, updatePersistenceJobGames, updatePersistenceJobNews} from '../../scheduler/syncAssociation.scheduler';
 import {sendPushNotificationByUserProfileId} from '../../utils/push';
 import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
+import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 
 export async function createClubRequest(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
-  console.log('createClubRequest');
+  logger.info('createClubRequest');
 
   // Sicherstellen, dass event.data existiert
   const snapshot = event.data;
   if (!snapshot) {
-    console.log('No data associated with the event');
+    logger.info('No data associated with the event');
     return;
   }
 
@@ -33,9 +34,9 @@ export async function createClubRequest(event: FirestoreEvent<QueryDocumentSnaps
   if (club && (club.active === undefined || club.active === false)) {
     // club ist noch nicht aktiv. -> Prüfen ob in der Contactliste eingetragen
     const contactDataRef = await db.collection('club').doc(clubId).collection('contacts').where('email', '==', userProfileRef.data()?.email).get();
-    /* console.log("ClubId" + clubId);
-    console.log("User Email" + userProfileRef.data()?.email);
-    console.log("User Email" + contactDataRef.docs.length); */
+    /* logger.info("ClubId" + clubId);
+    logger.info("User Email" + userProfileRef.data()?.email);
+    logger.info("User Email" + contactDataRef.docs.length); */
 
     if (contactDataRef.docs.length > 0) {
       // ACTIVATE CLUB!
@@ -134,7 +135,7 @@ export async function createClubRequest(event: FirestoreEvent<QueryDocumentSnaps
 
     // SEND REQUEST E-MAIL TO CLUB ADMIN
     const receipient = [];
-    console.log(`Get Admin from Club: ${clubId}`);
+    logger.info(`Get Admin from Club: ${clubId}`);
     const clubAdminRef = await db.collection('club').doc(clubId).collection('admins').get();
 
     for (const admin of clubAdminRef.docs) {

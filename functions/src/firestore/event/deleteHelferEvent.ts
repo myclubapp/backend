@@ -2,12 +2,12 @@
 /* eslint-disable max-len */
 import firebaseDAO from '../../firebaseSingleton';
 import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
-
+import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 // const auth = firebaseDAO.instance.auth;
 
 export async function deleteHelferEvent(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
-  console.log('deleteHelferEvent');
+  logger.info('deleteHelferEvent');
 
   const clubId = event.params.clubId;
   const eventId = event.params.eventId;

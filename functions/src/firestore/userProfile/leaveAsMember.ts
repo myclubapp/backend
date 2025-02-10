@@ -2,11 +2,12 @@
 /* eslint-disable max-len */
 import firebaseDAO from './../../firebaseSingleton';
 import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
+import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 // const auth = firebaseDAO.instance.auth;
 
 export const leaveTeamAsMember = async (event: FirestoreEvent<QueryDocumentSnapshot | undefined>) => {
-  console.log('leaveTeamAsMember');
+  logger.info('leaveTeamAsMember');
   const userId = event.params.userId;
   const teamId = event.params.teamId;
 
@@ -14,7 +15,7 @@ export const leaveTeamAsMember = async (event: FirestoreEvent<QueryDocumentSnaps
 };
 
 export const leaveClubAsMember = async (event: FirestoreEvent<QueryDocumentSnapshot | undefined>) => {
-  console.log('leaveClubAsMember');
+  logger.info('leaveClubAsMember');
   const userId = event.params.userId;
   const clubId = event.params.clubId;
 

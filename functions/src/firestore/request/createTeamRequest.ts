@@ -3,16 +3,16 @@
 import firebaseDAO from '../../firebaseSingleton';
 import {sendPushNotificationByUserProfileId} from '../../utils/push';
 import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
-
+import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 
 export async function createTeamRequest(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
-  console.log('createTeamRequest');
+  logger.info('createTeamRequest');
   const userId = event.params.userId;
   const teamId = event.params.teamId;
 
   if (!event.data) {
-    console.log('No data associated with the event');
+    logger.info('No data associated with the event');
     return;
   }
 
@@ -38,10 +38,10 @@ export async function createTeamRequest(event: FirestoreEvent<QueryDocumentSnaps
 
   // SEND REQUEST E-MAIL TO CLUB ADMIN
   const receipient = [];
-  console.log(`Get Admin from Club: ${teamRef.data().clubRef.id}`);
+  logger.info(`Get Admin from Club: ${teamRef.data().clubRef.id}`);
   const clubAdminRef = await db.collection('club').doc(teamRef.data().clubRef.id).collection('admins').get();
   for (const admin of clubAdminRef.docs) {
-    console.log(`Read Admin user for Club with id ${admin.id}`);
+    logger.info(`Read Admin user for Club with id ${admin.id}`);
 
     await sendPushNotificationByUserProfileId(
         admin.id,
@@ -55,7 +55,7 @@ export async function createTeamRequest(event: FirestoreEvent<QueryDocumentSnaps
   // SEND REQUEST E-MAIL TO TEAM ADMIN
   const teamAdminRef = await db.collection('teams').doc(teamId).collection('admins').get();
   for (const admin of teamAdminRef.docs) {
-    console.log(`Read Admin user for Team with id ${admin.id}`);
+    logger.info(`Read Admin user for Team with id ${admin.id}`);
     const userProfileAdminRef = await db.collection('userProfile').doc(admin.id).get();
     if (userProfileAdminRef.exists) {
       if (userProfileAdminRef.data().settingsEmail) {

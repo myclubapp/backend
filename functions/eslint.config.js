@@ -29,7 +29,7 @@ const baseConfig = {
     'max-len': ['error', {'code': 100}],
     'indent': ['error', 2],
     'comma-dangle': ['error', 'always-multiline'],
-    'no-console': 'off',
+    // 'no-console': 'off',
     ...Object.fromEntries(
         Object.entries(googleRules).filter(([key]) =>
           !key.includes('jsdoc') && !key.includes('require-jsdoc'),
