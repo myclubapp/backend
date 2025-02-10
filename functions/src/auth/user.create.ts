@@ -1,5 +1,3 @@
-
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable max-len */
 // import * as admin from 'firebase-admin';
@@ -54,89 +52,10 @@ export async function authUserCreateSendWelcomeEmail(event: AuthBlockingEvent): 
   });
 }
 
-export async function authUserCreateAdminUser(user: UserRecord) {
-  /* logger.info(">>> NEW USER with ID: " + user.uid + " CREATE ADMIN USER?");
-
-  const userProfile: any = await db.collection("userProfile").doc(`${user.uid}`).get();
-  if (!userProfile.exists) {
-    logger.error("no user data found");
-  }
-
-  // CREATE ADMIN USER, IF CONTACT -> SPECIAL ONBOARDING
-  const querySnapshot = await db.collectionGroup("contacts").where("email", "==", user.email).get();
-  for (const doc of querySnapshot.docs) {
-  // querySnapshot.forEach(async (doc:QueryDocumentSnapshot ) => {
-    const clubId: string = doc.ref.parent.parent?.id || "";
-
-    if (clubId == undefined) {
-      logger.info(">> NO clubId");
-    } else {
-      // Club aktivieren, falls noch nicht..
-      // Könnte auch anders gemacht werden?
-      logger.info(`Activate Club with ID: ${clubId}`);
-      await db.collection("club").doc(clubId).set({
-        "active": true,
-      },
-      {
-        merge: true,
-      });
-
-      // ADD User to Club as Admin
-      await db.collection("club").doc(clubId).collection("admins").doc(user.uid).set({
-        "userProfileRef": userProfile.ref,
-      });
-      // ADD User to Club as Member
-      await db.collection("club").doc(clubId).collection("members").doc(user.uid).set({
-        "userProfileRef": userProfile.ref,
-      });
-
-      // Add ClubAdmin to User
-      const clubRef = await db.collection("club").doc(clubId).get();
-      await db.collection("userProfile").doc(user.uid).collection("clubAdmin").doc(clubId).set({
-        "clubRef": clubRef.ref,
-      });
-      // Add Club to User
-      await db.collection("userProfile").doc(user.uid).collection("clubs").doc(clubId).set({
-        "clubRef": clubRef.ref,
-      });
-  */
-  // Wird nicht mehr gebraucht...
-  /* logger.info(`set user ${user.uid} custom claims for admin role: ${clubId}`);
-      const userRef = await admin.auth().getUser(user.uid);
-      const _customClaims = userRef.customClaims || {};
-      _customClaims[clubId] = true;
-      admin.auth().setCustomUserClaims(user.uid, _customClaims); */
-
-  // ADD TO ALL TEAMS --> NOT NEEEDED ANDYMORE SINCE CLUB ADMIN CAN ACCESS ALL TEAMS ANYWAY
-  /*
-      const teamListRef = await db.collection("club").doc(clubId).collection("teams").get();
-      for (const team of teamListRef.docs) {
-        // ADD User to Club as Admin
-        await db.collection("teams").doc(team.id).collection("admins").doc(user.uid).set({
-          "userProfileRef": userProfile.ref,
-        });
-        // ADD User to Club as Member
-        await db.collection("teams").doc(team.id).collection("members").doc(user.uid).set({
-          "userProfileRef": userProfile.ref,
-        });
-
-        // Add Team Admin to User
-        const teamRef = await db.collection("teams").doc(team.id).get();
-        await db.collection("userProfile").doc(user.uid).collection("teamAdmin").doc(team.id).set({
-          "teamRef": teamRef.ref,
-        });
-        // Add Club to User
-        await db.collection("userProfile").doc(user.uid).collection("teams").doc(team.id).set({
-          "teamRef": teamRef.ref,
-        });
-      }*/
-  // }
-
-  // TODO
-  // SEND MAIL TO CLUB ADMIN AND INFORM, THAT A NEW CLUB IS ACTIVE.
-  // }
+export async function authUserCreateAdminUser(user: UserRecord): Promise<void> {
+  logger.info('>>> authUserCreateAdminUser called for user: ' + user.uid);
+  return Promise.resolve();
 }
-
 
 // TODO-> IF CLUB ACTIVE
 /* logger.info("Update swissunihockey");
@@ -166,3 +85,9 @@ export async function authUserCreateSendVerifyMail(user: admin.auth.UserRecord, 
   }
 }
 */
+
+// Exportiere die Funktionen als benannte Exports
+export const userCreate = {
+  authUserCreateSendWelcomeEmail,
+  authUserCreateAdminUser,
+};
