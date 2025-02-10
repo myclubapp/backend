@@ -2,12 +2,13 @@
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import * as firebase from 'firebase-admin';
+// import * as firebase from 'firebase-admin';
 import {logger} from 'firebase-functions';
 import firebaseDAO from './../../firebaseSingleton.js';
 import resolversSU from './../../graphql/swissunihockey/resolvers.js';
 // import OpenAI from "openai";
 import * as fs from 'fs';
+import {Timestamp} from 'firebase-admin/firestore';
 
 const db = firebaseDAO.instance.db;
 
@@ -67,7 +68,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
         // game.date = "11.03.2023"
       }
       // logger.info(`Game Time: ${game.time} / Game Date: ${game.date}`);
-      const gameDateTime: firebase.firestore.Timestamp = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
+      const gameDateTime: Timestamp = Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
 
       await db.collection('club').doc(`su-${club.id}`).collection('games').doc(`su-${game.id}`).set({
         externalId: `${game.id}`,
@@ -148,7 +149,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
           // game.date = "11.03.2023"
         }
         // logger.info(`Game Time: ${game.time} / Game Date: ${game.date}`);
-        const gameDateTime: firebase.firestore.Timestamp = firebase.firestore.Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
+        const gameDateTime: Timestamp = Timestamp.fromDate(new Date(`${game.date.substr(6, 4)}-${game.date.substr(3, 2)}-${game.date.substr(0, 2)}T${game.time}`));
 
         const clubRef = await db.collection('club').doc(`su-${club.id}`).get();
         const teamRef = await db.collection('teams').doc(`su-${team.id}`).get();
