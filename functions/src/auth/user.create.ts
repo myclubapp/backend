@@ -4,7 +4,7 @@
 import firebaseDAO from './../firebaseSingleton';
 import {AuthBlockingEvent} from 'firebase-functions/v2/identity';
 import {logger} from 'firebase-functions';
-import {UserRecord} from 'firebase-functions/v1/auth';
+// import {UserRecord} from 'firebase-functions/v1/auth';
 
 const db = firebaseDAO.instance.db;
 const admin = firebaseDAO.instance.auth;
@@ -52,10 +52,10 @@ export async function authUserCreateSendWelcomeEmail(event: AuthBlockingEvent): 
   });
 }
 
-export async function authUserCreateAdminUser(user: UserRecord): Promise<void> {
+/* export async function authUserCreateAdminUser(user: UserRecord): Promise<void> {
   logger.info('>>> authUserCreateAdminUser called for user: ' + user.uid);
   return Promise.resolve();
-}
+} */
 
 // TODO-> IF CLUB ACTIVE
 /* logger.info("Update swissunihockey");
