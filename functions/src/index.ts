@@ -41,17 +41,19 @@ import {deleteTeamGame} from './firestore/game/deleteTeamGame.js';
 import {deleteHelferPunkt} from './firestore/event/deleteHelferPunkt.js';
 import {deleteTeam} from './firestore/team/deleteTeam.js';
 
-import * as functions from 'firebase-functions/v1';
-
 import graphqlServer from './graphql/server.js';
 
 import {onDocumentUpdated, onDocumentDeleted, onDocumentCreated} from 'firebase-functions/v2/firestore';
 
 import {beforeUserCreated} from 'firebase-functions/v2/identity';
 
+// import {beforeUserDeleted} from 'firebase-functions/v2/auth';
+import * as functions from 'firebase-functions/v1';
+
 import {onSchedule} from 'firebase-functions/v2/scheduler';
 
 import {onRequest} from 'firebase-functions/v2/https';
+
 
 // Firebase AUTH Welcome User Stuff -> Updated to 2nd gen
 export const sendWelcomeMail = beforeUserCreated({
@@ -61,19 +63,22 @@ export const sendWelcomeMail = beforeUserCreated({
 /* still 1st gen
 https://firebase.google.com/docs/functions/auth-events?authuser=0
 Note: Cloud Functions for Firebase (2nd gen) does not provide support for the events and triggers described in this guide. Because 1st gen and 2nd gen functions can coexist side-by-side in the same source file, you can still develop and deploy this functionality together with 2nd gen functions.
-export const sendByeEmail = beforeUserDeleted({
-  region: "europe-west6",
-  }, authUserDeleteUserSendByEmail);
-  */
+*/
+/* export const sendByeEmail = beforeUserDeleted({
+  region: 'europe-west6',
+}, authUserDeleteUserSendByEmail); // */
+
 export const sendByeEmail = functions.auth.user().onDelete(authUserDeleteUserSendByEmail);
+
 
 /* still 1st gen
  https://firebase.google.com/docs/functions/auth-events?authuser=0
  Note: Cloud Functions for Firebase (2nd gen) does not provide support for the events and triggers described in this guide. Because 1st gen and 2nd gen functions can coexist side-by-side in the same source file, you can still develop and deploy this functionality together with 2nd gen functions.
- export const deleteUserAccount = beforeUserDeleted({
-  region: "europe-west6",
-  }, authUserDeleteUserAccount);
-  */
+ */
+/* export const deleteUserAccount = beforeUserDeleted({
+  region: 'europe-west6',
+}, authUserDeleteUserAccount);
+*/
 export const deleteUserAccount = functions.auth.user().onDelete(authUserDeleteUserAccount);
 
 // NEW AUTH BLOCK FUNCTIONS -> Updated to 2nd gen
@@ -157,7 +162,8 @@ export const jobReportingMember = onSchedule({
 }, sendReportingJobMember);
 
 // DB Hooks TEAM > Manage teams currently only available for ADMIN
-export const dbDeleteTeam = onDocumentDeleted( {document: '/teams/{teamId}',
+export const dbDeleteTeam = onDocumentDeleted({
+  document: '/teams/{teamId}',
   region: 'europe-west6',
 }, deleteTeam);
 
