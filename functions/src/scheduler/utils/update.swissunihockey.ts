@@ -11,8 +11,8 @@ import * as fs from 'fs';
 
 const db = firebaseDAO.instance.db;
 
-/* import {defineString} from 'firebase-functions/params';
-const chatgptApiKey = defineString('API_CHATGPT'); */
+/* import {defineSecret} from 'firebase-functions/params';
+const chatgptApiKey = defineSecret('API_CHATGPT'); */
 
 /* const openai = new OpenAI({
   apiKey: chatgptApiKey.value(), // defaults to process.env["OPENAI_API_KEY"]

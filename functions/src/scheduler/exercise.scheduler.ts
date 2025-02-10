@@ -10,8 +10,8 @@ const mobileSportsUnihockey = fs.readFileSync('./src/scheduler/mobilesports_data
 import {logger} from 'firebase-functions';
 
 // Initialize the YouTube API client
-import {defineString} from 'firebase-functions/params';
-const youtubeApiKey = defineString('YOUTUBE_API_KEY');
+import {defineSecret} from 'firebase-functions/params';
+const youtubeApiKey = defineSecret('YOUTUBE_API_KEY');
 
 const youtube = google.youtube({
   version: 'v3',

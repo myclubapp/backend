@@ -6,11 +6,11 @@ import {logger} from 'firebase-functions/v2';
 
 const db = firebaseDAO.instance.db;
 const messaging = firebaseDAO.instance.messaging;
-import {defineString} from 'firebase-functions/params';
+import {defineSecret} from 'firebase-functions/params';
 
-const gcmAPIKey = defineString('WEBPUSH_GCMAPIKEY');
-const publicKey = defineString('WEBPUSH_PUBLICKEY');
-const privateKey = defineString('WEBPUSH_PRIVATEKEY');
+const gcmAPIKey = defineSecret('WEBPUSH_GCMAPIKEY');
+const publicKey = defineSecret('WEBPUSH_PUBLICKEY');
+const privateKey = defineSecret('WEBPUSH_PRIVATEKEY');
 
 /* const gcmAPIKey = functions.config().webpush.gcmapikey;
 const publicKey = functions.config().webpush.publickey;

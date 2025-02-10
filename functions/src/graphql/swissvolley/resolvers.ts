@@ -5,8 +5,8 @@
 
 // import fetch from 'node-fetch';
 import {logger} from 'firebase-functions';
-import {defineString} from 'firebase-functions/params';
-const swissvolleyToken = defineString('SWISSVOLLEY_TOKEN');
+import {defineSecret} from 'firebase-functions/params';
+const swissvolleyToken = defineSecret('SWISSVOLLEY_TOKEN');
 
 export default {
   SwissVolley: {
