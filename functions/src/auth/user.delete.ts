@@ -2,15 +2,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable max-len */
-import * as admin from 'firebase-admin';
+// import * as admin from 'firebase-admin';
 import firebaseDAO from '../firebaseSingleton';
+const db = firebaseDAO.instance.db;
 import * as functions from 'firebase-functions/v1';
 import {logger} from 'firebase-functions';
-const db = firebaseDAO.instance.db;
+import {UserRecord} from 'firebase-functions/v1/auth';
 const storage = firebaseDAO.instance.storage;
+const admin = firebaseDAO.instance.auth;
 
 // SEND BYE FirestoreEvent
-export async function authUserDeleteUserSendByEmail(user: admin.auth.UserRecord, context: functions.EventContext) {
+export async function authUserDeleteUserSendByEmail(user: UserRecord, context: functions.EventContext) {
   return admin.firestore().collection('mail').add({
     to: user.email,
     template: {
@@ -22,11 +24,11 @@ export async function authUserDeleteUserSendByEmail(user: admin.auth.UserRecord,
   });
 }
 
-export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, context: functions.EventContext) {
+export async function authUserDeleteUserAccount(user: UserRecord, context: functions.EventContext) {
   logger.info('delete user cleanup functions to delete user media, revoke refresh token for: ' + user.uid);
 
   // force logout in app
-  await admin.auth().revokeRefreshTokens(user.uid).catch((error)=>{
+  await admin.auth().revokeRefreshTokens(user.uid).catch((error: any)=>{
     logger.info(`error revokeRefreshTokens -> most likely already done by deleting user, ${error}`);
   });
 
@@ -133,7 +135,7 @@ export async function authUserDeleteUserAccount(user: admin.auth.UserRecord, con
   await db.collection('userProfile').doc(user.uid).delete();
 
   // Delete account in firebase --> Should be done already
-  return admin.auth().deleteUser(user.uid).catch((error)=> {
+  return admin.auth().deleteUser(user.uid).catch((error: any)=> {
     logger.info(`error deleting user -> most likely already done, ${error}`);
   });
 }
