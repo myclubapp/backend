@@ -85,9 +85,3 @@ export async function authUserCreateSendVerifyMail(user: admin.auth.UserRecord, 
   }
 }
 */
-
-// Exportiere die Funktionen als benannte Exports
-export const userCreate = {
-  authUserCreateSendWelcomeEmail,
-  authUserCreateAdminUser,
-};
