@@ -180,6 +180,12 @@ async function getClubs() {
     onInit(() => {
       swissvolleyToken = defineSecret('SWISSVOLLEY_TOKEN');
     });
+    logger.info('> swissvolleyToken', swissvolleyToken?.value());
+    logger.info({
+      'Accept': 'application/json',
+      'Authorization': swissvolleyToken?.value() || '',
+      'Content-Type': 'application/json',
+    });
     // eslint-disable-next-line no-undef
     const data = await fetch('https://api.volleyball.ch/indoor/clubs', {
       headers: {
