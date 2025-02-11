@@ -6,13 +6,9 @@
 // import fetch from 'node-fetch';
 import {logger} from 'firebase-functions';
 import {defineSecret} from 'firebase-functions/params';
-import {onInit} from 'firebase-functions/v2/core';
+// import {onInit} from 'firebase-functions/v2/core';
 import {SecretParam} from 'firebase-functions/lib/params/types.js';
 let swissvolleyToken: SecretParam | undefined;
-
-onInit(() => {
-  swissvolleyToken = defineSecret('SWISSVOLLEY_TOKEN');
-});
 
 export default {
   SwissVolley: {
@@ -178,15 +174,8 @@ function getClub(clubId: string) {
 // https://api.volleyball.ch/indoor/clubs?region=SVRBE&skipClubsWithoutAtLeast1ContactData=false
 async function getClubs() {
   try {
-    onInit(() => {
-      swissvolleyToken = defineSecret('SWISSVOLLEY_TOKEN');
-    });
+    swissvolleyToken = defineSecret('SWISSVOLLEY_TOKEN');
     logger.info('> swissvolleyToken', swissvolleyToken?.value());
-    logger.info({
-      // 'Accept': 'application/json',
-      'Authorization': swissvolleyToken?.value() || '',
-      'Content-Type': 'application/json',
-    });
     // eslint-disable-next-line no-undef
     const data = await fetch('https://api.volleyball.ch/indoor/clubs', {
       headers: {
@@ -199,7 +188,7 @@ async function getClubs() {
     // Check if the response is okay before proceeding
     if (!data.ok) {
       // throw new Error(`HTTP error! Status: ${data.status}`);
-      logger.info(`HTTP error! Status: ${data.status}`);
+      logger.info(`HTTP error! Status: ${data.status} ${data.statusText}`);
       return [];
     }
 

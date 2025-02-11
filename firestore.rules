@@ -54,7 +54,7 @@ service cloud.firestore {
         
         // push
         match /push/{deviceId=**} {
-          allow read, delete, create: if isSignedIn() && request.auth.uid == userId;
+          allow read, update, delete, create: if isSignedIn() && request.auth.uid == userId;
         }   
                 // Notifications
         match /notification/{notificationId=**} {
