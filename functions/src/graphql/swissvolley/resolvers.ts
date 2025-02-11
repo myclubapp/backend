@@ -220,6 +220,8 @@ async function getClubs() {
 }
 async function getGames(teamId: string) {
   const gameList = < any > [];
+  swissvolleyToken = defineSecret('SWISSVOLLEY_TOKEN');
+  logger.info('>> https://api.volleyball.ch/indoor/games?teamId=' + teamId + '&includeCup=1');
 
   // eslint-disable-next-line no-undef
   const data = await fetch('https://api.volleyball.ch/indoor/games?teamId=' + teamId + '&includeCup=1', { // region=SVRNO& not needed
@@ -246,7 +248,8 @@ async function getGame(gameId: string) {
 
 async function getRankings(groupId: string) {
   // https://api.volleyball.ch/indoor/ranking/24319
-
+  swissvolleyToken = defineSecret('SWISSVOLLEY_TOKEN');
+  logger.info('>> https://api.volleyball.ch/indoor/ranking/' + groupId);
   // eslint-disable-next-line no-undef
   const data = await fetch('https://api.volleyball.ch/indoor/ranking/' + groupId, {
     headers: {

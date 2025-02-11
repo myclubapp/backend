@@ -13,11 +13,7 @@ import {defineSecret} from 'firebase-functions/params';
 import {onInit} from 'firebase-functions/v2/core';
 import {SecretParam} from 'firebase-functions/lib/params/types.js';
 
-
 let swisshandballToken: SecretParam | undefined;
-onInit(() => {
-  swisshandballToken = defineSecret('SWISSHANDBALL_TOKEN');
-});
 
 export default {
 
@@ -87,6 +83,7 @@ async function getTeams(clubId: string) {
     swisshandballToken = defineSecret('SWISSHANDBALL_SH_' + clubId + '_TOKEN');
   });
   if (swisshandballToken) {
+    logger.info('>> https://clubapi.handball.ch/rest/v1/clubs/' + clubId + '/teams');
     // const swisshandballToken = defineSecret('SWISSHANDBALL_SH_' + clubId + '_TOKEN');;
     // eslint-disable-next-line no-undef
     const data = await fetch('https://clubapi.handball.ch/rest/v1/clubs/' + clubId + '/teams', {
@@ -125,6 +122,7 @@ async function getTeam(teamId: string, clubId: string) {
     swisshandballToken = defineSecret('SWISSHANDBALL_SH_' + clubId + '_TOKEN');
   });
   if (swisshandballToken) {
+    logger.info('>> https://clubapi.handball.ch/rest/v1/teams/' + teamId);
     // eslint-disable-next-line no-undef
     const data = await fetch('https://clubapi.handball.ch/rest/v1/teams/' + teamId, {
       headers: {'Authorization': 'Basic ' + swisshandballToken?.value() || ''},
@@ -168,10 +166,9 @@ async function getClubs() {
 }
 
 async function getClub(clubId: string) {
-  onInit(() => {
-    swisshandballToken = defineSecret('SWISSHANDBALL_SH_' + clubId + '_TOKEN');
-  });
+  swisshandballToken = defineSecret('SWISSHANDBALL_SH_' + clubId + '_TOKEN');
   if (swisshandballToken) {
+    logger.info('>> https://clubapi.handball.ch/rest/v1/clubs/' + clubId);
     // eslint-disable-next-line no-undef
     const data = await fetch('https://clubapi.handball.ch/rest/v1/clubs/' + clubId, {
       headers: {'Authorization': 'Basic ' + swisshandballToken?.value() || ''},
@@ -198,10 +195,9 @@ async function getClub(clubId: string) {
 
 async function getClubGames(clubId: string) {
   const gameList = <any>[];
-  onInit(() => {
-    swisshandballToken = defineSecret('SWISSHANDBALL_SH_' + clubId + '_TOKEN');
-  });
+  swisshandballToken = defineSecret('SWISSHANDBALL_SH_' + clubId + '_TOKEN');
   if (swisshandballToken) {
+    logger.info('>> https://clubapi.handball.ch/rest/v1/clubs/' + clubId + '/games');
     // eslint-disable-next-line no-undef
     const data = await fetch('https://clubapi.handball.ch/rest/v1/clubs/' + clubId + '/games', {
       headers: {'Authorization': 'Basic ' + swisshandballToken?.value() || ''},
@@ -267,10 +263,9 @@ async function getClubGames(clubId: string) {
 
 async function getGames(teamId: string, clubId: string) {
   const gameList = <any>[];
-  onInit(() => {
-    swisshandballToken = defineSecret('SWISSHANDBALL_SH_' + clubId + '_TOKEN');
-  });
+  swisshandballToken = defineSecret('SWISSHANDBALL_SH_' + clubId + '_TOKEN');
   if (swisshandballToken) {
+    logger.info('>> https://clubapi.handball.ch/rest/v1/teams/' + teamId + '/games');
     // eslint-disable-next-line no-undef
     const data = await fetch('https://clubapi.handball.ch/rest/v1/teams/' + teamId + '/games', {
       headers: {'Authorization': 'Basic ' + swisshandballToken?.value() || ''},
@@ -336,10 +331,9 @@ async function getGames(teamId: string, clubId: string) {
 
 async function getRankings(teamId: string, clubId: string) {
   const rankingList = <any>[];
-  onInit(() => {
-    swisshandballToken = defineSecret('SWISSHANDBALL_SH_' + clubId + '_TOKEN');
-  });
+  swisshandballToken = defineSecret('SWISSHANDBALL_SH_' + clubId + '_TOKEN');
   if (swisshandballToken) {
+    logger.info('>> https://clubapi.handball.ch/rest/v1/teams/' + teamId + '/group');
     // eslint-disable-next-line no-undef
     const data = await fetch('https://clubapi.handball.ch/rest/v1/teams/' + teamId + '/group', {
       headers: {'Authorization': 'Basic ' + swisshandballToken?.value() || ''},
