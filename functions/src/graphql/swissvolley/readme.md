@@ -17,7 +17,8 @@ header= {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWeb
          'Accept-Language': 'fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7,it;q=0.6',
         'Authorization': 'clicsoftGmbhMasterApiKey'
 }
-
+// API DOCUMENTATION
+https://swissvolley.docs.apiary.io/#introduction/authentication-and-authorization
 
 /* DOKU VOLLEYMANAGER 2.0*/
 // https://github.com/70n10/timesaver/blob/master/VolleyV6.ipynb

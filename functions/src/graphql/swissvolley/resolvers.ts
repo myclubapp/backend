@@ -70,7 +70,7 @@ export default {
     },
   },
 };
-
+// https://swissvolley.docs.apiary.io/#reference/indoor/season-collection/list-seasons
 async function getAssociations() {
   return [
     {id: 'NATIONAL', name: 'NATIONAL'},
@@ -82,6 +82,19 @@ async function getAssociations() {
     {id: 'SVRW', name: 'SVRW'},
     {id: 'SVRF', name: 'SVRF'},
     {id: 'SVRBE', name: 'SVRBE'},
+    {id: 'SV', name: 'SV'},
+    {id: 'SVRG', name: 'SVRG'},
+    {id: 'SVRV', name: 'SVRV'},
+    {id: 'SVRN', name: 'SVRN'},
+    {id: 'SVRJS', name: 'SVRJS'},
+    {id: 'SVRS', name: 'SVRS'},
+    {id: 'SVRBA', name: 'SVRBA'},
+    {id: 'SVRA', name: 'SVRA'},
+    {id: 'SVRI', name: 'SVRI'},
+    {id: 'SVRZ', name: 'SVRZ'},
+    {id: 'SVRNO', name: 'SVRNO'},
+    {id: 'SVRGSGL', name: 'SVRGSGL'},
+    {id: 'SVRT', name: 'SVRT'},
   ];
 }
 
@@ -160,9 +173,13 @@ async function getTeams(clubId: string) {
 function getClub(clubId: string) {
   logger.info('not needed');
 }
-
+// https://swissvolley.docs.apiary.io/#reference/indoor/clubs-collection/list-clubs
+// https://api.volleyball.ch/indoor/clubs?region=SVRBE&skipClubsWithoutAtLeast1ContactData=false
 async function getClubs() {
   try {
+    onInit(() => {
+      swissvolleyToken = defineSecret('SWISSVOLLEY_TOKEN');
+    });
     // eslint-disable-next-line no-undef
     const data = await fetch('https://api.volleyball.ch/indoor/clubs', {
       headers: {
@@ -206,7 +223,7 @@ async function getGames(teamId: string) {
   const gameList = < any > [];
 
   // eslint-disable-next-line no-undef
-  const data = await fetch('https://api.volleyball.ch/indoor/games?region=SVRNO&teamId=' + teamId + '&includeCup=1', {
+  const data = await fetch('https://api.volleyball.ch/indoor/games?teamId=' + teamId + '&includeCup=1', { // region=SVRNO& not needed
     headers: {
       'Accept': 'application/json',
       'Authorization': swissvolleyToken?.value() || '',
