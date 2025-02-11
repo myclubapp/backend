@@ -103,8 +103,9 @@ async function getTeam(teamId: string) {
   // eslint-disable-next-line no-undef
   const data = await fetch('https://api.volleyball.ch/indoor/teams/' + teamId, {
     headers: {
-      'Accept': 'application/json',
+      // 'Accept': 'application/json',
       'Authorization': swissvolleyToken?.value() || '',
+      'Content-Type': 'application/json',
     },
   });
   const teamData = await data.json();
@@ -132,8 +133,8 @@ async function getTeams(clubId: string) {
       method: 'GET',
       // redirect: "follow",
       headers: {
-        // "Content-Type": "application/json",
-        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        // 'Accept': 'application/json',
         'Authorization': swissvolleyToken?.value() || '',
       },
     });
@@ -182,14 +183,14 @@ async function getClubs() {
     });
     logger.info('> swissvolleyToken', swissvolleyToken?.value());
     logger.info({
-      'Accept': 'application/json',
+      // 'Accept': 'application/json',
       'Authorization': swissvolleyToken?.value() || '',
       'Content-Type': 'application/json',
     });
     // eslint-disable-next-line no-undef
     const data = await fetch('https://api.volleyball.ch/indoor/clubs', {
       headers: {
-        'Accept': 'application/json',
+        // 'Accept': 'application/json',
         'Authorization': swissvolleyToken?.value() || '',
         'Content-Type': 'application/json',
       },
@@ -231,7 +232,7 @@ async function getGames(teamId: string) {
   // eslint-disable-next-line no-undef
   const data = await fetch('https://api.volleyball.ch/indoor/games?teamId=' + teamId + '&includeCup=1', { // region=SVRNO& not needed
     headers: {
-      'Accept': 'application/json',
+      // 'Accept': 'application/json',
       'Authorization': swissvolleyToken?.value() || '',
       'Content-Type': 'application/json',
     },
@@ -257,7 +258,7 @@ async function getRankings(groupId: string) {
   // eslint-disable-next-line no-undef
   const data = await fetch('https://api.volleyball.ch/indoor/ranking/' + groupId, {
     headers: {
-      'Accept': 'application/json',
+      // 'Accept': 'application/json',
       'Authorization': swissvolleyToken?.value() || '',
       'Content-Type': 'application/json',
     },
