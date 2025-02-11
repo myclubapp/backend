@@ -96,6 +96,8 @@ async function getAssociations() {
 
 async function getTeam(teamId: string) {
   // https://api.volleyball.ch/indoor/teams/2404
+  swissvolleyToken = defineSecret('SWISSVOLLEY_TOKEN');
+  logger.info('>> https://api.volleyball.ch/indoor/teams/' + teamId);
   // eslint-disable-next-line no-undef
   const data = await fetch('https://api.volleyball.ch/indoor/teams/' + teamId, {
     headers: {
@@ -123,6 +125,7 @@ async function getTeam(teamId: string) {
 
 async function getTeams(clubId: string) {
   try {
+    swissvolleyToken = defineSecret('SWISSVOLLEY_TOKEN');
     logger.info('>> https://api.volleyball.ch/indoor/teams?clubId=' + clubId);
     // eslint-disable-next-line no-undef
     const data = await fetch('https://api.volleyball.ch/indoor/teams?clubId=' + clubId, {
@@ -175,7 +178,7 @@ function getClub(clubId: string) {
 async function getClubs() {
   try {
     swissvolleyToken = defineSecret('SWISSVOLLEY_TOKEN');
-    logger.info('> swissvolleyToken', swissvolleyToken?.value());
+    // logger.info('> swissvolleyToken', swissvolleyToken?.value());
     // eslint-disable-next-line no-undef
     const data = await fetch('https://api.volleyball.ch/indoor/clubs', {
       headers: {
