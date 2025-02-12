@@ -22,14 +22,15 @@ Runs every monday 08:00 for:
 ### Update Team Data
 Runs every monday 08:10 for active clubs: 
 - SwissUnihockey
-- Swissvolley (not in use)
+- Swissvolley
 - Swisshandball
 - Swiss Turnverband (not provided)
 
 ### Update Game Data
 Runs every Morning at 06:00 am for active clubs:
 - Swissunihockey
-
+- Swissvolley
+- Swisshandball
 
 ## GraphQL API for Sports Data
 Available APIs are: 
@@ -44,38 +45,26 @@ Verfügbare Dienste:
 - Teams
 - Meisterschaft
 - Ranglisten
-- Statistiken
+- Statistiken (not yet implemented)
+- News
 
 ### Swiss Volleyball API
 based on this [documentation](https://myvolley.volleyball.ch/SwissVolley.wsdl)
 
 available [here](https://europe-west6-myclubmanagement.cloudfunctions.net/api/swissvolley)
 
-Supported organizations:
-- National
-- RVNO
-- GSGL
-- RVI
-- RVZ
-- RVA
-- SVRW
-- SVRF
-- SVRBE
-
 Verfügbare Dienste: 
 - Clubs
 - Teams
 - Meisterschaft
-- Ranglisten
-
+- Ranglisten (not yet implemented)
 
 ### Swiss Handball
 based on this [documentation](https://clubapi-test.handball.ch/swagger/index.html) 
 available [here](https://europe-west6-myclubmanagement.cloudfunctions.net/api/swisshandball): 
 
-
 Verfügbare Dienste: 
-- Vereine
+- Clubs
 - Teams
 - Meisterschaft
 - Ranglisten
@@ -86,11 +75,6 @@ available [here](https://europe-west6-myclubmanagement.cloudfunctions.net/api/sw
 Verfügbare Dienste: 
 - Vereine
 - Angebote
-
-Nicht verfügbar: 
-- News
-- Ranglisten
-- Wettkämpfe
 
 ### Swiss Basketball (Not supported yet)
 available under: 
