@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 
 import firebaseDAO from '../../firebaseSingleton.js';
-import {FirestoreEvent, QueryDocumentSnapshot, Change} from 'firebase-functions/v2/firestore';
+import {FirestoreEvent, QueryDocumentSnapshot, DocumentSnapshot, Change} from 'firebase-functions/v2/firestore';
 import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 
@@ -46,10 +46,9 @@ export async function updateCheckoutSession(event: FirestoreEvent<Change<QueryDo
   {merge: true},
   );
 }
-export async function updateSubscription(event: FirestoreEvent<Change<QueryDocumentSnapshot> | undefined>) {
+export async function updateSubscription(event: FirestoreEvent<Change<DocumentSnapshot> | undefined>) {
   logger.info('CHANGE Checkout Session');
-  const subscriptionId = event.params.subscriptionId;
-  const userId = event.params.userId;
+  const {subscriptionId, userId} = event.params;
 
   const userProfileRef = await db.collection('userProfile').doc(userId).get();
   const subscriptionData = event.data?.after.data() || {};
@@ -158,36 +157,49 @@ export async function updateSubscription(event: FirestoreEvent<Change<QueryDocum
     return true;
   }
 }
-export async function updateInvoice(event: FirestoreEvent<Change<QueryDocumentSnapshot> | undefined>) {
+// Invoice Update Handler (V2)
+export async function updateInvoice(event: FirestoreEvent<Change<DocumentSnapshot> | undefined>) {
   logger.info('change Invoice ');
-  const subscriptionId = event.params.subscriptionId;
-  const invoiceId = event.params.invoiceId;
-  const userId = event.params.userId;
 
-  // GET subscription = parent object, as there is a metadata object with clubId Available
-  const subscriptionRef = await db.collection('userProfile').doc(userId).collection('subscriptions').doc(subscriptionId).get();
-  const subscriptionData = subscriptionRef.data();
+  const {subscriptionId, invoiceId, userId} = event.params;
 
-  const userProfileRef = await db.collection('userProfile').doc(userId).get();
+  // GET subscription (parent object)
+  const subscriptionRef = db.collection('userProfile').doc(userId).collection('subscriptions').doc(subscriptionId);
+  const subscriptionSnap = await subscriptionRef.get();
+  const subscriptionData = subscriptionSnap.data();
+
+  // GET user profile
+  const userProfileRef = db.collection('userProfile').doc(userId);
+  // const userProfileSnap = await userProfileRef.get();
 
   let clubId = '';
-  if (subscriptionData && subscriptionData.metadata && subscriptionData.metadata.clubId) {
+  if (subscriptionData?.metadata?.clubId) {
     clubId = subscriptionData.metadata.clubId;
-    return db.collection('club').doc(clubId).collection('subscriptions').doc(subscriptionId).collection('invoices').doc(invoiceId).set({
-      ...event.data?.after.data(),
-      userProfileRef: userProfileRef.ref,
-      updated: new Date(),
-    },
-    {merge: true},
-    );
-  } else {
-    return true;
+
+    // Update invoice in club collection
+    return db
+        .collection('club')
+        .doc(clubId)
+        .collection('subscriptions')
+        .doc(subscriptionId)
+        .collection('invoices')
+        .doc(invoiceId)
+        .set(
+            {
+              ...event.data?.after?.data(),
+              userProfileRef: userProfileRef.ref,
+              updated: new Date(),
+            },
+            {merge: true},
+        );
   }
+
+  return true;
 }
-export async function updatePayments(event: FirestoreEvent<Change<QueryDocumentSnapshot> | undefined>) {
+
+export async function updatePayments(event: FirestoreEvent<Change<DocumentSnapshot> | undefined>) {
   logger.info('change Payment - this will never succeed, as metadata is not filled - but anyway it\'s not urgent as we can show this only to the user.');
-  const paymentId = event.params.paymentId;
-  const userId = event.params.userId;
+  const {userId, paymentId} = event.params;
 
   const userProfileRef = await db.collection('userProfile').doc(userId).get();
   const paymentData = event.data?.after.data() || {};

@@ -43,7 +43,7 @@ import {deleteTeam} from './firestore/team/deleteTeam.js';
 
 import graphqlServer from './graphql/server.js';
 
-import {onDocumentUpdated, onDocumentDeleted, onDocumentCreated} from 'firebase-functions/v2/firestore';
+import {onDocumentUpdated, onDocumentDeleted, onDocumentCreated, onDocumentWritten} from 'firebase-functions/v2/firestore';
 
 import {beforeUserCreated} from 'firebase-functions/v2/identity';
 
@@ -240,19 +240,19 @@ export const dbChangeCheckoutSession = onDocumentUpdated({
 }, updateCheckoutSession);
 
 // Das hier ist korrekt!!! https://firebase.google.com/docs/functions/firestore-events?hl=de&gen=2nd
-export const dbChangeSubscription = onDocumentUpdated({
+export const dbChangeSubscription = onDocumentWritten({
   document: '/userProfile/{userId}/subscriptions/{subscriptionId}',
   region: 'europe-west6',
 }, updateSubscription);
 
 // Das hier ist korrekt!!! https://firebase.google.com/docs/functions/firestore-events?hl=de&gen=2nd
-export const dbChangeInvoice = onDocumentUpdated({
+export const dbChangeInvoice = onDocumentWritten({
   document: '/userProfile/{userId}/subscriptions/{subscriptionId}/invoices/{invoiceId}',
   region: 'europe-west6',
 }, updateInvoice);
 
 // Das hier ist korrekt!!! https://firebase.google.com/docs/functions/firestore-events?hl=de&gen=2nd
-export const dbChangePayment = onDocumentUpdated({
+export const dbChangePayment = onDocumentWritten({
   document: '/userProfile/{userId}/payments/{paymentId}',
   region: 'europe-west6',
 }, updatePayments);
