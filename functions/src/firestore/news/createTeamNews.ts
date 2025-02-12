@@ -7,8 +7,7 @@ import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 
 export async function createNotificationTeamNews(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
-  const teamId = event.params.teamId;
-  const newsId = event.params.newsId;
+  const {teamId, newsId} = event.params;
   logger.info(teamId, newsId);
 
   const teamNewsRef = await db.collection('teams').doc(teamId).collection('news').doc(newsId).get();

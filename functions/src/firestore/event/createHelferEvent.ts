@@ -8,8 +8,7 @@ const db = firebaseDAO.instance.db;
 export async function createHelferEvent(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
   logger.info('CREATE Helferevent');
 
-  const userId = event.params.userId;
-  const eventId = event.params.eventId;
+  const {userId, eventId} = event.params;
 
   logger.info('userId: ' + userId);
   logger.info('HelfereventId: ' + eventId);

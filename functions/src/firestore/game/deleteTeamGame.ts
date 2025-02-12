@@ -8,8 +8,7 @@ const db = firebaseDAO.instance.db;
 
 export async function deleteTeamGame(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
   logger.info('deleteTeamGame');
-  const teamId = event.params.teamId;
-  const gameId = event.params.gameId;
+  const {teamId, gameId} = event.params;
 
   // Delete all attendees to avoid "empty" training docs
   const attendeesRef = await db.collection('teams').doc(teamId).collection('games').doc(gameId).collection('attendees').get();

@@ -8,16 +8,14 @@ const db = firebaseDAO.instance.db;
 
 export const leaveTeamAsMember = async (event: FirestoreEvent<QueryDocumentSnapshot | undefined>) => {
   logger.info('leaveTeamAsMember');
-  const userId = event.params.userId;
-  const teamId = event.params.teamId;
+  const {userId, teamId} = event.params;
 
   return db.collection('teams').doc(teamId).collection('members').doc(userId).delete();
 };
 
 export const leaveClubAsMember = async (event: FirestoreEvent<QueryDocumentSnapshot | undefined>) => {
   logger.info('leaveClubAsMember');
-  const userId = event.params.userId;
-  const clubId = event.params.clubId;
+  const {userId, clubId} = event.params;
 
   return db.collection('club').doc(clubId).collection('members').doc(userId).delete();
 };

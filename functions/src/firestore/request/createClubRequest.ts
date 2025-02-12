@@ -19,8 +19,7 @@ export async function createClubRequest(event: FirestoreEvent<QueryDocumentSnaps
   }
 
   // Zugriff auf Parameter aus dem Dokumentpfad
-  const userId = event.params.userId;
-  const clubId = event.params.clubId;
+  const {userId, clubId} = event.params;
 
   const clubRef = await db.collection('club').doc(clubId).get();
   const club = clubRef.data();

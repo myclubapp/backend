@@ -9,8 +9,7 @@ const db = firebaseDAO.instance.db;
 
 export async function deleteTeamRequest(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
   logger.info('deleteTeamRequest');
-  const userId = event.params.userId;
-  const teamId = event.params.teamId;
+  const {userId, teamId} = event.params;
 
   if (!event.data) {
     logger.info('No data associated with the Team Request');

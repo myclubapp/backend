@@ -10,8 +10,7 @@ const db = firebaseDAO.instance.db;
 export async function createClubEvent(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
   logger.info('CREATE ClubEvent');
 
-  const userId = event.params.userId;
-  const eventId = event.params.eventId;
+  const {userId, eventId} = event.params;
 
   logger.info('userId: ' + userId);
   logger.info('EventId: ' + eventId);

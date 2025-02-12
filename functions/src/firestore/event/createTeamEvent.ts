@@ -5,8 +5,7 @@ import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 
 export async function createNotificationTeamEvent(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
-  const teamId = event.params.teamId;
-  const eventId = event.params.eventId;
+  const {teamId, eventId} = event.params;
   logger.info(teamId, eventId);
 }
 

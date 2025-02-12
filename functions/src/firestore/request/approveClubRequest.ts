@@ -8,8 +8,7 @@ const db = firebaseDAO.instance.db;
 
 export async function approveClubRequest(event: FirestoreEvent<Change<QueryDocumentSnapshot> | undefined>) {
   logger.info('approveClubRequest');
-  const requestId = event.params.requestId;
-  const clubId = event.params.clubId;
+  const {requestId, clubId} = event.params;
 
   const requestRef = await db.collection('club').doc(clubId).collection('requests').doc(requestId).get();
   const userProfileRef = await db.collection('userProfile').doc(requestId).get();

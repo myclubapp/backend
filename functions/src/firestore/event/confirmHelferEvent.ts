@@ -8,10 +8,7 @@ const db = firebaseDAO.instance.db;
 
 export async function confirmHelferEvent(event: FirestoreEvent<Change<QueryDocumentSnapshot> | undefined>) {
   logger.info('confirmHelferEvent /club/{clubId}/helferEvents/{eventId}/schichten/{schichtId}/attendees/{userId}');
-  const clubId = event.params.clubId;
-  const eventId = event.params.eventId;
-  const schichtId = event.params.schichtId;
-  const userId = event.params.userId;
+  const {clubId, eventId, schichtId, userId} = event.params;
 
   if (event.data?.after.data()?.confirmed === true && event.data?.before.data()?.confirmed !== true) {
     logger.info('confirmed');

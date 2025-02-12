@@ -8,8 +8,7 @@ const db = firebaseDAO.instance.db;
 export async function createCheckoutSession(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
   logger.info('Create New Checkout Session based on Checkout Session in Club');
 
-  const clubId = event.params.clubId;
-  const sessionId = event.params.sessionId;
+  const {clubId, sessionId} = event.params;
   logger.info('clubId: ' + clubId);
   logger.info('sessionId: ' + sessionId);
 
@@ -31,8 +30,7 @@ export async function createCheckoutSession(event: FirestoreEvent<QueryDocumentS
 
 export async function updateCheckoutSession(event: FirestoreEvent<Change<QueryDocumentSnapshot> | undefined>) {
   logger.info('Update Checkout Session on Club, because STRIPE does only update userProfile collection');
-  const sessionId = event.params.sessionId;
-  const userId = event.params.userId;
+  const {sessionId, userId} = event.params;
 
   const userProfileRef = await db.collection('userProfile').doc(userId).get();
   const sessionData = event.data?.after.data();

@@ -6,8 +6,7 @@ import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 
 export async function addClubTeam(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
-  const clubId = event.params.clubId;
-  const teamId = event.params.teamId;
+  const {clubId, teamId} = event.params;
 
   // CHECK IF TEAM was added via JOB?
   const teamRef = await db.collection('teams').doc(teamId).get();

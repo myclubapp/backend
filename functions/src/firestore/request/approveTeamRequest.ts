@@ -20,8 +20,7 @@ export async function approveTeamRequest(event: FirestoreEvent<Change<QueryDocum
     return;
   }
 
-  const requestId = event.params.requestId;
-  const teamId = event.params.teamId;
+  const {requestId, teamId} = event.params;
 
   const requestRef = await db.collection('teamId').doc(teamId).collection('requests').doc(requestId).get();
   const userProfileRef = await db.collection('userProfile').doc(requestId).get();

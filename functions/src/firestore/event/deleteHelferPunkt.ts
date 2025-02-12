@@ -10,8 +10,7 @@ const db = firebaseDAO.instance.db;
 export async function deleteHelferPunkt(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
   logger.info('deleteHelferPunkt');
 
-  const clubId = event.params.clubId;
-  const helferPunktId = event.params.helferPunktId;
+  const {clubId, helferPunktId} = event.params;
 
   const helferPunktData = event.data?.data();
 

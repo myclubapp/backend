@@ -10,8 +10,7 @@ const db = firebaseDAO.instance.db;
 export async function createTeamTraining(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
   logger.info('CREATE Training');
 
-  const userId = event.params.userId;
-  const trainingId = event.params.trainingId;
+  const {userId, trainingId} = event.params;
 
   logger.info('userId: ' + userId);
   logger.info('trainingId: ' + trainingId);
