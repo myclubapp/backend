@@ -64,8 +64,7 @@ export async function updateGamesSwissvolley(): Promise<any> {
             referee1: '', // game.referee[0] || "",
             referee2: '', // game.referee[1] || "",
             spectators: '',
-
-            result: game.resultSummary.toString(),
+            result: game.resultSummary.wonSetsAwayTeam + ' : ' + game.resultSummary.wonSetsHomeTeam,
             type: 'swissvolley',
             updated: new Date(),
             clubRef: clubRef.ref,
