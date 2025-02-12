@@ -158,7 +158,7 @@ async function getTeams(clubId: string) {
         ...league,
         ...club,
         'id': item.teamId,
-        'liga': league.caption,
+        'liga': `${league.caption} - ${club.gender}`,
         'name': item.caption,
         'logo': item.teamlogo,
       });
