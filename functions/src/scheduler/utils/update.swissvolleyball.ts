@@ -45,6 +45,26 @@ export async function updateGamesSwissvolley(): Promise<any> {
             result = `${homeWins}:${awayWins} (${scores})`;
           }
 
+          // referees
+          // let referees = '';
+          let referee1 = '';
+          let referee2 = '';
+          if (!game.referees || Object.keys(game.referees).length === 0) {
+            // No referees, return an empty string
+            // referees = '';
+          } else {
+            /* referees = Object.values(game.referees)
+                .map((ref:any) => `${ref.firstName} ${ref.lastName}`)
+                .join(', '); */
+
+            const ref1 = game.referees['1'];
+            referee1 = ref1 ? `${ref1.firstName} ${ref1.lastName}` : '';
+
+            const ref2 = game.referees['2'];
+            referee2 = ref2 ? `${ref2.firstName} ${ref2.lastName}` : '';
+          }
+
+
           await db.collection('teams').doc(`sv-${team.id}`).collection('games').doc(`sv-${game.id}`).set({
             externalId: `${game.id}`,
             date: game.playDate.substr(8, 2) + '.' + game.playDate.substr(5, 2) + '.' + game.playDate.substr(0, 4),
@@ -72,8 +92,8 @@ export async function updateGamesSwissvolley(): Promise<any> {
             teamAwayLogo: game.teams.away.logo,
             teamAwayLogoText: game.teams.away.caption,
 
-            referee1: '', // game.referee[0] || "",
-            referee2: '', // game.referee[1] || "",
+            referee1: referee1, // game.referee[0] || "",
+            referee2: referee2, // game.referee[1] || "",
             spectators: '',
             result: result,
             type: 'swissvolley',
