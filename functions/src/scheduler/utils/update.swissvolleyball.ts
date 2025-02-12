@@ -34,6 +34,17 @@ export async function updateGamesSwissvolley(): Promise<any> {
           // await db.collection("teams").doc(`sv-${team.id}`).collection("games").doc(`sv-${game.id}`).get();
           const gameDateTime: Timestamp = Timestamp.fromDate(new Date(game.playDateUtc));
 
+          let result = '';
+          if (!game.setResults || game.setResults.length === 0) {
+            result = '';
+          } else {
+            const scores = game.setResults.map((set:any) => `${set.home}:${set.away}`).join(', ');
+            const homeWins = game.resultSummary ? game.resultSummary.wonSetsHomeTeam : 0;
+            const awayWins = game.resultSummary ? game.resultSummary.wonSetsAwayTeam : 0;
+            // Return the formatted string, e.g., "3:2 (20:25, 25:14, 9:25, 16:14)"
+            result = `${homeWins}:${awayWins} (${scores})`;
+          }
+
           await db.collection('teams').doc(`sv-${team.id}`).collection('games').doc(`sv-${game.id}`).set({
             externalId: `${game.id}`,
             date: game.playDate.substr(8, 2) + '.' + game.playDate.substr(5, 2) + '.' + game.playDate.substr(0, 4),
@@ -64,7 +75,7 @@ export async function updateGamesSwissvolley(): Promise<any> {
             referee1: '', // game.referee[0] || "",
             referee2: '', // game.referee[1] || "",
             spectators: '',
-            result: game.resultSummary.wonSetsAwayTeam + ' : ' + game.resultSummary.wonSetsHomeTeam,
+            result: result,
             type: 'swissvolley',
             updated: new Date(),
             clubRef: clubRef.ref,
