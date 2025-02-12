@@ -33,6 +33,7 @@ Runs every Morning at 06:00 am for active clubs:
 - Swisshandball
 
 ## GraphQL API for Sports Data
+For some sports, the data is provided by external APIs. The data is then transformed into the format used by myclub-app. To access this data, an API key is required by the API provider from the association. 
 Available APIs are: 
 
 ### Swiss unihockey API
@@ -43,9 +44,9 @@ available [here](https://europe-west6-myclubmanagement.cloudfunctions.net/api/sw
 Verfügbare Dienste: 
 - Clubs
 - Teams
-- Meisterschaft
-- Ranglisten
-- Statistiken (not yet implemented)
+- Meisterschaft*
+- Ranglisten*
+- Statistiken (not yet implemented)*
 - News
 
 ### Swiss Volleyball API
@@ -56,8 +57,8 @@ available [here](https://europe-west6-myclubmanagement.cloudfunctions.net/api/sw
 Verfügbare Dienste: 
 - Clubs
 - Teams
-- Meisterschaft
-- Ranglisten (not yet implemented)
+- Meisterschaft*
+- Ranglisten (not yet implemented)*
 
 ### Swiss Handball
 based on this [documentation](https://clubapi-test.handball.ch/swagger/index.html) 
@@ -66,8 +67,8 @@ available [here](https://europe-west6-myclubmanagement.cloudfunctions.net/api/sw
 Verfügbare Dienste: 
 - Clubs
 - Teams
-- Meisterschaft
-- Ranglisten
+- Meisterschaft*
+- Ranglisten*
 
 ### STV Schweizer Turnverband
 available [here](https://europe-west6-myclubmanagement.cloudfunctions.net/api/swissturnverband): 
