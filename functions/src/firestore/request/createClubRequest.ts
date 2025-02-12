@@ -42,7 +42,7 @@ export async function createClubRequest(event: FirestoreEvent<QueryDocumentSnaps
       await db.collection('club').doc(clubId).set({
         active: true,
         subscriptionActive: false,
-        subscroptionType: '',
+        subscriptionType: '',
       }, {merge: true});
 
       // TODO CREATE CLUB NEWS to have first NEWS Item.
