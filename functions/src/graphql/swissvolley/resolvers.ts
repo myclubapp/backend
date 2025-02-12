@@ -237,6 +237,7 @@ async function getGames(teamId: string) {
     gameList.push({
       ...item,
       id: item.gameId,
+      date: item.playDate,
     });
   });
   return gameList;

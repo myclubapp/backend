@@ -5,6 +5,7 @@ import firebaseDAO from './../../firebaseSingleton.js';
 const db = firebaseDAO.instance.db;
 import {logger} from 'firebase-functions';
 import resolversSV from './../../graphql/swissvolley/resolvers.js';
+import {Timestamp} from 'firebase-admin/firestore';
 
 export async function updateGamesSwissvolley(): Promise<any> {
   logger.info('Update Games swissvolley');
@@ -31,27 +32,31 @@ export async function updateGamesSwissvolley(): Promise<any> {
           // logger.info("read match report for game: " + game.id);
 
           // await db.collection("teams").doc(`sv-${team.id}`).collection("games").doc(`sv-${game.id}`).get();
+          const gameDateTime: Timestamp = Timestamp.fromDate(new Date(game.playDateUtc));
+
           await db.collection('teams').doc(`sv-${team.id}`).collection('games').doc(`sv-${game.id}`).set({
             externalId: `${game.id}`,
             date: game.playDate.substr(8, 2) + '.' + game.playDate.substr(5, 2) + '.' + game.playDate.substr(0, 4),
-            time: game.time,
-            dateTime: game.playDate,
+            time: game.playDate.substr(11, 5),
+            playDate: game.playDate,
+            playDateUtc: game.playDateUtc,
+            dateTime: gameDateTime,
             location: game.hall.caption,
             street: game.hall.street + ' ' + game.hall.number,
             city: game.hall.city,
             longitude: game.hall.longitude,
             latitude: game.hall.latitude,
-            liga: game.league.leagueId,
+            liga: game.league.caption + ' ' + game.phase.caption + ' ' + game.group.caption,
 
-            name: game.league.caption,
-            description: game.phase.caption,
+            name: game.league.caption + ' ' + game.phase.caption + ' ' + game.group.caption,
+            description: game.league.caption + ' ' + game.phase.caption + ' ' + game.group.caption,
 
-            teamHomeId: game.teams.home.teamId,
+            teamHomeId: 'sv-' + game.teams.home.teamId,
             teamHome: game.teams.home.caption,
             teamHomeLogo: game.teams.home.logo,
             teamHomeLogoText: game.teams.home.caption,
 
-            teamAwayId: game.teams.away.teamId,
+            teamAwayId: 'sv-' + game.teams.away.teamId,
             teamAway: game.teams.away.caption,
             teamAwayLogo: game.teams.away.logo,
             teamAwayLogoText: game.teams.away.caption,
@@ -60,7 +65,7 @@ export async function updateGamesSwissvolley(): Promise<any> {
             referee2: '', // game.referee[1] || "",
             spectators: '',
 
-            result: '',
+            result: game.resultSummary,
             type: 'swissvolley',
             updated: new Date(),
             clubRef: clubRef.ref,
