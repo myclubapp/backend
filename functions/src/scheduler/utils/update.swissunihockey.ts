@@ -279,11 +279,12 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
       await db.collection('teams').doc(`su-${team.id}`).set({
         externalId: `${team.id}`,
         name: team.name,
-        info: team.info,
+        liga: team.liga,
         logo: team.logo,
+        info: team.info,
         website: team.website,
         portrait: team.portrait,
-        liga: team.liga,
+        // associationId: clubData.data().associationId, gibt es für unihockey nicht
         type: 'swissunihockey',
         updated: new Date(),
         clubRef: clubRef.ref,
@@ -308,6 +309,8 @@ export async function updateClubsSwissunihockey(): Promise<any> {
       externalId: `${club.id}`,
       name: club.name,
       type: 'swissunihockey',
+      website: ' ',
+      logo: '',
       updated: new Date(),
     }, {
       merge: true,

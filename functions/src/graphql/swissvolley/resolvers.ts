@@ -158,7 +158,7 @@ async function getTeams(clubId: string) {
         ...league,
         ...club,
         'id': item.teamId,
-        'liga': league.leagueId,
+        'liga': league.caption,
         'name': item.caption,
         'logo': item.teamlogo,
       });
@@ -175,7 +175,7 @@ function getClub(clubId: string) {
 }
 // https://swissvolley.docs.apiary.io/#reference/indoor/clubs-collection/list-clubs
 // https://api.volleyball.ch/indoor/clubs?region=SVRBE&skipClubsWithoutAtLeast1ContactData=false
-async function getClubs() {
+async function getClubs(): Promise<any[]> {
   try {
     swissvolleyToken = defineSecret('SWISSVOLLEY_TOKEN');
     // logger.info('> swissvolleyToken', swissvolleyToken?.value());
