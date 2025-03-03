@@ -50,6 +50,14 @@ export async function createTeamTraining(event: FirestoreEvent<QueryDocumentSnap
   calculatedDate.setMilliseconds(0); */
 
   // Initialisierung des ersten Datums
+
+  /*
+  const calculatedDate = new Date(new Date(trainingData?.startDate).getTime());
+  calculatedDate.setHours(new Date(trainingData?.timeFrom).getHours());
+  calculatedDate.setMinutes(new Date(trainingData?.timeFrom).getMinutes());
+  calculatedDate.setSeconds(0);
+  calculatedDate.setMilliseconds(0);
+
   const calculatedDate = new Date(new Date(trainingData?.startDate).getTime());
   calculatedDate.setHours(new Date(trainingData?.timeFrom).getHours());
   calculatedDate.setMinutes(new Date(trainingData?.timeFrom).getMinutes());
@@ -76,8 +84,9 @@ export async function createTeamTraining(event: FirestoreEvent<QueryDocumentSnap
   logger.info('New Training: ' + newTrainingRef.id + ' ' + calculatedDate.toISOString());
   logger.info(`Calculated Start Date used: ${calculatedDate}`);
   logger.info(`Calculated End Date used: ${calculatedEndDate}`);
-
+  */
   // Schleife für alle Trainings
+  const calculatedDate = new Date(new Date(trainingData?.startDate).getTime());
   do {
     // Erstelle eine neue Kopie für das Enddatum
     const calculatedEndDate = new Date(calculatedDate.getTime());
