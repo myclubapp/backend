@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable max-len */
 import firebaseDAO from '../firebaseSingleton.js';
-import webpush from 'web-push';
+// import webpush from 'web-push';
 
 import {logger} from 'firebase-functions/v2';
 
 const db = firebaseDAO.instance.db;
 const messaging = firebaseDAO.instance.messaging;
+/*
 import {defineSecret} from 'firebase-functions/params';
 import {onInit} from 'firebase-functions/v2/core';
 import {SecretParam} from 'firebase-functions/lib/params/types.js';
@@ -19,22 +20,22 @@ onInit(() => {
   gcmAPIKey = defineSecret('WEBPUSH_GCMAPIKEY');
   publicKey = defineSecret('WEBPUSH_PUBLICKEY');
   privateKey = defineSecret('WEBPUSH_PRIVATEKEY');
-});
+}); */
 
 // Verschieben der Initialisierung in eine separate Funktion
-function initializeWebPush() {
+/* function initializeWebPush() {
   webpush.setGCMAPIKey(gcmAPIKey?.value() || null);
   webpush.setVapidDetails(
       'mailto:info@my-club.app',
       publicKey?.value() || '',
       privateKey?.value() || '',
   );
-}
+} */
 
 export async function sendPushNotificationByUserProfileId(userProfileId: string, title: string, message: string, data: any) {
   try {
     // Initialisiere WebPush bei der ersten Verwendung
-    initializeWebPush();
+    // initializeWebPush();
 
     const userProfilePushRef = await db.collection('userProfile').doc(userProfileId).collection('push').get();
 
@@ -57,7 +58,7 @@ export async function sendPushNotificationByUserProfileId(userProfileId: string,
 
       if (pushData.platform === 'web') {
         // Send WebPush
-        const {statusCode, headers, body} = await webpush.sendNotification(
+        /* const {statusCode, headers, body} = await webpush.sendNotification(
             JSON.parse(pushData.pushObject),
             JSON.stringify({
               title: title,
@@ -65,6 +66,7 @@ export async function sendPushNotificationByUserProfileId(userProfileId: string,
             }),
         );
         logger.info('>> SEND WEB PUSH EVENT: ', statusCode, headers, body);
+        */
       } else {
         // Send native Push
         try {
