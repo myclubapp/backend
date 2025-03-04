@@ -24,6 +24,7 @@ onInit(() => {
 
 // Verschieben der Initialisierung in eine separate Funktion
 /* function initializeWebPush() {
+
   webpush.setGCMAPIKey(gcmAPIKey?.value() || null);
   webpush.setVapidDetails(
       'mailto:info@my-club.app',
