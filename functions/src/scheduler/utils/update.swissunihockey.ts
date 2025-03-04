@@ -298,7 +298,8 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
     }
     await db.collection('club').doc(`su-${club.id}`).set({
       logo: clubLogo,
-    });
+    },
+    {merge: true});
   }
 }
 
