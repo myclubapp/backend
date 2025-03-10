@@ -269,13 +269,13 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
   const clubListRef = await db.collection('club').where('active', '==', true).where('type', '==', 'swissunihockey').get();
   for (const clubData of clubListRef.docs) {
     const club = {...{id: clubData.data().externalId}, ...clubData.data()};
-    let clubLogo = '';
+    // let clubLogo = '';
     const teamData = await resolversSU.Club.teams({id: `${club.id}`}, {}, {}, {});
     for (const team of teamData) {
       logger.info(club.name + ' / ' + team.name);
       const clubRef = await db.collection('club').doc(`su-${club.id}`).get();
       const teamRef = await db.collection('teams').doc(`su-${team.id}`).get();
-      clubLogo = team.logo;
+      // clubLogo = team.logo;
       await db.collection('teams').doc(`su-${team.id}`).set({
         externalId: `${team.id}`,
         name: team.name,
@@ -296,10 +296,10 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
         teamRef: teamRef.ref,
       });
     }
-    await db.collection('club').doc(`su-${club.id}`).set({
+    /* await db.collection('club').doc(`su-${club.id}`).set({
       logo: clubLogo,
     },
-    {merge: true});
+    {merge: true}); */
   }
 }
 
