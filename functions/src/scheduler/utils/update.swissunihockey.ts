@@ -313,8 +313,8 @@ export async function updateClubsSwissunihockey(): Promise<any> {
       externalId: `${club.id}`,
       name: club.name,
       type: 'swissunihockey',
-      website: ' ',
-      logo: '',
+      // website: ' ',
+      // logo: '',
       updated: new Date(),
     }, {
       merge: true,
