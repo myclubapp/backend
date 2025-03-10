@@ -305,6 +305,7 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
       logger.info('set clublogo');
       await db.collection('club').doc(`su-${club.id}`).update({
         logo: clubLogo,
+        updated: new Date(),
       }, {
         merge: true,
       });
