@@ -519,10 +519,21 @@ async function getNews() {
       // Finde das erste Bild aus den storyItems
       let imagePath = '';
       if (item.storyItem) {
+        // Suche zuerst nach Bildern mit fkElement: 13
         const imageItem = item.storyItem.find((si: any) =>
           si.fkElement === 13 && si.contentA && si.contentA.includes('cdn.publishr.ch'),
         );
-        if (imageItem) {
+
+        // Wenn kein Bild mit fkElement: 13 gefunden wurde, suche nach Bildern mit fkElement: 64
+        if (!imageItem) {
+          const fallbackImageItem = item.storyItem.find((si: any) =>
+            si.fkElement === 64 && si.contentA && si.contentA.includes('cdn.publishr.ch'),
+          );
+
+          if (fallbackImageItem) {
+            imagePath = fallbackImageItem.contentA;
+          }
+        } else {
           imagePath = imageItem.contentA;
         }
       }
@@ -565,10 +576,21 @@ async function getNews() {
       // Finde das erste Bild aus den storyItems
       let imagePath = '';
       if (item.storyItem) {
+        // Suche zuerst nach Bildern mit fkElement: 13
         const imageItem = item.storyItem.find((si: any) =>
           si.fkElement === 13 && si.contentA && si.contentA.includes('cdn.publishr.ch'),
         );
-        if (imageItem) {
+
+        // Wenn kein Bild mit fkElement: 13 gefunden wurde, suche nach Bildern mit fkElement: 64
+        if (!imageItem) {
+          const fallbackImageItem = item.storyItem.find((si: any) =>
+            si.fkElement === 64 && si.contentA && si.contentA.includes('cdn.publishr.ch'),
+          );
+
+          if (fallbackImageItem) {
+            imagePath = fallbackImageItem.contentA;
+          }
+        } else {
           imagePath = imageItem.contentA;
         }
       }
