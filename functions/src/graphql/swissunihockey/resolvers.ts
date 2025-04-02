@@ -531,6 +531,7 @@ async function getNews() {
 
       // Erstelle das News-Objekt
       const newsObject = {
+        id: `${item.id}`,
         externalId: `${item.id}`,
         title: item.title || '',
         leadText: text.substring(0, 200) + '...',
