@@ -495,7 +495,7 @@ async function getNews() {
   logger.info('Hole News von Publishr API');
 
   // eslint-disable-next-line no-undef
-  const response1 = await fetch('https://app.publishr.ch/api/v2/contenthub-story/list?orderBy=timestamp&fkMediahouse=41&limit=15&tags=top&tags=pin', {
+  const response1 = await fetch('https://app.publishr.ch/api/v2/contenthub-story/list?orderBy=timestamp&fkMediahouse=41&limit=15&tags=top&tags=pin&social=false', {
     headers: {
       'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJtIjoic2VydmljZSIsInN1YiI6IjIyIiwib3JnSWQiOiI2IiwiaWF0IjoxNzQxMDc2OTc0LCJleHAiOjIwNTY2NTI5NzR9.H206vP4xMXIVUcypaNw6Tt6tZN4dQU7jUK6OpFvvqVU',
       'Content-Type': 'application/json',
@@ -503,7 +503,7 @@ async function getNews() {
   });
 
   // eslint-disable-next-line no-undef
-  const response2 = await fetch('https://app.publishr.ch/api/v2/contenthub-story/list?orderBy=timestamp&fkMediahouse=41&limit=15&tags=!top&tags=!pin', {
+  const response2 = await fetch('https://app.publishr.ch/api/v2/contenthub-story/list?orderBy=timestamp&fkMediahouse=41&limit=15&tags=!top&tags=!pin&social=false', {
     headers: {
       'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJtIjoic2VydmljZSIsInN1YiI6IjIyIiwib3JnSWQiOiI2IiwiaWF0IjoxNzQxMDc2OTc0LCJleHAiOjIwNTY2NTI5NzR9.H206vP4xMXIVUcypaNw6Tt6tZN4dQU7jUK6OpFvvqVU',
       'Content-Type': 'application/json',
