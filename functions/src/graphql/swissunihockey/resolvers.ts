@@ -492,56 +492,63 @@ async function getStatistics(teamId: string) {
 }
 
 async function getNews() {
-  const [data662, data663] = await Promise.all([
-    // eslint-disable-next-line no-undef
-    fetch('https://api.newsroom.co/walls?token=xgoo9jkoc2ee&count=8&type=story&tag=!top&tag=!pin&channelId=662'),
-    // eslint-disable-next-line no-undef
-    fetch('https://api.newsroom.co/walls?token=xgoo9jkoc2ee&count=30&channelId=663&tag=top,pin,!top,!pin'),
-  ]);
+  logger.info('Hole News von Publishr API');
 
-  const [newsData662, newsData663] = await Promise.all([
-    data662.json(),
-    data663.json(),
-  ]);
+  // eslint-disable-next-line no-undef
+  const response = await fetch('https://app.publishr.ch/api/v2/contenthub-story/list?orderBy=timestamp&fkMediahouse=41&limit=15&tags=!top&tags=!pin', {
+    headers: {
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJtIjoic2VydmljZSIsInN1YiI6IjIyIiwib3JnSWQiOiI2IiwiaWF0IjoxNzQxMDc2OTc0LCJleHAiOjIwNTY2NTI5NzR9.H206vP4xMXIVUcypaNw6Tt6tZN4dQU7jUK6OpFvvqVU',
+      'Content-Type': 'application/json',
+    },
+  });
 
+  const newsData = await response.json();
   const newsList: any[] = [];
 
-  const processItems = (data: any) => {
-    if (!data?._embedded?.wallList) return;
-
-    for (const item of data._embedded.wallList) {
-      let imagePath = item.featuredImage;
-
-      try {
-        if (item.media && item.media.length === 0 && !imagePath) {
-          imagePath = item.author.image;
-        } else if (item.media && item.media.length >= 1) {
-          const mobileImage = item.media.find((image: any) => image.resolution === 'mobile');
-          imagePath = mobileImage ? mobileImage.url : item.media[0].url;
+  if (newsData.status === 'success' && newsData.data) {
+    for (const item of newsData.data) {
+      // Finde das erste Bild aus den storyItems
+      let imagePath = '';
+      if (item.storyItem) {
+        const imageItem = item.storyItem.find((si: any) =>
+          si.fkElement === 13 && si.contentA && si.contentA.includes('cdn.publishr.ch'),
+        );
+        if (imageItem) {
+          imagePath = imageItem.contentA;
         }
-      } catch (e) {
-        logger.info('Image processing error:', item.id, JSON.stringify(item.media));
       }
 
-      newsList.push({
-        id: item.id,
-        title: item.title,
-        leadText: item.leadText,
-        date: item.date,
-        slug: item.slug,
+      // Finde den Haupttext aus den storyItems
+      let text = '';
+      let htmlText = '';
+      if (item.storyItem) {
+        const textItem = item.storyItem.find((si: any) => si.fkElement === 7);
+        if (textItem) {
+          text = textItem.contentB || '';
+          htmlText = textItem.html || '';
+        }
+      }
+
+      // Erstelle das News-Objekt
+      const newsObject = {
+        externalId: `${item.id}`,
+        title: item.title || '',
+        leadText: text.substring(0, 200) + '...',
+        date: item.creationTimestamp,
+        slug: item.contenthubStory?.slug || '',
         image: imagePath,
-        text: item.html,
-        htmlText: item.html,
-        tags: item.tags,
-        author: item.authorName || item.author?.name || item.source,
-        authorImage: item.author?.image,
-        url: item.url,
-      });
+        text: text,
+        htmlText: htmlText,
+        tags: item.storyTag?.map((tag: any) => tag.tag.tagLanguage[0].label).join(', ') || '',
+        author: item.storyAuthor?.[0]?.contact?.firstName || '',
+        authorImage: '',
+        url: item.contenthubStory?.canonicalUrl || '',
+        type: 'swissunihockey',
+        updated: new Date(),
+      };
+
+      newsList.push(newsObject);
     }
-  };
-
-  processItems(newsData662);
-  processItems(newsData663);
-
+  }
   return newsList;
 }
