@@ -53,11 +53,18 @@ export async function updatePersistenceJobGames(event: ScheduledEvent) {
 export async function updatePersistenceJobNews(event: ScheduledEvent) {
   try {
     await updateNewsSwissunihockey();
-    await updateNewsSwissvolley();
-    await updateClubNewsFromWordpress();
-    // await updateNewsSwisshandball();
   } catch (err) {
-    logger.error(err);
+    logger.error('Fehler bei updateNewsSwissunihockey:', err);
+  }
+  try {
+    await updateNewsSwissvolley();
+  } catch (err) {
+    logger.error('Fehler bei updateNewsSwissvolley:', err);
+  }
+  try {
+    await updateClubNewsFromWordpress();
+  } catch (err) {
+    logger.error('Fehler bei updateClubNewsFromWordpress:', err);
   }
 }
 
