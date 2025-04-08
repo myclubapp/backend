@@ -44,6 +44,7 @@ export async function authUserCreateSendWelcomeEmail(event: AuthBlockingEvent): 
     emailVerified: false,
     disabled: false,
     email: user.email,
+    photoURL: 'https://randomuser.me/api/portraits/lego/1.jpg',
   });
 
   logger.info('>>> SEND WELCOME MAIL TO USER ' + user.email );
