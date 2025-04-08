@@ -256,6 +256,13 @@ async function getClubGames(clubId: string, season: string) {
   // eslint-disable-next-line no-undef
   const data = await fetch('https://api-v2.swissunihockey.ch/api/games?mode=club&season=' + season + '&club_id=' + clubId + '&games_per_page=100');
   const gameData = await data.json();
+
+  const previousSeason = Number(season) - 1;
+  // eslint-disable-next-line no-undef
+  const dataPreviousSeason = await fetch('https://api-v2.swissunihockey.ch/api/games?mode=club&season=' + previousSeason + '&club_id=' + clubId + '&games_per_page=100');
+  const gameDataPreviousSeason = await dataPreviousSeason.json();
+
+  gameData.data.regions[0].rows.push(...gameDataPreviousSeason.data.regions[0].rows);
   const gameList = [];
   if (gameData && gameData.data && gameData.data.regions && gameData.data.regions.length > 0) {
     for (const item of gameData.data.regions[0].rows) {
@@ -375,7 +382,8 @@ async function getSeason() {
   const data = await fetch('https://api-v2.swissunihockey.ch/api/seasons');
   const seasonData = await data.json();
   const currentSeason = seasonData.entries.filter((element: any, index: any) => {
-    return element.highlight === true && index === 0; // 2023 / 24
+    return index === 0;
+    // return element.highlight === true && index === 0; // 2023 / 24
     // return element.highlight === true; // && index === 0; // 2024 / 25
     // return element.highlight === true && index === 0; // 2024 / 25
     // return element.highlight === false && index === 0; // 2023 / 24
