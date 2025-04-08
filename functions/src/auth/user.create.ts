@@ -22,6 +22,12 @@ const auth = firebaseDAO.instance.auth;
   });
 } */
 
+export async function authBeforeUserSignedIn(event: AuthBlockingEvent): Promise<any> {
+  logger.info('>>> authBeforeUserSignedIn', event?.data?.email);
+  logger.info('>>> authBeforeUserSignedIn EmailVerified', event?.data?.emailVerified);
+  return true;
+}
+
 export async function authUserCreateSendWelcomeEmail(event: AuthBlockingEvent): Promise<any> {
   if (!event?.data) {
     throw new Error('No user data provided');
