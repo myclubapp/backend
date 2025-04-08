@@ -26,21 +26,28 @@ export async function authUserCreateSendWelcomeEmail(event: AuthBlockingEvent): 
   if (!event?.data) {
     throw new Error('No user data provided');
   }
+
   const user = event.data;
   logger.info('>>> NEW USER with ID: ' + user.uid + ' SEND WELCOME E-MAIL to VALIDATE E-MAIL');
   const link = await auth.generateEmailVerificationLink(user.email as string);
 
+  // Daten werden in der Signup Methode in der App für den User gespeichert.
   const userProfile: any = await db.collection('userProfile').doc(`${user.uid}`).get();
   if (!userProfile.exists) {
     logger.error('no user data found');
+    return false;
   }
 
+  logger.info('>>> UPDATE USER DATA');
   await auth.updateUser(user.uid, {
     displayName: userProfile.data()?.firstName + ' ' + userProfile.data()?.lastName,
+    emailVerified: false,
+    disabled: false,
+    email: user.email,
   });
 
   logger.info('>>> SEND WELCOME MAIL TO USER ' + user.email );
-  return db.collection('mail').add({
+  await db.collection('mail').add({
     to: user.email,
     template: {
       name: 'UserCreateWelcomeMail',
@@ -50,6 +57,8 @@ export async function authUserCreateSendWelcomeEmail(event: AuthBlockingEvent): 
       },
     },
   });
+
+  return true;
 }
 
 /* export async function authUserCreateAdminUser(user: UserRecord): Promise<void> {
