@@ -387,7 +387,7 @@ async function getSeason() {
     // return element.highlight === true && index === 0; // 2024 / 25
     // return element.highlight === false && index === 0; // 2023 / 24
   });*/
-  return seasonData[0].set_in_context.season as string;
+  return seasonData.entries[0].set_in_context.season as string;
 }
 
 /* async function getPastSeason() {

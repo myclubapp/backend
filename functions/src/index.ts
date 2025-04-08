@@ -53,6 +53,7 @@ import * as functions from 'firebase-functions/v1';
 import {onSchedule} from 'firebase-functions/v2/scheduler';
 
 import {onRequest} from 'firebase-functions/v2/https';
+import {addMemberToHelferEvent} from './firestore/event/addMemberToHelferEvent.js';
 
 export const verifyEmail = beforeUserSignedIn({
   region: 'europe-west6',
@@ -408,6 +409,11 @@ export const dbDeleteHelferEvent = onDocumentDeleted({
   document: '/club/{clubId}/helferEvents/{eventId}',
   region: 'europe-west6',
 }, deleteHelferEvent);
+
+export const dbAddMemberToHelferEvent = onDocumentCreated({
+  document: '/club/{clubId}/helferEvents/{eventId}/schichten/{schichtId}/attendees/{userId}',
+  region: 'europe-west6',
+}, addMemberToHelferEvent);
 
 
 // TOTOMAT
