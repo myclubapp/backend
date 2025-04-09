@@ -301,12 +301,21 @@ async function getNews() {
   });
 
   const rawText = await response.text();
-  console.log('Raw response preview:', rawText.slice(0, 500));
-  const match = rawText.match(/\d+:\s*({.*})\s\S/); // Match the second part
 
-  if (!match) throw new Error('Failed to parse response');
-  const parsed = JSON.parse(match[1]); // parse just the 2nd object
-  const articles = parsed.data;
+  // Match the line starting with 1: and capture the JSON object
+  const match = rawText.match(/1:\s*({[\s\S]*})/);
+  if (!match) {
+    throw new Error('Failed to parse response');
+  }
+
+  let parsed;
+  try {
+    parsed = JSON.parse(match[1]);
+  } catch (e: any) {
+    throw new Error('Failed to parse JSON from match: ' + e.message);
+  }
+
+  const articles = parsed?.data || [];
 
   const newsList = [];
 
