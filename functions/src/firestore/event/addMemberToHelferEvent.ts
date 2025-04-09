@@ -23,7 +23,7 @@ export async function addMemberToHelferEvent(event: FirestoreEvent<QueryDocument
   const helferEventDatum = new Date(helferEvent.data()?.startDate); // format 2025-01-11T10:00:00.000Z
   const helferEventDatumString = helferEventDatum.toLocaleString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'});
   const helferEventThreshold = clubData.data()?.helferThreshold; // in Stunden
-  const helferEventDatumPlusThreshold = new Date(helferEventDatum.getTime() + helferEventThreshold * 60 * 60 * 1000);
+  const helferEventDatumPlusThreshold = new Date(helferEventDatum.getTime() - helferEventThreshold * 60 * 60 * 1000);
   const helferEventDatumPlusThresholdString = helferEventDatumPlusThreshold.toLocaleString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'});
 
   const userProfileRef = await db.collection('userProfile').doc(userId).get();
@@ -62,29 +62,4 @@ export async function addMemberToHelferEvent(event: FirestoreEvent<QueryDocument
     });
   }
   return true;
-
-
-  /* const eventData = event.data?.data();
-  const clubRef = await db.collection('club').doc(eventData?.clubId).get();
-  logger.info(clubRef.id);
-
-  const schichten = eventData?.schichten;
-  delete eventData?.schichten;
-
-  // create helferevent
-  const newHelferEventRef = await db.collection('club').doc(clubRef.id).collection('helferEvents').add({
-    ...eventData,
-  });
-
-  // if schichten, create them as well
-  for (const schicht of schichten) {
-    const newHelferSchicht = await db.collection('club').doc(clubRef.id).collection('helferEvents').doc(newHelferEventRef.id).collection('schichten').add({
-      ...schicht,
-    });
-    logger.info('new schicht added: ' + newHelferSchicht.id);
-  }
-
-  logger.info('New Helferevent created: ' + newHelferEventRef.id);
-  return db.collection('userProfile').doc(userId).collection('helferEvents').doc(eventId).delete();
-  */
 }
