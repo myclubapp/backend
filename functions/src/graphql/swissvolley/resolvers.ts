@@ -279,44 +279,50 @@ async function getRankings(groupId: string) {
 // Top story https://api.newsroom.co/walls?token=1pdtktbc3ra5i&tag=top&channelId=484&count=9
 
 async function getNews() {
-  // eslint-disable-next-line no-undef
-  const data = await fetch('https://api.newsroom.co/walls?token=1pdtktbc3ra5i&count=20&tag=top,pin,!top,!pin&channelId=484');
-  const newsData = await data.json();
-  const newsList = <any>[];
-  // newsData._embedded.wallList.forEach((item: any) => {
-  for (const item of newsData._embedded.wallList) {
-    // GET IMAGE IF AVAILABLE
-    let imagePath = item.featuredImage;// Object.hasOwn(item, "featuredImage"); // THIS IS MAINLY FOR DESKTOP USAGE
-    try {
-      if (item.media && item.media.length == 0 && !imagePath) {
-        // NOTHING HERE -> SOCIAL MEDIA POST without IMAGE
-        imagePath = item.author.image;
-      } else if (item.media && item.media.length == 1) {
-        // GET WHAT WE HAVE
-        imagePath = item.media[1].url;
-      } else if (item.media && item.media.length > 1) {
-        // GET Mobile Picture
-        imagePath = item.media.find((image: any) => image.resolution == 'mobile').url;
-      }
-    } catch (e) {
-      logger.info(JSON.stringify(item.media));
-    }
+// eslint-disable-next-line no-undef
+  const response = await fetch('https://www.volleyball.ch/de/news', {
+    credentials: 'include',
+    headers: {
+      'Accept': 'text/x-component',
+      'Accept-Language': 'de,en-US;q=0.7,en;q=0.3',
+      'Next-Action': 'f23de5cb1c55c3d37d9bd899db66b0ee3dc3fed2',
+      'Next-Router-State-Tree': '%5B%22%22%2C%7B%22children%22%3A%5B%5B%22slug%22%2C%22de%2Fnews%22%2C%22oc%22%5D%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2C%22%2Fde%2Fnews%22%2C%22refresh%22%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D',
+      'Content-Type': 'text/plain;charset=UTF-8',
+      'Sec-GPC': '1',
+      'Sec-Fetch-Dest': 'empty',
+      'Sec-Fetch-Mode': 'cors',
+      'Sec-Fetch-Site': 'same-origin',
+      'Priority': 'u=0',
+    },
+    referrer: 'https://www.volleyball.ch/de/news',
+    body: '["5a3ac054-84a2-47fc-946c-adb1a14be756","","de_CH",0,30]',
+    method: 'POST',
+    mode: 'cors',
+  });
+
+  const json = await response.json();
+  const articles = json[1]?.data || [];
+
+  const newsList = [];
+
+  for (const item of articles) {
+    const imagePath = item.imagorImageObject?.src || item.teaserImage?.uri;
 
     newsList.push({
-      id: item.id,
+      id: item.identifier,
       title: item.title,
       leadText: item.leadText,
       date: item.date,
-      slug: item.slug,
+      slug: item.uri,
       image: imagePath,
-      text: item.html,
-      htmlText: item.html,
-      tags: item.tags,
-      author: item.authorName || item.author.name || item.source,
-      authorImage: item.author.image,
-      url: item.url,
+      text: item.leadText, // Full article content not provided; using leadText as fallback
+      htmlText: item.leadText, // Same as above
+      tags: item.topicsData?.map((tag: { title: any; }) => tag.title),
+      author: item.teaserImage?.copyrightNotice || 'Swiss Volley',
+      authorImage: '', // Not available in the payload
+      url: `https://www.volleyball.ch${item.uri}`,
     });
   }
-  // });
+
   return newsList;
 }
