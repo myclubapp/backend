@@ -28,8 +28,8 @@ export async function addMemberToHelferEvent(event: FirestoreEvent<QueryDocument
   if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushHelfer) {
     await sendPushNotificationByUserProfileId(
         userId,
-        'Bestätigung Helferevent: ',
-        helferEvent.data()?.name + ' - ' + helferSchicht.data()?.name,
+        'Bestätigung Helferevent ' + helferEvent.data()?.name + ' - ' + helferSchicht.data()?.name,
+        'Du hast dich für den Helferevent ' + helferEvent.data()?.name + ' - ' + helferSchicht.data()?.name + ' angemeldet.',
         {
           'type': 'helferEvent',
           'clubId': clubId,
