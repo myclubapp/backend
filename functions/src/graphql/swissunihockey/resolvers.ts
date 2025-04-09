@@ -377,17 +377,21 @@ async function getGame(gameId: string) {
   }
 }
 
-async function getSeason() {
-  // eslint-disable-next-line no-undef
-  const data = await fetch('https://api-v2.swissunihockey.ch/api/seasons');
-  const seasonData = await data.json();
-  /* const currentSeason = seasonData.entries.filter((element: any, index: any) => {
-    return element.highlight === true && index === 0; // 2023 / 24
-    // return element.highlight === true; // && index === 0; // 2024 / 25
-    // return element.highlight === true && index === 0; // 2024 / 25
-    // return element.highlight === false && index === 0; // 2023 / 24
-  });*/
-  return seasonData.entries[0].set_in_context.season as string;
+async function getSeason(): Promise<string | null> {
+  try {
+    // eslint-disable-next-line no-undef
+    const res = await fetch('https://api-v2.swissunihockey.ch/api/seasons');
+    const seasonData = await res.json();
+
+    const currentSeason = seasonData.entries.find(
+        (entry: any) => entry.highlight === true,
+    );
+
+    return currentSeason?.set_in_context.season.toString() ?? null;
+  } catch (error) {
+    console.error('Failed to fetch season data:', error);
+    return null;
+  }
 }
 
 /* async function getPastSeason() {
