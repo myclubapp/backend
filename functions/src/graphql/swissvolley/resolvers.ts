@@ -300,8 +300,12 @@ async function getNews() {
     mode: 'cors',
   });
 
-  const json = await response.json();
-  const articles = json[1]?.data || [];
+  const rawText = await response.text();
+  const match = rawText.match(/\d+:\s*({.*})\s\S/); // Match the second part
+
+  if (!match) throw new Error('Failed to parse response');
+  const parsed = JSON.parse(match[1]); // parse just the 2nd object
+  const articles = parsed.data;
 
   const newsList = [];
 
