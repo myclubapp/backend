@@ -36,9 +36,10 @@ import {addClubTeam} from './firestore/club/createClubTeam.js';
 import {createCheckoutSession, updateCheckoutSession, updateInvoice, updatePayments, updateSubscription} from './firestore/club/stripeCheckout.js';
 import {deleteTeamTraining} from './firestore/training/deleteTeamTraining.js';
 import {deleteClubEvent} from './firestore/event/deleteClubEvent.js';
+import {addMemberToHelferEvent} from './firestore/event/addMemberToHelferEvent.js';
 import {deleteHelferEvent} from './firestore/event/deleteHelferEvent.js';
-import {deleteTeamGame} from './firestore/game/deleteTeamGame.js';
 import {deleteHelferPunkt} from './firestore/event/deleteHelferPunkt.js';
+import {deleteTeamGame} from './firestore/game/deleteTeamGame.js';
 import {deleteTeam} from './firestore/team/deleteTeam.js';
 
 import graphqlServer from './graphql/server.js';
@@ -53,7 +54,6 @@ import * as functions from 'firebase-functions/v1';
 import {onSchedule} from 'firebase-functions/v2/scheduler';
 
 import {onRequest} from 'firebase-functions/v2/https';
-import {addMemberToHelferEvent} from './firestore/event/addMemberToHelferEvent.js';
 
 export const verifyEmail = beforeUserSignedIn({
   region: 'europe-west6',
