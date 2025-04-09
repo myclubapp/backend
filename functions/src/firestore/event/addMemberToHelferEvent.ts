@@ -21,6 +21,7 @@ export async function addMemberToHelferEvent(event: FirestoreEvent<QueryDocument
 
   // berechne datum anhand eventdatum anhand threshold, welche in stunden angegeben wird
   const helferEventDatum = new Date(helferEvent.data()?.startDate); // format 2025-01-11T10:00:00.000Z
+  const helferEventDatumString = helferEventDatum.toLocaleString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'});
   const helferEventThreshold = clubData.data()?.helferThreshold; // in Stunden
   const helferEventDatumPlusThreshold = new Date(helferEventDatum.getTime() + helferEventThreshold * 60 * 60 * 1000);
   const helferEventDatumPlusThresholdString = helferEventDatumPlusThreshold.toLocaleString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'});
@@ -44,7 +45,7 @@ export async function addMemberToHelferEvent(event: FirestoreEvent<QueryDocument
         data: {
           helferEventName: helferEvent.data()?.name,
           helferEventDescription: helferEvent.data()?.description,
-          helferEventDatum: helferEvent.data()?.startDate,
+          helferEventDatum: helferEventDatumString,
           helferEventOrt: helferEvent.data()?.location,
 
           schichtName: helferSchicht.data()?.name,
