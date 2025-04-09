@@ -1,10 +1,9 @@
 
 /* eslint-disable max-len */
-import firebaseDAO from '../../firebaseSingleton.js';
-// import {sendPushNotificationByUserProfileId} from '../../utils/push.js';
+import firebaseDAO from '../../firebaseSingleton';
+import {sendPushNotificationByUserProfileId} from '../../utils/push';
 import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
 import {logger} from 'firebase-functions';
-import {sendPushNotificationByUserProfileId} from '../../utils/push';
 const db = firebaseDAO.instance.db;
 export async function addMemberToHelferEvent(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
   logger.info('Add Member to Helferevent');
