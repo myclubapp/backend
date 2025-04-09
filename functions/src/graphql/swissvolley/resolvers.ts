@@ -320,6 +320,7 @@ async function getNews() {
   const newsList = [];
 
   for (const item of articles) {
+    logger.info(item.title);
     const imagePath = item.imagorImageObject?.src || item.teaserImage?.uri;
 
     newsList.push({
