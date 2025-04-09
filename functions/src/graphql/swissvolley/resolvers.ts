@@ -301,6 +301,7 @@ async function getNews() {
   });
 
   const rawText = await response.text();
+  console.log('Raw response preview:', rawText.slice(0, 500));
   const match = rawText.match(/\d+:\s*({.*})\s\S/); // Match the second part
 
   if (!match) throw new Error('Failed to parse response');
