@@ -1,10 +1,11 @@
 
 /* eslint-disable max-len */
-// import firebaseDAO from '../../firebaseSingleton.js';
+import firebaseDAO from '../../firebaseSingleton.js';
 // import {sendPushNotificationByUserProfileId} from '../../utils/push.js';
 import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
 import {logger} from 'firebase-functions';
-// const db = firebaseDAO.instance.db;
+import {sendPushNotificationByUserProfileId} from '../../utils/push';
+const db = firebaseDAO.instance.db;
 export async function addMemberToHelferEvent(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
   logger.info('Add Member to Helferevent');
 
@@ -14,6 +15,37 @@ export async function addMemberToHelferEvent(event: FirestoreEvent<QueryDocument
   logger.info('HelfereventId: ' + eventId);
   logger.info('schichtId: ' + schichtId);
   logger.info('clubId: ' + clubId);
+
+  const helferEvent = await db.collection('club').doc(clubId).collection('helferEvents').doc(eventId).get();
+
+  const userProfileRef = await db.collection('userProfile').doc(userId).get();
+  if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushHelfer) {
+    await sendPushNotificationByUserProfileId(
+        userId,
+        'Bestätigung Helferevent: ',
+        helferEvent.data()?.name + ' - ' + helferEvent.data()?.description,
+        {
+          'type': 'helferEvent',
+          'clubId': clubId,
+          'id': helferEvent.id,
+        },
+    );
+    await db.collection('mail').add({
+      to: userProfileRef.data().email,
+      template: {
+        name: 'HelferEventConfirmation',
+        data: {
+          helferEventName: helferEvent.data()?.name,
+          helferEventDescription: helferEvent.data()?.description,
+          firstName: userProfileRef.data()?.firstName,
+          lastName: userProfileRef.data()?.lastName,
+        },
+      },
+    });
+  }
+  return true;
+
+
   /* const eventData = event.data?.data();
   const clubRef = await db.collection('club').doc(eventData?.clubId).get();
   logger.info(clubRef.id);
