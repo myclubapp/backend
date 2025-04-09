@@ -20,9 +20,10 @@ export async function addMemberToHelferEvent(event: FirestoreEvent<QueryDocument
   const clubData = await db.collection('club').doc(clubId).get();
 
   // berechne datum anhand eventdatum anhand threshold, welche in stunden angegeben wird
-  const helferEventDatum = new Date(helferEvent.data()?.startDate);
-  const helferEventDatumPlusThreshold = new Date(helferEventDatum.getTime() - clubData.data()?.helferThreshold * 60 * 60 * 1000);
-
+  const helferEventDatum = new Date(helferEvent.data()?.startDate); // format 2025-01-11T10:00:00.000Z
+  const helferEventThreshold = clubData.data()?.helferThreshold; // in Stunden
+  const helferEventDatumPlusThreshold = new Date(helferEventDatum.getTime() + helferEventThreshold * 60 * 60 * 1000);
+  const helferEventDatumPlusThresholdString = helferEventDatumPlusThreshold.toLocaleString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'});
 
   const userProfileRef = await db.collection('userProfile').doc(userId).get();
   if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushHelfer) {
@@ -44,13 +45,14 @@ export async function addMemberToHelferEvent(event: FirestoreEvent<QueryDocument
           helferEventName: helferEvent.data()?.name,
           helferEventDescription: helferEvent.data()?.description,
           helferEventDatum: helferEvent.data()?.startDate,
+          helferEventOrt: helferEvent.data()?.location,
 
           schichtName: helferSchicht.data()?.name,
           schichtStart: helferSchicht.data()?.timeFrom,
           schichtEnde: helferSchicht.data()?.timeTo,
           schichtPunkte: helferSchicht.data()?.points,
 
-          abmeldefrist: helferEventDatumPlusThreshold,
+          abmeldefrist: helferEventDatumPlusThresholdString,
 
           firstName: userProfileRef.data()?.firstName,
           lastName: userProfileRef.data()?.lastName,
