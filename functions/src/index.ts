@@ -37,6 +37,7 @@ import {createCheckoutSession, updateCheckoutSession, updateInvoice, updatePayme
 import {deleteTeamTraining} from './firestore/training/deleteTeamTraining.js';
 import {deleteClubEvent} from './firestore/event/deleteClubEvent.js';
 import {addMemberToHelferEvent, changeStatusMemberHelferEvent} from './firestore/event/addMemberToHelferEvent.js';
+import {addMemberToEvent, changeStatusMemberEvent} from './firestore/event/addMemberToEvent.js';
 import {deleteHelferEvent} from './firestore/event/deleteHelferEvent.js';
 import {deleteHelferPunkt} from './firestore/event/deleteHelferPunkt.js';
 import {deleteTeamGame} from './firestore/game/deleteTeamGame.js';
@@ -419,6 +420,16 @@ export const dbChangeStatusMemberToHelferEvent = onDocumentUpdated({
   document: '/club/{clubId}/helferEvents/{eventId}/schichten/{schichtId}/attendees/{userId}',
   region: 'europe-west6',
 }, changeStatusMemberHelferEvent);
+
+export const dbAddMemberToEvent = onDocumentCreated({
+  document: '/club/{clubId}/events/{eventId}/attendees/{userId}',
+  region: 'europe-west6',
+}, addMemberToEvent);
+
+export const dbChangeStatusMemberToEvent = onDocumentUpdated({
+  document: '/club/{clubId}/events/{eventId}/attendees/{userId}',
+  region: 'europe-west6',
+}, changeStatusMemberEvent);
 
 
 // TOTOMAT
