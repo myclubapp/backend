@@ -31,10 +31,10 @@ export async function addMemberToEvent(event: FirestoreEvent<QueryDocumentSnapsh
     if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushHelfer) {
       await sendPushNotificationByUserProfileId(
           userId,
-          'Bestätigung Helferevent ' + veranstaltung.data()?.name + ' - ' + veranstaltung.data()?.name,
-          'Du hast dich für den Helferevent ' + veranstaltung.data()?.name + ' - ' + veranstaltung.data()?.name + ' angemeldet.',
+          'Bestätigung Event ' + veranstaltung.data()?.name + ' - ' + veranstaltung.data()?.name,
+          'Du hast dich für den Event ' + veranstaltung.data()?.name + ' angemeldet.',
           {
-            'type': 'helferEvent',
+            'type': 'clubEvent',
             'clubId': clubId,
             'id': veranstaltung.id,
           },
@@ -88,10 +88,10 @@ export async function changeStatusMemberEvent(event: FirestoreEvent<Change<Query
     if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushHelfer) {
       await sendPushNotificationByUserProfileId(
           userId,
-          'Bestätigung Helferevent ' + veranstaltung.data()?.name + ' - ' + veranstaltung.data()?.name,
-          'Du hast dich für den Helferevent ' + veranstaltung.data()?.name + ' - ' + veranstaltung.data()?.name + ' angemeldet.',
+          'Bestätigung Event ' + veranstaltung.data()?.name,
+          'Du hast dich für den Event ' + veranstaltung.data()?.name + ' angemeldet.',
           {
-            'type': 'helferEvent',
+            'type': 'clubEvent',
             'clubId': clubId,
             'id': veranstaltung.id,
           },
