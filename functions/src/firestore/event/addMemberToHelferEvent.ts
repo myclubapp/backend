@@ -46,7 +46,7 @@ export async function addMemberToHelferEvent(event: FirestoreEvent<QueryDocument
       await db.collection('mail').add({
         to: userProfileRef.data().email,
         template: {
-          name: 'HelferEventConfirmation',
+          name: 'HelferEventAddMemberConfirmation',
           data: {
             helferEventName: helferEvent.data()?.name,
             helferEventDescription: helferEvent.data()?.description,
@@ -111,7 +111,7 @@ export async function changeStatusMemberHelferEvent(event: FirestoreEvent<Change
       await db.collection('mail').add({
         to: userProfileRef.data().email,
         template: {
-          name: 'HelferEventConfirmation',
+          name: 'HelferEventAddMemberConfirmation',
           data: {
             helferEventName: helferEvent.data()?.name,
             helferEventDescription: helferEvent.data()?.description,
