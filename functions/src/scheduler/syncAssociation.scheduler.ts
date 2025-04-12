@@ -116,8 +116,20 @@ async function updateClubNewsFromWordpress(): Promise<any> {
 
         const wpData = await safeFetch(url, 10000, {
           headers: {
-            'User-Agent': 'Mozilla/5.0 (compatible; AcmeBot/1.0; +http://example.com/bot)',
-            'Accept': 'application/json',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Encoding': 'gzip, deflate, br, zstd',
+            'Accept-Language': 'de,en-US;q=0.7,en;q=0.3',
+            'Connection': 'keep-alive',
+            'DNT': '1',
+            'Host': 'kadettensh.ch',
+            'Priority': 'u=0, i',
+            'Sec-Fetch-Dest': 'document',
+            'Sec-Fetch-Mode': 'navigate',
+            'Sec-Fetch-Site': 'none',
+            'Sec-Fetch-User': '?1',
+            'Sec-GPC': '1',
+            'Upgrade-Insecure-Requests': '1',
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:137.0) Gecko/20100101 Firefox/137.0',
           },
         });
         const wpNews = await wpData.json();
@@ -125,85 +137,6 @@ async function updateClubNewsFromWordpress(): Promise<any> {
 
         for (const news of wpNews) {
           logger.info(news.link);
-
-          /* let text = String(news["content"].rendered).replaceAll("<p>", "");
-        text = String(text).replaceAll("</p><p>", "/n");
-        text = String(text).replaceAll("</p>", ""); */
-
-          /* const dom = new jsdom.JSDOM(news["content"].rendered);
-        const element = dom.window.document.createElement("div");
-        element.innerHTML = news["content"].rendered;
-        // const newsText = element.innerText;
-
-        // element.innerHTML = news["excerpt"].rendered;
-        // const leadText = element.innerText;
-        */
-
-
-          // Load the HTML content using Cheerio
-          /* const $ = cheerio.load(news["content"].rendered);
-
-        // Create an array to hold the transformed content
-        const ionicContent: string[] = [];
-
-        // Process paragraphs and strong text
-        $("p").each((index: any, element: any) => {
-          const strongText = $(element).find("strong").text();
-          const text = $(element).text().replace(strongText, "");
-          ionicContent.push(`<p><strong>${strongText}</strong>${text}</p>`);
-        });
-
-        // Process images
-        $("img").each((index: any, element: any) => {
-          const src = $(element).attr("src");
-          const alt = $(element).attr("alt") || "Image";
-          if (src) {
-            ionicContent.push(`<ion-img src="${src}" alt="${alt}"></ion-img>`);
-          }
-        });
-
-        // Process ordered lists
-        $("ol").each((index: any, element: any) => {
-          const items = $(element).find("li").map((i: any, li: any) => `<ion-item>${$(li).text()}</ion-item>`).get().join("");
-          ionicContent.push(`<ion-list>${items}</ion-list>`);
-        });
-
-        // Combine everything into an <ion-card-content> wrapper
-        const textResult = `<ion-text>${ionicContent.join("")}</ion-text>`;
-        */
-
-          // LEAD TEXT
-          // Load the HTML content using Cheerio
-          /* const $lead = cheerio.load(news["excerpt"].rendered);
-
-        // Create an array to hold the transformed content
-        const ionicLead: string[] = [];
-
-        // Process paragraphs and strong text
-        $lead("p").each((index: any, element: any) => {
-          const strongText = $lead(element).find("strong").text();
-          const text = $lead(element).text().replace(strongText, "");
-          ionicLead.push(`<p><strong>${strongText}</strong>${text}</p>`);
-        });
-
-        // Process images
-        $lead("img").each((index: any, element: any) => {
-          const src = $lead(element).attr("src");
-          const alt = $lead(element).attr("alt") || "Image";
-          if (src) {
-            ionicLead.push(`<ion-img src="${src}" alt="${alt}"></ion-img>`);
-          }
-        });
-
-        // Process ordered lists
-        $lead("ol").each((index: any, element: any) => {
-          const items = $lead(element).find("li").map((i: any, li: any) => `<ion-item>${$lead(li).text()}</ion-item>`).get().join("");
-          ionicLead.push(`<ion-list>${items}</ion-list>`);
-        });
-
-        // Combine everything into an <ion-card-content> wrapper
-        const leadResult = `<ion-text>${ionicLead.join("")}</ion-text>`;
-        */
 
           // eslint-disable-next-line no-undef
           const wpUserData = await fetch(news['_links'].author[0].href);
@@ -253,7 +186,6 @@ async function updateClubNewsFromWordpress(): Promise<any> {
     }
   }
 }
-
 
 async function sendErrorMail(error: string) {
   await db.collection('mail').add({
