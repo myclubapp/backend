@@ -415,12 +415,12 @@ async function getNews() {
   const data = await response.json();
 
   data.forEach((item: { fields: any[]; id: string; }) => {
-    const getField = (name: string) => item.fields.find((f: { name: any; }) => f.name === name)?.value || null;
+    const getField = (name: string) => item.fields.find((f) => f.name === name)?.value || null;
 
-    const subtitle = getField('subtitle');
-    const date = subtitle?.split('•')?.[1]?.trim() || null;
+    const subtitleRaw = getField('subtitle') || '';
+    const subtitleClean = subtitleRaw.replace(/&nbsp;/g, ' ').replace(/&bull;/g, '•');
+    const date = subtitleClean.split('•')?.[1]?.trim() || null;
 
-    // Clean the ID (removes prefix and suffix)
     const rawId = item.id.replace(/^umb:\/\/document\//, '').replace(/-CH$/, '');
 
     newsList.push({
