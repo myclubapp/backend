@@ -421,7 +421,7 @@ async function getNews() {
     const subtitleClean = subtitleRaw.replace(/&nbsp;/g, ' ').replace(/&bull;/g, '•');
     const date = subtitleClean.split('•')?.[1]?.trim() || null;
 
-    const rawId = item.id.replace(/^umb:\/\/document\//, '').replace(/-CH$/, '');
+    const rawId = item.id.replace(/^umb:\/\/document\//, '').replace(/de-CH$/, '');
 
     newsList.push({
       id: rawId,
