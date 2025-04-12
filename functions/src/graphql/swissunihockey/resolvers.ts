@@ -508,15 +508,16 @@ async function getNews() {
   // eslint-disable-next-line no-undef
   const response1 = await fetch('https://app.publishr.ch/api/v2/contenthub-story/list?orderBy=timestamp&fkMediahouse=41&limit=15&tags=top&tags=pin&social=false', {
     headers: {
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJtIjoic2VydmljZSIsInN1YiI6IjIyIiwib3JnSWQiOiI2IiwiaWF0IjoxNzQxMDc2OTc0LCJleHAiOjIwNTY2NTI5NzR9.H206vP4xMXIVUcypaNw6Tt6tZN4dQU7jUK6OpFvvqVU',
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJtIjoic2VydmljZSIsInN1YiI6IjQ4Iiwib3JnSWQiOiI2IiwiaWF0IjoxNzQzNTkwMzY5LCJleHAiOjIwNTkxNjYzNjl9.PjFTTaMCcfenqJycDq0qee0r3krInVYfoq4uCiRjOB8',
       'Content-Type': 'application/json',
     },
   });
 
+  // MEDIENMITTEILUNGEN
   // eslint-disable-next-line no-undef
-  const response2 = await fetch('https://app.publishr.ch/api/v2/contenthub-story/list?orderBy=timestamp&fkMediahouse=41&limit=15&tags=!top&tags=!pin&social=false', {
+  const response2 = await fetch('https://app.publishr.ch/api/v2/contenthub-story/list?orderBy=timestamp&fkMediahouse=58&limit=15&social=false&tags=!top&tags=!pin', {
     headers: {
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJtIjoic2VydmljZSIsInN1YiI6IjIyIiwib3JnSWQiOiI2IiwiaWF0IjoxNzQxMDc2OTc0LCJleHAiOjIwNTY2NTI5NzR9.H206vP4xMXIVUcypaNw6Tt6tZN4dQU7jUK6OpFvvqVU',
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJtIjoic2VydmljZSIsInN1YiI6IjQyIiwib3JnSWQiOiI2IiwiaWF0IjoxNzQxMDEyNTk0LCJleHAiOjIwNTY1ODg1OTR9.s0ceshLdB6GMzlVsU1LEYjbT1GeM33TRPbd62VGg7_I',
       'Content-Type': 'application/json',
     },
   });
@@ -559,7 +560,7 @@ async function getNews() {
           htmlText = textItem.html || '';
         }
       }
-
+      const author = item.storyAuthor?.[0]?.contact?.firstName + ' ' + item.storyAuthor?.[0]?.contact?.lastName;
       // Erstelle das News-Objekt
       const newsObject = {
         id: `${item.id}`,
@@ -572,8 +573,8 @@ async function getNews() {
         text: text,
         htmlText: htmlText,
         tags: item.storyTag?.map((tag: any) => tag.tag.tagLanguage[0].label).join(', ') || '',
-        author: item.storyAuthor?.[0]?.contact?.firstName || '',
-        authorImage: '',
+        author: author || 'swiss unihockey',
+        authorImage: 'https://portal.swissunihockey.ch/weblounge-sites/portal/media/header_logo.png',
         url: item.contenthubStory?.canonicalUrl || '',
         type: 'swissunihockey',
         updated: new Date(),
@@ -616,7 +617,7 @@ async function getNews() {
           htmlText = textItem.html || '';
         }
       }
-
+      const author = item.storyAuthor?.[0]?.contact?.firstName + ' ' + item.storyAuthor?.[0]?.contact?.lastName;
       // Erstelle das News-Objekt
       const newsObject = {
         id: `${item.id}`,
@@ -629,8 +630,8 @@ async function getNews() {
         text: text,
         htmlText: htmlText,
         tags: item.storyTag?.map((tag: any) => tag.tag.tagLanguage[0].label).join(', ') || '',
-        author: item.storyAuthor?.[0]?.contact?.firstName || '',
-        authorImage: '',
+        author: author || 'swiss unihockey',
+        authorImage: 'https://portal.swissunihockey.ch/weblounge-sites/portal/media/header_logo.png',
         url: item.contenthubStory?.canonicalUrl || '',
         type: 'swissunihockey',
         updated: new Date(),
