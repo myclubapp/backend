@@ -434,13 +434,13 @@ async function getNews() {
       title: getField('title'),
       leadText: getField('lead'),
       date: formattedDate,
-      slug: getField('link'),
+      slug: 'https://www.handball.ch' + getField('link'),
       image: 'https://www.handball.ch' + getField('image'),
       text: getField('lead'),
       htmlText: getField('lead'),
       tags: [item.type],
       author: 'Handball Schweiz',
-      authorImage: '',
+      authorImage: 'https://www.handball.ch/media/pund1t2l/logo.png?rxy=0.5%2C0.5&height=340',
       url: 'https://www.handball.ch' + getField('link'),
     });
   });
