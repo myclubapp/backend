@@ -528,53 +528,65 @@ async function getNews() {
 
   if (newsData1.status === 'success' && newsData1.data) {
     for (const item of newsData1.data) {
-      // Finde das erste Bild aus den storyItems
       let imagePath = '';
+      let title = '';
+      let leadText = '';
+      let htmlText = '';
+
       if (item.storyItem) {
-        // Suche zuerst nach Bildern mit fkElement: 13
-        const imageItem = item.storyItem.find((si: any) =>
-          si.fkElement === 13 && si.contentA && si.contentA.includes('cdn.publishr.ch'),
+        // 1. Image
+        const imageItem = item.storyItem.find(
+            (si: any) =>
+              si.fkElement === 13 && si.contentA && si.contentA.includes('cdn.publishr.ch'),
         );
-
-        // Wenn kein Bild mit fkElement: 13 gefunden wurde, suche nach Bildern mit fkElement: 64
-        if (!imageItem) {
-          const fallbackImageItem = item.storyItem.find((si: any) =>
-            si.fkElement === 64 && si.contentA && si.contentA.includes('cdn.publishr.ch'),
-          );
-
-          if (fallbackImageItem) {
-            imagePath = fallbackImageItem.contentA;
-          }
-        } else {
+        if (imageItem) {
           imagePath = imageItem.contentA;
         }
-      }
 
-      // Finde den Haupttext aus den storyItems
-      let text = '';
-      let htmlText = '';
-      if (item.storyItem) {
-        const textItem = item.storyItem.find((si: any) => si.fkElement === 7);
-        if (textItem) {
-          text = textItem.contentB || '';
-          htmlText = textItem.html || '';
+        // 2. Title
+        const titleItem = item.storyItem.find(
+            (si: any) => si.fkElement === 1 && si.contentA,
+        );
+        if (titleItem) {
+          title = titleItem.contentA;
+        }
+
+        // 3. Lead text
+        const leadItem = item.storyItem.find(
+            (si: any) => si.fkElement === 6 && si.contentA,
+        );
+        if (leadItem) {
+          leadText = leadItem.contentA;
+        }
+
+        // 4. Full HTML content
+        const htmlItem = item.storyItem.find(
+            (si: any) => si.fkElement === 61 && si.contentA,
+        );
+        if (htmlItem) {
+          htmlText = htmlItem.contentA;
         }
       }
-      const author = item.storyAuthor?.[0]?.contact?.firstName + ' ' + item.storyAuthor?.[0]?.contact?.lastName;
-      // Erstelle das News-Objekt
+
+      const author =
+        item.storyAuthor?.[0]?.contact?.firstName +
+          ' ' +
+          item.storyAuthor?.[0]?.contact?.lastName || 'swiss unihockey';
+
       const newsObject = {
         id: `${item.id}`,
         externalId: `${item.id}`,
-        title: item.title || '',
-        leadText: text.substring(0, 200) + '...',
+        title: title || item.title || '',
+        leadText: leadText.substring(0, 200) + '...',
         date: item.creationTimestamp,
         slug: item.contenthubStory?.slug || '',
         image: imagePath,
-        text: text,
+        text: leadText,
         htmlText: htmlText,
         tags: item.storyTag?.map((tag: any) => tag.tag.tagLanguage[0].label).join(', ') || '',
-        author: author || 'swiss unihockey',
-        authorImage: 'https://portal.swissunihockey.ch/weblounge-sites/portal/media/header_logo.png',
+        author: author,
+        authorImage:
+          'https://portal.swissunihockey.ch/weblounge-sites/portal/media/header_logo.png',
         url: item.contenthubStory?.canonicalUrl || '',
         type: 'swissunihockey',
         updated: new Date(),
@@ -585,53 +597,65 @@ async function getNews() {
   }
   if (newsData2.status === 'success' && newsData2.data) {
     for (const item of newsData2.data) {
-      // Finde das erste Bild aus den storyItems
       let imagePath = '';
+      let title = '';
+      let leadText = '';
+      let htmlText = '';
+
       if (item.storyItem) {
-        // Suche zuerst nach Bildern mit fkElement: 13
-        const imageItem = item.storyItem.find((si: any) =>
-          si.fkElement === 13 && si.contentA && si.contentA.includes('cdn.publishr.ch'),
+        // 1. Image
+        const imageItem = item.storyItem.find(
+            (si: any) =>
+              si.fkElement === 13 && si.contentA && si.contentA.includes('cdn.publishr.ch'),
         );
-
-        // Wenn kein Bild mit fkElement: 13 gefunden wurde, suche nach Bildern mit fkElement: 64
-        if (!imageItem) {
-          const fallbackImageItem = item.storyItem.find((si: any) =>
-            si.fkElement === 64 && si.contentA && si.contentA.includes('cdn.publishr.ch'),
-          );
-
-          if (fallbackImageItem) {
-            imagePath = fallbackImageItem.contentA;
-          }
-        } else {
+        if (imageItem) {
           imagePath = imageItem.contentA;
         }
-      }
 
-      // Finde den Haupttext aus den storyItems
-      let text = '';
-      let htmlText = '';
-      if (item.storyItem) {
-        const textItem = item.storyItem.find((si: any) => si.fkElement === 7);
-        if (textItem) {
-          text = textItem.contentB || '';
-          htmlText = textItem.html || '';
+        // 2. Title
+        const titleItem = item.storyItem.find(
+            (si: any) => si.fkElement === 1 && si.contentA,
+        );
+        if (titleItem) {
+          title = titleItem.contentA;
+        }
+
+        // 3. Lead text
+        const leadItem = item.storyItem.find(
+            (si: any) => si.fkElement === 6 && si.contentA,
+        );
+        if (leadItem) {
+          leadText = leadItem.contentA;
+        }
+
+        // 4. Full HTML content
+        const htmlItem = item.storyItem.find(
+            (si: any) => si.fkElement === 61 && si.contentA,
+        );
+        if (htmlItem) {
+          htmlText = htmlItem.contentA;
         }
       }
-      const author = item.storyAuthor?.[0]?.contact?.firstName + ' ' + item.storyAuthor?.[0]?.contact?.lastName;
-      // Erstelle das News-Objekt
+
+      const author =
+        item.storyAuthor?.[0]?.contact?.firstName +
+          ' ' +
+          item.storyAuthor?.[0]?.contact?.lastName || 'swiss unihockey';
+
       const newsObject = {
         id: `${item.id}`,
         externalId: `${item.id}`,
-        title: item.title || '',
-        leadText: text.substring(0, 200) + '...',
+        title: title || item.title || '',
+        leadText: leadText.substring(0, 200) + '...',
         date: item.creationTimestamp,
         slug: item.contenthubStory?.slug || '',
         image: imagePath,
-        text: text,
+        text: leadText,
         htmlText: htmlText,
         tags: item.storyTag?.map((tag: any) => tag.tag.tagLanguage[0].label).join(', ') || '',
-        author: author || 'swiss unihockey',
-        authorImage: 'https://portal.swissunihockey.ch/weblounge-sites/portal/media/header_logo.png',
+        author: author,
+        authorImage:
+          'https://portal.swissunihockey.ch/weblounge-sites/portal/media/header_logo.png',
         url: item.contenthubStory?.canonicalUrl || '',
         type: 'swissunihockey',
         updated: new Date(),
