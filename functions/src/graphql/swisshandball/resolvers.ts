@@ -414,7 +414,7 @@ async function getNews() {
   });
   const data = await response.json();
 
-  data.forEach((item: { fields: any[]; id: string; }) => {
+  data.forEach((item: { fields: any[]; id: string; type: string }) => {
     const getField = (name: string) => item.fields.find((f) => f.name === name)?.value || null;
 
     const subtitleRaw = getField('subtitle') || '';
@@ -429,13 +429,13 @@ async function getNews() {
       leadText: getField('lead'),
       date: date,
       slug: getField('link'),
-      image: getField('image'),
-      text: '', // Optional HTML text
-      htmlText: '', // Optional raw HTML
-      tags: [],
-      author: '',
+      image: 'https://www.handball.ch' + getField('image'),
+      text: getField('lead'),
+      htmlText: getField('lead'),
+      tags: [item.type],
+      author: 'Handball Schweiz',
       authorImage: '',
-      url: getField('link'),
+      url: 'https://www.handball.ch' + getField('link'),
     });
   });
   return newsList;
