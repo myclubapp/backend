@@ -110,7 +110,7 @@ async function updateClubNewsFromWordpress(): Promise<any> {
     // logger.info(club.id);
 
     if (club.data().wordpress) {
-      // logger.info(club.data().wordpress);
+      logger.info(club.data().wordpress);
       try {
         const url = club.data().wordpress + '/wp-json/wp/v2/posts?per_page=20';
 
