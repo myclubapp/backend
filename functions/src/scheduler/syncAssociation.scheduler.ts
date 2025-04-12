@@ -66,8 +66,8 @@ export async function updatePersistenceJobNews(event: ScheduledEvent) {
   try {
     await updateNewsSwisshandball();
   } catch (err) {
-    logger.error('Fehler bei updateClubNewsFromWordpress:', err);
-    await sendErrorMail('Fehler bei updateClubNewsFromWordpress: ' + err);
+    logger.error('Fehler bei updateNewsSwisshandball:', err);
+    await sendErrorMail('Fehler bei updateNewsSwisshandball: ' + err);
   }
   try {
     await updateClubNewsFromWordpress();

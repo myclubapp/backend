@@ -414,47 +414,29 @@ async function getNews() {
   });
   const data = await response.json();
 
-  data.forEach((item: { fields: any[]; id: any; }) => {
-    const getField = (name: string) => item.fields.find((f: { name: string; }) => f.name === name)?.value || null;
+  data.forEach((item: { fields: any[]; id: string; }) => {
+    const getField = (name: string) => item.fields.find((f: { name: any; }) => f.name === name)?.value || null;
 
     const subtitle = getField('subtitle');
     const date = subtitle?.split('•')?.[1]?.trim() || null;
 
+    // Clean the ID (removes prefix and suffix)
+    const rawId = item.id.replace(/^umb:\/\/document\//, '').replace(/-CH$/, '');
+
     newsList.push({
-      id: item.id,
+      id: rawId,
       title: getField('title'),
       leadText: getField('lead'),
       date: date,
       slug: getField('link'),
       image: getField('image'),
-      text: '', // Placeholder – use convert(item.html, { wordwrap: 130 }) if you have HTML
-      htmlText: '', // Placeholder – no HTML content provided
-      tags: [], // Not in the response
-      author: '', // Not in the response
-      authorImage: '', // Not in the response
+      text: '', // Optional HTML text
+      htmlText: '', // Optional raw HTML
+      tags: [],
+      author: '',
+      authorImage: '',
       url: getField('link'),
     });
   });
-  // const data = await fetch("https://www.handball.ch/Umbraco/Api/Entities/Collect");
-  // const newsData = await data.json();
-  /* newsData._embedded.wallList.forEach((item: any) => {
-    // logger.info(item);
-    newsList.push({
-      id: item.id,
-      title: item.title,
-      leadText: item.leadText,
-      date: item.date,
-      slug: item.slug,
-      image: item.media[2].url || item.featuredImage,
-      text: convert(item.html, {
-        wordwrap: 130,
-      }),
-      htmlText: item.text,
-      tags: item.tags,
-      author: item.author.realName,
-      authorImage: item.author.image,
-      url: item.url,
-    });
-  });*/
   return newsList;
 }

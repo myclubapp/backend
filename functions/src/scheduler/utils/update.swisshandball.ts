@@ -157,6 +157,7 @@ export async function updateNewsSwisshandball(): Promise<any> {
 
   const newsData = await resolversSH.SwissHandball.news();
   for (const news of newsData) {
+    console.log(news);
     const newsDoc = await db.collection('news').doc(`sh-${news.id}`).get();
     if (!newsDoc.exists) {
       await db.collection('news').doc(`sh-${news.id}`).set({
