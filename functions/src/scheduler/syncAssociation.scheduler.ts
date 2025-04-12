@@ -77,6 +77,30 @@ export async function updatePersistenceJobNews(event: ScheduledEvent) {
   }
 }
 
+
+async function safeFetch(
+    url: string,
+    timeout = 10000,
+    // eslint-disable-next-line no-undef
+    options: RequestInit = {},
+// eslint-disable-next-line no-undef
+): Promise<Response> {
+  // eslint-disable-next-line no-undef
+  const controller = new AbortController();
+  // eslint-disable-next-line no-undef
+  const id = setTimeout(() => controller.abort(), timeout);
+
+  try {
+    // eslint-disable-next-line no-undef
+    return await fetch(url, {
+      ...options,
+      signal: controller.signal,
+    });
+  } finally {
+    // eslint-disable-next-line no-undef
+    clearTimeout(id);
+  }
+}
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function updateClubNewsFromWordpress(): Promise<any> {
   logger.info('updateClubNewsFromWordpress');
@@ -89,8 +113,13 @@ async function updateClubNewsFromWordpress(): Promise<any> {
       // logger.info(club.data().wordpress);
       try {
         const url = club.data().wordpress + '/wp-json/wp/v2/posts?per_page=20';
-        // eslint-disable-next-line no-undef
-        const wpData = await fetch(url);
+
+        const wpData = await safeFetch(url, 10000, {
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (compatible; AcmeBot/1.0; +http://example.com/bot)',
+            'Accept': 'application/json',
+          },
+        });
         const wpNews = await wpData.json();
         logger.info('News URL: ' + url);
 
@@ -219,7 +248,7 @@ async function updateClubNewsFromWordpress(): Promise<any> {
           });
         }
       } catch (e) {
-        console.error(e);
+        console.error(`Failed to fetch posts for club ${club.id} (${club.data().wordpress}):`, e);
       }
     }
   }
