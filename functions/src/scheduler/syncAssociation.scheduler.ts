@@ -3,7 +3,7 @@
 
 import {updateTeamsSwissunihockey, updateClubsSwissunihockey, updateGamesSwissunihockey, updateNewsSwissunihockey} from './utils/update.swissunihockey.js';
 import {updateTeamsSwissvolleyball, updateClubsSwissvolleyball, updateNewsSwissvolley, updateGamesSwissvolley} from './utils/update.swissvolleyball.js';
-import {updateTeamsSwisshandball, updateClubsSwisshandball, updateGamesSwisshandball} from './utils/update.swisshandball.js';
+import {updateTeamsSwisshandball, updateClubsSwisshandball, updateGamesSwisshandball, updateNewsSwisshandball} from './utils/update.swisshandball.js';
 import {updateClubsSwissturnverband, updateTeamsSwissturnverband} from './utils/update.swissturnverband.js';
 // import {updateTeamsSwissturnverband, updateClubsSwissturnverband} from "./utils/update.swissturnverband";
 // import {updateClubsSwissvolleyball} from "./utils/update.swissvolleyball";
@@ -55,16 +55,25 @@ export async function updatePersistenceJobNews(event: ScheduledEvent) {
     await updateNewsSwissunihockey();
   } catch (err) {
     logger.error('Fehler bei updateNewsSwissunihockey:', err);
+    await sendErrorMail('Fehler bei updateNewsSwissunihockey: ' + err);
   }
   try {
     await updateNewsSwissvolley();
   } catch (err) {
     logger.error('Fehler bei updateNewsSwissvolley:', err);
+    await sendErrorMail('Fehler bei updateNewsSwissvolley: ' + err);
+  }
+  try {
+    await updateNewsSwisshandball();
+  } catch (err) {
+    logger.error('Fehler bei updateClubNewsFromWordpress:', err);
+    await sendErrorMail('Fehler bei updateClubNewsFromWordpress: ' + err);
   }
   try {
     await updateClubNewsFromWordpress();
   } catch (err) {
     logger.error('Fehler bei updateClubNewsFromWordpress:', err);
+    await sendErrorMail('Fehler bei updateClubNewsFromWordpress: ' + err);
   }
 }
 
@@ -216,6 +225,14 @@ async function updateClubNewsFromWordpress(): Promise<any> {
   }
 }
 
+
+async function sendErrorMail(error: string) {
+  await db.collection('mail').add({
+    to: 'info@my-club.app',
+    subject: 'Fehler: ' + error,
+    text: 'Fehler: ' + error,
+  });
+}
 
 /* const newsDoc = await db.collection("news").doc(`su-${news.id}`).get();
     if (!newsDoc.exists) {

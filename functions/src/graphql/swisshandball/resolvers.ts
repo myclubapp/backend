@@ -393,6 +393,48 @@ async function getRankings(teamId: string, clubId: string) {
 
 async function getNews() {
   const newsList = <any>[];
+  // eslint-disable-next-line no-undef
+  const response = await fetch('https://www.handball.ch/Umbraco/Api/Entities/Collect', {
+    'credentials': 'include',
+    'headers': {
+      'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:137.0) Gecko/20100101 Firefox/137.0',
+      'Accept': '*/*',
+      'Accept-Language': 'de-CH',
+      'content-type': 'application/json',
+      'Sec-GPC': '1',
+      'Sec-Fetch-Dest': 'empty',
+      'Sec-Fetch-Mode': 'cors',
+      'Sec-Fetch-Site': 'same-origin',
+      'Priority': 'u=4',
+    },
+    'referrer': 'https://www.handball.ch/de/news/',
+    'body': '[{"id":"63284de-CH","type":"news","entityId":null,"categories":"","clubs":"","requestUrl":"/de/news/","fields":[{"name":"link"},{"name":"image"},{"name":"subtitle"},{"name":"title"},{"name":"lead"}]},{"id":"umb://document/79edadac9feb41a69ba5f9611cb5d1c1de-CH","type":"news","entityId":null,"categories":"","clubs":"","requestUrl":"/de/news/","fields":[{"name":"image"},{"name":"subtitle"},{"name":"title"},{"name":"image"},{"name":"lead"},{"name":"link"}]},{"id":"umb://document/6a49c284f70e4f12a26239f792323a55de-CH","type":"news","entityId":null,"categories":"","clubs":"","requestUrl":"/de/news/","fields":[{"name":"image"},{"name":"subtitle"},{"name":"title"},{"name":"image"},{"name":"lead"},{"name":"link"}]},{"id":"umb://document/0db9ebc11ff44a13ba365f31a16e7e41de-CH","type":"news","entityId":null,"categories":"","clubs":"","requestUrl":"/de/news/","fields":[{"name":"image"},{"name":"subtitle"},{"name":"title"},{"name":"image"},{"name":"lead"},{"name":"link"}]},{"id":"umb://document/3c7a8f73385a46169feb7a82c2c784cbde-CH","type":"news","entityId":null,"categories":"","clubs":"","requestUrl":"/de/news/","fields":[{"name":"image"},{"name":"subtitle"},{"name":"title"},{"name":"image"},{"name":"lead"},{"name":"link"}]},{"id":"umb://document/a198ceebd3c8404bb421f4c6dbe0008ade-CH","type":"news","entityId":null,"categories":"","clubs":"","requestUrl":"/de/news/","fields":[{"name":"image"},{"name":"subtitle"},{"name":"title"},{"name":"image"},{"name":"lead"},{"name":"link"}]},{"id":"umb://document/c40e03d3590b4d0bbac7ec244680aaa6de-CH","type":"news","entityId":null,"categories":"","clubs":"","requestUrl":"/de/news/","fields":[{"name":"image"},{"name":"subtitle"},{"name":"title"},{"name":"image"},{"name":"lead"},{"name":"link"}]},{"id":"umb://document/90aafef98a1d4b8985a1f432a136530ade-CH","type":"news","entityId":null,"categories":"","clubs":"","requestUrl":"/de/news/","fields":[{"name":"image"},{"name":"subtitle"},{"name":"title"},{"name":"image"},{"name":"lead"},{"name":"link"}]},{"id":"umb://document/b9e432a6a02b45b98c692b2446047500de-CH","type":"news","entityId":null,"categories":"","clubs":"","requestUrl":"/de/news/","fields":[{"name":"image"},{"name":"subtitle"},{"name":"title"},{"name":"image"},{"name":"lead"},{"name":"link"}]},{"id":"umb://document/0dff523774a64effb8ff657733d8fe9ade-CH","type":"news","entityId":null,"categories":"","clubs":"","requestUrl":"/de/news/","fields":[{"name":"image"},{"name":"subtitle"},{"name":"title"},{"name":"image"},{"name":"lead"},{"name":"link"}]},{"id":"umb://document/94122245e9d942dda89f63190346ea55de-CH","type":"news","entityId":null,"categories":"","clubs":"","requestUrl":"/de/news/","fields":[{"name":"image"},{"name":"subtitle"},{"name":"title"},{"name":"image"},{"name":"lead"},{"name":"link"}]},{"id":"umb://document/ee8ff0fcd3c0470ab03a71291db82a8cde-CH","type":"news","entityId":null,"categories":"","clubs":"","requestUrl":"/de/news/","fields":[{"name":"image"},{"name":"subtitle"},{"name":"title"},{"name":"image"},{"name":"lead"},{"name":"link"}]},{"id":"umb://document/3a144ab739654d6cb1f5840e128e61f5de-CH","type":"news","entityId":null,"categories":"","clubs":"","requestUrl":"/de/news/","fields":[{"name":"image"},{"name":"subtitle"},{"name":"title"},{"name":"image"},{"name":"lead"},{"name":"link"}]},{"id":"63277de-CH_0","type":"news","entityId":null,"categories":"","clubs":"","requestUrl":"/de/news/","fields":[{"name":"subtitle"},{"name":"title"},{"name":"lead"},{"name":"link"}]},{"id":"63277de-CH_1","type":"news","entityId":null,"categories":"","clubs":"","requestUrl":"/de/news/","fields":[{"name":"subtitle"},{"name":"title"},{"name":"lead"},{"name":"link"}]},{"id":"63277de-CH_2","type":"news","entityId":null,"categories":"","clubs":"","requestUrl":"/de/news/","fields":[{"name":"subtitle"},{"name":"title"},{"name":"lead"},{"name":"link"}]}]',
+    'method': 'POST',
+    'mode': 'cors',
+  });
+  const data = await response.json();
+
+  data.forEach((item: { fields: any[]; id: any; }) => {
+    const getField = (name: string) => item.fields.find((f: { name: string; }) => f.name === name)?.value || null;
+
+    const subtitle = getField('subtitle');
+    const date = subtitle?.split('•')?.[1]?.trim() || null;
+
+    newsList.push({
+      id: item.id,
+      title: getField('title'),
+      leadText: getField('lead'),
+      date: date,
+      slug: getField('link'),
+      image: getField('image'),
+      text: '', // Placeholder – use convert(item.html, { wordwrap: 130 }) if you have HTML
+      htmlText: '', // Placeholder – no HTML content provided
+      tags: [], // Not in the response
+      author: '', // Not in the response
+      authorImage: '', // Not in the response
+      url: getField('link'),
+    });
+  });
   // const data = await fetch("https://www.handball.ch/Umbraco/Api/Entities/Collect");
   // const newsData = await data.json();
   /* newsData._embedded.wallList.forEach((item: any) => {
