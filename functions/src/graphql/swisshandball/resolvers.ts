@@ -419,15 +419,21 @@ async function getNews() {
 
     const subtitleRaw = getField('subtitle') || '';
     const subtitleClean = subtitleRaw.replace(/&nbsp;/g, ' ').replace(/&bull;/g, '•');
-    const date = subtitleClean.split('•')?.[1]?.trim() || null;
+    const dateStr = subtitleClean.split('•')?.[1]?.trim() || null;
 
+    // Convert from "dd.mm.yyyy" to ISO format
+    let formattedDate = null;
+    if (dateStr && /^\d{2}\.\d{2}\.\d{4}$/.test(dateStr)) {
+      const [day, month, year] = dateStr.split('.');
+      formattedDate = new Date(`${year}-${month}-${day}T00:00:00.000Z`).toISOString();
+    }
     const rawId = item.id.replace(/^umb:\/\/document\//, '').replace(/de-CH$/, '');
 
     newsList.push({
       id: rawId,
       title: getField('title'),
       leadText: getField('lead'),
-      date: date,
+      date: formattedDate,
       slug: getField('link'),
       image: 'https://www.handball.ch' + getField('image'),
       text: getField('lead'),
