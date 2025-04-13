@@ -138,10 +138,17 @@ async function updateClubNewsFromWordpress(): Promise<any> {
         for (const news of wpNews) {
           logger.info(news.link);
 
-          // eslint-disable-next-line no-undef
-          const wpUserData = await fetch(news['_links'].author[0].href);
-          const wpUser = await wpUserData.json();
-          const authorImage = wpUser.avatar_urls[96] || wpUser.avatar_urls[48] || wpUser.avatar_urls[24] || '';
+          let authorImage = '';
+          let wpUser;
+          try {
+            // eslint-disable-next-line no-undef
+            const wpUserData = await fetch(news['_links'].author[0].href);
+            wpUser = await wpUserData.json();
+            authorImage = wpUser.avatar_urls[96] || wpUser.avatar_urls[48] || wpUser.avatar_urls[24] || '';
+          } catch (e) {
+            logger.error(`Failed to fetch user data for club ${club.id}:`, e);
+          }
+
 
           let featuredMedia = '';
           try {
@@ -156,6 +163,7 @@ async function updateClubNewsFromWordpress(): Promise<any> {
             }
           } catch (e) {
             // logger.info(e);
+            logger.error(`Failed to fetch featured media for club ${club.id}:`, e);
             featuredMedia = authorImage || 'https://placehold.co/600x400';
           }
 
