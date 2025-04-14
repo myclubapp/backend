@@ -569,9 +569,8 @@ async function getNews() {
       }
 
       const author =
-        item.storyAuthor?.[0]?.contact?.firstName +
-          ' ' +
-          item.storyAuthor?.[0]?.contact?.lastName || 'swiss unihockey';
+        (item.storyAuthor?.[0]?.contact?.firstName || '') +
+        (item.storyAuthor?.[0]?.contact?.lastName ? ' ' + item.storyAuthor?.[0]?.contact?.lastName : '') || 'swiss unihockey';
 
       const newsObject = {
         id: `${item.id}`,
@@ -638,9 +637,8 @@ async function getNews() {
       }
 
       const author =
-        item.storyAuthor?.[0]?.contact?.firstName +
-          ' ' +
-          item.storyAuthor?.[0]?.contact?.lastName || 'swiss unihockey';
+        (item.storyAuthor?.[0]?.contact?.firstName || '') +
+        (item.storyAuthor?.[0]?.contact?.lastName ? ' ' + item.storyAuthor?.[0]?.contact?.lastName : '') || 'swiss unihockey';
 
       const newsObject = {
         id: `${item.id}`,
