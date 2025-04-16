@@ -15,7 +15,7 @@ export async function deleteHelferPunkt(event: FirestoreEvent<QueryDocumentSnaps
   const helferPunktData = event.data?.data();
 
   const helferEvent = await db.collection('club').doc(clubId).collection('helferEvents').doc(helferPunktData?.eventRef?.id).collection('schichten').doc(helferPunktData?.schichtRef?.id).collection('attendees').doc(helferPunktData?.userId).get();
-  if (helferEvent.data().helferPunktId === helferPunktId) {
+  if (helferEvent.exists && helferEvent.data().helferPunktId === helferPunktId) {
     logger.info('delete Helerpunkt');
 
     return db.collection('club').doc(clubId).collection('helferEvents').doc(helferPunktData?.eventRef?.id).collection('schichten').doc(helferPunktData?.schichtRef?.id).collection('attendees').doc(helferPunktData?.userId).set({
