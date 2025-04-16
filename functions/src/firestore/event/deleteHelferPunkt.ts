@@ -20,6 +20,7 @@ export async function deleteHelferPunkt(event: FirestoreEvent<QueryDocumentSnaps
 
     return db.collection('club').doc(clubId).collection('helferEvents').doc(helferPunktData?.eventRef?.id).collection('schichten').doc(helferPunktData?.schichtRef?.id).collection('attendees').doc(helferPunktData?.userId).set({
       'status': helferEvent.data()?.status,
+      'confirmed': false,
     });
   } else {
     return true;
