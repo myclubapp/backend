@@ -25,7 +25,7 @@ export async function createKid(event: FirestoreEvent<QueryDocumentSnapshot | un
     const kidsUserProfileRef = await db.collection('userProfile').doc(kidsUserProfileRefCollection.docs[0].id).get();
     logger.info('kidsUserProfile: ' + kidsUserProfileRef.data());
 
-    await db.collection('userProfile').doc(userId).collection('kids').doc(kidId).set({
+    await db.collection('userProfile').doc(userId).collection('kidsRequests').doc(kidId).set({
       kidsUserProfileRefId: kidsUserProfileRef.id,
     }, {merge: true});
 
@@ -58,20 +58,31 @@ export async function verifyKidsEmailService(request: functions.Request, respons
   corsHandler(request, response, async () => {
     const {requestId, parentId} = request.query;
     logger.info(`Verify Kids with requestId ${requestId}`);
-    const kidRef = await db.collection('userProfile').doc(parentId).collection('kids').doc(requestId).get();
-    if (kidRef.exists) {
-      await kidRef.update({
-        verified: true,
-        verifiedAt: new Date(),
-      });
+    const kidRef = await db.collection('userProfile').doc(parentId).collection('kidsRequests').doc(requestId).get();
+    if (!kidRef.exists) {
+      return response.status(404).send('Kid request not found');
     }
+    const kidProfileRef = await db.collection('userProfile').doc(kidRef.data()?.kidsUserProfileRefId).get();
     // update custom claims for parent
     const user = await auth.getUser(parentId);
     const customClaims = user.customClaims || {};
     customClaims.kids = customClaims.kids || [];
-    customClaims.kids.push(kidRef.data()?.kidsUserProfileRefId); // Set the kid id
+    customClaims.kids.push(kidProfileRef.id); // Set the kid id
     await auth.setCustomUserClaims(parentId, customClaims);
-    logger.info(`User ${user.email} verified kid ${requestId}`);
-    response.status(200).send('Kid verified');
+    logger.info(`User ${user.email} verified kid ${kidProfileRef.id}`);
+
+    // Add Child to Parent
+    const childrenRef = await db.collection('userProfile').doc(parentId).collection('children').get();
+    childrenRef.doc(kidProfileRef.identity).set({
+      email: kidProfileRef.data()?.email,
+      firstName: kidProfileRef.data()?.firstName,
+      lastName: kidProfileRef.data()?.lastName,
+      verified: true,
+      verifiedAt: new Date(),
+    });
+    // Delete Request
+    await db.collection('userProfile').doc(parentId).collection('kidsRequests').doc(requestId).delete();
+
+    return response.status(200).send('Kid verified');
   });
 }

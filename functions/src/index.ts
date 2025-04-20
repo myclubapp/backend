@@ -271,7 +271,7 @@ export const dbChangePayment = onDocumentWritten({
 
 // DB Hooks KIDS
 export const dbAddKid = onDocumentCreated({
-  document: '/userProfile/{userId}/kids/{kidId}',
+  document: '/userProfile/{userId}/kidsRequests/{kidId}',
   region: 'europe-west6',
 }, createKid);
 
