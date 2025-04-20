@@ -1,5 +1,3 @@
-
-
 /* eslint-disable max-len */
 
 import {QueryDocumentSnapshot, FirestoreEvent} from 'firebase-functions/v2/firestore';
@@ -95,6 +93,21 @@ export async function verifyKidsEmailService(request: functions.Request, respons
     // Delete Request
     await db.collection('userProfile').doc(parentId).collection('kidsRequests').doc(requestId).delete();
 
-    return response.status(200).send('Kid verified');
+    return response
+        .status(200)
+        .set('Content-Type', 'text/html')
+        .send(`
+        <!DOCTYPE html>
+        <html lang="de">
+          <head>
+            <meta charset="UTF-8">
+            <title>Kind verifiziert</title>
+          </head>
+          <body>
+            <h1>Kind wurde erfolgreich verifiziert!</h1>
+            <p>Vielen Dank für deine Bestätigung.</p>
+          </body>
+        </html>
+      `);
   });
 }
