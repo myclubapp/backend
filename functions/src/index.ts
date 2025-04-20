@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import {authUserDeleteUserSendByEmail, authUserDeleteUserAccount} from './auth/user.delete.js';
-import {authUserCreateSendWelcomeEmail, authBeforeUserSignedIn} from './auth/user.create.js';
+import {createUserSendWelcomeEmail, authBeforeUserSignedIn} from './auth/user.create.js';
 
 import {createClubAdmin, createTeamAdmin} from './firestore/createAdmin.js';
 import {createClubMember, createTeamMember} from './firestore/createMember.js';
@@ -66,10 +66,10 @@ export const verifyEmail = beforeUserSignedIn({
   region: 'europe-west6',
 }, authUserCreateSendWelcomeEmail); */
 
-export const sendWelcomeMail = onDocumentCreated({
+export const dbCreateUserSendWelcomeEmail = onDocumentCreated({
   document: '/userProfile/{userId}',
   region: 'europe-west6',
-}, authUserCreateSendWelcomeEmail);
+}, createUserSendWelcomeEmail);
 
 
 /* still 1st gen

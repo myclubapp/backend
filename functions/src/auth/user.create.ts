@@ -29,7 +29,7 @@ export async function authBeforeUserSignedIn(event: AuthBlockingEvent): Promise<
   return true;
 }
 
-export async function authUserCreateSendWelcomeEmail(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
+export async function createUserSendWelcomeEmail(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
   const {userId} = event.params;
   logger.info('>>> NEW USER with ID: ' + userId + ' SEND WELCOME E-MAIL to VALIDATE E-MAIL');
 
