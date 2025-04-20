@@ -74,8 +74,7 @@ export async function verifyKidsEmailService(request: functions.Request, respons
     logger.info(`User ${user.email} verified kid ${kidProfileRef.id}`);
 
     // Add Child to Parent
-    const childrenRef = await db.collection('userProfile').doc(parentId).collection('children').get();
-    childrenRef.doc(kidProfileRef.id).set({
+    await db.collection('userProfile').doc(parentId).collection('children').doc(kidProfileRef.id).set({
       email: kidProfileRef.data()?.email,
       firstName: kidProfileRef.data()?.firstName,
       lastName: kidProfileRef.data()?.lastName,
