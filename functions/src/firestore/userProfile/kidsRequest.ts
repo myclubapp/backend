@@ -11,32 +11,34 @@ import cors from 'cors';
 import * as functions from 'firebase-functions/v1';
 
 export async function createKid(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
-  const {userId, kidId} = event.params;
-  logger.info(`Add Kid to UserProfile ${userId} ${kidId}`);
+  const {userId, requestId} = event.params;
+  logger.info(`Add Kid to UserProfile ${userId} with requestId ${requestId}`);
 
   const kidData = event.data?.data();
   const userProfileRef = await db.collection('userProfile').doc(userId).get();
 
-  // get kids userProfile
+  // search for kid with email
   const kidsUserProfileRefCollection = await db.collection('userProfile').where('email', '==', kidData?.email).get();
   if (kidsUserProfileRefCollection.docs.length > 0) {
     logger.info('kidsUserProfile exists');
     // assume there is only one kid with the same email as profile
-    const kidsUserProfileRef = await db.collection('userProfile').doc(kidsUserProfileRefCollection.docs[0].id).get();
-    logger.info('kidsUserProfile: ' + kidsUserProfileRef.data());
+    const tempKidsUserProfileRef = kidsUserProfileRefCollection.docs[0];
+    const kidsUserProfileRef = await db.collection('userProfile').doc(tempKidsUserProfileRef.id).get();
+    // logger.info('kidsUserProfile: ' + kidsUserProfileRef.data());
 
-    await db.collection('userProfile').doc(userId).collection('kidsRequests').doc(kidId).set({
+    // Update Request Data
+    await db.collection('userProfile').doc(userId).collection('kidsRequests').doc(requestId).set({
       kidsUserProfileRefId: kidsUserProfileRef.id,
     }, {merge: true});
 
     // send verification email
     await db.collection('mail').add({
-      to: kidsUserProfileRef.data().email,
+      to: kidsUserProfileRef.data()?.email,
       from: 'noreply@my-club.app',
       subject: 'add family member to your account',
       body: {
-        text: `Hi ${kidsUserProfileRef.data()?.firstName} ${kidsUserProfileRef.data()?.lastName}. ${userProfileRef.data()?.firstName} ${userProfileRef.data()?.lastName} wants to add you to your account. please open the link below to verify your email and add yourself to ${userProfileRef.data()?.firstName}'s account. Link: https://europe-west6-myclubmanagement.cloudfunctions.net/verifyKidsEmail?requestId=${kidId}&parentId=${userId}`,
-        html: `Hi ${kidsUserProfileRef.data()?.firstName} ${kidsUserProfileRef.data()?.lastName}. ${userProfileRef.data()?.firstName} ${userProfileRef.data()?.lastName} wants to add you to your account. please open the link below to verify your email and add yourself to ${userProfileRef.data()?.firstName}'s account. Link: https://europe-west6-myclubmanagement.cloudfunctions.net/verifyKidsEmail?requestId=${kidId}&parentId=${userId}`,
+        text: `Hi ${kidsUserProfileRef.data()?.firstName} ${kidsUserProfileRef.data()?.lastName}. ${userProfileRef.data()?.firstName} ${userProfileRef.data()?.lastName} wants to add you to your account. please open the link below to verify your email and add yourself to ${userProfileRef.data()?.firstName}'s account. Link: https://europe-west6-myclubmanagement.cloudfunctions.net/verifyKidsEmail?requestId=${requestId}&parentId=${userId}`,
+        html: `Hi ${kidsUserProfileRef.data()?.firstName} ${kidsUserProfileRef.data()?.lastName}. ${userProfileRef.data()?.firstName} ${userProfileRef.data()?.lastName} wants to add you to your account. please open the link below to verify your email and add yourself to ${userProfileRef.data()?.firstName}'s account. Link: https://europe-west6-myclubmanagement.cloudfunctions.net/verifyKidsEmail?requestId=${requestId}&parentId=${userId}`,
       },
       /* template: {
         name: 'VerifyKidsEmail',
