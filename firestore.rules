@@ -52,6 +52,11 @@ service cloud.firestore {
 				allow read, write: if isSignedIn() && request.auth.uid == userId;
         allow read: if isSignedIn(); //REVIEW ACCESS OTHER USERS DATA within CLUB/TEAM
         
+        // KIDS
+        match /kids/{kidId=**} {
+          allow read, update, delete, create: if isSignedIn() && request.auth.uid == userId;
+        } 
+
         // push
         match /push/{deviceId=**} {
           allow read, update, delete, create: if isSignedIn() && request.auth.uid == userId;
@@ -194,7 +199,7 @@ service cloud.firestore {
         match /helferPunkte/{helferPunkt=**} {
           allow read: if isSignedIn() && isClubMember(request, clubId);
           allow create, update, delete: if isSignedIn() && isClubAdmin(request, clubId);
-        }        
+        }     
         // HELFEREVENTS
         match /helferEvents/{eventId} {
           allow read: if isSignedIn() && isClubMember(request, clubId);

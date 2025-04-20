@@ -55,6 +55,7 @@ import * as functions from 'firebase-functions/v1';
 import {onSchedule} from 'firebase-functions/v2/scheduler';
 
 import {onRequest} from 'firebase-functions/v2/https';
+import {createKid, verifyKidsEmailService} from './firestore/userProfile/kids.js';
 
 export const verifyEmail = beforeUserSignedIn({
   region: 'europe-west6',
@@ -100,6 +101,12 @@ export const deleteUserAccount = functions.auth.user().onDelete(authUserDeleteUs
     allow: true,
   };
 }); */
+
+export const verifyKidsEmail = onRequest({
+  region: 'europe-west6',
+  memory: '256MiB',
+  timeoutSeconds: 360,
+}, verifyKidsEmailService);
 
 // GRAPHQL API -> Updated to 2nd gen
 export const api = onRequest({
@@ -261,6 +268,12 @@ export const dbChangePayment = onDocumentWritten({
   document: '/userProfile/{userId}/payments/{paymentId}',
   region: 'europe-west6',
 }, updatePayments);
+
+// DB Hooks KIDS
+export const dbAddKid = onDocumentCreated({
+  document: '/userProfile/{userId}/kids/{kidId}',
+  region: 'europe-west6',
+}, createKid);
 
 // DB Hooks REQUESTS
 // user perspective: create Request in onboarding
