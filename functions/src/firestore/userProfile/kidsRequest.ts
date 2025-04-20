@@ -2,16 +2,16 @@
 
 /* eslint-disable max-len */
 
-import {QueryDocumentSnapshot, FirestoreEvent} from 'firebase-functions/v2/firestore';
+import { QueryDocumentSnapshot, FirestoreEvent } from 'firebase-functions/v2/firestore';
 import firebaseDAO from '../../firebaseSingleton.js';
 const db = firebaseDAO.instance.db;
 const auth = firebaseDAO.instance.auth;
-import {logger} from 'firebase-functions';
+import { logger } from 'firebase-functions';
 import cors from 'cors';
 import * as functions from 'firebase-functions/v1';
 
 export async function createKid(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
-  const {userId, requestId} = event.params;
+  const { userId, requestId } = event.params;
   logger.info(`Add Kid to UserProfile ${userId} with requestId ${requestId}`);
 
   const kidData = event.data?.data();
@@ -29,18 +29,20 @@ export async function createKid(event: FirestoreEvent<QueryDocumentSnapshot | un
     // Update Request Data
     await db.collection('userProfile').doc(userId).collection('kidsRequests').doc(requestId).set({
       kidsUserProfileRefId: kidsUserProfileRef.id,
-    }, {merge: true});
+    }, { merge: true });
 
     // send verification email
     return db.collection('mail').add({
       to: kidsUserProfileRef.data()?.email,
-      template: 'VerifyKidsEmail',
-      data: {
-        firstNameParent: parentProfileRef.data()?.firstName,
-        lastNameParent: parentProfileRef.data()?.lastName,
-        firstNameKid: kidsUserProfileRef.data()?.firstName,
-        lastNameKid: kidsUserProfileRef.data()?.lastName,
-        verificationLink: 'https://europe-west6-myclubmanagement.cloudfunctions.net/verifyKidsEmail' + '?requestId=' + requestId + '&parentId=' + userId,
+      template: {
+        name: 'VerifyKidsEmail',
+        data: {
+          firstNameParent: parentProfileRef.data()?.firstName,
+          lastNameParent: parentProfileRef.data()?.lastName,
+          firstNameKid: kidsUserProfileRef.data()?.firstName,
+          lastNameKid: kidsUserProfileRef.data()?.lastName,
+          verificationLink: 'https://europe-west6-myclubmanagement.cloudfunctions.net/verifyKidsEmail' + '?requestId=' + requestId + '&parentId=' + userId,
+        },
       },
     });
   } else {
@@ -56,7 +58,7 @@ export async function verifyKidsEmailService(request: functions.Request, respons
   });
 
   corsHandler(request, response, async () => {
-    const {requestId, parentId} = request.query;
+    const { requestId, parentId } = request.query;
     logger.info(`Verify Kids with requestId ${requestId}`);
     const kidRef = await db.collection('userProfile').doc(parentId).collection('kidsRequests').doc(requestId).get();
     if (!kidRef.exists) {
