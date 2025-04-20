@@ -75,13 +75,25 @@ export async function verifyKidsEmailService(request: functions.Request, respons
 
     // Add Child to Parent
     const childrenRef = await db.collection('userProfile').doc(parentId).collection('children').get();
-    childrenRef.doc(kidProfileRef.identity).set({
+    childrenRef.doc(kidProfileRef.id).set({
       email: kidProfileRef.data()?.email,
       firstName: kidProfileRef.data()?.firstName,
       lastName: kidProfileRef.data()?.lastName,
       verified: true,
       verifiedAt: new Date(),
     });
+
+    // Set Parent to Kid
+    const kidProfileParentRef = await db.collection('userProfile').doc(kidProfileRef.id).collection('parents').get();
+    const parentRef = await db.collection('userProfile').doc(parentId).get();
+    kidProfileParentRef.doc(parentRef.id).set({
+      email: parentRef.data()?.email,
+      firstName: parentRef.data()?.firstName,
+      lastName: parentRef.data()?.lastName,
+      verified: true,
+      verifiedAt: new Date(),
+    });
+
     // Delete Request
     await db.collection('userProfile').doc(parentId).collection('kidsRequests').doc(requestId).delete();
 
