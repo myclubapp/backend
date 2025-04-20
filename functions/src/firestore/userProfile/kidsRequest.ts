@@ -84,9 +84,8 @@ export async function verifyKidsEmailService(request: functions.Request, respons
     });
 
     // Set Parent to Kid
-    const kidProfileParentRef = await db.collection('userProfile').doc(kidProfileRef.id).collection('parents').get();
     const parentRef = await db.collection('userProfile').doc(parentId).get();
-    kidProfileParentRef.doc(parentRef.id).set({
+    await db.collection('userProfile').doc(kidProfileRef.id).collection('parents').doc(parentRef.id).set({
       email: parentRef.data()?.email,
       firstName: parentRef.data()?.firstName,
       lastName: parentRef.data()?.lastName,
