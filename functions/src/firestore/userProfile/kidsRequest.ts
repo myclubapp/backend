@@ -34,8 +34,14 @@ export async function createKid(event: FirestoreEvent<QueryDocumentSnapshot | un
     // send verification email
     return db.collection('mail').add({
       to: kidsUserProfileRef.data()?.email,
-      subject: 'add family member to your account',
-      text: `Hi ${kidsUserProfileRef.data()?.firstName} ${kidsUserProfileRef.data()?.lastName}. ${parentProfileRef.data()?.firstName} ${parentProfileRef.data()?.lastName} wants to add you to your account. please open the link below to verify your email and add yourself to ${parentProfileRef.data()?.firstName}'s account. Link: https://europe-west6-myclubmanagement.cloudfunctions.net/verifyKidsEmail?requestId=${requestId}&parentId=${userId}`,
+      template: 'VerifyKidsEmail',
+      data: {
+        firstNameParent: parentProfileRef.data()?.firstName,
+        lastNameParent: parentProfileRef.data()?.lastName,
+        firstNameKid: kidsUserProfileRef.data()?.firstName,
+        lastNameKid: kidsUserProfileRef.data()?.lastName,
+        verificationLink: 'https://europe-west6-myclubmanagement.cloudfunctions.net/verifyKidsEmail' + '?requestId=' + requestId + '&parentId=' + userId,
+      },
     });
   } else {
     logger.info('kidsUserProfile does not exist');
