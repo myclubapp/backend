@@ -47,7 +47,7 @@ import graphqlServer from './graphql/server.js';
 
 import {onDocumentUpdated, onDocumentDeleted, onDocumentCreated, onDocumentWritten} from 'firebase-functions/v2/firestore';
 
-import {beforeUserCreated, beforeUserSignedIn} from 'firebase-functions/v2/identity';
+import {beforeUserSignedIn} from 'firebase-functions/v2/identity';
 
 // import {beforeUserDeleted} from 'firebase-functions/v2/auth';
 import * as functions from 'firebase-functions/v1';
@@ -55,16 +55,22 @@ import * as functions from 'firebase-functions/v1';
 import {onSchedule} from 'firebase-functions/v2/scheduler';
 
 import {onRequest} from 'firebase-functions/v2/https';
-import {createKid, verifyKidsEmailService} from './firestore/userProfile/kids.js';
+import {createKid, verifyKidsEmailService} from './firestore/userProfile/kidsRequest.js';
 
 export const verifyEmail = beforeUserSignedIn({
   region: 'europe-west6',
 }, authBeforeUserSignedIn);
 
 // Firebase AUTH Welcome User Stuff -> Updated to 2nd gen
-export const sendWelcomeMail = beforeUserCreated({
+/* export const sendWelcomeMail = beforeUserCreated({
+  region: 'europe-west6',
+}, authUserCreateSendWelcomeEmail); */
+
+export const sendWelcomeMail = onDocumentCreated({
+  document: '/userProfile/{userId}',
   region: 'europe-west6',
 }, authUserCreateSendWelcomeEmail);
+
 
 /* still 1st gen
 https://firebase.google.com/docs/functions/auth-events?authuser=0

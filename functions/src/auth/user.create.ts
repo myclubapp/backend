@@ -4,6 +4,7 @@
 import firebaseDAO from '../firebaseSingleton.js';
 import {AuthBlockingEvent} from 'firebase-functions/v2/identity';
 import {logger} from 'firebase-functions';
+import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/firestore';
 // import {UserRecord} from 'firebase-functions/v1/auth';
 
 const db = firebaseDAO.instance.db;
@@ -28,44 +29,42 @@ export async function authBeforeUserSignedIn(event: AuthBlockingEvent): Promise<
   return true;
 }
 
-export async function authUserCreateSendWelcomeEmail(event: AuthBlockingEvent): Promise<any> {
-  if (!event?.data) {
-    throw new Error('No user data provided');
-  }
-
-  const user = event.data;
-  logger.info('>>> NEW USER with ID: ' + user.uid + ' SEND WELCOME E-MAIL to VALIDATE E-MAIL');
-  const link = await auth.generateEmailVerificationLink(user.email as string);
+export async function authUserCreateSendWelcomeEmail(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
+  const {userId} = event.params;
+  logger.info('>>> NEW USER with ID: ' + userId + ' SEND WELCOME E-MAIL to VALIDATE E-MAIL');
 
   // Daten werden in der Signup Methode in der App für den User gespeichert.
-  const userProfile: any = await db.collection('userProfile').doc(`${user.uid}`).get();
-  if (!userProfile.exists) {
+  const userProfileRef: any = await db.collection('userProfile').doc(`${userId}`).get();
+  if (!userProfileRef.exists) {
     logger.error('no user data found');
     return false;
   }
 
+
+  // const user = event.data;
+  logger.info('>>> NEW USER with ID: ' + userId + ' SEND WELCOME E-MAIL to VALIDATE E-MAIL');
+  const link = await auth.generateEmailVerificationLink(userProfileRef.data()?.email as string);
+
   logger.info('>>> UPDATE USER DATA');
-  await auth.updateUser(user.uid, {
-    displayName: userProfile.data()?.firstName + ' ' + userProfile.data()?.lastName,
+  await auth.updateUser(userProfileRef.id, {
+    displayName: userProfileRef.data()?.firstName + ' ' + userProfileRef.data()?.lastName,
     emailVerified: false,
     disabled: false,
-    email: user.email,
+    email: userProfileRef.data()?.email,
     photoURL: 'https://randomuser.me/api/portraits/lego/1.jpg',
   });
 
-  logger.info('>>> SEND WELCOME MAIL TO USER ' + user.email );
-  await db.collection('mail').add({
-    to: user.email,
+  logger.info('>>> SEND WELCOME MAIL TO USER ' + userProfileRef.data()?.email );
+  return db.collection('mail').add({
+    to: userProfileRef.data()?.email,
     template: {
       name: 'UserCreateWelcomeMail',
       data: {
         link: link,
-        firstName: userProfile.data().firstName,
+        firstName: userProfileRef.data()?.firstName,
       },
     },
   });
-
-  return true;
 }
 
 /* export async function authUserCreateAdminUser(user: UserRecord): Promise<void> {

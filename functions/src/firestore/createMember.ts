@@ -7,8 +7,7 @@ const db = firebaseDAO.instance.db;
 
 export async function createTeamMember(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
   logger.info('createTeamMember from Team Page via Admin');
-  const userId = event.params.userId;
-  const teamId = event.params.teamId;
+  const {userId, teamId} = event.params;
 
   const teamRef = await db.collection('teams').doc(teamId).get();
   return db.collection('userProfile').doc(userId).collection('teams').doc(`${teamId}`).set({
