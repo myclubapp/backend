@@ -11,11 +11,15 @@ service cloud.firestore {
         return request.auth != null;
       }
 
-      // TEAM MEMBER
+        // TEAM MEMBER
       function isTeamMember(request,teamId) {
-        return exists(/databases/$(database)/documents/teams/$(teamId)/members/$(request.auth.uid));
+        let uid = request.auth.uid;
+        let isDirectMember = exists(/databases/$(database)/documents/teams/$(teamId)/members/$(uid));
+        let hasKidsToken = request.auth.token.keys().hasAnyPrefix('kids-');
+        let isKidMember = hasKidsToken && exists(/databases/$(database)/documents/teams/$(teamId)/members/$(uid));
+        return isDirectMember || isKidMember;
       }
-
+      
       // TEAM ADMIN
       function isTeamAdmin(request, teamId) {
         return exists(/databases/$(database)/documents/teams/$(teamId)/admins/$(request.auth.uid));
@@ -23,7 +27,11 @@ service cloud.firestore {
 
       // CLUB MEMBER
       function isClubMember(request, clubId) {
-        return exists(/databases/$(database)/documents/club/$(clubId)/members/$(request.auth.uid));
+        let uid = request.auth.uid;
+        let isDirectMember = exists(/databases/$(database)/documents/club/$(clubId)/members/$(uid));
+        let hasKidsToken = request.auth.token.keys().hasAny(['kids-' + uid]);
+        let isKidMember = hasKidsToken && exists(/databases/$(database)/documents/club/$(clubId)/members/$(uid));
+        return isDirectMember || isKidMember;
       }
 
       // CLUB MEMBER via TEAMS - that's why we use path from reference
@@ -49,6 +57,7 @@ service cloud.firestore {
 // ************************************      
       match /userProfile/{userId} {
       //Eigene Daten
+        allow read: if isSignedIn() && ( request.auth.uid == userId || request.auth.token["kids-" + userId] == true);
 				allow read, write: if isSignedIn() && request.auth.uid == userId;
         allow read: if isSignedIn(); //REVIEW ACCESS OTHER USERS DATA within CLUB/TEAM
         

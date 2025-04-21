@@ -66,7 +66,14 @@ export async function verifyKidsEmailService(request: functions.Request, respons
     // update custom claims for parent
     const user = await auth.getUser(parentId);
     const customClaims = user.customClaims || {};
-    customClaims['kids-' + kidProfileRef.id] = true;
+    // Hole existierende Liste oder initialisiere sie
+    const kidsList = customClaims.kids || [];
+
+    // Füge das Kind nur hinzu, wenn es noch nicht enthalten ist
+    if (!kidsList.includes(kidProfileRef.id)) {
+      kidsList.push(kidProfileRef.id);
+    }
+    customClaims.kids = kidsList;
     console.log('customClaims: ' + JSON.stringify(customClaims));
     await auth.setCustomUserClaims(parentId, customClaims);
     logger.info(`User ${user.email} verified kid ${kidProfileRef.id}`);
