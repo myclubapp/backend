@@ -12,14 +12,22 @@ service cloud.firestore {
       }
 
         // TEAM MEMBER
-      function isTeamMember(request,teamId) {
+      function isTeamMember(request, teamId) {
         let uid = request.auth.uid;
         let isDirectMember = exists(/databases/$(database)/documents/teams/$(teamId)/members/$(uid));
-        let hasKidsToken = request.auth.token.keys().hasAnyPrefix('kids-');
-        let isKidMember = hasKidsToken && exists(/databases/$(database)/documents/teams/$(teamId)/members/$(uid));
-        return isDirectMember || isKidMember;
+
+        let kidUids = request.auth.token.kids;
+        let hasKid1 = kidUids.size() > 0;
+        let hasKid2 = kidUids.size() > 1;
+        let hasKid3 = kidUids.size() > 2;
+
+        let isKidMember1 = hasKid1 && exists(/databases/$(database)/documents/teams/$(teamId)/members/$(kidUids[0]));
+        let isKidMember2 = hasKid2 && exists(/databases/$(database)/documents/teams/$(teamId)/members/$(kidUids[1]));
+        let isKidMember3 = hasKid3 && exists(/databases/$(database)/documents/teams/$(teamId)/members/$(kidUids[2]));
+
+        return isDirectMember || isKidMember1 || isKidMember2 || isKidMember3;
       }
-      
+
       // TEAM ADMIN
       function isTeamAdmin(request, teamId) {
         return exists(/databases/$(database)/documents/teams/$(teamId)/admins/$(request.auth.uid));
@@ -29,9 +37,17 @@ service cloud.firestore {
       function isClubMember(request, clubId) {
         let uid = request.auth.uid;
         let isDirectMember = exists(/databases/$(database)/documents/club/$(clubId)/members/$(uid));
-        let hasKidsToken = request.auth.token.keys().hasAny(['kids-' + uid]);
-        let isKidMember = hasKidsToken && exists(/databases/$(database)/documents/club/$(clubId)/members/$(uid));
-        return isDirectMember || isKidMember;
+
+        let kidUids = request.auth.token.kids;
+        let hasKid1 = kidUids.size() > 0;
+        let hasKid2 = kidUids.size() > 1;
+        let hasKid3 = kidUids.size() > 2;
+
+        let isKidMember1 = hasKid1 && exists(/databases/$(database)/documents/club/$(clubId)/members/$(kidUids[0]));
+        let isKidMember2 = hasKid2 && exists(/databases/$(database)/documents/club/$(clubId)/members/$(kidUids[1]));
+        let isKidMember3 = hasKid3 && exists(/databases/$(database)/documents/club/$(clubId)/members/$(kidUids[2]));
+
+        return isDirectMember || isKidMember1 || isKidMember2 || isKidMember3;
       }
 
       // CLUB MEMBER via TEAMS - that's why we use path from reference
