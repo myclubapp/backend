@@ -98,7 +98,7 @@ service cloud.firestore {
         }
         // teams
         match /teams/{teamId=**} {
-        	allow read: if isSignedIn() && request.auth.uid == userId;
+        	allow read: if isSignedIn() && ( request.auth.uid == userId || request.auth.token["kids-" + userId] == true);
           allow delete: if isSignedIn() && request.auth.uid == userId;
         }
         // teams admin
