@@ -7,7 +7,7 @@ import admin from 'firebase-admin';
 export default class firebaseDAO {
   private static _intance: firebaseDAO;
   db: any;
-  dbUA: any;
+  // dbUA: any;
   storage: any;
   auth: any;
   messaging: any;

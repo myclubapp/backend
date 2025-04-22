@@ -11,22 +11,22 @@ service cloud.firestore {
         return request.auth != null;
       }
 
-        // TEAM MEMBER
-      function isTeamMember(request, teamId) {
-        let uid = request.auth.uid;
-        let isDirectMember = exists(/databases/$(database)/documents/teams/$(teamId)/members/$(uid));
+    // TEAM MEMBER
+    function isTeamMember(request, teamId) {
+      let uid = request.auth.uid;
+      let isDirectMember = exists(/databases/$(database)/documents/teams/$(teamId)/members/$(uid));
 
-        let kidUids = request.auth.token.kids;
-        let hasKid1 = kidUids.size() > 0;
-        let hasKid2 = kidUids.size() > 1;
-        let hasKid3 = kidUids.size() > 2;
+      let kidUids = request.auth.token.kids;
+      let hasKid1 = kidUids.size() > 0;
+      let hasKid2 = kidUids.size() > 1;
+      let hasKid3 = kidUids.size() > 2;
 
-        let isKidMember1 = hasKid1 && exists(/databases/$(database)/documents/teams/$(teamId)/members/$(kidUids[0]));
-        let isKidMember2 = hasKid2 && exists(/databases/$(database)/documents/teams/$(teamId)/members/$(kidUids[1]));
-        let isKidMember3 = hasKid3 && exists(/databases/$(database)/documents/teams/$(teamId)/members/$(kidUids[2]));
+      let isKidMember1 = hasKid1 && exists(/databases/$(database)/documents/teams/$(teamId)/members/$(kidUids[0]));
+      let isKidMember2 = hasKid2 && exists(/databases/$(database)/documents/teams/$(teamId)/members/$(kidUids[1]));
+      let isKidMember3 = hasKid3 && exists(/databases/$(database)/documents/teams/$(teamId)/members/$(kidUids[2]));
 
-        return isDirectMember || isKidMember1 || isKidMember2 || isKidMember3;
-      }
+      return isDirectMember || isKidMember1 || isKidMember2 || isKidMember3;
+    }
 
       // TEAM ADMIN
       function isTeamAdmin(request, teamId) {
@@ -73,7 +73,7 @@ service cloud.firestore {
 // ************************************      
       match /userProfile/{userId} {
       //Eigene Daten
-        allow read: if isSignedIn() && ( request.auth.uid == userId || request.auth.token["kids-" + userId] == true);
+        allow read: if isSignedIn() && (request.auth.uid == userId || userId in request.auth.token.kids);
 				allow read, write: if isSignedIn() && request.auth.uid == userId;
         allow read: if isSignedIn(); //REVIEW ACCESS OTHER USERS DATA within CLUB/TEAM
         
@@ -84,7 +84,9 @@ service cloud.firestore {
 				match /children/{kidId=**} {
           allow read, update, delete, create: if isSignedIn() && request.auth.uid == userId;
         }   
-
+				match /parents/{parentId=**} {
+          allow read, update, delete, create: if isSignedIn() && request.auth.uid == userId;
+        }   
         // push
         match /push/{deviceId=**} {
           allow read, update, delete, create: if isSignedIn() && request.auth.uid == userId;
@@ -115,7 +117,7 @@ service cloud.firestore {
         }
       	// club 
         match /clubs/{clubId=**} {
-        	allow read: if isSignedIn() && request.auth.uid == userId;
+        	allow read: if isSignedIn() && (request.auth.uid == userId || userId in request.auth.token.kids);
         }
         // teams admin
         match /clubAdmin/{clubId=**} {
@@ -123,7 +125,7 @@ service cloud.firestore {
         }
         // teams
         match /teams/{teamId=**} {
-        	allow read: if isSignedIn() && ( request.auth.uid == userId || request.auth.token["kids-" + userId] == true);
+        	allow read: if isSignedIn() && (request.auth.uid == userId || userId in request.auth.token.kids);
           allow delete: if isSignedIn() && request.auth.uid == userId;
         }
         // teams admin
@@ -214,7 +216,7 @@ service cloud.firestore {
         	}     
           match /attendees/{memberId} { // Eigener Status ändern
             allow read, write: if isSignedIn()
-            && memberId == request.auth.uid
+            && ( memberId == request.auth.uid || memberId in request.auth.token.kids)
             && isClubMember(request, clubId);
         	}    
           match /attendees/{memberId} { // Club Admin dürfen Status ändern
@@ -238,7 +240,7 @@ service cloud.firestore {
         	}     
           match /attendees/{memberId} { // Eigener Status ändern
             allow read, write: if isSignedIn()
-            && memberId == request.auth.uid
+            && ( memberId == request.auth.uid || memberId in request.auth.token.kids)
             && isClubMember(request, clubId);
         	}    
           match /attendees/{memberId} { // Club Admin dürfen Status ändern
@@ -256,7 +258,7 @@ service cloud.firestore {
             }  
             match /attendees/{memberId} { // Eigener Status ändern
               allow read, write: if isSignedIn()
-              && memberId == request.auth.uid
+              && ( memberId == request.auth.uid || memberId in request.auth.token.kids)
               && isClubMember(request, clubId);
             }    
             match /attendees/{memberId} { // Club Admin dürfen Status ändern
@@ -279,7 +281,7 @@ service cloud.firestore {
         //MEMBERS
       	match /members/{memberId=**} {
       		allow read: if isSignedIn() && isClubMember(request, clubId);
-      		allow write: if isSignedIn() && isClubAdmin(request, clubId);
+      		allow update: if isSignedIn() && isClubAdmin(request, clubId);
 				} 
         //ADMINS for ADMINS
       	match /admins/{memberId=**} {
@@ -342,7 +344,7 @@ service cloud.firestore {
         	}     
           match /attendees/{memberId} { // Eigener Status ändern
             allow read, write: if isSignedIn()
-            && memberId == request.auth.uid
+            && ( memberId == request.auth.uid || memberId in request.auth.token.kids)
             && isTeamMember(request, teamId);
           }    
            match /attendees/{memberId} { // Team Admin dürfen Status ändern
@@ -370,7 +372,7 @@ service cloud.firestore {
         	}      
           match /attendees/{memberId} { // Eigener Status ändern
             allow read, write: if isSignedIn()
-            && memberId == request.auth.uid
+            && ( memberId == request.auth.uid || memberId in request.auth.token.kids)
             && isTeamMember(request, teamId);
           }    
           match /attendees/{memberId} { // Team Admin dürfen Status ändern
@@ -390,7 +392,7 @@ service cloud.firestore {
         	}     
           match /attendees/{memberId} { // Eigener Status ändern
             allow read, write: if isSignedIn()
-            && memberId == request.auth.uid
+            && ( memberId == request.auth.uid || memberId in request.auth.token.kids)
             && isTeamMember(request, teamId);
           }    
           match /attendees/{memberId} { // Club Admin dürfen Status ändern

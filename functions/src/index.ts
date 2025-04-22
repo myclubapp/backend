@@ -21,9 +21,9 @@ import {createHelferEvent, createNotificationHelferEvent} from './firestore/even
 import {createClubEvent, createNotificationClubEvent} from './firestore/event/createClubEvent.js';
 
 import {updatePersistenceJobClubs, updatePersistenceJobTeams, updatePersistenceJobGames, updatePersistenceJobNews} from './scheduler/syncAssociation.scheduler.js';
-import {syncUnihockeyApp} from './scheduler/syncUnihockeyApp.js';
+// import {syncUnihockeyApp} from './scheduler/syncUnihockeyApp.js';
 
-import {sendReportingJobMember} from './reporting/member.scheduler.js';
+// import {sendReportingJobMember} from './reporting/member.scheduler.js';
 
 import {createNotificationClubNews} from './firestore/news/createClubNews.js';
 import {createNotificationTeamNews} from './firestore/news/createTeamNews.js';
@@ -108,6 +108,7 @@ export const deleteUserAccount = functions.auth.user().onDelete(authUserDeleteUs
   };
 }); */
 
+// HTTP ENDPOINTS -> Updated to 2nd gen
 export const verifyKidsEmail = onRequest({
   region: 'europe-west6',
   memory: '256MiB',
@@ -122,6 +123,8 @@ export const api = onRequest({
 }, graphqlServer);
 
 // JOBS -> Updated to 2nd gen
+
+// Clubs inkl. Adressen aktualisieren
 export const jobUpdatePersistenceClubs = onSchedule({
   schedule: '00 08 * * 1',
   region: 'europe-west6',
@@ -130,6 +133,7 @@ export const jobUpdatePersistenceClubs = onSchedule({
   timeZone: 'Europe/Zurich',
 }, updatePersistenceJobClubs);
 
+// Teams aus aktiven Clubs aktualisieren
 export const jobUpdatePersistenceTeams = onSchedule({
   schedule: '10 08 * * 1',
   region: 'europe-west6',
@@ -138,6 +142,7 @@ export const jobUpdatePersistenceTeams = onSchedule({
   timeZone: 'Europe/Zurich',
 }, updatePersistenceJobTeams);
 
+// Spiele von aktiven Clubs
 export const jobUpdatePersistenceGames = onSchedule({
   schedule: '00 06 * * *',
   region: 'europe-west6',
@@ -146,6 +151,7 @@ export const jobUpdatePersistenceGames = onSchedule({
   timeZone: 'Europe/Zurich',
 }, updatePersistenceJobGames);
 
+// News von aktiven Clubs aktualisieren
 export const jobUpdatePersistenceNews = onSchedule({
   schedule: '30 * * * *',
   region: 'europe-west6',
@@ -154,16 +160,17 @@ export const jobUpdatePersistenceNews = onSchedule({
   timeZone: 'Europe/Zurich',
 }, updatePersistenceJobNews);
 
-export const jobSyncUnihockeyApp = onSchedule({
-  schedule: '30 * * * *',
-  region: 'europe-west6',
-  memory: '512MiB',
-  timeoutSeconds: 360,
-  timeZone: 'Europe/Zurich',
-}, syncUnihockeyApp);
+// export const jobSyncUnihockeyApp = onSchedule({
+//   schedule: '30 * * * *',
+//   region: 'europe-west6',
+//   memory: '512MiB',
+//   timeoutSeconds: 360,
+//   timeZone: 'Europe/Zurich',
+// }, syncUnihockeyApp);
+
 
 export const jobYoutube = onSchedule({
-  schedule: '00 08 * * 1',
+  schedule: '00 08 1 * *',
   region: 'europe-west6',
   memory: '512MiB',
   timeoutSeconds: 360,
@@ -171,13 +178,13 @@ export const jobYoutube = onSchedule({
 }, exercisesScheduler);
 
 // Reporting -> Updated to 2nd gen
-export const jobReportingMember = onSchedule({
+/* export const jobReportingMember = onSchedule({
   schedule: '00 20 * * 0',
   region: 'europe-west6',
   memory: '256MiB',
   timeoutSeconds: 360,
   timeZone: 'Europe/Zurich',
-}, sendReportingJobMember);
+}, sendReportingJobMember); */
 
 // DB Hooks TEAM > Manage teams currently only available for ADMIN
 export const dbDeleteTeam = onDocumentDeleted({
