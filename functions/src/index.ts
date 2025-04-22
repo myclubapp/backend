@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import {authUserDeleteUserSendByEmail, authUserDeleteUserAccount} from './auth/user.delete.js';
-import {createUserSendWelcomeEmail, authBeforeUserSignedIn} from './auth/user.create.js';
+import {createUserSendWelcomeEmail} from './auth/user.create.js';
 
 import {createClubAdmin, createTeamAdmin} from './firestore/createAdmin.js';
 import {createClubMember, createTeamMember} from './firestore/createMember.js';
@@ -47,7 +47,7 @@ import graphqlServer from './graphql/server.js';
 
 import {onDocumentUpdated, onDocumentDeleted, onDocumentCreated, onDocumentWritten} from 'firebase-functions/v2/firestore';
 
-import {beforeUserSignedIn} from 'firebase-functions/v2/identity';
+// import {beforeUserSignedIn} from 'firebase-functions/v2/identity';
 
 // import {beforeUserDeleted} from 'firebase-functions/v2/auth';
 import * as functions from 'firebase-functions/v1';
@@ -57,9 +57,9 @@ import {onSchedule} from 'firebase-functions/v2/scheduler';
 import {onRequest} from 'firebase-functions/v2/https';
 import {createKid, verifyKidsEmailService} from './firestore/userProfile/kidsRequest.js';
 
-export const verifyEmail = beforeUserSignedIn({
+/* export const verifyEmail = beforeUserSignedIn({
   region: 'europe-west6',
-}, authBeforeUserSignedIn);
+}, authBeforeUserSignedIn); */
 
 // Firebase AUTH Welcome User Stuff -> Updated to 2nd gen
 /* export const sendWelcomeMail = beforeUserCreated({

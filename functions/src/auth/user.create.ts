@@ -2,7 +2,7 @@
 /* eslint-disable max-len */
 // import * as admin from 'firebase-admin';
 import firebaseDAO from '../firebaseSingleton.js';
-import {AuthBlockingEvent} from 'firebase-functions/v2/identity';
+// import {AuthBlockingEvent} from 'firebase-functions/v2/identity';
 import {logger} from 'firebase-functions';
 import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/firestore';
 // import {UserRecord} from 'firebase-functions/v1/auth';
@@ -23,11 +23,11 @@ const auth = firebaseDAO.instance.auth;
   });
 } */
 
-export async function authBeforeUserSignedIn(event: AuthBlockingEvent): Promise<any> {
+/* export async function authBeforeUserSignedIn(event: AuthBlockingEvent): Promise<any> {
   logger.info('>>> authBeforeUserSignedIn', event?.data?.email);
   logger.info('>>> authBeforeUserSignedIn EmailVerified', event?.data?.emailVerified);
   return true;
-}
+} */
 
 export async function createUserSendWelcomeEmail(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
   const {userId} = event.params;
