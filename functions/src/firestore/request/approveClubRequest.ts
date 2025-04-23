@@ -26,6 +26,9 @@ export async function approveClubRequest(event: FirestoreEvent<Change<QueryDocum
       await db.collection('userProfile').doc(userProfileRef.id).collection('clubs').doc(clubId).set({
         'clubRef': clubRef.ref,
       });
+
+      await db.collection('club').doc(clubId).collection('requests').doc(requestId).delete();
+
       return true;
     }
 
