@@ -85,6 +85,18 @@ export const deleteClubMember = async (event: FirestoreEvent<QueryDocumentSnapsh
     );
   }*/
 };
+
+export const deleteClubParent = async (event: FirestoreEvent<QueryDocumentSnapshot | undefined>) => {
+  logger.info('deleteClubParent > Club Page via Administrator');
+  const userId = event.params.userId;
+  const clubId = event.params.clubId;
+  // logger.info("Auth User > " + context.auth);
+  logger.info('Delete Parent from club ' + userId, clubId);
+
+  // Delete as Admin from Club as well.
+  return db.collection('club').doc(clubId).collection('parents').doc(userId).delete();
+};
+
 /* export async function deleteMemberFromClub(snapshot: QueryDocumentSnapshot, context: EventContext) {
   logger.info("Delete Member From Club");
   // const userId = context.params.userId;
@@ -126,4 +138,3 @@ export const deleteClubMember = async (event: FirestoreEvent<QueryDocumentSnapsh
   }
   return true;
   */
-

@@ -5,7 +5,7 @@ import {createUserSendWelcomeEmail} from './auth/user.create.js';
 import {createClubAdmin, createTeamAdmin} from './firestore/createAdmin.js';
 import {createClubMember, createTeamMember} from './firestore/createMember.js';
 import {deleteClubAdmin, deleteTeamAdmin} from './firestore/deleteAdmin.js';
-import {deleteClubMember, deleteTeamMember} from './firestore/deleteMember.js';
+import {deleteClubMember, deleteClubParent, deleteTeamMember} from './firestore/deleteMember.js';
 
 import {createClubRequest} from './firestore/request/createClubRequest.js';
 import {createTeamRequest} from './firestore/request/createTeamRequest.js';
@@ -226,6 +226,11 @@ export const dbRemoveClubMember = onDocumentDeleted({
   document: '/club/{clubId}/members/{userId}',
   region: 'europe-west6',
 }, deleteClubMember);
+
+export const dbRemoveClubParent = onDocumentDeleted({
+  document: '/club/{clubId}/parents/{userId}',
+  region: 'europe-west6',
+}, deleteClubParent);
 
 // Das hier ist korrekt!!! https://firebase.google.com/docs/functions/firestore-events?hl=de&gen=2nd
 export const dbRemoveClubAdmin = onDocumentDeleted({

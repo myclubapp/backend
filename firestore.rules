@@ -83,6 +83,7 @@ service cloud.firestore {
         }   
 				match /children/{kidId=**} {
           allow read, update, delete, create: if isSignedIn() && request.auth.uid == userId;
+          allow read: if isSignedIn(); //REVIEW ACCESS OTHER USERS DATA within CLUB/TEAM
         }   
 				match /parents/{parentId=**} {
           allow read, update, delete, create: if isSignedIn() && request.auth.uid == userId;
@@ -282,7 +283,7 @@ service cloud.firestore {
       	match /members/{memberId=**} {
       		allow read: if isSignedIn() && isClubMember(request, clubId);
       		allow update: if isSignedIn() && isClubAdmin(request, clubId);
-				} 
+				}
         //PARENTS
       	match /parents/{parentId=**} {
       		allow read: if isSignedIn() && isClubMember(request, clubId);
