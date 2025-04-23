@@ -17,6 +17,18 @@ export async function approveClubRequest(event: FirestoreEvent<Change<QueryDocum
   if (event.data?.after.data().approve === true) {
     logger.info(`approve club request ${requestRef.id}`);
 
+    if (event.data?.after.data().isParent === true) {
+      // Add user to club as parent
+      await db.collection('club').doc(clubId).collection('parents').doc(userProfileRef.id).set({
+        'userProfileRef': userProfileRef.ref,
+      });
+      // Add Club to User as Member --> should alread be done.
+      await db.collection('userProfile').doc(userProfileRef.id).collection('clubs').doc(clubId).set({
+        'clubRef': clubRef.ref,
+      });
+      return true;
+    }
+
     // Add user to club as member
     await db.collection('club').doc(clubId).collection('members').doc(userProfileRef.id).set({
       'userProfileRef': userProfileRef.ref,

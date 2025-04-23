@@ -283,6 +283,11 @@ service cloud.firestore {
       		allow read: if isSignedIn() && isClubMember(request, clubId);
       		allow update: if isSignedIn() && isClubAdmin(request, clubId);
 				} 
+        //PARENTS
+      	match /parents/{parentId=**} {
+      		allow read: if isSignedIn() && isClubMember(request, clubId);
+      		allow update: if isSignedIn() && isClubAdmin(request, clubId);
+				} 
         //ADMINS for ADMINS
       	match /admins/{memberId=**} {
       		allow read: if isSignedIn() && isClubMember(request, clubId);
@@ -354,11 +359,11 @@ service cloud.firestore {
           } 
         	//Training EXERCISES
           match /exercises/{exerciseId=**} {
-            allow read: if isSignedIn()  && isTeamMember(request, teamId);
+            allow read: if isSignedIn() && ( isTeamMember(request, teamId) || isTeamAdmin(request, teamId) || isClubAdmin(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId) );
             allow write: if isSignedIn()  && isTeamAdmin(request, teamId);
           } 
           match /exercises/{exerciseId} {
-            allow read: if isSignedIn() && isTeamMember(request, teamId);
+            allow read: if isSignedIn() && ( isTeamMember(request, teamId) || isTeamAdmin(request, teamId) || isClubAdmin(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId) );
           } 
         }     
         //TEAM GAMES
@@ -384,18 +389,18 @@ service cloud.firestore {
 
         //Team EVENTS (not yet in use)
         match /events/{eventId} {
-          allow read: if isSignedIn() && isTeamMember(request, teamId);
+          allow read: if isSignedIn() && ( isTeamMember(request, teamId) || isTeamAdmin(request, teamId) || isClubAdmin(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId) );
           
           //ATTENDEEES
 					match /attendees/{memberId=**} {
-            allow read: if isSignedIn() && isTeamMember(request, teamId);
+            allow read: if isSignedIn() && ( isTeamMember(request, teamId) || isTeamAdmin(request, teamId) || isClubAdmin(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId) );
         	}     
           match /attendees/{memberId} { // Eigener Status ändern
             allow read, write: if isSignedIn()
             && ( memberId == request.auth.uid || memberId in request.auth.token.kids)
             && isTeamMember(request, teamId);
           }    
-          match /attendees/{memberId} { // Club Admin dürfen Status ändern
+          match /attendees/{memberId} { // Team Admin dürfen Status ändern
             allow read, write: if isSignedIn()
             && isTeamAdmin(request, teamId)
             && isTeamMember(request, teamId);
