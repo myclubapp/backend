@@ -17,25 +17,27 @@ export async function changeTeamTraining(event: FirestoreEvent<Change<QueryDocum
   const trainingData = trainingRef.data();
 
   if (event.data?.after.data()?.cancelled === true &&
-      (event.data?.before.data()?.cancelled === false || event.data?.before.data()?.cancelled === undefined)) {
+    (event.data?.before.data()?.cancelled === false || event.data?.before.data()?.cancelled === undefined)) {
     if (event.data?.after.data().cancelled) {
       logger.info('Training cancelled');
 
       for (const attendee of attendeesRef.docs) {
-        const userProfileRef = await db.collection('userProfile').doc(attendee.id).get();
-        if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushTraining) {
-          await sendPushNotificationByUserProfileId(attendee.id,
-              'Training vom ' + trainingData?.startDate + ' abgesagt: ',
-              trainingData?.cancelledReason,
-              {
-                'type': 'training',
-                'teamId': teamRef.id,
-                'id': trainingData?.id,
-              });
+        if (attendee.data().status !== false) {
+          const userProfileRef = await db.collection('userProfile').doc(attendee.id).get();
+          if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushTraining) {
+            await sendPushNotificationByUserProfileId(attendee.id,
+                'Training vom ' + trainingData?.startDate + ' abgesagt: ',
+                trainingData?.cancelledReason,
+                {
+                  'type': 'training',
+                  'teamId': teamRef.id,
+                  'id': trainingData?.id,
+                });
+          }
         }
       }
-    } else {
-      logger.info('Training not cancelled');
     }
+  } else {
+    logger.info('Training not cancelled');
   }
 }
