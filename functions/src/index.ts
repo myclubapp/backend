@@ -56,6 +56,7 @@ import {onSchedule} from 'firebase-functions/v2/scheduler';
 
 import {onRequest} from 'firebase-functions/v2/https';
 import {createKid, verifyKidsEmailService} from './firestore/userProfile/kidsRequest.js';
+import {changeTeamTraining} from './firestore/training/changeTeamTraining.js';
 
 /* export const verifyEmail = beforeUserSignedIn({
   region: 'europe-west6',
@@ -347,6 +348,11 @@ export const dbAddTeamTraining = onDocumentCreated({
   document: '/userProfile/{userId}/trainings/{trainingId}',
   region: 'europe-west6',
 }, createTeamTraining);
+
+export const dbChangeTeamTraining = onDocumentUpdated({
+  document: '/userProfile/{userId}/trainings/{trainingId}',
+  region: 'europe-west6',
+}, changeTeamTraining);
 
 // DB Hooks EVENTS from USER Profile
 // Das hier ist korrekt!!! https://firebase.google.com/docs/functions/firestore-events?hl=de&gen=2nd

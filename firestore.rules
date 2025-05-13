@@ -55,6 +55,12 @@ service cloud.firestore {
         return exists(/databases/$(database)/documents/$(path)/members/$(request.auth.uid));
       }
 
+      // Is Club Parent
+      function isClubParent(request, clubId) {
+      	let uid = request.auth.uid;
+      	return exists(/databases/$(database)/documents/club/$(clubId)/parents/$(uid));
+      }
+      
       // CLUB ADMIN
       function isClubAdmin(request, clubId) {
         return exists(/databases/$(database)/documents/club/$(clubId)/admins/$(request.auth.uid));
@@ -343,7 +349,7 @@ service cloud.firestore {
         //TRAINING
         match /trainings/{trainingId} {
           allow read: if isSignedIn() && ( isTeamMember(request, teamId) || isTeamAdmin(request, teamId) || isClubAdmin(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId) );
-          allow delete: if isSignedIn() && isTeamAdmin(request, teamId);
+          allow write, delete: if isSignedIn() && isTeamAdmin(request, teamId);
          
 					//ATTENDEEES
           match /attendees/{memberId=**} {
