@@ -1,4 +1,3 @@
-
 /* eslint-disable max-len */
 
 import firebaseDAO from '../../firebaseSingleton.js';
@@ -17,7 +16,8 @@ export async function changeTeamTraining(event: FirestoreEvent<Change<QueryDocum
   const trainingRef = await db.collection('teams').doc(teamId).collection('trainings').doc(trainingId).get();
   const trainingData = trainingRef.data();
 
-  if (event.data?.after.data().cancelled !== event.data?.before.data().cancelled) {
+  if (event.data?.after.data()?.cancelled === true &&
+      (event.data?.before.data()?.cancelled === false || event.data?.before.data()?.cancelled === undefined)) {
     if (event.data?.after.data().cancelled) {
       logger.info('Training cancelled');
 
