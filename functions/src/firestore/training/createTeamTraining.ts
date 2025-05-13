@@ -101,6 +101,7 @@ export async function createTeamTraining(event: FirestoreEvent<QueryDocumentSnap
         .collection('trainings')
         .add({
           ...trainingData,
+          cancelled: false,
           clubId: teamRef.data()?.clubId,
           date: calculatedDate,
           startDate: calculatedDate,
