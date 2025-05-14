@@ -6,26 +6,26 @@ import {FirestoreEvent, Change, QueryDocumentSnapshot} from 'firebase-functions/
 import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 
-export async function changeTeamTraining(event: FirestoreEvent<Change<QueryDocumentSnapshot> | undefined>) {
-  logger.info('changeTeamTraining');
+export async function changeTeamTrainingCancelled(event: FirestoreEvent<Change<QueryDocumentSnapshot> | undefined>) {
+  logger.info('changeTeamTrainingCancelled');
   const {teamId, trainingId} = event.params;
-
-  const attendeesRef = await db.collection('teams').doc(teamId).collection('trainings').doc(trainingId).collection('attendees').get();
-
-  const teamRef = await db.collection('teams').doc(teamId).get();
-  const trainingRef = await db.collection('teams').doc(teamId).collection('trainings').doc(trainingId).get();
-  const trainingData = trainingRef.data();
 
   if (event.data?.after.data()?.cancelled === true &&
     (event.data?.before.data()?.cancelled === false || event.data?.before.data()?.cancelled === undefined)) {
     logger.info('Training cancelled');
+
+    const attendeesRef = await db.collection('teams').doc(teamId).collection('trainings').doc(trainingId).collection('attendees').get();
+
+    const teamRef = await db.collection('teams').doc(teamId).get();
+    const trainingRef = await db.collection('teams').doc(teamId).collection('trainings').doc(trainingId).get();
+    const trainingData = trainingRef.data();
 
     for (const attendee of attendeesRef.docs) {
       if (attendee.data().status !== false) {
         const userProfileRef = await db.collection('userProfile').doc(attendee.id).get();
         if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushTraining) {
           await sendPushNotificationByUserProfileId(attendee.id,
-              'Training vom ' + trainingData?.startDate + ' abgesagt: ',
+              'Training vom ' + trainingData?.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}) + ' abgesagt: ',
               trainingData?.cancelledReason,
               {
                 'type': 'training',
