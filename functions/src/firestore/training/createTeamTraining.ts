@@ -16,6 +16,14 @@ export async function createTeamTraining(event: FirestoreEvent<QueryDocumentSnap
   logger.info('trainingId: ' + trainingId);
 
   const trainingData = event.data?.data();
+  delete trainingData?.children;
+  delete trainingData?.countAttendees;
+  delete trainingData?.attendees;
+  delete trainingData?.exercises;
+  delete trainingData?.cancelled;
+  delete trainingData?.cancelledReason;
+  delete trainingData?.status;
+
   const teamRef = await db.collection('teams').doc(trainingData?.teamId).get();
   logger.info('teamId' + trainingData?.teamId);
 
