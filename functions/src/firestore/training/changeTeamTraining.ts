@@ -7,7 +7,7 @@ import {logger} from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 
 export async function changeTeamTraining(event: FirestoreEvent<Change<QueryDocumentSnapshot> | undefined>) {
-  logger.info('approveClubRequest');
+  logger.info('changeTeamTraining');
   const {teamId, trainingId} = event.params;
 
   const attendeesRef = await db.collection('teams').doc(teamId).collection('trainings').doc(trainingId).collection('attendees').get();
@@ -18,22 +18,20 @@ export async function changeTeamTraining(event: FirestoreEvent<Change<QueryDocum
 
   if (event.data?.after.data()?.cancelled === true &&
     (event.data?.before.data()?.cancelled === false || event.data?.before.data()?.cancelled === undefined)) {
-    if (event.data?.after.data().cancelled) {
-      logger.info('Training cancelled');
+    logger.info('Training cancelled');
 
-      for (const attendee of attendeesRef.docs) {
-        if (attendee.data().status !== false) {
-          const userProfileRef = await db.collection('userProfile').doc(attendee.id).get();
-          if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushTraining) {
-            await sendPushNotificationByUserProfileId(attendee.id,
-                'Training vom ' + trainingData?.startDate + ' abgesagt: ',
-                trainingData?.cancelledReason,
-                {
-                  'type': 'training',
-                  'teamId': teamRef.id,
-                  'id': trainingData?.id,
-                });
-          }
+    for (const attendee of attendeesRef.docs) {
+      if (attendee.data().status !== false) {
+        const userProfileRef = await db.collection('userProfile').doc(attendee.id).get();
+        if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushTraining) {
+          await sendPushNotificationByUserProfileId(attendee.id,
+              'Training vom ' + trainingData?.startDate + ' abgesagt: ',
+              trainingData?.cancelledReason,
+              {
+                'type': 'training',
+                'teamId': teamRef.id,
+                'id': trainingData?.id,
+              });
         }
       }
     }
