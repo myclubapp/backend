@@ -350,7 +350,7 @@ export const dbAddTeamTraining = onDocumentCreated({
 }, createTeamTraining);
 
 export const dbChangeTeamTraining = onDocumentUpdated({
-  document: '/userProfile/{userId}/trainings/{trainingId}',
+  document: '/teams/{teamId}/trainings/{trainingId}',
   region: 'europe-west6',
 }, changeTeamTraining);
 
