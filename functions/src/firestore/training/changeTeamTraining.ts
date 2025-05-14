@@ -25,8 +25,8 @@ export async function changeTeamTrainingCancelled(event: FirestoreEvent<Change<Q
         const userProfileRef = await db.collection('userProfile').doc(attendee.id).get();
         if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushTraining) {
           await sendPushNotificationByUserProfileId(attendee.id,
-              'Training vom ' + trainingData?.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}) + ' abgesagt: ',
-              trainingData?.cancelledReason,
+              'Training ' + trainingData?.name + ' vom ' + trainingData?.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}) + ' wurde abgesagt.',
+              'Begründung: ' + trainingData?.cancelledReason,
               {
                 'type': 'training',
                 'teamId': teamRef.id,
@@ -36,6 +36,6 @@ export async function changeTeamTrainingCancelled(event: FirestoreEvent<Change<Q
       }
     }
   } else {
-    logger.info('Training not cancelled');
+    logger.info('Training not cancelled - maybe other change triggered this function');
   }
 }
