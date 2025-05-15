@@ -35,7 +35,9 @@ export async function changeTeamTrainingCancelled(event: FirestoreEvent<Change<Q
         }
       }
     }
+    return true;
   } else {
     logger.info('Training not cancelled - maybe other change triggered this function');
+    return true;
   }
 }
