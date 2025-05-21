@@ -57,6 +57,7 @@ import {onSchedule} from 'firebase-functions/v2/scheduler';
 import {onRequest} from 'firebase-functions/v2/https';
 import {createKid, verifyKidsEmailService} from './firestore/userProfile/kidsRequest.js';
 import {changeTeamTrainingCancelled} from './firestore/training/changeTeamTraining.js';
+import {changeClubEventCancelled} from './firestore/event/changeClubEvent.js';
 
 /* export const verifyEmail = beforeUserSignedIn({
   region: 'europe-west6',
@@ -441,6 +442,11 @@ export const dbDeleteClubEvent = onDocumentDeleted({
   document: '/club/{clubId}/events/{eventId}',
   region: 'europe-west6',
 }, deleteClubEvent);
+
+export const dbChangeClubEvent = onDocumentUpdated({
+  document: '/club/{clubId}/events/{eventId}',
+  region: 'europe-west6',
+}, changeClubEventCancelled);
 
 // Das hier ist korrekt!!! https://firebase.google.com/docs/functions/firestore-events?hl=de&gen=2nd
 export const dbDeleteHelferEvent = onDocumentDeleted({
