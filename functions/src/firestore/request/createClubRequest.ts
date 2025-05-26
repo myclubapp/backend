@@ -29,7 +29,7 @@ export async function createClubRequest(event: FirestoreEvent<QueryDocumentSnaps
   await db.collection('club').doc(clubId).collection('requests').doc(userId).set({
     'userProfileRef': userProfileRef.ref,
     'isParent': snapshot.data()?.isParent,
-    'teamId': snapshot.data()?.teamId,
+    'requestTeamId': snapshot.data()?.requestTeamId,
   });
 
   if (club && (club.active === undefined || club.active === false)) {
@@ -76,7 +76,7 @@ export async function createClubRequest(event: FirestoreEvent<QueryDocumentSnaps
         'approve': true,
         'isAdmin': true,
         'isParent': snapshot.data()?.isParent,
-        'teamId': snapshot.data()?.teamId,
+        'requestTeamId': snapshot.data()?.requestTeamId,
       });
       // REFRESH DB
       await updatePersistenceJobClubs({
@@ -104,7 +104,7 @@ export async function createClubRequest(event: FirestoreEvent<QueryDocumentSnaps
         'approve': false,
         'isAdmin': false,
         'isParent': snapshot.data()?.isParent,
-        'teamId': snapshot.data()?.teamId,
+        'requestTeamId': snapshot.data()?.requestTeamId,
       });
     }
   } else {
