@@ -1,43 +1,166 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable max-len */
 
 import firebaseDAO from '../../firebaseSingleton.js';
 import {sendPushNotificationByUserProfileId} from '../../utils/push.js';
 import {FirestoreEvent, Change, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
 import {logger} from 'firebase-functions';
+import {Timestamp} from 'firebase-admin/firestore';
 const db = firebaseDAO.instance.db;
 
-export async function changeTeamTrainingCancelled(event: FirestoreEvent<Change<QueryDocumentSnapshot> | undefined>) {
-  logger.info('changeTeamTrainingCancelled');
+
+export async function changeTeamTraining(event: FirestoreEvent<Change<QueryDocumentSnapshot> | undefined>) {
+  logger.info('changeTeamTraining');
   const {teamId, trainingId} = event.params;
+  const beforeData = event.data?.before.data();
+  const afterData = event.data?.after.data();
 
-  if (event.data?.after.data()?.cancelled === true &&
-    (event.data?.before.data()?.cancelled === false || event.data?.before.data()?.cancelled === undefined)) {
+  // Behandlung von Training-Absagen
+  if (afterData?.cancelled === true && (beforeData?.cancelled === false || beforeData?.cancelled === undefined)) {
     logger.info('Training cancelled');
+    if (afterData) {
+      await handleTrainingCancellation(teamId, trainingId, afterData);
+    }
+  }
 
-    const attendeesRef = await db.collection('teams').doc(teamId).collection('trainings').doc(trainingId).collection('attendees').get();
+  // Behandlung von Training-Remindern
+  if (afterData?.lastReminderSent === typeof(Timestamp) && (beforeData?.lastReminderSent < afterData?.lastReminderSent || beforeData?.lastReminderSent === undefined)) {
+    logger.info('Training reminder sent');
+    if (afterData) {
+      await handleTrainingReminder(teamId, trainingId, afterData);
+    }
+  }
 
-    const teamRef = await db.collection('teams').doc(teamId).get();
-    const trainingRef = await db.collection('teams').doc(teamId).collection('trainings').doc(trainingId).get();
-    const trainingData = trainingRef.data();
+  // Behandlung von Training-Änderungen
+  /* if (hasTrainingDetailsChanged(beforeData, afterData)) {
+    logger.info('Training details changed');
+    if (afterData) {
+      await handleTrainingChanges(teamId, trainingId, beforeData, afterData);
+    }
+  }*/
 
-    for (const attendee of attendeesRef.docs) {
-      if (attendee.data().status !== false) {
-        const userProfileRef = await db.collection('userProfile').doc(attendee.id).get();
-        if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushTraining) {
-          await sendPushNotificationByUserProfileId(attendee.id,
-              'Training ' + trainingData?.name + ' vom ' + trainingData?.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}) + ' wurde abgesagt.',
-              'Begründung: ' + trainingData?.cancelledReason,
-              {
-                'type': 'training',
-                'teamId': teamRef.id,
-                'id': trainingData?.id,
-              });
-        }
+  return true;
+}
+
+async function handleTrainingCancellation(teamId: string, trainingId: string, trainingData: any) {
+  const attendeesRef = await db.collection('teams').doc(teamId).collection('trainings').doc(trainingId).collection('attendees').get();
+  const teamRef = await db.collection('teams').doc(teamId).get();
+  const trainingRef = await db.collection('teams').doc(teamId).collection('trainings').doc(trainingId).get();
+
+  for (const attendee of attendeesRef.docs) {
+    if (attendee.data().status !== false) {
+      const userProfileRef = await db.collection('userProfile').doc(attendee.id).get();
+      if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushTraining) {
+        await sendPushNotificationByUserProfileId(attendee.id,
+            'Training ' + trainingData.name + ' vom ' + trainingData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}) + ' wurde abgesagt.',
+            'Begründung: ' + trainingData.cancelledReason,
+            {
+              'type': 'training',
+              'teamId': teamRef.id,
+              'id': trainingRef.id,
+            });
+      }
+      if (userProfileRef.exists && userProfileRef.data().settingsEmail) {
+        await db.collection('mail').add({
+          to: userProfileRef.data().email,
+          template: {
+            name: 'TeamTrainingCancelled',
+            data: {
+              teamName: teamRef.data().name,
+              firstName: userProfileRef.data()?.firstName,
+              lastName: userProfileRef.data()?.lastName,
+              trainingName: trainingData.name,
+              trainerName: trainingData.trainerName,
+              trainingDatum: trainingData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}),
+              trainingZeit: trainingData.startDate.toDate().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'}),
+              absageGrund: trainingData.cancelledReason,
+            },
+          },
+        });
       }
     }
-    return true;
-  } else {
-    logger.info('Training not cancelled - maybe other change triggered this function');
-    return true;
   }
 }
+
+async function handleTrainingReminder(teamId: string, trainingId: string, trainingData: any) {
+  const attendeesRef = await db.collection('teams').doc(teamId).collection('trainings').doc(trainingId).collection('attendees').get();
+  const teamRef = await db.collection('teams').doc(teamId).get();
+  const trainingRef = await db.collection('teams').doc(teamId).collection('trainings').doc(trainingId).get();
+
+  for (const attendee of attendeesRef.docs) {
+    if (attendee.data().status !== false) {
+      const userProfileRef = await db.collection('userProfile').doc(attendee.id).get();
+      if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushTraining) {
+        await sendPushNotificationByUserProfileId(attendee.id,
+            'Erinnerung: Training ' + trainingData.name,
+            'Das Training findet bald statt. Bitte melde dich an/ab.',
+            {
+              'type': 'training',
+              'teamId': teamRef.id,
+              'id': trainingRef.id,
+            });
+      }
+      if (userProfileRef.exists && userProfileRef.data().settingsEmail) {
+        await db.collection('mail').add({
+          to: userProfileRef.data().email,
+          template: {
+            name: 'TeamTrainingReminder',
+            data: {
+              teamName: teamRef.data().name,
+              trainingName: trainingData.name,
+              firstName: userProfileRef.data()?.firstName,
+              lastName: userProfileRef.data()?.lastName,
+              trainerName: trainingData.trainerName,
+              trainingOrt: trainingData.location,
+              trainingDatum: trainingData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}),
+              trainingZeit: trainingData.startDate.toDate().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'}),
+              abmeldefrist: trainingData.registrationDeadline ? trainingData.registrationDeadline.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}) : 'nicht festgelegt',
+            },
+          },
+        });
+      }
+    }
+  }
+}
+
+/* async function handleTrainingChanges(teamId: string, trainingId: string, beforeData: TrainingData | undefined, afterData: TrainingData) {
+  const attendeesRef = await db.collection('teams').doc(teamId).collection('trainings').doc(trainingId).collection('attendees').get();
+  const teamRef = await db.collection('teams').doc(teamId).get();
+  const trainingRef = await db.collection('teams').doc(teamId).collection('trainings').doc(trainingId).get();
+
+  for (const attendee of attendeesRef.docs) {
+    if (attendee.data().status !== false) {
+      const userProfileRef = await db.collection('userProfile').doc(attendee.id).get();
+      if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushTraining) {
+        await sendPushNotificationByUserProfileId(attendee.id,
+            'Training ' + afterData.name + ' wurde aktualisiert',
+            'Es gab Änderungen am Training. Bitte überprüfe die Details.',
+            {
+              'type': 'training',
+              'teamId': teamRef.id,
+              'id': trainingRef.id,
+            });
+      }
+      if (userProfileRef.exists && userProfileRef.data().settingsEmail) {
+        await db.collection('mail').add({
+          to: userProfileRef.data().email,
+          template: {
+            name: 'TeamTrainingUpdated',
+            data: {
+              teamName: teamRef.data().name,
+              trainingName: afterData.name,
+              firstName: userProfileRef.data()?.firstName,
+              lastName: userProfileRef.data()?.lastName,
+            },
+          },
+        });
+      }
+    }
+  }
+}
+
+function hasTrainingDetailsChanged(beforeData: TrainingData | undefined, afterData: TrainingData | undefined): boolean {
+  if (!beforeData || !afterData) return false;
+  const relevantFields = ['name', 'description', 'startDate', 'endDate', 'location'];
+  return relevantFields.some((field) => beforeData[field as keyof TrainingData] !== afterData[field as keyof TrainingData]);
+}*/

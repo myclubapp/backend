@@ -283,7 +283,8 @@ service cloud.firestore {
         } 
         //TEAMS
       	match /teams/{teamId=**} {
-      		allow read: if isSignedIn() && isClubMember(request, clubId);
+          // Special Rule for Onboarding Club
+      		allow read: if isSignedIn() && isClubMember(request, clubId) || isSignedIn();
           allow create: if isSignedIn() && isClubAdmin(request, clubId);
       	}    
         //MEMBERS
@@ -337,10 +338,11 @@ service cloud.firestore {
 // ************************************************      
       match /teams/{teamId} {
         allow read: if isSignedIn()
-        && (isTeamMember(request, teamId) || isClubMember(request, resource.data.clubId));
+        && (isTeamMember(request, teamId) || isClubMember(request, resource.data.clubId))
+        || isSignedIn(); //Special rule for team Onboarding.
 				allow write: if isSignedIn() && isTeamAdmin(request, teamId);
         allow delete: if isSignedIn() && (isTeamAdmin(request, teamId) || isClubAdmin(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId) );
-    
+
 				//TEAM EXERCISES
         match /exercises/{exerciseId} {
           allow read, write: if isSignedIn() && ( isTeamAdmin(request, teamId) || isClubAdmin(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId) );

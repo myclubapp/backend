@@ -85,7 +85,7 @@ export async function changeStatusMemberEvent(event: FirestoreEvent<Change<Query
   const userProfileRef = await db.collection('userProfile').doc(userId).get();
 
   if (event.data?.after.data()?.status) {
-    if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushHelfer) {
+    if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushEvent) {
       await sendPushNotificationByUserProfileId(
           userId,
           'Bestätigung Event ' + veranstaltung.data()?.name,
