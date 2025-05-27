@@ -14,6 +14,7 @@ export async function changeTeamTraining(event: FirestoreEvent<Change<QueryDocum
   const {teamId, trainingId} = event.params;
   const beforeData = event.data?.before.data();
   const afterData = event.data?.after.data();
+  console.log(afterData);
 
   // Behandlung von Training-Absagen
   if (afterData?.cancelled === true && (beforeData?.cancelled === false || beforeData?.cancelled === undefined)) {
@@ -24,7 +25,7 @@ export async function changeTeamTraining(event: FirestoreEvent<Change<QueryDocum
   }
 
   // Behandlung von Training-Remindern
-  if (afterData?.lastReminderSent === typeof(Timestamp) && (beforeData?.lastReminderSent < afterData?.lastReminderSent || beforeData?.lastReminderSent === undefined)) {
+  if (afterData?.lastReminderSent === typeof(Timestamp || Date) && (beforeData?.lastReminderSent < afterData?.lastReminderSent || beforeData?.lastReminderSent === undefined)) {
     logger.info('Training reminder sent');
     if (afterData) {
       await handleTrainingReminder(teamId, trainingId, afterData);
