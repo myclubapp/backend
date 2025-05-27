@@ -14,7 +14,7 @@ export async function changeTeamTraining(event: FirestoreEvent<Change<QueryDocum
   const {teamId, trainingId} = event.params;
   const beforeData = event.data?.before.data();
   const afterData = event.data?.after.data();
-  console.log(afterData);
+  // console.log(afterData);
 
   // Behandlung von Training-Absagen
   if (afterData?.cancelled === true && (beforeData?.cancelled === false || beforeData?.cancelled === undefined)) {
