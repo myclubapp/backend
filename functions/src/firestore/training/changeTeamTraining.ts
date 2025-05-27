@@ -25,7 +25,7 @@ export async function changeTeamTraining(event: FirestoreEvent<Change<QueryDocum
   }
 
   // Behandlung von Training-Remindern
-  if (afterData?.lastReminderSent === typeof(Timestamp || Date) && (beforeData?.lastReminderSent < afterData?.lastReminderSent || beforeData?.lastReminderSent === undefined)) {
+  if (afterData?.lastReminderSent instanceof Timestamp && (beforeData?.lastReminderSent < afterData?.lastReminderSent || beforeData?.lastReminderSent === undefined)) {
     logger.info('Training reminder sent');
     if (afterData) {
       await handleTrainingReminder(teamId, trainingId, afterData);
