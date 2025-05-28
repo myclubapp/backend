@@ -85,14 +85,18 @@ async function handleTrainingCancellation(teamId: string, trainingId: string, tr
 
 async function handleTrainingReminder(teamId: string, trainingId: string, trainingData: any) {
   const attendeesRef = await db.collection('teams').doc(teamId).collection('trainings').doc(trainingId).collection('attendees').get();
+  const membersRef = await db.collection('teams').doc(teamId).collection('members').get();
   const teamRef = await db.collection('teams').doc(teamId).get();
   const trainingRef = await db.collection('teams').doc(teamId).collection('trainings').doc(trainingId).get();
 
-  for (const attendee of attendeesRef.docs) {
-    if (attendee.data().status !== false) {
-      const userProfileRef = await db.collection('userProfile').doc(attendee.id).get();
+  for (const member of membersRef.docs) {
+    const hasResponded = attendeesRef.docs.some((attendee: QueryDocumentSnapshot) => attendee.id === member.id);
+    if (!hasResponded) {
+      // Get user profile
+      const userProfileRef = await db.collection('userProfile').doc(member.id).get();
+      // Send push notification
       if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushTraining) {
-        await sendPushNotificationByUserProfileId(attendee.id,
+        await sendPushNotificationByUserProfileId(member.id,
             'Erinnerung: Training ' + trainingData.name,
             'Das Training findet bald statt. Bitte melde dich an/ab.',
             {
@@ -101,6 +105,7 @@ async function handleTrainingReminder(teamId: string, trainingId: string, traini
               'id': trainingRef.id,
             });
       }
+      // Send email
       if (userProfileRef.exists && userProfileRef.data().settingsEmail) {
         await db.collection('mail').add({
           to: userProfileRef.data().email,

@@ -84,16 +84,19 @@ async function handleEventCancellation(clubId: string, eventId: string, eventDat
 
 async function handleEventReminder(clubId: string, eventId: string, eventData: any) {
   const attendeesRef = await db.collection('club').doc(clubId).collection('events').doc(eventId).collection('attendees').get();
+  const membersRef = await db.collection('club').doc(clubId).collection('members').get();
   const clubRef = await db.collection('club').doc(clubId).get();
   const eventRef = await db.collection('club').doc(clubId).collection('events').doc(eventId).get();
 
-  for (const attendee of attendeesRef.docs) {
-    if (attendee.data().status !== false) {
-      const userProfileRef = await db.collection('userProfile').doc(attendee.id).get();
+  for (const member of membersRef.docs) {
+    const hasResponded = attendeesRef.docs.some((attendee: QueryDocumentSnapshot) => attendee.id === member.id);
+    if (!hasResponded) {
+      // Get user profile
+      const userProfileRef = await db.collection('userProfile').doc(member.id).get();
       if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushEvent) {
-        await sendPushNotificationByUserProfileId(attendee.id,
+        await sendPushNotificationByUserProfileId(member.id,
             'Erinnerung: Event ' + eventData.name,
-            'Das Event findet morgen statt. Bitte überprüfe die Details.',
+            'Das Event findet bald statt. Bitte melde dich an/ab.',
             {
               'type': 'clubEvent',
               'clubId': clubRef.id,
