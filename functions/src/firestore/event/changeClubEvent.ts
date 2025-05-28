@@ -56,7 +56,7 @@ async function handleEventCancellation(clubId: string, eventId: string, eventDat
       const userProfileRef = await db.collection('userProfile').doc(member.id).get();
       if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushEvent) {
         await sendPushNotificationByUserProfileId(member.id,
-            'Event ' + eventData.name + ' vom ' + eventData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}) + ' wurde abgesagt.',
+            'Die Veranstaltung ' + eventData.name + ' vom ' + eventData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}) + ' wurde abgesagt.',
             'Begründung: ' + eventData.cancelledReason,
             {
               'type': 'clubEvent',
@@ -94,9 +94,11 @@ async function handleEventReminder(clubId: string, eventId: string, eventData: a
   const eventDatum = new Date(eventData?.startDate); // format 2025-01-11T10:00:00.000Z
 
   const clubData = clubRef.data();
-  const eventThreshold = clubData.data()?.eventThreshold; // in Stunden
+  const eventThreshold = clubData.data()?.eventThreshold ?? 0; // Standardwert 0, wenn nicht vorhanden
   const eventDatumPlusThreshold = new Date(eventDatum.getTime() - eventThreshold * 60 * 60 * 1000);
-  const eventDatumPlusThresholdString = eventDatumPlusThreshold.toLocaleString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'});
+  const eventDatumPlusThresholdString = eventThreshold > 0 ?
+    eventDatumPlusThreshold.toLocaleString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}) :
+    'nicht festgelegt';
 
   for (const member of membersRef.docs) {
     const hasResponded = attendeesRef.docs.some((attendee: QueryDocumentSnapshot) => attendee.id === member.id);
@@ -105,8 +107,8 @@ async function handleEventReminder(clubId: string, eventId: string, eventData: a
       const userProfileRef = await db.collection('userProfile').doc(member.id).get();
       if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushEvent) {
         await sendPushNotificationByUserProfileId(member.id,
-            'Erinnerung: Event ' + eventData.name,
-            'Das Event findet bald statt. Bitte melde dich an/ab.',
+            'Erinnerung: Veranstaltung ' + eventData.name + ' am ' + eventData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}) + ' um ' + eventData.startDate.toDate().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'}),
+            'Die Veranstaltung findet bald statt. Bitte melde dich an/ab.',
             {
               'type': 'clubEvent',
               'clubId': clubRef.id,

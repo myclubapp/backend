@@ -57,7 +57,7 @@ async function handleTrainingCancellation(teamId: string, trainingId: string, tr
       const userProfileRef = await db.collection('userProfile').doc(member.id).get();
       if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushTraining) {
         await sendPushNotificationByUserProfileId(member.id,
-            'Training ' + trainingData.name + ' vom ' + trainingData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}) + ' wurde abgesagt.',
+            'Das Training ' + trainingData.name + ' vom ' + trainingData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}) + ' wurde abgesagt.',
             'Begründung: ' + trainingData.cancelledReason,
             {
               'type': 'training',
@@ -94,9 +94,11 @@ async function handleTrainingReminder(teamId: string, trainingId: string, traini
 
   const trainingDatum = new Date(trainingData?.startDate); // format 2025-01-11T10:00:00.000Z
   const teamData = teamRef.data();
-  const trainingThreshold = teamData?.trainingThreshold; // in Stunden
+  const trainingThreshold = teamData?.trainingThreshold ?? 0; // Standardwert 0, wenn nicht vorhanden
   const trainingDatumPlusThreshold = new Date(trainingDatum.getTime() - trainingThreshold * 60 * 60 * 1000);
-  const trainingDatumPlusThresholdString = trainingDatumPlusThreshold.toLocaleString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'});
+  const trainingDatumPlusThresholdString = trainingThreshold > 0 ?
+    trainingDatumPlusThreshold.toLocaleString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}) :
+    'nicht festgelegt';
 
   for (const member of membersRef.docs) {
     const hasResponded = attendeesRef.docs.some((attendee: QueryDocumentSnapshot) =>
@@ -108,7 +110,7 @@ async function handleTrainingReminder(teamId: string, trainingId: string, traini
       // Send push notification
       if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushTraining) {
         await sendPushNotificationByUserProfileId(member.id,
-            'Erinnerung: Training ' + trainingData.name,
+            'Erinnerung: Training ' + trainingData.name + ' am ' + trainingData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}) + ' um ' + trainingData.startDate.toDate().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'}),
             'Das Training findet bald statt. Bitte melde dich an/ab.',
             {
               'type': 'training',
