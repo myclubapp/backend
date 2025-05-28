@@ -106,14 +106,118 @@ export async function verifyKidsEmailService(request: functions.Request, respons
         .send(`
         <!DOCTYPE html>
         <html lang="de">
-          <head>
+        <head>
             <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
             <title>Kind verifiziert</title>
-          </head>
-          <body>
-            <h1>Kind wurde erfolgreich verifiziert!</h1>
-            <p>Vielen Dank für deine Bestätigung.</p>
-          </body>
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+            <link href="https://fonts.googleapis.com/css2?family=Maven+Pro&family=Titillium+Web:wght@900&display=swap" rel="stylesheet">
+            <style>
+                /* FONTS */
+                /* CLIENT-SPECIFIC STYLES */
+                body, table, td, a {
+                    -webkit-text-size-adjust: 100%;
+                    -ms-text-size-adjust: 100%;
+                }
+                table, td {
+                    mso-table-lspace: 0pt;
+                    mso-table-rspace: 0pt;
+                }
+                img {
+                    -ms-interpolation-mode: bicubic;
+                    border: 0;
+                    height: auto;
+                    line-height: 100%;
+                    outline: none;
+                    text-decoration: none;
+                }
+                table {
+                    border-collapse: collapse !important;
+                }
+                body {
+                    height: 100% !important;
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    width: 100% !important;
+                    background-color: #f4f4f4;
+                    font-family: 'Maven Pro', Helvetica, Arial, sans-serif;
+                }
+                /* iOS BLUE LINKS */
+                a[x-apple-data-detectors] {
+                    color: inherit !important;
+                    text-decoration: none !important;
+                    font-size: inherit !important;
+                    font-family: inherit !important;
+                    font-weight: inherit !important;
+                    line-height: inherit !important;
+                }
+                /* MOBILE STYLES */
+                @media screen and (max-width:600px) {
+                    h1 {
+                        font-size: 32px !important;
+                        line-height: 32px !important;
+                    }
+                }
+                /* ANDROID CENTER FIX */
+                div[style*="margin: 16px 0;"] {
+                    margin: 0 !important;
+                }
+                .container {
+                    max-width: 600px;
+                    margin: 0 auto;
+                }
+                .header {
+                    background-color: #000000;
+                    padding: 40px 20px 20px 20px;
+                    text-align: center;
+                }
+                .content {
+                    background-color: #ffffff;
+                    padding: 20px 30px 40px 30px;
+                    color: #666666;
+                    font-size: 18px;
+                    line-height: 25px;
+                }
+                .logo {
+                    text-align: center;
+                    padding: 40px 10px 40px 10px;
+                    background-color: #000000;
+                }
+                .logo img {
+                    width: 200px;
+                    max-width: 200px;
+                    min-width: 40px;
+                }
+                .footer {
+                    text-align: left;
+                    padding: 0px 30px 30px 30px;
+                    color: #666666;
+                    font-size: 14px;
+                    font-weight: 400;
+                    line-height: 18px;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="logo">
+                    <a href="http://my-club.app" target="_blank">
+                        <img alt="Logo" src="https://my-club.app/icons/icon-512x512.png" width="40" height="40">
+                    </a>
+                </div>
+                <div class="header">
+                    <h1 style="color: #ffffff; font-size: 48px; font-weight: 400; margin: 0; font-family: 'Titillium Web', Arial, sans-serif;">Erfolgreich verifiziert!</h1>
+                </div>
+                <div class="content">
+                    <p>Vielen Dank für deine Bestätigung. Dein Kind wurde erfolgreich mit deinem Account verknüpft.</p>
+                    <p>Du kannst diese Seite jetzt schliessen und zu my-club zurückkehren.</p>
+                </div>
+                <div class="footer">
+                    <p style="margin: 0; color: #666666; font-family: 'Maven Pro', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 400; line-height: 18px;">&reg; myclub | the next generation 2025</p>
+                </div>
+            </div>
+        </body>
         </html>
       `);
   });

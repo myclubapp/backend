@@ -95,6 +95,8 @@ async function handleTrainingReminder(teamId: string, trainingId: string, traini
     trainingDatumPlusThreshold.toLocaleString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}) :
     'nicht festgelegt';
 
+  console.log(trainingDatum, trainingThreshold, trainingDatumPlusThreshold, trainingDatumPlusThresholdString);
+
   for (const member of membersRef.docs) {
     const hasResponded = attendeesRef.docs.some((attendee: QueryDocumentSnapshot) =>
       attendee.id === member.id && attendee.data().status === false,
