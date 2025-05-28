@@ -123,7 +123,7 @@ export async function changeStatusMemberHelferEvent(event: FirestoreEvent<Change
             schichtEnde: helferSchicht.data()?.timeTo,
             schichtPunkte: helferSchicht.data()?.points,
 
-            abmeldefrist: helferEventDatumPlusThresholdString,
+            abmeldefrist: helferEventDatumPlusThresholdString ? helferEventDatumPlusThresholdString : 'nicht festgelegt',
 
             firstName: userProfileRef.data()?.firstName,
             lastName: userProfileRef.data()?.lastName,

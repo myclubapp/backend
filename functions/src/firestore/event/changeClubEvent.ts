@@ -43,15 +43,20 @@ export async function changeClubEvent(event: FirestoreEvent<Change<QueryDocument
 }
 
 async function handleEventCancellation(clubId: string, eventId: string, eventData: any) {
-  const attendeesRef = await db.collection('club').doc(clubId).collection('events').doc(eventId).collection('attendees').get();
-  const clubRef = await db.collection('club').doc(clubId).get();
-  const eventRef = await db.collection('club').doc(clubId).collection('events').doc(eventId).get();
+  const membersRef = await db.collection('clubs').doc(clubId).collection('members').get();
+  const attendeesRef = await db.collection('clubs').doc(clubId).collection('events').doc(eventId).collection('attendees').get();
+  const clubRef = await db.collection('clubs').doc(clubId).get();
+  const eventRef = await db.collection('clubs').doc(clubId).collection('events').doc(eventId).get();
 
-  for (const attendee of attendeesRef.docs) {
-    if (attendee.data().status !== false) {
-      const userProfileRef = await db.collection('userProfile').doc(attendee.id).get();
+  for (const member of membersRef.docs) {
+    const attendee = attendeesRef.docs.find((a: QueryDocumentSnapshot) => a.id === member.id);
+    const hasRespondedNo = attendee && attendee.data().status === false;
+
+    if (!hasRespondedNo) {
+      // Get user profile
+      const userProfileRef = await db.collection('userProfile').doc(member.id).get();
       if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushEvent) {
-        await sendPushNotificationByUserProfileId(attendee.id,
+        await sendPushNotificationByUserProfileId(member.id,
             'Event ' + eventData.name + ' vom ' + eventData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}) + ' wurde abgesagt.',
             'Begründung: ' + eventData.cancelledReason,
             {
@@ -88,6 +93,14 @@ async function handleEventReminder(clubId: string, eventId: string, eventData: a
   const clubRef = await db.collection('club').doc(clubId).get();
   const eventRef = await db.collection('club').doc(clubId).collection('events').doc(eventId).get();
 
+  const veranstaltung = eventRef.data();
+  const eventDatum = new Date(veranstaltung.data()?.startDate); // format 2025-01-11T10:00:00.000Z
+
+  const clubData = clubRef.data();
+  const eventThreshold = clubData.data()?.eventThreshold; // in Stunden
+  const eventDatumPlusThreshold = new Date(eventDatum.getTime() - eventThreshold * 60 * 60 * 1000);
+  const eventDatumPlusThresholdString = eventDatumPlusThreshold.toLocaleString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'});
+
   for (const member of membersRef.docs) {
     const hasResponded = attendeesRef.docs.some((attendee: QueryDocumentSnapshot) => attendee.id === member.id);
     if (!hasResponded) {
@@ -117,7 +130,7 @@ async function handleEventReminder(clubId: string, eventId: string, eventData: a
               eventOrt: eventData.location,
               eventDatum: eventData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}),
               eventZeit: eventData.startDate.toDate().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'}),
-              abmeldefrist: eventData.registrationDeadline ? eventData.registrationDeadline.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}) : 'nicht festgelegt',
+              abmeldefrist: eventDatumPlusThresholdString ? eventDatumPlusThresholdString : 'nicht festgelegt',
             },
           },
         });

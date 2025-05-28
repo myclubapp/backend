@@ -108,7 +108,7 @@ export async function changeStatusMemberEvent(event: FirestoreEvent<Change<Query
             eventDatum: eventDatumString,
             eventOrt: veranstaltung.data()?.location,
 
-            abmeldefrist: eventDatumPlusThresholdString,
+            abmeldefrist: eventDatumPlusThresholdString ? eventDatumPlusThresholdString : 'nicht festgelegt',
 
             firstName: userProfileRef.data()?.firstName,
             lastName: userProfileRef.data()?.lastName,

@@ -44,15 +44,20 @@ export async function changeTeamTraining(event: FirestoreEvent<Change<QueryDocum
 }
 
 async function handleTrainingCancellation(teamId: string, trainingId: string, trainingData: any) {
+  const membersRef = await db.collection('teams').doc(teamId).collection('members').get();
   const attendeesRef = await db.collection('teams').doc(teamId).collection('trainings').doc(trainingId).collection('attendees').get();
   const teamRef = await db.collection('teams').doc(teamId).get();
   const trainingRef = await db.collection('teams').doc(teamId).collection('trainings').doc(trainingId).get();
 
-  for (const attendee of attendeesRef.docs) {
-    if (attendee.data().status !== false) {
-      const userProfileRef = await db.collection('userProfile').doc(attendee.id).get();
+  for (const member of membersRef.docs) {
+    const attendee = attendeesRef.docs.find((a: QueryDocumentSnapshot) => a.id === member.id);
+    const hasRespondedNo = attendee && attendee.data().status === false;
+
+    if (!hasRespondedNo) {
+      // Get user profile
+      const userProfileRef = await db.collection('userProfile').doc(member.id).get();
       if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushTraining) {
-        await sendPushNotificationByUserProfileId(attendee.id,
+        await sendPushNotificationByUserProfileId(member.id,
             'Training ' + trainingData.name + ' vom ' + trainingData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}) + ' wurde abgesagt.',
             'Begründung: ' + trainingData.cancelledReason,
             {
@@ -90,7 +95,9 @@ async function handleTrainingReminder(teamId: string, trainingId: string, traini
   const trainingRef = await db.collection('teams').doc(teamId).collection('trainings').doc(trainingId).get();
 
   for (const member of membersRef.docs) {
-    const hasResponded = attendeesRef.docs.some((attendee: QueryDocumentSnapshot) => attendee.id === member.id);
+    const hasResponded = attendeesRef.docs.some((attendee: QueryDocumentSnapshot) =>
+      attendee.id === member.id && attendee.data().status === false,
+    );
     if (!hasResponded) {
       // Get user profile
       const userProfileRef = await db.collection('userProfile').doc(member.id).get();
