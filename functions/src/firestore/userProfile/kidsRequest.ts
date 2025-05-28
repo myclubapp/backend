@@ -211,7 +211,7 @@ export async function verifyKidsEmailService(request: functions.Request, respons
                 </div>
                 <div class="content">
                     <p>Vielen Dank für deine Bestätigung. Dein Kind wurde erfolgreich mit deinem Account verknüpft.</p>
-                    <p>Du kannst diese Seite jetzt schliessen und zu my-club zurückkehren.</p>
+                    <p>Du kannst diese Seite jetzt schliessen und zu myclub zurückkehren.</p>
                 </div>
                 <div class="footer">
                     <p style="margin: 0; color: #666666; font-family: 'Maven Pro', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 400; line-height: 18px;">&reg; myclub | the next generation 2025</p>

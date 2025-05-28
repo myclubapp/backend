@@ -28,13 +28,13 @@ export async function authUserDeleteUserAccount(user: UserRecord, context: Event
   logger.info('delete user cleanup functions to delete user media, revoke refresh token for: ' + user.uid);
 
   // force logout in app
-  await auth.revokeRefreshTokens(user.uid).catch((error: any)=>{
+  await auth.revokeRefreshTokens(user.uid).catch((error: any) => {
     logger.info(`error revokeRefreshTokens -> most likely already done by deleting user, ${error}`);
   });
 
   // MEDIA
   // -> Profile picture
-  await storage.bucket('myclubmanagement').file('userProfile/' + user.uid + '/profilePicture').delete().catch((error:any)=>{
+  await storage.bucket('myclubmanagement').file('userProfile/' + user.uid + '/profilePicture').delete().catch((error: any) => {
     logger.info(`error deleting bucket for user -> most likely no user data stored, ${error}`);
   });
 
@@ -100,6 +100,21 @@ export async function authUserDeleteUserAccount(user: UserRecord, context: Event
     }
   }
 
+  // delete kids from parent
+  const childrenListRef = await db.collection('userProfile').doc(user.uid).collection('children').get();
+  for (const children of childrenListRef.docs) {
+    await db.collection('userProfile').doc(user.uid).collection('children').doc(children.id).delete();
+
+    // delete parent from kids
+    await db.collection('userProfile').doc(children.id).collection('parents').doc(user.uid).delete();
+  }
+
+  // delete parent from all possible clubs
+  const clubListRef = await db.collection('userProfile').doc(user.uid).collection('clubs').get();
+  for (const club of clubListRef.docs) {
+    await db.collection('club').doc(club.id).collection('parents').doc(user.uid).delete();
+  }
+
   // Events?
   /*
   // Trainings?
@@ -129,13 +144,13 @@ export async function authUserDeleteUserAccount(user: UserRecord, context: Event
   // offene Requests?
   --> clubRequests
   --> teamRequests
-*/
+  */
 
   // Delete User Data
   await db.collection('userProfile').doc(user.uid).delete();
 
   // Delete account in firebase --> Should be done already
-  return auth.deleteUser(user.uid).catch((error: any)=> {
+  return auth.deleteUser(user.uid).catch((error: any) => {
     logger.info(`error deleting user -> most likely already done, ${error}`);
   });
 }
