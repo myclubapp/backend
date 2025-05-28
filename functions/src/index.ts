@@ -55,7 +55,7 @@ import {deleteTeam} from './firestore/team/deleteTeam.js';
 
 // Member-bezogene Imports
 import {leaveClubAsMember, leaveTeamAsMember} from './firestore/userProfile/leaveAsMember.js';
-
+import {removeChildFromParent} from './firestore/userProfile/removeChildFromParent.js';
 // Kids-bezogene Imports
 import {createKid, verifyKidsEmailService} from './firestore/userProfile/kidsRequest.js';
 
@@ -67,6 +67,7 @@ import {onDocumentUpdated, onDocumentDeleted, onDocumentCreated, onDocumentWritt
 import * as functions from 'firebase-functions/v1';
 import {onSchedule} from 'firebase-functions/v2/scheduler';
 import {onRequest} from 'firebase-functions/v2/https';
+
 
 // ==================== AUTH FUNCTIONS ====================
 export const sendByeEmail = functions.auth.user().onDelete(authUserDeleteUserSendByEmail);
@@ -143,6 +144,11 @@ export const dbLeaveClubAsMember = onDocumentDeleted({
   document: '/userProfile/{userId}/clubs/{clubId}',
   region: 'europe-west6',
 }, leaveClubAsMember);
+
+export const dbRemoveKid = onDocumentDeleted({
+  document: '/userProfile/{parentId}/children/{childId}',
+  region: 'europe-west6',
+}, removeChildFromParent);
 
 // ==================== STRIPE FUNCTIONS ====================
 export const dbAddCheckoutSession = onDocumentCreated({
