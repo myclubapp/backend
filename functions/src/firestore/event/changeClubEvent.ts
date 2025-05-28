@@ -46,7 +46,6 @@ async function handleEventCancellation(clubId: string, eventId: string, eventDat
   const membersRef = await db.collection('clubs').doc(clubId).collection('members').get();
   const attendeesRef = await db.collection('clubs').doc(clubId).collection('events').doc(eventId).collection('attendees').get();
   const clubRef = await db.collection('clubs').doc(clubId).get();
-  const eventRef = await db.collection('clubs').doc(clubId).collection('events').doc(eventId).get();
 
   for (const member of membersRef.docs) {
     const attendee = attendeesRef.docs.find((a: QueryDocumentSnapshot) => a.id === member.id);
@@ -62,7 +61,7 @@ async function handleEventCancellation(clubId: string, eventId: string, eventDat
             {
               'type': 'clubEvent',
               'clubId': clubRef.id,
-              'id': eventRef.id,
+              'id': eventId,
             });
       }
       if (userProfileRef.exists && userProfileRef.data().settingsEmail) {
@@ -91,10 +90,8 @@ async function handleEventReminder(clubId: string, eventId: string, eventData: a
   const attendeesRef = await db.collection('club').doc(clubId).collection('events').doc(eventId).collection('attendees').get();
   const membersRef = await db.collection('club').doc(clubId).collection('members').get();
   const clubRef = await db.collection('club').doc(clubId).get();
-  const eventRef = await db.collection('club').doc(clubId).collection('events').doc(eventId).get();
-
-  const veranstaltung = eventRef.data();
-  const eventDatum = new Date(veranstaltung.data()?.startDate); // format 2025-01-11T10:00:00.000Z
+  // const eventRef = await db.collection('club').doc(clubId).collection('events').doc(eventId).get();
+  const eventDatum = new Date(eventData?.startDate); // format 2025-01-11T10:00:00.000Z
 
   const clubData = clubRef.data();
   const eventThreshold = clubData.data()?.eventThreshold; // in Stunden
@@ -113,7 +110,7 @@ async function handleEventReminder(clubId: string, eventId: string, eventData: a
             {
               'type': 'clubEvent',
               'clubId': clubRef.id,
-              'id': eventRef.id,
+              'id': eventId,
             });
       }
       if (userProfileRef.exists && userProfileRef.data().settingsEmail) {

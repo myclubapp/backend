@@ -47,7 +47,6 @@ async function handleTrainingCancellation(teamId: string, trainingId: string, tr
   const membersRef = await db.collection('teams').doc(teamId).collection('members').get();
   const attendeesRef = await db.collection('teams').doc(teamId).collection('trainings').doc(trainingId).collection('attendees').get();
   const teamRef = await db.collection('teams').doc(teamId).get();
-  const trainingRef = await db.collection('teams').doc(teamId).collection('trainings').doc(trainingId).get();
 
   for (const member of membersRef.docs) {
     const attendee = attendeesRef.docs.find((a: QueryDocumentSnapshot) => a.id === member.id);
@@ -63,7 +62,7 @@ async function handleTrainingCancellation(teamId: string, trainingId: string, tr
             {
               'type': 'training',
               'teamId': teamRef.id,
-              'id': trainingRef.id,
+              'id': trainingId,
             });
       }
       if (userProfileRef.exists && userProfileRef.data().settingsEmail) {
@@ -92,9 +91,8 @@ async function handleTrainingReminder(teamId: string, trainingId: string, traini
   const attendeesRef = await db.collection('teams').doc(teamId).collection('trainings').doc(trainingId).collection('attendees').get();
   const membersRef = await db.collection('teams').doc(teamId).collection('members').get();
   const teamRef = await db.collection('teams').doc(teamId).get();
-  const trainingRef = await db.collection('teams').doc(teamId).collection('trainings').doc(trainingId).get();
 
-  const trainingDatum = new Date(trainingRef.data()?.startDate); // format 2025-01-11T10:00:00.000Z
+  const trainingDatum = new Date(trainingData?.startDate); // format 2025-01-11T10:00:00.000Z
   const teamData = teamRef.data();
   const trainingThreshold = teamData?.trainingThreshold; // in Stunden
   const trainingDatumPlusThreshold = new Date(trainingDatum.getTime() - trainingThreshold * 60 * 60 * 1000);
@@ -115,7 +113,7 @@ async function handleTrainingReminder(teamId: string, trainingId: string, traini
             {
               'type': 'training',
               'teamId': teamRef.id,
-              'id': trainingRef.id,
+              'id': trainingId,
             });
       }
       // Send email
