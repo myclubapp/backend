@@ -1,4 +1,3 @@
-
 /* eslint-disable max-len */
 
 import firebaseDAO from '../../firebaseSingleton.js';
@@ -6,6 +5,7 @@ import {updatePersistenceJobClubs, updatePersistenceJobTeams, updatePersistenceJ
 import {sendPushNotificationByUserProfileId} from '../../utils/push.js';
 import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
 import {logger} from 'firebase-functions';
+import {sendEmailByUserId} from '../../utils/email.js';
 const db = firebaseDAO.instance.db;
 
 export async function createClubRequest(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
@@ -125,16 +125,10 @@ export async function createClubRequest(event: FirestoreEvent<QueryDocumentSnaps
     // SEND E-MAIL AND PUSH TO USER
     if (userProfileRef.exists) {
       // SEND REQUEST CONFIRMATION E-MAIL TO USER
-      await db.collection('mail').add({
-        to: userProfileRef.data()?.email,
-        template: {
-          name: 'ClubRequestEmail',
-          data: {
-            clubName: clubRef.data().name,
-            firstName: userProfileRef.data()?.firstName,
-            lastName: userProfileRef.data()?.lastName,
-          },
-        },
+      await sendEmailByUserId(userId, 'ClubRequestCreated', {
+        clubName: clubRef.data().name,
+        firstName: userProfileRef.data()?.firstName,
+        lastName: userProfileRef.data()?.lastName,
       });
     }
 

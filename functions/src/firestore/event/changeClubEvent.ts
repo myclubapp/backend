@@ -6,6 +6,7 @@ import {sendPushNotificationByUserProfileId} from '../../utils/push.js';
 import {FirestoreEvent, Change, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
 import {logger} from 'firebase-functions';
 import {Timestamp} from 'firebase-admin/firestore';
+import {sendEmailByUserId} from '../../utils/email.js';
 const db = firebaseDAO.instance.db;
 
 export async function changeClubEvent(event: FirestoreEvent<Change<QueryDocumentSnapshot> | undefined>) {
@@ -65,21 +66,15 @@ async function handleEventCancellation(clubId: string, eventId: string, eventDat
             });
       }
       if (userProfileRef.exists && userProfileRef.data().settingsEmail) {
-        await db.collection('mail').add({
-          to: userProfileRef.data().email,
-          template: {
-            name: 'ClubEventCancelled',
-            data: {
-              clubName: clubRef.data().name,
-              firstName: userProfileRef.data()?.firstName,
-              lastName: userProfileRef.data()?.lastName,
-              eventName: eventData.name,
-              eventDescription: eventData.description,
-              eventOrt: eventData.location,
-              eventDatum: eventData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}),
-              absageGrund: eventData.cancelledReason,
-            },
-          },
+        await sendEmailByUserId(userProfileRef.id, 'ClubEventCancelled', {
+          clubName: clubRef.data().name,
+          firstName: userProfileRef.data()?.firstName,
+          lastName: userProfileRef.data()?.lastName,
+          eventName: eventData.name,
+          eventDescription: eventData.description,
+          eventOrt: eventData.location,
+          eventDatum: eventData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}),
+          absageGrund: eventData.cancelledReason,
         });
       }
     }
@@ -116,22 +111,16 @@ async function handleEventReminder(clubId: string, eventId: string, eventData: a
             });
       }
       if (userProfileRef.exists && userProfileRef.data().settingsEmail) {
-        await db.collection('mail').add({
-          to: userProfileRef.data().email,
-          template: {
-            name: 'ClubEventReminder',
-            data: {
-              clubName: clubRef.data().name,
-              firstName: userProfileRef.data()?.firstName,
-              lastName: userProfileRef.data()?.lastName,
-              eventName: eventData.name,
-              eventDescription: eventData.description,
-              eventOrt: eventData.location,
-              eventDatum: eventData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}),
-              eventZeit: eventData.startDate.toDate().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'}),
-              abmeldefrist: eventDatumPlusThresholdString ? eventDatumPlusThresholdString : 'nicht festgelegt',
-            },
-          },
+        await sendEmailByUserId(userProfileRef.id, 'ClubEventReminder', {
+          clubName: clubRef.data().name,
+          firstName: userProfileRef.data()?.firstName,
+          lastName: userProfileRef.data()?.lastName,
+          eventName: eventData.name,
+          eventDescription: eventData.description,
+          eventOrt: eventData.location,
+          eventDatum: eventData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}),
+          eventZeit: eventData.startDate.toDate().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'}),
+          abmeldefrist: eventDatumPlusThresholdString ? eventDatumPlusThresholdString : 'nicht festgelegt',
         });
       }
     }

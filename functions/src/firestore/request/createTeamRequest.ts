@@ -1,9 +1,9 @@
-
 /* eslint-disable max-len */
 import firebaseDAO from '../../firebaseSingleton.js';
 import {sendPushNotificationByUserProfileId} from '../../utils/push.js';
 import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
 import {logger} from 'firebase-functions';
+import {sendEmailByUserId} from '../../utils/email.js';
 const db = firebaseDAO.instance.db;
 
 export async function createTeamRequest(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
@@ -22,17 +22,11 @@ export async function createTeamRequest(event: FirestoreEvent<QueryDocumentSnaps
     'userProfileRef': userProfileRef.ref,
   });
 
-  // SEND REQUEST CONFIRMATION E-MAIL TO USER
-  await db.collection('mail').add({
-    to: userProfileRef.data()?.email,
-    template: {
-      name: 'TeamRequestEmail',
-      data: {
-        teamName: teamRef.data().liga + ' ' + teamRef.data().name,
-        firstName: userProfileRef.data()?.firstName,
-        lastName: userProfileRef.data()?.lastName,
-      },
-    },
+  // E-Mail an den Antragsteller
+  await sendEmailByUserId(userProfileRef.id, 'TeamRequestCreated', {
+    teamName: teamRef.data().liga + ' ' + teamRef.data().name,
+    firstName: userProfileRef.data()?.firstName,
+    lastName: userProfileRef.data()?.lastName,
   });
 
   // SEND REQUEST E-MAIL TO CLUB ADMIN

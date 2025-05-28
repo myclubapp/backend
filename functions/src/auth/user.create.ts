@@ -5,7 +5,8 @@ import firebaseDAO from '../firebaseSingleton.js';
 // import {AuthBlockingEvent} from 'firebase-functions/v2/identity';
 import {logger} from 'firebase-functions';
 import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/firestore';
-// import {UserRecord} from 'firebase-functions/v1/auth';
+import {UserRecord} from 'firebase-functions/v1/auth';
+import {sendEmailByUserId} from '../utils/email.js';
 
 const db = firebaseDAO.instance.db;
 const auth = firebaseDAO.instance.auth;
@@ -100,3 +101,13 @@ export async function authUserCreateSendVerifyMail(user: admin.auth.UserRecord, 
   }
 }
 */
+
+export async function onUserCreated(user: UserRecord) {
+  if (user.email) {
+    return sendEmailByUserId(user.uid, 'Welcome', {
+      firstName: user.displayName?.split(' ')[0] || '',
+      lastName: user.displayName?.split(' ')[1] || '',
+    });
+  }
+  return null;
+}

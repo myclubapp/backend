@@ -1,9 +1,9 @@
-
 /* eslint-disable max-len */
 import firebaseDAO from '../../firebaseSingleton.js';
 import {sendPushNotificationByUserProfileId} from '../../utils/push.js';
 import {Change, FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
 import {logger} from 'firebase-functions';
+import {sendEmailByUserId} from '../../utils/email.js';
 const db = firebaseDAO.instance.db;
 export async function addMemberToHelferEvent(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
   logger.info('Add Member to Helferevent');
@@ -133,4 +133,16 @@ export async function changeStatusMemberHelferEvent(event: FirestoreEvent<Change
     }
   }
   return true;
+}
+
+export async function onAddMemberToHelferEvent(event: FirestoreEvent<QueryDocumentSnapshot>) {
+  const eventData = event.data.data();
+  const userId = event.data.id;
+
+  await sendEmailByUserId(userId, 'HelferEventInvitation', {
+    eventName: eventData.name,
+    eventDate: eventData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}),
+    eventTime: eventData.startDate.toDate().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'}),
+    eventLocation: eventData.location,
+  });
 }

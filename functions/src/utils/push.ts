@@ -40,6 +40,15 @@ export async function sendPushNotificationByUserProfileId(userProfileId: string,
 
     const userProfilePushRef = await db.collection('userProfile').doc(userProfileId).collection('push').get();
 
+    // Get Parents
+    const parentsRef = await db.collection('userProfile').doc(userProfileId).collection('parents').get();
+    for (const parent of parentsRef.docs) {
+      const parentProfileRef = await db.collection('userProfile').doc(parent.id).get();
+      if (parentProfileRef.exists && parentProfileRef.data().settingsPush) {
+        await sendPushNotificationByUserProfileId(parent.id, title, message, data);
+        // rekursiv, aber kein Problem, da eltern keine weiteren eltern haben können
+      }
+    }
     // SAVE Notification to user profile
     await db.collection('userProfile').doc(userProfileId).collection('notification').add({
       title: title,

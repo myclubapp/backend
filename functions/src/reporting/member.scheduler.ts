@@ -4,6 +4,8 @@ import {ScheduledEvent} from 'firebase-functions/v2/scheduler';
 import {logger} from 'firebase-functions';
 // import * as firebase from "firebase-admin";
 import firebaseDAO from './../firebaseSingleton.js';
+import {sendEmailByUserId} from '../utils/email.js';
+import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
 
 const db = firebaseDAO.instance.db;
 
@@ -91,4 +93,16 @@ function getTrainings() {
 
 function getEvents() {
   logger.info('events');
+}
+
+export async function onMemberReport(event: FirestoreEvent<QueryDocumentSnapshot>) {
+  const reportData = event.data.data();
+  const userId = event.data.id;
+
+  await sendEmailByUserId(userId, 'MemberReport', {
+    firstName: reportData.firstName,
+    lastName: reportData.lastName,
+    reportDate: new Date().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}),
+    reportData: reportData.data,
+  });
 }

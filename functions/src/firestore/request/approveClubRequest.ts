@@ -1,8 +1,8 @@
-
 /* eslint-disable max-len */
 import {logger} from 'firebase-functions';
 import firebaseDAO from '../../firebaseSingleton.js';
 import {FirestoreEvent, QueryDocumentSnapshot, Change} from 'firebase-functions/v2/firestore';
+import {sendEmailByUserId} from '../../utils/email.js';
 
 const db = firebaseDAO.instance.db;
 
@@ -60,17 +60,13 @@ export async function approveClubRequest(event: FirestoreEvent<Change<QueryDocum
     await db.collection('club').doc(clubId).collection('requests').doc(requestId).delete();
 
     // send out mail to user
-    return db.collection('mail').add({
-      to: userProfileRef.data().email,
-      template: {
-        name: 'ClubRequestApproved',
-        data: {
-          clubName: clubRef.data().name,
-          firstName: userProfileRef.data()?.firstName,
-          lastName: userProfileRef.data()?.lastName,
-        },
-      },
+    await sendEmailByUserId(userProfileRef.id, 'ClubRequestApproved', {
+      clubName: clubRef.data().name,
+      firstName: userProfileRef.data()?.firstName,
+      lastName: userProfileRef.data()?.lastName,
     });
+
+    return true;
   } else if (event.data?.after.data().approve === false) {
     logger.info(`CLUB request NOT APPROVED ${requestRef.id}`);
 
@@ -79,17 +75,13 @@ export async function approveClubRequest(event: FirestoreEvent<Change<QueryDocum
     await db.collection('club').doc(clubId).collection('requests').doc(requestId).delete();
 
     // send out mail to user
-    return db.collection('mail').add({
-      to: userProfileRef.data().email,
-      template: {
-        name: 'ClubRequestRejected',
-        data: {
-          clubName: clubRef.data().name,
-          firstName: userProfileRef.data()?.firstName,
-          lastName: userProfileRef.data()?.lastName,
-        },
-      },
+    await sendEmailByUserId(userProfileRef.id, 'ClubRequestRejected', {
+      clubName: clubRef.data().name,
+      firstName: userProfileRef.data()?.firstName,
+      lastName: userProfileRef.data()?.lastName,
     });
+
+    return true;
   }
   return true;
 }

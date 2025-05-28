@@ -3,6 +3,7 @@
 
 import firebaseDAO from '../../firebaseSingleton.js';
 import {sendPushNotificationByUserProfileId} from '../../utils/push.js';
+import {sendEmailByUserId} from '../../utils/email.js';
 import {FirestoreEvent, Change, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
 import {logger} from 'firebase-functions';
 import {Timestamp} from 'firebase-admin/firestore';
@@ -66,21 +67,15 @@ async function handleTrainingCancellation(teamId: string, trainingId: string, tr
             });
       }
       if (userProfileRef.exists && userProfileRef.data().settingsEmail) {
-        await db.collection('mail').add({
-          to: userProfileRef.data().email,
-          template: {
-            name: 'TeamTrainingCancelled',
-            data: {
-              teamName: teamRef.data().name,
-              firstName: userProfileRef.data()?.firstName,
-              lastName: userProfileRef.data()?.lastName,
-              trainingName: trainingData.name,
-              trainerName: trainingData.trainerName,
-              trainingDatum: trainingData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}),
-              trainingZeit: trainingData.startDate.toDate().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'}),
-              absageGrund: trainingData.cancelledReason,
-            },
-          },
+        await sendEmailByUserId(member.id, 'TeamTrainingCancelled', {
+          teamName: teamRef.data().name,
+          firstName: userProfileRef.data()?.firstName,
+          lastName: userProfileRef.data()?.lastName,
+          trainingName: trainingData.name,
+          trainerName: trainingData.trainerName,
+          trainingDatum: trainingData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}),
+          trainingZeit: trainingData.startDate.toDate().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'}),
+          absageGrund: trainingData.cancelledReason,
         });
       }
     }
@@ -92,9 +87,9 @@ async function handleTrainingReminder(teamId: string, trainingId: string, traini
   const membersRef = await db.collection('teams').doc(teamId).collection('members').get();
   const teamRef = await db.collection('teams').doc(teamId).get();
 
-  const trainingDatum = new Date(trainingData?.startDate); // format 2025-01-11T10:00:00.000Z
+  const trainingDatum = new Date(trainingData?.startDate);
   const teamData = teamRef.data();
-  const trainingThreshold = teamData?.trainingThreshold ?? 0; // Standardwert 0, wenn nicht vorhanden
+  const trainingThreshold = teamData?.trainingThreshold ?? 0;
   const trainingDatumPlusThreshold = new Date(trainingDatum.getTime() - trainingThreshold * 60 * 60 * 1000);
   const trainingDatumPlusThresholdString = trainingThreshold > 0 ?
     trainingDatumPlusThreshold.toLocaleString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}) :
@@ -105,9 +100,7 @@ async function handleTrainingReminder(teamId: string, trainingId: string, traini
       attendee.id === member.id && attendee.data().status === false,
     );
     if (!hasResponded) {
-      // Get user profile
       const userProfileRef = await db.collection('userProfile').doc(member.id).get();
-      // Send push notification
       if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushTraining) {
         await sendPushNotificationByUserProfileId(member.id,
             'Erinnerung: Training ' + trainingData.name + ' am ' + trainingData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}) + ' um ' + trainingData.startDate.toDate().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'}),
@@ -118,24 +111,17 @@ async function handleTrainingReminder(teamId: string, trainingId: string, traini
               'id': trainingId,
             });
       }
-      // Send email
       if (userProfileRef.exists && userProfileRef.data().settingsEmail) {
-        await db.collection('mail').add({
-          to: userProfileRef.data().email,
-          template: {
-            name: 'TeamTrainingReminder',
-            data: {
-              teamName: teamRef.data().name,
-              trainingName: trainingData.name,
-              firstName: userProfileRef.data()?.firstName,
-              lastName: userProfileRef.data()?.lastName,
-              trainerName: trainingData.trainerName,
-              trainingOrt: trainingData.location,
-              trainingDatum: trainingData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}),
-              trainingZeit: trainingData.startDate.toDate().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'}),
-              abmeldefrist: trainingDatumPlusThresholdString ? trainingDatumPlusThresholdString : 'nicht festgelegt',
-            },
-          },
+        await sendEmailByUserId(member.id, 'TeamTrainingReminder', {
+          teamName: teamRef.data().name,
+          trainingName: trainingData.name,
+          firstName: userProfileRef.data()?.firstName,
+          lastName: userProfileRef.data()?.lastName,
+          trainerName: trainingData.trainerName,
+          trainingOrt: trainingData.location,
+          trainingDatum: trainingData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}),
+          trainingZeit: trainingData.startDate.toDate().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'}),
+          abmeldefrist: trainingDatumPlusThresholdString ? trainingDatumPlusThresholdString : 'nicht festgelegt',
         });
       }
     }

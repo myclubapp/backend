@@ -1,8 +1,8 @@
-
 /* eslint-disable max-len */
 import firebaseDAO from '../../firebaseSingleton.js';
 import {FirestoreEvent, Change, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
 import {logger} from 'firebase-functions';
+import {sendEmailByUserId} from '../../utils/email.js';
 const db = firebaseDAO.instance.db;
 
 export async function approveTeamRequest(event: FirestoreEvent<Change<QueryDocumentSnapshot> | undefined>) {
@@ -41,16 +41,10 @@ export async function approveTeamRequest(event: FirestoreEvent<Change<QueryDocum
     await db.collection('userProfile').doc(userProfileRef.id).collection('teamRequests').doc(teamId).delete();
 
     // send out mail to user
-    return db.collection('mail').add({
-      to: userProfileRef.data().email,
-      template: {
-        name: 'TeamRequestApproved',
-        data: {
-          teamName: teamRef.data().name,
-          firstName: userProfileRef.data()?.firstName,
-          lastName: userProfileRef.data()?.lastName,
-        },
-      },
+    await sendEmailByUserId(userProfileRef.id, 'TeamRequestApproved', {
+      teamName: teamRef.data().name,
+      firstName: userProfileRef.data()?.firstName,
+      lastName: userProfileRef.data()?.lastName,
     });
   } else if ('approve' in afterData && afterData.approve === false) {
     logger.info(`TEAM request NOT APPROVED ${requestRef.id}`);
@@ -58,16 +52,10 @@ export async function approveTeamRequest(event: FirestoreEvent<Change<QueryDocum
     await db.collection('teams').doc(teamId).collection('requests').doc(userProfileRef.id).delete();
     await db.collection('userProfile').doc(userProfileRef.id).collection('teamRequests').doc(teamId).delete();
     // send out mail to user
-    return db.collection('mail').add({
-      to: userProfileRef.data().email,
-      template: {
-        name: 'TeamRequestRejected',
-        data: {
-          teamName: teamRef.data().name,
-          firstName: userProfileRef.data()?.firstName,
-          lastName: userProfileRef.data()?.lastName,
-        },
-      },
+    await sendEmailByUserId(userProfileRef.id, 'TeamRequestRejected', {
+      teamName: teamRef.data().name,
+      firstName: userProfileRef.data()?.firstName,
+      lastName: userProfileRef.data()?.lastName,
     });
   }
 
