@@ -94,6 +94,12 @@ async function handleTrainingReminder(teamId: string, trainingId: string, traini
   const teamRef = await db.collection('teams').doc(teamId).get();
   const trainingRef = await db.collection('teams').doc(teamId).collection('trainings').doc(trainingId).get();
 
+  const trainingDatum = new Date(trainingRef.data()?.startDate); // format 2025-01-11T10:00:00.000Z
+  const teamData = teamRef.data();
+  const trainingThreshold = teamData?.trainingThreshold; // in Stunden
+  const trainingDatumPlusThreshold = new Date(trainingDatum.getTime() - trainingThreshold * 60 * 60 * 1000);
+  const trainingDatumPlusThresholdString = trainingDatumPlusThreshold.toLocaleString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'});
+
   for (const member of membersRef.docs) {
     const hasResponded = attendeesRef.docs.some((attendee: QueryDocumentSnapshot) =>
       attendee.id === member.id && attendee.data().status === false,
@@ -127,7 +133,7 @@ async function handleTrainingReminder(teamId: string, trainingId: string, traini
               trainingOrt: trainingData.location,
               trainingDatum: trainingData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}),
               trainingZeit: trainingData.startDate.toDate().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'}),
-              abmeldefrist: trainingData.registrationDeadline ? trainingData.registrationDeadline.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}) : 'nicht festgelegt',
+              abmeldefrist: trainingDatumPlusThresholdString ? trainingDatumPlusThresholdString : 'nicht festgelegt',
             },
           },
         });
