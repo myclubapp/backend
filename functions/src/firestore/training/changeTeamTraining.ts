@@ -87,7 +87,7 @@ async function handleTrainingReminder(teamId: string, trainingId: string, traini
   const membersRef = await db.collection('teams').doc(teamId).collection('members').get();
   const teamRef = await db.collection('teams').doc(teamId).get();
 
-  const trainingDatum = new Date(trainingData?.startDate);
+  const trainingDatum = trainingData?.startDate.toDate();
   const teamData = teamRef.data();
   const trainingThreshold = teamData?.trainingThreshold ?? 0;
   const trainingDatumPlusThreshold = new Date(trainingDatum.getTime() - trainingThreshold * 60 * 60 * 1000);
