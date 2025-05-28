@@ -17,7 +17,7 @@ export const removeChildFromParent = async (event: FirestoreEvent<QueryDocumentS
   const updatedKidsList = kidsList.filter((kidId: string) => kidId !== childId);
   customClaims.kids = updatedKidsList;
 
-  const childListRef = await db.collection('userProfile').doc(parentId).collection('children').doc(childId).get();
+  const childListRef = await db.collection('userProfile').doc(parentId).collection('children').get();
   if (childListRef.docs.length === 0) {
     // clean up claims
     customClaims.kids = [];
