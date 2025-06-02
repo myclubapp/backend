@@ -6,6 +6,8 @@ import {logger} from 'firebase-functions';
 import {sendEmailByUserId} from '../../utils/email.js';
 const db = firebaseDAO.instance.db;
 
+type Language = 'de' | 'en' | 'fr' | 'it';
+
 export async function createTeamRequest(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
   logger.info('createTeamRequest');
   const {userId, teamId} = event.params;
@@ -35,11 +37,27 @@ export async function createTeamRequest(event: FirestoreEvent<QueryDocumentSnaps
   const clubAdminRef = await db.collection('club').doc(teamRef.data().clubRef.id).collection('admins').get();
   for (const admin of clubAdminRef.docs) {
     logger.info(`Read Admin user for Club with id ${admin.id}`);
+    const adminProfileRef = await db.collection('userProfile').doc(admin.id).get();
+    const language = (adminProfileRef.data()?.language || 'de') as Language;
+
+    const pushTitle: Record<Language, string> = {
+      'de': 'Neue Beitrittsanfrage für dein Team: ' + teamRef.data().name,
+      'en': 'New join request for your team: ' + teamRef.data().name,
+      'fr': 'Nouvelle demande d\'adhésion pour votre équipe: ' + teamRef.data().name,
+      'it': 'Nuova richiesta di adesione per la tua squadra: ' + teamRef.data().name,
+    };
+
+    const pushMessage: Record<Language, string> = {
+      'de': `${userProfileRef.data()?.firstName} ${userProfileRef.data()?.lastName} (${userProfileRef.data()?.email}) möchte deinem Team beitreten.`,
+      'en': `${userProfileRef.data()?.firstName} ${userProfileRef.data()?.lastName} (${userProfileRef.data()?.email}) wants to join your team.`,
+      'fr': `${userProfileRef.data()?.firstName} ${userProfileRef.data()?.lastName} (${userProfileRef.data()?.email}) souhaite rejoindre votre équipe.`,
+      'it': `${userProfileRef.data()?.firstName} ${userProfileRef.data()?.lastName} (${userProfileRef.data()?.email}) vuole unirsi alla tua squadra.`,
+    };
 
     await sendPushNotificationByUserProfileId(
         admin.id,
-        'Neue Beitrittsanfrage für dein Team: ' + teamRef.data().name,
-        `${userProfileRef.data()?.firstName} ${userProfileRef.data()?.lastName} (${userProfileRef.data()?.email}) möchte deinem Team beitreten.`,
+        pushTitle[language] || pushTitle['de'],
+        pushMessage[language] || pushMessage['de'],
         {
         },
     );
@@ -55,10 +73,26 @@ export async function createTeamRequest(event: FirestoreEvent<QueryDocumentSnaps
         receipient.push(userProfileAdminRef.data().email);
       }
       if (userProfileAdminRef.data().settingsPush === true) {
+        const language = (userProfileAdminRef.data()?.language || 'de') as Language;
+
+        const pushTitle: Record<Language, string> = {
+          'de': 'Neue Beitrittsanfrage für dein Team: ' + teamRef.data().name,
+          'en': 'New join request for your team: ' + teamRef.data().name,
+          'fr': 'Nouvelle demande d\'adhésion pour votre équipe: ' + teamRef.data().name,
+          'it': 'Nuova richiesta di adesione per la tua squadra: ' + teamRef.data().name,
+        };
+
+        const pushMessage: Record<Language, string> = {
+          'de': `${userProfileRef.data()?.firstName} ${userProfileRef.data()?.lastName} (${userProfileRef.data()?.email}) möchte deinem Team beitreten.`,
+          'en': `${userProfileRef.data()?.firstName} ${userProfileRef.data()?.lastName} (${userProfileRef.data()?.email}) wants to join your team.`,
+          'fr': `${userProfileRef.data()?.firstName} ${userProfileRef.data()?.lastName} (${userProfileRef.data()?.email}) souhaite rejoindre votre équipe.`,
+          'it': `${userProfileRef.data()?.firstName} ${userProfileRef.data()?.lastName} (${userProfileRef.data()?.email}) vuole unirsi alla tua squadra.`,
+        };
+
         await sendPushNotificationByUserProfileId(
             admin.id,
-            'Neue Beitrittsanfrage für dein Team: ' + teamRef.data().name,
-            `${userProfileRef.data()?.firstName} ${userProfileRef.data()?.lastName} (${userProfileRef.data()?.email}) möchte deinem Team beitreten.`,
+            pushTitle[language] || pushTitle['de'],
+            pushMessage[language] || pushMessage['de'],
             {
             },
         );

@@ -28,8 +28,21 @@ export async function sendEmailByUserId(
           .get();
       if (parentProfileRef.exists && parentProfileRef.data().settingsEmail) {
         emailAddresses.push(parentProfileRef.data().email);
+      } else {
+        // eslint-disable-next-line max-len
+        console.log('parentProfileRef.exists', parentProfileRef.exists, 'settingsEmail', parentProfileRef.data().settingsEmail, 'email', parentProfileRef.data().email, 'parent', parent.id);
       }
     }
+  }
+
+  if (userProfileRef.language === 'de') {
+    templateName = templateName + '';
+  } else if (userProfileRef.language === 'fr') {
+    templateName = templateName + 'Fr';
+  } else if (userProfileRef.language === 'it') {
+    templateName = templateName + 'It';
+  } else {
+    templateName = templateName + 'En';
   }
 
   await db.collection('mail').add({
