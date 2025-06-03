@@ -224,7 +224,7 @@ async function updateClubsInBatches(clubData: any) {
 
     const clubRef = await db.collection('club').doc(`sh-${club.id}`).get();
     // Create a reference for the club's contacts document
-    const contactRef = db.collection('club').doc(`sh-${club.id}`).collection('contacts').doc(`st-${club.id}`);
+    const contactRef = db.collection('club').doc(`sh-${club.id}`).collection('contacts').doc(`sh-${club.id}`);
     batch.set(contactRef, {
       ...club.contact_person,
       clubRef: clubRef.ref,

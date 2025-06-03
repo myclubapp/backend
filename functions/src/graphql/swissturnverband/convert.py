@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup # type: ignore
 import base64
 
 # Load the HTML content
-file_path = './20241109_stv-vereine.html'
+file_path = './20250603_stv-vereine.html'
 with open(file_path, 'r', encoding='utf-8') as file:
     html_content = file.read()
 
@@ -69,7 +69,7 @@ for element in soup.select('.tx-stv-clubfinder-result'):
 json_output = json.dumps(clubs, indent=2, ensure_ascii=False)
 
 # Save to a JSON file
-output_file_path = './clubs_data_final.json'
+output_file_path = './clubs_data_final2.json'
 with open(output_file_path, 'w', encoding='utf-8') as json_file:
     json_file.write(json_output)
 

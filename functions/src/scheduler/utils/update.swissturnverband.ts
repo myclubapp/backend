@@ -51,6 +51,14 @@ export async function updateTeamsSwissturnverband(): Promise<any> {
 export async function updateClubsSwissturnverband(): Promise<any> {
   logger.info('Update Clubs SwissTurnverband');
 
+  await db.collection('club').where('type', '==', 'swissturnverband').get().then((docs: any) => {
+    docs.forEach(async (doc: any) => {
+      await db.collection('club')
+          .doc(doc.id)
+          .delete();
+    });
+  });
+
   const clubData = await resolversST.SwissTurnverband.clubs();
   updateClubsInBatches(clubData)
       .then(() => {
