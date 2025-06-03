@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import firebaseDAO from './../../firebaseSingleton.js';
 import {logger} from 'firebase-functions';
+import {FieldValue} from 'firebase-admin/firestore';
 const db = firebaseDAO.instance.db;
 // const auth = firebaseDAO.instance.auth;
 
@@ -106,7 +107,7 @@ async function updateClubsInBatches(clubData: any) {
     const clubRef = db.collection('club').doc(`st-${club.id}`);
 
     batch.set(clubRef, {
-      Teams: db.FieldValue.delete(), // Replace 'capital' with the field you want to delete
+      Teams: FieldValue.delete(), // Korrigierte Verwendung von FieldValue
     }, {merge: true});
 
     batchSize++;
