@@ -107,21 +107,27 @@ export async function updateTeamsSwisshandball(): Promise<any> {
     const teamData = await resolversSH.Club.teams({id: `${club.id}`}, {}, {}, {});
     for (const team of teamData) {
       logger.info(club.name + ' / ' + team.name);
+      const teamRef = await db.collection('teams').doc(`sh-${team.id}`).get();
+      const clubRef = await db.collection('club').doc(`sh-${club.id}`).get();
       await db.collection('teams').doc(`sh-${team.id}`).set({
         ...team,
         externalId: `${team.id}`,
         name: team.name,
-        type: 'swisshandball',
         logo: team.logo,
         liga: team.liga,
+        jahresbeitragWert: teamRef.data().jahresbeitragWert || 0.0,
+        jahresbeitragWaehrung: teamRef.data().jahresbeitragWaehrung || 'CHF',
+        trainingThreshold: teamRef.data().trainingThreshold || 24,
+        championshipThreshold: teamRef.data().championshipThreshold || 48,
+        clubRef: clubRef.ref,
+        clubId: clubRef.id,
+        type: 'swisshandball',
         updated: new Date(),
-        clubId: `sh-${club.id}`,
-        clubRef: db.collection('club').doc(`sh-${club.id}`),
       }, {
         merge: true,
       });
       await db.collection('club').doc(`sh-${club.id}`).collection('teams').doc(`sh-${team.id}`).set({
-        teamRef: db.collection('teams').doc(`sh-${team.id}`),
+        teamRef: teamRef.ref,
       });
     }
   }

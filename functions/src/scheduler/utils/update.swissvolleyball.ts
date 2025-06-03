@@ -125,6 +125,8 @@ export async function updateTeamsSwissvolleyball(): Promise<any> {
     const teamData = await resolversSV.Club.teams({id: `${club.id}`});
     for (const team of teamData) {
       logger.info(club.name + ' / ' + team.name);
+      const clubRef = await db.collection('club').doc(`sv-${club.id}`).get();
+      const teamRef = await db.collection('teams').doc(`sv-${team.id}`).get();
       await db.collection('teams').doc(`sv-${team.id}`).set({
         externalId: `${team.id}`,
         name: team.name,
@@ -135,14 +137,18 @@ export async function updateTeamsSwissvolleyball(): Promise<any> {
         portrait: team.teamPicture,
         associationId: clubData.data().associationId,
         type: 'swissvolley',
+        jahresbeitragWert: teamRef.data().jahresbeitragWert || 0.0,
+        jahresbeitragWaehrung: teamRef.data().jahresbeitragWaehrung || 'CHF',
+        trainingThreshold: teamRef.data().trainingThreshold || 24,
+        championshipThreshold: teamRef.data().championshipThreshold || 48,
+        clubRef: clubRef.ref,
+        clubId: clubRef.id,
         updated: new Date(),
-        clubRef: clubData.ref,
-        clubId: clubData.id,
       }, {
         merge: true,
       });
       await db.collection('club').doc(`sv-${club.id}`).collection('teams').doc(`sv-${team.id}`).set({
-        teamRef: db.collection('teams').doc(`sv-${team.id}`),
+        teamRef: teamRef.ref,
       });
     }
     /* } else {

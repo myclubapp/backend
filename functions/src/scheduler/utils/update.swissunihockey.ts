@@ -284,11 +284,15 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
         info: team.info,
         website: team.website,
         portrait: team.portrait,
+        jahresbeitragWert: teamRef.data().jahresbeitragWert || 0.0,
+        jahresbeitragWaehrung: teamRef.data().jahresbeitragWaehrung || 'CHF',
+        trainingThreshold: teamRef.data().trainingThreshold || 24,
+        championshipThreshold: teamRef.data().championshipThreshold || 48,
         // associationId: clubData.data().associationId, gibt es für unihockey nicht
-        type: 'swissunihockey',
-        updated: new Date(),
         clubRef: clubRef.ref,
         clubId: clubRef.id,
+        type: 'swissunihockey',
+        updated: new Date(),
       }, {
         merge: true,
       });

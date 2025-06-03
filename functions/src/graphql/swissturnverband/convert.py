@@ -40,14 +40,30 @@ for element in soup.select('.tx-stv-clubfinder-result'):
         team_name = accordion.select_one('.accordion-title').text.strip() if accordion.select_one('.accordion-title') else ''
         team_info = accordion.select_one('.accordion-body-inner').text.strip() if accordion.select_one('.accordion-body-inner') else ''
         team_jahresbeitrag = ''
-        if 'Jahresbeitrag' in team_info:
-            team_jahresbeitrag = team_info.split('Jahresbeitrag:')[1].strip().split()[0]
+        team_jahresbeitrag_wert = None
+        team_jahresbeitrag_waehrung = ''
+        if 'Jahresbeitrag:' in team_info:
+            jahresbeitrag_parts = team_info.split('Jahresbeitrag:')[1].strip().split('\n')
+            for part in jahresbeitrag_parts:
+                if 'CHF' in part:
+                    team_jahresbeitrag = part.strip()
+                    # Extrahiere den Wert und die Währung
+                    parts = part.strip().split()
+                    if len(parts) >= 2:
+                        team_jahresbeitrag_waehrung = parts[0]
+                        try:
+                            team_jahresbeitrag_wert = float(parts[1])
+                        except ValueError:
+                            team_jahresbeitrag_wert = None
+                    break
 
         teams.append({
             'id': team_id,
             'name': team_name,
             'info': team_info,
-            'jahresbeitrag': team_jahresbeitrag
+            'jahresbeitrag': team_jahresbeitrag,
+            'jahresbeitragWert': team_jahresbeitrag_wert,
+            'jahresbeitragWaehrung': team_jahresbeitrag_waehrung
         })
 
     latitude = accordion.select_one('.tx-stv-clubfinder-training')['data-latitude'] if accordion.select_one('.tx-stv-clubfinder-training') else ''
@@ -69,7 +85,7 @@ for element in soup.select('.tx-stv-clubfinder-result'):
 json_output = json.dumps(clubs, indent=2, ensure_ascii=False)
 
 # Save to a JSON file
-output_file_path = './clubs_data_final2.json'
+output_file_path = './clubs_data_final.json'
 with open(output_file_path, 'w', encoding='utf-8') as json_file:
     json_file.write(json_output)
 
