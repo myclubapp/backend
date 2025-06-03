@@ -37,13 +37,20 @@ for element in soup.select('.tx-stv-clubfinder-result'):
     teams = []
     for accordion in club_accordion:
         team_id = accordion.select_one('.tx-stv-clubfinder-training')['data-clubuid'] if accordion.select_one('.tx-stv-clubfinder-training') else ''
-        team_name = accordion.select_one('.accordion-title').text.strip() if accordion.select_one('.accordion-title') else ''
+        # Bereinige den Team-Namen
+        raw_team_name = accordion.select_one('.accordion-title').text if accordion.select_one('.accordion-title') else ''
+        team_name = ' '.join(raw_team_name.split())  # Entfernt Tabs und Zeilenumbrüche und normalisiert Leerzeichen
+        
         team_info = accordion.select_one('.accordion-body-inner').text.strip() if accordion.select_one('.accordion-body-inner') else ''
+        # Extrahiere nur die Tage aus dem Info-Feld
+        if 'Jahresbeitrag:' in team_info:
+            team_info = team_info.split('Jahresbeitrag:')[0].strip()
+        
         team_jahresbeitrag = ''
         team_jahresbeitrag_wert = None
         team_jahresbeitrag_waehrung = ''
-        if 'Jahresbeitrag:' in team_info:
-            jahresbeitrag_parts = team_info.split('Jahresbeitrag:')[1].strip().split('\n')
+        if 'Jahresbeitrag:' in accordion.select_one('.accordion-body-inner').text:
+            jahresbeitrag_parts = accordion.select_one('.accordion-body-inner').text.split('Jahresbeitrag:')[1].strip().split('\n')
             for part in jahresbeitrag_parts:
                 if 'CHF' in part:
                     team_jahresbeitrag = part.strip()

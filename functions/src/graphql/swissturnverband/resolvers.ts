@@ -87,9 +87,12 @@ async function getTeams(clubId: string) {
     for (const team of club.Teams) {
       const cleanData:any = {
         id: team.id + '-' + `${index}`,
-        name: team.name.replace(/\s+/g, ' ').trim(),
-        info: team.info.replace(/\s+/g, ' ').trim(),
+        name: team.name,
+        info: team.info,
         jahresbeitrag: team.jahresbeitrag,
+        jahresbeitragWert: team.jahresbeitragWert,
+        jahresbeitragWaehrung: team.jahresbeitragWaehrung,
+
       };
 
       teamList.push({
