@@ -26,9 +26,14 @@ export async function updateClubsSwisstennis(): Promise<any> {
     }, {
       merge: true,
     });
+    const clubRef = await db.collection('club').doc(`se-${club.id}`).get();
 
     for (const address of club.address) {
-      await db.collection('club').doc(`se-${club.id}`).collection('contacts').doc(`se-${address.id}`).set(address, {
+      await db.collection('club').doc(`se-${club.id}`).collection('contacts').doc(`se-${address.id}`).set({
+        ...address,
+        clubRef: clubRef.ref,
+        clubId: clubRef.id,
+      }, {
         merge: true,
       });
     }

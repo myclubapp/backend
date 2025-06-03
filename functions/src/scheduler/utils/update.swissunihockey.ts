@@ -329,22 +329,28 @@ export async function updateClubsSwissunihockey(): Promise<any> {
     }, {
       merge: true,
     });
+    const clubRef = await db.collection('club').doc(`su-${club.id}`).get();
     // address
     for (const address of club.address) {
       address.externalId = address.id;
       address.type = 'swissunihockey';
       address.updated = new Date();
-      await db.collection('club').doc(`su-${club.id}`).collection('contacts').doc(`su-${address.id}`).set(address, {
+      await db.collection('club').doc(`su-${club.id}`).collection('contacts').doc(`su-${address.id}`).set({
+        ...address,
+        clubRef: clubRef.ref,
+        clubId: clubRef.id,
+      }, {
         merge: true,
       });
     }
   }
 
-  // JSON Upload
+  // JSON Upload MIGRATION
   // logger.info(myJson);
   const data: Array<any> = JSON.parse(myJson);
 
   for (const clubData of data) {
+    const clubRef = await db.collection('club').doc(`su-${clubData.id}`).get();
     // logger.info("clubdata > " + clubData);
     const address = {
       externalId: clubData.admin,
@@ -355,7 +361,11 @@ export async function updateClubsSwissunihockey(): Promise<any> {
       email: clubData.email,
     };
 
-    await db.collection('club').doc(`su-${clubData.id}`).collection('contacts').doc(`su-${clubData.admin}`).set(address, {
+    await db.collection('club').doc(`su-${clubData.id}`).collection('contacts').doc(`su-${clubData.admin}`).set({
+      ...address,
+      clubRef: clubRef.ref,
+      clubId: clubRef.id,
+    }, {
       merge: true,
     });
   }
