@@ -56,13 +56,33 @@ export async function updateTeamsSwissturnverband(): Promise<any> {
 export async function updateClubsSwissturnverband(): Promise<any> {
   logger.info('Update Clubs SwissTurnverband');
 
-  await db.collection('club').where('type', '==', 'swissturnverband').get().then((docs: any) => {
-    docs.forEach(async (doc: any) => {
-      await db.collection('club')
-          .doc(doc.id)
-          .delete();
-    });
-  });
+  const clubDocs = await db.collection('club').where('type', '==', 'swissturnverband').get();
+  const batches = [];
+  let batch = db.batch();
+  let batchSize = 0;
+
+  for (const doc of clubDocs.docs) {
+    batch.delete(db.collection('club').doc(doc.id));
+    batchSize++;
+
+    if (batchSize >= MAX_WRITES_PER_BATCH) {
+      batches.push(batch.commit());
+      batch = db.batch();
+      batchSize = 0;
+    }
+  }
+
+  if (batchSize > 0) {
+    batches.push(batch.commit());
+  }
+
+  try {
+    await Promise.all(batches);
+    logger.info('All existing SwissTurnverband clubs deleted successfully');
+  } catch (error: any) {
+    logger.error('Error deleting SwissTurnverband clubs in batches:', error);
+    throw error;
+  }
 
   const clubData = await resolversST.SwissTurnverband.clubs();
   updateClubsInBatches(clubData)
@@ -72,31 +92,6 @@ export async function updateClubsSwissturnverband(): Promise<any> {
       .catch((error) => {
         logger.error('Error updating turnverein clubs in batches:', error);
       });
-
-/*
-  for (const club of clubData) {
-    logger.info(club.name);
-    await db.collection("club").doc(`st-${club.id}`).set({
-      ...club,
-      externalId: `${club.id}`,
-      name: club.name,
-      type: "swissturnverband",
-      updated: new Date(),
-    }, {
-      merge: true,
-    });
-
-    await db.collection("club").doc(`st-${club.id}`).collection("contacts").doc(`st-${club.id}`).set({
-      name: club.contactName,
-      phone: club.contactPhone,
-      email: club.contactEmail,
-      type: "swissturnverband",
-      updated: new Date(),
-    }, {
-      merge: true,
-    });
-  }
-  */
 }
 
 // Function to batch update documents

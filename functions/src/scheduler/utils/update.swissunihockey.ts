@@ -26,7 +26,7 @@ export async function updateGamesSwissunihockey(): Promise<any> {
   logger.info('Update Games SwissUnihockey');
 
   // Get Clubs from DB where Type = SWISS UNIHOCKEY && STATUS is active
-  const clubListRef = await db.collection('club').where('active', '==', true).where('type', '==', 'swissunihockey').get();
+  const clubListRef = await db.collection('club').where('active', '==', true).where('type', '==', 'swissunihockey').where('hasFeatureChampionship', '==', true).get();
   for (const clubData of clubListRef.docs) {
     // create Club Object from DB.
     const club = {...{id: clubData.data().externalId}, ...clubData.data()};

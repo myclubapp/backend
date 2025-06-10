@@ -15,7 +15,7 @@ export async function updateGamesSwisshandball(): Promise<any> {
   logger.info('Update Games swisshandball');
 
   // Get Clubs from DB where Type = SWISS HANDBALL && STATUS is active
-  const clubListRef = await db.collection('club').where('active', '==', true).where('type', '==', 'swisshandball').get();
+  const clubListRef = await db.collection('club').where('active', '==', true).where('type', '==', 'swisshandball').where('hasFeatureChampionship', '==', true).get();
   for (const clubData of clubListRef.docs) {
     // create Club Object from DB.
     const club = {...{id: clubData.data().externalId}, ...clubData.data()};

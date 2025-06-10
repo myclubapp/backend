@@ -214,6 +214,10 @@ service cloud.firestore {
       	match /news/{newsId=**} {
       		allow read: if isSignedIn() && isClubMember(request, clubId);
       	}
+        match /links/{linkId=**} {
+      		allow read: if isSignedIn() && isClubMember(request, clubId);
+          allow write, delete: if isSignedIn() && isClubAdmin(request, clubId);
+      	}
         //EVENTS
         match /events/{eventId} {
           allow read: if isSignedIn() && isClubMember(request, clubId);

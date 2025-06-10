@@ -11,7 +11,7 @@ export async function updateGamesSwissvolley(): Promise<any> {
   logger.info('Update Games swissvolley');
 
   // Get Clubs from DB where Type = SWISSVOLLEY && STATUS is active
-  const clubListRef = await db.collection('club').where('active', '==', true).where('type', '==', 'swissvolley').get();
+  const clubListRef = await db.collection('club').where('active', '==', true).where('type', '==', 'swissvolley').where('hasFeatureChampionship', '==', true).get();
   for (const clubData of clubListRef.docs) {
     // create Club Object from DB.
     const club = {...{id: clubData.data().externalId}, ...clubData.data()};
