@@ -56,6 +56,7 @@ export async function updateTeamsSwissturnverband(): Promise<any> {
 export async function updateClubsSwissturnverband(): Promise<any> {
   logger.info('Update Clubs SwissTurnverband');
 
+  /*
   const clubDocs = await db.collection('club').where('type', '==', 'swissturnverband').get();
   const batches = [];
   let batch = db.batch();
@@ -83,6 +84,7 @@ export async function updateClubsSwissturnverband(): Promise<any> {
     logger.error('Error deleting SwissTurnverband clubs in batches:', error);
     throw error;
   }
+*/
 
   const clubData = await resolversST.SwissTurnverband.clubs();
   updateClubsInBatches(clubData)
