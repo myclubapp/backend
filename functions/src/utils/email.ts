@@ -57,14 +57,14 @@ export async function sendEmailByUserId(
     }
   }
 
-  if (userProfileRef.language === 'de') {
+  if (userProfileRef.data().language === 'de') {
     templateName = templateName + '';
-  } else if (userProfileRef.language === 'fr') {
+  } else if (userProfileRef.data().language === 'fr') {
     templateName = templateName + 'Fr';
-  } else if (userProfileRef.language === 'it') {
+  } else if (userProfileRef.data().language === 'it') {
     templateName = templateName + 'It';
   } else {
-    templateName = templateName + 'En';
+    templateName = templateName + '';
   }
 
   await db.collection('mail').add({
