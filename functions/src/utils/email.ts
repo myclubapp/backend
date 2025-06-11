@@ -8,10 +8,29 @@ export async function sendEmailByUserId(
     templateName: string,
     templateData: any,
     includeParents = true,
+    alwaysSendTemplates: string[] = [
+      'Welcome',
+      'ClubRequestCreated',
+      'ClubRequestApproved',
+      'ClubRequestRejected',
+
+      'TeamRequestCreated',
+      'TeamRequestApproved',
+      'TeamRequestRejected',
+
+      'ClubEventReminder',
+      'ClubEventCancelled',
+
+      'TeamTrainingReminder',
+      'TeamTrainingCancelled',
+
+    ],
 ): Promise<void> {
   const userProfileRef = await db.collection('userProfile').doc(userId).get();
 
-  if (!userProfileRef.exists || !userProfileRef.data().settingsEmail) {
+  if (!userProfileRef.exists ||
+    (!alwaysSendTemplates.includes(templateName) &&
+     !userProfileRef.data().settingsEmail)) {
     return;
   }
 

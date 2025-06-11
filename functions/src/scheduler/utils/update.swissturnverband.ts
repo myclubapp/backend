@@ -56,7 +56,7 @@ export async function updateTeamsSwissturnverband(): Promise<any> {
 export async function updateClubsSwissturnverband(): Promise<any> {
   logger.info('Update Clubs SwissTurnverband');
 
-  /*
+  /* Only for cleanup with new Data from STV
   const clubDocs = await db.collection('club').where('type', '==', 'swissturnverband').get();
   const batches = [];
   let batch = db.batch();

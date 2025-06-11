@@ -79,7 +79,7 @@ export async function approveClubRequest(event: FirestoreEvent<Change<QueryDocum
       clubName: clubRef.data().name,
       firstName: userProfileRef.data()?.firstName,
       lastName: userProfileRef.data()?.lastName,
-    });
+    }, false);
 
     return true;
   }
