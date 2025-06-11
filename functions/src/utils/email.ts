@@ -12,6 +12,7 @@ export async function sendEmailByUserId(
     alwaysSendTemplates: string[] = [
       'Welcome',
       'ClubRequestCreated',
+      'ClubRequestAdminEmail',
       'ClubRequestApproved',
       'ClubRequestRejected',
 
