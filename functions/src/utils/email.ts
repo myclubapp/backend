@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import firebaseDAO from '../firebaseSingleton.js';
+import {logger} from 'firebase-functions';
 
 const db = firebaseDAO.instance.db;
 
@@ -31,6 +32,8 @@ export async function sendEmailByUserId(
   if (!userProfileRef.exists ||
     (!alwaysSendTemplates.includes(templateName) &&
      !userProfileRef.data().settingsEmail)) {
+    // eslint-disable-next-line max-len
+    logger.info(`Email not sent for ${templateName} to ${userId} because userProfileRef.exists: ${userProfileRef.exists} and settingsEmail: ${userProfileRef.data().settingsEmail} or template is in alwaysSendTemplates: ${alwaysSendTemplates.includes(templateName)}`);
     return;
   }
 
