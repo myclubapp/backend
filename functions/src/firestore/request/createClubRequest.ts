@@ -39,12 +39,16 @@ export async function createClubRequest(event: FirestoreEvent<QueryDocumentSnaps
     logger.info("User Email" + userProfileRef.data()?.email);
     logger.info("User Email" + contactDataRef.docs.length); */
 
-    if (contactDataRef.docs.length > 0) {
+    if (contactDataRef.docs.length > 0 || club.clubId === 'newClub') {
       // ACTIVATE CLUB!
       await db.collection('club').doc(clubId).set({
         active: true,
         subscriptionActive: false,
         subscriptionType: '',
+        clubData: club.data,
+        type: club.type,
+        sportType: club.sportType || '',
+        updated: new Date(),
       }, {merge: true});
 
       // TODO CREATE CLUB NEWS to have first NEWS Item.
