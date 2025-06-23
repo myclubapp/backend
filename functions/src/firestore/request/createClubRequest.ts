@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 
 import firebaseDAO from '../../firebaseSingleton.js';
-import {updatePersistenceJobClubs, updatePersistenceJobTeams, updatePersistenceJobGames, updatePersistenceJobNews} from '../../scheduler/syncAssociation.scheduler.js';
+import {updatePersistenceJobTeams, updatePersistenceJobGames, updatePersistenceJobNews} from '../../scheduler/syncAssociation.scheduler.js';
 import {sendPushNotificationByUserProfileId} from '../../utils/push.js';
 import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
 import {logger} from 'firebase-functions';
@@ -90,23 +90,30 @@ export async function createClubRequest(event: FirestoreEvent<QueryDocumentSnaps
         'isParent': snapshot.data()?.isParent,
         'requestTeamId': snapshot.data()?.requestTeamId,
       });
+
       // REFRESH DB
-      await updatePersistenceJobClubs({
+      /* NOT SURE IF CLUB IS NEEDED? */
+      /* await updatePersistenceJobClubs({
         scheduleTime: new Date().toISOString(),
         jobName: 'manual-trigger',
-      });
-      await updatePersistenceJobTeams({
-        scheduleTime: new Date().toISOString(),
-        jobName: 'manual-trigger',
-      });
-      await updatePersistenceJobGames({
-        scheduleTime: new Date().toISOString(),
-        jobName: 'manual-trigger',
-      });
-      await updatePersistenceJobNews({
-        scheduleTime: new Date().toISOString(),
-        jobName: 'manual-trigger',
-      });
+      }); */
+      //
+      if (club.type === 'swissunihockey' || club.type === 'swissvolleyball' || club.type === 'swissturnverband' || club.type === 'swisshandball') {
+        await updatePersistenceJobTeams({
+          scheduleTime: new Date().toISOString(),
+          jobName: 'manual-trigger',
+        });
+        // TODO: ONYL IF SUBSCRIPTION FOR MEISTERSCHAFT IS ACTIVE
+        await updatePersistenceJobGames({
+          scheduleTime: new Date().toISOString(),
+          jobName: 'manual-trigger',
+        });
+        // TODO: ONYL IF SUBSCRIPTION FOR MEISTERSCHAFT IS ACTIVE
+        await updatePersistenceJobNews({
+          scheduleTime: new Date().toISOString(),
+          jobName: 'manual-trigger',
+        });
+      }
     } else {
       // E-Mail, dass Request gelöscht wurde, da nicht bereichtig. Bitte info@my-club.app kontaktieren, sollte es sich um einen Fehler handeln.
       // Wird via Request rejected Methode gemacht. daher zuerst request ablehnen.
