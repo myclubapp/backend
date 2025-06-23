@@ -136,8 +136,8 @@ export async function updateTeamsSwisshandball(): Promise<any> {
 export async function updateClubsSwisshandball(): Promise<any> {
   logger.info('Update Clubs swisshandball');
 
-  /* Only for cleanup with new Data from STV */
-  const clubDocs = await db.collection('club').where('type', '==', 'swisshandball').where('active', '!==', true).get();
+  /* Only for cleanup with new Data from SH */
+  const clubDocs = await db.collection('club').where('type', '==', 'swisshandball').where('active', '!=', true).get();
   const batches = [];
   let batch = db.batch();
   let batchSize = 0;
