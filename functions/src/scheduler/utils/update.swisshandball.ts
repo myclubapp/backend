@@ -135,6 +135,51 @@ export async function updateTeamsSwisshandball(): Promise<any> {
 
 export async function updateClubsSwisshandball(): Promise<any> {
   logger.info('Update Clubs swisshandball');
+
+  /* Only for cleanup with new Data from STV */
+  const clubDocs = await db.collection('club').where('type', '==', 'swisshandball').where('active', '!==', true).get();
+  const batches = [];
+  let batch = db.batch();
+  let batchSize = 0;
+
+  for (const doc of clubDocs.docs) {
+    batch.delete(db.collection('club').doc(doc.id));
+    batchSize++;
+
+    if (batchSize >= MAX_WRITES_PER_BATCH) {
+      batches.push(batch.commit());
+      batch = db.batch();
+      batchSize = 0;
+    }
+  }
+
+  for (const doc of clubDocs.docs) {
+    const clubVenueDocs = await db.collection('club').doc(doc.id).collection('venues').get();
+    for (const venueDoc of clubVenueDocs.docs) {
+      batch.delete(db.collection('club').doc(doc.id).collection('venues').doc(venueDoc.id));
+      batchSize++;
+
+      if (batchSize >= MAX_WRITES_PER_BATCH) {
+        batches.push(batch.commit());
+        batch = db.batch();
+        batchSize = 0;
+      }
+    }
+  }
+
+  if (batchSize > 0) {
+    batches.push(batch.commit());
+  }
+
+  try {
+    await Promise.all(batches);
+    logger.info('All existing SwissHandball clubs deleted successfully');
+  } catch (error: any) {
+    logger.error('Error deleting SwissHandball clubs in batches:', error);
+    throw error;
+  }
+
+
   const clubData = await resolversSH.SwissHandball.clubs();
   updateClubsInBatches(clubData)
       .then(() => {
