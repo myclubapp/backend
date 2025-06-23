@@ -147,6 +147,7 @@ export async function authUserDeleteUserAccount(user: UserRecord, context: Event
   */
 
   // Delete User Data
+  db.recursiveDelete(db.collection('userProfile').doc(user.uid));
   await db.collection('userProfile').doc(user.uid).delete();
 
   // Delete account in firebase --> Should be done already

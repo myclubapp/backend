@@ -63,7 +63,7 @@ export async function updateClubsSwissturnverband(): Promise<any> {
   let batchSize = 0;
 
   for (const doc of clubDocs.docs) {
-    batch.delete(db.collection('club').doc(doc.id));
+    batch.recursiveDelete(db.collection('club').doc(doc.id));
     batchSize++;
 
     if (batchSize >= MAX_WRITES_PER_BATCH) {
@@ -72,21 +72,6 @@ export async function updateClubsSwissturnverband(): Promise<any> {
       batchSize = 0;
     }
   }
-
-  for (const doc of clubDocs.docs) {
-    const clubContactDocs = await db.collection('club').doc(doc.id).collection('contacts').get();
-    for (const contactDoc of clubContactDocs.docs) {
-      batch.delete(db.collection('club').doc(doc.id).collection('contacts').doc(contactDoc.id));
-      batchSize++;
-
-      if (batchSize >= MAX_WRITES_PER_BATCH) {
-        batches.push(batch.commit());
-        batch = db.batch();
-        batchSize = 0;
-      }
-    }
-  }
-
   if (batchSize > 0) {
     batches.push(batch.commit());
   }

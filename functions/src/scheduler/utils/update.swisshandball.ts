@@ -143,27 +143,13 @@ export async function updateClubsSwisshandball(): Promise<any> {
   let batchSize = 0;
 
   for (const doc of clubDocs.docs) {
-    batch.delete(db.collection('club').doc(doc.id));
+    batch.recursiveDelete(db.collection('club').doc(doc.id));
     batchSize++;
 
     if (batchSize >= MAX_WRITES_PER_BATCH) {
       batches.push(batch.commit());
       batch = db.batch();
       batchSize = 0;
-    }
-  }
-
-  for (const doc of clubDocs.docs) {
-    const clubVenueDocs = await db.collection('club').doc(doc.id).collection('venues').get();
-    for (const venueDoc of clubVenueDocs.docs) {
-      batch.delete(db.collection('club').doc(doc.id).collection('venues').doc(venueDoc.id));
-      batchSize++;
-
-      if (batchSize >= MAX_WRITES_PER_BATCH) {
-        batches.push(batch.commit());
-        batch = db.batch();
-        batchSize = 0;
-      }
     }
   }
 
