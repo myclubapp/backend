@@ -45,11 +45,19 @@ export async function createClubRequest(event: FirestoreEvent<QueryDocumentSnaps
         active: true,
         subscriptionActive: false,
         subscriptionType: '',
-        clubData: club.data,
-        type: club.type,
-        sportType: club.sportType || '',
         updated: new Date(),
       }, {merge: true});
+
+      // MANUAL CLUB
+      if (snapshot.data()?.clubId === 'newClub') {
+        await db.collection('club').doc(clubId).set({
+          name: snapshot.data()?.name,
+          clubData: snapshot.data()?.clubData,
+          type: snapshot.data()?.type,
+          sportType: snapshot.data()?.sportType || '',
+          updated: new Date(),
+        }, {merge: true});
+      }
 
       // TODO CREATE CLUB NEWS to have first NEWS Item.
       /* await db.collection("club").doc(`${club.id}`).collection("news").doc(`${club.id}-${news.id}`).set({
