@@ -22,7 +22,7 @@ export async function createClubRequest(event: FirestoreEvent<QueryDocumentSnaps
   const {userId, clubId} = event.params;
 
   const clubRef = await db.collection('club').doc(clubId).get();
-  const club = clubRef.data();
+  const club = clubRef.data() || {};
   const userProfileRef = await db.collection('userProfile').doc(userId).get();
   // const user = userProfileRef.data();
 
@@ -39,7 +39,7 @@ export async function createClubRequest(event: FirestoreEvent<QueryDocumentSnaps
     logger.info("User Email" + userProfileRef.data()?.email);
     logger.info("User Email" + contactDataRef.docs.length); */
 
-    if (contactDataRef.docs.length > 0 || club.clubId === 'newClub') {
+    if (contactDataRef.docs.length > 0 || snapshot.data()?.clubId === 'newClub') {
       // ACTIVATE CLUB!
       await db.collection('club').doc(clubId).set({
         active: true,
