@@ -103,16 +103,17 @@ export async function createClubRequest(event: FirestoreEvent<QueryDocumentSnaps
           scheduleTime: new Date().toISOString(),
           jobName: 'manual-trigger',
         });
-        // TODO: ONYL IF SUBSCRIPTION FOR MEISTERSCHAFT IS ACTIVE
-        await updatePersistenceJobGames({
-          scheduleTime: new Date().toISOString(),
-          jobName: 'manual-trigger',
-        });
-        // TODO: ONYL IF SUBSCRIPTION FOR MEISTERSCHAFT IS ACTIVE
-        await updatePersistenceJobNews({
-          scheduleTime: new Date().toISOString(),
-          jobName: 'manual-trigger',
-        });
+        // ONLY IF SUBSCRIPTION FOR MEISTERSCHAFT IS ACTIVE
+        if (club.hasFeatureChampionship === true) {
+          await updatePersistenceJobGames({
+            scheduleTime: new Date().toISOString(),
+            jobName: 'manual-trigger',
+          });
+          await updatePersistenceJobNews({
+            scheduleTime: new Date().toISOString(),
+            jobName: 'manual-trigger',
+          });
+        }
       }
     } else {
       // E-Mail, dass Request gelöscht wurde, da nicht bereichtig. Bitte info@my-club.app kontaktieren, sollte es sich um einen Fehler handeln.
