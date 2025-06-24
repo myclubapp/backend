@@ -92,6 +92,7 @@ type Ranking {
 type SwissTurnverband {
     news: [News] # General Swiss Unihockey Newsfeed
     clubs: [Club], # List of clubs
+    clubsOld: [Club], # List of clubs
     club(clubId: String): Club, # List of clubs
     teams(clubId: String): [Team], # List of Teams for a given Club
     team(teamId: String): Team, #TODO Check Team Detail.. 
