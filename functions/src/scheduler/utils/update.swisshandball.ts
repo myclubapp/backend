@@ -140,11 +140,11 @@ export async function updateClubsSwisshandball(): Promise<any> {
   let batch = db.batch();
   let batchSize = 0;
 
-  const clubContactsData = await db.collectionGroup('venues').get();
-  for (const contact of clubContactsData) {
-    const contactData = contact.data();
+  const clubVenuesData = await db.collectionGroup('venues').get();
+  for (const venue of clubVenuesData.docs) {
+    const venueData = venue.data();
 
-    const clubRef = await db.collection('club').doc(`${contactData.id}`).get();
+    const clubRef = await db.collection('club').doc(`${venueData.id}`).get();
     if (!clubRef.exists && clubRef.id.startsWith('sh-')) {
       batch.delete(db.collection('club').doc(`${clubRef.id}`).collection('venues').doc(`${clubRef.id}`));
       batchSize++;

@@ -61,7 +61,7 @@ export async function updateClubsSwissturnverband(): Promise<any> {
   let batchSize = 0;
 
   const clubContactsData = await db.collectionGroup('contacts').get();
-  for (const contact of clubContactsData) {
+  for (const contact of clubContactsData.docs) {
     const contactData = contact.data();
 
     const clubRef = await db.collection('club').doc(`${contactData.id}`).get();
