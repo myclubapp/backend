@@ -60,7 +60,24 @@ export async function updateClubsSwissturnverband(): Promise<any> {
   let batch = db.batch();
   let batchSize = 0;
 
-  const clubDataOld = await resolversST.SwissTurnverband.clubsOld();
+  const clubContactsData = await db.collectionGroup('contacts').get();
+  for (const contact of clubContactsData) {
+    const contactData = contact.data();
+
+    const clubRef = await db.collection('club').doc(`${contactData.id}`).get();
+    if (!clubRef.exists && clubRef.id.startsWith('st-')) {
+      batch.delete(db.collection('club').doc(`${clubRef.id}`).collection('contacts').doc(`${clubRef.id}`));
+      batchSize++;
+
+      if (batchSize >= MAX_WRITES_PER_BATCH) {
+        batches.push(batch.commit());
+        batch = db.batch();
+        batchSize = 0;
+      }
+    }
+  }
+
+  /* const clubDataOld = await resolversST.SwissTurnverband.clubsOld();
   for (const club of clubDataOld) {
     batch.delete(db.collection('club').doc(`st-${club.id}`).collection('contacts').doc(`st-${club.id}`));
     batchSize++;
@@ -70,7 +87,7 @@ export async function updateClubsSwissturnverband(): Promise<any> {
       batch = db.batch();
       batchSize = 0;
     }
-  }
+  } */
   if (batchSize > 0) {
     batches.push(batch.commit());
   }

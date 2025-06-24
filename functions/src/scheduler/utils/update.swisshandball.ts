@@ -136,23 +136,26 @@ export async function updateTeamsSwisshandball(): Promise<any> {
 export async function updateClubsSwisshandball(): Promise<any> {
   logger.info('Update Clubs swisshandball');
 
-  /* Only for cleanup with new Data from SH */
-  const clubDocs = await db.collection('club').where('type', '==', 'swisshandball').where('active', '!=', true).get();
   const batches = [];
   let batch = db.batch();
   let batchSize = 0;
 
-  for (const doc of clubDocs.docs) {
-    batch.delete(db.collection('club').doc(`sh-${doc.id}`).collection('venues').doc(`sh-${doc.id}`));
-    batchSize++;
+  const clubContactsData = await db.collectionGroup('venues').get();
+  for (const contact of clubContactsData) {
+    const contactData = contact.data();
 
-    if (batchSize >= MAX_WRITES_PER_BATCH) {
-      batches.push(batch.commit());
-      batch = db.batch();
-      batchSize = 0;
+    const clubRef = await db.collection('club').doc(`${contactData.id}`).get();
+    if (!clubRef.exists && clubRef.id.startsWith('sh-')) {
+      batch.delete(db.collection('club').doc(`${clubRef.id}`).collection('venues').doc(`${clubRef.id}`));
+      batchSize++;
+
+      if (batchSize >= MAX_WRITES_PER_BATCH) {
+        batches.push(batch.commit());
+        batch = db.batch();
+        batchSize = 0;
+      }
     }
   }
-
   if (batchSize > 0) {
     batches.push(batch.commit());
   }
