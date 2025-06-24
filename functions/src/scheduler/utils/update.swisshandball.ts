@@ -143,7 +143,7 @@ export async function updateClubsSwisshandball(): Promise<any> {
   let batchSize = 0;
 
   for (const doc of clubDocs.docs) {
-    batch.recursiveDelete(db.collection('club').doc(doc.id));
+    batch.delete(db.collection('club').doc(`sh-${doc.id}`).collection('venues').doc(`sh-${doc.id}`));
     batchSize++;
 
     if (batchSize >= MAX_WRITES_PER_BATCH) {

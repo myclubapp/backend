@@ -62,7 +62,7 @@ export async function updateClubsSwissturnverband(): Promise<any> {
 
   const clubDataOld = await resolversST.SwissTurnverband.clubsOld();
   for (const club of clubDataOld) {
-    batch.recursiveDelete(db.collection('club').doc(`st-${club.id}`));
+    batch.delete(db.collection('club').doc(`st-${club.id}`).collection('contacts').doc(`st-${club.id}`));
     batchSize++;
 
     if (batchSize >= MAX_WRITES_PER_BATCH) {
