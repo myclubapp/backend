@@ -11,6 +11,7 @@
 import * as fs from 'fs';
 import {logger} from 'firebase-functions';
 const stvClubsJSON = fs.readFileSync('./src/graphql/swissturnverband/clubs_data_final.json', 'utf8');
+const stvClubsJSONOld = fs.readFileSync('./src/graphql/swissturnverband/clubs_data_old.json', 'utf8');
 
 
 export default {
@@ -38,6 +39,9 @@ export default {
   SwissTurnverband: {
     clubs: () => {
       return getClubs();
+    },
+    clubsOld: () => {
+      return getClubsOld();
     },
     club: (parent: any, args: {
       clubId: string
@@ -110,6 +114,25 @@ async function getTeam(teamId: string) {
 }
 async function getClubs() {
   const data: Array<any> = JSON.parse(stvClubsJSON);
+  const clubList = <any>[];
+  for (const club of data) {
+    delete club.Teams;
+    delete club.teams;
+    delete club.contactName;
+    delete club.contactEmail;
+    delete club.contactPhone;
+    // logger.info(item.halls);
+    clubList.push({
+      ...club,
+      id: club.id,
+    });
+    //  }
+  }
+  return clubList;
+}
+
+async function getClubsOld() {
+  const data: Array<any> = JSON.parse(stvClubsJSONOld);
   const clubList = <any>[];
   for (const club of data) {
     delete club.Teams;

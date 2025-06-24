@@ -56,14 +56,13 @@ export async function updateTeamsSwissturnverband(): Promise<any> {
 export async function updateClubsSwissturnverband(): Promise<any> {
   logger.info('Update Clubs SwissTurnverband');
 
-  /* Only for cleanup with new Data from STV */
-  const clubDocs = await db.collection('club').where('type', '==', 'swissturnverband').where('active', '!=', true).get();
   const batches = [];
   let batch = db.batch();
   let batchSize = 0;
 
-  for (const doc of clubDocs.docs) {
-    batch.recursiveDelete(db.collection('club').doc(doc.id));
+  const clubDataOld = await resolversST.SwissTurnverband.clubsOld();
+  for (const club of clubDataOld) {
+    batch.recursiveDelete(db.collection('club').doc(`st-${club.id}`));
     batchSize++;
 
     if (batchSize >= MAX_WRITES_PER_BATCH) {
@@ -83,7 +82,6 @@ export async function updateClubsSwissturnverband(): Promise<any> {
     logger.error('Error deleting SwissTurnverband clubs in batches:', error);
     throw error;
   }
-
 
   const clubData = await resolversST.SwissTurnverband.clubs();
   updateClubsInBatches(clubData)
