@@ -279,7 +279,7 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
       let teamRef = await db.collection('teams').doc(`su-${team.id}`).get();
 
       // Speichere das Logo auf Firebase Storage, falls vorhanden
-      let logoUrl = team.logo;
+      let logoUrl = team.logo; // von verbandsseite
 
       // Überprüfe, ob bereits ein Logo im teamRef.data().logo hinterlegt ist
       // und ob dieses Logo nicht von Cloudinary stammt
@@ -298,6 +298,11 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
         logoUrl = existingLogo;
         logger.info(`Behalte bestehendes Logo für Team ${team.id}: ${logoUrl}`);
       }
+
+      console.log('existingLogo', existingLogo);
+      console.log('isCloudinaryUrl', isCloudinaryUrl);
+      console.log('logoUrl', logoUrl);
+
       clubLogo = logoUrl;
 
       const teamData = teamRef.exists ? teamRef.data() : {};
