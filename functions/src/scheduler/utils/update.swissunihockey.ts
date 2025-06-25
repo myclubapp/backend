@@ -276,6 +276,7 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
       const clubRef = await db.collection('club').doc(`su-${club.id}`).get();
       const teamRef = await db.collection('teams').doc(`su-${team.id}`).get();
       clubLogo = team.logo;
+      const teamData = teamRef.exists ? teamRef.data() : {};
       await db.collection('teams').doc(`su-${team.id}`).set({
         externalId: `${team.id}`,
         name: team.name,
@@ -284,10 +285,10 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
         info: team.info,
         website: team.website,
         portrait: team.portrait,
-        jahresbeitragWert: teamRef.data().jahresbeitragWert || 0.0,
-        jahresbeitragWaehrung: teamRef.data().jahresbeitragWaehrung || 'CHF',
-        trainingThreshold: teamRef.data().trainingThreshold || 24,
-        championshipThreshold: teamRef.data().championshipThreshold || 48,
+        jahresbeitragWert: teamData?.jahresbeitragWert || 0.0,
+        jahresbeitragWaehrung: teamData?.jahresbeitragWaehrung || 'CHF',
+        trainingThreshold: teamData?.trainingThreshold || 24,
+        championshipThreshold: teamData?.championshipThreshold || 48,
         // associationId: clubData.data().associationId, gibt es für unihockey nicht
         clubRef: clubRef.ref,
         clubId: clubRef.id,
@@ -296,7 +297,7 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
       }, {
         merge: true,
       });
-      if (teamRef.ref) {
+      if (teamRef.exists) {
         await db.collection('club').doc(`su-${club.id}`).collection('teams').doc(`su-${team.id}`).set({
           teamRef: teamRef.ref,
         });
