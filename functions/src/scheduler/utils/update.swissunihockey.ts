@@ -297,11 +297,9 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
       }, {
         merge: true,
       });
-      if (teamRef.exists) {
-        await db.collection('club').doc(`su-${club.id}`).collection('teams').doc(`su-${team.id}`).set({
-          teamRef: teamRef.ref,
-        });
-      }
+      await db.collection('club').doc(`su-${club.id}`).collection('teams').doc(`su-${team.id}`).set({
+        teamRef: teamRef.ref,
+      });
     }
 
     if (clubLogo) {
