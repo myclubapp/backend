@@ -274,10 +274,10 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
     for (const team of teamData) {
       logger.info(club.name + ' / ' + team.name);
       const clubRef = await db.collection('club').doc(`su-${club.id}`).get();
-      const teamRef = await db.collection('teams').doc(`su-${team.id}`).get();
+      let teamRef = await db.collection('teams').doc(`su-${team.id}`).get();
       clubLogo = team.logo;
       const teamData = teamRef.exists ? teamRef.data() : {};
-      await db.collection('teams').doc(`su-${team.id}`).set({
+      teamRef = await db.collection('teams').doc(`su-${team.id}`).set({
         externalId: `${team.id}`,
         name: team.name,
         liga: team.liga,
