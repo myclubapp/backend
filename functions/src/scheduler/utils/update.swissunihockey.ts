@@ -357,13 +357,13 @@ export async function updateClubsSwissunihockey(): Promise<any> {
     const isCloudinaryUrl = existingLogo.includes('res.cloudinary.com');
 
     // Logo auf Firebase Storage speichern, falls vorhanden und wenn es nicht von Cloudinary stammt
-    if (logoUrl && (!existingLogo || !isCloudinaryUrl)) {
+    if (logoUrl && (!existingLogo || isCloudinaryUrl)) {
       try {
         logoUrl = await uploadImageToFirebaseStorage(logoUrl, `club/su-${club.id}/logo.png`);
       } catch (error) {
         logger.error(`Fehler beim Speichern des Logos für Club ${club.id}: ${error}`);
       }
-    } else if (existingLogo && isCloudinaryUrl) {
+    } else {
       // Behalte das existierende Cloudinary-Logo bei
       logoUrl = existingLogo;
       logger.info(`Behalte bestehendes Cloudinary-Logo für Club ${club.id}: ${logoUrl}`);
