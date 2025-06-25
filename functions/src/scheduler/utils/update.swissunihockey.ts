@@ -312,7 +312,7 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
         liga: team.liga,
         logo: logoUrl || team.logo, // Verwende die neue URL, falls vorhanden
         info: team.info,
-        website: team.website,
+        website: team.data()?.website || team.website || '', // dont overwrite website if already set
         portrait: team.portrait,
         jahresbeitragWert: teamData?.jahresbeitragWert || 0.0,
         jahresbeitragWaehrung: teamData?.jahresbeitragWaehrung || 'CHF',
@@ -357,10 +357,9 @@ export async function updateClubsSwissunihockey(): Promise<any> {
     let logoUrl = club.logo || '';
 
     // Überprüfe, ob bereits ein Logo im Club-Dokument hinterlegt ist
-    const clubDoc = await db.collection('club').doc(`su-${club.id}`).get();
-    const existingLogo = clubDoc.exists ? clubDoc.data()?.logo || '' : '';
+    let clubRef = await db.collection('club').doc(`su-${club.id}`).get();
+    const existingLogo = clubRef.exists ? clubRef.data()?.logo || '' : '';
     const isCloudinaryUrl = existingLogo.includes('res.cloudinary.com');
-
 
     // Logo auf Firebase Storage speichern, falls vorhanden und wenn es nicht von Cloudinary stammt
     if (logoUrl && (!existingLogo || isCloudinaryUrl)) {
@@ -378,17 +377,16 @@ export async function updateClubsSwissunihockey(): Promise<any> {
     console.log('isCloudinaryUrl', isCloudinaryUrl);
     console.log('logoUrl', logoUrl);
 
-    await db.collection('club').doc(`su-${club.id}`).set({
+    clubRef = await db.collection('club').doc(`su-${club.id}`).set({
       externalId: `${club.id}`,
       name: club.name,
       type: 'swissunihockey',
       logo: logoUrl, // Speichere die Firebase Storage URL
-      website: club.website || '',
+      website: clubRef.data()?.website || club.website || '', // dont overwrite website if already set| '',
       updated: new Date(),
     }, {
       merge: true,
     });
-    const clubRef = await db.collection('club').doc(`su-${club.id}`).get();
     // address
     for (const address of club.address) {
       address.externalId = address.id;
