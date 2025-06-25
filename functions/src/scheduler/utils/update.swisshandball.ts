@@ -107,18 +107,19 @@ export async function updateTeamsSwisshandball(): Promise<any> {
     const teamData = await resolversSH.Club.teams({id: `${club.id}`}, {}, {}, {});
     for (const team of teamData) {
       logger.info(club.name + ' / ' + team.name);
-      const teamRef = await db.collection('teams').doc(`sh-${team.id}`).get();
       const clubRef = await db.collection('club').doc(`sh-${club.id}`).get();
-      await db.collection('teams').doc(`sh-${team.id}`).set({
+      let teamRef = await db.collection('teams').doc(`sh-${team.id}`).get();
+      const teamData = teamRef.exists ? teamRef.data() : {};
+      teamRef = await db.collection('teams').doc(`sh-${team.id}`).set({
         ...team,
         externalId: `${team.id}`,
         name: team.name,
         logo: team.logo,
         liga: team.liga,
-        jahresbeitragWert: teamRef.data().jahresbeitragWert || 0.0,
-        jahresbeitragWaehrung: teamRef.data().jahresbeitragWaehrung || 'CHF',
-        trainingThreshold: teamRef.data().trainingThreshold || 24,
-        championshipThreshold: teamRef.data().championshipThreshold || 48,
+        jahresbeitragWert: teamData?.jahresbeitragWert || 0.0,
+        jahresbeitragWaehrung: teamData?.jahresbeitragWaehrung || 'CHF',
+        trainingThreshold: teamData?.trainingThreshold || 24,
+        championshipThreshold: teamData?.championshipThreshold || 48,
         clubRef: clubRef.ref,
         clubId: clubRef.id,
         type: 'swisshandball',

@@ -23,9 +23,9 @@ export async function updateTeamsSwissturnverband(): Promise<any> {
     for (const team of teamData) {
       logger.info(club.name + ' / ' + team.name);
       const clubRef = await db.collection('club').doc(`st-${club.id}`).get();
-      const teamRef = await db.collection('teams').doc(`st-${team.id}`).get();
-
-      await db.collection('teams').doc(`st-${team.id}`).set({
+      let teamRef = await db.collection('teams').doc(`st-${team.id}`).get();
+      const teamData = teamRef.exists ? teamRef.data() : {};
+      teamRef = await db.collection('teams').doc(`st-${team.id}`).set({
         ...team,
         externalId: `${team.id}`,
         name: team.name,
@@ -34,10 +34,10 @@ export async function updateTeamsSwissturnverband(): Promise<any> {
         website: team.website,
         portrait: team.portrait,
         liga: team.liga,
-        jahresbeitragWert: teamRef.data().jahresbeitragWert || team.jahresbeitragWert,
-        jahresbeitragWaehrung: teamRef.data().jahresbeitragWaehrung || team.jahresbeitragWaehrung,
-        trainingThreshold: teamRef.data().trainingThreshold || 24,
-        championshipThreshold: teamRef.data().championshipThreshold || 48,
+        jahresbeitragWert: teamData?.jahresbeitragWert || team.jahresbeitragWert,
+        jahresbeitragWaehrung: teamData?.jahresbeitragWaehrung || team.jahresbeitragWaehrung,
+        trainingThreshold: teamData?.trainingThreshold || 24,
+        championshipThreshold: teamData?.championshipThreshold || 48,
         clubRef: clubRef.ref,
         clubId: clubRef.id,
         type: 'swissturnverband',
