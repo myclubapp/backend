@@ -277,28 +277,30 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
       logger.info(club.name + ' / ' + team.name);
       const clubRef = await db.collection('club').doc(`su-${club.id}`).get();
       let teamRef = await db.collection('teams').doc(`su-${team.id}`).get();
-
+      clubLogo = team.logo;
+      
       // Speichere das Logo auf Firebase Storage, falls vorhanden
       let logoUrl = team.logo;
-
+      
       // Überprüfe, ob bereits ein Logo im teamRef.data().logo hinterlegt ist
-      // und ob dieses Logo nicht von Cloudinary stammt
       const existingLogo = teamRef.exists ? teamRef.data()?.logo || '' : '';
-      const isCloudinaryUrl = existingLogo.includes('res.cloudinary.com');
-
-      // Lade Logo nur hoch, wenn kein Logo existiert oder wenn es nicht von Cloudinary stammt
-      if (logoUrl && (!existingLogo || isCloudinaryUrl)) {
+      
+      // Logo immer hochladen, wenn eines verfügbar ist, unabhängig von der Quelle
+      if (logoUrl) {
         try {
           logoUrl = await uploadImageToFirebaseStorage(logoUrl, `teams/su-${team.id}/logo.png`);
+          logger.info(`Logo für Team ${team.id} hochgeladen: ${logoUrl}`);
         } catch (error) {
           logger.error(`Fehler beim Speichern des Logos für Team ${team.id}: ${error}`);
+          // Wenn Upload fehlschlägt, behalte das existierende Logo bei
+          if (existingLogo) {
+            logoUrl = existingLogo;
+          }
         }
-      } else {
-        // Behalte das existierende Cloudinary-Logo bei
+      } else if (existingLogo) {
+        // Wenn kein neues Logo vorhanden ist, behalte das existierende bei
         logoUrl = existingLogo;
-        logger.info(`Behalte bestehendes Cloudinary-Logo für Team ${team.id}: ${logoUrl}`);
       }
-      clubLogo = logoUrl;
 
       const teamData = teamRef.exists ? teamRef.data() : {};
       teamRef = await db.collection('teams').doc(`su-${team.id}`).set({
@@ -332,7 +334,6 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
       logger.info('set clublogo');
       await db.collection('club').doc(`su-${club.id}`).update({
         logo: clubLogo,
-        type: 'swissunihockey',
         updated: new Date(),
       }, {
         merge: true,
@@ -354,19 +355,22 @@ export async function updateClubsSwissunihockey(): Promise<any> {
     // Überprüfe, ob bereits ein Logo im Club-Dokument hinterlegt ist
     const clubDoc = await db.collection('club').doc(`su-${club.id}`).get();
     const existingLogo = clubDoc.exists ? clubDoc.data()?.logo || '' : '';
-    const isCloudinaryUrl = existingLogo.includes('res.cloudinary.com');
 
-    // Logo auf Firebase Storage speichern, falls vorhanden und wenn es nicht von Cloudinary stammt
-    if (logoUrl && (!existingLogo || !isCloudinaryUrl)) {
+    // Logo immer hochladen, wenn eines verfügbar ist
+    if (logoUrl) {
       try {
         logoUrl = await uploadImageToFirebaseStorage(logoUrl, `club/su-${club.id}/logo.png`);
+        logger.info(`Logo für Club ${club.id} hochgeladen: ${logoUrl}`);
       } catch (error) {
         logger.error(`Fehler beim Speichern des Logos für Club ${club.id}: ${error}`);
+        // Wenn Upload fehlschlägt, behalte das existierende Logo bei
+        if (existingLogo) {
+          logoUrl = existingLogo;
+        }
       }
-    } else if (existingLogo && isCloudinaryUrl) {
-      // Behalte das existierende Cloudinary-Logo bei
+    } else if (existingLogo) {
+      // Wenn kein neues Logo vorhanden ist, behalte das existierende bei
       logoUrl = existingLogo;
-      logger.info(`Behalte bestehendes Cloudinary-Logo für Club ${club.id}: ${logoUrl}`);
     }
 
     await db.collection('club').doc(`su-${club.id}`).set({
@@ -385,181 +389,4 @@ export async function updateClubsSwissunihockey(): Promise<any> {
       address.externalId = address.id;
       address.type = 'swissunihockey';
       address.updated = new Date();
-      await db.collection('club').doc(`su-${club.id}`).collection('contacts').doc(`su-${address.id}`).set({
-        ...address,
-        clubRef: clubRef.ref,
-        clubId: clubRef.id,
-      }, {
-        merge: true,
-      });
-    }
-  }
-
-  // JSON Upload MIGRATION
-  // logger.info(myJson);
-  const data: Array<any> = JSON.parse(myJson);
-
-  for (const clubData of data) {
-    const clubRef = await db.collection('club').doc(`su-${clubData.id}`).get();
-    // logger.info("clubdata > " + clubData);
-    const address = {
-      externalId: clubData.admin,
-      type: 'swissunihockey',
-      updated: new Date(),
-      lastName: clubData.lastName,
-      firstName: clubData.firstName,
-      email: clubData.email,
-    };
-
-    await db.collection('club').doc(`su-${clubData.id}`).collection('contacts').doc(`su-${clubData.admin}`).set({
-      ...address,
-      clubRef: clubRef.ref,
-      clubId: clubRef.id,
-    }, {
-      merge: true,
-    });
-  }
-  return true;
-}
-
-
-export async function updateNewsSwissunihockey(): Promise<any> {
-  logger.info('Update NEWS SwissUnihockey');
-
-  const newsData = await resolversSU.SwissUnihockey.news();
-  for (const news of newsData) {
-    logger.info(news.title);
-    const newsDoc = await db.collection('news').doc(`su-${news.id}`).get();
-    if (!newsDoc.exists) {
-      await db.collection('news').doc(`su-${news.id}`).set({
-        externalId: `${news.id}`,
-        title: news.title,
-        leadText: news.leadText + ' ...' || ' ',
-        date: news.date,
-        slug: news.slug || ' ',
-        image: news.image || ' ',
-        text: news.text || ' ',
-        htmlText: news.htmlText || ' ',
-        tags: news.tags || ' ',
-        author: news.author || ' ',
-        authorImage: news.authorImage || ' ',
-        url: news.url || ' ',
-        type: 'swissunihockey',
-        updated: new Date(),
-      }, {
-        merge: true,
-        ignoreUndefinedProperties: true,
-      });
-    }
-  }
-}
-
-
-// Internal Methods
-
-/*
-async function generateMatchReport(gameId: string): Promise<string> {
-  const data = await fetch("https://api-v2.swissunihockey.ch/api/games/" + gameId + "/summary");
-  const gameSummary = await data.json();
-
-  if (gameSummary && gameSummary.data &&
-    gameSummary.data.regions.length > 0 &&
-    gameSummary.data.regions[0].rows.length > 0 &&
-    gameSummary.data.regions[0].rows[0].cells.length > 0) {
-    const prompt = gameSummary.data.regions[0].rows[0].cells[0].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[1].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[2].text[0] + ". " + gameSummary.data.regions[0].rows[0].cells[2].text[1];
-
-    logger.info(">>> MAGIC " + prompt);
-
-    const completion = await openai.chat.completions.create({
-      messages: [{ role: 'user', content: prompt }],
-      model: 'gpt-4', // model: 'gpt-3.5-turbo',
-    });
-
-    logger.info(completion.choices);
-
-
-    const matchReportData = await fetch("https://api.openai.com/v1/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + functions.config().api.chatgpt,
-      },
-      body: JSON.stringify({
-        model: "text-davinci-003",
-        max_tokens: 400,
-        n: 1,
-        prompt: "Schreibe einen Spielbericht für folgendes Unihockey Spiel: " + prompt,
-      }),
-    });
-    const chatGPT:any = await matchReportData.json();
-    logger.info("RESPONSE length " + chatGPT.choices.length);
-    logger.info("RESPONSE " + chatGPT.choices[0].text);
-    return chatGPT.choices[0].text.replaceAll("\n", "");
-  } else {
-    return "";
-  }
-}*/
-
-/*
-function getNextGame(index: number, gamesList: []): any {
-  const nextGame: any = gamesList[index];
-  logger.info(">>> " + index);
-  if (nextGame) {
-    logger.info(`Get Next Game with id ${nextGame.id} and date: ${nextGame.date} ${nextGame.time}`);
-  }
-  if (nextGame && nextGame.date.charAt(2) === ".") {
-    logger.info(`>>>Found GAME: ${JSON.stringify(nextGame)}`);
-    return nextGame;
-  } else {
-    if (index === gamesList.length) {
-      logger.info("END OF ARRAY");
-      logger.info(JSON.stringify(gamesList));
-      return {};
-    } else {
-      return getNextGame(index + 1, gamesList);
-    }
-  }
-}*/
-
-/**
- * Lädt ein Bild von einer URL herunter und speichert es auf Firebase Storage
- * @param imageUrl Die URL des Bildes, das heruntergeladen werden soll
- * @param storagePath Der Pfad, unter dem das Bild in Firebase Storage gespeichert werden soll
- * @returns Die öffentliche URL des hochgeladenen Bildes
- */
-async function uploadImageToFirebaseStorage(imageUrl: string, storagePath: string): Promise<string> {
-  try {
-    // Bild von der URL herunterladen
-    const response = await fetch(imageUrl);
-    if (!response.ok) {
-      throw new Error(`Fehler beim Herunterladen des Bildes: ${response.statusText}`);
-    }
-
-    // Bild als Buffer einlesen
-    const imageBuffer = await response.buffer();
-
-    // Referenz zum Firebase Storage Bucket erstellen
-    const bucket = storage.bucket();
-    const file = bucket.file(storagePath);
-
-    // Metadaten für den Upload setzen
-    const metadata = {
-      contentType: 'image/png', // Standard ist PNG, kann bei Bedarf angepasst werden
-      cacheControl: 'public, max-age=31536000', // 1 Jahr Cache
-    };
-
-    // Bild hochladen
-    await file.save(imageBuffer, {
-      metadata: metadata,
-    });
-
-    // Datei öffentlich zugänglich machen
-    await file.makePublic();
-
-    // Öffentliche URL zurückgeben
-    return `https://storage.googleapis.com/${bucket.name}/${storagePath}`;
-  } catch (error) {
-    logger.error(`Fehler beim Hochladen des Bildes: ${error}`);
-    throw error;
-  }
-}
+      await db.collection('club').doc(`
