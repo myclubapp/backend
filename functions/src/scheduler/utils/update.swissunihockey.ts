@@ -294,9 +294,9 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
           logger.error(`Fehler beim Speichern des Logos für Team ${team.id}: ${error}`);
         }
       } else {
-        // Behalte das existierende Cloudinary-Logo bei
+        // Behalte das existierende Logo bei
         logoUrl = existingLogo;
-        logger.info(`Behalte bestehendes Cloudinary-Logo für Team ${team.id}: ${logoUrl}`);
+        logger.info(`Behalte bestehendes Logo für Team ${team.id}: ${logoUrl}`);
       }
       clubLogo = logoUrl;
 
@@ -356,6 +356,7 @@ export async function updateClubsSwissunihockey(): Promise<any> {
     const existingLogo = clubDoc.exists ? clubDoc.data()?.logo || '' : '';
     const isCloudinaryUrl = existingLogo.includes('res.cloudinary.com');
 
+
     // Logo auf Firebase Storage speichern, falls vorhanden und wenn es nicht von Cloudinary stammt
     if (logoUrl && (!existingLogo || isCloudinaryUrl)) {
       try {
@@ -364,10 +365,13 @@ export async function updateClubsSwissunihockey(): Promise<any> {
         logger.error(`Fehler beim Speichern des Logos für Club ${club.id}: ${error}`);
       }
     } else {
-      // Behalte das existierende Cloudinary-Logo bei
+      // Behalte das existierende Logo bei
       logoUrl = existingLogo;
-      logger.info(`Behalte bestehendes Cloudinary-Logo für Club ${club.id}: ${logoUrl}`);
+      logger.info(`Behalte bestehendes Logo für Club ${club.id}: ${logoUrl}`);
     }
+    console.log('existingLogo', existingLogo);
+    console.log('isCloudinaryUrl', isCloudinaryUrl);
+    console.log('logoUrl', logoUrl);
 
     await db.collection('club').doc(`su-${club.id}`).set({
       externalId: `${club.id}`,
