@@ -1,8 +1,39 @@
 rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
-    match /{allPaths=**} {
-      allow read, write: if request.auth!=null;
+    function isSignedIn() {
+        return request.auth != null;
+    }
+
+		// https://firebase.blog/posts/2022/09/announcing-cross-service-security-rules/?utm_source=chatgpt.com
+    function isClubAdmin(clubId) {
+      return firestore.exists(
+        /databases/(default)/documents/club/$(clubId)/admins/$(request.auth.uid)
+      );
+    }
+
+    function isTeamAdmin(teamId) {
+      return firestore.exists(
+        /databases/(default)/documents/teams/$(teamId)/admins/$(request.auth.uid)
+      );
+    }
+
+    // Regeln für club-Dateien
+    match /club/{clubId}/{rest=**} {
+      allow read: if isSignedIn();
+      allow write, delete: if isSignedIn() && isClubAdmin(clubId);
+    }
+
+    // Regeln für team-Dateien
+    match /teams/{teamId}/{rest=**} {
+      allow read: if isSignedIn();
+      allow write, delete: if isSignedIn() && isTeamAdmin(teamId);
+    }
+
+    // 👤 User Profile Bilder
+    match /userProfile/{userProfile}/profilePicture/{picture} {
+      allow read: if isSignedIn();
+      allow write, delete: if isSignedIn() && request.auth.uid == userProfile;
     }
   }
 }
