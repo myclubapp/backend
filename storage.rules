@@ -31,7 +31,7 @@ service firebase.storage {
     }
 
     // 👤 User Profile Bilder
-    match /userProfile/{userProfile}/profilePicture/{picture} {
+    match /userProfile/{userProfile}/{picture=**} {
       allow read: if isSignedIn();
       allow write, delete: if isSignedIn() && request.auth.uid == userProfile;
     }
