@@ -39,12 +39,12 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
       },
       currency: afterData?.currency,
       debtor: {
-        address: userProfileData?.street,
-        buildingNumber: userProfileData?.houseNumber,
-        city: userProfileData?.city,
-        country: userProfileData?.country,
+        address: userProfileData?.street || 'Musterstrasse',
+        buildingNumber: userProfileData?.houseNumber || 1,
+        city: userProfileData?.city || 'Musterstadt',
+        country: userProfileData?.country || 'CH',
         name: afterData?.firstName + ' ' + afterData?.lastName,
-        zip: userProfileData?.postalCode,
+        zip: userProfileData?.postalcode || 1234,
       },
       reference: '21 00000 00003 13947 14300 09017',
     };
