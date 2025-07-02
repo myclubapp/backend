@@ -12,7 +12,7 @@ import {sendEmailWithAttachmentByUserId} from '../../utils/email.js';
 const db = firebaseDAO.instance.db;
 
 export async function changeClubMemberInvoice(event: FirestoreEvent<Change<QueryDocumentSnapshot> | undefined>) {
-  logger.info('changeClubEvent');
+  logger.info('changeClubMemberInvoice');
   const {clubId, periodId, invoiceId} = event.params;
   const beforeData = event.data?.before.data();
   const afterData = event.data?.after.data();
@@ -75,9 +75,9 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
         },
     );
 
-    db.collection('club').doc(clubId).collection('invoicePeriods').doc(periodId).collection('invoices').doc(invoiceId).update({
+    return db.collection('club').doc(clubId).collection('invoicePeriods').doc(periodId).collection('invoices').doc(invoiceId).update({
       updatedAt: Timestamp.now(),
-      status: 'send',
+      status: 'sent',
     });
   }
   return true;
