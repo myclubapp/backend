@@ -20,7 +20,7 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
   console.log(clubId, periodId, invoiceId);
 
   // Behandlung von Event-Absagen
-  if (afterData?.status === 'send' && beforeData?.status !== 'draft') {
+  if (afterData?.status === 'send' && beforeData?.status === 'draft') {
     logger.info('Rechnung senden');
 
     const userProfileRef = await db.collection('userProfile').doc(invoiceId).get();
