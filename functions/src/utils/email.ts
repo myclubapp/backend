@@ -104,7 +104,8 @@ export async function sendEmailWithAttachmentByUserId(
     (!alwaysSendTemplates.includes(templateName) &&
      !userProfileRef.data().settingsEmail)) {
     logger.info(
-      `Email not sent for ${templateName} to ${userId} because userProfileRef.exists: ${userProfileRef.exists} and settingsEmail: ${userProfileRef.data().settingsEmail} or template is in alwaysSendTemplates: ${alwaysSendTemplates.includes(templateName)}`
+        // eslint-disable-next-line max-len
+        `Email not sent for ${templateName} to ${userId} because userProfileRef.exists: ${userProfileRef.exists} and settingsEmail: ${userProfileRef.data().settingsEmail} or template is in alwaysSendTemplates: ${alwaysSendTemplates.includes(templateName)}`,
     );
     return;
   }
@@ -124,14 +125,14 @@ export async function sendEmailWithAttachmentByUserId(
         emailAddresses.push(parentProfileRef.data().email);
       } else {
         console.log(
-          'parentProfileRef.exists',
-          parentProfileRef.exists,
-          'settingsEmail',
-          parentProfileRef.data().settingsEmail,
-          'email',
-          parentProfileRef.data().email,
-          'parent',
-          parent.id
+            'parentProfileRef.exists',
+            parentProfileRef.exists,
+            'settingsEmail',
+            parentProfileRef.data().settingsEmail,
+            'email',
+            parentProfileRef.data().email,
+            'parent',
+            parent.id,
         );
       }
     }
