@@ -213,10 +213,21 @@ service cloud.firestore {
 	      //NEWS
       	match /news/{newsId=**} {
       		allow read: if isSignedIn() && isClubMember(request, clubId);
+          allow write, delete: if isSignedIn() && isClubAdmin(request, clubId);
       	}
         match /links/{linkId=**} {
       		allow read: if isSignedIn() && isClubMember(request, clubId);
           allow write, delete: if isSignedIn() && isClubAdmin(request, clubId);
+      	}
+        // INVOICES
+        match /invoicePeriods/{periodId} {
+      		allow read: if isSignedIn() && isClubMember(request, clubId);
+          allow write, delete: if isSignedIn() && isClubAdmin(request, clubId);
+          
+          match /invoices/{invoiceId} {
+            allow read: if isSignedIn() && isClubMember(request, clubId);
+            allow write, delete: if isSignedIn() && isClubAdmin(request, clubId);
+          }   
       	}
         //EVENTS
         match /events/{eventId} {

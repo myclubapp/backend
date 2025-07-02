@@ -67,6 +67,7 @@ import {onDocumentUpdated, onDocumentDeleted, onDocumentCreated, onDocumentWritt
 import * as functions from 'firebase-functions/v1';
 import {onSchedule} from 'firebase-functions/v2/scheduler';
 import {onRequest} from 'firebase-functions/v2/https';
+import {changeInvoice} from './firestore/invoice/changeInvoice.js';
 
 
 // ==================== AUTH FUNCTIONS ====================
@@ -107,6 +108,11 @@ export const dbAddClubTeam = onDocumentCreated({
   document: '/club/{clubId}/teams/{teamId}',
   region: 'europe-west6',
 }, addClubTeam);
+
+export const dbCHangeInvoice = onDocumentUpdated({
+  document: '/club/{clubId}/invoicePeriods/{periodId}/invoices/{invoiceId}',
+  region: 'europe-west6',
+}, changeInvoice);
 
 // ==================== TEAM FUNCTIONS ====================
 export const dbDeleteTeam = onDocumentDeleted({
