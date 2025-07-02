@@ -11,7 +11,7 @@ import {sendEmailWithAttachmentByUserId} from '../../utils/email.js';
 
 const db = firebaseDAO.instance.db;
 
-export async function changeInvoice(event: FirestoreEvent<Change<QueryDocumentSnapshot> | undefined>) {
+export async function changeClubMemberInvoice(event: FirestoreEvent<Change<QueryDocumentSnapshot> | undefined>) {
   logger.info('changeClubEvent');
   const {clubId, periodId, invoiceId} = event.params;
   const beforeData = event.data?.before.data();
