@@ -81,7 +81,8 @@ export async function sendEmailWithAttachmentByUserId(
     userId: string,
     templateName: string,
     templateData: any,
-    attachment: { filename: string; content: string; contentType: string },
+    // eslint-disable-next-line max-len
+    attachment: { filename: string; content: string; contentType: string; encoding: string },
     includeParents = true,
     alwaysSendTemplates: string[] = [
       'Welcome',

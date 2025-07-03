@@ -76,6 +76,7 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
           filename: 'qr-bill.pdf',
           content: PDFBuffer.toString('base64'),
           contentType: 'application/pdf',
+          encoding: 'base64',
         },
     );
 
