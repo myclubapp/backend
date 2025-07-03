@@ -7,6 +7,8 @@ import {Timestamp} from 'firebase-admin/firestore';
 import {Buffer} from 'node:buffer';
 import PDFDocument from 'pdfkit';
 import {SwissQRBill} from 'swissqrbill/pdf';
+import {mm2pt} from 'swissqrbill/utils';
+import {Table} from 'swissqrbill/pdf';
 import {sendEmailWithAttachmentByUserId} from '../../utils/email.js';
 
 const db = firebaseDAO.instance.db;
@@ -45,14 +47,168 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
     };
 
     const PDFBuffer: Buffer = await new Promise((resolve, reject) => {
-      const doc = new PDFDocument({size: 'A4'});
+      const pdf = new PDFDocument({size: 'A4'});
       const qrBill = new SwissQRBill(data);
       const chunks: Buffer[] = [];
-      qrBill.attachTo(doc);
-      doc.on('data', (chunk: Buffer) => chunks.push(chunk));
-      doc.on('end', () => resolve(Buffer.concat(chunks)));
-      doc.on('error', reject);
-      doc.end();
+      qrBill.attachTo(pdf);
+
+      // Adding the addresses
+      pdf.fontSize(12);
+      pdf.fillColor('black');
+      pdf.font('Helvetica');
+      pdf.text(`${data.creditor.name}\n${data.creditor.address} ${data.creditor.buildingNumber}\n${data.creditor.zip} ${data.creditor.city}`, mm2pt(20), mm2pt(35), {
+        align: 'left',
+        height: mm2pt(50),
+        width: mm2pt(100),
+      });
+      pdf.fontSize(12);
+      pdf.font('Helvetica');
+      pdf.text(`${data.debtor.name}\n${data.debtor.address} ${data.debtor.buildingNumber}\n${data.debtor.zip} ${data.debtor.city}`, mm2pt(130), mm2pt(60), {
+        align: 'left',
+        height: mm2pt(50),
+        width: mm2pt(70),
+      });
+
+      // Create Title
+      pdf.fontSize(14);
+      pdf.font('Helvetica-Bold');
+      pdf.text('Rechnung Nr. 1071672', mm2pt(20), mm2pt(100), {
+        align: 'left',
+        width: mm2pt(170),
+      });
+
+      const date = new Date();
+
+      pdf.fontSize(11);
+      pdf.font('Helvetica');
+      pdf.text(`${data.debtor.city} ${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`, {
+        align: 'right',
+        width: mm2pt(170),
+      });
+
+      // Add Table
+      const table = new Table({
+        rows: [
+          {
+            backgroundColor: '#4A4D51',
+            columns: [
+              {
+                text: 'Position',
+                width: mm2pt(20),
+              }, {
+                text: 'Anzahl',
+                width: mm2pt(20),
+              }, {
+                text: 'Bezeichnung',
+              }, {
+                text: 'Total',
+                width: mm2pt(30),
+              },
+            ],
+            fontName: 'Helvetica-Bold',
+            height: 20,
+            padding: 5,
+            textColor: '#fff',
+            verticalAlign: 'center',
+          }, {
+            columns: [
+              {
+                text: '1',
+                width: mm2pt(20),
+              }, {
+                text: '1 x',
+                width: mm2pt(20),
+              }, {
+                text: afterData?.purpose,
+              }, {
+                text: `CHF ${afterData?.currency} ${afterData?.amount}`,
+                width: mm2pt(30),
+              },
+            ],
+            padding: 5,
+          }, {
+            columns: [
+              {
+                text: '',
+                width: mm2pt(20),
+              }, {
+                text: '',
+                width: mm2pt(20),
+              }, {
+                fontName: 'Helvetica-Bold',
+                text: 'Summe',
+              }, {
+                fontName: 'Helvetica-Bold',
+                text: `CHF ${afterData?.currency} ${afterData?.amount}`,
+                width: mm2pt(30),
+              },
+            ],
+            height: 40,
+            padding: 5,
+          },
+          /* {
+            columns: [
+              {
+                text: '',
+                width: mm2pt(20),
+              }, {
+                text: '',
+                width: mm2pt(20),
+              }, {
+                text: 'MwSt.',
+              }, {
+                text: '7.7%',
+                width: mm2pt(30),
+              },
+            ],
+            padding: 5,
+          },
+          {
+            columns: [
+              {
+                text: '',
+                width: mm2pt(20),
+              }, {
+                text: '',
+                width: mm2pt(20),
+              }, {
+                text: 'MwSt. Betrag',
+              }, {
+                text: 'CHF 186.35',
+                width: mm2pt(30),
+              },
+            ],
+            padding: 5,
+          }, */{
+            columns: [
+              {
+                text: '',
+                width: mm2pt(20),
+              }, {
+                text: '',
+                width: mm2pt(20),
+              }, {
+                fontName: 'Helvetica-Bold',
+                text: 'Rechnungstotal',
+              }, {
+                fontName: 'Helvetica-Bold',
+                text: `CHF ${afterData?.currency} ${afterData?.amount}`,
+                width: mm2pt(30),
+              },
+            ],
+            height: 40,
+            padding: 5,
+          },
+        ],
+        width: mm2pt(170),
+      });
+
+      table.attachTo(pdf);
+
+      pdf.on('data', (chunk: Buffer) => chunks.push(chunk));
+      pdf.on('end', () => resolve(Buffer.concat(chunks)));
+      pdf.on('error', reject);
+      pdf.end();
     });
 
     await sendEmailWithAttachmentByUserId(
