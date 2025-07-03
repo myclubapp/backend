@@ -33,6 +33,8 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
     // https://github.com/schoero/swissqrbill
     const data = {
       amount: afterData?.amount,
+      additionalInformation: afterData?.referenceNumber,
+      message: afterData?.purpose + ' ' + afterData?.firstName + ' ' + afterData?.lastName,
       creditor: clubData.creditor,
       currency: afterData?.currency,
       debtor: {
