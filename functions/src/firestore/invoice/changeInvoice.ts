@@ -43,7 +43,7 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
         name: afterData?.firstName + ' ' + afterData?.lastName,
         zip: userProfileData?.postalcode || 1234,
       },
-      reference: '21 00000 00003 13947 14300 09017',
+      reference: afterData?.referenceNumber,
     };
 
     const PDFBuffer: Buffer = await new Promise((resolve, reject) => {
@@ -223,6 +223,7 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
           purpose: afterData?.purpose,
           invoice_base64: PDFBuffer.toString('base64'),
           filename: `Rechnung-${afterData?.firstName}-${afterData?.lastName}-${afterData?.purpose}.pdf`,
+          subject: `Rechnung ${clubData?.name} - ${afterData?.purpose}`,
         },
         {
           filename: 'qr-bill.pdf',
