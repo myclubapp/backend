@@ -19,24 +19,19 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
 
   console.log(clubId, periodId, invoiceId);
 
-  // Behandlung von Event-Absagen
+  const clubRef = await db.collection('club').doc(clubId).get();
+  const clubData = clubRef.data();
+
   if (afterData?.status === 'send' && beforeData?.status === 'draft') {
     logger.info('Rechnung senden');
 
     const userProfileRef = await db.collection('userProfile').doc(invoiceId).get();
     const userProfileData = userProfileRef.data();
 
+    // https://github.com/schoero/swissqrbill
     const data = {
       amount: afterData?.amount,
-      creditor: {
-        account: 'CH44 3199 9123 0008 8901 2',
-        address: 'Musterstrasse',
-        buildingNumber: 7,
-        city: 'Musterstadt',
-        country: 'CH',
-        name: 'SwissQRBill',
-        zip: 1234,
-      },
+      creditor: clubData.creditor,
       currency: afterData?.currency,
       debtor: {
         address: userProfileData?.street || 'Musterstrasse',
@@ -64,13 +59,14 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
         invoiceId, // this is the user id
         'Invoice',
         {
-          clubName: afterData?.clubName,
+          clubName: clubData?.name,
           firstName: afterData?.firstName,
           lastName: afterData?.lastName,
           invoiceAmount: afterData?.amount,
           invoiceCurrency: afterData?.currency,
           purpose: afterData?.purpose,
           invoice_base64: PDFBuffer.toString('base64'),
+          filename: `Rechnung-${afterData?.firstName}-${afterData?.lastName}-${afterData?.purpose}.pdf`,
         },
         {
           filename: 'qr-bill.pdf',

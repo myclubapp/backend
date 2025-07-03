@@ -86,6 +86,9 @@ export async function sendEmailWithAttachmentByUserId(
     includeParents = true,
     alwaysSendTemplates: string[] = [
       'Welcome',
+      'Invoice',
+      'HelferEventAddMemberConfirmation',
+      'EventAddMemberConfirmation',
       'ClubRequestCreated',
       'ClubRequestAdminEmail',
       'ClubRequestApproved',
