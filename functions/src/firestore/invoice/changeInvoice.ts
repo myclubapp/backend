@@ -38,12 +38,12 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
       creditor: clubData.creditor,
       currency: afterData?.currency,
       debtor: {
-        address: userProfileData?.street || 'Musterstrasse',
-        buildingNumber: userProfileData?.houseNumber || 1,
-        city: userProfileData?.city || 'Musterstadt',
+        address: userProfileData?.street || '',
+        buildingNumber: userProfileData?.houseNumber || '',
+        city: userProfileData?.city || clubData.creditor.city,
         country: userProfileData?.country || 'CH',
         name: afterData?.firstName + ' ' + afterData?.lastName,
-        zip: userProfileData?.postalcode || 1234,
+        zip: userProfileData?.postalcode || clubData.creditor.zip,
       },
       reference: afterData?.referenceNumber,
     };
