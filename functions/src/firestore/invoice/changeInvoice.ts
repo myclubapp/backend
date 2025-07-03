@@ -72,7 +72,7 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
       // Create Title
       pdf.fontSize(14);
       pdf.font('Helvetica-Bold');
-      pdf.text('Rechnung Nr. 1071672', mm2pt(20), mm2pt(100), {
+      pdf.text(`Rechnung Nr. ${afterData?.referenceNumber}`, mm2pt(20), mm2pt(100), {
         align: 'left',
         width: mm2pt(170),
       });
