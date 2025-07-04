@@ -10,6 +10,7 @@ import {SwissQRBill} from 'swissqrbill/pdf';
 import {mm2pt} from 'swissqrbill/utils';
 import {Table} from 'swissqrbill/pdf';
 import {sendEmailWithAttachmentByUserId} from '../../utils/email.js';
+import fetch from 'node-fetch';
 
 const db = firebaseDAO.instance.db;
 
@@ -48,16 +49,27 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
       reference: afterData?.referenceNumber,
     };
 
-    const PDFBuffer: Buffer = await new Promise((resolve, reject) => {
+    // eslint-disable-next-line no-async-promise-executor
+    const PDFBuffer: Buffer = await new Promise(async (resolve, reject) => {
       const pdf = new PDFDocument({size: 'A4'});
       const qrBill = new SwissQRBill(data);
       const chunks: Buffer[] = [];
       qrBill.attachTo(pdf);
 
       // adding a logo
-      pdf.image(clubData.logo, mm2pt(20), mm2pt(20), {
-        width: mm2pt(100),
-      });
+      const logoUrl = clubData.logo || 'https://www.my-club.app/lovable-uploads/9eb0e361-1508-4d5e-a219-d6fff8ebdb1d.png';
+      let logoBuffer: Buffer | undefined = undefined;
+
+      if (logoUrl) {
+        const response = await fetch(logoUrl);
+        if (response.ok) {
+          logoBuffer = Buffer.from(await response.arrayBuffer());
+        }
+      }
+
+      if (logoBuffer) {
+        pdf.image(logoBuffer, mm2pt(20), mm2pt(20), {width: mm2pt(100)});
+      }
 
       // Adding the addresses
       pdf.fontSize(12);
