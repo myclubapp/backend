@@ -54,6 +54,11 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
       const chunks: Buffer[] = [];
       qrBill.attachTo(pdf);
 
+      // adding a logo
+      pdf.image(clubData.logo, mm2pt(20), mm2pt(20), {
+        width: mm2pt(100),
+      });
+
       // Adding the addresses
       pdf.fontSize(12);
       pdf.fillColor('black');
@@ -129,6 +134,7 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
               }, {
                 text: 'Total',
                 width: mm2pt(30),
+                align: 'right',
               },
             ],
             fontName: 'Helvetica-Bold',
@@ -151,7 +157,7 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
                 text: 'Summe',
               }, {
                 fontName: 'Helvetica-Bold',
-                text: `CHF ${afterData?.currency} ${afterData?.amount}`,
+                text: `${afterData?.currency} ${afterData?.amount}`,
                 width: mm2pt(30),
               },
             ],
