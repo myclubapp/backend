@@ -68,7 +68,7 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
       }
 
       if (logoBuffer) {
-        pdf.image(logoBuffer, mm2pt(20), mm2pt(20), {width: mm2pt(100)});
+        pdf.image(logoBuffer, mm2pt(10), mm2pt(10), {width: mm2pt(50)});
       }
 
       // Adding the addresses
