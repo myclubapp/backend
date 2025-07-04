@@ -144,22 +144,6 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
                 text: '',
                 width: mm2pt(20),
               }, {
-                text: '1 x',
-                width: mm2pt(20),
-              }, {
-                text: afterData?.purpose,
-              }, {
-                text: `CHF ${afterData?.currency} ${afterData?.amount}`,
-                width: mm2pt(30),
-              },
-            ],
-            padding: 5,
-          }, {
-            columns: [
-              {
-                text: '',
-                width: mm2pt(20),
-              }, {
                 text: '',
                 width: mm2pt(20),
               }, {
