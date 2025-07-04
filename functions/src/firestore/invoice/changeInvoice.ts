@@ -172,6 +172,7 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
                 fontName: 'Helvetica-Bold',
                 text: `${afterData?.currency} ${afterData?.amount}`,
                 width: mm2pt(30),
+                align: 'right' as const,
               },
             ],
             height: 40,
@@ -223,8 +224,9 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
                 text: 'Rechnungstotal',
               }, {
                 fontName: 'Helvetica-Bold',
-                text: `CHF ${afterData?.currency} ${afterData?.amount}`,
+                text: `${afterData?.currency} ${afterData?.amount}`,
                 width: mm2pt(30),
+                align: 'right' as const,
               },
             ],
             height: 40,
