@@ -57,7 +57,7 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
       qrBill.attachTo(pdf);
 
       // adding a logo
-      const logoUrl = clubData.logo || 'https://www.my-club.app/lovable-uploads/9eb0e361-1508-4d5e-a219-d6fff8ebdb1d.png';
+      const logoUrl = clubData.logo || 'https://my-club.app/icons/icon-512x512.png';
       let logoBuffer: Buffer | undefined = undefined;
 
       if (logoUrl) {
@@ -252,6 +252,7 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
           invoiceCurrency: afterData?.currency,
           purpose: afterData?.purpose,
           invoice_base64: PDFBuffer.toString('base64'),
+          clubLogo: clubData.logo,
           filename: `Rechnung-${afterData?.firstName}-${afterData?.lastName}-${afterData?.purpose}.pdf`,
           subject: `Rechnung ${clubData?.name} - ${afterData?.purpose}`,
         },
