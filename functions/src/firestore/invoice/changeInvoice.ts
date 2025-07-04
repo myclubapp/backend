@@ -88,6 +88,30 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
         width: mm2pt(170),
       });
 
+      const invoicePositions = [];
+      let idx = 1;
+      // eslint-disable-next-line no-unsafe-optional-chaining
+      for (const item of afterData?.positions) {
+        invoicePositions.push({
+          columns: [
+            {
+              text: idx,
+              width: mm2pt(20),
+            }, {
+              text: '1 x',
+              width: mm2pt(20),
+            }, {
+              text: item.name,
+            }, {
+              text: `CHF ${item?.waehrung} ${item?.amount}`,
+              width: mm2pt(30),
+            },
+          ],
+          padding: 5,
+        });
+        idx++;
+      }
+
       // Add Table
       const table = new Table({
         rows: [
@@ -112,10 +136,12 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
             padding: 5,
             textColor: '#fff',
             verticalAlign: 'center',
-          }, {
+          },
+          ...invoicePositions,
+          {
             columns: [
               {
-                text: '1',
+                text: '',
                 width: mm2pt(20),
               }, {
                 text: '1 x',
