@@ -122,6 +122,7 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
             }, {
               text: `${item?.waehrung} ${item?.amount}`,
               width: mm2pt(30),
+              align: 'right' as const,
             },
           ],
           padding: 5,
