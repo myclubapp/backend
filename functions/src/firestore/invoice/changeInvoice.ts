@@ -82,7 +82,7 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
       });
       pdf.fontSize(12);
       pdf.font('Helvetica');
-      pdf.text(`${data.debtor.name}\n${data.debtor.address} ${data.debtor.buildingNumber}\n${data.debtor.zip} ${data.debtor.city}`, mm2pt(130), mm2pt(65), {
+      pdf.text(`${data.debtor.name}\n${data.debtor.address} ${data.debtor.buildingNumber}\n${data.debtor.zip} ${data.debtor.city}`, mm2pt(130), mm2pt(60), {
         align: 'left',
         height: mm2pt(50),
         width: mm2pt(70),
