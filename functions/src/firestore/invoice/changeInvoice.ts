@@ -120,7 +120,7 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
             }, {
               text: item.name,
             }, {
-              text: `CHF ${item?.waehrung} ${item?.amount}`,
+              text: `${item?.waehrung} ${item?.amount}`,
               width: mm2pt(30),
             },
           ],
