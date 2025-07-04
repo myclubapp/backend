@@ -147,7 +147,7 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
               }, {
                 text: 'Total',
                 width: mm2pt(30),
-                align: 'right',
+                align: 'left' as const,
               },
             ],
             fontName: 'Helvetica-Bold',
