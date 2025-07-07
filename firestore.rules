@@ -1,7 +1,17 @@
-rules_version = '2';
+	rules_version = '2';
 service cloud.firestore {
 
 	match /databases/{database}/documents {
+  
+    // Collection Group Berechtigung für Contact in Club.
+    match /{path=**}/contacts/{contactId} {
+      allow read: if isSignedIn();
+    }
+     // Collection Group Berechtigung für Invoices im Club
+    match /{path=**}/invoices/{invoiceId} {
+      allow read: if isSignedIn();
+    }
+  
   
      	// function hasCustomClaim(claim) {
       // 	return request.auth.token[claim] || false;
@@ -49,18 +59,17 @@ service cloud.firestore {
 
         return isDirectMember || isKidMember1 || isKidMember2 || isKidMember3;
       }
+      // Is Club Parent
+      function isClubParent(request, clubId) {
+      	let uid = request.auth.uid;
+      	return exists(/databases/$(database)/documents/club/$(clubId)/parents/$(uid));
+      }
 
       // CLUB MEMBER via TEAMS - that's why we use path from reference
       function isClubMemberPath(request, path) {
         return exists(/databases/$(database)/documents/$(path)/members/$(request.auth.uid));
       }
 
-      // Is Club Parent
-      function isClubParent(request, clubId) {
-      	let uid = request.auth.uid;
-      	return exists(/databases/$(database)/documents/club/$(clubId)/parents/$(uid));
-      }
-      
       // CLUB ADMIN
       function isClubAdmin(request, clubId) {
         return exists(/databases/$(database)/documents/club/$(clubId)/admins/$(request.auth.uid));
@@ -206,6 +215,11 @@ service cloud.firestore {
 				allow read: if isSignedIn(); // && exists(/databases/$(database)/documents/userProfile/$(request.auth.uid)/clubs/$(clubId));
 				allow write: if isSignedIn() && isClubAdmin(request, clubId);
 
+        //CONTACTS
+        match /contacts/{contactId=**} {
+          allow read: if isSignedIn();
+        } 
+
         //GAMES
         match /games/{gamesId=**} {
           allow read: if isSignedIn() && isClubMember(request, clubId);
@@ -220,7 +234,9 @@ service cloud.firestore {
           allow write, delete: if isSignedIn() && isClubAdmin(request, clubId);
       	}
         // INVOICES
-        match /invoicePeriods/{periodId} {
+                
+
+       match /invoicePeriods/{periodId} {
       		allow read: if isSignedIn() && isClubMember(request, clubId);
           allow write, delete: if isSignedIn() && isClubAdmin(request, clubId);
           
@@ -229,6 +245,7 @@ service cloud.firestore {
             allow write, delete: if isSignedIn() && isClubAdmin(request, clubId);
           }   
       	}
+
         //EVENTS
         match /events/{eventId} {
           allow read: if isSignedIn() && isClubMember(request, clubId);
@@ -298,24 +315,24 @@ service cloud.firestore {
         } 
         //TEAMS
       	match /teams/{teamId=**} {
-          // Special Rule for Onboarding Club
+        // Special Rule for Onboarding Club
       		allow read: if isSignedIn() && isClubMember(request, clubId) || isSignedIn();
           allow create: if isSignedIn() && isClubAdmin(request, clubId);
       	}    
         //MEMBERS
       	match /members/{memberId=**} {
       		allow read: if isSignedIn() && isClubMember(request, clubId);
-      		allow update: if isSignedIn() && isClubAdmin(request, clubId);
+      		allow update, delete: if isSignedIn() && isClubAdmin(request, clubId);
 				}
         //PARENTS
       	match /parents/{parentId=**} {
       		allow read: if isSignedIn() && isClubMember(request, clubId);
-      		allow update, delete: if isSignedIn() && isClubAdmin(request, clubId);
+      		allow update, delete: if isSignedIn() && isClubAdmin(request, clubId);          
 				} 
         //ADMINS for ADMINS
       	match /admins/{memberId=**} {
       		allow read: if isSignedIn() && isClubMember(request, clubId);
- 					allow write: if isSignedIn() && isClubAdmin(request, clubId);
+ 					allow write, delete: if isSignedIn() && isClubAdmin(request, clubId);
       	}   
         //REQUESTS for ADMINS
       	match /requests/{requestId=**} {
@@ -355,9 +372,9 @@ service cloud.firestore {
         allow read: if isSignedIn()
         && (isTeamMember(request, teamId) || isClubMember(request, resource.data.clubId))
         || isSignedIn(); //Special rule for team Onboarding.
-				allow write: if isSignedIn() && isTeamAdmin(request, teamId);
+				allow write: if isSignedIn() && (isTeamAdmin(request, teamId) || isClubAdmin(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId) );
         allow delete: if isSignedIn() && (isTeamAdmin(request, teamId) || isClubAdmin(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId) );
-
+    
 				//TEAM EXERCISES
         match /exercises/{exerciseId} {
           allow read, write: if isSignedIn() && ( isTeamAdmin(request, teamId) || isClubAdmin(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId) );

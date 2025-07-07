@@ -10,6 +10,7 @@ import {SwissQRBill} from 'swissqrbill/pdf';
 import {mm2pt} from 'swissqrbill/utils';
 import {Table} from 'swissqrbill/pdf';
 import {sendEmailWithAttachmentByUserId} from '../../utils/email.js';
+import {sendPushNotificationByUserProfileId} from '../../utils/push.js';
 import fetch from 'node-fetch';
 
 const db = firebaseDAO.instance.db;
@@ -266,6 +267,15 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
           encoding: 'base64',
         },
     );
+
+    if (userProfileData?.settingsPush) {
+      await sendPushNotificationByUserProfileId(invoiceId, 'Rechnung', 'Rechnung erstellt', {
+        'type': 'invoice',
+        'periodId': periodId,
+        'clubId': clubId,
+        'id': invoiceId,
+      });
+    }
 
     return db.collection('club').doc(clubId).collection('invoicePeriods').doc(periodId).collection('invoices').doc(invoiceId).update({
       updatedAt: Timestamp.now(),
