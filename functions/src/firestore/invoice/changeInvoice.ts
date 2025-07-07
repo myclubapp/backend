@@ -269,7 +269,7 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
     );
 
     if (userProfileData?.settingsPush) {
-      await sendPushNotificationByUserProfileId(invoiceId, 'Rechnung', 'Rechnung erstellt', {
+      await sendPushNotificationByUserProfileId(invoiceId, 'Neue Rechnung ' + afterData?.purpose, 'Eine neue Rechnung wurde erstellt', {
         'type': 'invoice',
         'periodId': periodId,
         'clubId': clubId,
