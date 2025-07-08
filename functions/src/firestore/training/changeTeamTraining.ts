@@ -99,7 +99,7 @@ async function handleTrainingReminder(teamId: string, trainingId: string, traini
 
   for (const member of membersRef.docs) {
     const hasResponded = attendeesRef.docs.some((attendee: QueryDocumentSnapshot) =>
-      attendee.id === member.id && attendee.data().status === false,
+      attendee.id === member.id && ( attendee.data().status === false || attendee.data().status == true ),
     );
     if (!hasResponded) {
       const userProfileRef = await db.collection('userProfile').doc(member.id).get();
