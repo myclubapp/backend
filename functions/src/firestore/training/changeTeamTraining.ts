@@ -114,9 +114,9 @@ async function handleTrainingReminder(teamId: string, trainingId: string, traini
             });
       }
       if (userProfileRef.exists && userProfileRef.data().settingsEmail) {
-        const trainingDatum = trainingData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'});
-        const trainingZeit = trainingData.startDate.toDate().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'});
-        console.log(trainingDatum, trainingZeit);
+        const trainingDatum = trainingData.date.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'});
+        const trainingZeit = trainingData.date.toDate().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Zurich'});
+
         await sendEmailByUserId(member.id, 'TeamTrainingReminder', {
           teamName: teamRef.data().name,
           trainingName: trainingData.name,
@@ -124,8 +124,8 @@ async function handleTrainingReminder(teamId: string, trainingId: string, traini
           lastName: userProfileRef.data()?.lastName,
           trainerName: trainingData.trainerName,
           trainingOrt: trainingData.location,
-          trainingDatum: trainingData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}),
-          trainingZeit: trainingData.startDate.toDate().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'}),
+          trainingDatum: trainingDatum,
+          trainingZeit: trainingZeit,
           abmeldefrist: trainingDatumPlusThresholdString ? trainingDatumPlusThresholdString : 'nicht festgelegt',
         });
       }
