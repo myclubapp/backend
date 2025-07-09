@@ -114,6 +114,9 @@ async function handleTrainingReminder(teamId: string, trainingId: string, traini
             });
       }
       if (userProfileRef.exists && userProfileRef.data().settingsEmail) {
+        const trainingDatum = trainingData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'});
+        const trainingZeit = trainingData.startDate.toDate().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'});
+        console.log(trainingDatum, trainingZeit);
         await sendEmailByUserId(member.id, 'TeamTrainingReminder', {
           teamName: teamRef.data().name,
           trainingName: trainingData.name,
