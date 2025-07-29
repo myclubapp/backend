@@ -393,6 +393,7 @@ export async function updateClubsSwissunihockey(): Promise<any> {
           gameCenterProfile: gameCenterPlayer.ThumbnailURL,
           gameCenterPosition: gameCenterPlayer.Position,
           gameCenterShirtNumber: gameCenterPlayer.ShirtNumber,
+          updated: new Date(),
         }, {
           merge: true,
         });
