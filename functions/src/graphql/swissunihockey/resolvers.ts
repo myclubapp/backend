@@ -245,12 +245,14 @@ async function getClubs() {
     } catch (e) {
       logger.info(">>> error read & update address swissunihockey");
     } */
-    const gameCenterClub = gameCenterClubData.find((club: any) => club.Name === item.text);
+    //     const gameCenterClub = gameCenterClubData.find((club: any) => club.Name === item.text);
+
+    const gameCenterClub = gameCenterClubData.find((club: any) => club.Name && club.Name.trim() === item.text);
 
     clubList.push({
       id: item.set_in_context.club_id,
       name: item.text,
-      ...gameCenterClub,
+      gameCenter: gameCenterClub,
       address: [{
         id: item.set_in_context.club_id,
         firstName: contactPerson,
