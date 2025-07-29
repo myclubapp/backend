@@ -373,9 +373,9 @@ export async function updateClubsSwissunihockey(): Promise<any> {
       logoUrl = existingLogo;
       logger.info(`Behalte bestehendes Logo für Club ${club.id}: ${logoUrl}`);
     }
-    console.log('existingLogo', existingLogo);
-    console.log('isCloudinaryUrl', isCloudinaryUrl);
-    console.log('logoUrl', logoUrl);
+    // console.log('existingLogo', existingLogo);
+    // console.log('isCloudinaryUrl', isCloudinaryUrl);
+    // console.log('logoUrl', logoUrl);
 
     clubRef = await db.collection('club').doc(`su-${club.id}`).set({
       externalId: `${club.id}`,
