@@ -71,8 +71,8 @@ import {changeClubMemberInvoice} from './firestore/invoice/changeInvoice.js';
 
 
 // ==================== AUTH FUNCTIONS ====================
-export const sendByeEmail = functions.auth.user().onDelete(authUserDeleteUserSendByEmail);
-export const deleteUserAccount = functions.auth.user().onDelete(authUserDeleteUserAccount);
+export const sendByeEmail = functions.region('europe-west6').auth.user().onDelete(authUserDeleteUserSendByEmail);
+export const deleteUserAccount = functions.region('europe-west6').auth.user().onDelete(authUserDeleteUserAccount);
 export const dbCreateUserSendWelcomeEmail = onDocumentCreated({
   document: '/userProfile/{userId}',
   region: 'europe-west6',
