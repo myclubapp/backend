@@ -142,7 +142,7 @@ async function getTeams(clubId: string, season: string) {
   // eslint-disable-next-line no-undef
   const clubRef = await db.collection('club').doc('su-' + clubId).get();
   // eslint-disable-next-line no-undef
-  const gameCenterTeamsData = await fetch('https://unihockey.swiss/api/clubapi/initclubteams/?clubid=' + clubRef.data()?.ClubID);
+  const gameCenterTeamsData = await fetch('https://unihockey.swiss/api/clubapi/initclubteams/?clubid=' + clubRef.data()?.gameCenterClubId);
   const gameCenterTeamsDataJson = await gameCenterTeamsData.json();
 
   logger.info(gameCenterTeamsDataJson);

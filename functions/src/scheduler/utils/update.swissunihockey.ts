@@ -379,6 +379,7 @@ export async function updateClubsSwissunihockey(): Promise<any> {
 
     clubRef = await db.collection('club').doc(`su-${club.id}`).set({
       externalId: `${club.id}`,
+      gameCenterClubId: club.gameCenter.ClubID,
       name: club.name,
       type: 'swissunihockey',
       logo: logoUrl, // Speichere die Firebase Storage URL
