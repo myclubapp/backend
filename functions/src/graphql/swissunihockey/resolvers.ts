@@ -178,6 +178,11 @@ async function getClubs() {
   // eslint-disable-next-line no-undef
   const data = await fetch('https://api-v2.swissunihockey.ch/api/clubs');
   const clubData = await data.json();
+
+  // eslint-disable-next-line no-undef
+  const gameCenterData = await fetch('https://unihockey.swiss/api/leagueorganizerapi/getleagueorganizerclubs/?leagueOrganizerId=1');
+  const gameCenterClubData = await gameCenterData.json();
+
   const clubList = <any>[];
   // clubData.entries.forEach(async (item: any) => {
   for (const item of clubData.entries) {
@@ -227,9 +232,12 @@ async function getClubs() {
     } catch (e) {
       logger.info(">>> error read & update address swissunihockey");
     } */
+    const gameCenterClub = gameCenterClubData.find((club: any) => club.name === item.text);
+
     clubList.push({
       id: item.set_in_context.club_id,
       name: item.text,
+      ...gameCenterClub,
       address: [{
         id: item.set_in_context.club_id,
         firstName: contactPerson,
