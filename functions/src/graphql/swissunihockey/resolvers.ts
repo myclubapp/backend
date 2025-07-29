@@ -255,7 +255,7 @@ async function getClubs() {
     // Read all Players for all Teams of this Club from GameCenter
 
     const gameCenterPlayers: any[] = [];
-    for (const team of gameCenterTeams) {
+    for (const team of gameCenterTeams.Teams) {
       // eslint-disable-next-line no-undef
       const gameCenterPlayersData = await fetch('https://unihockey.swiss/api/teamapi/initplayersadminvc/?teamid=' + team.ItemID);
       const gameCenterPlayersDataJson = await gameCenterPlayersData.json();
