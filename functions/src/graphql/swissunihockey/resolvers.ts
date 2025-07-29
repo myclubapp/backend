@@ -5,7 +5,10 @@
 
 
 // import fetch from 'node-fetch';
+import firebaseDAO from '../../firebaseSingleton.js';
 import {logger} from 'firebase-functions';
+const db = firebaseDAO.instance.db;
+
 // const {convert} = require("html-to-text");
 
 // const jsdom = require("jsdom");
@@ -134,6 +137,16 @@ async function getTeams(clubId: string, season: string) {
   const data = await fetch('https://api-v2.swissunihockey.ch/api/teams?mode=by_club&club_id=' + clubId + '&season=' + season);
   const teamData = await data.json();
   const teamList = <any>[];
+
+  // Get Game Center Teams Data based on Firebase stored ClubID
+  // eslint-disable-next-line no-undef
+  const clubRef = await db.collection('club').doc('su-' + clubId).get();
+  // eslint-disable-next-line no-undef
+  const gameCenterTeamsData = await fetch('https://unihockey.swiss/api/clubapi/initclubteams/?clubid=' + clubRef.data()?.ClubID);
+  const gameCenterTeamsDataJson = await gameCenterTeamsData.json();
+
+  logger.info(gameCenterTeamsDataJson);
+
   // logger.info(teamData);
   for (const team of teamData.entries) {
     logger.info(`team id: ${team.set_in_context.team_id} ${team.text}`);
@@ -232,7 +245,7 @@ async function getClubs() {
     } catch (e) {
       logger.info(">>> error read & update address swissunihockey");
     } */
-    const gameCenterClub = gameCenterClubData.find((club: any) => club.name === item.text);
+    const gameCenterClub = gameCenterClubData.find((club: any) => club.Name === item.text);
 
     clubList.push({
       id: item.set_in_context.club_id,
