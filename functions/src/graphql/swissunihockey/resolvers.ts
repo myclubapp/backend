@@ -248,10 +248,26 @@ async function getClubs() {
 
     const gameCenterClub = gameCenterClubData.find((club: any) => club.Name && club.Name.trim() === item.text);
 
+    // Read all Teams for this Club from GameCenter
+    // eslint-disable-next-line no-undef
+    const gameCenterTeamsData = await fetch('https://unihockey.swiss/api/clubapi/initclubteams/?clubid=' + gameCenterClub.ClubID);
+    const gameCenterTeams = await gameCenterTeamsData.json();
+    // Read all Players for all Teams of this Club from GameCenter
+
+    const gameCenterPlayers: any[] = [];
+    for (const team of gameCenterTeams) {
+      // eslint-disable-next-line no-undef
+      const gameCenterPlayersData = await fetch('https://unihockey.swiss/api/teamapi/initplayersadminvc/?teamid=' + team.ItemID);
+      const gameCenterPlayersDataJson = await gameCenterPlayersData.json();
+      gameCenterPlayers.push(...gameCenterPlayersDataJson);
+    }
+
     clubList.push({
       id: item.set_in_context.club_id,
       name: item.text,
       gameCenter: gameCenterClub,
+      gameCenterTeams: gameCenterTeams,
+      gameCenterPlayers: gameCenterPlayers,
       address: [{
         id: item.set_in_context.club_id,
         firstName: contactPerson,
