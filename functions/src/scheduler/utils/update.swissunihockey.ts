@@ -312,7 +312,7 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
         liga: team.liga,
         logo: logoUrl || team.logo, // Verwende die neue URL, falls vorhanden
         info: team.info,
-        website: team.data()?.website || team.website || '', // dont overwrite website if already set
+        website: teamData?.website || team.website || '', // dont overwrite website if already set
         portrait: team.portrait,
         jahresbeitragWert: teamData?.jahresbeitragWert || 0.0,
         jahresbeitragWaehrung: teamData?.jahresbeitragWaehrung || 'CHF',
