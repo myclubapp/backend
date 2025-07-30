@@ -171,6 +171,7 @@ async function getTeams(clubId: string, season: string) {
     // eslint-disable-next-line no-undef
     const gameCenterPlayersData = await fetch('https://unihockey.swiss/api/teamapi/initplayersadminvc/?teamid=' + team.TeamID);
     const gameCenterPlayersDataJson = await gameCenterPlayersData.json();
+    console.log(team.TeamID, gameCenterPlayersDataJson);
 
     teamList.push({
       id: team.set_in_context.team_id,
