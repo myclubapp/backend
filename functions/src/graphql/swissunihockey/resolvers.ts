@@ -156,20 +156,21 @@ async function getTeams(clubId: string, season: string) {
   for (const team of teamData.entries) {
     logger.info(`team id: ${team.set_in_context.team_id} ${team.text}`);
 
-    const gameCenterTeamData = gameCenterTeamList.find((gameCenterTeam: any) => {
-      return gameCenterTeam?.Name?.trim() === team.text?.trim();
-    });
+
     // eslint-disable-next-line no-undef
     const teamDetailRequestData = await fetch(`https://api-v2.swissunihockey.ch/api/teams/${team.set_in_context.team_id}`);
     const teamDetailData = await teamDetailRequestData.json();
 
+    const gameCenterTeamData = gameCenterTeamList.find((gameCenterTeam: any) => {
+      return gameCenterTeam?.Name?.trim() === team.text?.trim();
+    });
     const portrait =
       teamDetailData?.data?.regions?.[0]?.rows?.[0]?.cells?.[3]?.image?.url ||
       (gameCenterTeamData?.HasTeamBanner === true ? gameCenterTeamData?.TeamBanner?.PictureURL : '') ||
       '';
 
     // eslint-disable-next-line no-undef
-    const gameCenterPlayersData = await fetch('https://unihockey.swiss/api/teamapi/initplayersadminvc/?teamid=' + team.TeamID);
+    const gameCenterPlayersData = await fetch('https://unihockey.swiss/api/teamapi/initplayersadminvc/?teamid=' + gameCenterTeamData.TeamID);
     const gameCenterPlayersDataJson = await gameCenterPlayersData.json();
     console.log(team.TeamID, gameCenterPlayersDataJson);
 
