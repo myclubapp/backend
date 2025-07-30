@@ -265,9 +265,9 @@ async function getClubs() {
     clubList.push({
       id: item.set_in_context.club_id,
       name: item.text,
-      gameCenter: gameCenterClub,
-      gameCenterTeams: gameCenterTeams,
-      gameCenterPlayers: gameCenterPlayers,
+      gameCenter: gameCenterClub || {},
+      gameCenterTeams: gameCenterTeams.Teams || [],
+      gameCenterPlayers: gameCenterPlayers || [],
       address: [{
         id: item.set_in_context.club_id,
         firstName: contactPerson,
