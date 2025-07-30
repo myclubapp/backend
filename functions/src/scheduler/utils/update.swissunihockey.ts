@@ -308,6 +308,7 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
       const teamData = teamRef.exists ? teamRef.data() : {};
       await db.collection('teams').doc(`su-${team.id}`).set({
         externalId: `${team.id}`,
+        gameCenterId: team.gameCenterId || '',
         name: team.name,
         liga: team.liga,
         logo: logoUrl || team.logo, // Verwende die neue URL, falls vorhanden

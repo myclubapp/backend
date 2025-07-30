@@ -165,7 +165,7 @@ async function getTeams(clubId: string, season: string) {
 
     const portrait =
       teamDetailData?.data?.regions?.[0]?.rows?.[0]?.cells?.[3]?.image?.url ||
-      gameCenterTeamData?.TeamBanner?.PictureURL ||
+      (gameCenterTeamData?.HasTeamBanner === true ? gameCenterTeamData?.TeamBanner?.PictureURL : '') ||
       '';
 
     teamList.push({
