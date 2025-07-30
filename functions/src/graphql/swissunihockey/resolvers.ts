@@ -176,7 +176,7 @@ async function getTeams(clubId: string, season: string) {
       id: team.set_in_context.team_id,
       name: team.text,
       gameCenterId: gameCenterTeamData?.TeamID || '',
-      gameCenterPlayers: gameCenterPlayersDataJson,
+      gameCenterPlayers: gameCenterPlayersDataJson || [],
       info: teamDetailData?.data?.regions?.[0]?.rows?.[0]?.cells?.[0]?.text?.[0] || '',
       logo: teamDetailData?.data?.regions?.[0]?.rows?.[0]?.cells?.[1]?.image?.url || '',
       website: teamDetailData?.data?.regions?.[0]?.rows?.[0]?.cells?.[2]?.url?.href || '',
