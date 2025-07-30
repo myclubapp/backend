@@ -6,7 +6,7 @@
 
 // import fetch from 'node-fetch';
 import firebaseDAO from '../../firebaseSingleton.js';
-import {logger} from 'firebase-functions';
+import { logger } from 'firebase-functions';
 const db = firebaseDAO.instance.db;
 
 // const {convert} = require("html-to-text");
@@ -248,18 +248,21 @@ async function getClubs() {
 
     const gameCenterClub = gameCenterClubData.find((club: any) => club.Name && club.Name.trim() === item.text);
 
-    // Read all Teams for this Club from GameCenter
-    // eslint-disable-next-line no-undef
-    const gameCenterTeamsData = await fetch('https://unihockey.swiss/api/clubapi/initclubteams/?clubid=' + gameCenterClub.ClubID);
-    const gameCenterTeams = await gameCenterTeamsData.json();
-    // Read all Players for all Teams of this Club from GameCenter
-
     const gameCenterPlayers: any[] = [];
-    for (const team of gameCenterTeams.Teams) {
+    let gameCenterTeams: any = {};
+    // Read all Teams for this Club from GameCenter
+    if (gameCenterClub && gameCenterClub.ClubID) {
       // eslint-disable-next-line no-undef
-      const gameCenterPlayersData = await fetch('https://unihockey.swiss/api/teamapi/initplayersadminvc/?teamid=' + team.ItemID);
-      const gameCenterPlayersDataJson = await gameCenterPlayersData.json();
-      gameCenterPlayers.push(...gameCenterPlayersDataJson);
+      const gameCenterTeamsData = await fetch('https://unihockey.swiss/api/clubapi/initclubteams/?clubid=' + gameCenterClub.ClubID);
+      gameCenterTeams = await gameCenterTeamsData.json();
+      // Read all Players for all Teams of this Club from GameCenter
+
+      for (const team of gameCenterTeams.Teams) {
+        // eslint-disable-next-line no-undef
+        const gameCenterPlayersData = await fetch('https://unihockey.swiss/api/teamapi/initplayersadminvc/?teamid=' + team.ItemID);
+        const gameCenterPlayersDataJson = await gameCenterPlayersData.json();
+        gameCenterPlayers.push(...gameCenterPlayersDataJson);
+      }
     }
 
     clubList.push({
@@ -423,7 +426,7 @@ async function getSeason(): Promise<string | null> {
     const seasonData = await res.json();
 
     const currentSeason = seasonData.entries.find(
-        (entry: any) => entry.highlight === true,
+      (entry: any) => entry.highlight === true,
     );
 
     return currentSeason?.set_in_context.season.toString() ?? null;
@@ -574,8 +577,8 @@ async function getNews() {
       if (item.storyItem) {
         // 1. Image
         const imageItem = item.storyItem.find(
-            (si: any) =>
-              si.fkElement === 13 && si.contentA && si.contentA.includes('cdn.publishr.ch'),
+          (si: any) =>
+            si.fkElement === 13 && si.contentA && si.contentA.includes('cdn.publishr.ch'),
         );
         if (imageItem) {
           imagePath = imageItem.contentA;
@@ -583,7 +586,7 @@ async function getNews() {
 
         // 2. Title
         const titleItem = item.storyItem.find(
-            (si: any) => si.fkElement === 1 && si.contentA,
+          (si: any) => si.fkElement === 1 && si.contentA,
         );
         if (titleItem) {
           title = titleItem.contentA;
@@ -591,7 +594,7 @@ async function getNews() {
 
         // 3. Lead text
         const leadItem = item.storyItem.find(
-            (si: any) => si.fkElement === 6 && si.contentA,
+          (si: any) => si.fkElement === 6 && si.contentA,
         );
         if (leadItem) {
           leadText = leadItem.contentA;
@@ -599,7 +602,7 @@ async function getNews() {
 
         // 4. Full HTML content
         const htmlItem = item.storyItem.find(
-            (si: any) => si.fkElement === 61 && si.contentA,
+          (si: any) => si.fkElement === 61 && si.contentA,
         );
         if (htmlItem) {
           htmlText = htmlItem.contentA;
@@ -642,8 +645,8 @@ async function getNews() {
       if (item.storyItem) {
         // 1. Image
         const imageItem = item.storyItem.find(
-            (si: any) =>
-              si.fkElement === 13 && si.contentA && si.contentA.includes('cdn.publishr.ch'),
+          (si: any) =>
+            si.fkElement === 13 && si.contentA && si.contentA.includes('cdn.publishr.ch'),
         );
         if (imageItem) {
           imagePath = imageItem.contentA;
@@ -651,7 +654,7 @@ async function getNews() {
 
         // 2. Title
         const titleItem = item.storyItem.find(
-            (si: any) => si.fkElement === 1 && si.contentA,
+          (si: any) => si.fkElement === 1 && si.contentA,
         );
         if (titleItem) {
           title = titleItem.contentA;
@@ -659,7 +662,7 @@ async function getNews() {
 
         // 3. Lead text
         const leadItem = item.storyItem.find(
-            (si: any) => si.fkElement === 6 && si.contentA,
+          (si: any) => si.fkElement === 6 && si.contentA,
         );
         if (leadItem) {
           leadText = leadItem.contentA;
@@ -667,7 +670,7 @@ async function getNews() {
 
         // 4. Full HTML content
         const htmlItem = item.storyItem.find(
-            (si: any) => si.fkElement === 61 && si.contentA,
+          (si: any) => si.fkElement === 61 && si.contentA,
         );
         if (htmlItem) {
           htmlText = htmlItem.contentA;
