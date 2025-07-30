@@ -156,8 +156,8 @@ async function getTeams(clubId: string, season: string) {
   for (const team of teamData.entries) {
     logger.info(`team id: ${team.set_in_context.team_id} ${team.text}`);
 
-    const gameCenterTeamData = gameCenterTeamList.find((team: any) => {
-      return team.Name.trim() === team.text.trim();
+    const gameCenterTeamData = gameCenterTeamList.find((gameCenterTeam: any) => {
+      return gameCenterTeam?.Name?.trim() === team.text?.trim();
     });
     // eslint-disable-next-line no-undef
     const teamDetaoöRequestData = await fetch(`https://api-v2.swissunihockey.ch/api/teams/${team.set_in_context.team_id}`);
