@@ -390,9 +390,9 @@ export async function updateClubsSwissunihockey(): Promise<any> {
           profile.LastName.toLowerCase() == userProfileRef.data().lastName.toLowerCase();
         });
         await db.collection('club').doc(`su-${club.id}`).collection('members').doc(userProfileRef.id).set({
-          gameCenterProfile: gameCenterPlayer.ThumbnailURL,
-          gameCenterPosition: gameCenterPlayer.Position,
-          gameCenterShirtNumber: gameCenterPlayer.ShirtNumber,
+          gameCenterProfile: gameCenterPlayer?.ThumbnailURL || '',
+          gameCenterPosition: gameCenterPlayer?.Position || '',
+          gameCenterShirtNumber: gameCenterPlayer?.ShirtNumber || '',
           updated: new Date(),
         }, {
           merge: true,
