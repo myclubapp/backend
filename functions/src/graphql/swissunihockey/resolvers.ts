@@ -144,24 +144,39 @@ async function getTeams(clubId: string, season: string) {
   const gameCenterTeamsData = await fetch('https://unihockey.swiss/api/clubapi/initclubteams/?clubid=' + clubRef.data()?.gameCenterClubId);
   const gameCenterTeamsDataJson = await gameCenterTeamsData.json();
 
-  logger.info(gameCenterTeamsDataJson);
+  const gameCenterTeamList: any[] = [];
+  for (const team of gameCenterTeamsDataJson.Teams) {
+    // eslint-disable-next-line no-undef
+    const teamDetailData = await fetch(`https://unihockey.swiss/api/teamapi/getteamheaderinfoforteamsite/?teamid=${team.ItemID}`);
+    const teamDetailDataJson = await teamDetailData.json();
+    gameCenterTeamList.push(teamDetailDataJson);
+  }
 
   // logger.info(teamData);
   for (const team of teamData.entries) {
     logger.info(`team id: ${team.set_in_context.team_id} ${team.text}`);
 
+    const gameCenterTeamData = gameCenterTeamList.find((team: any) => {
+      return team.Name.trim() === team.text.trim();
+    });
     // eslint-disable-next-line no-undef
     const teamDetaoöRequestData = await fetch(`https://api-v2.swissunihockey.ch/api/teams/${team.set_in_context.team_id}`);
     const teamDetailData = await teamDetaoöRequestData.json();
 
+    const portrait =
+      teamDetailData?.data?.regions?.[0]?.rows?.[0]?.cells?.[3]?.image?.url ||
+      gameCenterTeamData?.TeamBanner?.PictureURL ||
+      '';
+
     teamList.push({
       id: team.set_in_context.team_id,
       name: team.text,
-      info: teamDetailData.data.regions[0].rows[0].cells[0].text[0],
-      logo: teamDetailData.data.regions[0].rows[0].cells[1].image.url || '',
-      website: teamDetailData.data.regions[0].rows[0].cells[2].url.href || '',
-      portrait: teamDetailData.data.regions[0].rows[0].cells[3].image.url || '',
-      liga: teamDetailData.data.regions[0].rows[0].cells[4].text[0] || '',
+      gameCenterId: gameCenterTeamData?.TeamID || '',
+      info: teamDetailData?.data?.regions?.[0]?.rows?.[0]?.cells?.[0]?.text?.[0] || '',
+      logo: teamDetailData?.data?.regions?.[0]?.rows?.[0]?.cells?.[1]?.image?.url || '',
+      website: teamDetailData?.data?.regions?.[0]?.rows?.[0]?.cells?.[2]?.url?.href || '',
+      portrait: portrait,
+      liga: teamDetailData?.data?.regions?.[0]?.rows?.[0]?.cells?.[4]?.text?.[0] || '',
     });
   }
   /* teamData.entries.forEach((item: any) => {

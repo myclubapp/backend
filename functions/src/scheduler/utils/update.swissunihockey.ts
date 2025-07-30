@@ -276,7 +276,7 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
     for (const team of teamData) {
       logger.info(club.name + ' / ' + team.name);
       const clubRef = await db.collection('club').doc(`su-${club.id}`).get();
-      let teamRef = await db.collection('teams').doc(`su-${team.id}`).get();
+      const teamRef = await db.collection('teams').doc(`su-${team.id}`).get();
 
       // Speichere das Logo auf Firebase Storage, falls vorhanden
       let logoUrl = team.logo; // von verbandsseite
@@ -306,7 +306,7 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
       clubLogo = logoUrl;
 
       const teamData = teamRef.exists ? teamRef.data() : {};
-      teamRef = await db.collection('teams').doc(`su-${team.id}`).set({
+      await db.collection('teams').doc(`su-${team.id}`).set({
         externalId: `${team.id}`,
         name: team.name,
         liga: team.liga,
