@@ -330,6 +330,25 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
       await db.collection('club').doc(`su-${club.id}`).collection('teams').doc(`su-${team.id}`).set({
         teamRef: teamRef.ref,
       });
+
+      // GAME CENTER PLAYER DATA
+      const teamMemberRef = await db.collection('teams').doc(`su-${team.id}`).collection('members').get();
+      for (const teamMember of teamMemberRef.docs) {
+        const userProfileRef = await db.collection('userProfile').doc(teamMember.id).get();
+        // clubMemberUserProfiles.push(userProfileRef.data());
+        const gameCenterPlayer = team.gameCenterPlayers.find((profile: any) => {
+          return profile.FirstName.toLowerCase() == userProfileRef.data().firstName.toLowerCase() &&
+            profile.LastName.toLowerCase() == userProfileRef.data().lastName.toLowerCase();
+        });
+        await db.collection('teams').doc(`su-${team.id}`).collection('members').doc(userProfileRef.id).set({
+          gameCenterProfile: gameCenterPlayer?.ThumbnailURL || '',
+          gameCenterPosition: gameCenterPlayer?.Position || '',
+          gameCenterShirtNumber: gameCenterPlayer?.ShirtNumber || '',
+          updated: new Date(),
+        }, {
+          merge: true,
+        });
+      }
     }
 
     if (clubLogo) {
@@ -377,30 +396,6 @@ export async function updateClubsSwissunihockey(): Promise<any> {
     // console.log('existingLogo', existingLogo);
     // console.log('isCloudinaryUrl', isCloudinaryUrl);
     // console.log('logoUrl', logoUrl);
-
-    // const gameCenterTeams = club?.gameCenterTeams || [];
-
-    if (clubRef.exists) {
-      // const gameCenterPlayers = club?.gameCenterPlayers || [];
-      const clubRefMembers = await db.collection('club').doc(`su-${club.id}`).collection('members').get();
-      for (const clubMember of clubRefMembers.docs) {
-        const userProfileRef = await db.collection('userProfile').doc(clubMember.id).get();
-        // clubMemberUserProfiles.push(userProfileRef.data());
-        const gameCenterPlayer = club.gameCenterPlayers.find((profile:any)=>{
-          return profile.FirstName.toLowerCase() == userProfileRef.data().firstName.toLowerCase() &&
-          profile.LastName.toLowerCase() == userProfileRef.data().lastName.toLowerCase();
-        });
-        await db.collection('club').doc(`su-${club.id}`).collection('members').doc(userProfileRef.id).set({
-          gameCenterProfile: gameCenterPlayer?.ThumbnailURL || '',
-          gameCenterPosition: gameCenterPlayer?.Position || '',
-          gameCenterShirtNumber: gameCenterPlayer?.ShirtNumber || '',
-          updated: new Date(),
-        }, {
-          merge: true,
-        });
-      }
-    }
-
 
     clubRef = await db.collection('club').doc(`su-${club.id}`).set({
       externalId: `${club.id}`,

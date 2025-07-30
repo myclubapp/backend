@@ -160,18 +160,23 @@ async function getTeams(clubId: string, season: string) {
       return gameCenterTeam?.Name?.trim() === team.text?.trim();
     });
     // eslint-disable-next-line no-undef
-    const teamDetaoöRequestData = await fetch(`https://api-v2.swissunihockey.ch/api/teams/${team.set_in_context.team_id}`);
-    const teamDetailData = await teamDetaoöRequestData.json();
+    const teamDetailRequestData = await fetch(`https://api-v2.swissunihockey.ch/api/teams/${team.set_in_context.team_id}`);
+    const teamDetailData = await teamDetailRequestData.json();
 
     const portrait =
       teamDetailData?.data?.regions?.[0]?.rows?.[0]?.cells?.[3]?.image?.url ||
       (gameCenterTeamData?.HasTeamBanner === true ? gameCenterTeamData?.TeamBanner?.PictureURL : '') ||
       '';
 
+    // eslint-disable-next-line no-undef
+    const gameCenterPlayersData = await fetch('https://unihockey.swiss/api/teamapi/initplayersadminvc/?teamid=' + team.TeamID);
+    const gameCenterPlayersDataJson = await gameCenterPlayersData.json();
+
     teamList.push({
       id: team.set_in_context.team_id,
       name: team.text,
       gameCenterId: gameCenterTeamData?.TeamID || '',
+      gameCenterPlayers: gameCenterPlayersDataJson,
       info: teamDetailData?.data?.regions?.[0]?.rows?.[0]?.cells?.[0]?.text?.[0] || '',
       logo: teamDetailData?.data?.regions?.[0]?.rows?.[0]?.cells?.[1]?.image?.url || '',
       website: teamDetailData?.data?.regions?.[0]?.rows?.[0]?.cells?.[2]?.url?.href || '',
@@ -263,7 +268,7 @@ async function getClubs() {
 
     const gameCenterClub = gameCenterClubData.find((club: any) => club.Name && club.Name.trim() === item.text);
 
-    const gameCenterPlayers: any[] = [];
+    /* const gameCenterPlayers: any[] = [];
     let gameCenterTeams: any = {};
     // Read all Teams for this Club from GameCenter
     if (gameCenterClub && gameCenterClub.ClubID) {
@@ -278,14 +283,14 @@ async function getClubs() {
         const gameCenterPlayersDataJson = await gameCenterPlayersData.json();
         gameCenterPlayers.push(...gameCenterPlayersDataJson);
       }
-    }
+    }*/
 
     clubList.push({
       id: item.set_in_context.club_id,
       name: item.text,
       gameCenter: gameCenterClub || {},
-      gameCenterTeams: gameCenterTeams.Teams || [],
-      gameCenterPlayers: gameCenterPlayers || [],
+      // gameCenterTeams: gameCenterTeams.Teams || [],
+      // gameCenterPlayers: gameCenterPlayers || [],
       address: [{
         id: item.set_in_context.club_id,
         firstName: contactPerson,
