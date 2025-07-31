@@ -181,7 +181,7 @@ async function getTeams(clubId: string, season: string) {
       '';
 
     // eslint-disable-next-line no-undef
-    const gameCenterPlayersData = await fetch('https://unihockey.swiss/api/teamapi/initplayersadminvc/?teamid=' + gameCenterTeamData.TeamID, {
+    const gameCenterPlayersData = await fetch('https://unihockey.swiss/api/teamapi/initplayersadminvc/?teamid=' + gameCenterTeamData?.TeamID, {
       headers: {
         'Accept-Language': 'de,en-US;q=0.7,en;q=0.3',
       },
