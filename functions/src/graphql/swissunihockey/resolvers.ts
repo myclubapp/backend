@@ -141,13 +141,24 @@ async function getTeams(clubId: string, season: string) {
   // Get Game Center Teams Data based on Firebase stored ClubID
   const clubRef = await db.collection('club').doc('su-' + clubId).get();
   // eslint-disable-next-line no-undef
-  const gameCenterTeamsData = await fetch('https://unihockey.swiss/api/clubapi/initclubteams/?clubid=' + clubRef.data()?.gameCenterClubId);
+  const gameCenterTeamsData = await fetch('https://unihockey.swiss/api/clubapi/initclubteams/?clubid=' + clubRef.data()?.gameCenterClubId,
+      {
+        headers: {
+          'Accept-Language': 'de,en-US;q=0.7,en;q=0.3',
+        },
+      });
   const gameCenterTeamsDataJson = await gameCenterTeamsData.json();
 
   const gameCenterTeamList: any[] = [];
   for (const team of gameCenterTeamsDataJson.Teams) {
     // eslint-disable-next-line no-undef
-    const teamDetailData = await fetch(`https://unihockey.swiss/api/teamapi/getteamheaderinfoforteamsite/?teamid=${team.ItemID}`);
+    const teamDetailData = await fetch(`https://unihockey.swiss/api/teamapi/getteamheaderinfoforteamsite/?teamid=${team.ItemID}`,
+        {
+          headers: {
+            'Accept-Language': 'de,en-US;q=0.7,en;q=0.3',
+          },
+        },
+    );
     const teamDetailDataJson = await teamDetailData.json();
     gameCenterTeamList.push(teamDetailDataJson);
   }
@@ -164,15 +175,19 @@ async function getTeams(clubId: string, season: string) {
     const gameCenterTeamData = gameCenterTeamList.find((gameCenterTeam: any) => {
       return gameCenterTeam?.Name?.trim() === team.text?.trim();
     });
-    const portrait =
+    const teamPortrait =
       teamDetailData?.data?.regions?.[0]?.rows?.[0]?.cells?.[3]?.image?.url ||
       (gameCenterTeamData?.HasTeamBanner === true ? gameCenterTeamData?.TeamBanner?.PictureURL : '') ||
       '';
 
     // eslint-disable-next-line no-undef
-    const gameCenterPlayersData = await fetch('https://unihockey.swiss/api/teamapi/initplayersadminvc/?teamid=' + gameCenterTeamData.TeamID);
+    const gameCenterPlayersData = await fetch('https://unihockey.swiss/api/teamapi/initplayersadminvc/?teamid=' + gameCenterTeamData.TeamID, {
+      headers: {
+        'Accept-Language': 'de,en-US;q=0.7,en;q=0.3',
+      },
+    });
     const gameCenterPlayersDataJson = await gameCenterPlayersData.json();
-    console.log(team.TeamID, gameCenterPlayersDataJson);
+    // console.log(team.TeamID, gameCenterPlayersDataJson);
 
     teamList.push({
       id: team.set_in_context.team_id,
@@ -182,7 +197,8 @@ async function getTeams(clubId: string, season: string) {
       info: teamDetailData?.data?.regions?.[0]?.rows?.[0]?.cells?.[0]?.text?.[0] || '',
       logo: teamDetailData?.data?.regions?.[0]?.rows?.[0]?.cells?.[1]?.image?.url || '',
       website: teamDetailData?.data?.regions?.[0]?.rows?.[0]?.cells?.[2]?.url?.href || '',
-      portrait: portrait,
+      portrait: teamPortrait, // Teamportrait
+      // teamPicture: teamPicture,
       liga: teamDetailData?.data?.regions?.[0]?.rows?.[0]?.cells?.[4]?.text?.[0] || '',
     });
   }
@@ -214,7 +230,13 @@ async function getClubs() {
   const clubData = await data.json();
 
   // eslint-disable-next-line no-undef
-  const gameCenterData = await fetch('https://unihockey.swiss/api/leagueorganizerapi/getleagueorganizerclubs/?leagueOrganizerId=1');
+  const gameCenterData = await fetch('https://unihockey.swiss/api/leagueorganizerapi/getleagueorganizerclubs/?leagueOrganizerId=1',
+      {
+        headers: {
+          'Accept-Language': 'de,en-US;q=0.7,en;q=0.3',
+        },
+      },
+  );
   const gameCenterClubData = await gameCenterData.json();
 
   const clubList = <any>[];
