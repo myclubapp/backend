@@ -12,6 +12,7 @@ import {deleteClubAdmin, deleteTeamAdmin} from './firestore/deleteAdmin.js';
 import {deleteClubMember, deleteClubParent, deleteTeamMember} from './firestore/deleteMember.js';
 import {addClubTeam} from './firestore/club/createClubTeam.js';
 import {createCheckoutSession, updateCheckoutSession, updateInvoice, updatePayments, updateSubscription} from './firestore/club/stripeCheckout.js';
+import {changeClub} from './firestore/club/changeClub.js';
 
 // Request-bezogene Imports
 import {createClubRequest} from './firestore/request/createClubRequest.js';
@@ -79,6 +80,12 @@ export const dbCreateUserSendWelcomeEmail = onDocumentCreated({
 }, createUserSendWelcomeEmail);
 
 // ==================== CLUB FUNCTIONS ====================
+
+export const dbActivateClub = onDocumentUpdated({
+  document: '/club/{clubId}',
+  region: 'europe-west6',
+}, changeClub);
+
 export const dbRemoveClubMember = onDocumentDeleted({
   document: '/club/{clubId}/members/{userId}',
   region: 'europe-west6',
