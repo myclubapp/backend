@@ -12,14 +12,22 @@ export async function createCheckoutSession(event: FirestoreEvent<QueryDocumentS
   logger.info('clubId: ' + clubId);
   logger.info('sessionId: ' + sessionId);
 
-  const sessionData = event.data?.data();
+  const sessionData = event.data?.data() || {};
   const clubRef = await db.collection('club').doc(clubId).get();
 
-  /* if (sessionData?.subscriptionType === 'micro') {
-    sessionData.trial_end = 30;
-  } */
-
-  // const priceRef = await db.collectionGroup('prices').doc(sessionData?.price).get();
+  // get products
+  const productListRef = await db.collection('stripeProducts').where('active', '==', true).get();
+  // active products
+  for (const product of productListRef.docs) {
+    const priceListRef = await db.collection('stripeProducts').doc(product.id).collection('prices').where('active', '==', true).get();
+    // active prices
+    for (const price of priceListRef.docs) {
+      if (price.data().unit_amount === 0) {
+        // TRIAL für free products --> KEINE KK notwendig
+        sessionData.trial_period_days = 30;
+      }
+    }
+  }
 
   return db.collection('userProfile').doc(sessionData?.userId).collection('checkout_sessions').doc(sessionId).set({
     ...sessionData,
