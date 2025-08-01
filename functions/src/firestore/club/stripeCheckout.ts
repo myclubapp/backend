@@ -15,6 +15,12 @@ export async function createCheckoutSession(event: FirestoreEvent<QueryDocumentS
   const sessionData = event.data?.data();
   const clubRef = await db.collection('club').doc(clubId).get();
 
+  /* if (sessionData?.subscriptionType === 'micro') {
+    sessionData.trial_end = 30;
+  } */
+
+  // const priceRef = await db.collectionGroup('prices').doc(sessionData?.price).get();
+
   return db.collection('userProfile').doc(sessionData?.userId).collection('checkout_sessions').doc(sessionId).set({
     ...sessionData,
     payment_method_types: ['card'], // twint no possible for subscription
