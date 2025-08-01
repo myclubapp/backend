@@ -17,6 +17,7 @@ export async function createCheckoutSession(event: FirestoreEvent<QueryDocumentS
 
   return db.collection('userProfile').doc(sessionData?.userId).collection('checkout_sessions').doc(sessionId).set({
     ...sessionData,
+    payment_method_types: ['card', 'twint'],
     updated: new Date(),
     clubId: clubId,
     metadata: {
