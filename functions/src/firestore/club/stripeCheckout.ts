@@ -83,7 +83,7 @@ export async function updateSubscription(event: FirestoreEvent<Change<DocumentSn
     logger.info('>> STATUS ' + subscriptionData.status);
     logger.info('>> TYPE ' + subscriptionData.metadata.subscriptionType);
     logger.info('>> clubId ' + clubId);
-    if (subscriptionData.status == 'active') {
+    if (subscriptionData.status == 'active' || subscriptionData.status == 'trialing') {
       // NEW SUBSCRIPTION FOR PRODUCT OR ADDON
       // TODO SEND EMAIL!
       if (subscriptionData.metadata.subscriptionType === 'free' || subscriptionData.metadata.subscriptionType === 'small' || subscriptionData.metadata.subscriptionType === 'medium' || subscriptionData.metadata.subscriptionType === 'large') {
@@ -97,7 +97,7 @@ export async function updateSubscription(event: FirestoreEvent<Change<DocumentSn
         });
       } else if (subscriptionData.metadata.subscriptionType === 'module' ) {
         // IF ADDON -> ACTIVATE MODULE
-        if (subscriptionData.metadata.addon === 'training') {
+        if (subscriptionData.metadata.addon === 'training') { // gibt es nicht mehr
           await db.collection('club').doc(clubId).set({
             hasFeatureTrainingExercise: true,
           },
@@ -114,6 +114,13 @@ export async function updateSubscription(event: FirestoreEvent<Change<DocumentSn
         } else if (subscriptionData.metadata.addon === 'championship') {
           await db.collection('club').doc(clubId).set({
             hasFeatureChampionship: true,
+          },
+          {
+            merge: true,
+          });
+        } else if (subscriptionData.metadata.addon === 'myclubpro') {
+          await db.collection('club').doc(clubId).set({
+            hasFeatureMyClubPro: true,
           },
           {
             merge: true,
