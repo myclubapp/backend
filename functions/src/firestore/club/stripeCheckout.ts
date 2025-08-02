@@ -15,6 +15,8 @@ export async function createCheckoutSession(event: FirestoreEvent<QueryDocumentS
   const sessionData = event.data?.data() || {};
   const clubRef = await db.collection('club').doc(clubId).get();
 
+  sessionData.payment_method_collection = 'if_required';
+
   // get products
   const productListRef = await db.collection('stripeProducts').where('active', '==', true).get();
   // active products
