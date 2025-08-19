@@ -18,6 +18,7 @@ export async function approveClubRequest(event: FirestoreEvent<Change<QueryDocum
     logger.info(`approve club request ${requestRef.id}`);
 
     if ('isParent' in event.data.after.data() && event.data?.after.data().isParent === true) {
+      logger.info(`approve club request ${requestRef.id} isParent`);
       // Add user to club as parent
       await db.collection('club').doc(clubId).collection('parents').doc(userProfileRef.id).set({
         'userProfileRef': userProfileRef.ref,

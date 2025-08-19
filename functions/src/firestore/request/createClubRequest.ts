@@ -9,7 +9,7 @@ import {sendEmailByUserId} from '../../utils/email.js';
 const db = firebaseDAO.instance.db;
 
 export async function createClubRequest(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
-  logger.info('createClubRequest');
+  logger.info('createClubRequest on userProfile/{userId}/clubRequests/{clubId}');
 
   // Sicherstellen, dass event.data existiert
   const snapshot = event.data;
