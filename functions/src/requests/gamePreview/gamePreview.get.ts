@@ -47,7 +47,10 @@ export function getGamePreviewClubs(request: functions.Request, response: functi
       // logger.info(documentRef.data());
       const clubList = [];
       for (const club of documentRef.docs) {
-        clubList.push(club.data());
+        clubList.push({
+          id: club.id,
+          name: club.data().name,
+        });
       }
       response.json(clubList);
     } catch (err) {
