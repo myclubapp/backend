@@ -45,8 +45,11 @@ export function getGamePreviewClubs(request: functions.Request, response: functi
     try {
       const documentRef = await db.collection('club').where('active', '==', true).get();
       // logger.info(documentRef.data());
-      const clubGames = documentRef.docs;
-      response.json(clubGames);
+      const clubList = [];
+      for (const club of documentRef.docs) {
+        clubList.push(club.data());
+      }
+      response.json(clubList);
     } catch (err) {
       logger.error(err);
       response.status(500).json({
@@ -67,8 +70,11 @@ export function getGamePreviewClubGames(request: functions.Request, response: fu
     try {
       const documentRef = await db.collection('club').doc(`${clubId}`).collection('games').get();
       // logger.info(documentRef.data());
-      const clubList = documentRef.docs;
-      response.json(clubList);
+      const clubGames = [];
+      for (const game of documentRef.docs) {
+        clubGames.push(game.data());
+      }
+      response.json(clubGames);
     } catch (err) {
       logger.error(err);
       response.status(500).json({
