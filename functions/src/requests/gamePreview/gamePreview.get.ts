@@ -41,12 +41,9 @@ export function getGamePreviewClubs(request: functions.Request, response: functi
     origin: true,
   });
 
-  const clubId = request.param('clubId');
-  logger.info('Club ID: ' + clubId);
-
   corsHandler(request, response, async () => {
     try {
-      const documentRef = await db.collection('club').doc(`${clubId}`).collection('games').get();
+      const documentRef = await db.collection('club').where('active', '==', true).get();
       // logger.info(documentRef.data());
       const clubGames = documentRef.docs;
       response.json(clubGames);
@@ -63,10 +60,12 @@ export function getGamePreviewClubGames(request: functions.Request, response: fu
   const corsHandler = cors({
     origin: true,
   });
+  const clubId = request.param('clubId');
+  logger.info('Club ID: ' + clubId);
 
   corsHandler(request, response, async () => {
     try {
-      const documentRef = await db.collection('club').where('active', '==', true).get();
+      const documentRef = await db.collection('club').doc(`${clubId}`).collection('games').get();
       // logger.info(documentRef.data());
       const clubList = documentRef.docs;
       response.json(clubList);
