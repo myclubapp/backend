@@ -75,7 +75,16 @@ export function getGamePreviewClubGames(request: functions.Request, response: fu
       // logger.info(documentRef.data());
       const clubGames = [];
       for (const game of documentRef.docs) {
-        clubGames.push(game.data());
+        clubGames.push({
+          id: game.id,
+          name: game.data().name,
+          result: game.data().result,
+          teamHome: game.data().teamHome,
+          teamAway: game.data().teamAway,
+          time: game.data().time,
+          date: game.data().date,
+          liga: game.data().liga,
+        });
       }
       response.json(clubGames);
     } catch (err) {
