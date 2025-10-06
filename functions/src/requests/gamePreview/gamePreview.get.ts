@@ -66,7 +66,7 @@ export function getGamePreviewClubGames(request: functions.Request, response: fu
 
   corsHandler(request, response, async () => {
     try {
-      const documentRef = await db.collection('club').get();
+      const documentRef = await db.collection('club').where('active', '==', true).get();
       // logger.info(documentRef.data());
       const clubList = documentRef.docs;
       response.json(clubList);
