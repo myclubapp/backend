@@ -20,8 +20,12 @@ export function getGamePreview(request: functions.Request, response: functions.R
   corsHandler(request, response, async () => {
     try {
       const documentRef = await db.collection('club').doc(`${clubId}`).collection('games').doc(`${gameId}`).get();
-      logger.info(documentRef.data());
-      response.json(documentRef.data());
+      // logger.info(documentRef.data());
+      const gameData = documentRef.data();
+      gameData.result = gameData.resut;
+      delete gameData.clubRef;
+      delete gameData.resut;
+      response.json(gameData);
     } catch (err) {
       logger.error(err);
       response.status(500).json({
@@ -30,3 +34,48 @@ export function getGamePreview(request: functions.Request, response: functions.R
     }
   });
 }
+
+
+export function getGamePreviewClubs(request: functions.Request, response: functions.Response<any>) {
+  const corsHandler = cors({
+    origin: true,
+  });
+
+  const clubId = request.param('clubId');
+  logger.info('Club ID: ' + clubId);
+
+  corsHandler(request, response, async () => {
+    try {
+      const documentRef = await db.collection('club').doc(`${clubId}`).collection('games').get();
+      // logger.info(documentRef.data());
+      const clubGames = documentRef.data();
+      response.json(clubGames);
+    } catch (err) {
+      logger.error(err);
+      response.status(500).json({
+        error: err,
+      });
+    }
+  });
+}
+
+export function getGamePreviewClubGames(request: functions.Request, response: functions.Response<any>) {
+  const corsHandler = cors({
+    origin: true,
+  });
+
+  corsHandler(request, response, async () => {
+    try {
+      const documentRef = await db.collection('club').get();
+      // logger.info(documentRef.data());
+      const clubList = documentRef.data();
+      response.json(clubList);
+    } catch (err) {
+      logger.error(err);
+      response.status(500).json({
+        error: err,
+      });
+    }
+  });
+}
+

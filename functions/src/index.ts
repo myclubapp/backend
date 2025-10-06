@@ -48,7 +48,7 @@ import {updatePersistenceJobClubs, updatePersistenceJobTeams, updatePersistenceJ
 import {exercisesScheduler} from './scheduler/exercise.scheduler.js';
 
 // Game-bezogene Imports
-import {getGamePreview} from './requests/gamePreview/gamePreview.get.js';
+import {getGamePreview, getGamePreviewClubGames, getGamePreviewClubs} from './requests/gamePreview/gamePreview.get.js';
 import {deleteTeamGame} from './firestore/game/deleteTeamGame.js';
 
 // Team-bezogene Imports
@@ -397,3 +397,11 @@ export const totomat = onRequest({
 export const gamePreview = onRequest({
   region: 'europe-west6',
 }, getGamePreview);
+
+export const gamePreviewClubs = onRequest({
+  region: 'europe-west6',
+}, getGamePreviewClubs);
+
+export const gamePreviewClubGames = onRequest({
+  region: 'europe-west6',
+}, getGamePreviewClubGames);
