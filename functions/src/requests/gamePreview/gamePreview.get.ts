@@ -22,7 +22,6 @@ export function getGamePreview(request: functions.Request, response: functions.R
       const documentRef = await db.collection('club').doc(`${clubId}`).collection('games').doc(`${gameId}`).get();
       // logger.info(documentRef.data());
       const gameData = documentRef.data();
-      gameData.result = gameData.resut;
       delete gameData.clubRef;
       delete gameData.resut;
       response.json(gameData);
