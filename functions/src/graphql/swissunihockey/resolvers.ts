@@ -423,6 +423,8 @@ async function getGames(teamId: string, season: string) {
         longitude: longitude,
         latitude: latitude,
         result: item.cells[4].text[0],
+        teamHome: item.cells[2].text[0],
+        teamAway: item.cells[3].text[0],
       });
     }
     // });
@@ -452,6 +454,12 @@ async function getGame(gameId: string) {
       teamAway: gameDetailData.cells[3].text[0],
       teamAwayLogo: gameDetailData.cells[2].image.url,
       teamAwayLogoText: gameDetailData.cells[2].image.alt,
+
+      date: gameDetailData.cells[5].text[0],
+      time: gameDetailData.cells[6].text[0] || '00:00',
+
+      result: gameDetailData.cells[4].text[0] || '',
+      resultDetail: gameDetailData.cells[4].text[1] || '',
 
       referee1: gameDetailData.cells[8].text[0],
       referee2: gameDetailData.cells[9].text[0],
