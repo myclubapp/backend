@@ -80,8 +80,11 @@ type Game {
     longitude: String,
     latitude: String,
     teamHome: String,
+    teamHomeLogo: String,
     teamAway: String,
+    teamAwayLogo: String,
     result: String,
+    resultDetail: String,
 }
 
 type News {
