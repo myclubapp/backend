@@ -445,6 +445,8 @@ async function getGame(gameId: string) {
       name: gameData.data.title,
       description: gameData.data.subtitle,
 
+      location: gameDetailData.cells[7].text[0],
+
       teamHomeId: 'su-' + gameDetailData.cells[0].link.ids[0],
       teamHome: gameDetailData.cells[1].text[0],
       teamHomeLogo: gameDetailData.cells[0].image.url,

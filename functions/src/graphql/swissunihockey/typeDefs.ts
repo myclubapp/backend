@@ -77,6 +77,8 @@ type Game {
     time: String,
     location: String,
     city: String,
+    name: String,
+    description: String,
     longitude: String,
     latitude: String,
     teamHome: String,
