@@ -106,7 +106,7 @@ type SwissVolley {
     teams(clubId: String): [Team], # List of Teams for a given Club
     team(teamId: String): Team, # TODO: Check if the same as Team
 
-    games: [Game], # List of Games for a given Team 
+    games(teamId: String): [Game], # List of Games for a given Team 
 
     rankings(groupId: String): [Ranking], # Ranking for a given Team
 

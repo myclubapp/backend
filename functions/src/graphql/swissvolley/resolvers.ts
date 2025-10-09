@@ -27,8 +27,6 @@ export default {
     team: (parent: any, args: { teamId: string }, context: any, info: any) => {
       return getTeam(args.teamId);
     },
-
-
     games: (parent: any, args: {teamId: string}, context: any, info: any) => {
       return getGames(args.teamId);
     },
