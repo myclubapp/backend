@@ -52,12 +52,6 @@ export default {
       return getRankings(parent.id);
     },
   },
-  Game: {
-    details(parent: any, args: any, context: any, info: any) {
-      return getGame(parent.id);
-    },
-  },
-
   Association: {
     clubs(parent: any, args: any, context: any, info: any) {
       return getClubs();
@@ -156,7 +150,7 @@ async function getTeams(clubId: string) {
         ...league,
         ...club,
         'id': item.teamId,
-        'liga': `${league.caption} - ${club.gender}`,
+        'liga': `${league.caption} - ${item.gender}`,
         'name': item.caption,
         'logo': item.teamlogo,
       });
@@ -221,29 +215,75 @@ async function getGames(teamId: string) {
   swissvolleyToken = defineSecret('SWISSVOLLEY_TOKEN');
   logger.info('>> https://api.volleyball.ch/indoor/games?teamId=' + teamId + '&includeCup=1');
 
-  // eslint-disable-next-line no-undef
-  const data = await fetch('https://api.volleyball.ch/indoor/games?teamId=' + teamId + '&includeCup=1', { // region=SVRNO& not needed
-    headers: {
-      // 'Accept': 'application/json',
-      'Authorization': swissvolleyToken?.value() || '',
-      'Content-Type': 'application/json',
-    },
-  });
-  const gameData = await data.json();
-
-  gameData.forEach((item: any) => {
-    gameList.push({
-      ...item,
-      id: item.gameId,
-      date: item.playDate,
+  try {
+    // eslint-disable-next-line no-undef
+    const data = await fetch('https://api.volleyball.ch/indoor/games?teamId=' + teamId + '&includeCup=1', {
+      headers: {
+        'Authorization': swissvolleyToken?.value() || '',
+        'Content-Type': 'application/json',
+      },
     });
-  });
-  return gameList;
+
+    if (!data.ok) {
+      logger.error(`HTTP error! Status: ${data.status} ${data.statusText}`);
+      return [];
+    }
+
+    const gameData = await data.json();
+
+    gameData.forEach((item: any) => {
+      // Extrahiere Zeit aus playDate (Format: "2025-10-26 16:00:00")
+      const playDateTime = new Date(item.playDate);
+      const timeString = playDateTime.toTimeString().substring(0, 5); // "16:00"
+
+      // Extrahiere Datum im Format "DD.MM.YYYY"
+      const dateString = playDateTime.toLocaleDateString('de-DE');
+
+      // Bestimme Referee Information
+      const referee1 = item.referees && item.referees['1'] ?
+        `${item.referees['1'].firstName} ${item.referees['1'].lastName}` :
+        '';
+
+      // Bestimme Result Information
+      const result = item.setResults && item.setResults.length > 0 ?
+        item.setResults.map((set: any) => `${set.home}:${set.away}`).join(', ') :
+        '';
+
+      gameList.push({
+        id: item.gameId,
+        date: dateString,
+        time: timeString,
+        venue: item.hall?.caption || '',
+        venueCity: item.hall?.city || '',
+        longitude: item.hall?.longitude || 0,
+        latitude: item.hall?.latitude || 0,
+        result: result,
+
+        location: item.hall ? `${item.hall.street} ${item.hall.number}, ${item.hall.zip} ${item.hall.city}` : '',
+
+        teamHomeId: 'sv-' + item.teams.home.teamId,
+        teamHome: item.teams.home.caption,
+        teamHomeLogo: item.teams.home.logo || '',
+        teamHomeLogoText: item.teams.home.caption,
+
+        teamAwayId: 'sv-' + item.teams.away.teamId,
+        teamAway: item.teams.away.caption,
+        teamAwayLogo: item.teams.away.logo || '',
+        teamAwayLogoText: item.teams.away.caption,
+
+        referee1: referee1,
+        referee2: '', // Swiss Volley API scheint nur einen Schiedsrichter zu haben
+        spectators: '', // Nicht in der API Response verfügbar
+      });
+    });
+
+    return gameList;
+  } catch (error) {
+    logger.error('Error fetching games data:', error);
+    return [];
+  }
 }
 
-async function getGame(gameId: string) {
-  logger.info('not working anymore');
-}
 
 async function getRankings(groupId: string) {
   // https://api.volleyball.ch/indoor/ranking/24319

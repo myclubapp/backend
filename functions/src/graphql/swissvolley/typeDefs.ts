@@ -49,15 +49,22 @@ type Game {
     Game documentation
     """
     id: ID!, # the ! means that every object _must_ have an id
-    details: GameDetails,
+    date: String,
+    time: String,
+    location: String,
+    city: String,
+    name: String,
+    description: String,
+    longitude: String,
+    latitude: String,
+    teamHome: String,
+    teamHomeLogo: String,
+    teamAway: String,
+    teamAwayLogo: String,
+    result: String,
+    resultDetail: String,
 }
 
-type GameDetails {
-    """
-    Game Detail documentation
-    """
-    id: ID!, # the ! means that every object _must_ have an id
-}
 
 type News {
     """
