@@ -245,9 +245,23 @@ async function getGames(teamId: string) {
         '';
 
       // Bestimme Result Information
-      const result = item.setResults && item.setResults.length > 0 ?
-        item.setResults.map((set: any) => `${set.home}:${set.away}`).join(', ') :
-        '';
+      let result = '';
+      let resultDetail = '';
+
+      if (item.resultSummary) {
+        // Verwende resultSummary für das Hauptresultat (z.B. "1:3")
+        result = `${item.resultSummary.wonSetsHomeTeam}:${item.resultSummary.wonSetsAwayTeam}`;
+      } else if (item.setResults && item.setResults.length > 0) {
+        // Fallback: Zähle gewonnene Sätze manuell
+        const homeWins = item.setResults.filter((set: any) => set.home > set.away).length;
+        const awayWins = item.setResults.filter((set: any) => set.away > set.home).length;
+        result = `${homeWins}:${awayWins}`;
+      }
+
+      // Satzdetails für resultDetail
+      if (item.setResults && item.setResults.length > 0) {
+        resultDetail = item.setResults.map((set: any) => `${set.home}:${set.away}`).join(', ');
+      }
 
       gameList.push({
         id: item.gameId,
@@ -274,6 +288,7 @@ async function getGames(teamId: string) {
         referee1: referee1,
         referee2: '', // Swiss Volley API scheint nur einen Schiedsrichter zu haben
         spectators: '', // Nicht in der API Response verfügbar
+        resultDetail: resultDetail,
       });
     });
 
