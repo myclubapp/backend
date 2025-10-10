@@ -244,23 +244,34 @@ async function getGames(teamId: string) {
         `${item.referees['1'].firstName} ${item.referees['1'].lastName}` :
         '';
 
-      // Bestimme Result Information
+      // Bestimme Result Information (robust gegen fehlende Werte)
       let result = '';
       let resultDetail = '';
 
-      if (item.resultSummary) {
-        // Verwende resultSummary für das Hauptresultat (z.B. "1:3")
+      const hasValidSummary = item?.resultSummary &&
+        Number.isFinite(item.resultSummary.wonSetsHomeTeam) &&
+        Number.isFinite(item.resultSummary.wonSetsAwayTeam);
+
+      if (hasValidSummary) {
         result = `${item.resultSummary.wonSetsHomeTeam}:${item.resultSummary.wonSetsAwayTeam}`;
-      } else if (item.setResults && item.setResults.length > 0) {
-        // Fallback: Zähle gewonnene Sätze manuell
-        const homeWins = item.setResults.filter((set: any) => set.home > set.away).length;
-        const awayWins = item.setResults.filter((set: any) => set.away > set.home).length;
-        result = `${homeWins}:${awayWins}`;
+      } else if (Array.isArray(item.setResults) && item.setResults.length > 0) {
+        // Fallback: Zähle gewonnene Sätze manuell aus validen Sätzen
+        const validSets = item.setResults.filter((set: any) =>
+          Number.isFinite(set?.home) && Number.isFinite(set?.away)
+        );
+        if (validSets.length > 0) {
+          const homeWins = validSets.filter((set: any) => set.home > set.away).length;
+          const awayWins = validSets.filter((set: any) => set.away > set.home).length;
+          result = `${homeWins}:${awayWins}`;
+        }
       }
 
-      // Satzdetails für resultDetail
-      if (item.setResults && item.setResults.length > 0) {
-        resultDetail = item.setResults.map((set: any) => `${set.home}:${set.away}`).join(', ');
+      // Satzdetails für resultDetail (nur valide Sätze)
+      if (Array.isArray(item.setResults) && item.setResults.length > 0) {
+        const details = item.setResults
+          .filter((set: any) => Number.isFinite(set?.home) && Number.isFinite(set?.away))
+          .map((set: any) => `${set.home}:${set.away}`);
+        resultDetail = details.length > 0 ? details.join(', ') : '';
       }
 
       gameList.push({
