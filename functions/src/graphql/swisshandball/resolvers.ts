@@ -57,7 +57,7 @@ export default {
       return getTeams(args.clubId);
     },
     games: (parent: any, args: {
-      teamId: string; season: string; clubId: string;
+      teamId: string; clubId: string;
     }, context: any, info: any) => {
       return getGames(args.teamId, args.clubId);
     },
@@ -321,7 +321,8 @@ async function getGames(teamId: string, clubId: string) {
 
         spectators: item.spectators,
 
-        result: item.teamAScoreFT + ':' + item.teamBScoreFT + '(' + item.teamAScoreHT + ':' + item.teamBScoreHT + ')',
+        result: item.teamAScoreFT + ':' + item.teamBScoreFT,
+        resultDetail: '(' + item.teamAScoreHT + ':' + item.teamBScoreHT + ')',
       });
     });
   }

@@ -257,7 +257,7 @@ async function getGames(teamId: string) {
       } else if (Array.isArray(item.setResults) && item.setResults.length > 0) {
         // Fallback: Zähle gewonnene Sätze manuell aus validen Sätzen
         const validSets = item.setResults.filter((set: any) =>
-          Number.isFinite(set?.home) && Number.isFinite(set?.away)
+          Number.isFinite(set?.home) && Number.isFinite(set?.away),
         );
         if (validSets.length > 0) {
           const homeWins = validSets.filter((set: any) => set.home > set.away).length;
@@ -269,8 +269,8 @@ async function getGames(teamId: string) {
       // Satzdetails für resultDetail (nur valide Sätze)
       if (Array.isArray(item.setResults) && item.setResults.length > 0) {
         const details = item.setResults
-          .filter((set: any) => Number.isFinite(set?.home) && Number.isFinite(set?.away))
-          .map((set: any) => `${set.home}:${set.away}`);
+            .filter((set: any) => Number.isFinite(set?.home) && Number.isFinite(set?.away))
+            .map((set: any) => `${set.home}:${set.away}`);
         resultDetail = details.length > 0 ? details.join(', ') : '';
       }
 

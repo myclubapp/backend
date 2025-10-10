@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const typeDefs = /* GraphQL */ `
 
 type Team {
@@ -71,7 +72,24 @@ type ContactAddress {
 }
 
 type Game {
+    """
+    Game documentation
+    """
     id: ID!, # the ! means that every object _must_ have an id
+    date: String,
+    time: String,
+    location: String,
+    city: String,
+    name: String,
+    description: String,
+    longitude: String,
+    latitude: String,
+    teamHome: String,
+    teamHomeLogo: String,
+    teamAway: String,
+    teamAwayLogo: String,
+    result: String,
+    resultDetail: String,
 }
 
 type News {
@@ -102,7 +120,7 @@ type SwissHandball {
     club(clubId: String): Club, # List of clubs
     teams(clubId: String): [Team], # List of Teams for a given Club
     team(teamId: String): Team, #TODO Check Team Detail.. 
-    games(teamId: String): [Game], # List of Games for a given Team 
+    games(teamId: String, clubId: String): [Game], # List of Games for a given Team 
     clubGames(clubId: String): [Game], # List of Games for a given Team 
     rankings(teamId: String): [Ranking], # Ranking for a given Team
 }
