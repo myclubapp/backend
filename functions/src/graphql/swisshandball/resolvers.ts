@@ -312,6 +312,9 @@ async function getGames(teamId: string, clubId: string) {
         venueZip: item.venueZip,
         venueCity: item.venueCity,
 
+        location: item.venue,
+        city: item.venueCity,
+
         referee1: '',
         referee2: '',
 
