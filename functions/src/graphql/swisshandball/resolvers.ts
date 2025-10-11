@@ -98,7 +98,7 @@ async function getTeams(clubId: string) {
         id: item.teamId,
         name: item.teamName,
 
-        logo: `https://www.handball.ch/images/logo/${item.teamId}.png?fallbackType=club&fallbackId=${clubId}&height=25&width=25&scale=canvas`,
+        logo: `https://www.handball.ch/images/logo/${item.teamId}.png?fallbackType=club&fallbackId=${clubId}`,
         liga: item.groupText,
 
         clubId: item.clubId,
@@ -219,12 +219,12 @@ async function getClubGames(clubId: string) {
 
         teamHomeId: 'sh-' + item.teamAId,
         teamHome: item.teamAName,
-        teamHomeLogo: `https://www.handball.ch/images/logo/${item.teamAId}.png?fallbackType=club&fallbackId=${item.clubTeamAId}&height=25&width=25&scale=canvas`, // item.cells[1].image.url,,
+        teamHomeLogo: `https://www.handball.ch/images/logo/${item.teamAId}.png?fallbackType=club&fallbackId=${item.clubTeamAId}&height=200&width=200&scale=canvas`, // item.cells[1].image.url,,
         teamHomeLogoText: 'Logo ' + item.teamAName,
 
         teamAwayId: 'sh-' + item.teamBId,
         teamAway: item.teamBName,
-        teamAwayLogo: `https://www.handball.ch/images/logo/${item.teamBId}.png?fallbackType=club&fallbackId=${item.clubTeamBId}&height=25&width=25&scale=canvas`, // item.cells[1].image.url,,
+        teamAwayLogo: `https://www.handball.ch/images/logo/${item.teamBId}.png?fallbackType=club&fallbackId=${item.clubTeamBId}&height=200&width=200&scale=canvas`, // item.cells[1].image.url,,
         teamAwayLogoText: 'Logo ' + item.teamBName,
 
         clubTeamAId: 'sh-' + item.clubTeamAId,
@@ -286,12 +286,14 @@ async function getGames(teamId: string, clubId: string) {
 
         teamHomeId: 'sh-' + item.teamAId,
         teamHome: item.teamAName,
-        teamHomeLogo: `https://www.handball.ch/images/logo/${item.teamAId}.png?fallbackType=club&fallbackId=${item.clubTeamAId}&height=25&width=25&scale=canvas`, // item.cells[1].image.url,,
+        teamHomeLogo: `https://www.handball.ch/images/logo/${item.teamAId}.png?fallbackType=club&fallbackId=${item.clubTeamAId}`, // item.cells[1].image.url,,
+//        teamHomeLogo: `https://www.handball.ch/images/logo/${item.teamAId}.png?fallbackType=club&fallbackId=${item.clubTeamAId}&height=25&width=25&scale=canvas`, // item.cells[1].image.url,,
         teamHomeLogoText: 'Logo ' + item.teamAName,
 
         teamAwayId: 'sh-' + item.teamBId,
         teamAway: item.teamBName,
-        teamAwayLogo: `https://www.handball.ch/images/logo/${item.teamBId}.png?fallbackType=club&fallbackId=${item.clubTeamBId}&height=25&width=25&scale=canvas`, // item.cells[1].image.url,,
+        teamAwayLogo: `https://www.handball.ch/images/logo/${item.teamBId}.png?fallbackType=club&fallbackId=${item.clubTeamBId}`, // item.cells[1].image.url,,
+//        teamAwayLogo: `https://www.handball.ch/images/logo/${item.teamBId}.png?fallbackType=club&fallbackId=${item.clubTeamBId}&height=25&width=25&scale=canvas`, // item.cells[1].image.url,,
         teamAwayLogoText: 'Logo ' + item.teamBName,
 
         clubTeamAId: 'sh-' + item.clubTeamAId,
@@ -362,7 +364,7 @@ async function getRankings(teamId: string, clubId: string) {
         "modus": "14 Teams in einer 2-fach Runde",
         */
 
-        image: `https://www.handball.ch/images/logo/${item.teamId}.png?fallbackType=club&fallbackId=${item.clubId}&height=25&width=25&scale=canvas`, // item.cells[1].image.url,
+        image: `https://www.handball.ch/images/logo/${item.teamId}.png?fallbackType=club&fallbackId=${item.clubId}&height=200&width=200&scale=canvas`, // item.cells[1].image.url,
         games: item.totalGames, // Sp Spiele 3
         gamesSoW: '', // SoW Spiele ohne Wertung 4
         wins: item.totalWins, // S Siege 5
