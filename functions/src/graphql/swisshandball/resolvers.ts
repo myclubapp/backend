@@ -287,13 +287,13 @@ async function getGames(teamId: string, clubId: string) {
         teamHomeId: 'sh-' + item.teamAId,
         teamHome: item.teamAName,
         teamHomeLogo: `https://www.handball.ch/images/logo/${item.teamAId}.png?fallbackType=club&fallbackId=${item.clubTeamAId}`, // item.cells[1].image.url,,
-//        teamHomeLogo: `https://www.handball.ch/images/logo/${item.teamAId}.png?fallbackType=club&fallbackId=${item.clubTeamAId}&height=25&width=25&scale=canvas`, // item.cells[1].image.url,,
+        //  teamHomeLogo: `https://www.handball.ch/images/logo/${item.teamAId}.png?fallbackType=club&fallbackId=${item.clubTeamAId}&height=25&width=25&scale=canvas`, // item.cells[1].image.url,,
         teamHomeLogoText: 'Logo ' + item.teamAName,
 
         teamAwayId: 'sh-' + item.teamBId,
         teamAway: item.teamBName,
         teamAwayLogo: `https://www.handball.ch/images/logo/${item.teamBId}.png?fallbackType=club&fallbackId=${item.clubTeamBId}`, // item.cells[1].image.url,,
-//        teamAwayLogo: `https://www.handball.ch/images/logo/${item.teamBId}.png?fallbackType=club&fallbackId=${item.clubTeamBId}&height=25&width=25&scale=canvas`, // item.cells[1].image.url,,
+        //  teamAwayLogo: `https://www.handball.ch/images/logo/${item.teamBId}.png?fallbackType=club&fallbackId=${item.clubTeamBId}&height=25&width=25&scale=canvas`, // item.cells[1].image.url,,
         teamAwayLogoText: 'Logo ' + item.teamBName,
 
         clubTeamAId: 'sh-' + item.clubTeamAId,
