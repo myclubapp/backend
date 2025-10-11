@@ -20,6 +20,7 @@
             }
         ],
         "teams": [
+            "Männer 2. Liga",
             "Männer 3. Liga",
             "Mixed U13-Spieltage"
         ],
@@ -49,11 +50,12 @@
         "teams": [
             "Männer 3. Liga",
             "Männer 4. Liga",
+            "Frauen 3. Liga",
             "Junioren U19 Promotion",
+            "Junioren U17 Promotion S1",
             "Junioren U15 Promotion S2",
             "Junioren U13 Promotion S2",
             "Juniorinnen U16 Promotion",
-            "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140270",
@@ -92,8 +94,9 @@
             "Junioren U15 Promotion S2",
             "Junioren U13 Promotion S1",
             "Juniorinnen U18 Elite",
+            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Elite",
-            "Juniorinnen U16 Inter",
+            "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Elite",
             "Juniorinnen U14 Promotion"
         ],
@@ -129,15 +132,14 @@
             "Männer 3. Liga",
             "Männer 4. Liga",
             "Frauen 3. Liga",
-            "Junioren U19 Promotion",
+            "Junioren U19 Inter",
             "Junioren U17 Promotion S1",
-            "Junioren U15 Promotion S1",
+            "Junioren U15 Promotion S2",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Inter",
             "Juniorinnen U16 Inter",
-            "Juniorinnen U14 Inter",
-            "Juniorinnen U14 Promotion",
-            "Mixed U13-Spieltage"
+            "Juniorinnen U16 Promotion",
+            "Juniorinnen U14 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140275",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.3897895,8.7558595"
@@ -165,10 +167,8 @@
         "teams": [
             "Männer 3. Liga",
             "Frauen 3. Liga",
-            "Junioren U15 Promotion S2",
-            "Junioren U13 Promotion S1",
-            "Juniorinnen U18 Elite",
-            "Juniorinnen U14 Elite"
+            "Junioren U15 Promotion S1",
+            "Junioren U13 Promotion S2"
         ],
         "club_link": "/de/matchcenter/vereine/140276",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.4735592,7.5869681"
@@ -196,14 +196,14 @@
         "teams": [
             "Männer 1. Liga",
             "Männer 2. Liga",
-            "Frauen 2. Liga",
+            "Frauen 1. Liga",
             "Frauen 3. Liga",
             "Junioren U19 Promotion",
             "Junioren U15 Promotion S1",
-            "Junioren U15 Promotion S2",
+            "Junioren U13 Promotion S1",
             "Juniorinnen U18 Inter",
             "Juniorinnen U16 Inter",
-            "Juniorinnen U14 Inter",
+            "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140277",
@@ -235,7 +235,7 @@
             "Männer 2. Liga",
             "Männer 3. Liga",
             "Männer 4. Liga",
-            "Frauen SPL2",
+            "Frauen SPL1",
             "Frauen 1. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
@@ -251,10 +251,11 @@
             "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Elite",
+            "Juniorinnen U16 Inter",
             "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Elite",
+            "Juniorinnen U14 Inter",
             "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
         ],
@@ -282,12 +283,10 @@
             }
         ],
         "teams": [
-            "Männer 3. Liga",
+            "Männer 2. Liga",
             "Männer 4. Liga",
-            "Frauen 2. Liga",
-            "Junioren U15 Promotion S2",
-            "Juniorinnen U16 Promotion",
-            "Mixed U13-Spieltage"
+            "Junioren U15 Promotion S1",
+            "Junioren U13 Promotion S2"
         ],
         "club_link": "/de/matchcenter/vereine/140281",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.3144705,7.6917414"
@@ -339,12 +338,14 @@
         "teams": [
             "Männer 2. Liga",
             "Männer 3. Liga",
+            "Männer 4. Liga",
             "Frauen 2. Liga",
-            "Junioren U19 Promotion",
-            "Junioren U15 Promotion S2",
+            "Junioren U17 Promotion S1",
             "Junioren U13 Promotion S2",
-            "Juniorinnen U16 Promotion",
-            "Mixed U13-Spieltage"
+            "Juniorinnen U18 Elite",
+            "Juniorinnen U18 Promotion",
+            "Juniorinnen U16 Elite",
+            "Juniorinnen U14 Elite"
         ],
         "club_link": "/de/matchcenter/vereine/140284",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.5649553,7.6077621"
@@ -373,8 +374,8 @@
             "Männer 2. Liga",
             "Männer 4. Liga",
             "Junioren U17 Promotion S1",
-            "Junioren U13 Promotion S1",
-            "Junioren U13 Promotion S2"
+            "Junioren U15 Promotion S2",
+            "Junioren U13 Promotion S1"
         ],
         "club_link": "/de/matchcenter/vereine/140285",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.4013784,7.5159352"
@@ -440,10 +441,9 @@
             "Männer 3. Liga",
             "Junioren U19 Promotion",
             "Junioren U17 Inter",
-            "Junioren U17 Promotion S1",
             "Junioren U15 Promotion S1",
-            "Junioren U13 Promotion S2",
-            "Mixed U13-Spieltage"
+            "Junioren U13 Promotion S1",
+            "Juniorinnen U14 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140290",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.1781822,7.5615694"
@@ -469,7 +469,7 @@
             }
         ],
         "teams": [
-            "Männer 1. Liga",
+            "Männer NLB",
             "Männer 2. Liga",
             "Männer 3. Liga",
             "Junioren U19 Elite",
@@ -478,9 +478,8 @@
             "Junioren U17 Inter",
             "Junioren U17 Promotion S1",
             "Junioren U15 Elite",
-            "Junioren U15 Inter",
             "Junioren U15 Promotion S2",
-            "Junioren U13 Inter",
+            "Junioren U13 Elite",
             "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140291",
@@ -510,9 +509,9 @@
             "Männer 3. Liga",
             "Frauen 1. Liga",
             "Frauen 3. Liga",
-            "Junioren U15 Promotion S1",
+            "Junioren U15 Promotion S2",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U18 Promotion",
+            "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
         ],
@@ -568,11 +567,12 @@
         "teams": [
             "Männer 1. Liga",
             "Männer 2. Liga",
+            "Männer 4. Liga",
             "Frauen 3. Liga",
             "Junioren U19 Promotion",
-            "Junioren U17 Inter",
             "Junioren U17 Promotion S1",
             "Junioren U15 Inter",
+            "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
             "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
@@ -650,8 +650,9 @@
             "Junioren U15 Promotion S1",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Promotion",
-            "Juniorinnen U16 Promotion",
-            "Juniorinnen U14 Promotion"
+            "Juniorinnen U16 Inter",
+            "Juniorinnen U14 Promotion",
+            "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140303",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.5032106,8.0168152"
@@ -660,7 +661,7 @@
         "id": "140304",
         "latitude": "47.5307372",
         "longitude": "8.5823582",
-        "name": "HC Rorbas",
+        "name": "inaktiv - HC Rorbas",
         "address": "8427 Freienstein ZH",
         "phone": "",
         "founding_year": "Gründungsjahr 1965",
@@ -710,7 +711,7 @@
             "Männer 2. Liga",
             "Männer 3. Liga",
             "Männer 4. Liga",
-            "Frauen SPL2",
+            "Frauen SPL1",
             "Frauen 1. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
@@ -726,10 +727,11 @@
             "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Elite",
+            "Juniorinnen U16 Inter",
             "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Elite",
+            "Juniorinnen U14 Inter",
             "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
         ],
@@ -757,18 +759,19 @@
             }
         ],
         "teams": [
-            "Männer QHL",
             "Männer 1. Liga",
             "Männer 2. Liga",
-            "Männer 4. Liga",
-            "Frauen SPL1",
-            "Junioren U19 Promotion",
+            "Männer 3. Liga",
+            "Frauen SPL2",
+            "Frauen 2. Liga",
+            "Frauen 3. Liga",
+            "Junioren U19 Inter",
             "Junioren U17 Promotion S1",
             "Junioren U15 Promotion S1",
             "Junioren U13 Promotion S1",
-            "Juniorinnen U18 Promotion",
+            "Juniorinnen U18 Inter",
             "Juniorinnen U16 Inter",
-            "Juniorinnen U16 Promotion",
+            "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140307",
@@ -837,8 +840,6 @@
             "Junioren U17 Promotion S1",
             "Junioren U15 Inter",
             "Junioren U15 Promotion S1",
-            "Junioren U13 Inter",
-            "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
             "Mixed U13-Spieltage"
         ],
@@ -849,7 +850,7 @@
         "id": "140313",
         "latitude": "47.1719839",
         "longitude": "7.5813883",
-        "name": "TV Gerlafingen",
+        "name": "inaktiv - TV Gerlafingen",
         "address": "4563 Gerlafingen SO",
         "phone": "",
         "founding_year": "Gründungsjahr 1887",
@@ -897,17 +898,17 @@
             }
         ],
         "teams": [
-            "Männer 2. Liga",
+            "Männer 1. Liga",
             "Männer 3. Liga",
+            "Männer 4. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
-            "Junioren U19 Inter",
             "Junioren U19 Promotion",
             "Junioren U17 Promotion S1",
             "Junioren U15 Promotion S2",
-            "Junioren U13 Promotion S1",
+            "Junioren U13 Promotion S2",
             "Juniorinnen U18 Promotion",
-            "Juniorinnen U16 Promotion"
+            "Juniorinnen U14 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140314",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.169065,8.2943124"
@@ -933,11 +934,11 @@
             }
         ],
         "teams": [
-            "Männer 2. Liga",
             "Männer 3. Liga",
             "Frauen 3. Liga",
             "Junioren U19 Elite",
             "Junioren U17 Elite",
+            "Junioren U17 Inter",
             "Junioren U17 Promotion S1",
             "Junioren U15 Elite",
             "Junioren U15 Inter",
@@ -975,10 +976,15 @@
         "teams": [
             "Männer 2. Liga",
             "Männer 3. Liga",
-            "Junioren U19 Promotion",
+            "Junioren U17 Inter",
+            "Junioren U17 Promotion S1",
+            "Junioren U15 Elite",
+            "Junioren U15 Inter",
             "Junioren U15 Promotion S2",
             "Junioren U13 Elite",
-            "Junioren U13 Promotion S2"
+            "Junioren U13 Promotion S1",
+            "Junioren U13 Promotion S2",
+            "Juniorinnen U14 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140319",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.6625058,8.8630064"
@@ -1012,7 +1018,7 @@
             "Männer 2. Liga",
             "Männer 3. Liga",
             "Männer 4. Liga",
-            "Frauen SPL2",
+            "Frauen SPL1",
             "Frauen 1. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
@@ -1028,10 +1034,11 @@
             "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Elite",
+            "Juniorinnen U16 Inter",
             "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Elite",
+            "Juniorinnen U14 Inter",
             "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
         ],
@@ -1066,8 +1073,8 @@
             "Männer 2. Liga",
             "Männer 4. Liga",
             "Frauen 1. Liga",
-            "Frauen 2. Liga",
             "Juniorinnen U18 Elite",
+            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Elite",
             "Juniorinnen U14 Inter",
             "Juniorinnen U14 Promotion"
@@ -1097,20 +1104,21 @@
         ],
         "teams": [
             "Männer 1. Liga",
-            "Männer 2. Liga",
             "Männer 3. Liga",
+            "Männer 4. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
-            "Junioren U19 Promotion",
+            "Junioren U19 Inter",
             "Junioren U17 Elite",
             "Junioren U17 Promotion S1",
-            "Junioren U15 Elite",
-            "Junioren U15 Promotion S1",
+            "Junioren U15 Inter",
             "Junioren U13 Promotion S1",
+            "Junioren U13 Promotion S2",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Inter",
-            "Juniorinnen U14 Inter"
+            "Juniorinnen U16 Promotion",
+            "Juniorinnen U14 Elite",
+            "Juniorinnen U14 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140325",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=46.5317397,6.6215689"
@@ -1162,8 +1170,10 @@
             }
         ],
         "teams": [
+            "Junioren U17 Promotion S1",
             "Junioren U15 Promotion S2",
-            "Junioren U13 Promotion S2"
+            "Junioren U13 Promotion S2",
+            "Juniorinnen U14 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140333",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.4371736,9.5373871"
@@ -1193,10 +1203,9 @@
             }
         ],
         "teams": [
-            "Männer 1. Liga",
             "Männer 2. Liga",
             "Männer 3. Liga",
-            "Männer 4. Liga",
+            "Frauen SPL2",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
             "Junioren U19 Inter",
@@ -1205,14 +1214,13 @@
             "Junioren U17 Promotion S1",
             "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
-            "Junioren U13 Promotion S1",
+            "Junioren U13 Inter",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Elite",
-            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Elite",
+            "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Elite",
-            "Juniorinnen U14 Promotion",
-            "Mixed U13-Spieltage"
+            "Juniorinnen U14 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140334",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.5280035,7.8131495"
@@ -1239,9 +1247,10 @@
         ],
         "teams": [
             "Männer 3. Liga",
-            "Frauen 2. Liga",
+            "Frauen 3. Liga",
             "Junioren U17 Promotion S1",
             "Junioren U15 Promotion S2",
+            "Juniorinnen U16 Promotion",
             "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140336",
@@ -1274,15 +1283,18 @@
         "teams": [
             "Männer 3. Liga",
             "Männer 4. Liga",
+            "Junioren U19 Elite",
             "Junioren U19 Promotion",
+            "Junioren U17 Elite",
             "Junioren U17 Inter",
             "Junioren U17 Promotion S1",
-            "Junioren U15 Inter",
+            "Junioren U15 Elite",
             "Junioren U15 Promotion S2",
-            "Junioren U13 Promotion S2",
+            "Junioren U13 Elite",
             "Juniorinnen U18 Elite",
             "Juniorinnen U16 Elite",
-            "Juniorinnen U14 Elite"
+            "Juniorinnen U14 Elite",
+            "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140338",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.5337754,7.6395792"
@@ -1313,9 +1325,9 @@
         ],
         "teams": [
             "Männer NLB",
-            "Männer 1. Liga",
             "Männer 2. Liga",
-            "Männer 4. Liga",
+            "Männer 3. Liga",
+            "Frauen SPL2",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
             "Junioren U19 Inter",
@@ -1324,14 +1336,13 @@
             "Junioren U17 Promotion S1",
             "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
-            "Junioren U13 Promotion S1",
+            "Junioren U13 Inter",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Elite",
-            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Elite",
+            "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Elite",
-            "Juniorinnen U14 Promotion",
-            "Mixed U13-Spieltage"
+            "Juniorinnen U14 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140339",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.5696934,7.8449915"
@@ -1362,7 +1373,7 @@
         ],
         "teams": [
             "Männer 1. Liga",
-            "Männer 3. Liga",
+            "Männer 2. Liga",
             "Männer 4. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
@@ -1371,14 +1382,12 @@
             "Junioren U17 Inter",
             "Junioren U17 Promotion S1",
             "Junioren U15 Inter",
-            "Junioren U15 Promotion S1",
+            "Junioren U15 Promotion S2",
             "Junioren U13 Inter",
+            "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
-            "Juniorinnen U18 Inter",
-            "Juniorinnen U18 Promotion",
-            "Juniorinnen U16 Promotion",
-            "Juniorinnen U14 Inter",
-            "Juniorinnen U14 Promotion"
+            "TogetherLeague Promotion",
+            "TogetherLeague"
         ],
         "club_link": "/de/matchcenter/vereine/140340",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.28588,8.345305"
@@ -1409,17 +1418,22 @@
             "Frauen SPL2",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
+            "Junioren U19 Elite",
             "Junioren U19 Promotion",
+            "Junioren U17 Elite",
             "Junioren U17 Inter",
             "Junioren U17 Promotion S1",
-            "Junioren U15 Inter",
+            "Junioren U15 Elite",
             "Junioren U15 Promotion S2",
+            "Junioren U13 Elite",
             "Junioren U13 Promotion S1",
             "Juniorinnen U18 Elite",
+            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Elite",
             "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Elite",
-            "Juniorinnen U14 Promotion"
+            "Juniorinnen U14 Promotion",
+            "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140349",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.5194367,7.6956194"
@@ -1445,7 +1459,7 @@
             }
         ],
         "teams": [
-            "Männer 4. Liga",
+            "Männer 3. Liga",
             "Junioren U15 Promotion S2",
             "Junioren U13 Promotion S2"
         ],
@@ -1475,9 +1489,11 @@
         "teams": [
             "Männer 3. Liga",
             "Männer 4. Liga",
-            "Junioren U19 Promotion",
+            "Junioren U15 Elite",
+            "Junioren U15 Inter",
             "Junioren U15 Promotion S1",
-            "Junioren U15 Promotion S2",
+            "Junioren U13 Elite",
+            "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2"
         ],
         "club_link": "/de/matchcenter/vereine/140352",
@@ -1536,11 +1552,12 @@
             }
         ],
         "teams": [
+            "Männer 2. Liga",
             "Männer 3. Liga",
             "Frauen 1. Liga",
             "Frauen 3. Liga",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U18 Promotion",
+            "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
         ],
@@ -1573,8 +1590,7 @@
         ],
         "teams": [
             "Männer 2. Liga",
-            "Männer 4. Liga",
-            "Juniorinnen U16 Promotion"
+            "Männer 3. Liga"
         ],
         "club_link": "/de/matchcenter/vereine/140355",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=46.8939099,8.2445705"
@@ -1606,7 +1622,9 @@
         "teams": [
             "Männer NLB",
             "Männer 4. Liga",
-            "Frauen 3. Liga",
+            "Frauen 2. Liga",
+            "Junioren U13 Promotion S2",
+            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Promotion"
         ],
@@ -1655,7 +1673,7 @@
             "email": ""
         },
         "teams": [
-            "Männer 2. Liga",
+            "Männer 3. Liga",
             "Männer 4. Liga"
         ],
         "club_link": "/de/matchcenter/vereine/140359",
@@ -1682,15 +1700,14 @@
             }
         ],
         "teams": [
-            "Männer 2. Liga",
+            "Männer 1. Liga",
             "Männer 4. Liga",
             "Frauen 3. Liga",
-            "Junioren U19 Promotion",
-            "Junioren U15 Inter",
-            "Junioren U13 Promotion S1",
+            "Junioren U19 Inter",
+            "Junioren U15 Promotion S1",
+            "Junioren U13 Promotion S2",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U16 Inter",
-            "Juniorinnen U14 Inter",
+            "Juniorinnen U16 Promotion",
             "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140360",
@@ -1720,11 +1737,11 @@
             "Männer 1. Liga",
             "Männer 2. Liga",
             "Männer 3. Liga",
-            "Frauen 2. Liga",
             "Junioren U19 Promotion",
             "Junioren U17 Inter",
             "Junioren U15 Promotion S1",
-            "Junioren U13 Promotion S2"
+            "Junioren U13 Promotion S1",
+            "Juniorinnen U14 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140362",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.2001374,7.5273537"
@@ -1766,9 +1783,10 @@
             "Männer 1. Liga",
             "Männer 2. Liga",
             "Männer 3. Liga",
-            "Männer 4. Liga",
+            "Frauen 1. Liga",
+            "Frauen 2. Liga",
+            "Frauen 3. Liga",
             "Junioren U19 Elite",
-            "Junioren U19 Inter",
             "Junioren U17 Elite",
             "Junioren U17 Inter",
             "Junioren U17 Promotion S1",
@@ -1780,9 +1798,10 @@
             "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U16 Inter",
+            "Juniorinnen U16 Elite",
             "Juniorinnen U14 Elite",
-            "Juniorinnen U14 Promotion"
+            "Juniorinnen U14 Promotion",
+            "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140364",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.3899614,8.0404667"
@@ -1813,9 +1832,9 @@
             "Männer 4. Liga",
             "Frauen 3. Liga",
             "Junioren U17 Promotion S1",
-            "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
-            "Juniorinnen U14 Promotion"
+            "Juniorinnen U16 Promotion",
+            "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140365",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.4584185,7.8057805"
@@ -1842,13 +1861,16 @@
         ],
         "teams": [
             "Männer 2. Liga",
+            "Männer 3. Liga",
             "Männer 4. Liga",
             "Junioren U19 Inter",
             "Junioren U19 Promotion",
             "Junioren U17 Inter",
             "Junioren U17 Promotion S1",
-            "Junioren U15 Promotion S1",
+            "Junioren U15 Promotion S2",
             "Junioren U13 Promotion S1",
+            "Juniorinnen U18 Elite",
+            "Juniorinnen U16 Elite",
             "Juniorinnen U14 Elite"
         ],
         "club_link": "/de/matchcenter/vereine/140366",
@@ -1918,10 +1940,8 @@
             "Junioren U13 Elite",
             "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
-            "Juniorinnen U16 Promotion",
-            "Juniorinnen U14 Elite",
-            "Juniorinnen U14 Promotion",
-            "Mixed U13-Spieltage"
+            "Juniorinnen U14 Inter",
+            "Juniorinnen U14 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140367",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.4901233,8.7408175"
@@ -1955,10 +1975,8 @@
             "Junioren U19 Elite",
             "Junioren U17 Elite",
             "Junioren U17 Promotion S1",
-            "Junioren U15 Inter",
-            "Junioren U15 Promotion S2",
-            "Junioren U13 Promotion S1",
-            "Mixed U13-Spieltage"
+            "Junioren U15 Elite",
+            "Junioren U15 Promotion S2"
         ],
         "club_link": "/de/matchcenter/vereine/140368",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=46.7779935,7.6320287"
@@ -1985,13 +2003,16 @@
         ],
         "teams": [
             "Männer 2. Liga",
+            "Männer 3. Liga",
             "Männer 4. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
-            "Junioren U17 Promotion S1",
+            "Junioren U19 Inter",
+            "Junioren U17 Inter",
+            "Junioren U15 Elite",
             "Junioren U15 Inter",
-            "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
+            "Junioren U13 Elite",
             "Junioren U13 Inter",
             "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
@@ -2032,15 +2053,15 @@
         "teams": [
             "Männer 1. Liga",
             "Männer 2. Liga",
-            "Frauen SPL2",
-            "Frauen 3. Liga",
-            "Junioren U19 Promotion",
+            "Frauen 1. Liga",
+            "Frauen 2. Liga",
+            "Junioren U19 Inter",
             "Junioren U17 Promotion S1",
-            "Junioren U15 Promotion S1",
+            "Junioren U15 Inter",
             "Junioren U13 Promotion S1",
             "Juniorinnen U18 Inter",
             "Juniorinnen U16 Inter",
-            "Juniorinnen U14 Inter",
+            "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
         ],
@@ -2091,8 +2112,6 @@
             "Männer 1. Liga",
             "Männer 3. Liga",
             "Männer 4. Liga",
-            "Junioren U19 Promotion",
-            "Junioren U17 Promotion S1",
             "Junioren U15 Promotion S1",
             "Junioren U13 Promotion S2"
         ],
@@ -2153,12 +2172,17 @@
             "Männer 1. Liga",
             "Männer 2. Liga",
             "Frauen 1. Liga",
+            "Frauen 3. Liga",
             "Junioren U19 Promotion",
             "Junioren U17 Promotion S1",
             "Junioren U15 Promotion S1",
             "Junioren U13 Promotion S1",
+            "Juniorinnen U18 Elite",
             "Juniorinnen U18 Inter",
+            "Juniorinnen U16 Elite",
             "Juniorinnen U16 Promotion",
+            "Juniorinnen U14 Elite",
+            "Juniorinnen U14 Inter",
             "Juniorinnen U14 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140381",
@@ -2206,15 +2230,14 @@
             "Junioren U17 Inter",
             "Junioren U17 Promotion S1",
             "Junioren U15 Inter",
-            "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
             "Junioren U13 Inter",
-            "Junioren U13 Promotion S2",
-            "Juniorinnen U18 Inter",
+            "Junioren U13 Promotion S1",
             "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Promotion",
-            "Juniorinnen U14 Inter",
-            "Juniorinnen U14 Promotion"
+            "Juniorinnen U14 Promotion",
+            "TogetherLeague Promotion",
+            "TogetherLeague"
         ],
         "club_link": "/de/matchcenter/vereine/140384",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.3530503,8.2808777"
@@ -2248,7 +2271,7 @@
             "Männer 2. Liga",
             "Männer 3. Liga",
             "Männer 4. Liga",
-            "Frauen SPL2",
+            "Frauen SPL1",
             "Frauen 1. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
@@ -2263,11 +2286,13 @@
             "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Elite",
+            "Juniorinnen U16 Inter",
             "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Elite",
-            "Juniorinnen U14 Promotion"
+            "Juniorinnen U14 Inter",
+            "Juniorinnen U14 Promotion",
+            "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140385",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.5249687,8.2488928"
@@ -2293,15 +2318,16 @@
             }
         ],
         "teams": [
-            "Männer 2. Liga",
             "Männer 3. Liga",
             "Frauen 3. Liga",
-            "Junioren U19 Promotion",
+            "Junioren U17 Promotion S1",
+            "Junioren U15 Inter",
+            "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
+            "Junioren U13 Inter",
             "Junioren U13 Promotion S1",
-            "Junioren U13 Promotion S2",
-            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Promotion",
+            "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140387",
@@ -2335,15 +2361,20 @@
             "Frauen 2. Liga",
             "Frauen 3. Liga",
             "Junioren U19 Promotion",
-            "Junioren U17 Promotion S1",
+            "Junioren U17 Inter",
+            "Junioren U15 Elite",
+            "Junioren U15 Inter",
+            "Junioren U15 Promotion S2",
             "Junioren U13 Elite",
+            "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Elite",
             "Juniorinnen U18 Promotion",
-            "Juniorinnen U16 Elite",
+            "Juniorinnen U16 Inter",
             "Juniorinnen U16 Promotion",
-            "Juniorinnen U14 Elite",
-            "Juniorinnen U14 Promotion"
+            "Juniorinnen U14 Inter",
+            "Juniorinnen U14 Promotion",
+            "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140388",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.5979095,8.6716778"
@@ -2406,10 +2437,11 @@
         ],
         "teams": [
             "Männer 2. Liga",
+            "Männer 4. Liga",
             "Junioren U19 Promotion",
-            "Junioren U17 Inter",
             "Junioren U17 Promotion S1",
             "Junioren U15 Inter",
+            "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
             "Junioren U13 Promotion S1",
             "Mixed U13-Spieltage"
@@ -2439,19 +2471,21 @@
         ],
         "teams": [
             "Männer 1. Liga",
+            "Männer 2. Liga",
             "Männer 3. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
             "Junioren U19 Promotion",
             "Junioren U17 Promotion S1",
-            "Junioren U15 Promotion S1",
+            "Junioren U15 Inter",
+            "Junioren U15 Promotion S2",
             "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U18 Promotion",
-            "Juniorinnen U16 Promotion",
+            "Juniorinnen U16 Inter",
             "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage",
+            "TogetherLeague Promotion",
             "TogetherLeague"
         ],
         "club_link": "/de/matchcenter/vereine/140435",
@@ -2478,23 +2512,13 @@
             }
         ],
         "teams": [
-            "Männer 2. Liga",
+            "Männer 3. Liga",
             "Männer 4. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
-            "Junioren U19 Elite",
-            "Junioren U19 Inter",
-            "Junioren U17 Elite",
-            "Junioren U17 Inter",
             "Junioren U17 Promotion S1",
-            "Junioren U15 Inter",
-            "Junioren U15 Promotion S2",
-            "Junioren U13 Inter",
             "Junioren U13 Promotion S1",
-            "Junioren U13 Promotion S2",
-            "Juniorinnen U18 Promotion",
-            "Juniorinnen U16 Inter",
-            "Juniorinnen U14 Inter",
+            "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
         ],
@@ -2505,7 +2529,7 @@
         "id": "140474",
         "latitude": "47.4948395",
         "longitude": "8.9041261",
-        "name": "HCL Aadorf",
+        "name": "inaktiv - HCL Aadorf",
         "address": "8355 Aadorf TG",
         "phone": "+41 78 666 99 62",
         "founding_year": "Gründungsjahr 1972",
@@ -2542,12 +2566,13 @@
             "email": "pia64@bluewin.ch"
         },
         "teams": [
+            "Männer 1. Liga",
+            "Männer 2. Liga",
             "Männer 3. Liga",
             "Männer 4. Liga",
-            "Frauen SPL2",
+            "Frauen SPL1",
             "Frauen 1. Liga",
             "Frauen 2. Liga",
-            "Frauen 3. Liga",
             "Junioren U19 Elite",
             "Junioren U19 Promotion",
             "Junioren U17 Elite",
@@ -2560,11 +2585,13 @@
             "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Elite",
+            "Juniorinnen U16 Inter",
             "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Elite",
-            "Juniorinnen U14 Promotion"
+            "Juniorinnen U14 Inter",
+            "Juniorinnen U14 Promotion",
+            "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140477",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.4416561,8.2691216"
@@ -2593,18 +2620,18 @@
             "Männer 1. Liga",
             "Männer 3. Liga",
             "Frauen 2. Liga",
+            "Frauen 3. Liga",
             "Junioren U19 Elite",
             "Junioren U19 Promotion",
             "Junioren U17 Elite",
-            "Junioren U17 Inter",
+            "Junioren U17 Promotion S1",
             "Junioren U15 Elite",
             "Junioren U15 Promotion S1",
+            "Junioren U13 Elite",
             "Junioren U13 Inter",
             "Junioren U13 Promotion S2",
-            "Juniorinnen U18 Inter",
             "Juniorinnen U16 Inter",
-            "Juniorinnen U14 Inter",
-            "Juniorinnen U14 Promotion"
+            "Juniorinnen U14 Inter"
         ],
         "club_link": "/de/matchcenter/vereine/140478",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.4153628,9.1747546"
@@ -2632,9 +2659,10 @@
         "teams": [
             "Männer 3. Liga",
             "Frauen 2. Liga",
-            "Junioren U15 Promotion S1",
-            "Junioren U13 Promotion S2",
-            "Mixed U13-Spieltage"
+            "Junioren U17 Promotion S1",
+            "Junioren U15 Promotion S2",
+            "Junioren U13 Promotion S1",
+            "Junioren U13 Promotion S2"
         ],
         "club_link": "/de/matchcenter/vereine/140479",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.2193899,7.774807"
@@ -2683,7 +2711,7 @@
             "Männer 4. Liga",
             "Junioren U17 Promotion S1",
             "Junioren U15 Promotion S2",
-            "Juniorinnen U14 Promotion",
+            "Juniorinnen U16 Promotion",
             "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140483",
@@ -2715,7 +2743,7 @@
             "Männer 2. Liga",
             "Männer 3. Liga",
             "Männer 4. Liga",
-            "Frauen SPL2",
+            "Frauen SPL1",
             "Frauen 1. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
@@ -2731,10 +2759,11 @@
             "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Elite",
+            "Juniorinnen U16 Inter",
             "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Elite",
+            "Juniorinnen U14 Inter",
             "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
         ],
@@ -2766,7 +2795,7 @@
             "Männer 2. Liga",
             "Männer 3. Liga",
             "Männer 4. Liga",
-            "Frauen SPL2",
+            "Frauen SPL1",
             "Frauen 1. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
@@ -2782,10 +2811,11 @@
             "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Elite",
+            "Juniorinnen U16 Inter",
             "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Elite",
+            "Juniorinnen U14 Inter",
             "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
         ],
@@ -2865,17 +2895,25 @@
         ],
         "teams": [
             "Männer QHL",
-            "Männer 1. Liga",
+            "Männer NLB",
+            "Männer 2. Liga",
+            "Männer 4. Liga",
+            "Frauen SPL2",
             "Frauen 3. Liga",
+            "Junioren U19 Elite",
             "Junioren U19 Promotion",
+            "Junioren U17 Elite",
             "Junioren U17 Promotion S1",
-            "Junioren U15 Inter",
+            "Junioren U15 Elite",
+            "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
+            "Junioren U13 Elite",
             "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Elite",
+            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Elite",
-            "Juniorinnen U16 Inter",
+            "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Elite",
             "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
@@ -2906,9 +2944,10 @@
         "teams": [
             "Männer 3. Liga",
             "Frauen 3. Liga",
+            "Junioren U17 Promotion S1",
             "Junioren U15 Promotion S2",
-            "Juniorinnen U16 Inter",
-            "Juniorinnen U14 Promotion",
+            "Juniorinnen U18 Promotion",
+            "Juniorinnen U16 Promotion",
             "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140493",
@@ -2918,7 +2957,7 @@
         "id": "140495",
         "latitude": "46.8991788",
         "longitude": "7.4990567",
-        "name": "HBC Rotweiss Belp",
+        "name": "inaktiv - HBC Rotweiss Belp",
         "address": "3123 Belp BE",
         "phone": "",
         "founding_year": "Gründungsjahr 1989",
@@ -2974,7 +3013,7 @@
         "id": "140502",
         "latitude": "47.5222011",
         "longitude": "8.5252371",
-        "name": "HC Bülach",
+        "name": "inaktiv - HC Bülach",
         "address": "8180 Bülach ZH",
         "phone": "",
         "founding_year": "Gründungsjahr 1973",
@@ -3015,19 +3054,20 @@
             }
         ],
         "teams": [
+            "Männer 1. Liga",
             "Männer 2. Liga",
             "Männer 3. Liga",
             "Männer 4. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
             "Junioren U19 Inter",
-            "Junioren U19 Promotion",
             "Junioren U17 Inter",
             "Junioren U17 Promotion S1",
-            "Junioren U15 Promotion S1",
+            "Junioren U15 Inter",
             "Junioren U15 Promotion S2",
             "Junioren U13 Promotion S1",
             "Juniorinnen U18 Promotion",
+            "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
         ],
@@ -3068,16 +3108,17 @@
         ],
         "teams": [
             "Männer 1. Liga",
+            "Männer 3. Liga",
             "Männer 4. Liga",
             "Junioren U19 Inter",
-            "Junioren U19 Promotion",
             "Junioren U17 Inter",
             "Junioren U17 Promotion S1",
-            "Junioren U15 Promotion S1",
+            "Junioren U15 Inter",
             "Junioren U15 Promotion S2",
             "Junioren U13 Promotion S2",
+            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Promotion",
-            "Juniorinnen U14 Promotion",
+            "Juniorinnen U14 Inter",
             "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140504",
@@ -3108,15 +3149,16 @@
             "Männer 2. Liga",
             "Männer 4. Liga",
             "Freie Spielform 30+ Meisterschaft",
-            "Junioren U19 Promotion",
+            "Junioren U19 Inter",
             "Junioren U17 Elite",
             "Junioren U17 Promotion S1",
-            "Junioren U15 Elite",
+            "Junioren U15 Inter",
             "Junioren U15 Promotion S1",
-            "Junioren U13 Inter",
             "Junioren U13 Promotion S1",
+            "Junioren U13 Promotion S2",
             "Juniorinnen U16 Inter",
-            "Juniorinnen U14 Inter"
+            "Juniorinnen U14 Elite",
+            "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140505",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=46.544477,6.5752474"
@@ -3166,10 +3208,14 @@
             "Männer 3. Liga",
             "Männer 4. Liga",
             "Frauen 3. Liga",
-            "Junioren U19 Inter",
-            "Junioren U17 Elite",
+            "Junioren U19 Promotion",
             "Junioren U17 Promotion S1",
+            "Junioren U15 Elite",
+            "Junioren U15 Inter",
+            "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
+            "Junioren U13 Elite",
+            "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Promotion",
@@ -3199,6 +3245,8 @@
             }
         ],
         "teams": [
+            "Männer 4. Liga",
+            "Junioren U15 Promotion S2",
             "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140510",
@@ -3237,16 +3285,16 @@
             }
         ],
         "teams": [
-            "Männer 1. Liga",
             "Männer 2. Liga",
             "Männer 3. Liga",
             "Männer 4. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
+            "Junioren U17 Promotion S1",
             "Junioren U15 Promotion S2",
+            "Junioren U13 Promotion S2",
             "Juniorinnen U18 Promotion",
-            "Juniorinnen U16 Promotion",
-            "Mixed U13-Spieltage"
+            "Juniorinnen U16 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140511",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.572878,8.8889761"
@@ -3311,14 +3359,14 @@
             "Männer 2. Liga",
             "Männer 3. Liga",
             "Frauen 1. Liga",
-            "Frauen 3. Liga",
+            "Frauen 2. Liga",
             "Junioren U19 Elite",
             "Junioren U19 Inter",
             "Junioren U19 Promotion",
             "Junioren U17 Elite",
             "Junioren U17 Inter",
-            "Junioren U17 Promotion S1",
             "Junioren U15 Elite",
+            "Junioren U15 Inter",
             "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
             "Junioren U13 Elite",
@@ -3326,6 +3374,7 @@
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Elite",
             "Juniorinnen U18 Inter",
+            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Elite",
             "Juniorinnen U16 Inter",
             "Juniorinnen U16 Promotion",
@@ -3361,24 +3410,25 @@
             }
         ],
         "teams": [
-            "Männer NLB",
+            "Männer 1. Liga",
             "Männer 2. Liga",
             "Männer 3. Liga",
             "Frauen SPL2",
-            "Frauen 1. Liga",
-            "Frauen 3. Liga",
+            "Frauen 2. Liga",
             "Junioren U19 Elite",
             "Junioren U19 Inter",
             "Junioren U17 Elite",
             "Junioren U17 Inter",
-            "Junioren U17 Promotion S1",
+            "Junioren U15 Elite",
             "Junioren U15 Inter",
+            "Junioren U15 Promotion S1",
+            "Junioren U13 Elite",
             "Junioren U13 Inter",
             "Junioren U13 Promotion S1",
-            "Junioren U13 Promotion S2",
-            "Juniorinnen U18 Promotion",
-            "Juniorinnen U16 Inter",
-            "Juniorinnen U14 Inter"
+            "Juniorinnen U18 Inter",
+            "Juniorinnen U16 Promotion",
+            "Juniorinnen U14 Inter",
+            "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140515",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.5090684,9.4215575"
@@ -3409,14 +3459,11 @@
         ],
         "teams": [
             "Männer NLB",
-            "Männer 2. Liga",
+            "Männer 1. Liga",
             "Männer 3. Liga",
-            "Frauen 1. Liga",
             "Frauen 2. Liga",
-            "Frauen 3. Liga",
             "Freie Spielform 30+ Meisterschaft",
-            "Junioren U19 Inter",
-            "Junioren U19 Promotion",
+            "Junioren U19 Elite",
             "Junioren U17 Elite",
             "Junioren U17 Promotion S1",
             "Junioren U15 Elite",
@@ -3424,8 +3471,7 @@
             "Junioren U13 Inter",
             "Junioren U13 Promotion S1",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U16 Promotion",
-            "Juniorinnen U14 Inter"
+            "Juniorinnen U16 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140516",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=46.188672,6.1926308"
@@ -3473,17 +3519,16 @@
         "teams": [
             "Frauen SPL1",
             "Frauen SPL2",
-            "Frauen 2. Liga",
+            "Frauen 3. Liga",
             "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Elite",
-            "Juniorinnen U18 Promotion",
+            "Juniorinnen U18 Inter",
             "Juniorinnen U16 Elite",
             "Juniorinnen U16 Inter",
             "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Elite",
-            "Juniorinnen U14 Promotion",
-            "Mixed U13-Spieltage"
+            "Juniorinnen U14 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140520",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.4196433,9.361467"
@@ -3538,14 +3583,16 @@
             "Junioren U17 Inter",
             "Junioren U17 Promotion S1",
             "Junioren U15 Elite",
-            "Junioren U15 Promotion S1",
+            "Junioren U15 Inter",
             "Junioren U15 Promotion S2",
-            "Junioren U13 Inter",
+            "Junioren U13 Elite",
             "Junioren U13 Promotion S1",
+            "Junioren U13 Promotion S2",
             "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage",
+            "TogetherLeague Promotion",
             "TogetherLeague",
             "UnifiedLeague"
         ],
@@ -3574,15 +3621,13 @@
         ],
         "teams": [
             "Männer 2. Liga",
-            "Männer 3. Liga",
             "Männer 4. Liga",
             "Junioren U19 Elite",
             "Junioren U19 Promotion",
             "Junioren U17 Elite",
-            "Junioren U17 Inter",
             "Junioren U15 Elite",
-            "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
+            "Junioren U13 Elite",
             "Junioren U13 Inter",
             "Mixed U13-Spieltage"
         ],
@@ -3626,15 +3671,14 @@
             "Männer 3. Liga",
             "Frauen 2. Liga",
             "Freie Spielform 30+ Meisterschaft",
-            "Junioren U19 Inter",
-            "Junioren U19 Promotion",
+            "Junioren U19 Elite",
+            "Junioren U17 Elite",
             "Junioren U15 Elite",
             "Junioren U15 Promotion S1",
             "Junioren U13 Inter",
             "Junioren U13 Promotion S1",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U16 Promotion",
-            "Juniorinnen U14 Inter"
+            "Juniorinnen U16 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140524",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=46.1964936,6.1309375"
@@ -3665,6 +3709,7 @@
         ],
         "teams": [
             "Männer 4. Liga",
+            "Junioren U19 Elite",
             "Junioren U17 Elite",
             "Junioren U17 Promotion S1",
             "Junioren U15 Elite",
@@ -3672,7 +3717,7 @@
             "Junioren U13 Inter",
             "Junioren U13 Promotion S1",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U14 Inter"
+            "Juniorinnen U16 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140525",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=46.191968,6.11361"
@@ -3699,7 +3744,6 @@
         ],
         "teams": [
             "Männer 3. Liga",
-            "Männer 4. Liga",
             "Frauen 3. Liga"
         ],
         "club_link": "/de/matchcenter/vereine/140526",
@@ -3768,10 +3812,8 @@
         "teams": [
             "Männer 3. Liga",
             "Freie Spielform 30+ Turnier",
-            "Junioren U17 Inter",
-            "Junioren U17 Promotion S1",
             "Junioren U15 Promotion S2",
-            "Junioren U13 Promotion S2"
+            "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140531",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.0926481,7.5748561"
@@ -3804,12 +3846,14 @@
             "Männer 2. Liga",
             "Männer 3. Liga",
             "Frauen 2. Liga",
-            "Junioren U17 Promotion S1",
-            "Junioren U15 Inter",
+            "Junioren U19 Promotion",
+            "Junioren U17 Inter",
+            "Junioren U15 Promotion S1",
+            "Junioren U15 Promotion S2",
             "Junioren U13 Inter",
+            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Inter",
-            "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140535",
@@ -3840,18 +3884,23 @@
             }
         ],
         "teams": [
-            "Männer 1. Liga",
+            "Männer 2. Liga",
             "Männer 3. Liga",
             "Männer 4. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
-            "Junioren U19 Inter",
             "Junioren U17 Elite",
+            "Junioren U17 Inter",
             "Junioren U17 Promotion S1",
-            "Junioren U15 Promotion S2",
+            "Junioren U15 Elite",
+            "Junioren U15 Inter",
+            "Junioren U15 Promotion S1",
+            "Junioren U13 Elite",
             "Junioren U13 Promotion S1",
             "Juniorinnen U18 Promotion",
+            "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Promotion",
+            "TogetherLeague Promotion",
             "TogetherLeague"
         ],
         "club_link": "/de/matchcenter/vereine/140537",
@@ -3911,14 +3960,13 @@
             }
         ],
         "teams": [
+            "Männer 2. Liga",
             "Männer 3. Liga",
             "Frauen 3. Liga",
             "Junioren U17 Promotion S1",
-            "Junioren U15 Promotion S2",
-            "Junioren U13 Promotion S2",
-            "Juniorinnen U18 Inter",
-            "Juniorinnen U16 Inter",
+            "Junioren U15 Promotion S1",
             "Juniorinnen U16 Promotion",
+            "Juniorinnen U14 Inter",
             "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
         ],
@@ -3953,11 +4001,9 @@
             "Männer 1. Liga",
             "Männer 2. Liga",
             "Männer 3. Liga",
-            "Männer 4. Liga",
             "Frauen 1. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
-            "Junioren U19 Inter",
             "Junioren U17 Inter",
             "Junioren U17 Promotion S1",
             "Junioren U15 Elite",
@@ -3966,8 +4012,9 @@
             "Junioren U13 Elite",
             "Junioren U13 Inter",
             "Junioren U13 Promotion S1",
+            "Junioren U13 Promotion S2",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U16 Inter",
+            "Juniorinnen U16 Elite",
             "Juniorinnen U14 Elite",
             "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
@@ -3996,17 +4043,19 @@
             }
         ],
         "teams": [
+            "Männer 2. Liga",
             "Männer 3. Liga",
+            "Männer 4. Liga",
             "Frauen 1. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
-            "Junioren U17 Promotion S1",
+            "Junioren U15 Promotion S1",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Elite",
             "Juniorinnen U18 Promotion",
-            "Juniorinnen U16 Elite",
+            "Juniorinnen U16 Inter",
             "Juniorinnen U16 Promotion",
-            "Juniorinnen U14 Elite",
+            "Juniorinnen U14 Inter",
             "Juniorinnen U14 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140550",
@@ -4035,20 +4084,23 @@
         "teams": [
             "Männer 2. Liga",
             "Männer 3. Liga",
-            "Männer 4. Liga",
-            "Frauen 3. Liga",
+            "Frauen 2. Liga",
             "Junioren U19 Elite",
             "Junioren U19 Inter",
             "Junioren U17 Elite",
             "Junioren U17 Inter",
             "Junioren U17 Promotion S1",
+            "Junioren U15 Elite",
             "Junioren U15 Inter",
+            "Junioren U15 Promotion S1",
+            "Junioren U13 Elite",
             "Junioren U13 Inter",
             "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
-            "Juniorinnen U18 Promotion",
-            "Juniorinnen U16 Inter",
-            "Juniorinnen U14 Inter"
+            "Juniorinnen U18 Inter",
+            "Juniorinnen U16 Promotion",
+            "Juniorinnen U14 Inter",
+            "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140551",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.5681848,9.3710847"
@@ -4078,7 +4130,7 @@
             }
         ],
         "teams": [
-            "Männer 4. Liga"
+            "Männer 3. Liga"
         ],
         "club_link": "/de/matchcenter/vereine/140552",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.448694,8.5244525"
@@ -4108,15 +4160,15 @@
             }
         ],
         "teams": [
-            "Männer 2. Liga",
+            "Männer 1. Liga",
             "Männer 3. Liga",
-            "Junioren U19 Inter",
+            "Männer 4. Liga",
             "Junioren U19 Promotion",
             "Junioren U17 Promotion S1",
             "Junioren U15 Promotion S2",
-            "Junioren U13 Promotion S2",
+            "Junioren U13 Promotion S1",
             "Juniorinnen U18 Promotion",
-            "Juniorinnen U14 Promotion"
+            "Juniorinnen U16 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140554",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.0999626,8.2711087"
@@ -4164,10 +4216,10 @@
         "teams": [
             "Frauen 3. Liga",
             "Junioren U17 Promotion S1",
-            "Junioren U13 Promotion S2",
+            "Junioren U15 Promotion S2",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U16 Inter",
             "Juniorinnen U16 Promotion",
+            "Juniorinnen U14 Inter",
             "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
         ],
@@ -4199,22 +4251,22 @@
             }
         ],
         "teams": [
-            "Männer NLB",
+            "Männer QHL",
             "Männer 1. Liga",
             "Männer 2. Liga",
             "Männer 3. Liga",
+            "Frauen 2. Liga",
             "Frauen 3. Liga",
             "Junioren U19 Inter",
             "Junioren U17 Elite",
             "Junioren U17 Promotion S1",
-            "Junioren U15 Elite",
-            "Junioren U15 Promotion S2",
+            "Junioren U15 Inter",
+            "Junioren U15 Promotion S1",
             "Junioren U13 Elite",
             "Junioren U13 Promotion S1",
-            "Junioren U13 Promotion S2",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U16 Inter",
             "Juniorinnen U16 Promotion",
+            "Juniorinnen U14 Inter",
             "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
         ],
@@ -4244,8 +4296,7 @@
         "teams": [
             "Männer 3. Liga",
             "Freie Spielform 30+ Meisterschaft",
-            "Junioren U17 Promotion S1",
-            "Junioren U13 Promotion S2"
+            "Junioren U13 Promotion S1"
         ],
         "club_link": "/de/matchcenter/vereine/140559",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=46.6040645,6.2287573"
@@ -4282,17 +4333,23 @@
             "Männer NLB",
             "Männer 1. Liga",
             "Männer 2. Liga",
-            "Männer 4. Liga",
+            "Männer 3. Liga",
             "Frauen SPL2",
             "Frauen 2. Liga",
             "Junioren U19 Elite",
+            "Junioren U19 Inter",
+            "Junioren U17 Elite",
             "Junioren U17 Inter",
+            "Junioren U17 Promotion S1",
+            "Junioren U15 Elite",
+            "Junioren U15 Inter",
             "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
-            "Junioren U13 Inter",
-            "Juniorinnen U18 Promotion",
+            "Junioren U13 Elite",
+            "Junioren U13 Promotion S1",
+            "Juniorinnen U18 Inter",
             "Juniorinnen U16 Inter",
-            "Juniorinnen U14 Inter",
+            "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140560",
@@ -4333,19 +4390,23 @@
         "teams": [
             "Männer QHL",
             "Männer NLB",
-            "Frauen 3. Liga",
+            "Frauen SPL2",
+            "Frauen 2. Liga",
             "Junioren U19 Elite",
             "Junioren U17 Elite",
             "Junioren U17 Inter",
             "Junioren U17 Promotion S1",
             "Junioren U15 Elite",
+            "Junioren U15 Inter",
             "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
             "Junioren U13 Elite",
             "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
+            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Promotion",
-            "Juniorinnen U14 Promotion"
+            "Juniorinnen U14 Promotion",
+            "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140561",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.7204311,8.6458608"
@@ -4374,9 +4435,13 @@
             "Männer 3. Liga",
             "Frauen 3. Liga",
             "Junioren U17 Inter",
+            "Junioren U15 Elite",
+            "Junioren U15 Inter",
+            "Junioren U15 Promotion S2",
             "Junioren U13 Elite",
             "Junioren U13 Promotion S1",
-            "Junioren U13 Promotion S2"
+            "Juniorinnen U16 Promotion",
+            "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140562",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.7427557,8.711188"
@@ -4404,16 +4469,21 @@
         "teams": [
             "Männer 1. Liga",
             "Männer 3. Liga",
-            "Frauen 3. Liga",
+            "Frauen 2. Liga",
+            "Junioren U19 Promotion",
             "Junioren U17 Inter",
             "Junioren U17 Promotion S1",
+            "Junioren U15 Elite",
+            "Junioren U15 Inter",
             "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
             "Junioren U13 Elite",
             "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
+            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Promotion",
-            "Juniorinnen U14 Promotion"
+            "Juniorinnen U14 Promotion",
+            "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140564",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.6809369,8.6216836"
@@ -4443,16 +4513,20 @@
             }
         ],
         "teams": [
-            "Männer 2. Liga",
+            "Männer 1. Liga",
             "Männer 3. Liga",
-            "Frauen 3. Liga",
+            "Frauen 2. Liga",
+            "Junioren U19 Promotion",
             "Junioren U17 Inter",
             "Junioren U17 Promotion S1",
+            "Junioren U15 Elite",
+            "Junioren U15 Inter",
             "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
             "Junioren U13 Elite",
             "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
+            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Promotion"
         ],
@@ -4486,18 +4560,21 @@
         "teams": [
             "Männer QHL",
             "Männer 1. Liga",
-            "Männer 2. Liga",
             "Männer 3. Liga",
             "Frauen 1. Liga",
+            "Frauen 2. Liga",
             "Junioren U19 Elite",
             "Junioren U17 Elite",
+            "Junioren U17 Inter",
             "Junioren U17 Promotion S1",
             "Junioren U15 Elite",
             "Junioren U15 Inter",
             "Junioren U15 Promotion S2",
             "Junioren U13 Elite",
             "Junioren U13 Promotion S2",
-            "Juniorinnen U14 Promotion"
+            "Juniorinnen U16 Promotion",
+            "Juniorinnen U14 Promotion",
+            "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140566",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.0317717,8.2680202"
@@ -4523,19 +4600,24 @@
             }
         ],
         "teams": [
+            "Männer 2. Liga",
             "Männer 3. Liga",
             "Frauen 1. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
-            "Junioren U19 Promotion",
+            "Junioren U17 Inter",
+            "Junioren U17 Promotion S1",
+            "Junioren U15 Elite",
+            "Junioren U15 Inter",
             "Junioren U15 Promotion S2",
             "Junioren U13 Elite",
+            "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Elite",
             "Juniorinnen U18 Promotion",
-            "Juniorinnen U16 Elite",
+            "Juniorinnen U16 Inter",
             "Juniorinnen U16 Promotion",
-            "Juniorinnen U14 Elite",
+            "Juniorinnen U14 Inter",
             "Juniorinnen U14 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140568",
@@ -4562,18 +4644,17 @@
             }
         ],
         "teams": [
-            "Männer 2. Liga",
+            "Männer 1. Liga",
             "Männer 3. Liga",
             "Männer 4. Liga",
             "Frauen 1. Liga",
             "Frauen 3. Liga",
-            "Junioren U19 Promotion",
+            "Junioren U19 Inter",
             "Junioren U17 Inter",
-            "Junioren U15 Inter",
-            "Junioren U13 Promotion S1",
+            "Junioren U15 Promotion S1",
+            "Junioren U13 Promotion S2",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U16 Inter",
-            "Juniorinnen U14 Inter",
+            "Juniorinnen U16 Promotion",
             "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140569",
@@ -4608,7 +4689,8 @@
             "Junioren U19 Elite",
             "Junioren U17 Elite",
             "Junioren U17 Promotion S1",
-            "Junioren U15 Inter",
+            "Junioren U15 Elite",
+            "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
             "Junioren U13 Promotion S1",
             "Mixed U13-Spieltage"
@@ -4672,8 +4754,9 @@
             }
         ],
         "teams": [
-            "Männer 3. Liga",
+            "Männer 2. Liga",
             "Männer 4. Liga",
+            "Junioren U15 Promotion S2",
             "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140574",
@@ -4793,16 +4876,15 @@
             "Frauen 3. Liga",
             "Junioren U19 Inter",
             "Junioren U17 Inter",
-            "Junioren U17 Promotion S1",
             "Junioren U15 Elite",
             "Junioren U15 Inter",
-            "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
             "Junioren U13 Elite",
             "Junioren U13 Inter",
             "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Inter",
+            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Inter",
             "Juniorinnen U14 Inter",
             "Juniorinnen U14 Promotion",
@@ -4837,9 +4919,13 @@
         ],
         "teams": [
             "Männer 3. Liga",
-            "Junioren U19 Elite",
+            "Frauen 3. Liga",
+            "Junioren U17 Elite",
+            "Junioren U15 Elite",
+            "Junioren U15 Promotion S1",
+            "Junioren U13 Elite",
             "Junioren U13 Inter",
-            "Junioren U13 Promotion S1",
+            "Junioren U13 Promotion S2",
             "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Promotion"
         ],
@@ -4871,18 +4957,17 @@
             "Frauen 2. Liga",
             "Frauen 3. Liga",
             "Junioren U19 Elite",
+            "Junioren U19 Promotion",
             "Junioren U17 Elite",
             "Junioren U17 Promotion S1",
             "Junioren U15 Elite",
             "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
+            "Junioren U13 Elite",
             "Junioren U13 Inter",
             "Junioren U13 Promotion S2",
-            "Juniorinnen U18 Inter",
             "Juniorinnen U16 Inter",
-            "Juniorinnen U14 Inter",
-            "Juniorinnen U14 Promotion",
-            "Mixed U13-Spieltage"
+            "Juniorinnen U14 Inter"
         ],
         "club_link": "/de/matchcenter/vereine/140580",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.4424331,9.1362318"
@@ -4941,25 +5026,22 @@
         ],
         "teams": [
             "Männer NLB",
-            "Männer 3. Liga",
             "Männer 4. Liga",
             "Frauen SPL1",
             "Frauen 1. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
-            "Junioren U19 Promotion",
             "Junioren U17 Promotion S1",
             "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
             "Junioren U13 Elite",
             "Junioren U13 Promotion S1",
-            "Junioren U13 Promotion S2",
             "Juniorinnen U18 Elite",
             "Juniorinnen U18 Promotion",
-            "Juniorinnen U16 Elite",
-            "Juniorinnen U14 Elite",
-            "Juniorinnen U14 Promotion",
-            "Mixed U13-Spieltage"
+            "Juniorinnen U16 Inter",
+            "Juniorinnen U16 Promotion",
+            "Juniorinnen U14 Inter",
+            "Juniorinnen U14 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140581",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.5033241,8.7120699"
@@ -4995,13 +5077,15 @@
         "teams": [
             "Männer 2. Liga",
             "Männer 3. Liga",
+            "Frauen 2. Liga",
             "Frauen 3. Liga",
-            "Junioren U19 Promotion",
-            "Junioren U15 Promotion S1",
+            "Junioren U19 Inter",
+            "Junioren U15 Promotion S2",
             "Juniorinnen U18 Elite",
             "Juniorinnen U18 Promotion",
-            "Juniorinnen U16 Elite",
-            "Juniorinnen U14 Elite",
+            "Juniorinnen U16 Inter",
+            "Juniorinnen U16 Promotion",
+            "Juniorinnen U14 Inter",
             "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
         ],
@@ -5012,7 +5096,7 @@
         "id": "140584",
         "latitude": "47.4901233",
         "longitude": "8.7408175",
-        "name": "Athletic 57",
+        "name": "inaktiv - Athletic 57",
         "address": "8400 Winterthur ZH",
         "phone": "+41 79 746 41 27",
         "founding_year": "Gründungsjahr 1957",
@@ -5097,10 +5181,10 @@
         ],
         "teams": [
             "Männer 2. Liga",
-            "Männer 4. Liga",
             "Freie Spielform 30+ Meisterschaft",
-            "Junioren U15 Promotion S2",
-            "Junioren U13 Promotion S2"
+            "Junioren U17 Promotion S1",
+            "Junioren U13 Promotion S2",
+            "Juniorinnen U16 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140585",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=46.4602283,6.8402386"
@@ -5141,15 +5225,13 @@
             "Männer 2. Liga",
             "Männer 3. Liga",
             "Frauen 1. Liga",
-            "Frauen 3. Liga",
-            "Junioren U19 Promotion",
-            "Junioren U17 Promotion S1",
-            "Junioren U15 Elite",
+            "Junioren U19 Inter",
+            "Junioren U17 Elite",
+            "Junioren U15 Inter",
             "Junioren U15 Promotion S1",
-            "Junioren U13 Promotion S1",
+            "Junioren U13 Promotion S2",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U18 Promotion",
-            "Juniorinnen U14 Inter"
+            "Juniorinnen U16 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140586",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=46.7756943,6.6359855"
@@ -5178,7 +5260,11 @@
             "Frauen SPL1",
             "Frauen 1. Liga",
             "Frauen 3. Liga",
+            "Juniorinnen U18 Elite",
+            "Juniorinnen U18 Inter",
+            "Juniorinnen U16 Elite",
             "Juniorinnen U16 Promotion",
+            "Juniorinnen U14 Inter",
             "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
         ],
@@ -5208,7 +5294,7 @@
         "teams": [
             "Frauen SPL1",
             "Frauen SPL2",
-            "Frauen 2. Liga",
+            "Frauen 1. Liga",
             "Juniorinnen U18 Elite",
             "Juniorinnen U16 Elite",
             "Juniorinnen U14 Elite",
@@ -5254,12 +5340,13 @@
             "Männer 3. Liga",
             "Junioren U19 Elite",
             "Junioren U17 Elite",
+            "Junioren U17 Inter",
             "Junioren U17 Promotion S1",
             "Junioren U15 Elite",
             "Junioren U15 Inter",
             "Junioren U15 Promotion S2",
             "Junioren U13 Elite",
-            "Junioren U13 Promotion S2"
+            "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140629",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.0620298,8.3073485"
@@ -5289,16 +5376,16 @@
             }
         ],
         "teams": [
+            "Männer NLB",
             "Männer 1. Liga",
             "Männer 2. Liga",
             "Männer 3. Liga",
             "Männer 4. Liga",
-            "Frauen SPL2",
+            "Frauen SPL1",
             "Frauen 1. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
             "Junioren U19 Elite",
-            "Junioren U19 Promotion",
             "Junioren U17 Elite",
             "Junioren U17 Promotion S1",
             "Junioren U15 Elite",
@@ -5310,6 +5397,8 @@
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Inter",
             "Juniorinnen U18 Promotion",
+            "Juniorinnen U16 Elite",
+            "Juniorinnen U16 Inter",
             "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Elite",
             "Juniorinnen U14 Inter",
@@ -5348,12 +5437,14 @@
             "Männer 3. Liga",
             "Männer 4. Liga",
             "Frauen 3. Liga",
-            "Junioren U19 Promotion",
+            "Junioren U19 Inter",
             "Junioren U17 Promotion S1",
-            "Junioren U15 Promotion S1",
+            "Junioren U15 Promotion S2",
             "Junioren U13 Promotion S2",
-            "Juniorinnen U14 Inter",
-            "Mixed U13-Spieltage"
+            "Juniorinnen U18 Inter",
+            "Juniorinnen U16 Inter",
+            "Juniorinnen U16 Promotion",
+            "Juniorinnen U14 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140633",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.3247327,8.8006833"
@@ -5391,7 +5482,7 @@
         "id": "140638",
         "latitude": "47.462167",
         "longitude": "8.5779148",
-        "name": "HC Kloten",
+        "name": "inaktiv - HC Kloten",
         "address": "8302 Kloten ZH",
         "phone": "",
         "founding_year": "Gründungsjahr 1967",
@@ -5438,10 +5529,11 @@
             "Junioren U15 Inter",
             "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
-            "Junioren U13 Promotion S1",
+            "Junioren U13 Promotion S2",
             "Juniorinnen U18 Elite",
+            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Elite",
-            "Juniorinnen U16 Inter",
+            "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Elite",
             "Juniorinnen U14 Promotion"
         ],
@@ -5471,14 +5563,13 @@
         "teams": [
             "Männer 2. Liga",
             "Männer 3. Liga",
-            "Frauen 3. Liga",
-            "Junioren U19 Promotion",
+            "Männer 4. Liga",
             "Junioren U17 Promotion S1",
-            "Junioren U15 Promotion S1",
+            "Junioren U15 Inter",
             "Junioren U13 Promotion S1",
             "Juniorinnen U18 Inter",
             "Juniorinnen U16 Inter",
-            "Juniorinnen U14 Inter",
+            "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
         ],
@@ -5511,15 +5602,13 @@
         ],
         "teams": [
             "Männer 1. Liga",
-            "Männer 2. Liga",
             "Männer 3. Liga",
             "Frauen 2. Liga",
-            "Junioren U19 Elite",
-            "Junioren U17 Inter",
-            "Junioren U13 Promotion S1",
-            "Juniorinnen U18 Promotion",
-            "Juniorinnen U16 Inter",
-            "Juniorinnen U14 Promotion",
+            "Junioren U19 Inter",
+            "Junioren U15 Promotion S1",
+            "Junioren U13 Promotion S2",
+            "Juniorinnen U18 Inter",
+            "Juniorinnen U16 Promotion",
             "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140675",
@@ -5550,7 +5639,7 @@
             "Männer 2. Liga",
             "Männer 3. Liga",
             "Männer 4. Liga",
-            "Frauen SPL2",
+            "Frauen SPL1",
             "Frauen 1. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
@@ -5566,11 +5655,13 @@
             "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Elite",
+            "Juniorinnen U16 Inter",
             "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Elite",
-            "Juniorinnen U14 Promotion"
+            "Juniorinnen U14 Inter",
+            "Juniorinnen U14 Promotion",
+            "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140676",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.4693863,8.3110916"
@@ -5605,22 +5696,22 @@
         ],
         "teams": [
             "Männer 2. Liga",
-            "Männer 4. Liga",
+            "Männer 3. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
             "Junioren U19 Inter",
+            "Junioren U19 Promotion",
             "Junioren U17 Inter",
             "Junioren U17 Promotion S1",
             "Junioren U15 Inter",
             "Junioren U15 Promotion S1",
-            "Junioren U15 Promotion S2",
             "Junioren U13 Inter",
             "Junioren U13 Promotion S2",
-            "Juniorinnen U18 Inter",
             "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Promotion",
-            "Juniorinnen U14 Inter",
-            "Juniorinnen U14 Promotion"
+            "Juniorinnen U14 Promotion",
+            "TogetherLeague Promotion",
+            "TogetherLeague"
         ],
         "club_link": "/de/matchcenter/vereine/140680",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.3562716,8.3652871"
@@ -5647,8 +5738,9 @@
         ],
         "teams": [
             "Männer 3. Liga",
-            "Junioren U19 Promotion",
-            "Junioren U15 Promotion S2"
+            "Männer 4. Liga",
+            "Junioren U17 Promotion S1",
+            "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140681",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.4981087,9.2424231"
@@ -5674,18 +5766,17 @@
             }
         ],
         "teams": [
-            "Männer 2. Liga",
+            "Männer 1. Liga",
             "Männer 3. Liga",
             "Männer 4. Liga",
             "Frauen 1. Liga",
             "Frauen 3. Liga",
-            "Junioren U19 Promotion",
+            "Junioren U19 Inter",
             "Junioren U17 Inter",
-            "Junioren U15 Inter",
-            "Junioren U13 Promotion S1",
+            "Junioren U15 Promotion S1",
+            "Junioren U13 Promotion S2",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U16 Inter",
-            "Juniorinnen U14 Inter",
+            "Juniorinnen U16 Promotion",
             "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140682",
@@ -5734,17 +5825,21 @@
         "teams": [
             "Männer QHL",
             "Männer NLB",
+            "Männer 3. Liga",
             "Männer 4. Liga",
             "Junioren U19 Elite",
             "Junioren U19 Inter",
+            "Junioren U19 Promotion",
             "Junioren U17 Elite",
             "Junioren U17 Inter",
             "Junioren U17 Promotion S1",
             "Junioren U15 Elite",
+            "Junioren U15 Inter",
             "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
-            "Junioren U13 Inter",
+            "Junioren U13 Elite",
             "Junioren U13 Promotion S1",
+            "Junioren U13 Promotion S2",
             "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140684",
@@ -5782,15 +5877,16 @@
             "Frauen 3. Liga",
             "Junioren U19 Elite",
             "Junioren U19 Inter",
-            "Junioren U19 Promotion",
             "Junioren U17 Elite",
             "Junioren U17 Inter",
             "Junioren U17 Promotion S1",
             "Junioren U15 Elite",
-            "Junioren U15 Promotion S1",
-            "Junioren U13 Inter",
+            "Junioren U15 Inter",
+            "Junioren U15 Promotion S2",
+            "Junioren U13 Elite",
             "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
+            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
@@ -5823,24 +5919,22 @@
             }
         ],
         "teams": [
+            "Männer NLB",
             "Männer 1. Liga",
             "Männer 2. Liga",
-            "Männer 3. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
             "Junioren U19 Elite",
+            "Junioren U19 Promotion",
             "Junioren U17 Elite",
             "Junioren U17 Promotion S1",
             "Junioren U15 Elite",
             "Junioren U15 Promotion S1",
-            "Junioren U15 Promotion S2",
+            "Junioren U13 Elite",
             "Junioren U13 Inter",
             "Junioren U13 Promotion S1",
-            "Junioren U13 Promotion S2",
-            "Juniorinnen U18 Inter",
             "Juniorinnen U16 Inter",
-            "Juniorinnen U14 Inter",
-            "Juniorinnen U14 Promotion"
+            "Juniorinnen U14 Inter"
         ],
         "club_link": "/de/matchcenter/vereine/140686",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.4085913,9.2536109"
@@ -5894,11 +5988,11 @@
         "teams": [
             "Männer 3. Liga",
             "Frauen 1. Liga",
-            "Frauen 3. Liga",
+            "Frauen 2. Liga",
             "Junioren U17 Promotion S1",
             "Junioren U15 Promotion S2",
             "Junioren U13 Promotion S2",
-            "Juniorinnen U16 Promotion",
+            "Juniorinnen U18 Promotion",
             "Juniorinnen U14 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140690",
@@ -5929,11 +6023,11 @@
             "Männer 2. Liga",
             "Frauen 1. Liga",
             "Frauen 3. Liga",
-            "Junioren U19 Promotion",
+            "Junioren U19 Inter",
             "Junioren U17 Inter",
-            "Junioren U15 Inter",
-            "Junioren U13 Promotion S1",
+            "Junioren U15 Promotion S1",
             "Juniorinnen U18 Inter",
+            "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140691",
@@ -5992,7 +6086,7 @@
         "teams": [
             "Frauen SPL1",
             "Frauen SPL2",
-            "Frauen 3. Liga",
+            "Frauen 2. Liga",
             "Junioren U13 Promotion S1",
             "Juniorinnen U18 Elite",
             "Juniorinnen U18 Inter",
@@ -6031,14 +6125,16 @@
             "Männer 3. Liga",
             "Frauen SPL2",
             "Frauen 2. Liga",
+            "Frauen 3. Liga",
             "Junioren U19 Promotion",
             "Junioren U17 Inter",
             "Junioren U15 Inter",
             "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
             "Juniorinnen U18 Elite",
+            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Elite",
-            "Juniorinnen U16 Inter",
+            "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Elite",
             "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
@@ -6067,6 +6163,7 @@
             }
         ],
         "teams": [
+            "Junioren U13 Promotion S2",
             "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140698",
@@ -6110,10 +6207,12 @@
             "Junioren U17 Promotion S1",
             "Junioren U15 Promotion S1",
             "Junioren U13 Promotion S1",
-            "Juniorinnen U18 Inter",
+            "Juniorinnen U18 Elite",
+            "Juniorinnen U18 Promotion",
+            "Juniorinnen U16 Elite",
             "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Elite",
-            "Juniorinnen U14 Inter"
+            "Juniorinnen U14 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140699",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.081645,8.1193396"
@@ -6146,12 +6245,12 @@
             "Männer 1. Liga",
             "Männer 3. Liga",
             "Frauen 2. Liga",
-            "Junioren U19 Inter",
-            "Junioren U17 Inter",
-            "Junioren U15 Inter",
+            "Junioren U19 Elite",
+            "Junioren U17 Promotion S1",
+            "Junioren U15 Elite",
             "Junioren U15 Promotion S2",
             "Junioren U13 Elite",
-            "Juniorinnen U16 Promotion"
+            "Juniorinnen U16 Inter"
         ],
         "club_link": "/de/matchcenter/vereine/140701",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=46.2953412,7.8778203"
@@ -6173,12 +6272,12 @@
         "teams": [
             "Männer 3. Liga",
             "Frauen 2. Liga",
-            "Junioren U19 Inter",
-            "Junioren U17 Inter",
-            "Junioren U15 Inter",
+            "Junioren U19 Elite",
+            "Junioren U17 Promotion S1",
+            "Junioren U15 Elite",
             "Junioren U15 Promotion S2",
             "Junioren U13 Elite",
-            "Juniorinnen U16 Promotion"
+            "Juniorinnen U16 Inter"
         ],
         "club_link": "/de/matchcenter/vereine/140702",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=46.2894137,7.8806047"
@@ -6216,7 +6315,7 @@
             "Männer 2. Liga",
             "Männer 3. Liga",
             "Männer 4. Liga",
-            "Frauen SPL2",
+            "Frauen SPL1",
             "Frauen 1. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
@@ -6232,11 +6331,13 @@
             "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Elite",
+            "Juniorinnen U16 Inter",
             "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Elite",
-            "Juniorinnen U14 Promotion"
+            "Juniorinnen U14 Inter",
+            "Juniorinnen U14 Promotion",
+            "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140703",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.454916,8.3372159"
@@ -6271,8 +6372,9 @@
         ],
         "teams": [
             "Männer 2. Liga",
+            "Männer 3. Liga",
             "Männer 4. Liga",
-            "Frauen 2. Liga",
+            "Frauen 1. Liga",
             "Frauen 3. Liga",
             "Junioren U19 Elite",
             "Junioren U17 Elite",
@@ -6280,9 +6382,11 @@
             "Junioren U15 Elite",
             "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
+            "Junioren U13 Elite",
             "Junioren U13 Inter",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Promotion",
+            "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140704",
@@ -6311,7 +6415,8 @@
         "teams": [
             "Männer 3. Liga",
             "Männer 4. Liga",
-            "Frauen 2. Liga",
+            "Frauen 3. Liga",
+            "Junioren U17 Promotion S1",
             "Junioren U15 Promotion S2",
             "Junioren U13 Promotion S2",
             "Juniorinnen U14 Promotion"
@@ -6336,6 +6441,7 @@
         "teams": [
             "Frauen SPL2",
             "Juniorinnen U18 Elite",
+            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Elite",
             "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Elite",
@@ -6386,6 +6492,7 @@
         ],
         "teams": [
             "Männer 3. Liga",
+            "Männer 4. Liga",
             "Frauen 3. Liga"
         ],
         "club_link": "/de/matchcenter/vereine/140752",
@@ -6424,6 +6531,8 @@
             }
         ],
         "teams": [
+            "Frauen SPL2",
+            "Junioren U15 Promotion S2",
             "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140753",
@@ -6451,24 +6560,20 @@
         ],
         "teams": [
             "Männer 1. Liga",
+            "Männer 2. Liga",
             "Männer 3. Liga",
-            "Männer 4. Liga",
             "Frauen 1. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
-            "Junioren U17 Inter",
-            "Junioren U17 Promotion S1",
             "Junioren U15 Elite",
             "Junioren U15 Inter",
             "Junioren U15 Promotion S1",
-            "Junioren U13 Elite",
-            "Junioren U13 Inter",
-            "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U16 Inter",
+            "Juniorinnen U16 Elite",
             "Juniorinnen U14 Elite",
-            "Juniorinnen U14 Promotion"
+            "Juniorinnen U14 Promotion",
+            "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140756",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.3959831,8.0776577"
@@ -6477,7 +6582,7 @@
         "id": "140757",
         "latitude": "47.5697458",
         "longitude": "7.5889895",
-        "name": "Big Ben Club",
+        "name": "inaktiv - Big Ben Club",
         "address": "4053 Basel BS",
         "phone": "+41 78 715 07 84",
         "founding_year": "Gründungsjahr 1961",
@@ -6557,11 +6662,8 @@
             "Männer 4. Liga",
             "Frauen 3. Liga",
             "Junioren U17 Promotion S1",
-            "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
-            "Juniorinnen U18 Elite",
             "Juniorinnen U16 Promotion",
-            "Juniorinnen U14 Elite",
             "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140758",
@@ -6604,9 +6706,9 @@
             }
         ],
         "teams": [
-            "Männer 4. Liga",
+            "Männer 3. Liga",
             "Frauen 3. Liga",
-            "Junioren U15 Promotion S2"
+            "Junioren U13 Promotion S2"
         ],
         "club_link": "/de/matchcenter/vereine/140764",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.1730734,9.4710792"
@@ -6636,9 +6738,9 @@
             }
         ],
         "teams": [
-            "Frauen 2. Liga",
+            "Frauen 3. Liga",
+            "Junioren U19 Promotion",
             "Junioren U17 Promotion S1",
-            "Junioren U15 Promotion S2",
             "Juniorinnen U16 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140765",
@@ -6648,7 +6750,7 @@
         "id": "140767",
         "latitude": "47.4440554",
         "longitude": "8.6099064",
-        "name": "HC Dielsdorf-Bassersdorf",
+        "name": "inaktiv - HC Dielsdorf-Bassersdorf",
         "address": "8303 Bassersdorf ZH",
         "phone": "",
         "founding_year": "Gründungsjahr 1976",
@@ -6708,8 +6810,7 @@
             "Männer 2. Liga",
             "Männer 4. Liga",
             "Junioren U17 Promotion S1",
-            "Junioren U13 Promotion S1",
-            "Junioren U13 Promotion S2"
+            "Junioren U13 Promotion S1"
         ],
         "club_link": "/de/matchcenter/vereine/140769",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.4205238,7.506567"
@@ -6740,15 +6841,13 @@
             "Frauen SPL1",
             "Frauen 1. Liga",
             "Frauen 2. Liga",
-            "Junioren U17 Inter",
             "Junioren U17 Promotion S1",
-            "Junioren U15 Promotion S1",
+            "Junioren U15 Promotion S2",
+            "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Elite",
             "Juniorinnen U16 Inter",
-            "Juniorinnen U16 Promotion",
-            "Juniorinnen U14 Inter",
-            "Mixed U13-Spieltage"
+            "Juniorinnen U14 Inter"
         ],
         "club_link": "/de/matchcenter/vereine/140770",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.1873544,7.7158651"
@@ -6786,10 +6885,8 @@
             "Frauen 3. Liga",
             "Junioren U19 Inter",
             "Junioren U17 Inter",
-            "Junioren U17 Promotion S1",
             "Junioren U15 Elite",
             "Junioren U15 Inter",
-            "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
             "Junioren U13 Elite",
             "Junioren U13 Inter",
@@ -6827,7 +6924,8 @@
         ],
         "teams": [
             "Männer 3. Liga",
-            "Junioren U17 Promotion S1",
+            "Junioren U19 Promotion",
+            "Junioren U17 Inter",
             "Junioren U15 Promotion S2",
             "Mixed U13-Spieltage"
         ],
@@ -6862,21 +6960,19 @@
             "Männer 1. Liga",
             "Männer 2. Liga",
             "Männer 3. Liga",
-            "Frauen 1. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
             "Freie Spielform 30+ Meisterschaft",
-            "Junioren U19 Inter",
+            "Junioren U19 Elite",
             "Junioren U17 Elite",
             "Junioren U17 Promotion S1",
-            "Junioren U15 Inter",
+            "Junioren U15 Elite",
+            "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
             "Junioren U13 Inter",
-            "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U16 Promotion",
-            "Juniorinnen U14 Inter"
+            "Juniorinnen U16 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140774",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=46.3871454,6.236342"
@@ -6911,7 +7007,8 @@
             "Frauen 3. Liga",
             "Junioren U17 Promotion S1",
             "Junioren U15 Promotion S2",
-            "Junioren U13 Promotion S2"
+            "Junioren U13 Promotion S2",
+            "Juniorinnen U16 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/140776",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=46.9950589,6.9438657"
@@ -6963,7 +7060,7 @@
             "email": "yanick.mueller@bluewin.ch"
         },
         "teams": [
-            "Männer 3. Liga"
+            "Männer 4. Liga"
         ],
         "club_link": "/de/matchcenter/vereine/140782",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.4993089,7.9339372"
@@ -6993,15 +7090,16 @@
             }
         ],
         "teams": [
+            "Männer 2. Liga",
             "Männer 3. Liga",
-            "Frauen 1. Liga",
+            "Frauen SPL2",
+            "Frauen 2. Liga",
             "Frauen 3. Liga",
-            "Junioren U19 Promotion",
+            "Junioren U19 Inter",
             "Junioren U17 Promotion S1",
-            "Junioren U15 Promotion S2",
-            "Juniorinnen U18 Promotion",
+            "Juniorinnen U18 Inter",
             "Juniorinnen U16 Inter",
-            "Juniorinnen U16 Promotion",
+            "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/140799",
@@ -7030,7 +7128,6 @@
         "teams": [
             "Männer 3. Liga",
             "Frauen 1. Liga",
-            "Frauen 2. Liga",
             "Frauen 3. Liga"
         ],
         "club_link": "/de/matchcenter/vereine/140808",
@@ -7098,14 +7195,15 @@
             "Männer QHL",
             "Männer NLB",
             "Männer 2. Liga",
+            "Männer 3. Liga",
             "Männer 4. Liga",
-            "Frauen 3. Liga",
+            "Frauen 2. Liga",
             "Junioren U19 Elite",
             "Junioren U17 Elite",
             "Junioren U17 Promotion S1",
             "Junioren U15 Elite",
             "Junioren U15 Promotion S2",
-            "Junioren U13 Promotion S1",
+            "Junioren U13 Inter",
             "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/164406",
@@ -7142,8 +7240,9 @@
         "teams": [
             "Männer 3. Liga",
             "Frauen 3. Liga",
+            "Junioren U15 Inter",
             "Junioren U15 Promotion S2",
-            "Junioren U13 Promotion S1"
+            "Junioren U13 Promotion S2"
         ],
         "club_link": "/de/matchcenter/vereine/164472",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=46.5170147,6.5008192"
@@ -7214,8 +7313,10 @@
             }
         ],
         "teams": [
-            "Männer 4. Liga",
+            "Männer 3. Liga",
             "Frauen 3. Liga",
+            "Junioren U17 Promotion S1",
+            "Junioren U15 Inter",
             "Junioren U15 Promotion S1",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Promotion",
@@ -7248,21 +7349,19 @@
             "Männer 1. Liga",
             "Männer 2. Liga",
             "Männer 3. Liga",
-            "Frauen 1. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
             "Freie Spielform 30+ Meisterschaft",
-            "Junioren U19 Inter",
+            "Junioren U19 Elite",
+            "Junioren U17 Elite",
             "Junioren U17 Promotion S1",
             "Junioren U15 Elite",
-            "Junioren U15 Inter",
+            "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
             "Junioren U13 Inter",
-            "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U16 Promotion",
-            "Juniorinnen U14 Inter"
+            "Juniorinnen U16 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/251232",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=46.4219485,6.2601283"
@@ -7289,7 +7388,7 @@
         ],
         "teams": [
             "Junioren U15 Promotion S2",
-            "Juniorinnen U14 Promotion",
+            "Junioren U13 Promotion S2",
             "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/255416",
@@ -7372,7 +7471,7 @@
             "Frauen 3. Liga",
             "Junioren U13 Promotion S1",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U18 Promotion",
+            "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
         ],
@@ -7408,7 +7507,7 @@
             "Männer 2. Liga",
             "Männer 3. Liga",
             "Männer 4. Liga",
-            "Frauen SPL2",
+            "Frauen SPL1",
             "Frauen 1. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
@@ -7424,10 +7523,11 @@
             "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Elite",
+            "Juniorinnen U16 Inter",
             "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Elite",
+            "Juniorinnen U14 Inter",
             "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
         ],
@@ -7460,9 +7560,8 @@
         ],
         "teams": [
             "Männer 3. Liga",
-            "Frauen 3. Liga",
             "Freie Spielform 30+ Turnier",
-            "Junioren U19 Promotion",
+            "Junioren U17 Promotion S1",
             "Junioren U15 Promotion S2",
             "Juniorinnen U16 Promotion",
             "Mixed U13-Spieltage"
@@ -7493,6 +7592,7 @@
         "teams": [
             "Männer 1. Liga",
             "Männer 2. Liga",
+            "Junioren U19 Inter",
             "Junioren U17 Elite"
         ],
         "club_link": "/de/matchcenter/vereine/266403",
@@ -7545,22 +7645,26 @@
         "teams": [
             "Männer 2. Liga",
             "Männer 3. Liga",
+            "Männer 4. Liga",
             "Frauen SPL2",
-            "Frauen 1. Liga",
             "Frauen 3. Liga",
+            "Junioren U19 Elite",
             "Junioren U19 Promotion",
+            "Junioren U17 Elite",
             "Junioren U17 Promotion S1",
-            "Junioren U15 Inter",
+            "Junioren U15 Elite",
+            "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
+            "Junioren U13 Elite",
             "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Elite",
+            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Elite",
-            "Juniorinnen U16 Inter",
+            "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Elite",
             "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage",
-            "TogetherLeague",
             "UnifiedLeague"
         ],
         "club_link": "/de/matchcenter/vereine/274385",
@@ -7615,13 +7719,13 @@
             "Männer 4. Liga",
             "Frauen SPL1",
             "Frauen 1. Liga",
+            "Frauen 2. Liga",
             "Junioren U19 Elite",
-            "Junioren U19 Inter",
+            "Junioren U19 Promotion",
             "Junioren U17 Elite",
             "Junioren U17 Inter",
-            "Junioren U17 Promotion S1",
             "Junioren U15 Elite",
-            "Junioren U15 Inter",
+            "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
             "Junioren U13 Elite",
             "Junioren U13 Promotion S1",
@@ -7660,9 +7764,8 @@
             "Männer 3. Liga",
             "Männer 4. Liga",
             "Frauen 2. Liga",
-            "Junioren U19 Inter",
+            "Junioren U19 Promotion",
             "Junioren U17 Inter",
-            "Junioren U17 Promotion S1",
             "Junioren U15 Promotion S2",
             "Juniorinnen U18 Promotion",
             "Mixed U13-Spieltage"
@@ -7703,9 +7806,13 @@
             }
         ],
         "teams": [
+            "Junioren U19 Elite",
+            "Junioren U17 Elite",
+            "Junioren U15 Elite",
+            "Junioren U13 Inter",
             "Junioren U13 Promotion S1",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U14 Inter"
+            "Juniorinnen U16 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/290244",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=46.1964936,6.1309375"
@@ -7737,7 +7844,8 @@
         "teams": [
             "Männer 3. Liga",
             "Frauen 3. Liga",
-            "Junioren U17 Promotion S1"
+            "Junioren U19 Promotion",
+            "Juniorinnen U18 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/296614",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.2281131,9.2012124"
@@ -7758,9 +7866,9 @@
         },
         "teams": [
             "Männer 1. Liga",
-            "Männer 2. Liga",
             "Junioren U19 Elite",
             "Junioren U17 Elite",
+            "Junioren U17 Inter",
             "Junioren U17 Promotion S1",
             "Junioren U15 Elite",
             "Junioren U15 Inter",
@@ -7803,7 +7911,15 @@
             }
         ],
         "teams": [
-            ""
+            "Männer 2. Liga",
+            "Junioren U19 Elite",
+            "Junioren U17 Elite",
+            "Junioren U15 Elite",
+            "Junioren U15 Promotion S1",
+            "Junioren U13 Inter",
+            "Junioren U13 Promotion S1",
+            "Juniorinnen U18 Inter",
+            "Juniorinnen U16 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/300401",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=46.1964936,6.1309375"
@@ -7875,17 +7991,15 @@
             }
         ],
         "teams": [
-            "Männer 3. Liga",
-            "Junioren U19 Inter",
+            "Männer 2. Liga",
+            "Junioren U19 Elite",
             "Junioren U17 Elite",
-            "Junioren U17 Promotion S1",
             "Junioren U15 Elite",
             "Junioren U15 Promotion S1",
             "Junioren U13 Inter",
             "Junioren U13 Promotion S1",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U16 Promotion",
-            "Juniorinnen U14 Inter"
+            "Juniorinnen U16 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/305844",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=46.1964936,6.1309375"
@@ -7956,10 +8070,10 @@
         ],
         "teams": [
             "Männer 4. Liga",
-            "Frauen 2. Liga",
-            "Junioren U15 Promotion S2",
-            "Juniorinnen U16 Promotion",
-            "Mixed U13-Spieltage"
+            "Frauen 3. Liga",
+            "Junioren U15 Promotion S1",
+            "Junioren U13 Promotion S2",
+            "Juniorinnen U14 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/309309",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.2864659,7.7220361"
@@ -8087,9 +8201,9 @@
             }
         ],
         "teams": [
+            "Junioren U19 Promotion",
             "Junioren U17 Promotion S1",
             "Junioren U15 Promotion S2",
-            "Junioren U13 Promotion S2",
             "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
@@ -8115,14 +8229,19 @@
             "Männer 1. Liga",
             "Männer 2. Liga",
             "Männer 3. Liga",
+            "Frauen 2. Liga",
+            "Frauen 3. Liga",
             "Freie Spielform 30+ Meisterschaft",
+            "Junioren U19 Elite",
+            "Junioren U17 Elite",
             "Junioren U17 Promotion S1",
-            "Junioren U15 Inter",
+            "Junioren U15 Elite",
+            "Junioren U15 Promotion S1",
             "Junioren U15 Promotion S2",
-            "Junioren U13 Promotion S1",
+            "Junioren U13 Inter",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U14 Inter"
+            "Juniorinnen U16 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/323521",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=46.3174535,6.1757809"
@@ -8148,7 +8267,7 @@
             }
         ],
         "teams": [
-            "Männer 4. Liga"
+            ""
         ],
         "club_link": "/de/matchcenter/vereine/324980",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.3668919,7.3324722"
@@ -8209,9 +8328,9 @@
             "Junioren U13 Elite",
             "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
-            "Juniorinnen U14 Elite",
+            "Juniorinnen U14 Inter",
             "Juniorinnen U14 Promotion",
-            "Mixed U13-Spieltage",
+            "TogetherLeague Promotion",
             "TogetherLeague",
             "UnifiedLeague"
         ],
@@ -8233,15 +8352,14 @@
             "email": "contact@nhblacote.ch"
         },
         "teams": [
-            "Männer 1. Liga",
-            "Männer 4. Liga",
+            "Männer 2. Liga",
             "Frauen 3. Liga",
+            "Junioren U17 Promotion S1",
             "Junioren U15 Promotion S1",
             "Junioren U13 Promotion S1",
+            "Junioren U13 Promotion S2",
             "Juniorinnen U16 Inter",
-            "Juniorinnen U16 Promotion",
-            "Juniorinnen U14 Inter",
-            "Juniorinnen U14 Promotion"
+            "Juniorinnen U14 Inter"
         ],
         "club_link": "/de/matchcenter/vereine/330442",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=46.3808501,6.2157411"
@@ -8261,17 +8379,20 @@
             "email": "marco_bodmer@hotmail.com"
         },
         "teams": [
-            "Frauen SPL2",
+            "Frauen SPL1",
             "Frauen 1. Liga",
             "Frauen 2. Liga",
             "Junioren U19 Elite",
             "Junioren U19 Promotion",
             "Junioren U17 Elite",
+            "Junioren U17 Promotion S1",
             "Junioren U15 Elite",
+            "Junioren U15 Promotion S2",
             "Junioren U13 Promotion S1",
             "Juniorinnen U18 Inter",
             "Juniorinnen U16 Elite",
-            "Juniorinnen U14 Elite"
+            "Juniorinnen U14 Elite",
+            "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/335814",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.5178532,8.2392172"
@@ -8280,7 +8401,7 @@
         "id": "336442",
         "latitude": "47.463056",
         "longitude": "8.332239",
-        "name": "Handball Endingen",
+        "name": "inaktiv - Handball Endingen",
         "address": "5430 Wettingen AG",
         "phone": "",
         "founding_year": "Gründungsjahr 2021",
@@ -8321,7 +8442,7 @@
             "Männer 2. Liga",
             "Männer 3. Liga",
             "Männer 4. Liga",
-            "Frauen SPL2",
+            "Frauen SPL1",
             "Frauen 1. Liga",
             "Frauen 2. Liga",
             "Frauen 3. Liga",
@@ -8337,10 +8458,11 @@
             "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Elite",
+            "Juniorinnen U16 Inter",
             "Juniorinnen U16 Promotion",
             "Juniorinnen U14 Elite",
+            "Juniorinnen U14 Inter",
             "Juniorinnen U14 Promotion",
             "Mixed U13-Spieltage"
         ],
@@ -8410,8 +8532,7 @@
         "teams": [
             "Junioren U15 Promotion S2",
             "Junioren U13 Promotion S2",
-            "Juniorinnen U16 Promotion",
-            "Mixed U13-Spieltage"
+            "Juniorinnen U16 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/339716",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.5758184,8.9445766"
@@ -8431,7 +8552,7 @@
             "email": "patrick.berthoud@outlook.com"
         },
         "teams": [
-            ""
+            "Freie Spielform 30+ Meisterschaft"
         ],
         "club_link": "/de/matchcenter/vereine/340674",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=46.9004489,6.5804636"
@@ -8477,8 +8598,9 @@
             }
         ],
         "teams": [
+            "Junioren U17 Promotion S1",
             "Junioren U15 Promotion S2",
-            "Juniorinnen U14 Promotion",
+            "Junioren U13 Promotion S2",
             "Mixed U13-Spieltage"
         ],
         "club_link": "/de/matchcenter/vereine/340676",
@@ -8502,8 +8624,9 @@
             "Frauen SPL2",
             "Junioren U17 Inter",
             "Junioren U15 Inter",
+            "Juniorinnen U18 Promotion",
             "Juniorinnen U16 Elite",
-            "Juniorinnen U16 Inter"
+            "Juniorinnen U16 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/345252",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.4820053,7.5452752"
@@ -8583,17 +8706,16 @@
             }
         ],
         "teams": [
-            "Männer 2. Liga",
+            "Männer 1. Liga",
             "Männer 3. Liga",
             "Männer 4. Liga",
-            "Frauen 3. Liga",
+            "Frauen 2. Liga",
             "Junioren U19 Promotion",
             "Junioren U17 Promotion S1",
             "Junioren U15 Promotion S2",
-            "Junioren U13 Promotion S1",
             "Junioren U13 Promotion S2",
             "Juniorinnen U18 Inter",
-            "Juniorinnen U16 Promotion"
+            "Juniorinnen U14 Promotion"
         ],
         "club_link": "/de/matchcenter/vereine/350660",
         "google_maps_link": "https://www.google.com/maps/search/?api=1&query=47.5221888,8.5252539"
