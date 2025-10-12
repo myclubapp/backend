@@ -471,6 +471,8 @@ async function getGame(gameId: string) {
   try {
     const gameData = await data.json();
     const gameDetailData = gameData.data.regions[0].rows[0];
+
+    const convertedDate = convertRelativeDateToFormatted(gameDetailData.cells[5].text[0]);
     // logger.info(gameDetailData);
     return {
       name: gameData.data.title,
@@ -488,7 +490,7 @@ async function getGame(gameId: string) {
       teamAwayLogo: gameDetailData.cells[2].image.url,
       teamAwayLogoText: gameDetailData.cells[2].image.alt,
 
-      date: gameDetailData.cells[5].text[0],
+      date: convertedDate,
       time: gameDetailData.cells[6].text[0] || '00:00',
 
       result: gameDetailData.cells[4].text[0] || '',
