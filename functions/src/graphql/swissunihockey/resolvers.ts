@@ -381,6 +381,35 @@ async function getClubGames(clubId: string, season: string) {
   return gameList;
 }
 
+/**
+ * Konvertiert relative Datumswerte (heute, gestern, morgen) in DD.MM.YYYY Format
+ */
+function convertRelativeDateToFormatted(dateString: string): string {
+  const lowerDate = dateString.toLowerCase().trim();
+
+  if (lowerDate === 'heute' || lowerDate === 'gestern' || lowerDate === 'morgen') {
+    const today = new Date();
+    let targetDate = today;
+
+    if (lowerDate === 'gestern') {
+      targetDate = new Date(today);
+      targetDate.setDate(today.getDate() - 1);
+    } else if (lowerDate === 'morgen') {
+      targetDate = new Date(today);
+      targetDate.setDate(today.getDate() + 1);
+    }
+
+    const day = String(targetDate.getDate()).padStart(2, '0');
+    const month = String(targetDate.getMonth() + 1).padStart(2, '0');
+    const year = targetDate.getFullYear();
+
+    return `${day}.${month}.${year}`;
+  }
+
+  // Wenn es kein relativer Datumswert ist, gib den ursprünglichen String zurück
+  return dateString;
+}
+
 async function getGames(teamId: string, season: string) {
   if (!season) {
     season = await getSeason() as unknown as string;
@@ -396,6 +425,8 @@ async function getGames(teamId: string, season: string) {
     for (const item of gameData.data.regions[0].rows) {
       let latitude = '-';
       let longitude = '-';
+      const convertedDate = convertRelativeDateToFormatted(item.cells[0].text[0]);
+
       try {
         latitude = item.cells[1].link.y || '-';
         longitude = item.cells[1].link.x || '-';
@@ -403,7 +434,7 @@ async function getGames(teamId: string, season: string) {
         logger.info('>> Error: Longitude/Latitude missing');
         logger.info({
           id: item.link.ids[0],
-          date: item.cells[0].text[0],
+          date: convertedDate,
           time: item.cells[0].text[1] || '00:00',
           venue: item.cells[1].text[0],
           venueCity: item.cells[1].text[1] || '-',
@@ -416,7 +447,7 @@ async function getGames(teamId: string, season: string) {
 
       gameList.push({
         id: item.link.ids[0],
-        date: item.cells[0].text[0],
+        date: convertedDate,
         time: item.cells[0].text[1] || '00:00',
         venue: item.cells[1].text[0],
         venueCity: item.cells[1].text[1] || '-',
