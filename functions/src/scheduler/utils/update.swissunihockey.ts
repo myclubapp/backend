@@ -330,7 +330,8 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
       await db.collection('club').doc(`su-${club.id}`).collection('teams').doc(`su-${team.id}`).set({
         teamRef: teamRef.ref,
         name: team.name,
-      });
+      },
+      {merge: true});
 
       // GAME CENTER PLAYER DATA
       const teamMemberRef = await db.collection('teams').doc(`su-${team.id}`).collection('members').get();
