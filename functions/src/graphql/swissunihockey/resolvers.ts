@@ -135,7 +135,29 @@ async function getTeams(clubId: string, season: string) {
   logger.info(`get team by club: https://api-v2.swissunihockey.ch/api/teams?mode=by_club&club_id= + ${clubId} + &season= + ${season}`);
   // eslint-disable-next-line no-undef
   const data = await fetch('https://api-v2.swissunihockey.ch/api/teams?mode=by_club&club_id=' + clubId + '&season=' + season);
-  const teamData = await data.json();
+
+  // Überprüfe den Status der Antwort
+  if (!data.ok) {
+    logger.error(`API request failed with status: ${data.status} ${data.statusText}`);
+    throw new Error(`Swiss Unihockey API request failed: ${data.status} ${data.statusText}`);
+  }
+
+  // Überprüfe den Content-Type
+  const contentType = data.headers.get('content-type');
+  if (!contentType || !contentType.includes('application/json')) {
+    const responseText = await data.text();
+    logger.error(`API returned non-JSON response: ${responseText}`);
+    throw new Error(`Swiss Unihockey API returned non-JSON response: ${responseText.substring(0, 100)}...`);
+  }
+
+  let teamData;
+  try {
+    teamData = await data.json();
+  } catch (jsonError) {
+    const responseText = await data.text();
+    logger.error(`Failed to parse JSON response: ${jsonError}. Response: ${responseText}`);
+    throw new Error(`Failed to parse Swiss Unihockey API response: ${responseText.substring(0, 100)}...`);
+  }
   const teamList = <any>[];
 
   // Get Game Center Teams Data based on Firebase stored ClubID
@@ -147,30 +169,48 @@ async function getTeams(clubId: string, season: string) {
           'Accept-Language': 'de,en-US;q=0.7,en;q=0.3',
         },
       });
-  const gameCenterTeamsDataJson = await gameCenterTeamsData.json();
+
+  let gameCenterTeamsDataJson;
+  try {
+    gameCenterTeamsDataJson = await gameCenterTeamsData.json();
+  } catch (jsonError) {
+    logger.error(`Failed to parse Game Center teams JSON: ${jsonError}`);
+    gameCenterTeamsDataJson = {Teams: []}; // Fallback zu leerem Array
+  }
 
   const gameCenterTeamList: any[] = [];
   for (const team of gameCenterTeamsDataJson.Teams) {
-    // eslint-disable-next-line no-undef
-    const teamDetailData = await fetch(`https://unihockey.swiss/api/teamapi/getteamheaderinfoforteamsite/?teamid=${team.ItemID}`,
-        {
-          headers: {
-            'Accept-Language': 'de,en-US;q=0.7,en;q=0.3',
+    try {
+      // eslint-disable-next-line no-undef
+      const teamDetailData = await fetch(`https://unihockey.swiss/api/teamapi/getteamheaderinfoforteamsite/?teamid=${team.ItemID}`,
+          {
+            headers: {
+              'Accept-Language': 'de,en-US;q=0.7,en;q=0.3',
+            },
           },
-        },
-    );
-    const teamDetailDataJson = await teamDetailData.json();
-    gameCenterTeamList.push(teamDetailDataJson);
+      );
+      const teamDetailDataJson = await teamDetailData.json();
+      gameCenterTeamList.push(teamDetailDataJson);
+    } catch (error) {
+      logger.error(`Failed to fetch team detail for team ${team.ItemID}: ${error}`);
+      // Füge leeres Objekt hinzu, um die Schleife fortzusetzen
+      gameCenterTeamList.push({});
+    }
   }
 
   // logger.info(teamData);
   for (const team of teamData.entries) {
     logger.info(`team id: ${team.set_in_context.team_id} ${team.text}`);
 
-
-    // eslint-disable-next-line no-undef
-    const teamDetailRequestData = await fetch(`https://api-v2.swissunihockey.ch/api/teams/${team.set_in_context.team_id}`);
-    const teamDetailData = await teamDetailRequestData.json();
+    let teamDetailData;
+    try {
+      // eslint-disable-next-line no-undef
+      const teamDetailRequestData = await fetch(`https://api-v2.swissunihockey.ch/api/teams/${team.set_in_context.team_id}`);
+      teamDetailData = await teamDetailRequestData.json();
+    } catch (error) {
+      logger.error(`Failed to fetch team detail for team ${team.set_in_context.team_id}: ${error}`);
+      teamDetailData = {data: {regions: [{rows: [{cells: []}]}]}}; // Fallback-Struktur
+    }
 
     const gameCenterTeamData = gameCenterTeamList.find((gameCenterTeam: any) => {
       return gameCenterTeam?.Name?.trim() === team.text?.trim();
@@ -180,13 +220,19 @@ async function getTeams(clubId: string, season: string) {
       (gameCenterTeamData?.HasTeamBanner === true ? gameCenterTeamData?.TeamBanner?.PictureURL : '') ||
       '';
 
-    // eslint-disable-next-line no-undef
-    const gameCenterPlayersData = await fetch('https://unihockey.swiss/api/teamapi/initplayersadminvc/?teamid=' + gameCenterTeamData?.TeamID, {
-      headers: {
-        'Accept-Language': 'de,en-US;q=0.7,en;q=0.3',
-      },
-    });
-    const gameCenterPlayersDataJson = await gameCenterPlayersData.json();
+    let gameCenterPlayersDataJson = [];
+    try {
+      // eslint-disable-next-line no-undef
+      const gameCenterPlayersData = await fetch('https://unihockey.swiss/api/teamapi/initplayersadminvc/?teamid=' + gameCenterTeamData?.TeamID, {
+        headers: {
+          'Accept-Language': 'de,en-US;q=0.7,en;q=0.3',
+        },
+      });
+      gameCenterPlayersDataJson = await gameCenterPlayersData.json();
+    } catch (error) {
+      logger.error(`Failed to fetch players for team ${gameCenterTeamData?.TeamID}: ${error}`);
+      gameCenterPlayersDataJson = []; // Fallback zu leerem Array
+    }
     // console.log(team.TeamID, gameCenterPlayersDataJson);
 
     teamList.push({
