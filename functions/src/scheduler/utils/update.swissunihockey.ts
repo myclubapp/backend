@@ -341,7 +341,10 @@ export async function updateTeamsSwissunihockey(): Promise<any> {
       for (const teamMember of teamMemberRef.docs) {
         const userProfileRef = await db.collection('userProfile').doc(teamMember.id).get();
         // clubMemberUserProfiles.push(userProfileRef.data());
-        const gameCenterPlayer = team?.gameCenterPlayers?.find((profile: any) => {
+
+        // Defensive check: Ensure gameCenterPlayers is an array before calling find()
+        const gameCenterPlayers = Array.isArray(team?.gameCenterPlayers) ? team.gameCenterPlayers : [];
+        const gameCenterPlayer = gameCenterPlayers.find((profile: any) => {
           return profile.FirstName.toLowerCase() == userProfileRef.data().firstName.toLowerCase() &&
             profile.LastName.toLowerCase() == userProfileRef.data().lastName.toLowerCase();
         });
