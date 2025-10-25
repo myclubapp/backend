@@ -414,14 +414,14 @@ async function getClubGames(clubId: string, season: string) {
           city: item.cells[1].text[1] || '-',
           longitude: longitude,
           latitude: latitude,
-          result: item.cells[4].text[0],
+          result: item.cells[5].text[0] || '',
         });
       }
 
       // Sichere Zugriffe auf link.ids mit Fallback-Werten
       const gameId = item.link?.ids?.[0] || `game-${Date.now()}-${Math.random()}`;
-      const teamHomeId = item.cells[2].link?.ids?.[0] ? `su-${item.cells[2].link.ids[0]}` : 'su-unknown';
-      const teamAwayId = item.cells[3].link?.ids?.[0] ? `su-${item.cells[3].link.ids[0]}` : 'su-unknown';
+      const teamHomeId = item.cells[3].link?.ids?.[0] ? `su-${item.cells[3].link.ids[0]}` : 'su-unknown';
+      const teamAwayId = item.cells[4].link?.ids?.[0] ? `su-${item.cells[4].link.ids[0]}` : 'su-unknown';
       gameList.push({
         id: gameId,
         date: convertedDate,
@@ -430,9 +430,9 @@ async function getClubGames(clubId: string, season: string) {
         city: item.cells[1].text[1] || '-',
         longitude: longitude,
         latitude: latitude,
-        result: item.cells[4].text[0],
-        teamHome: item.cells[2].text[0],
-        teamAway: item.cells[3].text[0],
+        result: item.cells[5].text[0] || '',
+        teamHome: item.cells[3].text[0],
+        teamAway: item.cells[4].text[0],
         teamHomeId: teamHomeId,
         teamAwayId: teamAwayId,
       });
@@ -504,15 +504,15 @@ async function getGames(teamId: string, season: string) {
           city: item.cells[1].text[1] || '-',
           longitude: longitude,
           latitude: latitude,
-          result: item.cells[4].text[0],
+          result: item.cells[5].text[0] || '',
         });
         // logger.info(e);
       }
 
       // Sichere Zugriffe auf link.ids mit Fallback-Werten
       const gameId = item.link?.ids?.[0] || `game-${Date.now()}-${Math.random()}`;
-      const teamHomeId = item.cells[2].link?.ids?.[0] ? `su-${item.cells[2].link.ids[0]}` : 'su-unknown';
-      const teamAwayId = item.cells[3].link?.ids?.[0] ? `su-${item.cells[3].link.ids[0]}` : 'su-unknown';
+      const teamHomeId = item.cells[3].link?.ids?.[0] ? `su-${item.cells[3].link.ids[0]}` : 'su-unknown';
+      const teamAwayId = item.cells[4].link?.ids?.[0] ? `su-${item.cells[4].link.ids[0]}` : 'su-unknown';
 
       gameList.push({
         id: gameId,
@@ -522,9 +522,9 @@ async function getGames(teamId: string, season: string) {
         city: item.cells[1].text[1] || '-',
         longitude: longitude,
         latitude: latitude,
-        result: item.cells[4].text[0],
-        teamHome: item.cells[2].text[0],
-        teamAway: item.cells[3].text[0],
+        result: item.cells[5].text[0] || '',
+        teamHome: item.cells[3].text[0],
+        teamAway: item.cells[4].text[0],
         teamHomeId: teamHomeId,
         teamAwayId: teamAwayId,
       });
