@@ -422,8 +422,23 @@ async function getClubGames(clubId: string, season: string) {
       const gameId = item.link?.ids?.[0] || `game-${Date.now()}-${Math.random()}`;
       const teamHomeId = item.cells[3].link?.ids?.[0] ? `su-${item.cells[3].link.ids[0]}` : 'su-unknown';
       const teamAwayId = item.cells[4].link?.ids?.[0] ? `su-${item.cells[4].link.ids[0]}` : 'su-unknown';
+
+      // Name: Heimteam - Auswärtsteam
+      const gameName = `${item.cells[3].text[0]} - ${item.cells[4].text[0]}`;
+
+      // Description: Liga/Gruppe Informationen
+      let description = '';
+      if (item.cells[2].text && item.cells[2].text.length > 0) {
+        description = item.cells[2].text[0];
+        if (item.cells[2].text[1]) {
+          description += ' ' + item.cells[2].text[1];
+        }
+      }
+
       gameList.push({
         id: gameId,
+        name: gameName,
+        description: description,
         date: convertedDate,
         time: item.cells[0].text[1] || '00:00',
         location: item.cells[1].text[0],
@@ -514,8 +529,22 @@ async function getGames(teamId: string, season: string) {
       const teamHomeId = item.cells[3].link?.ids?.[0] ? `su-${item.cells[3].link.ids[0]}` : 'su-unknown';
       const teamAwayId = item.cells[4].link?.ids?.[0] ? `su-${item.cells[4].link.ids[0]}` : 'su-unknown';
 
+      // Name: Heimteam - Auswärtsteam
+      const gameName = `${item.cells[3].text[0]} - ${item.cells[4].text[0]}`;
+
+      // Description: Liga/Gruppe Informationen
+      let description = '';
+      if (item.cells[2].text && item.cells[2].text.length > 0) {
+        description = item.cells[2].text[0];
+        if (item.cells[2].text[1]) {
+          description += ' ' + item.cells[2].text[1];
+        }
+      }
+
       gameList.push({
         id: gameId,
+        name: gameName,
+        description: description,
         date: convertedDate,
         time: item.cells[0].text[1] || '00:00',
         location: item.cells[1].text[0],
