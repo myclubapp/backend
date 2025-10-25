@@ -409,12 +409,12 @@ async function getClubGames(clubId: string, season: string) {
         logger.info({
           id: item.link?.ids?.[0] || 'unknown',
           date: convertedDate,
-          time: item.cells[0].text[1] || '00:00',
-          location: item.cells[1].text[0],
-          city: item.cells[1].text[1] || '-',
+          time: item.cells[0]?.text?.[1] || '00:00',
+          location: item.cells[1]?.text?.[0] || '',
+          city: item.cells[1]?.text?.[1] || '-',
           longitude: longitude,
           latitude: latitude,
-          result: item.cells[5].text[0] || '',
+          result: item.cells[5]?.text?.[0] || '',
         });
       }
 
@@ -424,11 +424,13 @@ async function getClubGames(clubId: string, season: string) {
       const teamAwayId = item.cells[4].link?.ids?.[0] ? `su-${item.cells[4].link.ids[0]}` : 'su-unknown';
 
       // Name: Heimteam - Auswärtsteam
-      const gameName = `${item.cells[3].text[0]} - ${item.cells[4].text[0]}`;
+      const teamHomeName = item.cells[3]?.text?.[0] || 'Unbekanntes Team';
+      const teamAwayName = item.cells[4]?.text?.[0] || 'Unbekanntes Team';
+      const gameName = `${teamHomeName} - ${teamAwayName}`;
 
       // Description: Liga/Gruppe Informationen
       let description = '';
-      if (item.cells[2].text && item.cells[2].text.length > 0) {
+      if (item.cells[2]?.text && item.cells[2].text.length > 0) {
         description = item.cells[2].text[0];
         if (item.cells[2].text[1]) {
           description += ' ' + item.cells[2].text[1];
@@ -440,14 +442,14 @@ async function getClubGames(clubId: string, season: string) {
         name: gameName,
         description: description,
         date: convertedDate,
-        time: item.cells[0].text[1] || '00:00',
-        location: item.cells[1].text[0],
-        city: item.cells[1].text[1] || '-',
+        time: item.cells[0]?.text?.[1] || '00:00',
+        location: item.cells[1]?.text?.[0] || '',
+        city: item.cells[1]?.text?.[1] || '-',
         longitude: longitude,
         latitude: latitude,
-        result: item.cells[5].text[0] || '',
-        teamHome: item.cells[3].text[0],
-        teamAway: item.cells[4].text[0],
+        result: item.cells[5]?.text?.[0] || '',
+        teamHome: teamHomeName,
+        teamAway: teamAwayName,
         teamHomeId: teamHomeId,
         teamAwayId: teamAwayId,
       });
@@ -514,31 +516,30 @@ async function getGames(teamId: string, season: string) {
         logger.info({
           id: item.link?.ids?.[0] || 'unknown',
           date: convertedDate,
-          time: item.cells[0].text[1] || '00:00',
-          location: item.cells[1].text[0],
-          city: item.cells[1].text[1] || '-',
+          time: item.cells[0]?.text?.[1] || '00:00',
+          location: item.cells[1]?.text?.[0] || '',
+          city: item.cells[1]?.text?.[1] || '-',
           longitude: longitude,
           latitude: latitude,
-          result: item.cells[5].text[0] || '',
+          result: item.cells[4]?.text?.[0] || '',
         });
         // logger.info(e);
       }
 
       // Sichere Zugriffe auf link.ids mit Fallback-Werten
       const gameId = item.link?.ids?.[0] || `game-${Date.now()}-${Math.random()}`;
-      const teamHomeId = item.cells[3].link?.ids?.[0] ? `su-${item.cells[3].link.ids[0]}` : 'su-unknown';
-      const teamAwayId = item.cells[4].link?.ids?.[0] ? `su-${item.cells[4].link.ids[0]}` : 'su-unknown';
+      const teamHomeId = item.cells[2].link?.ids?.[0] ? `su-${item.cells[2].link.ids[0]}` : 'su-unknown';
+      const teamAwayId = item.cells[3].link?.ids?.[0] ? `su-${item.cells[3].link.ids[0]}` : 'su-unknown';
 
       // Name: Heimteam - Auswärtsteam
-      const gameName = `${item.cells[3].text[0]} - ${item.cells[4].text[0]}`;
+      const teamHomeName = item.cells[2]?.text?.[0] || 'Unbekanntes Team';
+      const teamAwayName = item.cells[3]?.text?.[0] || 'Unbekanntes Team';
+      const gameName = `${teamHomeName} - ${teamAwayName}`;
 
-      // Description: Liga/Gruppe Informationen
+      // Description: Für Team-Spiele gibt es keine Liga/Gruppe Spalte, verwende Titel aus API
       let description = '';
-      if (item.cells[2].text && item.cells[2].text.length > 0) {
-        description = item.cells[2].text[0];
-        if (item.cells[2].text[1]) {
-          description += ' ' + item.cells[2].text[1];
-        }
+      if (gameData.data && gameData.data.title) {
+        description = gameData.data.title;
       }
 
       gameList.push({
@@ -546,14 +547,14 @@ async function getGames(teamId: string, season: string) {
         name: gameName,
         description: description,
         date: convertedDate,
-        time: item.cells[0].text[1] || '00:00',
-        location: item.cells[1].text[0],
-        city: item.cells[1].text[1] || '-',
+        time: item.cells[0]?.text?.[1] || '00:00',
+        location: item.cells[1]?.text?.[0] || '',
+        city: item.cells[1]?.text?.[1] || '-',
         longitude: longitude,
         latitude: latitude,
-        result: item.cells[5].text[0] || '',
-        teamHome: item.cells[3].text[0],
-        teamAway: item.cells[4].text[0],
+        result: item.cells[4]?.text?.[0] || '',
+        teamHome: teamHomeName,
+        teamAway: teamAwayName,
         teamHomeId: teamHomeId,
         teamAwayId: teamAwayId,
       });
