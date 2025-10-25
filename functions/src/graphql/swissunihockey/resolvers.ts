@@ -399,24 +399,37 @@ async function getClubGames(clubId: string, season: string) {
     for (const item of gameData.data.regions[0].rows) {
       let latitude = '-';
       let longitude = '-';
+      const convertedDate = convertRelativeDateToFormatted(item.cells[0].text[0]);
+
       try {
         latitude = item.cells[1].link.y || '-';
         longitude = item.cells[1].link.x || '-';
       } catch (e) {
         logger.info('>> Error: Longitude/Latitude missing');
-        // logger.info(e);
+        logger.info({
+          id: item.link.ids[0],
+          date: convertedDate,
+          time: item.cells[0].text[1] || '00:00',
+          location: item.cells[1].text[0],
+          city: item.cells[1].text[1] || '-',
+          longitude: longitude,
+          latitude: latitude,
+          result: item.cells[4].text[0],
+        });
       }
       gameList.push({
         id: item.link.ids[0],
-        date: item.cells[0].text[0],
+        date: convertedDate,
         time: item.cells[0].text[1] || '00:00',
-        venue: item.cells[1].text[0],
-        venueCity: item.cells[1].text[1] || '-',
+        location: item.cells[1].text[0],
+        city: item.cells[1].text[1] || '-',
         longitude: longitude,
         latitude: latitude,
-        liga: item.cells[2].text[0],
-        ligaText: '',
-        result: item.cells[5].text[0],
+        result: item.cells[4].text[0],
+        teamHome: item.cells[2].text[0],
+        teamAway: item.cells[3].text[0],
+        teamHomeId: 'su-' + item.cells[2].link.ids[0],
+        teamAwayId: 'su-' + item.cells[3].link.ids[0],
       });
     }
     // gameData.data.regions[0].rows.forEach((item: any) => {
@@ -482,8 +495,8 @@ async function getGames(teamId: string, season: string) {
           id: item.link.ids[0],
           date: convertedDate,
           time: item.cells[0].text[1] || '00:00',
-          venue: item.cells[1].text[0],
-          venueCity: item.cells[1].text[1] || '-',
+          location: item.cells[1].text[0],
+          city: item.cells[1].text[1] || '-',
           longitude: longitude,
           latitude: latitude,
           result: item.cells[4].text[0],
@@ -495,13 +508,15 @@ async function getGames(teamId: string, season: string) {
         id: item.link.ids[0],
         date: convertedDate,
         time: item.cells[0].text[1] || '00:00',
-        venue: item.cells[1].text[0],
-        venueCity: item.cells[1].text[1] || '-',
+        location: item.cells[1].text[0],
+        city: item.cells[1].text[1] || '-',
         longitude: longitude,
         latitude: latitude,
         result: item.cells[4].text[0],
         teamHome: item.cells[2].text[0],
         teamAway: item.cells[3].text[0],
+        teamHomeId: 'su-' + item.cells[2].link.ids[0],
+        teamAwayId: 'su-' + item.cells[3].link.ids[0],
       });
     }
     // });
