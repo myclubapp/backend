@@ -573,33 +573,33 @@ async function getGame(gameId: string) {
     const gameData = await data.json();
     const gameDetailData = gameData.data.regions[0].rows[0];
 
-    const convertedDate = convertRelativeDateToFormatted(gameDetailData.cells[5].text[0]);
+    const convertedDate = convertRelativeDateToFormatted(gameDetailData.cells[5]?.text?.[0] || '');
     // logger.info(gameDetailData);
     return {
-      name: gameData.data.title,
-      description: gameData.data.subtitle,
+      name: gameData.data?.title || '',
+      description: gameData.data?.subtitle || '',
 
-      location: gameDetailData.cells[7].text[0],
+      location: gameDetailData.cells[7]?.text?.[0] || '',
 
-      teamHomeId: gameDetailData.cells[0].link?.ids?.[0] ? 'su-' + gameDetailData.cells[0].link.ids[0] : 'su-unknown',
-      teamHome: gameDetailData.cells[1].text[0],
-      teamHomeLogo: gameDetailData.cells[0].image.url,
-      teamHomeLogoText: gameDetailData.cells[0].image.alt,
+      teamHomeId: gameDetailData.cells[0]?.link?.ids?.[0] ? 'su-' + gameDetailData.cells[0].link.ids[0] : 'su-unknown',
+      teamHome: gameDetailData.cells[1]?.text?.[0] || '',
+      teamHomeLogo: gameDetailData.cells[0]?.image?.url || '',
+      teamHomeLogoText: gameDetailData.cells[0]?.image?.alt || '',
 
-      teamAwayId: gameDetailData.cells[2].link?.ids?.[0] ? 'su-' + gameDetailData.cells[2].link.ids[0] : 'su-unknown',
-      teamAway: gameDetailData.cells[3].text[0],
-      teamAwayLogo: gameDetailData.cells[2].image.url,
-      teamAwayLogoText: gameDetailData.cells[2].image.alt,
+      teamAwayId: gameDetailData.cells[2]?.link?.ids?.[0] ? 'su-' + gameDetailData.cells[2].link.ids[0] : 'su-unknown',
+      teamAway: gameDetailData.cells[3]?.text?.[0] || '',
+      teamAwayLogo: gameDetailData.cells[2]?.image?.url || '',
+      teamAwayLogoText: gameDetailData.cells[2]?.image?.alt || '',
 
       date: convertedDate,
-      time: gameDetailData.cells[6].text[0] || '00:00',
+      time: gameDetailData.cells[6]?.text?.[0] || '00:00',
 
-      result: gameDetailData.cells[4].text[0] || '',
-      resultDetail: gameDetailData.cells[4].text[1] || '',
+      result: gameDetailData.cells[4]?.text?.[0] || '',
+      resultDetail: gameDetailData.cells[4]?.text?.[1] || '',
 
-      referee1: gameDetailData.cells[8].text[0],
-      referee2: gameDetailData.cells[9].text[0],
-      spectators: gameDetailData.cells[10].text[0],
+      referee1: gameDetailData.cells[8]?.text?.[0] || '',
+      referee2: gameDetailData.cells[9]?.text?.[0] || '',
+      spectators: gameDetailData.cells[10]?.text?.[0] || '',
     };
   } catch (e) {
     // logger.info(e);
