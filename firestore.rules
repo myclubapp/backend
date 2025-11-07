@@ -127,7 +127,7 @@ service cloud.firestore {
 
         // Read and Create own Requests 
         match /clubRequests/{requestId=**} {
-        	allow read, create: if isSignedIn() && request.auth.uid == userId;
+        	allow read, create, delete: if isSignedIn() && request.auth.uid == userId;
         }
         match /teamRequests/{requestId=**} {
         	allow read, create: if isSignedIn() && request.auth.uid == userId;
