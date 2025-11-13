@@ -617,6 +617,18 @@ async function getSeason(): Promise<string | null> {
         (entry: any) => entry.highlight === true,
     );
 
+    const currentYear = new Date().getFullYear();
+    const seasonYear = currentSeason?.set_in_context.season;
+
+    // Wenn die Saison größer als das aktuelle Jahr ist, verwende den Eintrag an Index 1 mit highlight === false
+    if (seasonYear && seasonYear > currentYear) {
+      const fallbackSeason = seasonData.entries[1];
+      if (fallbackSeason && fallbackSeason.highlight === false) {
+        return fallbackSeason.set_in_context.season.toString();
+      }
+      return null;
+    }
+
     return currentSeason?.set_in_context.season.toString() ?? null;
   } catch (error) {
     console.error('Failed to fetch season data:', error);
