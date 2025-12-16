@@ -142,7 +142,7 @@ export async function onAddMemberToHelferEvent(event: FirestoreEvent<QueryDocume
   await sendEmailByUserId(userId, 'HelferEventInvitation', {
     eventName: eventData.name,
     eventDate: eventData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}),
-    eventTime: eventData.startDate.toDate().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'}),
+    eventTime: eventData.startDate.toDate().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Zurich'}),
     eventLocation: eventData.location,
   });
 }
