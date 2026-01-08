@@ -609,29 +609,20 @@ async function getGame(gameId: string) {
 
 async function getSeason(): Promise<string | null> {
   try {
-    // eslint-disable-next-line no-undef
-    const res = await fetch('https://api-v2.swissunihockey.ch/api/seasons');
-    const seasonData = await res.json();
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1; // getMonth() ist 0-indexiert
 
-    const currentSeason = seasonData.entries.find(
-        (entry: any) => entry.highlight === true,
-    );
+    // Swiss Unihockey Saison läuft über zwei Kalenderjahre (z.B. 2025/26)
+    // Der Saison-Wert ist das Startjahr (2025 für Saison 2025/26)
+    // Saison läuft typischerweise von August/September bis Mai
+    // - Monate 1-7 (Jan-Jul): Noch in der Vorjahres-Saison
+    // - Monate 8-12 (Aug-Dez): Neue Saison hat begonnen
+    const seasonYear = currentMonth >= 8 ? currentYear : currentYear - 1;
 
-    const currentYear = new Date().getFullYear();
-    const seasonYear = currentSeason?.set_in_context.season;
-
-    // Wenn die Saison größer als das aktuelle Jahr ist, verwende den Eintrag an Index 1 mit highlight === false
-    if (seasonYear && seasonYear > currentYear) {
-      const fallbackSeason = seasonData.entries[1];
-      if (fallbackSeason && fallbackSeason.highlight === false) {
-        return fallbackSeason.set_in_context.season.toString();
-      }
-      return null;
-    }
-
-    return currentSeason?.set_in_context.season.toString() ?? null;
+    return seasonYear.toString();
   } catch (error) {
-    console.error('Failed to fetch season data:', error);
+    console.error('Failed to determine season:', error);
     return null;
   }
 }
