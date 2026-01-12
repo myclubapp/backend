@@ -615,10 +615,10 @@ async function getSeason(): Promise<string | null> {
 
     // Swiss Unihockey Saison läuft über zwei Kalenderjahre (z.B. 2025/26)
     // Der Saison-Wert ist das Startjahr (2025 für Saison 2025/26)
-    // Saison läuft typischerweise von August/September bis Mai
-    // - Monate 1-7 (Jan-Jul): Noch in der Vorjahres-Saison
-    // - Monate 8-12 (Aug-Dez): Neue Saison hat begonnen
-    const seasonYear = currentMonth >= 8 ? currentYear : currentYear - 1;
+    // Saison läuft von Juni bis Mai
+    // - Monate 1-5 (Jan-Mai): Noch in der Vorjahres-Saison
+    // - Monate 6-12 (Jun-Dez): Neue Saison hat begonnen
+    const seasonYear = currentMonth >= 6 ? currentYear : currentYear - 1;
 
     return seasonYear.toString();
   } catch (error) {
