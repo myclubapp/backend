@@ -26,11 +26,26 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
   const clubRef = await db.collection('club').doc(clubId).get();
   const clubData = clubRef.data();
 
-  if (afterData?.status === 'send' && beforeData?.status === 'draft') {
+  const isSendTriggered = afterData?.status === 'send' && beforeData?.status === 'draft';
+
+  if (isSendTriggered) {
     logger.info('Rechnung senden');
 
     const userProfileRef = await db.collection('userProfile').doc(invoiceId).get();
     const userProfileData = userProfileRef.data();
+
+    // Detect incomplete profile data
+    const missingFields: string[] = [];
+    if (!userProfileData?.street) missingFields.push('street');
+    if (!userProfileData?.houseNumber) missingFields.push('houseNumber');
+    if (!userProfileData?.city) missingFields.push('city');
+    if (!userProfileData?.postalcode) missingFields.push('postalCode');
+    if (!userProfileData?.country) missingFields.push('country');
+    const hasIncompleteProfile = missingFields.length > 0;
+
+    if (hasIncompleteProfile) {
+      logger.warn(`Incomplete profile for user ${invoiceId}. Missing: ${missingFields.join(', ')}`);
+    }
 
     // https://github.com/schoero/swissqrbill
     const data = {
@@ -40,12 +55,12 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
       creditor: clubData.creditor,
       currency: afterData?.currency,
       debtor: {
-        address: userProfileData?.street || '',
+        address: userProfileData?.street || clubData.creditor.address || 'N/A',
         buildingNumber: userProfileData?.houseNumber || '',
-        city: userProfileData?.city || clubData.creditor.city,
+        city: userProfileData?.city || clubData.creditor.city || 'N/A',
         country: userProfileData?.country || 'CH',
-        name: afterData?.firstName + ' ' + afterData?.lastName,
-        zip: userProfileData?.postalcode || clubData.creditor.zip,
+        name: (afterData?.firstName || '') + ' ' + (afterData?.lastName || ''),
+        zip: userProfileData?.postalcode || clubData.creditor.zip || '0000',
       },
       reference: afterData?.referenceNumber,
     };
@@ -53,9 +68,20 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
     // eslint-disable-next-line no-async-promise-executor
     const PDFBuffer: Buffer = await new Promise(async (resolve, reject) => {
       const pdf = new PDFDocument({size: 'A4'});
-      const qrBill = new SwissQRBill(data);
       const chunks: Buffer[] = [];
-      qrBill.attachTo(pdf);
+
+      try {
+        const qrBill = new SwissQRBill(data);
+        qrBill.attachTo(pdf);
+      } catch (qrError) {
+        logger.error('QR Bill generation failed, generating PDF without QR code', qrError);
+        pdf.fontSize(10);
+        pdf.fillColor('red');
+        pdf.text('QR-Einzahlungsschein konnte nicht generiert werden. Bitte kontaktiere den Clubadministrator.', mm2pt(20), mm2pt(240), {
+          width: mm2pt(170),
+        });
+        pdf.fillColor('black');
+      }
 
       // adding a logo
       const logoUrl = clubData.logo || 'https://my-club.app/icons/icon-512x512.png';
@@ -239,6 +265,19 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
 
       table.attachTo(pdf);
 
+      if (hasIncompleteProfile) {
+        pdf.moveDown(2);
+        pdf.fontSize(9);
+        pdf.fillColor('red');
+        pdf.font('Helvetica-Oblique');
+        pdf.text(
+            'Hinweis: Die Adressdaten sind unvollständig. Bitte aktualisiere dein Profil in der myclub App, damit zukünftige Rechnungen korrekt erstellt werden können.',
+            mm2pt(20), undefined, {width: mm2pt(170)},
+        );
+        pdf.fillColor('black');
+        pdf.font('Helvetica');
+      }
+
       pdf.on('data', (chunk: Buffer) => chunks.push(chunk));
       pdf.on('end', () => resolve(Buffer.concat(chunks)));
       pdf.on('error', reject);
@@ -259,6 +298,10 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
           clubLogo: clubData.logo,
           filename: `Rechnung-${afterData?.firstName}-${afterData?.lastName}-${afterData?.purpose}.pdf`,
           subject: `Rechnung ${clubData?.name} - ${afterData?.purpose}`,
+          hasIncompleteProfile: hasIncompleteProfile,
+          incompleteProfileNote: hasIncompleteProfile ?
+            'Achtung: Deine Adressdaten in deinem Profil sind unvollständig. Bitte aktualisiere deine Adresse in der myclub App, damit zukünftige Rechnungen korrekt erstellt werden können.' :
+            '',
         },
         {
           filename: 'qr-bill.pdf',
