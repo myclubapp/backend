@@ -9,7 +9,7 @@ import PDFDocument from 'pdfkit';
 import {SwissQRBill} from 'swissqrbill/pdf';
 import {mm2pt} from 'swissqrbill/utils';
 import {Table} from 'swissqrbill/pdf';
-import {sendEmailWithAttachmentByUserId} from '../../utils/email.js';
+import {sendEmailByUserId, sendEmailWithAttachmentByUserId} from '../../utils/email.js';
 import {sendPushNotificationByUserProfileId} from '../../utils/push.js';
 import fetch from 'node-fetch';
 
@@ -325,5 +325,45 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
       status: 'sent',
     });
   }
+  // Zahlungserinnerung
+  const reminderTriggered = afterData?.lastReminderSent &&
+    (!beforeData?.lastReminderSent || afterData?.lastReminderSent > beforeData?.lastReminderSent);
+
+  if (reminderTriggered && afterData?.status === 'sent') {
+    logger.info('Zahlungserinnerung senden');
+
+    const userProfileRef = await db.collection('userProfile').doc(invoiceId).get();
+    const userProfileData = userProfileRef.data();
+
+    await sendEmailByUserId(
+        invoiceId,
+        'InvoiceReminder',
+        {
+          clubName: clubData?.name,
+          firstName: afterData?.firstName,
+          lastName: afterData?.lastName,
+          invoiceAmount: afterData?.amount,
+          invoiceCurrency: afterData?.currency,
+          purpose: afterData?.purpose,
+          clubLogo: clubData?.logo,
+          subject: `Zahlungserinnerung ${clubData?.name} - ${afterData?.purpose}`,
+        },
+        false,
+        ['InvoiceReminder', 'InvoiceReminderFr', 'InvoiceReminderIt'],
+    );
+
+    if (userProfileData?.settingsPush) {
+      await sendPushNotificationByUserProfileId(invoiceId,
+          'Zahlungserinnerung: ' + afterData?.purpose,
+          `Offener Betrag: ${afterData?.amount} ${afterData?.currency}`,
+          {
+            'type': 'invoice',
+            'periodId': periodId,
+            'clubId': clubId,
+            'id': invoiceId,
+          });
+    }
+  }
+
   return true;
 }
