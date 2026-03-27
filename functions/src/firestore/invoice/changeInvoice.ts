@@ -47,6 +47,16 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
       logger.warn(`Incomplete profile for user ${invoiceId}. Missing: ${missingFields.join(', ')}`);
     }
 
+    // QR-Reference: 26 Ziffern + 1 MOD10-Prüfziffer = 27 Zeichen
+    const rawRef = (afterData?.referenceNumber || '').replace(/\s/g, '');
+    const base = rawRef.replace(/\D/g, '').padStart(26, '0').slice(-26);
+    const mod10Table = [0, 9, 4, 6, 8, 2, 7, 1, 3, 5];
+    let carry = 0;
+    for (let i = 0; i < base.length; i++) {
+      carry = mod10Table[(carry + parseInt(base[i], 10)) % 10];
+    }
+    const validReference = base + ((10 - carry) % 10).toString();
+
     // https://github.com/schoero/swissqrbill
     const data = {
       amount: afterData?.amount,
@@ -62,7 +72,7 @@ export async function changeClubMemberInvoice(event: FirestoreEvent<Change<Query
         name: (afterData?.firstName || '') + ' ' + (afterData?.lastName || ''),
         zip: userProfileData?.postalcode || clubData.creditor.zip || '0000',
       },
-      reference: afterData?.referenceNumber,
+      reference: validReference,
     };
 
     // eslint-disable-next-line no-async-promise-executor
