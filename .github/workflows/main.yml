@@ -13,7 +13,7 @@ jobs:
       - name: Config Node Version
         uses: actions/setup-node@master
         with:
-          node-version: 20        
+          node-version: 22
       # Runs a single command using the runners shell
       # And of course we need to goto our functions folder to deploy
       - name: Install npm packages
