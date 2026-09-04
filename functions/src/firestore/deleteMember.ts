@@ -16,7 +16,7 @@ export const deleteTeamMember = async (event: FirestoreEvent<QueryDocumentSnapsh
 
   // If removed from team, delete as well team admin
   await db.collection('teams').doc(teamId).collection('admins').doc(userId).delete();
-  await db.collection('userProfile').doc(userId).collection('teamAdmins').doc(teamId).delete();
+  await db.collection('userProfile').doc(userId).collection('teamAdmin').doc(teamId).delete();
 
   return db.collection('userProfile').doc(userId).collection('teams').doc(teamId).delete();
   /*
@@ -53,7 +53,7 @@ export const deleteClubMember = async (event: FirestoreEvent<QueryDocumentSnapsh
       await db.collection('userProfile').doc(userId).collection('teams').doc(team.id).delete();
 
       await db.collection('teams').doc(team.id).collection('admins').doc(userId).delete();
-      await db.collection('userProfile').doc(userId).collection('teamAdmins').doc(team.id).delete();
+      await db.collection('userProfile').doc(userId).collection('teamAdmin').doc(team.id).delete();
     }
   } catch (e) {
     logger.info('no teams to delete from');

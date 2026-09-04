@@ -2,7 +2,7 @@
 /* eslint-disable max-len */
 import firebaseDAO from '../../firebaseSingleton.js';
 import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
-import {sendPushNotificationByUserProfileId} from '../../utils/push.js';
+import {sendPushNotificationByUserProfileId, truncateForPush} from '../../utils/push.js';
 
 const db = firebaseDAO.instance.db;
 
@@ -24,8 +24,8 @@ export async function createNotificationNews(event: FirestoreEvent<QueryDocument
               'type': 'news',
               'id': newsRef.id,
               'image': newsRef.data().image,
-              'leadText': newsRef.data().image,
-              'text': newsRef.data().image,
+              'leadText': truncateForPush(newsRef.data().leadText, 300),
+              'text': truncateForPush(newsRef.data().text, 1000),
               'author': newsRef.data().author,
               'authorImage': newsRef.data().authorImage,
               'slug': newsRef.data().slug,

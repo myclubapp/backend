@@ -33,6 +33,18 @@ onInit(() => {
   );
 } */
 
+/**
+ * Kuerzt einen Wert fuer den FCM-Data-Payload (Limit 4 KB pro Message) und
+ * stellt sicher, dass immer ein String geliefert wird (FCM akzeptiert nur Strings).
+ * @param {unknown} value Wert aus dem Firestore-Dokument
+ * @param {number} maxLength maximale Laenge
+ * @return {string} gekuerzter String
+ */
+export function truncateForPush(value: unknown, maxLength = 500): string {
+  const str = value === undefined || value === null ? '' : String(value);
+  return str.length > maxLength ? str.substring(0, maxLength) + '…' : str;
+}
+
 export async function sendPushNotificationByUserProfileId(userProfileId: string, title: string, message: string, data: any) {
   try {
     // Initialisiere WebPush bei der ersten Verwendung
@@ -58,8 +70,9 @@ export async function sendPushNotificationByUserProfileId(userProfileId: string,
       opened: false,
     });
 
-    const notificationsRef = await db.collection('userProfile').doc(userProfileId).collection('notification').where('opened', '==', false).get();
-    const badgeCount = notificationsRef.docs.length || 1;
+    // Aggregation-Query statt Laden aller ungelesenen Notifications (Speicher!)
+    const unreadCountSnap = await db.collection('userProfile').doc(userProfileId).collection('notification').where('opened', '==', false).count().get();
+    const badgeCount = unreadCountSnap.data().count || 1;
 
     // SEND PUSH NOTIFICATIONs
     for (const push of userProfilePushRef.docs) {
@@ -91,7 +104,7 @@ export async function sendPushNotificationByUserProfileId(userProfileId: string,
               ...data,
             },
           });*/
-          const nativePush = messaging.send({
+          const nativePush = await messaging.send({
             token: pushData.token,
             notification: {
               title: title,
