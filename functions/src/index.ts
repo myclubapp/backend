@@ -317,16 +317,23 @@ export const dbChangeStatusMemberToEvent = onDocumentUpdated({
 export const dbAddClubNewsNotification = onDocumentCreated({
   document: '/club/{clubId}/news/{newsId}',
   region: 'europe-west6',
+  memory: '512MiB',
+  timeoutSeconds: 540,
 }, createNotificationClubNews);
 
 export const dbAddTeamNewsNotification = onDocumentCreated({
   document: '/teams/{teamId}/news/{newsId}',
   region: 'europe-west6',
+  memory: '512MiB',
+  timeoutSeconds: 540,
 }, createNotificationTeamNews);
 
+// Verbands-News gehen an alle Mitglieder aller aktiven Clubs eines Verbands (grosser Fan-out)
 export const dbAddNewsNotification = onDocumentCreated({
   document: '/news/{newsId}',
   region: 'europe-west6',
+  memory: '1GiB',
+  timeoutSeconds: 540,
 }, createNotificationNews);
 
 // ==================== GAME FUNCTIONS ====================
