@@ -15,7 +15,7 @@ export const deleteTeam = async (event: FirestoreEvent<QueryDocumentSnapshot | u
     logger.info('Delete Admin from Team ');
     for (const admin of adminList.docs) {
       await db.collection('teams').doc(teamId).collection('admins').doc(`${admin.id}`).delete();
-      await db.collection('userProfile').doc(admin.uid).collection('teamAdmin').doc(`${teamId}`).delete(); // needed to avoid emtpy collections
+      await db.collection('userProfile').doc(admin.id).collection('teamAdmin').doc(`${teamId}`).delete(); // needed to avoid emtpy collections
     }
   } else {
     logger.info('Noting to delete');
@@ -26,7 +26,7 @@ export const deleteTeam = async (event: FirestoreEvent<QueryDocumentSnapshot | u
     logger.info('Delete Member from Team ');
     for (const member of memberList.docs) {
       await db.collection('teams').doc(teamId).collection('members').doc(`${member.id}`).delete();
-      await db.collection('userProfile').doc(member.uid).collection('teams').doc(`${teamId}`).delete(); // needed to avoid emtpy collections
+      await db.collection('userProfile').doc(member.id).collection('teams').doc(`${teamId}`).delete(); // needed to avoid emtpy collections
     }
   } else {
     logger.info('Noting to delete');
