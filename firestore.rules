@@ -94,7 +94,12 @@ service cloud.firestore {
         
         // KIDS
         match /kidsRequests/{kidId=**} {
-          allow read, update, delete, create: if isSignedIn() && request.auth.uid == userId;
+          allow read, update, delete: if isSignedIn() && request.auth.uid == userId;
+          // Anlegen nur mit E-Mail und nicht mit der eigenen Adresse (Selbstverknüpfung, #255)
+          allow create: if isSignedIn() && request.auth.uid == userId
+            && request.resource.data.email is string
+            && request.resource.data.email.lower()
+               != get(/databases/$(database)/documents/userProfile/$(userId)).data.email.lower();
         }   
 				match /children/{kidId=**} {
           allow read, update, delete, create: if isSignedIn() && request.auth.uid == userId;
@@ -487,6 +492,11 @@ service cloud.firestore {
       	} 
       }
     
+      // Verifikations-Tokens der Kinder-Verknüpfung: nur Functions über das Admin SDK
+      match /kidsVerifications/{token} {
+        allow read, write: if false;
+      }
+
       //No ACCESS
       match /template/{documents=**} {
       	allow read, write: if 1==2;

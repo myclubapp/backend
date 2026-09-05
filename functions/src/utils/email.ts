@@ -15,6 +15,7 @@ export async function sendEmailByUserId(
       'ClubRequestAdminEmail',
       'ClubRequestApproved',
       'ClubRequestRejected',
+      'ClubRequestApprovedParent',
 
       'TeamRequestCreated',
       'TeamRequestApproved',
@@ -93,6 +94,7 @@ export async function sendEmailWithAttachmentByUserId(
       'ClubRequestAdminEmail',
       'ClubRequestApproved',
       'ClubRequestRejected',
+      'ClubRequestApprovedParent',
       'TeamRequestCreated',
       'TeamRequestApproved',
       'TeamRequestRejected',

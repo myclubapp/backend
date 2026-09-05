@@ -58,7 +58,9 @@ import {deleteTeam} from './firestore/team/deleteTeam.js';
 import {leaveClubAsMember, leaveTeamAsMember} from './firestore/userProfile/leaveAsMember.js';
 import {removeChildFromParent} from './firestore/userProfile/removeChildFromParent.js';
 // Kids-bezogene Imports
-import {createKid, verifyKidsEmailService} from './firestore/userProfile/kidsRequest.js';
+import {createKid, linkInvitedKidOnSignup, verifyKidsEmailService} from './firestore/userProfile/kidsRequest.js';
+// Denormalisierung von Profilnamen auf Teilnehmer- und Mitglieder-Dokumenten
+import {denormalizeAttendee, syncProfileNames} from './firestore/attendees/denormalizeAttendee.js';
 
 // GraphQL Import
 import graphqlServer from './graphql/server.js';
@@ -194,6 +196,12 @@ export const dbAddKid = onDocumentCreated({
   document: '/userProfile/{userId}/kidsRequests/{requestId}',
   region: 'europe-west6',
 }, createKid);
+
+// Neues Profil: offene Einladungen (status 'invited') in die Verifikation überführen
+export const dbLinkInvitedKidOnSignup = onDocumentCreated({
+  document: '/userProfile/{userId}',
+  region: 'europe-west6',
+}, linkInvitedKidOnSignup);
 
 // ==================== REQUEST FUNCTIONS ====================
 export const dbAddClubRequest = onDocumentCreated({
@@ -382,6 +390,44 @@ export const jobYoutube = onSchedule({
   timeoutSeconds: 360,
   timeZone: 'Europe/Zurich',
 }, exercisesScheduler);
+
+// ==================== DENORMALISIERUNG (Namen auf Teilnehmer-Dokumenten) ====================
+// onDocumentWritten statt onDocumentCreated: die App schreibt den Status mit setDoc ohne merge
+// und würde die Namen sonst beim ersten Statuswechsel wieder entfernen.
+export const dbSyncProfileNames = onDocumentUpdated({
+  document: '/userProfile/{userId}',
+  region: 'europe-west6',
+}, syncProfileNames);
+
+export const dbTrainingAttendeeWritten = onDocumentWritten({
+  document: '/teams/{teamId}/trainings/{trainingId}/attendees/{uid}',
+  region: 'europe-west6',
+}, denormalizeAttendee);
+
+export const dbGameAttendeeWritten = onDocumentWritten({
+  document: '/teams/{teamId}/games/{gameId}/attendees/{uid}',
+  region: 'europe-west6',
+}, denormalizeAttendee);
+
+export const dbClubEventAttendeeWritten = onDocumentWritten({
+  document: '/club/{clubId}/events/{eventId}/attendees/{uid}',
+  region: 'europe-west6',
+}, denormalizeAttendee);
+
+export const dbHelferEventAttendeeWritten = onDocumentWritten({
+  document: '/club/{clubId}/helferEvents/{eventId}/attendees/{uid}',
+  region: 'europe-west6',
+}, denormalizeAttendee);
+
+export const dbHelferSchichtAttendeeWritten = onDocumentWritten({
+  document: '/club/{clubId}/helferEvents/{eventId}/schichten/{schichtId}/attendees/{uid}',
+  region: 'europe-west6',
+}, denormalizeAttendee);
+
+export const dbClubMemberWritten = onDocumentWritten({
+  document: '/club/{clubId}/members/{uid}',
+  region: 'europe-west6',
+}, denormalizeAttendee);
 
 // ==================== HTTP ENDPOINTS ====================
 export const verifyKidsEmail = onRequest({
