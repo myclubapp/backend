@@ -3,7 +3,7 @@ import firebaseDAO from '../../firebaseSingleton.js';
 import {sendPushNotificationByUserProfileId} from '../../utils/push.js';
 import {Change, FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
 import {logger} from 'firebase-functions';
-import {sendEmailByUserId} from '../../utils/email.js';
+import {sendEmailByUserId, withCommonTemplateData} from '../../utils/email.js';
 const db = firebaseDAO.instance.db;
 export async function addMemberToHelferEvent(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
   logger.info('Add Member to Helferevent');
@@ -47,7 +47,7 @@ export async function addMemberToHelferEvent(event: FirestoreEvent<QueryDocument
         to: userProfileRef.data().email,
         template: {
           name: 'HelferEventAddMemberConfirmation',
-          data: {
+          data: withCommonTemplateData({
             helferEventName: helferEvent.data()?.name,
             helferEventDescription: helferEvent.data()?.description,
             helferEventDatum: helferEventDatumString,
@@ -62,7 +62,7 @@ export async function addMemberToHelferEvent(event: FirestoreEvent<QueryDocument
 
             firstName: userProfileRef.data()?.firstName,
             lastName: userProfileRef.data()?.lastName,
-          },
+          }),
         },
       });
     }
@@ -112,7 +112,7 @@ export async function changeStatusMemberHelferEvent(event: FirestoreEvent<Change
         to: userProfileRef.data().email,
         template: {
           name: 'HelferEventAddMemberConfirmation',
-          data: {
+          data: withCommonTemplateData({
             helferEventName: helferEvent.data()?.name,
             helferEventDescription: helferEvent.data()?.description,
             helferEventDatum: helferEventDatumString,
@@ -127,7 +127,7 @@ export async function changeStatusMemberHelferEvent(event: FirestoreEvent<Change
 
             firstName: userProfileRef.data()?.firstName,
             lastName: userProfileRef.data()?.lastName,
-          },
+          }),
         },
       });
     }

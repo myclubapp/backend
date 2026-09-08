@@ -5,7 +5,7 @@ import {updatePersistenceJobTeams, updatePersistenceJobGames, updatePersistenceJ
 import {sendPushNotificationByUserProfileId} from '../../utils/push.js';
 import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
 import {logger} from 'firebase-functions';
-import {sendEmailByUserId} from '../../utils/email.js';
+import {sendEmailByUserId, withCommonTemplateData} from '../../utils/email.js';
 const db = firebaseDAO.instance.db;
 
 export async function createClubRequest(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
@@ -182,12 +182,12 @@ export async function createClubRequest(event: FirestoreEvent<QueryDocumentSnaps
       to: receipient,
       template: {
         name: 'ClubRequestAdminEmail',
-        data: {
+        data: withCommonTemplateData({
           clubName: clubRef.data().name,
           firstName: userProfileRef.data()?.firstName,
           lastName: userProfileRef.data()?.lastName,
           email: userProfileRef.data()?.email,
-        },
+        }),
       },
     });
   }

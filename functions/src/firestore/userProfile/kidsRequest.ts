@@ -3,6 +3,7 @@
 import {randomBytes} from 'node:crypto';
 import {QueryDocumentSnapshot, DocumentSnapshot, FirestoreEvent} from 'firebase-functions/v2/firestore';
 import firebaseDAO from '../../firebaseSingleton.js';
+import {withCommonTemplateData} from '../../utils/email.js';
 const db = firebaseDAO.instance.db;
 const auth = firebaseDAO.instance.auth;
 import {logger} from 'firebase-functions';
@@ -105,13 +106,13 @@ export async function startKidVerification(parentId: string, requestId: string, 
     to: kid.email,
     template: {
       name: 'VerifyKidsEmail',
-      data: {
+      data: withCommonTemplateData({
         firstNameParent: parent.firstName,
         lastNameParent: parent.lastName,
         firstNameKid: kid.firstName,
         lastNameKid: kid.lastName,
         verificationLink: `${VERIFY_URL}?token=${token}`,
-      },
+      }),
     },
   });
   logger.info(`kid request ${requestId}: verification mail sent to kid ${kidProfile.id}`);
@@ -166,11 +167,11 @@ export async function processKidRequest(parentId: string, requestId: string, req
       to: kidEmail,
       template: {
         name: 'KidInvitationEmail',
-        data: {
+        data: withCommonTemplateData({
           firstNameParent: parentProfile.data()?.firstName,
           lastNameParent: parentProfile.data()?.lastName,
           email: kidEmail,
-        },
+        }),
       },
     });
     return true;

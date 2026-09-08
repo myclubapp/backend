@@ -6,7 +6,7 @@ import firebaseDAO from '../firebaseSingleton.js';
 import {logger} from 'firebase-functions';
 import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/firestore';
 import {UserRecord} from 'firebase-functions/v1/auth';
-import {sendEmailByUserId} from '../utils/email.js';
+import {sendEmailByUserId, withCommonTemplateData} from '../utils/email.js';
 
 const db = firebaseDAO.instance.db;
 const auth = firebaseDAO.instance.auth;
@@ -60,10 +60,10 @@ export async function createUserSendWelcomeEmail(event: FirestoreEvent<QueryDocu
     to: userProfileRef.data()?.email,
     template: {
       name: 'UserCreateWelcomeMail',
-      data: {
+      data: withCommonTemplateData({
         link: link,
         firstName: userProfileRef.data()?.firstName,
-      },
+      }),
     },
   });
 }

@@ -4,7 +4,7 @@ import {ScheduledEvent} from 'firebase-functions/v2/scheduler';
 import {logger} from 'firebase-functions';
 // import * as firebase from "firebase-admin";
 import firebaseDAO from './../firebaseSingleton.js';
-import {sendEmailByUserId} from '../utils/email.js';
+import {sendEmailByUserId, withCommonTemplateData} from '../utils/email.js';
 import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
 
 const db = firebaseDAO.instance.db;
@@ -68,10 +68,10 @@ export async function sendReportingJobMember(event: ScheduledEvent) {
             to: userProfile.data().email,
             template: {
               name: 'ReportingUser',
-              data: {
+              data: withCommonTemplateData({
                 firstName: userProfile.data().firstName,
                 clubNews: nlClubNews,
-              },
+              }),
             }});
         } else {
           logger.info(`Kein Reporting: ${userProfile.data().firstName}`);

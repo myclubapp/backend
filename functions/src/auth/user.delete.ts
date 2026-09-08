@@ -6,6 +6,7 @@ import {logger} from 'firebase-functions';
 import {UserRecord} from 'firebase-functions/v1/auth';
 import firebaseDAO from '../firebaseSingleton.js';
 import {EventContext} from 'firebase-functions/v1';
+import {withCommonTemplateData} from '../utils/email.js';
 
 const db = firebaseDAO.instance.db;
 const storage = firebaseDAO.instance.storage;
@@ -17,9 +18,9 @@ export async function authUserDeleteUserSendByEmail(user: UserRecord, context: E
     to: user.email,
     template: {
       name: 'UserDeleteEmail',
-      data: {
+      data: withCommonTemplateData({
         // firstName: userProfile.data().firstName,
-      },
+      }),
     },
   });
 }

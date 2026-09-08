@@ -3,7 +3,7 @@ import firebaseDAO from '../../firebaseSingleton.js';
 import {sendPushNotificationByUserProfileId} from '../../utils/push.js';
 import {FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
 import {logger} from 'firebase-functions';
-import {sendEmailByUserId} from '../../utils/email.js';
+import {sendEmailByUserId, withCommonTemplateData} from '../../utils/email.js';
 const db = firebaseDAO.instance.db;
 
 type Language = 'de' | 'en' | 'fr' | 'it';
@@ -104,12 +104,12 @@ export async function createTeamRequest(event: FirestoreEvent<QueryDocumentSnaps
     to: receipient,
     template: {
       name: 'TeamRequestAdminEmail',
-      data: {
+      data: withCommonTemplateData({
         teamName: `${teamRef.data().name}`,
         firstName: userProfileRef.data()?.firstName,
         lastName: userProfileRef.data()?.lastName,
         email: userProfileRef.data()?.email,
-      },
+      }),
     },
   });
 

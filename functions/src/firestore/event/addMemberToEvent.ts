@@ -3,7 +3,7 @@ import firebaseDAO from '../../firebaseSingleton.js';
 import {sendPushNotificationByUserProfileId} from '../../utils/push.js';
 import {Change, FirestoreEvent, QueryDocumentSnapshot} from 'firebase-functions/v2/firestore';
 import {logger} from 'firebase-functions';
-import {sendEmailByUserId} from '../../utils/email.js';
+import {sendEmailByUserId, withCommonTemplateData} from '../../utils/email.js';
 const db = firebaseDAO.instance.db;
 export async function addMemberToEvent(event: FirestoreEvent<QueryDocumentSnapshot | undefined>) {
   logger.info('Add Member to Event');
@@ -45,7 +45,7 @@ export async function addMemberToEvent(event: FirestoreEvent<QueryDocumentSnapsh
         to: userProfileRef.data().email,
         template: {
           name: 'EventAddMemberConfirmation',
-          data: {
+          data: withCommonTemplateData({
             eventName: veranstaltung.data()?.name,
             eventDescription: veranstaltung.data()?.description,
             eventDatum: eventDatumString,
@@ -54,7 +54,7 @@ export async function addMemberToEvent(event: FirestoreEvent<QueryDocumentSnapsh
 
             firstName: userProfileRef.data()?.firstName,
             lastName: userProfileRef.data()?.lastName,
-          },
+          }),
         },
       });
     }
@@ -102,7 +102,7 @@ export async function changeStatusMemberEvent(event: FirestoreEvent<Change<Query
         to: userProfileRef.data().email,
         template: {
           name: 'EventAddMemberConfirmation',
-          data: {
+          data: withCommonTemplateData({
             eventName: veranstaltung.data()?.name,
             eventDescription: veranstaltung.data()?.description,
             eventDatum: eventDatumString,
@@ -112,7 +112,7 @@ export async function changeStatusMemberEvent(event: FirestoreEvent<Change<Query
 
             firstName: userProfileRef.data()?.firstName,
             lastName: userProfileRef.data()?.lastName,
-          },
+          }),
         },
       });
     }

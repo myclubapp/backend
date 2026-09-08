@@ -4,6 +4,32 @@ import {logger} from 'firebase-functions';
 
 const db = firebaseDAO.instance.db;
 
+/**
+ * Aktuelles Jahr in der Zeitzone Europe/Zurich, damit der Jahreswechsel
+ * nicht von der UTC-Laufzeit der Cloud Functions abhängt.
+ */
+export function getCurrentYear(now: Date = new Date()): number {
+  const formatter = new Intl.DateTimeFormat('de-CH', {
+    timeZone: 'Europe/Zurich',
+    year: 'numeric',
+  });
+  return Number(formatter.format(now));
+}
+
+/**
+ * Ergänzt Template-Daten um Attribute, die in jeder E-Mail-Vorlage
+ * verfügbar sein sollen (z.B. `currentYear` für den Footer). Bei jedem
+ * Schreibzugriff auf die `mail`-Collection mit `template.data` verwenden.
+ */
+export function withCommonTemplateData<T extends object>(
+    templateData: T,
+): T & {currentYear: number} {
+  return {
+    ...templateData,
+    currentYear: getCurrentYear(),
+  };
+}
+
 export async function sendEmailByUserId(
     userId: string,
     templateName: string,
@@ -11,22 +37,39 @@ export async function sendEmailByUserId(
     includeParents = true,
     alwaysSendTemplates: string[] = [
       'Welcome',
+
+      'UserCreateWelcomeMail',
+      'UserDeleteEmail',
+
       'ClubRequestCreated',
       'ClubRequestAdminEmail',
       'ClubRequestApproved',
+      'ClubRequestEmail',
       'ClubRequestRejected',
       'ClubRequestApprovedParent',
+
+      'TeamRequestAdminEmail',
+      'TeamRequestApproved',
+      'TeamRequestEmail',
+      'TeamRequestRejected',
+
+      'EventAddMemberConfirmation',
+      'HelferEventAddMemberConfirmation',
+
+      'KidInvitationEmail',
+      'VerifyKidsEmail',
 
       'TeamRequestCreated',
       'TeamRequestApproved',
       'TeamRequestRejected',
+
+      'Invoice',
 
       'ClubEventReminder',
       'ClubEventCancelled',
 
       'TeamTrainingReminder',
       'TeamTrainingCancelled',
-
     ],
 ): Promise<void> {
   const userProfileRef = await db.collection('userProfile').doc(userId).get();
@@ -73,7 +116,7 @@ export async function sendEmailByUserId(
     to: emailAddresses,
     template: {
       name: templateName,
-      data: templateData,
+      data: withCommonTemplateData(templateData),
     },
   });
 }
@@ -158,7 +201,7 @@ export async function sendEmailWithAttachmentByUserId(
     to: emailAddresses,
     template: {
       name: templateName,
-      data: templateData,
+      data: withCommonTemplateData(templateData),
     },
     attachments: [
       attachment,
