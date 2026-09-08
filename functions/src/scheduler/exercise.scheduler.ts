@@ -12,7 +12,7 @@ import {logger} from 'firebase-functions';
 // Initialize the YouTube API client
 import {defineSecret} from 'firebase-functions/params';
 import {onInit} from 'firebase-functions/v2/core';
-import {SecretParam} from 'firebase-functions/lib/params/types.js';
+import {SecretParam} from 'firebase-functions/params';
 
 let youtubeApiKey: SecretParam | undefined;
 

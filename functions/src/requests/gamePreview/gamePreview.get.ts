@@ -7,13 +7,19 @@ import cors from 'cors';
 
 const db = firebaseDAO.instance.db;
 
+/** Liest einen Query-Parameter (Express 5 kennt request.param() nicht mehr). */
+function queryParam(request: functions.Request, name: string): string | undefined {
+  const value = request.query[name];
+  return typeof value === 'string' ? value : undefined;
+}
+
 export function getGamePreview(request: functions.Request, response: functions.Response<any>) {
   const corsHandler = cors({
     origin: true,
   });
 
-  const gameId = request.param('gameId');
-  const clubId = request.param('clubId');
+  const gameId = queryParam(request, 'gameId');
+  const clubId = queryParam(request, 'clubId');
   logger.info('Game ID: ' + gameId);
   logger.info('Club ID: ' + clubId);
 
@@ -65,7 +71,7 @@ export function getGamePreviewClubGames(request: functions.Request, response: fu
   const corsHandler = cors({
     origin: true,
   });
-  const clubId = request.param('clubId');
+  const clubId = queryParam(request, 'clubId');
   logger.info('Club ID: ' + clubId);
 
   corsHandler(request, response, async () => {

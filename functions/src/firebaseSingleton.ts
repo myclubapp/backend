@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import admin from 'firebase-admin';
+import {initializeApp} from 'firebase-admin/app';
+import {getFirestore} from 'firebase-admin/firestore';
+import {getStorage} from 'firebase-admin/storage';
+import {getAuth} from 'firebase-admin/auth';
+import {getMessaging} from 'firebase-admin/messaging';
 
 // const serviceAccount = require("path/to/serviceAccountKey.json");
 
@@ -12,20 +16,19 @@ export default class firebaseDAO {
   auth: any;
   messaging: any;
   private constructor() {
-    // admin.initializeApp();
-    admin.initializeApp(); // Default
+    initializeApp(); // Default
 
-    this.db = admin.firestore();
+    this.db = getFirestore();
     this.db.settings({ignoreUndefinedProperties: true});
-    this.storage = admin.storage();
-    this.auth = admin.auth();
-    this.messaging = admin.messaging();
+    this.storage = getStorage();
+    this.auth = getAuth();
+    this.messaging = getMessaging();
 
-    /* const unihockeyApp = admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount),
+    /* const unihockeyApp = initializeApp({
+        credential: cert(serviceAccount), // cert aus 'firebase-admin/app'
         databaseURL: "https://unihockeyclub.firebaseio.com",
       }, "UnihockeyApp");
-      this.dbUA = unihockeyApp.database(); */
+      this.dbUA = getDatabase(unihockeyApp); // aus 'firebase-admin/database' */
   }
 
   public static get instance() {
