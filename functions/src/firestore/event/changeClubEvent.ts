@@ -102,7 +102,7 @@ async function handleEventReminder(clubId: string, eventId: string, eventData: a
       const userProfileRef = await db.collection('userProfile').doc(member.id).get();
       if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushEvent) {
         await sendPushNotificationByUserProfileId(member.id,
-            'Erinnerung: Veranstaltung ' + eventData.name + ' am ' + eventData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}) + ' um ' + eventData.startDate.toDate().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'}),
+            'Erinnerung: Veranstaltung ' + eventData.name + ' am ' + eventData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}) + ' um ' + eventData.startDate.toDate().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Zurich'}),
             'Die Veranstaltung findet bald statt. Bitte melde dich an/ab.',
             {
               'type': 'clubEvent',
@@ -119,7 +119,7 @@ async function handleEventReminder(clubId: string, eventId: string, eventData: a
           eventDescription: eventData.description,
           eventOrt: eventData.location,
           eventDatum: eventData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}),
-          eventZeit: eventData.startDate.toDate().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'}),
+          eventZeit: eventData.startDate.toDate().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Zurich'}),
           abmeldefrist: eventDatumPlusThresholdString ? eventDatumPlusThresholdString : 'nicht festgelegt',
         });
       }

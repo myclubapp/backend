@@ -74,7 +74,7 @@ async function handleTrainingCancellation(teamId: string, trainingId: string, tr
           trainingName: trainingData.name,
           trainerName: trainingData.trainerName,
           trainingDatum: trainingData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}),
-          trainingZeit: trainingData.startDate.toDate().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'}),
+          trainingZeit: trainingData.startDate.toDate().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Zurich'}),
           absageGrund: trainingData.cancelledReason,
         });
       }
@@ -105,7 +105,7 @@ async function handleTrainingReminder(teamId: string, trainingId: string, traini
       const userProfileRef = await db.collection('userProfile').doc(member.id).get();
       if (userProfileRef.exists && userProfileRef.data().settingsPush && userProfileRef.data().settingsPushTraining) {
         await sendPushNotificationByUserProfileId(member.id,
-            'Erinnerung: Training ' + trainingData.name + ' am ' + trainingData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}) + ' um ' + trainingData.startDate.toDate().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'}),
+            'Erinnerung: Training ' + trainingData.name + ' am ' + trainingData.startDate.toDate().toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'}) + ' um ' + trainingData.startDate.toDate().toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Zurich'}),
             'Das Training findet bald statt. Bitte melde dich an/ab.',
             {
               'type': 'training',
