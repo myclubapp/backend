@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import {graphqlHTTP} from 'express-graphql';
+import {createHandler} from 'graphql-http/lib/use/express';
 import {makeExecutableSchema} from '@graphql-tools/schema';
 
 import typeDefsSU from './swissunihockey/typeDefs.js';
@@ -34,13 +34,12 @@ const sportsConfigs = [
   {path: 'swisstennis', typeDefs: typeDefsSE, resolvers: resolversSE},
 ];
 
-// Automatische Schema-Erstellung und Route-Konfiguration
+// Automatische Schema-Erstellung und Route-Konfiguration.
+// graphql-http liefert keine GraphiQL-Oberfläche mit; zum Erkunden lokal
+// `npx ruru -e https://europe-west6-myclubmanagement.cloudfunctions.net/api/<verband>`.
 sportsConfigs.forEach(({path, typeDefs, resolvers}) => {
   const schema = makeExecutableSchema({typeDefs, resolvers});
-  app.use(`/${path}`, graphqlHTTP({
-    schema,
-    graphiql: true,
-  }));
+  app.all(`/${path}`, createHandler({schema}));
 });
 
 export default app;
