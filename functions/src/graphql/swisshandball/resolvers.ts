@@ -11,7 +11,7 @@ import * as fs from 'fs';
 const handballClubJSON = fs.readFileSync('./src/scheduler/utils/handball_clubs_with_teams_and_contact.json', 'utf8');
 import {defineSecret} from 'firebase-functions/params';
 import {onInit} from 'firebase-functions/v2/core';
-import {SecretParam} from 'firebase-functions/lib/params/types.js';
+import {SecretParam} from 'firebase-functions/params';
 
 let swisshandballToken: SecretParam | undefined;
 

@@ -8,7 +8,7 @@
  *   GOOGLE_CLOUD_PROJECT=myclubmanagement node lib/scripts/backfillAttendeeNames.js [--apply]
  * Ohne --apply wird nur gezählt.
  */
-import admin from 'firebase-admin';
+import {FieldPath} from 'firebase-admin/firestore';
 import firebaseDAO from '../firebaseSingleton.js';
 import {profileSummary} from '../firestore/attendees/denormalizeAttendee.js';
 
@@ -38,7 +38,7 @@ async function main() {
   let pending = 0;
 
   for (const group of ['attendees', 'members']) {
-    let query = db.collectionGroup(group).orderBy(admin.firestore.FieldPath.documentId()).limit(PAGE_SIZE);
+    let query = db.collectionGroup(group).orderBy(FieldPath.documentId()).limit(PAGE_SIZE);
     for (;;) {
       const page = await query.get();
       if (page.empty) break;
