@@ -97,14 +97,7 @@ export async function updateSubscription(event: FirestoreEvent<Change<DocumentSn
         });
       } else if (subscriptionData.metadata.subscriptionType === 'module' ) {
         // IF ADDON -> ACTIVATE MODULE
-        if (subscriptionData.metadata.addon === 'training') { // gibt es nicht mehr
-          await db.collection('club').doc(clubId).set({
-            hasFeatureTrainingExercise: true,
-          },
-          {
-            merge: true,
-          });
-        } else if (subscriptionData.metadata.addon === 'helfer') {
+        if (subscriptionData.metadata.addon === 'helfer') {
           await db.collection('club').doc(clubId).set({
             hasFeatureHelferEvent: true,
           },
@@ -147,14 +140,7 @@ export async function updateSubscription(event: FirestoreEvent<Change<DocumentSn
           });
         } else if (subscriptionData.metadata.subscriptionType === 'module' ) {
           // IF ADDON -> ACTIVATE MODULE
-          if (subscriptionData.metadata.addon === 'training') {
-            await db.collection('club').doc(clubId).set({
-              hasFeatureTrainingExercise: false,
-            },
-            {
-              merge: true,
-            });
-          } else if (subscriptionData.metadata.addon === 'helfer') {
+          if (subscriptionData.metadata.addon === 'helfer') {
             await db.collection('club').doc(clubId).set({
               hasFeatureHelferEvent: false,
             },

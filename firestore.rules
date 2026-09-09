@@ -80,9 +80,6 @@ service cloud.firestore {
         return exists(/databases/$(database)/documents/$(path)/admins/$(request.auth.uid));
       }
   
-  		match /exercises/{id} {
-      	allow read;
-      }
 // ************************************
 			// USERPROFILE 2.0
 // ************************************      
@@ -380,11 +377,6 @@ service cloud.firestore {
 				allow write: if isSignedIn() && (isTeamAdmin(request, teamId) || isClubAdmin(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId) );
         allow delete: if isSignedIn() && (isTeamAdmin(request, teamId) || isClubAdmin(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId) );
     
-				//TEAM EXERCISES
-        match /exercises/{exerciseId} {
-          allow read, write: if isSignedIn() && ( isTeamAdmin(request, teamId) || isClubAdmin(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId) );
-        } 				        
-              
         //TRAINING
         match /trainings/{trainingId} {
           allow read: if isSignedIn() && ( isTeamMember(request, teamId) || isTeamAdmin(request, teamId) || isClubAdmin(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId) );
@@ -403,14 +395,6 @@ service cloud.firestore {
             allow read, write: if isSignedIn()
             && isTeamAdmin(request, teamId)
             && isTeamMember(request, teamId);
-          } 
-        	//Training EXERCISES
-          match /exercises/{exerciseId=**} {
-            allow read: if isSignedIn() && ( isTeamMember(request, teamId) || isTeamAdmin(request, teamId) || isClubAdmin(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId) );
-            allow write: if isSignedIn()  && isTeamAdmin(request, teamId);
-          } 
-          match /exercises/{exerciseId} {
-            allow read: if isSignedIn() && ( isTeamMember(request, teamId) || isTeamAdmin(request, teamId) || isClubAdmin(request, get(/databases/$(database)/documents/teams/$(teamId)).data.clubId) );
           } 
         }     
         //TEAM GAMES

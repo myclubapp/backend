@@ -45,7 +45,7 @@ import {createNotificationNews} from './firestore/news/createNews.js';
 
 // Scheduler-bezogene Imports
 import {updatePersistenceJobClubs, updatePersistenceJobTeams, updatePersistenceJobGames, updatePersistenceJobNews} from './scheduler/syncAssociation.scheduler.js';
-import {exercisesScheduler} from './scheduler/exercise.scheduler.js';
+import {averageAgeScheduler} from './scheduler/averageAge.scheduler.js';
 
 // Game-bezogene Imports
 import {getGamePreview, getGamePreviewClubGames, getGamePreviewClubs} from './requests/gamePreview/gamePreview.get.js';
@@ -383,13 +383,16 @@ export const jobUpdatePersistenceNews = onSchedule({
   timeZone: 'Europe/Zurich',
 }, updatePersistenceJobNews);
 
-export const jobYoutube = onSchedule({
-  schedule: '00 08 1 * *',
+// Einmal im Monat: Durchschnittsalter je Club und Team vorrechnen, damit die
+// App den Wert nur noch liest statt ihn bei jedem Aufruf aus allen
+// Mitgliederprofilen zusammenzusuchen.
+export const jobAverageAge = onSchedule({
+  schedule: '00 04 1 * *',
   region: 'europe-west6',
-  memory: '512MiB',
-  timeoutSeconds: 360,
+  memory: '1GiB',
+  timeoutSeconds: 540,
   timeZone: 'Europe/Zurich',
-}, exercisesScheduler);
+}, averageAgeScheduler);
 
 // ==================== DENORMALISIERUNG (Namen auf Teilnehmer-Dokumenten) ====================
 // onDocumentWritten statt onDocumentCreated: die App schreibt den Status mit setDoc ohne merge
