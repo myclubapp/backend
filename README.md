@@ -32,6 +32,18 @@ Runs **every morning at 06:00 AM** for active clubs:
 - Swiss Volleyball
 - Swiss Handball
 
+### Average Age
+Runs **monthly on the 1st at 04:00 AM**. Calculates the average age of the
+members of every club and team from `userProfile.dateOfBirth` and writes it to
+the club/team document (`averageAge`, `averageAgeMembers`, `averageAgeUpdated`).
+The app reads that value instead of recalculating it on every page view.
+
+`averageAge` is `null` when no member has a date of birth on file, and absent
+until the job has covered the document for the first time. After deploying the
+job for the first time, trigger it once via **Force run** on the Cloud Scheduler
+job `firebase-schedule-jobAverageAge-europe-west6` so the value is available
+before the next 1st of the month.
+
 ## GraphQL API for Sports Data
 For some sports, data is provided by external APIs and transformed into the format used by myclub-app.  
 
