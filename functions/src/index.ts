@@ -45,7 +45,6 @@ import {createNotificationNews} from './firestore/news/createNews.js';
 
 // Scheduler-bezogene Imports
 import {updatePersistenceJobClubs, updatePersistenceJobTeams, updatePersistenceJobGames, updatePersistenceJobNews} from './scheduler/syncAssociation.scheduler.js';
-import {exercisesScheduler} from './scheduler/exercise.scheduler.js';
 
 // Game-bezogene Imports
 import {getGamePreview, getGamePreviewClubGames, getGamePreviewClubs} from './requests/gamePreview/gamePreview.get.js';
@@ -383,13 +382,6 @@ export const jobUpdatePersistenceNews = onSchedule({
   timeZone: 'Europe/Zurich',
 }, updatePersistenceJobNews);
 
-export const jobYoutube = onSchedule({
-  schedule: '00 08 1 * *',
-  region: 'europe-west6',
-  memory: '512MiB',
-  timeoutSeconds: 360,
-  timeZone: 'Europe/Zurich',
-}, exercisesScheduler);
 
 // ==================== DENORMALISIERUNG (Namen auf Teilnehmer-Dokumenten) ====================
 // onDocumentWritten statt onDocumentCreated: die App schreibt den Status mit setDoc ohne merge

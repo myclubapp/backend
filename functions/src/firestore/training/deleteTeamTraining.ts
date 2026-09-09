@@ -16,12 +16,5 @@ export async function deleteTeamTraining(event: FirestoreEvent<QueryDocumentSnap
     await db.collection('teams').doc(teamId).collection('trainings').doc(trainingId).collection('attendees').doc(attendee.id).delete();
   }
 
-  // Delete all exercises to avoid "empty" training docs
-  const exercisesRef = await db.collection('teams').doc(teamId).collection('trainings').doc(trainingId).collection('exercises').get();
-  for (const exercise of exercisesRef.docs) {
-    await db.collection('teams').doc(teamId).collection('trainings').doc(trainingId).collection('exercise').doc(exercise.id).delete();
-  }
-
-
   return db.collection('teams').doc(teamId).collection('trainings').doc(trainingId).delete();
 }

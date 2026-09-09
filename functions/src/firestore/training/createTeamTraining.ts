@@ -19,7 +19,6 @@ export async function createTeamTraining(event: FirestoreEvent<QueryDocumentSnap
   delete trainingData?.children;
   delete trainingData?.countAttendees;
   delete trainingData?.attendees;
-  delete trainingData?.exercises;
   delete trainingData?.cancelled;
   delete trainingData?.cancelledReason;
   delete trainingData?.status;
